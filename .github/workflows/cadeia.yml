@@ -25,7 +25,7 @@ jobs:
         with:
           python-version: "3.12"
       - name: dependencias
-        run: pip install --quiet numpy pandas
+        run: pip install --quiet numpy pandas openpyxl scikit-learn
       - name: cadeia
         run: |
           python tv_yields_nowcast.py || echo "nowcast falhou, segue oficial"
