@@ -293,7 +293,7 @@ async function renderCot() {
       return '<svg class="yield-spark" viewBox="0 0 100 28" preserveAspectRatio="none" aria-hidden="true">' +
         '<polyline points="' + pts + '"/></svg>';
     })();
-    return '<article class="yield-card ' + velho + '">' +
+    return '<article class="yield-card ' + velho + '" data-cur="' + x.currency + '">' +
       '<header><strong>' + x.currency + "</strong>" +
         '<span class="yield-stale">' + (x.stale_days === 0 ? "today" :
           x.stale_days + (x.stale_days === 1 ? " business day old" : " business days old")) + "</span></header>" +
