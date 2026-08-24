@@ -1,0 +1,1741 @@
+{
+ "meta": {
+  "generated_on": "2026-08-21",
+  "method": "Exact inversion of the FUND formula. mu and sigma for tomorrow use raw[t-251..t], which is already fixed today; spread[t-19] is also known. The only unknown is tomorrow's move in the 2-year yield spread, so the required move is solved for, not estimated.",
+  "probability_source": "empirical distribution of the last 252 daily spread changes for that pair (causal, no look-ahead)",
+  "roll_drift_note": "Even with a completely unchanged spread the FUND moves, because the 20-day window rolls and the observation from 20 sessions ago drops out. That part of tomorrow is already decided.",
+  "bands": {
+   "STRONG_BEAR": "<= -60",
+   "BEAR": "-60 to -25",
+   "NEUTRAL": "-25 to +25",
+   "BULL": "+25 to +60",
+   "STRONG_BULL": ">= +60"
+  },
+  "pairs": 28,
+  "missing": []
+ },
+ "projections": [
+  {
+   "pair": "AUDUSD",
+   "as_of": "2026-08-19",
+   "fund_today": 18.1,
+   "band_today": "NEUTRAL",
+   "fund_if_spread_unchanged": 21.46,
+   "roll_drift": 3.37,
+   "spread_today_pct": 0.378,
+   "spread_daily_std_bp": 5.89,
+   "move_sample": 252,
+   "fund_range_tomorrow": {
+    "p10": 3.1,
+    "p50": 21.7,
+    "p90": 39.3
+   },
+   "down": {
+    "boundary": -25.0,
+    "band_if_crossed": "BEAR",
+    "direction": "DOWN",
+    "spread_move_bp": -18.5,
+    "probability": 0.4
+   },
+   "up": {
+    "boundary": 25.0,
+    "band_if_crossed": "BULL",
+    "direction": "UP",
+    "spread_move_bp": 1.5,
+    "probability": 41.27
+   },
+   "p_down": 0.4,
+   "p_up": 41.27,
+   "p_stay": 58.33,
+   "scenarios": [
+    {
+     "boundary": -60.0,
+     "band_if_crossed": "STRONG_BEAR",
+     "direction": "DOWN",
+     "spread_move_bp": -35.5,
+     "probability": 0.0
+    },
+    {
+     "boundary": -25.0,
+     "band_if_crossed": "BEAR",
+     "direction": "DOWN",
+     "spread_move_bp": -18.5,
+     "probability": 0.4
+    },
+    {
+     "boundary": 25.0,
+     "band_if_crossed": "BULL",
+     "direction": "UP",
+     "spread_move_bp": 1.5,
+     "probability": 41.27
+    },
+    {
+     "boundary": 60.0,
+     "band_if_crossed": "STRONG_BULL",
+     "direction": "UP",
+     "spread_move_bp": 18.5,
+     "probability": 0.0
+    }
+   ]
+  },
+  {
+   "pair": "NZDUSD",
+   "as_of": "2026-08-20",
+   "fund_today": 9.47,
+   "band_today": "NEUTRAL",
+   "fund_if_spread_unchanged": -21.66,
+   "roll_drift": -31.14,
+   "spread_today_pct": -0.66,
+   "spread_daily_std_bp": 6.61,
+   "move_sample": 252,
+   "fund_range_tomorrow": {
+    "p10": -37.9,
+    "p50": -21.7,
+    "p90": -1.8
+   },
+   "down": {
+    "boundary": -25.0,
+    "band_if_crossed": "BEAR",
+    "direction": "DOWN",
+    "spread_move_bp": -1.6,
+    "probability": 39.29
+   },
+   "up": {
+    "boundary": 25.0,
+    "band_if_crossed": "BULL",
+    "direction": "UP",
+    "spread_move_bp": 21.2,
+    "probability": 0.4
+   },
+   "p_down": 39.29,
+   "p_up": 0.4,
+   "p_stay": 60.31,
+   "scenarios": [
+    {
+     "boundary": -60.0,
+     "band_if_crossed": "STRONG_BEAR",
+     "direction": "DOWN",
+     "spread_move_bp": -21.1,
+     "probability": 0.0
+    },
+    {
+     "boundary": -25.0,
+     "band_if_crossed": "BEAR",
+     "direction": "DOWN",
+     "spread_move_bp": -1.6,
+     "probability": 39.29
+    },
+    {
+     "boundary": 25.0,
+     "band_if_crossed": "BULL",
+     "direction": "UP",
+     "spread_move_bp": 21.2,
+     "probability": 0.4
+    },
+    {
+     "boundary": 60.0,
+     "band_if_crossed": "STRONG_BULL",
+     "direction": "UP",
+     "spread_move_bp": 40.7,
+     "probability": 0.0
+    }
+   ]
+  },
+  {
+   "pair": "CADCHF",
+   "as_of": "2026-08-19",
+   "fund_today": 67.9,
+   "band_today": "STRONG_BULL",
+   "fund_if_spread_unchanged": 58.05,
+   "roll_drift": -9.85,
+   "spread_today_pct": 2.926,
+   "spread_daily_std_bp": 4.87,
+   "move_sample": 252,
+   "fund_range_tomorrow": {
+    "p10": 43.2,
+    "p50": 57.5,
+    "p90": 70.0
+   },
+   "down": {
+    "boundary": 25.0,
+    "band_if_crossed": "NEUTRAL",
+    "direction": "DOWN",
+    "spread_move_bp": -9.9,
+    "probability": 1.19
+   },
+   "up": {
+    "boundary": 60.0,
+    "band_if_crossed": "STRONG_BULL",
+    "direction": "UP",
+    "spread_move_bp": 0.7,
+    "probability": 38.89
+   },
+   "p_down": 1.19,
+   "p_up": 38.89,
+   "p_stay": 59.92,
+   "scenarios": [
+    {
+     "boundary": -60.0,
+     "band_if_crossed": "STRONG_BEAR",
+     "direction": "DOWN",
+     "spread_move_bp": -33.1,
+     "probability": 0.0
+    },
+    {
+     "boundary": -25.0,
+     "band_if_crossed": "BEAR",
+     "direction": "DOWN",
+     "spread_move_bp": -22.4,
+     "probability": 0.4
+    },
+    {
+     "boundary": 25.0,
+     "band_if_crossed": "NEUTRAL",
+     "direction": "DOWN",
+     "spread_move_bp": -9.9,
+     "probability": 1.19
+    },
+    {
+     "boundary": 60.0,
+     "band_if_crossed": "STRONG_BULL",
+     "direction": "UP",
+     "spread_move_bp": 0.7,
+     "probability": 38.89
+    }
+   ]
+  },
+  {
+   "pair": "EURAUD",
+   "as_of": "2026-08-19",
+   "fund_today": 17.68,
+   "band_today": "NEUTRAL",
+   "fund_if_spread_unchanged": 20.52,
+   "roll_drift": 2.84,
+   "spread_today_pct": -1.7872,
+   "spread_daily_std_bp": 4.64,
+   "move_sample": 252,
+   "fund_range_tomorrow": {
+    "p10": -1.0,
+    "p50": 20.5,
+    "p90": 37.6
+   },
+   "down": {
+    "boundary": -25.0,
+    "band_if_crossed": "BEAR",
+    "direction": "DOWN",
+    "spread_move_bp": -11.9,
+    "probability": 1.98
+   },
+   "up": {
+    "boundary": 25.0,
+    "band_if_crossed": "BULL",
+    "direction": "UP",
+    "spread_move_bp": 1.2,
+    "probability": 36.9
+   },
+   "p_down": 1.98,
+   "p_up": 36.9,
+   "p_stay": 61.12,
+   "scenarios": [
+    {
+     "boundary": -60.0,
+     "band_if_crossed": "STRONG_BEAR",
+     "direction": "DOWN",
+     "spread_move_bp": -23.1,
+     "probability": 0.0
+    },
+    {
+     "boundary": -25.0,
+     "band_if_crossed": "BEAR",
+     "direction": "DOWN",
+     "spread_move_bp": -11.9,
+     "probability": 1.98
+    },
+    {
+     "boundary": 25.0,
+     "band_if_crossed": "BULL",
+     "direction": "UP",
+     "spread_move_bp": 1.2,
+     "probability": 36.9
+    },
+    {
+     "boundary": 60.0,
+     "band_if_crossed": "STRONG_BULL",
+     "direction": "UP",
+     "spread_move_bp": 12.4,
+     "probability": 0.79
+    }
+   ]
+  },
+  {
+   "pair": "EURJPY",
+   "as_of": "2026-08-19",
+   "fund_today": -63.9,
+   "band_today": "STRONG_BEAR",
+   "fund_if_spread_unchanged": -61.48,
+   "roll_drift": 2.42,
+   "spread_today_pct": 1.0898,
+   "spread_daily_std_bp": 3.7,
+   "move_sample": 252,
+   "fund_range_tomorrow": {
+    "p10": -68.5,
+    "p50": -61.8,
+    "p90": -51.7
+   },
+   "down": null,
+   "up": {
+    "boundary": -60.0,
+    "band_if_crossed": "BEAR",
+    "direction": "UP",
+    "spread_move_bp": 0.7,
+    "probability": 36.51
+   },
+   "p_down": 0.0,
+   "p_up": 36.51,
+   "p_stay": 63.49,
+   "scenarios": [
+    {
+     "boundary": -60.0,
+     "band_if_crossed": "BEAR",
+     "direction": "UP",
+     "spread_move_bp": 0.7,
+     "probability": 36.51
+    },
+    {
+     "boundary": -25.0,
+     "band_if_crossed": "NEUTRAL",
+     "direction": "UP",
+     "spread_move_bp": 13.8,
+     "probability": 0.4
+    },
+    {
+     "boundary": 25.0,
+     "band_if_crossed": "BULL",
+     "direction": "UP",
+     "spread_move_bp": 29.2,
+     "probability": 0.0
+    },
+    {
+     "boundary": 60.0,
+     "band_if_crossed": "STRONG_BULL",
+     "direction": "UP",
+     "spread_move_bp": 42.3,
+     "probability": 0.0
+    }
+   ]
+  },
+  {
+   "pair": "EURGBP",
+   "as_of": "2026-08-19",
+   "fund_today": 17.98,
+   "band_today": "NEUTRAL",
+   "fund_if_spread_unchanged": 28.02,
+   "roll_drift": 10.05,
+   "spread_today_pct": -1.5075,
+   "spread_daily_std_bp": 3.27,
+   "move_sample": 252,
+   "fund_range_tomorrow": {
+    "p10": 12.2,
+    "p50": 28.6,
+    "p90": 43.0
+   },
+   "down": {
+    "boundary": 25.0,
+    "band_if_crossed": "NEUTRAL",
+    "direction": "DOWN",
+    "spread_move_bp": -0.7,
+    "probability": 35.32
+   },
+   "up": {
+    "boundary": 60.0,
+    "band_if_crossed": "STRONG_BULL",
+    "direction": "UP",
+    "spread_move_bp": 8.1,
+    "probability": 1.19
+   },
+   "p_down": 35.32,
+   "p_up": 1.19,
+   "p_stay": 63.49,
+   "scenarios": [
+    {
+     "boundary": -60.0,
+     "band_if_crossed": "STRONG_BEAR",
+     "direction": "DOWN",
+     "spread_move_bp": -19.7,
+     "probability": 0.4
+    },
+    {
+     "boundary": -25.0,
+     "band_if_crossed": "BEAR",
+     "direction": "DOWN",
+     "spread_move_bp": -10.9,
+     "probability": 0.4
+    },
+    {
+     "boundary": 25.0,
+     "band_if_crossed": "NEUTRAL",
+     "direction": "DOWN",
+     "spread_move_bp": -0.7,
+     "probability": 35.32
+    },
+    {
+     "boundary": 60.0,
+     "band_if_crossed": "STRONG_BULL",
+     "direction": "UP",
+     "spread_move_bp": 8.1,
+     "probability": 1.19
+    }
+   ]
+  },
+  {
+   "pair": "EURNZD",
+   "as_of": "2026-08-20",
+   "fund_today": 25.48,
+   "band_today": "BULL",
+   "fund_if_spread_unchanged": 54.63,
+   "roll_drift": 29.16,
+   "spread_today_pct": -0.7492,
+   "spread_daily_std_bp": 5.37,
+   "move_sample": 252,
+   "fund_range_tomorrow": {
+    "p10": 43.0,
+    "p50": 54.6,
+    "p90": 64.8
+   },
+   "down": {
+    "boundary": 25.0,
+    "band_if_crossed": "NEUTRAL",
+    "direction": "DOWN",
+    "spread_move_bp": -13.1,
+    "probability": 1.98
+   },
+   "up": {
+    "boundary": 60.0,
+    "band_if_crossed": "STRONG_BULL",
+    "direction": "UP",
+    "spread_move_bp": 2.9,
+    "probability": 27.38
+   },
+   "p_down": 1.98,
+   "p_up": 27.38,
+   "p_stay": 70.64,
+   "scenarios": [
+    {
+     "boundary": -60.0,
+     "band_if_crossed": "STRONG_BEAR",
+     "direction": "DOWN",
+     "spread_move_bp": -48.0,
+     "probability": 0.0
+    },
+    {
+     "boundary": -25.0,
+     "band_if_crossed": "BEAR",
+     "direction": "DOWN",
+     "spread_move_bp": -31.9,
+     "probability": 0.0
+    },
+    {
+     "boundary": 25.0,
+     "band_if_crossed": "NEUTRAL",
+     "direction": "DOWN",
+     "spread_move_bp": -13.1,
+     "probability": 1.98
+    },
+    {
+     "boundary": 60.0,
+     "band_if_crossed": "STRONG_BULL",
+     "direction": "UP",
+     "spread_move_bp": 2.9,
+     "probability": 27.38
+    }
+   ]
+  },
+  {
+   "pair": "GBPUSD",
+   "as_of": "2026-08-20",
+   "fund_today": 22.86,
+   "band_today": "NEUTRAL",
+   "fund_if_spread_unchanged": 30.93,
+   "roll_drift": 8.06,
+   "spread_today_pct": 0.0982,
+   "spread_daily_std_bp": 5.2,
+   "move_sample": 252,
+   "fund_range_tomorrow": {
+    "p10": 13.8,
+    "p50": 30.9,
+    "p90": 45.6
+   },
+   "down": {
+    "boundary": 25.0,
+    "band_if_crossed": "NEUTRAL",
+    "direction": "DOWN",
+    "spread_move_bp": -2.2,
+    "probability": 27.38
+   },
+   "up": {
+    "boundary": 60.0,
+    "band_if_crossed": "STRONG_BULL",
+    "direction": "UP",
+    "spread_move_bp": 12.9,
+    "probability": 1.19
+   },
+   "p_down": 27.38,
+   "p_up": 1.19,
+   "p_stay": 71.43,
+   "scenarios": [
+    {
+     "boundary": -60.0,
+     "band_if_crossed": "STRONG_BEAR",
+     "direction": "DOWN",
+     "spread_move_bp": -35.0,
+     "probability": 0.0
+    },
+    {
+     "boundary": -25.0,
+     "band_if_crossed": "BEAR",
+     "direction": "DOWN",
+     "spread_move_bp": -19.9,
+     "probability": 0.4
+    },
+    {
+     "boundary": 25.0,
+     "band_if_crossed": "NEUTRAL",
+     "direction": "DOWN",
+     "spread_move_bp": -2.2,
+     "probability": 27.38
+    },
+    {
+     "boundary": 60.0,
+     "band_if_crossed": "STRONG_BULL",
+     "direction": "UP",
+     "spread_move_bp": 12.9,
+     "probability": 1.19
+    }
+   ]
+  },
+  {
+   "pair": "NZDCHF",
+   "as_of": "2026-08-20",
+   "fund_today": -3.62,
+   "band_today": "NEUTRAL",
+   "fund_if_spread_unchanged": -19.11,
+   "roll_drift": -15.49,
+   "spread_today_pct": 3.476,
+   "spread_daily_std_bp": 4.38,
+   "move_sample": 252,
+   "fund_range_tomorrow": {
+    "p10": -30.4,
+    "p50": -19.1,
+    "p90": -5.8
+   },
+   "down": {
+    "boundary": -25.0,
+    "band_if_crossed": "BEAR",
+    "direction": "DOWN",
+    "spread_move_bp": -2.6,
+    "probability": 26.19
+   },
+   "up": {
+    "boundary": 25.0,
+    "band_if_crossed": "BULL",
+    "direction": "UP",
+    "spread_move_bp": 18.6,
+    "probability": 0.4
+   },
+   "p_down": 26.19,
+   "p_up": 0.4,
+   "p_stay": 73.41,
+   "scenarios": [
+    {
+     "boundary": -60.0,
+     "band_if_crossed": "STRONG_BEAR",
+     "direction": "DOWN",
+     "spread_move_bp": -20.7,
+     "probability": 0.0
+    },
+    {
+     "boundary": -25.0,
+     "band_if_crossed": "BEAR",
+     "direction": "DOWN",
+     "spread_move_bp": -2.6,
+     "probability": 26.19
+    },
+    {
+     "boundary": 25.0,
+     "band_if_crossed": "BULL",
+     "direction": "UP",
+     "spread_move_bp": 18.6,
+     "probability": 0.4
+    },
+    {
+     "boundary": 60.0,
+     "band_if_crossed": "STRONG_BULL",
+     "direction": "UP",
+     "spread_move_bp": 36.7,
+     "probability": 0.0
+    }
+   ]
+  },
+  {
+   "pair": "AUDNZD",
+   "as_of": "2026-08-19",
+   "fund_today": 16.8,
+   "band_today": "NEUTRAL",
+   "fund_if_spread_unchanged": 15.07,
+   "roll_drift": -1.73,
+   "spread_today_pct": 1.048,
+   "spread_daily_std_bp": 4.37,
+   "move_sample": 252,
+   "fund_range_tomorrow": {
+    "p10": 1.4,
+    "p50": 16.9,
+    "p90": 29.9
+   },
+   "down": {
+    "boundary": -25.0,
+    "band_if_crossed": "BEAR",
+    "direction": "DOWN",
+    "spread_move_bp": -13.0,
+    "probability": 0.79
+   },
+   "up": {
+    "boundary": 25.0,
+    "band_if_crossed": "BULL",
+    "direction": "UP",
+    "spread_move_bp": 3.3,
+    "probability": 20.24
+   },
+   "p_down": 0.79,
+   "p_up": 20.24,
+   "p_stay": 78.97,
+   "scenarios": [
+    {
+     "boundary": -60.0,
+     "band_if_crossed": "STRONG_BEAR",
+     "direction": "DOWN",
+     "spread_move_bp": -27.0,
+     "probability": 0.0
+    },
+    {
+     "boundary": -25.0,
+     "band_if_crossed": "BEAR",
+     "direction": "DOWN",
+     "spread_move_bp": -13.0,
+     "probability": 0.79
+    },
+    {
+     "boundary": 25.0,
+     "band_if_crossed": "BULL",
+     "direction": "UP",
+     "spread_move_bp": 3.3,
+     "probability": 20.24
+    },
+    {
+     "boundary": 60.0,
+     "band_if_crossed": "STRONG_BULL",
+     "direction": "UP",
+     "spread_move_bp": 17.3,
+     "probability": 0.0
+    }
+   ]
+  },
+  {
+   "pair": "AUDCAD",
+   "as_of": "2026-08-19",
+   "fund_today": -54.56,
+   "band_today": "BEAR",
+   "fund_if_spread_unchanged": -47.72,
+   "roll_drift": 6.84,
+   "spread_today_pct": 1.588,
+   "spread_daily_std_bp": 5.48,
+   "move_sample": 252,
+   "fund_range_tomorrow": {
+    "p10": -63.1,
+    "p50": -46.0,
+    "p90": -27.0
+   },
+   "down": {
+    "boundary": -60.0,
+    "band_if_crossed": "STRONG_BEAR",
+    "direction": "DOWN",
+    "spread_move_bp": -4.7,
+    "probability": 16.67
+   },
+   "up": {
+    "boundary": -25.0,
+    "band_if_crossed": "NEUTRAL",
+    "direction": "UP",
+    "spread_move_bp": 7.1,
+    "probability": 7.94
+   },
+   "p_down": 16.67,
+   "p_up": 7.94,
+   "p_stay": 75.39,
+   "scenarios": [
+    {
+     "boundary": -60.0,
+     "band_if_crossed": "STRONG_BEAR",
+     "direction": "DOWN",
+     "spread_move_bp": -4.7,
+     "probability": 16.67
+    },
+    {
+     "boundary": -25.0,
+     "band_if_crossed": "NEUTRAL",
+     "direction": "UP",
+     "spread_move_bp": 7.1,
+     "probability": 7.94
+    },
+    {
+     "boundary": 25.0,
+     "band_if_crossed": "BULL",
+     "direction": "UP",
+     "spread_move_bp": 20.8,
+     "probability": 0.0
+    },
+    {
+     "boundary": 60.0,
+     "band_if_crossed": "STRONG_BULL",
+     "direction": "UP",
+     "spread_move_bp": 32.6,
+     "probability": 0.0
+    }
+   ]
+  },
+  {
+   "pair": "EURCAD",
+   "as_of": "2026-08-19",
+   "fund_today": -53.42,
+   "band_today": "BEAR",
+   "fund_if_spread_unchanged": -40.81,
+   "roll_drift": 12.62,
+   "spread_today_pct": -0.1992,
+   "spread_daily_std_bp": 3.79,
+   "move_sample": 252,
+   "fund_range_tomorrow": {
+    "p10": -57.9,
+    "p50": -39.2,
+    "p90": -20.1
+   },
+   "down": {
+    "boundary": -60.0,
+    "band_if_crossed": "STRONG_BEAR",
+    "direction": "DOWN",
+    "spread_move_bp": -5.1,
+    "probability": 6.75
+   },
+   "up": {
+    "boundary": -25.0,
+    "band_if_crossed": "NEUTRAL",
+    "direction": "UP",
+    "spread_move_bp": 3.5,
+    "probability": 15.87
+   },
+   "p_down": 6.75,
+   "p_up": 15.87,
+   "p_stay": 77.38,
+   "scenarios": [
+    {
+     "boundary": -60.0,
+     "band_if_crossed": "STRONG_BEAR",
+     "direction": "DOWN",
+     "spread_move_bp": -5.1,
+     "probability": 6.75
+    },
+    {
+     "boundary": -25.0,
+     "band_if_crossed": "NEUTRAL",
+     "direction": "UP",
+     "spread_move_bp": 3.5,
+     "probability": 15.87
+    },
+    {
+     "boundary": 25.0,
+     "band_if_crossed": "BULL",
+     "direction": "UP",
+     "spread_move_bp": 13.6,
+     "probability": 0.0
+    },
+    {
+     "boundary": 60.0,
+     "band_if_crossed": "STRONG_BULL",
+     "direction": "UP",
+     "spread_move_bp": 22.2,
+     "probability": 0.0
+    }
+   ]
+  },
+  {
+   "pair": "EURCHF",
+   "as_of": "2026-08-19",
+   "fund_today": 38.45,
+   "band_today": "BULL",
+   "fund_if_spread_unchanged": 35.42,
+   "roll_drift": -3.03,
+   "spread_today_pct": 2.7268,
+   "spread_daily_std_bp": 3.88,
+   "move_sample": 252,
+   "fund_range_tomorrow": {
+    "p10": 22.6,
+    "p50": 36.5,
+    "p90": 53.1
+   },
+   "down": {
+    "boundary": 25.0,
+    "band_if_crossed": "NEUTRAL",
+    "direction": "DOWN",
+    "spread_move_bp": -2.4,
+    "probability": 15.87
+   },
+   "up": {
+    "boundary": 60.0,
+    "band_if_crossed": "STRONG_BULL",
+    "direction": "UP",
+    "spread_move_bp": 6.6,
+    "probability": 5.95
+   },
+   "p_down": 15.87,
+   "p_up": 5.95,
+   "p_stay": 78.18,
+   "scenarios": [
+    {
+     "boundary": -60.0,
+     "band_if_crossed": "STRONG_BEAR",
+     "direction": "DOWN",
+     "spread_move_bp": -21.8,
+     "probability": 0.0
+    },
+    {
+     "boundary": -25.0,
+     "band_if_crossed": "BEAR",
+     "direction": "DOWN",
+     "spread_move_bp": -12.8,
+     "probability": 0.79
+    },
+    {
+     "boundary": 25.0,
+     "band_if_crossed": "NEUTRAL",
+     "direction": "DOWN",
+     "spread_move_bp": -2.4,
+     "probability": 15.87
+    },
+    {
+     "boundary": 60.0,
+     "band_if_crossed": "STRONG_BULL",
+     "direction": "UP",
+     "spread_move_bp": 6.6,
+     "probability": 5.95
+    }
+   ]
+  },
+  {
+   "pair": "GBPJPY",
+   "as_of": "2026-08-18",
+   "fund_today": -48.68,
+   "band_today": "BEAR",
+   "fund_if_spread_unchanged": -53.23,
+   "roll_drift": -4.55,
+   "spread_today_pct": 2.5972,
+   "spread_daily_std_bp": 5.33,
+   "move_sample": 252,
+   "fund_range_tomorrow": {
+    "p10": -61.1,
+    "p50": -53.8,
+    "p90": -43.1
+   },
+   "down": {
+    "boundary": -60.0,
+    "band_if_crossed": "STRONG_BEAR",
+    "direction": "DOWN",
+    "spread_move_bp": -4.4,
+    "probability": 12.7
+   },
+   "up": {
+    "boundary": -25.0,
+    "band_if_crossed": "NEUTRAL",
+    "direction": "UP",
+    "spread_move_bp": 14.9,
+    "probability": 1.19
+   },
+   "p_down": 12.7,
+   "p_up": 1.19,
+   "p_stay": 86.11,
+   "scenarios": [
+    {
+     "boundary": -60.0,
+     "band_if_crossed": "STRONG_BEAR",
+     "direction": "DOWN",
+     "spread_move_bp": -4.4,
+     "probability": 12.7
+    },
+    {
+     "boundary": -25.0,
+     "band_if_crossed": "NEUTRAL",
+     "direction": "UP",
+     "spread_move_bp": 14.9,
+     "probability": 1.19
+    },
+    {
+     "boundary": 25.0,
+     "band_if_crossed": "BULL",
+     "direction": "UP",
+     "spread_move_bp": 37.5,
+     "probability": 0.0
+    },
+    {
+     "boundary": 60.0,
+     "band_if_crossed": "STRONG_BULL",
+     "direction": "UP",
+     "spread_move_bp": 56.9,
+     "probability": 0.0
+    }
+   ]
+  },
+  {
+   "pair": "AUDCHF",
+   "as_of": "2026-08-19",
+   "fund_today": 13.34,
+   "band_today": "NEUTRAL",
+   "fund_if_spread_unchanged": 8.1,
+   "roll_drift": -5.24,
+   "spread_today_pct": 4.514,
+   "spread_daily_std_bp": 3.89,
+   "move_sample": 252,
+   "fund_range_tomorrow": {
+    "p10": -7.8,
+    "p50": 10.3,
+    "p90": 26.6
+   },
+   "down": {
+    "boundary": -25.0,
+    "band_if_crossed": "BEAR",
+    "direction": "DOWN",
+    "spread_move_bp": -9.3,
+    "probability": 1.59
+   },
+   "up": {
+    "boundary": 25.0,
+    "band_if_crossed": "BULL",
+    "direction": "UP",
+    "spread_move_bp": 4.8,
+    "probability": 11.9
+   },
+   "p_down": 1.59,
+   "p_up": 11.9,
+   "p_stay": 86.51,
+   "scenarios": [
+    {
+     "boundary": -60.0,
+     "band_if_crossed": "STRONG_BEAR",
+     "direction": "DOWN",
+     "spread_move_bp": -21.4,
+     "probability": 0.0
+    },
+    {
+     "boundary": -25.0,
+     "band_if_crossed": "BEAR",
+     "direction": "DOWN",
+     "spread_move_bp": -9.3,
+     "probability": 1.59
+    },
+    {
+     "boundary": 25.0,
+     "band_if_crossed": "BULL",
+     "direction": "UP",
+     "spread_move_bp": 4.8,
+     "probability": 11.9
+    },
+    {
+     "boundary": 60.0,
+     "band_if_crossed": "STRONG_BULL",
+     "direction": "UP",
+     "spread_move_bp": 16.9,
+     "probability": 0.0
+    }
+   ]
+  },
+  {
+   "pair": "USDJPY",
+   "as_of": "2026-08-20",
+   "fund_today": -79.88,
+   "band_today": "STRONG_BEAR",
+   "fund_if_spread_unchanged": -69.85,
+   "roll_drift": 10.02,
+   "spread_today_pct": 2.499,
+   "spread_daily_std_bp": 4.69,
+   "move_sample": 252,
+   "fund_range_tomorrow": {
+    "p10": -77.7,
+    "p50": -69.9,
+    "p90": -58.9
+   },
+   "down": null,
+   "up": {
+    "boundary": -60.0,
+    "band_if_crossed": "BEAR",
+    "direction": "UP",
+    "spread_move_bp": 5.6,
+    "probability": 11.9
+   },
+   "p_down": 0.0,
+   "p_up": 11.9,
+   "p_stay": 88.1,
+   "scenarios": [
+    {
+     "boundary": -60.0,
+     "band_if_crossed": "BEAR",
+     "direction": "UP",
+     "spread_move_bp": 5.6,
+     "probability": 11.9
+    },
+    {
+     "boundary": -25.0,
+     "band_if_crossed": "NEUTRAL",
+     "direction": "UP",
+     "spread_move_bp": 19.8,
+     "probability": 0.0
+    },
+    {
+     "boundary": 25.0,
+     "band_if_crossed": "BULL",
+     "direction": "UP",
+     "spread_move_bp": 36.4,
+     "probability": 0.0
+    },
+    {
+     "boundary": 60.0,
+     "band_if_crossed": "STRONG_BULL",
+     "direction": "UP",
+     "spread_move_bp": 50.6,
+     "probability": 0.0
+    }
+   ]
+  },
+  {
+   "pair": "GBPCAD",
+   "as_of": "2026-08-19",
+   "fund_today": -51.05,
+   "band_today": "BEAR",
+   "fund_if_spread_unchanged": -48.13,
+   "roll_drift": 2.92,
+   "spread_today_pct": 1.3082,
+   "spread_daily_std_bp": 4.39,
+   "move_sample": 252,
+   "fund_range_tomorrow": {
+    "p10": -60.4,
+    "p50": -47.9,
+    "p90": -32.9
+   },
+   "down": {
+    "boundary": -60.0,
+    "band_if_crossed": "STRONG_BEAR",
+    "direction": "DOWN",
+    "spread_move_bp": -4.6,
+    "probability": 11.11
+   },
+   "up": {
+    "boundary": -25.0,
+    "band_if_crossed": "NEUTRAL",
+    "direction": "UP",
+    "spread_move_bp": 7.3,
+    "probability": 5.16
+   },
+   "p_down": 11.11,
+   "p_up": 5.16,
+   "p_stay": 83.73,
+   "scenarios": [
+    {
+     "boundary": -60.0,
+     "band_if_crossed": "STRONG_BEAR",
+     "direction": "DOWN",
+     "spread_move_bp": -4.6,
+     "probability": 11.11
+    },
+    {
+     "boundary": -25.0,
+     "band_if_crossed": "NEUTRAL",
+     "direction": "UP",
+     "spread_move_bp": 7.3,
+     "probability": 5.16
+    },
+    {
+     "boundary": 25.0,
+     "band_if_crossed": "BULL",
+     "direction": "UP",
+     "spread_move_bp": 21.3,
+     "probability": 0.0
+    },
+    {
+     "boundary": 60.0,
+     "band_if_crossed": "STRONG_BULL",
+     "direction": "UP",
+     "spread_move_bp": 33.2,
+     "probability": 0.0
+    }
+   ]
+  },
+  {
+   "pair": "USDCHF",
+   "as_of": "2026-08-20",
+   "fund_today": -22.54,
+   "band_today": "NEUTRAL",
+   "fund_if_spread_unchanged": 4.8,
+   "roll_drift": 27.34,
+   "spread_today_pct": 4.136,
+   "spread_daily_std_bp": 5.06,
+   "move_sample": 252,
+   "fund_range_tomorrow": {
+    "p10": -16.0,
+    "p50": 4.8,
+    "p90": 25.9
+   },
+   "down": {
+    "boundary": -25.0,
+    "band_if_crossed": "BEAR",
+    "direction": "DOWN",
+    "spread_move_bp": -8.2,
+    "probability": 3.57
+   },
+   "up": {
+    "boundary": 25.0,
+    "band_if_crossed": "BULL",
+    "direction": "UP",
+    "spread_move_bp": 5.6,
+    "probability": 10.71
+   },
+   "p_down": 3.57,
+   "p_up": 10.71,
+   "p_stay": 85.72,
+   "scenarios": [
+    {
+     "boundary": -60.0,
+     "band_if_crossed": "STRONG_BEAR",
+     "direction": "DOWN",
+     "spread_move_bp": -20.1,
+     "probability": 0.4
+    },
+    {
+     "boundary": -25.0,
+     "band_if_crossed": "BEAR",
+     "direction": "DOWN",
+     "spread_move_bp": -8.2,
+     "probability": 3.57
+    },
+    {
+     "boundary": 25.0,
+     "band_if_crossed": "BULL",
+     "direction": "UP",
+     "spread_move_bp": 5.6,
+     "probability": 10.71
+    },
+    {
+     "boundary": 60.0,
+     "band_if_crossed": "STRONG_BULL",
+     "direction": "UP",
+     "spread_move_bp": 17.5,
+     "probability": 0.0
+    }
+   ]
+  },
+  {
+   "pair": "NZDJPY",
+   "as_of": "2026-08-20",
+   "fund_today": -58.68,
+   "band_today": "BEAR",
+   "fund_if_spread_unchanged": -67.51,
+   "roll_drift": -8.83,
+   "spread_today_pct": 1.839,
+   "spread_daily_std_bp": 4.76,
+   "move_sample": 252,
+   "fund_range_tomorrow": {
+    "p10": -73.6,
+    "p50": -68.0,
+    "p90": -59.8
+   },
+   "down": null,
+   "up": {
+    "boundary": -60.0,
+    "band_if_crossed": "BEAR",
+    "direction": "UP",
+    "spread_move_bp": 5.9,
+    "probability": 10.32
+   },
+   "p_down": 0.0,
+   "p_up": 10.32,
+   "p_stay": 89.68,
+   "scenarios": [
+    {
+     "boundary": -60.0,
+     "band_if_crossed": "BEAR",
+     "direction": "UP",
+     "spread_move_bp": 5.9,
+     "probability": 10.32
+    },
+    {
+     "boundary": -25.0,
+     "band_if_crossed": "NEUTRAL",
+     "direction": "UP",
+     "spread_move_bp": 26.1,
+     "probability": 0.0
+    },
+    {
+     "boundary": 25.0,
+     "band_if_crossed": "BULL",
+     "direction": "UP",
+     "spread_move_bp": 49.7,
+     "probability": 0.0
+    },
+    {
+     "boundary": 60.0,
+     "band_if_crossed": "STRONG_BULL",
+     "direction": "UP",
+     "spread_move_bp": 69.9,
+     "probability": 0.0
+    }
+   ]
+  },
+  {
+   "pair": "EURUSD",
+   "as_of": "2026-08-20",
+   "fund_today": 49.09,
+   "band_today": "BULL",
+   "fund_if_spread_unchanged": 45.63,
+   "roll_drift": -3.45,
+   "spread_today_pct": -1.4092,
+   "spread_daily_std_bp": 4.39,
+   "move_sample": 252,
+   "fund_range_tomorrow": {
+    "p10": 29.7,
+    "p50": 46.3,
+    "p90": 59.6
+   },
+   "down": {
+    "boundary": 25.0,
+    "band_if_crossed": "NEUTRAL",
+    "direction": "DOWN",
+    "spread_move_bp": -6.1,
+    "probability": 6.75
+   },
+   "up": {
+    "boundary": 60.0,
+    "band_if_crossed": "STRONG_BULL",
+    "direction": "UP",
+    "spread_move_bp": 5.2,
+    "probability": 9.92
+   },
+   "p_down": 6.75,
+   "p_up": 9.92,
+   "p_stay": 83.33,
+   "scenarios": [
+    {
+     "boundary": -60.0,
+     "band_if_crossed": "STRONG_BEAR",
+     "direction": "DOWN",
+     "spread_move_bp": -30.6,
+     "probability": 0.0
+    },
+    {
+     "boundary": -25.0,
+     "band_if_crossed": "BEAR",
+     "direction": "DOWN",
+     "spread_move_bp": -19.3,
+     "probability": 0.4
+    },
+    {
+     "boundary": 25.0,
+     "band_if_crossed": "NEUTRAL",
+     "direction": "DOWN",
+     "spread_move_bp": -6.1,
+     "probability": 6.75
+    },
+    {
+     "boundary": 60.0,
+     "band_if_crossed": "STRONG_BULL",
+     "direction": "UP",
+     "spread_move_bp": 5.2,
+     "probability": 9.92
+    }
+   ]
+  },
+  {
+   "pair": "AUDJPY",
+   "as_of": "2026-08-18",
+   "fund_today": -67.4,
+   "band_today": "STRONG_BEAR",
+   "fund_if_spread_unchanged": -69.27,
+   "roll_drift": -1.88,
+   "spread_today_pct": 2.877,
+   "spread_daily_std_bp": 4.12,
+   "move_sample": 252,
+   "fund_range_tomorrow": {
+    "p10": -76.1,
+    "p50": -69.3,
+    "p90": -60.4
+   },
+   "down": null,
+   "up": {
+    "boundary": -60.0,
+    "band_if_crossed": "BEAR",
+    "direction": "UP",
+    "spread_move_bp": 5.1,
+    "probability": 9.52
+   },
+   "p_down": 0.0,
+   "p_up": 9.52,
+   "p_stay": 90.48,
+   "scenarios": [
+    {
+     "boundary": -60.0,
+     "band_if_crossed": "BEAR",
+     "direction": "UP",
+     "spread_move_bp": 5.1,
+     "probability": 9.52
+    },
+    {
+     "boundary": -25.0,
+     "band_if_crossed": "NEUTRAL",
+     "direction": "UP",
+     "spread_move_bp": 19.0,
+     "probability": 0.0
+    },
+    {
+     "boundary": 25.0,
+     "band_if_crossed": "BULL",
+     "direction": "UP",
+     "spread_move_bp": 35.3,
+     "probability": 0.0
+    },
+    {
+     "boundary": 60.0,
+     "band_if_crossed": "STRONG_BULL",
+     "direction": "UP",
+     "spread_move_bp": 49.3,
+     "probability": 0.0
+    }
+   ]
+  },
+  {
+   "pair": "CADJPY",
+   "as_of": "2026-08-19",
+   "fund_today": -33.65,
+   "band_today": "BEAR",
+   "fund_if_spread_unchanged": -39.44,
+   "roll_drift": -5.79,
+   "spread_today_pct": 1.289,
+   "spread_daily_std_bp": 4.54,
+   "move_sample": 252,
+   "fund_range_tomorrow": {
+    "p10": -52.6,
+    "p50": -40.8,
+    "p90": -26.0
+   },
+   "down": {
+    "boundary": -60.0,
+    "band_if_crossed": "STRONG_BEAR",
+    "direction": "DOWN",
+    "spread_move_bp": -8.6,
+    "probability": 3.17
+   },
+   "up": {
+    "boundary": -25.0,
+    "band_if_crossed": "NEUTRAL",
+    "direction": "UP",
+    "spread_move_bp": 5.0,
+    "probability": 9.13
+   },
+   "p_down": 3.17,
+   "p_up": 9.13,
+   "p_stay": 87.7,
+   "scenarios": [
+    {
+     "boundary": -60.0,
+     "band_if_crossed": "STRONG_BEAR",
+     "direction": "DOWN",
+     "spread_move_bp": -8.6,
+     "probability": 3.17
+    },
+    {
+     "boundary": -25.0,
+     "band_if_crossed": "NEUTRAL",
+     "direction": "UP",
+     "spread_move_bp": 5.0,
+     "probability": 9.13
+    },
+    {
+     "boundary": 25.0,
+     "band_if_crossed": "BULL",
+     "direction": "UP",
+     "spread_move_bp": 20.9,
+     "probability": 0.4
+    },
+    {
+     "boundary": 60.0,
+     "band_if_crossed": "STRONG_BULL",
+     "direction": "UP",
+     "spread_move_bp": 34.5,
+     "probability": 0.0
+    }
+   ]
+  },
+  {
+   "pair": "GBPCHF",
+   "as_of": "2026-08-19",
+   "fund_today": 13.34,
+   "band_today": "NEUTRAL",
+   "fund_if_spread_unchanged": 5.25,
+   "roll_drift": -8.09,
+   "spread_today_pct": 4.2342,
+   "spread_daily_std_bp": 5.22,
+   "move_sample": 252,
+   "fund_range_tomorrow": {
+    "p10": -9.9,
+    "p50": 6.1,
+    "p90": 21.9
+   },
+   "down": {
+    "boundary": -25.0,
+    "band_if_crossed": "BEAR",
+    "direction": "DOWN",
+    "spread_move_bp": -10.6,
+    "probability": 3.17
+   },
+   "up": {
+    "boundary": 25.0,
+    "band_if_crossed": "BULL",
+    "direction": "UP",
+    "spread_move_bp": 7.0,
+    "probability": 8.73
+   },
+   "p_down": 3.17,
+   "p_up": 8.73,
+   "p_stay": 88.1,
+   "scenarios": [
+    {
+     "boundary": -60.0,
+     "band_if_crossed": "STRONG_BEAR",
+     "direction": "DOWN",
+     "spread_move_bp": -25.8,
+     "probability": 0.0
+    },
+    {
+     "boundary": -25.0,
+     "band_if_crossed": "BEAR",
+     "direction": "DOWN",
+     "spread_move_bp": -10.6,
+     "probability": 3.17
+    },
+    {
+     "boundary": 25.0,
+     "band_if_crossed": "BULL",
+     "direction": "UP",
+     "spread_move_bp": 7.0,
+     "probability": 8.73
+    },
+    {
+     "boundary": 60.0,
+     "band_if_crossed": "STRONG_BULL",
+     "direction": "UP",
+     "spread_move_bp": 22.1,
+     "probability": 0.4
+    }
+   ]
+  },
+  {
+   "pair": "GBPAUD",
+   "as_of": "2026-08-18",
+   "fund_today": 6.97,
+   "band_today": "NEUTRAL",
+   "fund_if_spread_unchanged": 2.66,
+   "roll_drift": -4.31,
+   "spread_today_pct": -0.2798,
+   "spread_daily_std_bp": 5.76,
+   "move_sample": 252,
+   "fund_range_tomorrow": {
+    "p10": -16.9,
+    "p50": 2.7,
+    "p90": 19.9
+   },
+   "down": {
+    "boundary": -25.0,
+    "band_if_crossed": "BEAR",
+    "direction": "DOWN",
+    "spread_move_bp": -10.0,
+    "probability": 4.76
+   },
+   "up": {
+    "boundary": 25.0,
+    "band_if_crossed": "BULL",
+    "direction": "UP",
+    "spread_move_bp": 8.1,
+    "probability": 7.54
+   },
+   "p_down": 4.76,
+   "p_up": 7.54,
+   "p_stay": 87.7,
+   "scenarios": [
+    {
+     "boundary": -60.0,
+     "band_if_crossed": "STRONG_BEAR",
+     "direction": "DOWN",
+     "spread_move_bp": -25.4,
+     "probability": 0.0
+    },
+    {
+     "boundary": -25.0,
+     "band_if_crossed": "BEAR",
+     "direction": "DOWN",
+     "spread_move_bp": -10.0,
+     "probability": 4.76
+    },
+    {
+     "boundary": 25.0,
+     "band_if_crossed": "BULL",
+     "direction": "UP",
+     "spread_move_bp": 8.1,
+     "probability": 7.54
+    },
+    {
+     "boundary": 60.0,
+     "band_if_crossed": "STRONG_BULL",
+     "direction": "UP",
+     "spread_move_bp": 23.5,
+     "probability": 0.0
+    }
+   ]
+  },
+  {
+   "pair": "NZDCAD",
+   "as_of": "2026-08-20",
+   "fund_today": -49.14,
+   "band_today": "BEAR",
+   "fund_if_spread_unchanged": -76.93,
+   "roll_drift": -27.78,
+   "spread_today_pct": 0.55,
+   "spread_daily_std_bp": 6.21,
+   "move_sample": 252,
+   "fund_range_tomorrow": {
+    "p10": -84.2,
+    "p50": -76.9,
+    "p90": -66.9
+   },
+   "down": null,
+   "up": {
+    "boundary": -60.0,
+    "band_if_crossed": "BEAR",
+    "direction": "UP",
+    "spread_move_bp": 10.8,
+    "probability": 5.95
+   },
+   "p_down": 0.0,
+   "p_up": 5.95,
+   "p_stay": 94.05,
+   "scenarios": [
+    {
+     "boundary": -60.0,
+     "band_if_crossed": "BEAR",
+     "direction": "UP",
+     "spread_move_bp": 10.8,
+     "probability": 5.95
+    },
+    {
+     "boundary": -25.0,
+     "band_if_crossed": "NEUTRAL",
+     "direction": "UP",
+     "spread_move_bp": 25.4,
+     "probability": 0.4
+    },
+    {
+     "boundary": 25.0,
+     "band_if_crossed": "BULL",
+     "direction": "UP",
+     "spread_move_bp": 42.4,
+     "probability": 0.0
+    },
+    {
+     "boundary": 60.0,
+     "band_if_crossed": "STRONG_BULL",
+     "direction": "UP",
+     "spread_move_bp": 57.0,
+     "probability": 0.0
+    }
+   ]
+  },
+  {
+   "pair": "GBPNZD",
+   "as_of": "2026-08-20",
+   "fund_today": 8.69,
+   "band_today": "NEUTRAL",
+   "fund_if_spread_unchanged": 44.45,
+   "roll_drift": 35.76,
+   "spread_today_pct": 0.7582,
+   "spread_daily_std_bp": 6.43,
+   "move_sample": 252,
+   "fund_range_tomorrow": {
+    "p10": 31.3,
+    "p50": 44.9,
+    "p90": 56.7
+   },
+   "down": {
+    "boundary": 25.0,
+    "band_if_crossed": "NEUTRAL",
+    "direction": "DOWN",
+    "spread_move_bp": -9.7,
+    "probability": 5.56
+   },
+   "up": {
+    "boundary": 60.0,
+    "band_if_crossed": "STRONG_BULL",
+    "direction": "UP",
+    "spread_move_bp": 9.4,
+    "probability": 5.56
+   },
+   "p_down": 5.56,
+   "p_up": 5.56,
+   "p_stay": 88.88,
+   "scenarios": [
+    {
+     "boundary": -60.0,
+     "band_if_crossed": "STRONG_BEAR",
+     "direction": "DOWN",
+     "spread_move_bp": -51.1,
+     "probability": 0.0
+    },
+    {
+     "boundary": -25.0,
+     "band_if_crossed": "BEAR",
+     "direction": "DOWN",
+     "spread_move_bp": -32.0,
+     "probability": 0.0
+    },
+    {
+     "boundary": 25.0,
+     "band_if_crossed": "NEUTRAL",
+     "direction": "DOWN",
+     "spread_move_bp": -9.7,
+     "probability": 5.56
+    },
+    {
+     "boundary": 60.0,
+     "band_if_crossed": "STRONG_BULL",
+     "direction": "UP",
+     "spread_move_bp": 9.4,
+     "probability": 5.56
+    }
+   ]
+  },
+  {
+   "pair": "USDCAD",
+   "as_of": "2026-08-20",
+   "fund_today": -71.5,
+   "band_today": "STRONG_BEAR",
+   "fund_if_spread_unchanged": -74.85,
+   "roll_drift": -3.35,
+   "spread_today_pct": 1.21,
+   "spread_daily_std_bp": 3.51,
+   "move_sample": 252,
+   "fund_range_tomorrow": {
+    "p10": -81.1,
+    "p50": -74.9,
+    "p90": -64.7
+   },
+   "down": null,
+   "up": {
+    "boundary": -60.0,
+    "band_if_crossed": "BEAR",
+    "direction": "UP",
+    "spread_move_bp": 6.9,
+    "probability": 3.17
+   },
+   "p_down": 0.0,
+   "p_up": 3.17,
+   "p_stay": 96.83,
+   "scenarios": [
+    {
+     "boundary": -60.0,
+     "band_if_crossed": "BEAR",
+     "direction": "UP",
+     "spread_move_bp": 6.9,
+     "probability": 3.17
+    },
+    {
+     "boundary": -25.0,
+     "band_if_crossed": "NEUTRAL",
+     "direction": "UP",
+     "spread_move_bp": 17.9,
+     "probability": 0.0
+    },
+    {
+     "boundary": 25.0,
+     "band_if_crossed": "BULL",
+     "direction": "UP",
+     "spread_move_bp": 30.7,
+     "probability": 0.0
+    },
+    {
+     "boundary": 60.0,
+     "band_if_crossed": "STRONG_BULL",
+     "direction": "UP",
+     "spread_move_bp": 41.7,
+     "probability": 0.0
+    }
+   ]
+  },
+  {
+   "pair": "CHFJPY",
+   "as_of": "2026-08-19",
+   "fund_today": -93.1,
+   "band_today": "STRONG_BEAR",
+   "fund_if_spread_unchanged": -91.13,
+   "roll_drift": 1.96,
+   "spread_today_pct": -1.637,
+   "spread_daily_std_bp": 3.0,
+   "move_sample": 252,
+   "fund_range_tomorrow": {
+    "p10": -93.9,
+    "p50": -91.4,
+    "p90": -88.5
+   },
+   "down": null,
+   "up": {
+    "boundary": -60.0,
+    "band_if_crossed": "BEAR",
+    "direction": "UP",
+    "spread_move_bp": 16.0,
+    "probability": 0.0
+   },
+   "p_down": 0.0,
+   "p_up": 0.0,
+   "p_stay": 100.0,
+   "scenarios": [
+    {
+     "boundary": -60.0,
+     "band_if_crossed": "BEAR",
+     "direction": "UP",
+     "spread_move_bp": 16.0,
+     "probability": 0.0
+    },
+    {
+     "boundary": -25.0,
+     "band_if_crossed": "NEUTRAL",
+     "direction": "UP",
+     "spread_move_bp": 24.2,
+     "probability": 0.0
+    },
+    {
+     "boundary": 25.0,
+     "band_if_crossed": "BULL",
+     "direction": "UP",
+     "spread_move_bp": 33.9,
+     "probability": 0.0
+    },
+    {
+     "boundary": 60.0,
+     "band_if_crossed": "STRONG_BULL",
+     "direction": "UP",
+     "spread_move_bp": 42.2,
+     "probability": 0.0
+    }
+   ]
+  }
+ ]
+}

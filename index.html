@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="description" content="HCI FUND Radar — sovereign 2-year yield momentum across 28 FX crosses.">
+  <title>HCI FUND Radar</title>
+  <link rel="stylesheet" href="styles.css?v=20260822-cutall4">
+  <link rel="stylesheet" href="theme.css?v=20260822-cutall4">
+</head>
+<body>
+  <header class="site-header">
+    <a class="identity" href="#top" aria-label="HCI FUND home"><span>HCI</span><strong>FUND</strong></a>
+    <nav class="tabs" id="tabBar" aria-label="Sections">
+      <button type="button" class="tab is-active" data-tab="market">Overview</button>
+      <button class="tab" data-tab="yields" type="button">Yields</button>
+        <button type="button" class="tab" data-tab="observations">Pre-FUND</button>
+      <button type="button" class="tab" data-tab="calendar">Calendar</button>
+      <button type="button" class="tab" data-tab="pairs">Pairs</button>
+      <button type="button" class="tab" data-tab="cot">COT</button>
+      <button type="button" class="tab" data-tab="news">News</button>
+      <button type="button" class="tab" data-tab="sources">Sources</button>
+    </nav>
+    <div class="header-update">
+      <div class="timecut" title="Hide everything after a chosen date, so you can judge a day without knowing what came next">
+        <label for="timeCutDate" class="sr-only">Time cut date</label>
+        <input id="timeCutDate" type="date">
+        <button id="timeCutToggle" type="button">Time cut</button>
+      </div>
+      <span id="updatedAt">Loading</span><button id="updateButton" type="button">Refresh</button>
+    </div>
+  </header>
+
+  <main id="top">
+    <div id="timeCutBanner" class="timecut-banner" hidden>
+      <strong>TIME CUT ACTIVE</strong>
+      <span>Showing only what was known on <b id="timeCutLabel">—</b>. Outcomes and later days are hidden.</span>
+      <button id="timeCutClear" type="button">Exit</button>
+    </div>
+    <section id="systemMessage" class="system-line" aria-live="polite">FUND sets direction. Structure, zone and execution stay manual.</section>
+
+    <section class="overview" aria-label="Market summary">
+      <div><span>Strongest</span><strong id="strongestCurrency">—</strong><small id="strongestValue">—</small></div>
+      <div><span>Weakest</span><strong id="weakestCurrency">—</strong><small id="weakestValue">—</small></div>
+      <div><span>Directional pairs</span><strong id="alignedPairs">—</strong><small>FUND outside neutral</small></div>
+      <div><span>Coverage</span><strong id="operationalPairs">—</strong><small id="qualityNote">—</small></div>
+    </section>
+
+    <!-- ============ TAB: OVERVIEW ============ -->
+    <div class="tab-panel is-active" data-panel="market">
+      <section class="content-section">
+        <div class="section-title">
+          <div><h2>Tradable now</h2></div>
+          <p>Pairs with a defined FUND side and a causal backtest of at least 10 trades.</p>
+        </div>
+        <details class="tab-about">
+          <summary><span>How to read the FUND and the decisions</span></summary>
+          <div class="tab-about-body"><p><strong>SELL BASE</strong> means shorting the pair;
+          <strong>BUY BASE</strong> means going long. <em>FUND</em> runs from −100 to +100: past ±25 the
+          side is defined, past ±60 it is strong. The profit factor shown belongs to the
+          <strong>FUND-only</strong> engine — it does not include your entry edge.</p></div>
+        </details>
+        <div class="table-wrap"><table class="data-table">
+          <thead><tr><th>#</th><th>Pair</th><th>Side</th><th>FUND</th><th>PF</th><th>Trades</th><th>Win rate</th><th>Return</th><th>Drawdown</th><th>Read</th></tr></thead>
+          <tbody id="priorityTableBody"></tbody>
+        </table></div>
+      </section>
+
+      <section class="content-section">
+        <div class="section-title"><div><h2>Currency strength</h2></div><p>Signed average of FUND against every cross with valid data.</p></div>
+        <div id="currencyGrid" class="currency-grid"></div>
+      </section>
+
+      <section class="content-section">
+        <div class="section-title"><div><h2>Full matrix</h2></div><p>Each cell reads the row currency against the column currency. Click to open the pair.</p></div>
+        <div class="matrix-frame"><table id="strengthMatrix" class="matrix-table" aria-label="FUND matrix"></table></div>
+        <div class="legend">
+          <span><i class="scale s5"></i>Strong sell</span><span><i class="scale s4"></i>Sell</span><span><i class="scale s3"></i>Neutral</span><span><i class="scale s2"></i>Buy</span><span><i class="scale s1"></i>Strong buy</span>
+        </div>
+      </section>
+    </div>
+
+    <!-- ============ TAB: YIELDS ============ -->
+    <div class="tab-panel" data-panel="yields">
+      <section class="content-section">
+        <div class="section-title">
+          <div><h2>2-year sovereign yields</h2></div>
+          <p>The single input the FUND is built from. Every card shows how old its reading is.</p>
+        </div>
+        <details class="tab-about">
+          <summary><span>Why the 2-year yield is the number that matters, and what moves it</span></summary>
+          <div class="tab-about-body">
+            <p><strong>It is a forecast, not a price.</strong> The 2-year government yield is what the market
+            believes the central bank's policy rate will average over the next two years. It moves before the
+            central bank does, because it is a bet on what the bank will be forced to do.</p>
+            <p><strong>What pushes it up.</strong> Inflation coming in above expectations, a strong labour market,
+            a hawkish tone from the central bank, heavy government issuance, or a global risk-on move out of bonds.
+            <em>Any of these makes the market price more or later cuts.</em></p>
+            <p><strong>What pushes it down.</strong> Inflation below expectations, rising unemployment, a dovish
+            turn, a flight to safety, or a growth scare — the market prices earlier or deeper cuts.</p>
+            <p><strong>Why it drives the currency.</strong> Capital chases relative return. What matters is never
+            one country's yield on its own, but the <em>spread</em> between two — and, more precisely, the
+            <em>change</em> in that spread. That change is exactly what the FUND measures.</p>
+            <p><strong>Read the size, not the sign.</strong> A 2 bp move is noise; the daily standard deviation of
+            most of these curves sits between 3 and 5 bp. Each card shows the move in standard deviations, so you
+            can tell a real repricing from a rounding.</p>
+            <p><strong>The honest limit.</strong> These are official curves published on each institution's own
+            schedule — from D+1 for the US to <em>weekly</em> for Australia. There is no live 2-year yield here,
+            and there cannot be from these sources. The staleness badge on each card is the truth about that.</p>
+          </div>
+        </details>
+        <div id="yieldGrid" class="yield-grid"></div>
+        <p id="yieldNote" class="method-note"></p>
+      </section>
+    </div>
+
+    <!-- ============ TAB: PRE-FUND ============ -->
+    <div class="tab-panel" data-panel="observations">
+      <section class="observations-section">
+        <div class="section-title">
+          <div><h2>Pre-FUND watchlist for tomorrow</h2></div>
+          <p>Uses only what exists today to flag pairs that may turn bearish tomorrow.</p>
+        </div>
+        <details class="tab-about">
+          <summary><span>What the Pre-FUND is, and how to read it</span></summary>
+          <div class="tab-about-body">
+            <p><strong>It flags the indicator, not the price.</strong> Each morning it names the pairs whose
+            FUND is most likely to cross into the BEAR band on the next session. That is all it claims.</p>
+            <p><strong>Why it is useful anyway.</strong> The breakout and its zone usually form
+            <em>before</em> the FUND confirms. By the time a pair shows up as tradable, the entry has often
+            already gone. This list buys you the days needed to mark the zone first.</p>
+            <p><strong>What it is not.</strong> Not a trade signal, not a direction, not permission to enter.
+            When rank 1 does flip, the price falls the next day only about as often as a coin toss —
+            that number is in the table below, and it is the reason the zone still has to confirm on its own.</p>
+            <div id="nextDaySummary" class="observation-summary"></div>
+            <p id="nextDayStatus" class="muted"></p>
+            <div id="priceNextDayVerdict" class="verdict-block"></div>
+            <div id="nextDayMethod" class="method-note"></div>
+          </div>
+        </details>
+        <div id="nextDayList" class="observation-list"></div>
+        <div class="setup-section">
+          <div class="section-title">
+            <div><h2>Pre-mapped setups</h2></div>
+            <p>The structure already on the chart for each candidate — so the zone is marked before the pair becomes tradable.</p>
+          </div>
+          <div id="setupList" class="setup-list"></div>
+          <p id="setupStatus" class="muted"></p>
+        </div>
+        <div id="preFundAudit" class="audit-block"></div>
+      </section>
+    </div>
+
+    <!-- ============ TAB: CALENDAR ============ -->
+    <div class="tab-panel" data-panel="calendar">
+      <section class="calendar-section">
+        <div class="section-title">
+          <div><h2>Daily FUND calendar</h2></div>
+          <p>Every session since 2002, rebuilt with same-day information only.</p>
+        </div>        <details class="tab-about">
+          <summary><span>What the calendar shows, and why it is honest</span></summary>
+          <div class="tab-about-body"><p><strong>Study mode.</strong> Click any day to see what the radar would have flagged then — and,
+          because the day is already in the past, what actually happened next: a green
+          <em>ENTERED BEAR</em> badge or a grey <em>did not enter</em>. That outcome is a later check;
+          it never took part in the selection.</p></div>
+        </details>
+        <div class="calendar-controls">
+          <button id="calendarPrev" type="button">Previous</button>
+          <label for="calendarMonth" class="sr-only">Calendar month</label>
+          <input id="calendarMonth" type="month">
+          <button id="calendarNext" type="button">Next</button>
+          <span id="calendarStatus" class="muted"></span>
+        </div>
+        <div class="calendar-layout">
+          <div class="calendar-col">
+            <div class="calendar-board">
+              <div class="weekday-row" aria-hidden="true"><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span></div>
+              <div id="calendarGrid" class="calendar-grid"></div>
+            </div>
+            <div class="projection-section">
+              <div class="section-title">
+                <div><h2>Where the FUND could move next session</h2></div>
+                <p>Click a card to see what has to happen, why, and where to check it yourself.</p>
+              </div>
+              <div id="calendarProjection" class="calendar-projection"></div>
+            </div>
+          </div>
+          <aside class="calendar-detail">
+            <header><div><span id="calendarCoverage" class="tag">COVERAGE</span><h3 id="calendarDate">—</h3></div><span id="calendarPairCount" class="mono muted">—</span></header>
+            <div class="calendar-detail-grid">
+              <div><span>Strongest</span><strong id="calendarStrongest">—</strong></div>
+              <div><span>Weakest</span><strong id="calendarWeakest">—</strong></div>
+            </div>
+            <div><span class="detail-label">Currency ranking</span><div id="calendarCurrencies" class="calendar-currencies"></div></div>
+            <div><span class="detail-label">Tradable that day</span><div id="calendarRecommendations" class="calendar-recommendations"></div></div>
+            <div><span class="detail-label">Pre-FUND watchlist that day <i class="label-note">bearish turns only</i></span><div id="calendarPreFund" class="calendar-prefund"></div></div>
+          </aside>
+        </div>
+        <p class="method-note">Causal selection: only the FUND of the day itself, never a profit factor computed with the future. PARTIAL means one or more currencies had no usable 2Y series yet.</p>
+      </section>
+    </div>
+
+    <!-- ============ TAB: PAIRS ============ -->
+    <div class="tab-panel" data-panel="pairs">
+      <section id="pairDetail" class="content-section selected-pair" aria-live="polite">
+        <div class="pair-header">
+          <div><span class="section-index">SELECTED PAIR</span><div class="pair-name-line"><h2 id="detailPair">—</h2><span id="detailStrength" class="tag">—</span><span id="detailQuality" class="tag">—</span></div></div>
+          <div class="direction-block"><span>FUND direction</span><strong id="detailDecision">—</strong></div>
+        </div>
+        <div id="detailAlert" class="alert-line" hidden></div>
+        <div class="metric-line">
+          <div><span>FUND</span><strong id="detailFund">—</strong></div><div><span>Δ 5 days</span><strong id="detailChange">—</strong></div>
+          <div><span>2Y spread</span><strong id="detailSpread">—</strong></div><div><span>20d momentum</span><strong id="detailMomentum">—</strong></div>
+          <div><span>Base yield</span><strong id="detailBaseYield">—</strong></div><div><span>Quote yield</span><strong id="detailQuoteYield">—</strong></div>
+        </div>
+        <p id="formulaText" class="mono formula"></p>
+        <div class="chart-frame"><div><span>FUND HISTORY</span><small id="detailAsOf">—</small></div><svg id="fundChart" viewBox="0 0 960 260" role="img" aria-label="FUND history"></svg></div>
+        <div class="tv-block">
+          <div class="tv-head"><span class="detail-label">Price — TradingView</span><small class="muted">live chart, needs internet</small></div>
+          <div id="tvChart" class="tv-chart"></div>
+        </div>
+      </section>
+
+      <section class="content-section">
+        <div class="section-title">
+          <div><h2>All 28 pairs</h2></div>
+          <p>Ranked by absolute FUND. Click a row to open the pair above.</p>
+        </div>
+        <details class="tab-about">
+          <summary><span>How this list is ordered, and what "operational" means</span></summary>
+          <div class="tab-about-body"><p><strong>Ranked by |FUND|, not by opportunity.</strong>
+          A pair at the top has the widest rate-differential momentum today — it is where the fundamental
+          side is most defined, which is not the same as where the best entry is. <strong>Operational</strong>
+          means both legs carry a fresh yield; a pair with a stale leg is shown for context but never ranked
+          as tradable. The entry still comes from the chart, never from this ordering.</p></div>
+        </details>
+        <div class="pair-controls">
+          <label class="sr-only" for="pairSearch">Search pair</label>
+          <input id="pairSearch" type="search" placeholder="Search pair, e.g. EURUSD">
+          <label class="sr-only" for="pairFilter">Filter</label>
+          <select id="pairFilter">
+            <option value="all">All pairs</option>
+            <option value="directional">Directional only</option>
+            <option value="operational">Operational only</option>
+          </select>
+        </div>
+        <div class="table-wrap"><table class="data-table">
+          <thead><tr><th>Pair</th><th>Side</th><th>FUND</th><th>Strength</th><th>2Y spread</th><th>Momentum</th><th>Data</th></tr></thead>
+          <tbody id="pairTableBody"></tbody>
+        </table></div>
+      </section>
+    </div>
+
+    <!-- ============ TAB: COT ============ -->
+    <div class="tab-panel" data-panel="cot">
+      <section class="content-section">
+        <div class="section-title">
+          <div><h2>Commitments of Traders</h2></div>
+          <p>Weekly futures positioning from the CFTC. Published Friday 15:30 ET for Tuesday's book.</p>
+        </div>        <details class="tab-about">
+          <summary><span>What COT adds here, and what it does not</span></summary>
+          <div class="tab-about-body"><p><strong>Why positioning matters here.</strong> FUND measures the <em>reason</em> (rate differentials).
+          COT measures the <em>crowd</em>. Research behind this project found that since 2021 currencies track
+          risk appetite and positioning at least as closely as policy rates — and that the August 2024 unwind was
+          driven by crowded positioning, not by the macro surprise itself.
+          <br><strong>Status: display only.</strong> COT does not touch the FUND score. It is being measured
+          separately before it is allowed to influence any decision.</p></div>
+        </details>
+        <div id="cotStatus" class="muted">Loading positioning…</div>
+        <div id="cotGrid" class="cot-grid"></div>
+        <p class="method-note">Net position = non-commercial long − short. The percentile compares the current net against its own history: above 90 or below 10 marks a crowded book, which historically precedes sharper reversals.</p>
+      </section>
+    </div>
+
+    <!-- ============ TAB: NEWS ============ -->
+    <div class="tab-panel" data-panel="news">
+      <section class="content-section">
+        <div class="section-title">
+          <div><h2>Upcoming releases</h2></div>
+          <p>Scheduled events that can reprice the rate path.</p>
+        </div>        <details class="tab-about">
+          <summary><span>Why the release itself is not the trade</span></summary>
+          <div class="tab-about-body"><p><strong>Trade the repricing, not the print.</strong> Price adjusts to a surprise within minutes,
+          so reacting to the release itself is late. What lasts days to weeks is the change in the expected
+          rate path — that is what the FUND captures.</p></div>
+        </details>
+        <div class="news-controls">
+          <label class="sr-only" for="newsCurrency">Currency</label>
+          <select id="newsCurrency"></select>
+          <label class="sr-only" for="newsImpact">Impact</label>
+          <select id="newsImpact"></select>
+        </div>
+        <div id="newsList" class="news-list"></div>
+        <p id="newsSource" class="muted"></p>
+      </section>
+    </div>
+
+    <!-- ============ TAB: SOURCES ============ -->
+    <div class="tab-panel" data-panel="sources">
+      <section class="content-section">
+        <div class="section-title"><div><h2>Sources and freshness</h2></div><p>A stale leg keeps its value visible but blocks the pair from being tradable.</p></div>        <details class="tab-about">
+          <summary><span>Why a stale leg blocks a pair</span></summary>
+          <div class="tab-about-body"><p><strong>Why a stale leg blocks the pair.</strong> A FUND score built on a three-week-old yield
+          is a stale opinion wearing a fresh number. The panel keeps it visible for context and removes it
+          from the tradable list.</p></div>
+        </details>
+        <div class="table-wrap"><table class="data-table">
+          <thead><tr><th>Currency</th><th>Status</th><th>Last observation</th><th>Age</th><th>2Y yield</th><th>Source</th></tr></thead>
+          <tbody id="sourceTableBody"></tbody>
+        </table></div>
+        <div class="table-wrap"><table class="data-table">
+          <thead><tr><th>Model</th><th>Weights</th><th>Turned bear #1</th><th>Top 5</th><th>Events caught</th></tr></thead>
+          <tbody id="weightTableBody"></tbody>
+        </table></div>
+      </section>
+    </div>
+
+    <!-- Backtest permanece no DOM (o app.js depende destes ids) mas sem aba:
+         a estrategia ainda nao esta final, entao o numero nao deve ser exibido. -->
+    <div class="tab-panel" data-panel="backtest" hidden>
+      <form id="backtestForm">
+        <select id="btPair"></select><input id="btStart" type="date"><input id="btEnd" type="date">
+        <input id="btCost" type="number" value="1"><button id="btRun" type="submit">Run</button>
+      </form>
+      <p id="btStatus"></p><div id="btSummary"></div><span id="btChartTitle"></span>
+      <div id="btEquityChart"></div><table><thead id="btResultHead"></thead><tbody id="btResultBody"></tbody></table>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div>
+      <strong>HCI FUND Radar</strong>
+      <p>Sovereign 2-year yield momentum across 28 FX crosses. Direction only — entries, sizing and execution remain discretionary.</p>
+    </div>
+    <div class="footer-contact">
+      <a href="mailto:eduardogodooihoki@gmail.com">eduardogodooihoki@gmail.com</a>
+      <small>Research tool. Not investment advice. No orders are placed by this software.</small>
+    </div>
+  </footer>
+
+  <script src="app.js?v=20260822-cutall4"></script>
+  <script src="ui_extras.js?v=20260822-cutall4"></script>
+  <script src="ui_cut_global.js?v=20260822-cutall4"></script>
+</body>
+</html>

@@ -1,0 +1,482 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""Radar causal PRE-FUND para antecipar uma possivel faixa BEAR em D+1.
+
+Este motor nao tenta substituir o FUND oficial. Ele responde a uma pergunta
+anterior: usando apenas o que existia em D, qual par ainda nao vendedor tem
+maior chance de aparecer com FUND <= -25 no proximo dia util?
+"""
+from __future__ import annotations
+
+import bisect
+import math
+import statistics
+from collections import defaultdict
+from datetime import date, timedelta
+
+import numpy as np
+from sklearn.linear_model import LogisticRegression
+from sklearn.pipeline import make_pipeline
+from sklearn.preprocessing import StandardScaler
+
+
+GROUPS = {
+    "level": (0, 1, 2, 3),
+    "trajectory": (4, 5, 6, 7, 8),
+    "price": (9, 10, 11),
+}
+
+GROUP_LABELS = {
+    "level": "Proximidade da faixa BEAR",
+    "trajectory": "Trajetoria do FUND",
+    "price": "Acao recente do preco",
+}
+
+WEIGHT_SCHEMES = {
+    "NIVEL_FUND": np.array([1.00, 0.00, 0.00]),
+    "FUND_PESADO": np.array([0.55, 0.40, 0.05]),
+    "PESOS_IGUAIS": np.array([0.34, 0.33, 0.33]),
+    "PRECO_PESADO": np.array([0.20, 0.20, 0.60]),
+}
+
+GRID_STEP = 0.10
+MIN_TRAIN_ROWS = 2_000
+MIN_TRAIN_YEARS = 3
+
+
+def _next_business_day(day: date) -> date:
+    cursor = day + timedelta(days=1)
+    while cursor.weekday() >= 5:
+        cursor += timedelta(days=1)
+    return cursor
+
+
+def _sigmoid(value: float) -> float:
+    if value >= 0:
+        return 1.0 / (1.0 + math.exp(-min(value, 40.0)))
+    exp_value = math.exp(max(value, -40.0))
+    return exp_value / (1.0 + exp_value)
+
+
+def _features(funds: list[float], prices: list[float]) -> tuple[list[float], dict] | None:
+    if len(funds) < 7 or len(prices) < 22:
+        return None
+    returns = [math.log(prices[index] / prices[index - 1]) for index in range(1, len(prices))]
+    volatility = max(statistics.stdev(returns[-20:]), 0.0001)
+    current = funds[-1]
+    d1 = current - funds[-2]
+    d3 = current - funds[-4]
+    d5 = current - funds[-6]
+    accel = d1 - (funds[-2] - funds[-3])
+    pressure = statistics.mean(1.0 if value <= -15.0 else 0.0 for value in funds[-5:])
+    ret1 = math.log(prices[-1] / prices[-2]) / volatility
+    ret3 = math.log(prices[-1] / prices[-4]) / (volatility * math.sqrt(3.0))
+    ret5 = math.log(prices[-1] / prices[-6]) / (volatility * math.sqrt(5.0))
+    values = [
+        current / 100.0,
+        (current + 25.0) / 50.0,
+        min(funds[-3:]) / 100.0,
+        statistics.mean(funds[-3:]) / 100.0,
+        d1 / 50.0,
+        d3 / 100.0,
+        d5 / 100.0,
+        accel / 50.0,
+        pressure,
+        max(-6.0, min(6.0, ret1)),
+        max(-6.0, min(6.0, ret3)),
+        max(-6.0, min(6.0, ret5)),
+    ]
+    context = {
+        "fund": current,
+        "distance_to_bear": current + 25.0,
+        "fund_d1": d1,
+        "fund_d3": d3,
+        "fund_d5": d5,
+        "pressure": pressure,
+        "price_ret1_pct": (prices[-1] / prices[-2] - 1.0) * 100.0,
+        "price_ret5_pct": (prices[-1] / prices[-6] - 1.0) * 100.0,
+    }
+    return values, context
+
+
+def _build_samples(pairs: list[dict], prices_by_pair: dict[str, dict[date, float]]) -> tuple[list[dict], list[dict]]:
+    labelled: list[dict] = []
+    latest: list[dict] = []
+    for pair in pairs:
+        name = pair["pair"]
+        history = sorted(
+            (date.fromisoformat(row["date"]), float(row["fund"]))
+            for row in pair["_fund_history"]
+        )
+        prices = prices_by_pair[name]
+        price_days = sorted(prices)
+        if len(history) < 8 or len(price_days) < 23:
+            continue
+        price_index = 0
+        funds: list[float] = []
+        for index, (signal_day, fund) in enumerate(history):
+            funds.append(fund)
+            while price_index + 1 < len(price_days) and price_days[price_index + 1] <= signal_day:
+                price_index += 1
+            if price_days[price_index] > signal_day:
+                continue
+            recent_prices = [prices[day] for day in price_days[max(0, price_index - 21):price_index + 1]]
+            built = _features(funds, recent_prices)
+            if built is None:
+                continue
+            values, context = built
+            validation = "PROVISIONAL_PIT" if any(code in name for code in ("AUD", "CHF")) else "PIT_CAUSAL"
+            common = {
+                "date": signal_day,
+                "pair": name,
+                "features": values,
+                "context": context,
+                "price_as_of": price_days[price_index],
+                "validation": validation,
+            }
+            if index + 1 < len(history):
+                next_day, next_fund = history[index + 1]
+                if next_day == _next_business_day(signal_day) and fund > -25.0:
+                    next_price_index = bisect.bisect_right(price_days, signal_day)
+                    price_fall = None
+                    price_return = None
+                    if signal_day in prices and next_price_index < len(price_days):
+                        next_price_day = price_days[next_price_index]
+                        price_return = (prices[next_price_day] / prices[signal_day] - 1.0) * 100.0
+                        price_fall = 1 if price_return < 0.0 else 0
+                    labelled.append({
+                        **common,
+                        "next_date": next_day,
+                        "next_fund": next_fund,
+                        "target_transition": 1 if next_fund <= -25.0 else 0,
+                        "price_fall": price_fall,
+                        "price_return_pct": price_return,
+                    })
+
+        signal_day, fund = history[-1]
+        valid_price_days = [day for day in price_days if day <= signal_day]
+        if fund > -25.0 and valid_price_days:
+            last_price_index = bisect.bisect_right(price_days, valid_price_days[-1]) - 1
+            built = _features(
+                [value for day, value in history if day <= signal_day],
+                [prices[day] for day in price_days[max(0, last_price_index - 21):last_price_index + 1]],
+            )
+            if built is not None:
+                values, context = built
+                latest.append({
+                    "date": signal_day,
+                    "pair": name,
+                    "features": values,
+                    "context": context,
+                    "price_as_of": valid_price_days[-1],
+                    "validation": "PROVISIONAL_PIT"
+                    if any(code in name for code in ("AUD", "CHF"))
+                    else "PIT_CAUSAL",
+                    "operational": bool(pair.get("operational", True)),
+                    "data_status": pair.get("data_status", "CURRENT"),
+                })
+    labelled.sort(key=lambda row: (row["date"], row["pair"]))
+    latest.sort(key=lambda row: row["pair"])
+    return labelled, latest
+
+
+def _fit_group_models(rows: list[dict]) -> list:
+    x = np.asarray([row["features"] for row in rows], dtype=float)
+    y = np.asarray([row["target_transition"] for row in rows], dtype=int)
+    models = []
+    for columns in GROUPS.values():
+        model = make_pipeline(
+            StandardScaler(),
+            LogisticRegression(C=0.25, class_weight="balanced", max_iter=1_000, random_state=73),
+        )
+        model.fit(x[:, columns], y)
+        models.append(model)
+    return models
+
+
+def _group_logits(models: list, rows: list[dict]) -> np.ndarray:
+    x = np.asarray([row["features"] for row in rows], dtype=float)
+    return np.column_stack([
+        fitted.decision_function(x[:, columns])
+        for fitted, columns in zip(models, GROUPS.values())
+    ])
+
+
+def _weight_grid() -> list[np.ndarray]:
+    units = round(1.0 / GRID_STEP)
+    output = []
+    for first in range(units + 1):
+        for second in range(units - first + 1):
+            third = units - first - second
+            output.append(np.array([first, second, third], dtype=float) / units)
+    return output
+
+
+WEIGHT_GRID = _weight_grid()
+
+
+def _rank_metrics(rows: list[dict], scores: np.ndarray, top_n: int = 5) -> dict:
+    by_day: dict[date, list[int]] = defaultdict(list)
+    for index, row in enumerate(rows):
+        by_day[row["date"]].append(index)
+    picks: list[int] = []
+    top1: list[int] = []
+    all_events = sum(int(row["target_transition"]) for row in rows)
+    for indexes in by_day.values():
+        ranked = sorted(indexes, key=lambda idx: float(scores[idx]), reverse=True)
+        if ranked:
+            top1.append(ranked[0])
+            picks.extend(ranked[:top_n])
+    event_hits = sum(int(rows[index]["target_transition"]) for index in picks)
+    price_indexes = [index for index in picks if rows[index]["price_fall"] is not None]
+    price_hits = sum(int(rows[index]["price_fall"]) for index in price_indexes)
+    top1_price = [index for index in top1 if rows[index]["price_fall"] is not None]
+    top1_price_hits = sum(int(rows[index]["price_fall"]) for index in top1_price)
+    return {
+        "days": len(by_day),
+        "eligible_rows": len(rows),
+        "events": all_events,
+        "baseline_transition_rate": 100.0 * all_events / len(rows) if rows else 0.0,
+        "top1_transition_rate": 100.0 * sum(rows[index]["target_transition"] for index in top1) / len(top1) if top1 else 0.0,
+        "top5_transition_rate": 100.0 * event_hits / len(picks) if picks else 0.0,
+        "event_recall_top5": 100.0 * event_hits / all_events if all_events else 0.0,
+        "top1_price_fall_rate": 100.0 * top1_price_hits / len(top1_price) if top1_price else 0.0,
+        "top5_price_fall_rate": 100.0 * price_hits / len(price_indexes) if price_indexes else 0.0,
+        "top5_price_samples": len(price_indexes),
+        "top5_avg_price_return_pct": statistics.mean(
+            rows[index]["price_return_pct"] for index in price_indexes
+        ) if price_indexes else 0.0,
+    }
+
+
+def _choose_weights(train: list[dict]) -> np.ndarray:
+    years = sorted({row["date"].year for row in train})
+    if len(years) < 4:
+        return WEIGHT_SCHEMES["FUND_PESADO"].copy()
+    validation_years = set(years[-2:])
+    inner_train = [row for row in train if row["date"].year not in validation_years]
+    validation = [row for row in train if row["date"].year in validation_years]
+    if len(inner_train) < 1_500 or len(validation) < 400:
+        return WEIGHT_SCHEMES["FUND_PESADO"].copy()
+    logits = _group_logits(_fit_group_models(inner_train), validation)
+    best = WEIGHT_SCHEMES["FUND_PESADO"].copy()
+    best_key = (-1.0, -1.0, -1.0)
+    for weights in WEIGHT_GRID:
+        metrics = _rank_metrics(validation, logits @ weights)
+        concentration = -float(np.sum(np.square(weights)))
+        key = (metrics["top5_transition_rate"], metrics["event_recall_top5"], concentration)
+        if key > best_key:
+            best_key = key
+            best = weights.copy()
+    return best
+
+
+def _walk_forward(rows: list[dict]) -> tuple[dict[str, list[dict]], list[np.ndarray]]:
+    years = sorted({row["date"].year for row in rows})
+    first_test_year = years[0] + MIN_TRAIN_YEARS
+    predictions: dict[str, list[dict]] = defaultdict(list)
+    learned_weights = []
+    for test_year in [year for year in years if year >= first_test_year]:
+        train = [row for row in rows if row["date"].year < test_year]
+        test = [row for row in rows if row["date"].year == test_year]
+        if len(train) < MIN_TRAIN_ROWS or not test:
+            continue
+        logits = _group_logits(_fit_group_models(train), test)
+        learned = _choose_weights(train)
+        learned_weights.append(learned)
+        schemes = {**WEIGHT_SCHEMES, "APRENDIDO": learned}
+        for scheme, weights in schemes.items():
+            scores = logits @ weights
+            for row, score in zip(test, scores):
+                predictions[scheme].append({
+                    **row,
+                    "score": float(score),
+                    "probability": _sigmoid(float(score)),
+                    "fold": test_year,
+                })
+    return predictions, learned_weights
+
+
+def _summarize(rows: list[dict]) -> dict:
+    scores = np.asarray([row["score"] for row in rows], dtype=float)
+    metrics = _rank_metrics(rows, scores)
+    probability_bins = []
+    ordered = sorted(rows, key=lambda row: row["probability"])
+    for bin_index in range(10):
+        start = round(len(ordered) * bin_index / 10)
+        end = round(len(ordered) * (bin_index + 1) / 10)
+        selected = ordered[start:end]
+        if not selected:
+            continue
+        probability_bins.append({
+            "min_probability": round(100.0 * min(row["probability"] for row in selected), 2),
+            "max_probability": round(100.0 * max(row["probability"] for row in selected), 2),
+            "mean_model_probability": round(100.0 * statistics.mean(row["probability"] for row in selected), 2),
+            "empirical_transition_rate": round(100.0 * statistics.mean(row["target_transition"] for row in selected), 2),
+            "samples": len(selected),
+        })
+    return {
+        key: round(value, 4) if isinstance(value, float) else value
+        for key, value in {**metrics, "probability_bins": probability_bins}.items()
+    }
+
+
+def _reason(group: str, context: dict, supports: bool) -> str:
+    if group == "level":
+        return (
+            f"FUND atual {context['fund']:+.1f}; faltam {context['distance_to_bear']:+.1f} pontos para -25. "
+            + ("Proximidade favorece o alerta." if supports else "Nivel ainda reduz o alerta.")
+        )
+    if group == "trajectory":
+        return (
+            f"Mudanca FUND: {context['fund_d1']:+.1f} em 1d e {context['fund_d3']:+.1f} em 3d. "
+            + ("Trajetoria favorece entrada em BEAR." if supports else "Trajetoria contraria o alerta.")
+        )
+    return (
+        f"Preco: {context['price_ret1_pct']:+.2f}% em 1d e {context['price_ret5_pct']:+.2f}% em 5d. "
+        + ("Acao do preco reforca observacao." if supports else "Acao do preco pede cautela.")
+    )
+
+
+def _empirical_probability(probability: float, bins: list[dict]) -> tuple[float, int, tuple[float, float]]:
+    value = probability * 100.0
+    selected = min(
+        bins,
+        key=lambda row: 0.0
+        if row["min_probability"] <= value <= row["max_probability"]
+        else min(abs(value - row["min_probability"]), abs(value - row["max_probability"])),
+    )
+    return (
+        float(selected["empirical_transition_rate"]),
+        int(selected["samples"]),
+        (float(selected["min_probability"]), float(selected["max_probability"])),
+    )
+
+
+def build_pre_fund_radar(
+    pairs: list[dict],
+    prices_by_pair: dict[str, dict[date, float]],
+    generated_on: date,
+) -> dict:
+    all_rows, latest = _build_samples(pairs, prices_by_pair)
+    rows = [row for row in all_rows if row["validation"] == "PIT_CAUSAL"]
+    if not rows or not latest:
+        raise RuntimeError("historico insuficiente para o radar PRE-FUND")
+    predictions, fold_weights = _walk_forward(rows)
+    summaries = {scheme: _summarize(result) for scheme, result in predictions.items()}
+    best_scheme = max(
+        summaries,
+        key=lambda scheme: (
+            summaries[scheme]["top5_transition_rate"],
+            summaries[scheme]["event_recall_top5"],
+        ),
+    )
+    best_summary = summaries[best_scheme]
+    final_weights = (
+        _choose_weights(rows) if best_scheme == "APRENDIDO" else WEIGHT_SCHEMES[best_scheme]
+    )
+    final_models = _fit_group_models(rows)
+    current = [row for row in latest if row["operational"]]
+    current_logits = _group_logits(final_models, current)
+    current_scores = current_logits @ final_weights
+    current_probabilities = [_sigmoid(float(score)) for score in current_scores]
+    bins = best_summary["probability_bins"]
+    observation_floor = float(best_summary["baseline_transition_rate"]) * 1.25
+    observations = []
+    for index in sorted(range(len(current)), key=lambda idx: current_scores[idx], reverse=True):
+        if len(observations) >= 5:
+            break
+        row = current[index]
+        probability = current_probabilities[index]
+        empirical, samples, probability_range = _empirical_probability(probability, bins)
+        if empirical < observation_floor:
+            continue
+        contributions = current_logits[index] * final_weights
+        reasons = []
+        for group_index in np.argsort(contributions)[::-1]:
+            if final_weights[group_index] <= 0.0:
+                continue
+            group = list(GROUPS)[int(group_index)]
+            supports = bool(contributions[group_index] > 0.0)
+            reasons.append({
+                "factor": GROUP_LABELS[group],
+                "supports_alert": supports,
+                "contribution": round(float(contributions[group_index]), 4),
+                "text": _reason(group, row["context"], supports),
+            })
+        observations.append({
+            "rank": len(observations) + 1,
+            "pair": row["pair"],
+            "status": "PRE_FUND",
+            "signal_date": row["date"].isoformat(),
+            "price_as_of": row["price_as_of"].isoformat(),
+            "fund": round(row["context"]["fund"], 2),
+            "fund_d1": round(row["context"]["fund_d1"], 2),
+            "fund_d3": round(row["context"]["fund_d3"], 2),
+            "model_probability": round(probability * 100.0, 2),
+            "empirical_probability": round(empirical, 2),
+            "empirical_samples": samples,
+            "calibration_range": [round(probability_range[0], 2), round(probability_range[1], 2)],
+            "validation": row["validation"],
+            "data_status": row["data_status"],
+            "reasons": reasons,
+        })
+
+    audits = []
+    winner_rows = predictions[best_scheme]
+    for audit_day, targets in ((date(2026, 1, 6), ("EURJPY", "NZDJPY")),):
+        day_rows = [row for row in winner_rows if row["date"] == audit_day]
+        ranked = sorted(day_rows, key=lambda row: row["score"], reverse=True)
+        positions = {row["pair"]: index + 1 for index, row in enumerate(ranked)}
+        for pair in targets:
+            match = next((row for row in ranked if row["pair"] == pair), None)
+            if match:
+                empirical, samples, _ = _empirical_probability(match["probability"], bins)
+                audits.append({
+                    "date": audit_day.isoformat(),
+                    "pair": pair,
+                    "rank": positions[pair],
+                    "eligible_pairs": len(ranked),
+                    "fund_today": round(match["context"]["fund"], 2),
+                    "fund_next": round(match["next_fund"], 2),
+                    "model_probability": round(match["probability"] * 100.0, 2),
+                    "empirical_probability": round(empirical, 2),
+                    "transition_happened": bool(match["target_transition"]),
+                    "price_fell_next": None if match["price_fall"] is None else bool(match["price_fall"]),
+                })
+
+    comparison = []
+    for scheme in ("NIVEL_FUND", "FUND_PESADO", "PESOS_IGUAIS", "PRECO_PESADO", "APRENDIDO"):
+        summary = summaries[scheme]
+        weights = final_weights if scheme == "APRENDIDO" else WEIGHT_SCHEMES[scheme]
+        comparison.append({
+            "model": scheme,
+            "weights": {group: round(float(weight), 2) for group, weight in zip(GROUPS, weights)},
+            **{key: value for key, value in summary.items() if key != "probability_bins"},
+        })
+    median_weights = np.median(np.vstack(fold_weights), axis=0) if fold_weights else final_weights
+    median_weights /= max(float(np.sum(median_weights)), 0.0001)
+    return {
+        "meta": {
+            "status": "PROVISIONAL_PRE_FUND",
+            "generated_on": generated_on.isoformat(),
+            "target": "FUND do par entra em BEAR (<= -25) no proximo dia util",
+            "lookahead": False,
+            "history_start": min(row["date"] for row in rows).isoformat(),
+            "history_end": max(row["date"] for row in rows).isoformat(),
+            "labelled_rows": len(rows),
+            "all_labelled_rows": len(all_rows),
+            "best_model": best_scheme,
+            "observation_floor": round(observation_floor, 2),
+            "validation": "walk-forward anual; somente pares PIT_CAUSAL ensinam e comprovam",
+            "warning": "A probabilidade e de o FUND entrar em BEAR, nao garantia de queda nem autorizacao de entrada. Serve para observar a ZOI antes da confirmacao.",
+        },
+        "weights": {
+            "current": {group: round(float(weight), 2) for group, weight in zip(GROUPS, final_weights)},
+            "walk_forward_median": {group: round(float(weight), 2) for group, weight in zip(GROUPS, median_weights)},
+        },
+        "best_model": {"model": best_scheme, **best_summary},
+        "comparison": comparison,
+        "observations": observations,
+        "case_audits": audits,
+    }

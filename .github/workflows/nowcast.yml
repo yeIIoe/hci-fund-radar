@@ -1,0 +1,38 @@
+# Nowcast horario dos yields 2y (TradingView) + painel de yields.
+# Espelha a schtask HCI_FUND_Radar_Nowcast_1h da maquina do Eduardo.
+# NOTA: cron do GitHub Actions atrasa 5-30 min no plano gratis — para um
+# dashboard esta otimo; isto NAO e infra de execucao de ordens.
+name: nowcast-1h
+on:
+  schedule:
+    - cron: "7 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: dados
+  cancel-in-progress: false
+
+jobs:
+  nowcast:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: nowcast + painel
+        run: |
+          python tv_yields_nowcast.py
+          python update_yields.py
+      - name: commit
+        run: |
+          git config user.name "hci-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/raw/tv_nowcast.json data/yields.json
+          git commit -m "nowcast $(date -u +%Y-%m-%dT%H:%M)Z" || echo "sem mudanca"
+          git pull --rebase origin main || true
+          git push

@@ -1,0 +1,920 @@
+/* ==========================================================================
+   HCI FUND Radar — camada de identidade e legibilidade (v2, 21/ago/2026)
+   Carregada DEPOIS de styles.css; redefine, nunca remove.
+
+   Três decisões que guiam tudo aqui:
+   1. TIPOGRAFIA — a base era Arial Narrow (condensada), péssima para ler
+      dados. Troca por Inter, desenhada para interface, com JetBrains Mono
+      nos números. Ambas com fallback de sistema para funcionar offline.
+   2. CONTRASTE — texto secundário estava em opacidade tão baixa que sumia.
+      Agora usa cor sólida, nunca opacity, com hierarquia de três níveis.
+   3. RESPIRO — menos elementos disputando atenção; título forte, subtítulo
+      discreto, e espaço suficiente para o olho descansar.
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+:root {
+  --font-ui: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Consolas, monospace;
+
+  --bg: #090c13;
+  --surface: #10141d;
+  --surface-2: #161b26;
+  --line: rgba(148, 163, 184, .14);
+  --line-soft: rgba(148, 163, 184, .07);
+
+  /* três níveis de texto, todos legíveis */
+  --text: #eef2f8;
+  --text-2: #aab6c8;
+  --text-3: #7c8899;
+
+  --accent: #5eead4;
+  --accent-soft: rgba(94, 234, 212, .1);
+  --positive: #52d98a;
+  --negative: #f87a7a;
+  --warn: #f0b429;
+}
+
+html { font-size: 16px; }
+
+body {
+  font-family: var(--font-ui);
+  font-size: .9375rem;
+  line-height: 1.6;
+  letter-spacing: -0.006em;
+  color: var(--text);
+  background:
+    radial-gradient(1200px 560px at 10% -10%, rgba(94, 234, 212, .045), transparent 62%),
+    var(--bg);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.mono, .data-table .mono, code, pre { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+.muted, small { color: var(--text-3); }
+
+main { max-width: 1400px; margin: 0 auto; padding: 0 32px 56px; }
+
+/* ------------------------------ cabeçalho ------------------------------- */
+.site-header {
+  position: sticky; top: 0; z-index: 40;
+  height: 62px; padding: 0 32px;
+  display: flex; align-items: center; gap: 28px;
+  background: rgba(9, 12, 19, .86);
+  backdrop-filter: blur(16px) saturate(140%);
+  border-bottom: 1px solid var(--line);
+}
+.identity { display: flex; align-items: center; gap: 9px; text-decoration: none; }
+.identity span {
+  background: var(--accent); color: #052a25;
+  font-size: .64rem; font-weight: 700; letter-spacing: .09em;
+  padding: 4px 7px; border-radius: 5px;
+}
+.identity strong { font-size: .95rem; font-weight: 600; letter-spacing: .14em; color: var(--text); }
+
+.tabs { gap: 2px; margin: 0 auto; }
+.tabs .tab {
+  font-family: var(--font-ui); font-size: .84rem; font-weight: 500;
+  color: var(--text-3); border: 0; border-radius: 8px; padding: 8px 15px;
+}
+.tabs .tab:hover { background: rgba(148, 163, 184, .07); color: var(--text); }
+.tabs .tab.is-active { background: var(--accent-soft); color: var(--accent); font-weight: 600; }
+
+.header-update { display: flex; align-items: center; gap: 12px; font-size: .78rem; color: var(--text-3); }
+#updateButton, #timeCutToggle, .timecut input {
+  font-family: var(--font-ui); font-size: .78rem; font-weight: 500;
+  border: 1px solid var(--line); background: var(--surface-2);
+  color: var(--text-2); border-radius: 8px; padding: 7px 14px; cursor: pointer;
+}
+#updateButton:hover, #timeCutToggle:hover { border-color: rgba(94, 234, 212, .38); color: var(--accent); }
+
+/* ------------------------------- títulos -------------------------------- */
+/* fortes o bastante para guiar, discretos o bastante para não gritar */
+.section-title { margin-bottom: 18px; display: block; }
+.section-title > div { display: flex; align-items: baseline; gap: 12px; }
+.section-title h2 {
+  margin: 0 0 4px; font-size: 1.05rem; font-weight: 600;
+  letter-spacing: -.015em; color: var(--text);
+}
+.section-title p { margin: 0; font-size: .84rem; line-height: 1.55; color: var(--text-3); max-width: 68ch; }
+.section-index { font-size: .64rem; font-weight: 600; letter-spacing: .12em; color: var(--text-3); }
+.detail-label { font-size: .68rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--text-3); }
+
+.system-line { margin: 24px 0 22px; padding: 0; border: 0; background: none; font-size: .84rem; color: var(--text-3); }
+.content-section, .calendar-section, .observations-section { margin-bottom: 46px; }
+
+/* ------------------------------- resumo --------------------------------- */
+.overview {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 1px; margin-bottom: 36px; padding: 0;
+  background: var(--line-soft); border: 1px solid var(--line); border-radius: 16px; overflow: hidden;
+}
+.overview > div { background: var(--surface); padding: 20px 22px; }
+.overview span { display: block; font-size: .68rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--text-3); margin-bottom: 8px; }
+.overview strong { display: block; font-size: 1.8rem; font-weight: 600; letter-spacing: -.03em; line-height: 1.05; }
+.overview small { display: block; margin-top: 6px; font-size: .78rem; color: var(--text-2); }
+
+/* ---------------------------- explicações ------------------------------- */
+.explain {
+  background: rgba(94, 234, 212, .04);
+  border: 1px solid rgba(94, 234, 212, .14); border-left: 2px solid var(--accent);
+  border-radius: 0 12px 12px 0; padding: 15px 20px; margin-bottom: 20px;
+  font-size: .875rem; line-height: 1.7; color: var(--text-2);
+}
+.explain strong { color: var(--text); font-weight: 600; }
+.explain em { color: var(--accent); font-style: normal; font-weight: 500; }
+
+/* ------------------------------ tabelas --------------------------------- */
+.data-table { width: 100%; border-collapse: collapse; font-size: .875rem; }
+.data-table thead th {
+  padding: 11px 14px; text-align: left;
+  font-size: .68rem; font-weight: 600; letter-spacing: .09em; text-transform: uppercase;
+  color: var(--text-3); border-bottom: 1px solid var(--line);
+}
+.data-table tbody td { padding: 13px 14px; border-bottom: 1px solid var(--line-soft); color: var(--text-2); }
+.data-table tbody td:first-child, .data-table .pair-code { color: var(--text); font-weight: 600; }
+.data-table tbody tr:hover { background: rgba(148, 163, 184, .04); }
+.table-wrap { border: 1px solid var(--line); border-radius: 16px; overflow: auto; background: var(--surface); }
+
+/* ------------------- cartão do candidato pré-FUND (maior) ---------------- */
+.observation-list { display: grid; gap: 12px; }
+.observation-item {
+  background: var(--surface); border: 1px solid var(--line); border-radius: 16px;
+  overflow: hidden; transition: border-color .18s;
+}
+.observation-item:hover { border-color: rgba(148, 163, 184, .26); }
+.observation-item summary {
+  display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+  padding: 18px 22px; cursor: pointer; list-style: none;
+}
+.observation-item summary::-webkit-details-marker { display: none; }
+.observation-item summary strong { font-size: 1.15rem; font-weight: 600; letter-spacing: -.01em; }
+.observation-item summary .mono { font-size: .875rem; color: var(--text-2); }
+.observation-rank {
+  width: 26px; height: 26px; display: grid; place-items: center; border-radius: 8px;
+  background: var(--surface-2); color: var(--text-3);
+  font-family: var(--font-mono); font-size: .78rem; font-weight: 600;
+}
+.observation-state, .observation-item .warning {
+  font-size: .68rem; font-weight: 600; letter-spacing: .07em;
+  padding: 4px 10px; border-radius: 999px;
+}
+.observation-item .warning { background: rgba(240, 180, 41, .15); color: var(--warn); }
+.observation-state.is-pre-fund { margin-left: auto; background: var(--accent-soft); color: var(--accent); }
+.observation-detail { padding: 0 22px 20px; border-top: 1px solid var(--line-soft); }
+.observation-metrics {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 14px 26px; padding: 18px 0;
+}
+.observation-metrics > div, .observation-detail li { display: flex; justify-content: space-between; gap: 14px; font-size: .875rem; }
+.observation-metrics span, .observation-detail li span:first-child { color: var(--text-3); }
+.observation-metrics strong { font-family: var(--font-mono); font-size: .95rem; color: var(--text); }
+.observation-summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1px; background: var(--line-soft); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; margin-bottom: 18px; }
+.observation-summary > div { background: var(--surface); padding: 16px 18px; }
+.observation-summary span { display: block; font-size: .66rem; font-weight: 600; letter-spacing: .09em; text-transform: uppercase; color: var(--text-3); margin-bottom: 6px; }
+.observation-summary strong { display: block; font-family: var(--font-mono); font-size: 1.35rem; font-weight: 600; letter-spacing: -.02em; }
+.observation-summary small { display: block; margin-top: 4px; font-size: .74rem; color: var(--text-3); }
+.observation-verdict { display: block; padding: 14px 18px; border-radius: 12px; margin-bottom: 18px; background: var(--accent-soft); border: 1px solid rgba(94, 234, 212, .16); }
+.observation-verdict strong { display: block; font-size: .72rem; font-weight: 700; letter-spacing: .1em; color: var(--accent); margin-bottom: 5px; }
+.observation-verdict span { font-size: .875rem; color: var(--text-2); line-height: 1.6; }
+
+/* --------------------------- cartões de setup ---------------------------- */
+.setup-list { grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 16px; }
+.setup-card { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 20px 22px; }
+.setup-card header strong { font-size: 1.1rem; }
+.setup-lead { font-size: .68rem; font-weight: 600; letter-spacing: .1em; color: var(--text-3); }
+.setup-check li { font-size: .875rem; }
+.setup-check li.done strong { color: var(--text); font-weight: 500; }
+.setup-check li.pending strong, .setup-check li.unknown strong { color: var(--text-3); font-weight: 500; }
+.setup-check small { font-size: .8rem; color: var(--text-3); }
+.setup-note { font-size: .8rem; color: var(--text-3); }
+
+/* ------------------------------- rodapé ---------------------------------- */
+.site-footer {
+  max-width: 1400px; margin: 64px auto 0; padding: 32px 32px 44px;
+  display: grid; grid-template-columns: 1fr auto; gap: 48px; align-items: start;
+  border-top: 1px solid var(--line); background: none;
+}
+.site-footer strong { display: block; font-size: .95rem; font-weight: 600; margin-bottom: 8px; }
+.site-footer p { margin: 0; font-size: .84rem; line-height: 1.65; color: var(--text-3); max-width: 58ch; }
+.footer-contact { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; text-align: right; }
+.footer-contact a { color: var(--accent); font-size: .875rem; text-decoration: none; }
+.footer-contact small { font-size: .76rem; color: var(--text-3); max-width: 32ch; line-height: 1.55; }
+
+/* -------------------------- notas de método ------------------------------ */
+.method-note, .verdict-block, .audit-block {
+  font-size: .8rem; line-height: 1.65; color: var(--text-3);
+  padding: 14px 0 0; margin-top: 18px; border-top: 1px solid var(--line-soft);
+}
+.verdict-block strong { color: var(--text-2); }
+
+.positive { color: var(--positive); } .negative { color: var(--negative); }
+.timecut-banner { border-radius: 12px; font-size: .86rem; }
+
+@media (max-width: 900px) {
+  html { font-size: 15px; }
+  main { padding: 0 18px 40px; }
+  .site-header { height: auto; flex-wrap: wrap; padding: 12px 18px; }
+  .tabs { order: 3; width: 100%; overflow-x: auto; }
+  .site-footer { grid-template-columns: 1fr; padding: 28px 18px 36px; }
+  .footer-contact { align-items: flex-start; text-align: left; }
+}
+
+/* ==========================================================================
+   Classes órfãs — marcação existia no HTML/JS, regra CSS nunca existiu.
+   O caso mais visível: o HTML usa .currency-grid, o styles.css só define
+   .currency-strip, então as 8 moedas nunca formaram grid e caíam empilhadas.
+   ========================================================================== */
+
+/* força das moedas — as oito lado a lado */
+.currency-grid {
+  display: grid; grid-template-columns: repeat(8, 1fr);
+  gap: 1px; background: var(--line-soft);
+  border: 1px solid var(--line); border-radius: 16px; overflow: hidden;
+}
+.currency-grid .currency-item {
+  min-height: 0; padding: 15px 16px 13px; border: 0; background: var(--surface);
+  display: flex; flex-direction: column; gap: 0;
+}
+.currency-grid .currency-item.is-blocked { opacity: 1; background: var(--surface-2); }
+.currency-grid .currency-item.is-blocked .value { color: var(--text-3); }
+.currency-grid .currency-item header { align-items: center; gap: 8px; font-size: .7rem; color: var(--text-3); }
+.currency-grid .currency-item header strong {
+  display: flex; align-items: center; gap: 7px;
+  font-size: .875rem; font-weight: 600; letter-spacing: .01em; color: var(--text);
+}
+.currency-grid .currency-item header img { border-radius: 3px; }
+.currency-grid .currency-item .value {
+  margin-top: 14px; font: 600 1.55rem/1 var(--font-mono);
+  letter-spacing: -.03em; font-variant-numeric: tabular-nums;
+}
+.currency-grid .currency-item footer {
+  margin-top: auto; padding-top: 12px; align-items: baseline; gap: 8px;
+  font-size: .66rem; letter-spacing: .07em; color: var(--text-3);
+}
+
+/* cartão da watchlist reconstruída pelo corte de tempo */
+.observation-card {
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: 14px; padding: 16px 18px; margin-bottom: 10px;
+}
+.obs-head { display: flex; align-items: center; gap: 11px; }
+.obs-head .mono {
+  width: 24px; height: 24px; display: grid; place-items: center; border-radius: 7px;
+  background: var(--surface-2); color: var(--text-3); font-size: .74rem; font-weight: 600;
+}
+.obs-head strong { font-size: 1.05rem; font-weight: 600; }
+.obs-head .prefund-outcome {
+  margin-left: auto; font-style: normal; font-size: .68rem; letter-spacing: .07em;
+  color: var(--text-3); background: var(--surface-2); padding: 4px 10px; border-radius: 999px;
+}
+.obs-body {
+  display: flex; flex-wrap: wrap; gap: 8px 22px; margin-top: 12px;
+  font-family: var(--font-mono); font-size: .84rem; color: var(--text-2);
+}
+
+/* extremos do dia no calendário */
+.calendar-detail-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+  padding: 14px 0; margin-bottom: 6px; border-bottom: 1px solid var(--line-soft);
+}
+.calendar-detail-grid span { display: block; font-size: .66rem; font-weight: 600; letter-spacing: .09em; text-transform: uppercase; color: var(--text-3); margin-bottom: 5px; }
+.calendar-detail-grid strong { font-family: var(--font-mono); font-size: 1rem; font-weight: 600; }
+
+/* controles de busca e filtro */
+.pair-controls, .news-controls { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 16px; }
+.pair-controls input, .pair-controls select, .news-controls select {
+  font-family: var(--font-ui); font-size: .84rem; color: var(--text);
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: 9px; padding: 9px 13px; min-width: 168px;
+}
+.pair-controls input { flex: 1 1 260px; }
+.pair-controls input::placeholder { color: var(--text-3); }
+.pair-controls input:focus, .pair-controls select:focus,
+.news-controls select:focus { outline: none; border-color: rgba(94, 234, 212, .45); }
+
+/* sempre 8 moedas: colunas fixas, quebrando so quando a tela nao cabe */
+@media (max-width: 1180px) { .currency-grid { grid-template-columns: repeat(4, 1fr); } }
+@media (max-width: 620px)  { .currency-grid { grid-template-columns: repeat(2, 1fr); } }
+
+/* ==========================================================================
+   MATRIZ — "arrume a grade"
+   Problemas na original: td com padding 2px abria uma canaleta de fundo entre
+   celulas coloridas (o aspecto esfarrapado), borda em toda celula somada a essa
+   canaleta dobrava o ruido, e a tipografia era 9px no cabecalho / 12px na celula.
+   Aqui o botao preenche a celula inteira, sobra UMA hairline por celula, e a
+   tabela ganha moldura arredondada como o resto do tema.
+   ========================================================================== */
+.matrix-frame {
+  border: 1px solid var(--line); border-radius: 16px;
+  background: var(--surface); overflow: hidden auto;
+}
+.matrix-frame { overflow-x: auto; }
+.matrix-table { min-width: 880px; border-spacing: 0; }
+
+/* cabecalho de colunas */
+.matrix-table thead th {
+  height: 40px; padding: 0 4px;
+  font-family: var(--font-ui); font-size: .72rem; font-weight: 600;
+  letter-spacing: .08em; color: var(--text-3);
+  border-bottom: 1px solid var(--line); background: var(--surface);
+}
+.matrix-table thead th:first-child {
+  width: 74px; text-align: left; padding-left: 18px;
+  font-size: .62rem; letter-spacing: .11em; color: var(--text-3);
+}
+
+/* rotulo de linha */
+.matrix-table tbody th {
+  width: 74px; padding-left: 18px; text-align: left;
+  font-family: var(--font-ui); font-size: .8rem; font-weight: 600;
+  color: var(--text); background: var(--surface);
+  border-right: 1px solid var(--line); border-bottom: 1px solid var(--line-soft);
+}
+.matrix-table tbody tr:last-child th { border-bottom: 0; }
+
+/* a celula: sem padding, sem borda propria — o botao ocupa tudo */
+.matrix-table td {
+  height: 52px; padding: 0; border: 0;
+  border-right: 1px solid rgba(9, 12, 19, .55);
+  border-bottom: 1px solid rgba(9, 12, 19, .55);
+}
+.matrix-table td:last-child { border-right: 0; }
+.matrix-table tbody tr:last-child td { border-bottom: 0; }
+
+.matrix-cell {
+  width: 100%; height: 100%; display: block; border: 0; cursor: pointer;
+  font: 600 .875rem/1 var(--font-mono); font-variant-numeric: tabular-nums;
+  transition: filter .12s;
+}
+.matrix-cell:hover { filter: brightness(1.35); outline: 1px solid var(--text); outline-offset: -1px; }
+.matrix-empty { color: var(--text-3); text-align: center; background: var(--surface-2); font-family: var(--font-mono); }
+
+/* legenda legivel */
+.legend { gap: 18px; margin-top: 14px; font-size: .74rem; color: var(--text-3); }
+.legend .scale { width: 22px; height: 8px; border-radius: 2px; }
+
+/* ==========================================================================
+   CALENDAR — mesma escala do resto. A original ia de 7px a 11px.
+   ========================================================================== */
+.calendar-board { border: 1px solid var(--line); border-radius: 16px; overflow: hidden; background: var(--surface); }
+.weekday-row {
+  background: var(--surface-2); border-bottom: 1px solid var(--line);
+}
+.weekday-row span {
+  padding: 11px 14px; border: 0; color: var(--text-3);
+  font: 600 .68rem var(--font-ui); letter-spacing: .1em; text-transform: uppercase;
+}
+.calendar-blank { min-height: 118px; border-right: 1px solid var(--line-soft); border-bottom: 1px solid var(--line-soft); background: transparent; }
+.calendar-day { min-height: 118px; padding: 11px 12px; border-right: 1px solid var(--line-soft); border-bottom: 1px solid var(--line-soft); }
+.calendar-grid > *:nth-child(7n) { border-right: 0; }
+.calendar-day.coverage-closed { background: rgba(148, 163, 184, .025); }
+.day-head time { font: 600 .85rem var(--font-mono); color: var(--text); }
+.day-head i { font: 500 .6rem var(--font-ui); letter-spacing: .08em; color: var(--text-3); }
+.day-extremes { margin-top: 14px; font: .72rem var(--font-mono); color: var(--text-3); }
+.calendar-day > strong { margin-top: 9px; font: 600 .8rem var(--font-mono); color: var(--text); }
+.calendar-day > small { margin-top: 3px; font-size: .72rem; }
+.day-closed { font-size: .66rem; letter-spacing: .07em; color: var(--text-3); }
+
+.calendar-detail { border-radius: 16px; padding: 20px; }
+.calendar-detail h3 { font-size: 1.4rem; font-weight: 600; letter-spacing: -.02em; }
+.calendar-currency-row {
+  grid-template-columns: 24px 34px 1fr auto; gap: 10px; min-height: 32px; font-size: .78rem;
+}
+.calendar-currency-row strong { font-size: .82rem; font-weight: 600; }
+.calendar-currency-row.is-missing { opacity: 1; color: var(--text-3); }
+.calendar-currency-row.is-missing strong { color: var(--text-3); }
+.calendar-recommendations article { min-height: 54px; gap: 10px; }
+.calendar-recommendations article > span { font-size: .74rem; }
+.calendar-recommendations article strong, .calendar-side { font: 600 .82rem var(--font-mono); }
+.calendar-recommendations article small { margin-top: 4px; font: .7rem/1.45 var(--font-mono); color: var(--text-3); }
+.calendar-warning { font-size: .76rem; padding: 10px 0; }
+.calendar-empty { font-size: .8rem; padding: 18px 0; color: var(--text-3); }
+.prefund-row { font-size: .8rem; }
+.prefund-note { font-size: .74rem; color: var(--text-3); }
+
+/* ==========================================================================
+   NEWS — a original amarrava summary (6 colunas fixas) ao padding-left 256px
+   do detalhe. Dois numeros magicos que precisavam casar. Aqui o detalhe
+   simplesmente nao depende mais das larguras do cabecalho.
+   ========================================================================== */
+.news-list { border-top: 1px solid var(--line); }
+.news-item summary {
+  grid-template-columns: 132px 52px 88px minmax(220px, 1fr) 92px 92px;
+  min-height: 56px; gap: 14px; padding: 4px 14px; border-radius: 10px;
+}
+.news-time, .news-currency, .news-impact, .news-number { font: .78rem var(--font-mono); }
+.news-title { font-size: .9rem; color: var(--text); }
+.news-detail {
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 22px; padding: 18px 20px 20px; border-radius: 0 0 12px 12px;
+}
+.news-detail div { padding-right: 18px; }
+.news-detail span { margin-bottom: 7px; font-size: .66rem; font-weight: 600; letter-spacing: .09em; color: var(--text-3); }
+.news-detail p { font-size: .875rem; line-height: 1.6; color: var(--text-2); }
+.news-pairs { margin-top: 10px; font: .74rem var(--font-mono); color: var(--text-3); }
+@media (max-width: 1100px) { .news-item summary { grid-template-columns: 120px 46px 78px 1fr; } }
+@media (max-width: 700px)  { .news-item summary { grid-template-columns: 104px 44px 1fr; } }
+
+/* estados vazios e etiquetas, em toda parte */
+.empty-state { padding: 22px 0; font-size: .84rem; color: var(--text-3); }
+.tag { font-size: .64rem; font-weight: 600; letter-spacing: .1em; padding: 4px 9px; border-radius: 6px; }
+
+/* ==========================================================================
+   PISO DE LEGIBILIDADE
+   styles.css tem 44 regras com fonte entre 7px e 10px. As que sobreviveram
+   as secoes acima estao sobrescritas aqui, uma a uma, pelo nome.
+   Nada abaixo de ~11px real (0.68rem = 10.9px) sobra em texto de leitura;
+   so etiquetas maiusculas curtas ficam nesse piso.
+   ========================================================================== */
+.header-update span { font-size: .78rem; color: var(--text-3); }
+.section-title > div:first-child > span, .section-index { font: 600 .68rem/1 var(--font-ui); letter-spacing: .11em; }
+
+/* cartao pre-FUND: os 90 spans de 8px vinham daqui */
+.observation-metrics span { font-size: .8rem; }
+.observation-summary span { font-size: .68rem; }
+.observation-summary small { font-size: .74rem; }
+.observation-summary strong { font: 600 1.35rem var(--font-mono); }
+.observation-state { font-size: .68rem; }
+.observation-reasons p { font-size: .84rem; line-height: 1.6; color: var(--text-2); }
+.observation-verdict, .observation-verdict span { font-size: .84rem; }
+
+/* calendario: os ultimos residuos */
+.calendar-status { font-size: .8rem; color: var(--text-3); }
+.calendar-detail > header > span { font-size: .74rem; }
+.calendar-tag, .tag.calendar-tag { font-size: .66rem; }
+.day-head i { font: 500 .66rem var(--font-ui); letter-spacing: .06em; }
+.calendar-day > small { font-size: .74rem; }
+.day-closed { font-size: .7rem; }
+
+/* graficos e rodape */
+.chart-frame > div { font-size: .76rem; }
+.chart-label, text.chart-label { font: .72rem var(--font-mono); fill: var(--text-3); }
+footer, .site-footer { font-size: .84rem; }
+.footer-contact { font-size: .84rem; }
+.supports, p.supports { font-size: .78rem; color: var(--text-3); }
+
+/* setups e ticks */
+.setup-side, .setup-state, .tick { font-size: .72rem; }
+.setup-check .tick { font-size: .8rem; }
+
+/* tabelas densas fora da .data-table (COT, fontes) */
+th { font-size: .68rem; }
+small { font-size: .82em; }
+
+/* ultimos dois focos de 9-10px: o summary do card pre-FUND e o painel do par */
+.observation-item summary { font-size: .84rem; }
+.observation-item summary .observation-rank { font-size: .78rem; }
+.pair-header .direction-block span { font-size: .72rem; letter-spacing: .09em; color: var(--text-3); }
+.pair-header .direction-block strong { font-size: 1.5rem; font-weight: 600; letter-spacing: -.02em; }
+.metric-line > div > span { font-size: .74rem; color: var(--text-3); }
+.metric-line > div > strong { font-size: .95rem; font-family: var(--font-mono); }
+.tag { font-size: .68rem; }
+
+/* ==========================================================================
+   EXPLICACAO POR ABA — um componente unico, fechado por default.
+   Substitui os blocos .explain sempre abertos: a informacao continua ali,
+   mas nao disputa espaco com o dado. Presente nas 7 abas.
+   ========================================================================== */
+.tab-about {
+  margin-bottom: 22px; border: 1px solid var(--line);
+  border-radius: 12px; background: var(--surface); overflow: hidden;
+}
+.tab-about[open] { border-color: rgba(94, 234, 212, .22); }
+.tab-about > summary {
+  display: flex; align-items: center; gap: 10px;
+  padding: 13px 18px; cursor: pointer; list-style: none;
+  font-size: .84rem; font-weight: 500; color: var(--text-2);
+  transition: color .15s;
+}
+.tab-about > summary::-webkit-details-marker { display: none; }
+.tab-about > summary::before {
+  content: "?"; flex: none;
+  width: 17px; height: 17px; display: grid; place-items: center;
+  border-radius: 50%; background: var(--accent-soft); color: var(--accent);
+  font-size: .66rem; font-weight: 700;
+}
+.tab-about > summary::after {
+  content: "+"; margin-left: auto; color: var(--text-3);
+  font-size: 1rem; line-height: 1; font-weight: 400;
+}
+.tab-about[open] > summary::after { content: "–"; }
+.tab-about > summary:hover { color: var(--text); }
+.tab-about[open] > summary { color: var(--text); border-bottom: 1px solid var(--line-soft); }
+.tab-about-body { padding: 16px 18px 18px; }
+.tab-about-body p { margin: 0 0 12px; font-size: .875rem; line-height: 1.7; color: var(--text-2); max-width: 80ch; }
+.tab-about-body p:last-child { margin-bottom: 0; }
+.tab-about-body strong { color: var(--text); font-weight: 600; }
+.tab-about-body em { color: var(--accent); font-style: normal; font-weight: 500; }
+
+/* dentro do fold do pre-FUND, os numeros de auditoria aparecem UMA vez */
+.tab-about-body .observation-summary { margin: 16px 0 14px; }
+.tab-about-body .verdict-block,
+.tab-about-body .method-note { margin-top: 14px; padding-top: 12px; }
+.tab-about-body #nextDayStatus { margin: 0 0 12px; font-size: .8rem; }
+
+/* ==========================================================================
+   CARD PRE-FUND ENXUTO — so o que decide se vale abrir o grafico
+   ========================================================================== */
+.observation-chance {
+  margin-left: auto; display: flex; align-items: baseline; gap: 9px;
+  font: 600 1rem var(--font-mono); color: var(--text); font-variant-numeric: tabular-nums;
+}
+.observation-chance i {
+  font: 500 .72rem var(--font-ui); font-style: normal; letter-spacing: .02em; color: var(--accent);
+}
+.observation-band {
+  display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap;
+  margin: 0 0 14px; padding: 14px 0 0;
+}
+.observation-band strong { font: 600 1.15rem var(--font-mono); letter-spacing: -.02em; }
+.observation-band span { font-size: .84rem; color: var(--text-3); }
+.observation-reasons p {
+  display: flex; gap: 12px; margin: 0 0 8px;
+  font-size: .84rem; line-height: 1.6; color: var(--text-2);
+}
+.observation-reasons p:last-child { margin-bottom: 0; }
+.observation-reasons strong { flex: none; width: 168px; font-weight: 500; color: var(--text-3); }
+.observation-reasons .supports strong { color: var(--accent); }
+
+/* ==========================================================================
+   Defeitos confirmados pela auditoria (agente independente, 21/ago).
+   Cada um verificado no arquivo antes de escrever a regra.
+   ========================================================================== */
+
+/* styles.css:485 apagava TODO subtitulo de secao com opacity .66 — em todas as
+   abas. theme.css so trocava a cor, e a opacity sobrevivia por cima. ~2,4:1. */
+.section-title p { opacity: 1; }
+
+/* a coluna da moeda tinha 42px; o decorateFlags injeta uma bandeira de 18px
+   dentro do <strong>, entao bandeira + codigo nao cabiam e a linha inchava de
+   26px para 45px. Eu tinha piorado para 34px. */
+.calendar-currency-row { grid-template-columns: 24px 72px 1fr auto; }
+.calendar-currency-row strong { display: flex; align-items: center; gap: 6px; white-space: nowrap; }
+.calendar-currency-row img { flex: none; }
+
+/* styles.css:313 pintava de verde o rotulo de TODO dia util com cobertura
+   cheia — o estado normal recebia cor de destaque, e a grade inteira ficava
+   manchada. Destaque fica so para o que foge do normal. */
+.coverage-strict_full .day-head i { color: var(--text-3); }
+.coverage-partial .day-head i { color: var(--warn); }
+
+/* fim de semana: 'MARKET CLOSED' vinha centralizado com `margin: auto 0`, dando
+   ao sabado o mesmo peso visual de um pregao. E a palavra ja aparece no <i> do
+   cabecalho da celula, entao era a mesma informacao duas vezes. */
+.calendar-day.coverage-closed { background: rgba(148, 163, 184, .03); }
+.calendar-day.coverage-closed .day-head time { color: var(--text-3); font-weight: 500; }
+.day-closed { display: none; }
+
+/* hover e selecao usavam o mesmo outline: passando o mouse pela grade voce
+   perdia de vista qual dia esta aberto no painel. */
+.calendar-day:hover { outline: 1px solid rgba(148, 163, 184, .45); outline-offset: -1px; }
+.calendar-day.is-selected {
+  outline: 2px solid var(--accent); outline-offset: -2px;
+  background: linear-gradient(180deg, rgba(94, 234, 212, .07), transparent 60%), var(--surface);
+}
+.calendar-day:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+
+/* corte de tempo: duas regras concorrentes apagavam o mesmo elemento (.12 e .3)
+   enquanto visibility ja escondia o conteudo. So a data precisa continuar legivel. */
+.calendar-grid .is-after-cut, .calendar-day.is-after-cut { opacity: 1; filter: none; }
+.calendar-day.is-after-cut { background: rgba(148, 163, 184, .02); cursor: not-allowed; }
+.calendar-day.is-after-cut .day-head time { color: var(--text-3); }
+
+/* controles do calendario continuavam com a folha antiga (border-radius 0) */
+.calendar-controls button, .calendar-controls input {
+  font-family: var(--font-ui); font-size: .82rem; color: var(--text);
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: 9px; padding: 8px 14px;
+}
+.calendar-controls button:hover:not(:disabled) { border-color: rgba(94, 234, 212, .4); color: var(--accent); }
+.calendar-controls button:disabled { opacity: 1; color: var(--text-3); cursor: not-allowed; background: var(--surface-2); }
+
+/* watchlist pre-FUND no painel lateral: o selo em nowrap comia 183px de 369px
+   e picava o texto em 4 linhas. */
+.calendar-prefund .prefund-row { grid-template-columns: 22px 1fr; row-gap: 4px; }
+.calendar-prefund .prefund-outcome { grid-column: 2; white-space: normal; font-size: .7rem; }
+.calendar-prefund .prefund-row small, .prefund-note { opacity: 1; color: var(--text-3); }
+
+/* ==========================================================================
+   PROJECAO BIDIRECIONAL no painel do calendario.
+   A watchlist antiga so previa BEAR e nao dizia isso em lugar nenhum — o card
+   mostrava "chance 34,74%" sem direcao. Aqui os dois lados sao explicitos.
+   ========================================================================== */
+
+.proj-side { border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: var(--surface); }
+.proj-head {
+  display: block; padding: 9px 13px; font-size: .66rem; font-weight: 600;
+  letter-spacing: .09em; text-transform: uppercase;
+  border-bottom: 1px solid var(--line-soft);
+}
+.is-down .proj-head { color: var(--negative); background: rgba(248, 122, 122, .07); }
+.is-up .proj-head { color: var(--positive); background: rgba(82, 217, 138, .07); }
+
+.proj-row {
+  display: grid; grid-template-columns: 1fr auto; gap: 3px 10px;
+  padding: 11px 13px; border-bottom: 1px solid var(--line-soft);
+}
+.proj-row:last-child { border-bottom: 0; }
+.proj-row strong { font-size: .88rem; font-weight: 600; }
+.proj-p { font: 600 1rem var(--font-mono); text-align: right; font-variant-numeric: tabular-nums; }
+.is-down .proj-p { color: var(--negative); }
+.is-up .proj-p { color: var(--positive); }
+.proj-row small {
+  grid-column: 1 / -1; font-size: .74rem; line-height: 1.5; color: var(--text-3);
+}
+.proj-row small b { color: var(--text-2); font-weight: 600; font-family: var(--font-mono); }
+.proj-outcome {
+  grid-column: 1 / -1; justify-self: start; margin-top: 5px;
+  font-style: normal; font-size: .68rem; padding: 3px 9px; border-radius: 999px;
+  background: var(--surface-2); color: var(--text-3);
+}
+.proj-outcome.hit { background: rgba(82, 217, 138, .13); color: var(--positive); }
+.proj-empty { padding: 12px 13px; margin: 0; font-size: .78rem; color: var(--text-3); }
+
+/* a watchlist antiga agora se identifica */
+.label-note {
+  font-style: normal; font-size: .62rem; font-weight: 500; letter-spacing: .04em;
+  text-transform: none; color: var(--warn); margin-left: 6px;
+}
+
+/* faixa de origem -> destino na projecao, para "cruzar para cima" nao parecer
+   contradicao quando o destino ainda e uma faixa negativa */
+.proj-band {
+  grid-column: 1 / -1; margin-top: 2px;
+  font: 600 .68rem var(--font-mono); letter-spacing: .04em; color: var(--text-2);
+}
+.proj-band i { font-style: normal; color: var(--text-3); margin: 0 4px; }
+
+/* ==========================================================================
+   PROJECAO EM CARDS HORIZONTAIS
+   Saiu da barra lateral estreita para faixa larga: la nao cabiam tres cards
+   lado a lado com a explicacao aberta.
+   ========================================================================== */
+.projection-section { margin-top: 34px; }
+.calendar-projection { display: grid; gap: 18px; }
+.proj-side { border: 1px solid var(--line); border-radius: 16px; overflow: hidden; background: var(--surface); }
+.proj-head {
+  display: block; padding: 11px 16px; font-size: .68rem; font-weight: 600;
+  letter-spacing: .09em; text-transform: uppercase; border-bottom: 1px solid var(--line-soft);
+}
+.is-down .proj-head { color: var(--negative); background: rgba(248, 122, 122, .06); }
+.is-up .proj-head { color: var(--positive); background: rgba(82, 217, 138, .06); }
+
+.proj-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line-soft); }
+.proj-card { background: var(--surface); }
+.proj-card > summary {
+  display: grid; grid-template-columns: 1fr auto; gap: 4px 10px;
+  padding: 15px 17px; cursor: pointer; list-style: none;
+}
+.proj-card > summary::-webkit-details-marker { display: none; }
+.proj-card > summary:hover { background: rgba(148, 163, 184, .04); }
+.proj-pair { font-size: 1.02rem; font-weight: 600; letter-spacing: -.01em; }
+.proj-p { font: 600 1.25rem var(--font-mono); text-align: right; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
+.is-down .proj-p { color: var(--negative); }
+.is-up .proj-p { color: var(--positive); }
+.proj-band { grid-column: 1 / -1; font: 600 .68rem var(--font-mono); letter-spacing: .04em; color: var(--text-2); }
+.proj-band i { font-style: normal; color: var(--text-3); margin: 0 5px; }
+.proj-more {
+  grid-column: 1 / -1; margin-top: 7px; font-size: .7rem; color: var(--text-3);
+  display: flex; align-items: center; gap: 5px;
+}
+.proj-more::before { content: "+"; font-size: .95rem; line-height: 1; color: var(--accent); }
+.proj-card[open] .proj-more::before { content: "–"; }
+.proj-card[open] .proj-more { color: var(--accent); }
+
+.proj-body { padding: 0 17px 16px; border-top: 1px solid var(--line-soft); }
+.proj-body p { margin: 13px 0 0; font-size: .8rem; line-height: 1.6; color: var(--text-2); }
+.proj-body p span:first-child {
+  display: block; font-size: .62rem; font-weight: 600; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--text-3); margin-bottom: 4px;
+}
+.proj-body b { color: var(--text); font-weight: 600; font-family: var(--font-mono); }
+.proj-body a { color: var(--accent); text-decoration: none; }
+.proj-body a:hover { text-decoration: underline; }
+.proj-outcome {
+  display: inline-block; margin-top: 13px; font-style: normal; font-size: .68rem;
+  padding: 4px 10px; border-radius: 999px; background: var(--surface-2); color: var(--text-3);
+}
+.proj-outcome.hit { background: rgba(82, 217, 138, .13); color: var(--positive); }
+.proj-empty { padding: 16px 17px; margin: 0; font-size: .8rem; color: var(--text-3); }
+
+@media (max-width: 900px) { .proj-cards { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 620px) { .proj-cards { grid-template-columns: 1fr; } }
+
+/* a projecao vive na coluna da esquerda, colada abaixo da grade — antes ficava
+   depois de TODO o layout e abria um vao morto do tamanho da barra lateral */
+.calendar-col { display: flex; flex-direction: column; gap: 26px; min-width: 0; }
+.projection-section { margin-top: 0; }
+.projection-section .section-title { margin-bottom: 14px; }
+.projection-section .section-title p { text-align: left; }
+
+/* aviso de que a projecao mostrada e de um dia anterior ao selecionado */
+.proj-stale {
+  margin: 0 0 4px; padding: 11px 15px; border-radius: 10px;
+  background: rgba(240, 180, 41, .07); border: 1px solid rgba(240, 180, 41, .2);
+  font-size: .78rem; line-height: 1.55; color: var(--text-2);
+}
+.proj-stale b { color: var(--warn); font-family: var(--font-mono); }
+
+/* ==========================================================================
+   ETIQUETA DE LADO — vermelho vende a base, verde compra.
+   Vale tambem para o WATCH da watchlist antiga, que e sempre venda: o modelo
+   dela so preve BEAR, entao a etiqueta ambar escondia essa direcao unica.
+   ========================================================================== */
+.side-tag {
+  font: 600 .68rem var(--font-mono); letter-spacing: .05em;
+  padding: 4px 10px; border-radius: 6px; white-space: nowrap;
+}
+.side-tag.is-sell { background: rgba(248, 122, 122, .14); color: var(--negative); }
+.side-tag.is-buy  { background: rgba(82, 217, 138, .14); color: var(--positive); }
+.observation-item .warning {           /* WATCH da watchlist bear-only */
+  background: rgba(248, 122, 122, .14); color: var(--negative);
+}
+
+
+
+/* ==========================================================================
+   LEGIBILIDADE DA LINHA DE PROJECAO
+   O problema da versao anterior nao era tamanho: era ritmo. O texto alternava
+   sans e mono a cada duas palavras (AUD, USD, 1.5 bp), e cada troca quebrava a
+   leitura. Aqui os valores viram FICHAS com fundo proprio — o olho reconhece
+   "isto e um dado" sem precisar decifrar a mudanca de fonte.
+   ========================================================================== */
+.observation-item.nextmove { margin-bottom: 0; border-radius: 0; border-width: 0 0 1px; }
+.proj-side .observation-item.nextmove:last-child { border-bottom: 0; }
+.observation-item.nextmove summary { gap: 13px; padding: 16px 20px; }
+.observation-item.nextmove summary strong { font-size: 1.05rem; letter-spacing: -.01em; }
+.observation-item.nextmove .ccy-pair { margin-right: 8px; }
+
+.observation-item.nextmove .observation-chance {
+  flex-direction: column; align-items: flex-end; gap: 3px;
+  font: 600 1.2rem var(--font-mono); letter-spacing: -.02em;
+}
+.observation-item.nextmove .observation-chance i {
+  font: 600 .66rem var(--font-ui); font-style: normal;
+  letter-spacing: .08em; color: var(--text-3);
+}
+
+/* faixa de contexto: o que a rolagem ja decidiu */
+.observation-item.nextmove .observation-band {
+  align-items: baseline; gap: 10px; margin: 0 0 4px;
+  padding: 14px 20px; background: rgba(148, 163, 184, .04);
+  border-bottom: 1px solid var(--line-soft);
+}
+.observation-item.nextmove .observation-band strong { font-size: 1.05rem; }
+.observation-item.nextmove .observation-band span {
+  font-size: .875rem; line-height: 1.55; color: var(--text-2); max-width: 62ch;
+}
+.observation-item.nextmove .observation-band b {
+  font-family: var(--font-mono); font-weight: 600; color: var(--text);
+}
+
+/* as tres explicacoes: rotulo a esquerda, texto legivel a direita */
+.observation-item.nextmove .observation-reasons { padding: 4px 20px 6px; }
+.observation-item.nextmove .observation-reasons p {
+  align-items: baseline; gap: 20px; margin: 0;
+  padding: 12px 0; border-bottom: 1px solid var(--line-soft);
+  font-size: .875rem; line-height: 1.65; color: var(--text-2);
+}
+.observation-item.nextmove .observation-reasons p:last-child { border-bottom: 0; }
+.observation-item.nextmove .observation-reasons strong {
+  flex: none; width: 172px; font-size: .74rem; font-weight: 500;
+  letter-spacing: .01em; color: var(--text-3);
+}
+
+/* FICHAS: todo valor inline ganha fundo, para nao competir com o texto */
+.observation-item.nextmove .observation-reasons b {
+  display: inline-block; padding: 1px 7px; margin: 0 1px; border-radius: 5px;
+  background: var(--surface-2); border: 1px solid var(--line-soft);
+  font: 600 .82rem var(--font-mono); color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+.observation-item.nextmove .observation-reasons a {
+  color: var(--accent); text-decoration: none; font-size: .84rem;
+}
+.observation-item.nextmove .observation-reasons a:hover { text-decoration: underline; }
+
+.observation-item.nextmove .proj-outcome { margin: 4px 20px 16px; }
+.proj-side .proj-empty { padding: 18px 20px; }
+
+/* ==========================================================================
+   PAINEL DO DIA ACOMPANHA A ROLAGEM
+   O styles.css ja pedia position:sticky, mas nao funcionava: o painel e mais
+   alto que a janela, e um sticky mais alto que a viewport nunca chega a colar.
+   A correcao e dar um TETO de altura e rolagem propria — assim ele gruda logo
+   abaixo do cabecalho e o conteudo interno rola dentro dele, sem cobrir nada.
+   ========================================================================== */
+.calendar-detail {
+  position: sticky;
+  top: 78px;                                   /* 62px do cabecalho + respiro */
+  max-height: calc(100vh - 94px);
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;                /* nao empurra a pagina no fim */
+}
+.calendar-detail::-webkit-scrollbar { width: 9px; }
+.calendar-detail::-webkit-scrollbar-track { background: transparent; }
+.calendar-detail::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, .2); border-radius: 999px;
+  border: 2px solid var(--surface);
+}
+.calendar-detail::-webkit-scrollbar-thumb:hover { background: rgba(148, 163, 184, .35); }
+
+/* o cabecalho do painel fica fixo enquanto o conteudo interno rola */
+.calendar-detail > header {
+  position: sticky; top: 0; z-index: 2;
+  margin: -20px -20px 0; padding: 18px 20px 14px;
+  background: var(--surface); border-bottom: 1px solid var(--line);
+}
+
+/* em tela estreita o painel volta a ser um bloco normal */
+@media (max-width: 900px) {
+  .calendar-detail { position: static; max-height: none; overflow: visible; }
+  .calendar-detail > header { position: static; margin: 0; padding: 0 0 14px; }
+}
+
+/* A animacao de troca de aba usava transform: translateY(3px). Um ancestral
+   TRANSFORMADO vira bloco de contencao e o position:sticky do painel do dia
+   passa a colar nele em vez de na janela — era por isso que o sticky do
+   styles.css:318 nunca funcionou. Um deslize de 3px nao vale isso: anima so
+   a opacidade, e o efeito visual e praticamente o mesmo. */
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.tab-panel.is-active { animation: fadeIn .18s ease-out; }
+
+/* ============================== ABA YIELDS ============================== */
+.yield-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 14px; }
+.yield-card {
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: 16px; padding: 18px 20px 6px;
+}
+.yield-card.is-aging { border-color: rgba(240, 180, 41, .22); }
+.yield-card.is-stale { border-color: rgba(248, 122, 122, .28); }
+.yield-card > header { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+.yield-card > header strong { font-size: 1.02rem; font-weight: 600; letter-spacing: .02em; }
+.yield-stale { font-size: .66rem; letter-spacing: .04em; color: var(--text-3); }
+.is-aging .yield-stale { color: var(--warn); }
+.is-stale .yield-stale { color: var(--negative); }
+
+.yield-value { margin-top: 12px; font: 600 2rem/1 var(--font-mono); letter-spacing: -.035em; }
+.yield-value i { font-style: normal; font-size: .95rem; color: var(--text-3); margin-left: 3px; }
+.yield-spark { display: block; width: 100%; height: 34px; margin: 12px 0 4px; }
+.yield-spark polyline { fill: none; stroke: var(--accent); stroke-width: 1.2; vector-effect: non-scaling-stroke; }
+
+.yield-changes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; padding: 12px 0; }
+.yield-changes span { display: block; font-size: .62rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--text-3); margin-bottom: 3px; }
+.yield-changes strong { font-size: .84rem; font-weight: 600; }
+
+.yield-why { border-top: 1px solid var(--line-soft); }
+.yield-why > summary {
+  display: flex; align-items: center; gap: 7px; padding: 11px 0; cursor: pointer;
+  list-style: none; font-size: .74rem; color: var(--text-3);
+}
+.yield-why > summary::-webkit-details-marker { display: none; }
+.yield-why > summary::before { content: "+"; color: var(--accent); font-size: .95rem; line-height: 1; }
+.yield-why[open] > summary::before { content: "\2013"; }
+.yield-why > summary:hover { color: var(--text); }
+.yield-why-body { padding-bottom: 14px; }
+.yield-why-body p { margin: 0 0 11px; font-size: .8rem; line-height: 1.6; color: var(--text-2); }
+.yield-why-body p:last-child { margin-bottom: 0; }
+.yield-why-body span:first-child {
+  display: block; font-size: .61rem; font-weight: 600; letter-spacing: .09em;
+  text-transform: uppercase; color: var(--text-3); margin-bottom: 3px;
+}
+.yield-why-body b { font-family: var(--font-mono); color: var(--text); }
+.yield-why-body a { color: var(--accent); text-decoration: none; }
+.yield-why-body a:hover { text-decoration: underline; }
+
+/* ==========================================================================
+   Tres queixas de tela do Eduardo (22/ago)
+   ========================================================================== */
+
+/* 1. O cabecalho sticky DENTRO do painel estava cobrindo a primeira linha.
+   A margem negativa somada ao padding do painel empurrava o conteudo para
+   debaixo dele. O painel ja rola sozinho; um sticky dentro de outro sticky nao
+   acrescenta nada e so cria sobreposicao. */
+.calendar-detail > header {
+  position: static; margin: 0; padding: 0 0 15px;
+  background: none; border-bottom: 1px solid var(--line);
+}
+
+/* 2. Navegacao de mes colada: os botoes encostavam no seletor e no texto. */
+.calendar-controls {
+  display: flex; align-items: center; flex-wrap: wrap;
+  gap: 10px; margin-bottom: 8px;
+}
+.calendar-controls button { min-width: 96px; }
+.calendar-controls input { width: auto; min-width: 168px; }
+#calendarStatus {
+  flex-basis: 100%; margin: 4px 0 18px;      /* desce para a propria linha */
+  font-size: .8rem; color: var(--text-3);
+}
+
+/* 3. Aviso do corte dentro do detalhe do par */
+.cut-inline {
+  margin: 0 0 16px; padding: 12px 16px; border-radius: 10px;
+  background: rgba(240, 180, 41, .07); border: 1px solid rgba(240, 180, 41, .2);
+  font-size: .82rem; line-height: 1.6; color: var(--text-2);
+}
+.cut-inline b { color: var(--warn); font-family: var(--font-mono); }

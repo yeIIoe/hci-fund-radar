@@ -1,0 +1,44 @@
+# Cadeia PESADA 2x/dia: busca yields oficiais, recalcula FUND, calendarios,
+# projecao e COT, e commita os dados. Espelha a schtask HCI_FUND_Radar_Update.
+# update_setups NAO roda na nuvem (fase 2): depende de modulos do hci-ea local.
+name: cadeia-2x-dia
+on:
+  schedule:
+    - cron: "35 7 * * *"     # ~04:35 BRT
+    - cron: "35 11 * * *"    # ~08:35 BRT
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: dados
+  cancel-in-progress: false
+
+jobs:
+  cadeia:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: dependencias
+        run: pip install --quiet numpy pandas
+      - name: cadeia
+        run: |
+          python tv_yields_nowcast.py || echo "nowcast falhou, segue oficial"
+          python update_yields.py
+          python update_yields.py --calendario
+          python update_fund.py
+          python projection_history.py
+          python update_cot.py || echo "COT falhou, segue"
+      - name: commit
+        run: |
+          git config user.name "hci-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add -A data
+          git commit -m "cadeia $(date -u +%Y-%m-%dT%H:%M)Z" || echo "sem mudanca"
+          git pull --rebase origin main || true
+          git push

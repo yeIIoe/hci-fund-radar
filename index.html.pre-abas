@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>HCI FUND</title>
+  <link rel="stylesheet" href="styles.css?v=20260820-prefund2-hist">
+</head>
+<body>
+  <header class="site-header">
+    <a class="identity" href="#top" aria-label="HCI FUND início"><span>HCI</span><strong>FUND</strong></a>
+    <nav aria-label="Navegação principal">
+      <a href="#market">Mercado</a><a href="#observations">Observações</a><a href="#calendar">Calendário</a><a href="#pairs">Pares</a>
+      <a href="#backtest">Backtest</a><a href="#news">Notícias</a><a href="#sources">Fontes</a>
+    </nav>
+    <div class="header-update"><span id="updatedAt">Carregando</span><button id="updateButton" type="button">Atualizar</button></div>
+  </header>
+
+  <main id="top">
+    <section id="systemMessage" class="system-line" aria-live="polite">FUND define direção. BO, REGIÃO, ZOI e execução permanecem manuais.</section>
+
+    <section class="overview" aria-label="Resumo do mercado">
+      <div><span>Mais forte</span><strong id="strongestCurrency">—</strong><small id="strongestValue">—</small></div>
+      <div><span>Mais fraca</span><strong id="weakestCurrency">—</strong><small id="weakestValue">—</small></div>
+      <div><span>Pares direcionais</span><strong id="alignedPairs">—</strong><small>FUND fora do neutro</small></div>
+      <div><span>Cobertura atual</span><strong id="operationalPairs">—</strong><small id="qualityNote">—</small></div>
+    </section>
+
+    <section id="market" class="content-section">
+      <div class="section-title">
+        <div><span>01</span><h1>Principais para negociar</h1></div>
+        <p>Somente FUND atual, lado definido e backtest causal com pelo menos 10 operações.</p>
+      </div>
+      <div class="table-frame">
+        <table class="data-table priority-table">
+          <thead><tr><th>Rank</th><th>Par</th><th>Lado</th><th>FUND</th><th>PF histórico</th><th>Operações</th><th>WR</th><th>Retorno</th><th>DD</th><th>Leitura</th></tr></thead>
+          <tbody id="priorityTableBody"></tbody>
+        </table>
+      </div>
+      <p class="method-note">Ordenação por PF do motor FUND direcional; não inclui o edge de entrada BO/ZOI.</p>
+    </section>
+
+    <section id="observations" class="content-section observations-section">
+      <div class="section-title">
+        <div><span>02</span><h2>Radar pré-FUND para amanhã</h2></div>
+        <p>Usa somente o que existe hoje para antecipar pares que podem entrar em FUND BEAR amanhã e merecem observação antecipada da ZOI.</p>
+      </div>
+      <div id="nextDayStatus" class="observation-verdict" aria-live="polite"></div>
+      <div id="nextDaySummary" class="observation-summary"></div>
+      <div class="observation-grid">
+        <div>
+          <span class="detail-label">Começar observação hoje</span>
+          <div id="nextDayList" class="observation-list"></div>
+        </div>
+        <div>
+          <span class="detail-label">Efeito dos pesos no pré-FUND</span>
+          <div class="table-frame"><table class="data-table weight-table">
+            <thead><tr><th>Modelo</th><th>Pesos N/T/P</th><th>Virou BEAR #1</th><th>Virou BEAR top 5</th><th>Eventos capturados</th><th>Preço caiu D+1</th><th>Retorno D+1</th></tr></thead>
+            <tbody id="weightTableBody"></tbody>
+          </table></div>
+          <p class="weight-legend">N = nível/proximidade de −25 · T = trajetória do FUND · P = preço recente.</p>
+        </div>
+      </div>
+      <div id="preFundAudit" class="case-audit"></div>
+      <div id="priceNextDayVerdict" class="price-next-day-verdict"></div>
+      <p id="nextDayMethod" class="method-note"></p>
+    </section>
+
+    <section id="calendar" class="content-section calendar-section">
+      <div class="section-title controls-title">
+        <div><span>03</span><h2>Calendário FUND diário</h2></div>
+        <div class="calendar-controls">
+          <button id="calendarPrev" type="button" aria-label="Mês anterior">Anterior</button>
+          <label><span class="sr-only">Mês do calendário</span><input id="calendarMonth" type="month" min="2002-01"></label>
+          <button id="calendarNext" type="button" aria-label="Próximo mês">Próximo</button>
+        </div>
+      </div>
+      <div id="calendarStatus" class="calendar-status">Carregando histórico causal desde 2002.</div>
+      <div class="calendar-layout">
+        <div class="month-frame">
+          <div class="weekday-row"><span>SEG</span><span>TER</span><span>QUA</span><span>QUI</span><span>SEX</span><span>SÁB</span><span>DOM</span></div>
+          <div id="calendarGrid" class="calendar-grid" aria-label="Calendário diário FUND"></div>
+        </div>
+        <aside id="calendarDetail" class="calendar-detail" aria-live="polite">
+          <header><div><span id="calendarCoverage" class="tag">COBERTURA</span><h3 id="calendarDate">—</h3></div><span id="calendarPairCount" class="mono muted">—</span></header>
+          <div class="calendar-extremes">
+            <div><span>Mais forte</span><strong id="calendarStrongest">—</strong></div>
+            <div><span>Mais fraca</span><strong id="calendarWeakest">—</strong></div>
+          </div>
+          <div><span class="detail-label">Ranking das moedas</span><div id="calendarCurrencies" class="calendar-currencies"></div></div>
+          <div><span class="detail-label">Principais para negociar</span><div id="calendarRecommendations" class="calendar-recommendations"></div></div>
+          <div><span class="detail-label">Observações pré-FUND do dia</span><div id="calendarPreFund" class="calendar-prefund"></div></div>
+        </aside>
+      </div>
+      <p class="method-note">Seleção causal: apenas FUND do próprio dia, sem PF calculado com o futuro. PARCIAL significa que uma ou mais moedas ainda não possuíam série oficial 2Y utilizável.</p>
+    </section>
+
+    <section class="content-section">
+      <div class="section-title"><div><span>04</span><h2>Força das moedas</h2></div><p>Média assinada do FUND contra os cruzamentos com dados válidos.</p></div>
+      <div id="currencyGrid" class="currency-strip"></div>
+    </section>
+
+    <section class="content-section">
+      <div class="section-title"><div><span>05</span><h2>Matriz completa</h2></div><p>A célula mede a moeda da linha contra a moeda da coluna. Clique para abrir o par.</p></div>
+      <div class="matrix-frame"><table id="strengthMatrix" class="matrix-table" aria-label="Matriz FUND das moedas"></table></div>
+      <div class="legend">
+        <span><i class="scale s5"></i>Forte venda</span><span><i class="scale s4"></i>Venda</span>
+        <span><i class="scale s3"></i>Neutro</span><span><i class="scale s2"></i>Compra</span>
+        <span><i class="scale s1"></i>Forte compra</span><span><i class="scale sx"></i>Bloqueado</span>
+      </div>
+    </section>
+
+    <section id="pairDetail" class="content-section selected-pair" aria-live="polite">
+      <div class="pair-header">
+        <div><span class="section-index">PAR SELECIONADO</span><div class="pair-name-line"><h2 id="detailPair">—</h2><span id="detailStrength" class="tag">—</span><span id="detailQuality" class="tag">—</span></div></div>
+        <div class="direction-block"><span>Direção FUND</span><strong id="detailDecision">—</strong></div>
+      </div>
+      <div id="detailAlert" class="alert-line" hidden></div>
+      <div class="metric-line">
+        <div><span>FUND</span><strong id="detailFund">—</strong></div><div><span>Δ 5 dias</span><strong id="detailChange">—</strong></div>
+        <div><span>Spread 2Y</span><strong id="detailSpread">—</strong></div><div><span>Momento 20d</span><strong id="detailMomentum">—</strong></div>
+        <div><span>Yield base</span><strong id="detailBaseYield">—</strong></div><div><span>Yield cotada</span><strong id="detailQuoteYield">—</strong></div>
+      </div>
+      <div class="chart-frame"><div><span>HISTÓRICO FUND</span><small id="detailAsOf">—</small></div><svg id="fundChart" viewBox="0 0 960 260" role="img" aria-label="Histórico do FUND"></svg></div>
+    </section>
+
+    <section id="pairs" class="content-section">
+      <div class="section-title controls-title">
+        <div><span>06</span><h2>Todos os 28 pares</h2></div>
+        <div class="inline-controls">
+          <label><span class="sr-only">Buscar par</span><input id="pairSearch" type="search" placeholder="Buscar par"></label>
+          <label><span class="sr-only">Filtrar pares</span><select id="pairFilter"><option value="all">Todos</option><option value="directional">Com lado</option><option value="neutral">Neutros</option><option value="blocked">Bloqueados</option><option value="exit">Saída FUND</option></select></label>
+        </div>
+      </div>
+      <div class="table-frame"><table class="data-table"><thead><tr><th>Par</th><th>FUND</th><th>Faixa</th><th>Direção</th><th>Δ 5d</th><th>PF</th><th>N</th><th>Validação</th><th>Dados</th></tr></thead><tbody id="pairTableBody"></tbody></table></div>
+    </section>
+
+    <section id="backtest" class="content-section backtest-section">
+      <div class="section-title"><div><span>07</span><h2>Backtest direcional FUND</h2></div><p>Sinal em D, execução no próximo fixing ECB. Sem BO, ZOI, SL ATR ou dados intraday.</p></div>
+      <form id="backtestForm" class="backtest-form">
+        <label>Universo<select id="btPair"><option value="ALL">Todos os pares</option></select></label>
+        <label>Início<input id="btStart" type="date" value="2018-01-01"></label>
+        <label>Fim<input id="btEnd" type="date"></label>
+        <label>Custo total<span class="input-with-unit"><input id="btCost" type="number" min="0" max="25" step="0.1" value="1.0"><i>pips</i></span></label>
+        <button id="btRun" type="submit">Rodar backtest</button>
+      </form>
+      <div id="btStatus" class="backtest-status" aria-live="polite">Regra congelada: entrada ao sair do NEUTRAL; saída ao perder faixa de força.</div>
+      <div id="btSummary" class="backtest-summary"></div>
+      <div class="chart-frame backtest-chart"><div><span id="btChartTitle">CURVA DE CAPITAL</span><small>Base 100 · fechamento de operações</small></div><svg id="btEquityChart" viewBox="0 0 960 260" role="img" aria-label="Curva de capital do backtest"></svg></div>
+      <div class="table-frame"><table class="data-table"><thead id="btResultHead"></thead><tbody id="btResultBody"></tbody></table></div>
+      <p class="method-note">AUD e CHF são PROVISIONAL_PIT: a data histórica de observação não representa com precisão a data de publicação de cada lote.</p>
+    </section>
+
+    <section id="news" class="content-section">
+      <div class="section-title controls-title">
+        <div><span>08</span><h2>Próximas notícias</h2></div>
+        <div class="inline-controls">
+          <label><span class="sr-only">Filtrar moeda</span><select id="newsCurrency"><option value="ALL">Todas as moedas</option></select></label>
+          <label><span class="sr-only">Filtrar impacto</span><select id="newsImpact"><option value="ALL">Todos os impactos</option><option value="High">Alto</option><option value="Medium">Médio ou alto</option></select></label>
+        </div>
+      </div>
+      <div id="newsList" class="news-list"></div><p id="newsSource" class="method-note"></p>
+    </section>
+
+    <section id="sources" class="content-section">
+      <div class="section-title"><div><span>09</span><h2>Fontes e frescor</h2></div><p>Uma perna atrasada mantém o valor visível, mas bloqueia a prioridade operacional.</p></div>
+      <div class="table-frame"><table class="data-table"><thead><tr><th>Moeda</th><th>Yield 2Y</th><th>Início histórico</th><th>Última observação</th><th>Idade</th><th>Status</th><th>Fonte</th><th>Rota</th></tr></thead><tbody id="sourceTableBody"></tbody></table></div>
+    </section>
+  </main>
+
+  <footer><div><strong>HCI FUND V0.1</strong><span id="formulaText">Carregando metodologia</span></div><p>Pesquisa e decisão manual. Nenhuma ordem é enviada pelo painel.</p></footer>
+  <script src="app.js?v=20260820-prefund2-hist"></script>
+</body>
+</html>
