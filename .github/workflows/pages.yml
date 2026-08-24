@@ -5,6 +5,12 @@ name: pages
 on:
   push:
     branches: [main]
+  # ARMADILHA DO GITHUB: commit feito pelo GITHUB_TOKEN (o robo da cadeia) NAO
+  # dispara outros workflows — protecao contra loop. Sem este workflow_run, os
+  # dados atualizavam no repo e o site ficava congelado para sempre.
+  workflow_run:
+    workflows: ["cadeia-2x-dia", "nowcast-1h"]
+    types: [completed]
   workflow_dispatch:
 
 permissions:
