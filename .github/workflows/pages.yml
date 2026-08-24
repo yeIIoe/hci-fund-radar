@@ -24,7 +24,7 @@ jobs:
       - name: montar site
         run: |
           mkdir -p _site/data/calendar _site/data/raw
-          cp index.html app.js styles.css theme.css ui_cut_global.js ui_extras.js _site/
+          cp index.html app.js styles.css theme.css ui_cut_global.js ui_extras.js ui_live_yields.js _site/
           cp data/*.json _site/data/ 2>/dev/null || true
           cp data/calendar/*.json _site/data/calendar/
           cp data/raw/tv_nowcast.json _site/data/raw/ 2>/dev/null || true
