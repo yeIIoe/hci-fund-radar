@@ -8,7 +8,7 @@
    "STRICT_FULL": 164,
    "PARTIAL": 0,
    "NO_DATA": 0,
-   "CLOSED": 77
+   "CLOSED": 78
   },
   "pre_fund_watch": "observacoes PRE-FUND do proprio dia (walk-forward anual, causal); 'outcome' e conferencia posterior e nao participou da selecao"
  },
@@ -50700,6 +50700,109 @@
     "CADCHF": 70.07,
     "CADJPY": -3.6,
     "CHFJPY": -88.97
+   }
+  },
+  {
+   "date": "2026-08-30",
+   "market": "FECHADO",
+   "coverage": "CLOSED",
+   "available_currencies": 0,
+   "valid_pairs": 0,
+   "missing_currencies": [],
+   "strongest": null,
+   "weakest": null,
+   "currencies": [],
+   "recommendations": [],
+   "pair_funds": {
+    "EURGBP": -8.44,
+    "EURAUD": 38.25,
+    "EURNZD": 52.12,
+    "EURUSD": 33.79,
+    "EURCAD": -9.75,
+    "EURCHF": 73.88,
+    "EURJPY": -10.11,
+    "GBPAUD": -4.94,
+    "GBPNZD": 50.33,
+    "GBPUSD": 22.04,
+    "GBPCAD": -0.95,
+    "GBPCHF": 57.63,
+    "GBPJPY": -30.32,
+    "AUDNZD": 39.94,
+    "AUDUSD": -21.02,
+    "AUDCAD": -42.39,
+    "AUDCHF": 23.54,
+    "AUDJPY": -38.89,
+    "NZDUSD": -32.22,
+    "NZDCAD": -60.76,
+    "NZDCHF": -11.24,
+    "NZDJPY": -45.75,
+    "USDCAD": -40.8,
+    "USDCHF": 50.02,
+    "USDJPY": -36.36,
+    "CADCHF": 70.07,
+    "CADJPY": -3.6,
+    "CHFJPY": -88.97
+   },
+   "projection": {
+    "down": [
+     {
+      "pair": "NZDUSD",
+      "fund": -32.22,
+      "fund_roll": -23.88,
+      "boundary": -25.0,
+      "band": "BEAR",
+      "p": 46.4,
+      "bp": -0.5
+     },
+     {
+      "pair": "EURAUD",
+      "fund": 38.25,
+      "fund_roll": 28.04,
+      "boundary": 25.0,
+      "band": "NEUTRAL",
+      "p": 42.1,
+      "bp": -0.8
+     },
+     {
+      "pair": "AUDJPY",
+      "fund": -38.89,
+      "fund_roll": -57.11,
+      "boundary": -60.0,
+      "band": "STRONG_BEAR",
+      "p": 36.1,
+      "bp": -1.4
+     }
+    ],
+    "up": [
+     {
+      "pair": "EURUSD",
+      "fund": 33.79,
+      "fund_roll": 23.89,
+      "boundary": 25.0,
+      "band": "BULL",
+      "p": 49.6,
+      "bp": 0.3
+     },
+     {
+      "pair": "AUDCAD",
+      "fund": -42.39,
+      "fund_roll": -35.79,
+      "boundary": -25.0,
+      "band": "NEUTRAL",
+      "p": 26.2,
+      "bp": 3.2
+     },
+     {
+      "pair": "GBPNZD",
+      "fund": 50.33,
+      "fund_roll": 16.71,
+      "boundary": 25.0,
+      "band": "BULL",
+      "p": 23.8,
+      "bp": 3.8
+     }
+    ],
+    "outcome": {}
    }
   }
  ]
