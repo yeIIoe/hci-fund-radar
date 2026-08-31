@@ -663,3 +663,32 @@ body.timecut-on .tv-block { display: none; }
 .sent-bloco summary { padding: 9px 12px; cursor: pointer; font-size: 11px; }
 .sent-bloco pre { margin: 0; padding: 10px 12px; overflow-x: auto; font-size: 10px; line-height: 1.5;
                   border-top: 1px solid var(--line-soft); white-space: pre-wrap; color: var(--muted); }
+
+/* ---- MENU LATERAL ----
+   9 abas nao cabem numa barra horizontal: em tela estreita elas quebravam por cima
+   dos cartoes. Vira gaveta, aberta pelo botao de 3 riscos. */
+.nav-toggle { display: flex; flex-direction: column; justify-content: center; gap: 4px;
+  width: 34px; height: 30px; padding: 0 7px; margin-right: 4px; cursor: pointer;
+  background: var(--surface); border: 1px solid var(--line-soft); border-radius: 8px; }
+.nav-toggle span { display: block; height: 2px; width: 100%; border-radius: 2px;
+  background: var(--text, #e2e8f0); transition: transform .18s ease, opacity .18s ease; }
+.nav-toggle:hover { border-color: var(--accent, #34d399); }
+body.nav-open .nav-toggle span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+body.nav-open .nav-toggle span:nth-child(2) { opacity: 0; }
+body.nav-open .nav-toggle span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+nav.tabs#tabBar {
+  position: fixed; top: 0; left: 0; bottom: 0; z-index: 60;
+  width: 232px; padding: 62px 14px 20px;
+  display: flex; flex-direction: column; align-items: stretch; gap: 3px;
+  background: var(--surface, #0f172a); border-right: 1px solid var(--line-soft);
+  transform: translateX(-100%); transition: transform .2s ease;
+  overflow-y: auto; box-shadow: 0 0 40px rgba(0,0,0,.5);
+}
+body.nav-open nav.tabs#tabBar { transform: translateX(0); }
+nav.tabs#tabBar .tab {
+  width: 100%; text-align: left; padding: 10px 12px; border-radius: 7px;
+  font-size: 12px; letter-spacing: .04em; white-space: nowrap;
+}
+nav.tabs#tabBar .tab.is-active { background: rgba(52,211,153,.14); }
+.nav-scrim { position: fixed; inset: 0; z-index: 55; background: rgba(2,6,23,.6); }

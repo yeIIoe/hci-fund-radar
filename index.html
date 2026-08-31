@@ -13,7 +13,20 @@
 <body>
   <header class="site-header">
     <a class="identity" href="#top" aria-label="HCI FUND home"><span>HCI</span><strong>FUND</strong><em class="scope">macro de FX</em></a>
-    <nav class="tabs" id="tabBar" aria-label="Sections">
+    <button type="button" id="navToggle" class="nav-toggle" aria-label="Abrir menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="header-update">
+      <div class="timecut" title="Hide everything after a chosen date, so you can judge a day without knowing what came next">
+        <label for="timeCutDate" class="sr-only">Time cut date</label>
+        <input id="timeCutDate" type="date">
+        <button id="timeCutToggle" type="button">Time cut</button>
+      </div>
+      <span id="updatedAt">Loading</span><button id="updateButton" type="button">Refresh</button>
+    </div>
+  </header>
+    <div class="nav-scrim" id="navScrim" hidden></div>
+<nav class="tabs" id="tabBar" aria-label="Sections">
       <button type="button" class="tab is-active" data-tab="market">Overview</button>
       <button class="tab" data-tab="yields" type="button">Yields</button>
         <button type="button" class="tab" data-tab="observations">Pre-FUND</button>
@@ -25,15 +38,7 @@
       <button type="button" class="tab" data-tab="news">News</button>
       <button type="button" class="tab" data-tab="sources">Sources</button>
     </nav>
-    <div class="header-update">
-      <div class="timecut" title="Hide everything after a chosen date, so you can judge a day without knowing what came next">
-        <label for="timeCutDate" class="sr-only">Time cut date</label>
-        <input id="timeCutDate" type="date">
-        <button id="timeCutToggle" type="button">Time cut</button>
-      </div>
-      <span id="updatedAt">Loading</span><button id="updateButton" type="button">Refresh</button>
-    </div>
-  </header>
+
 
   <main id="top">
     <div id="timeCutBanner" class="timecut-banner" hidden>
@@ -415,5 +420,6 @@
   <script src="ui_cut_global.js?v=20260822-cutall4"></script>
   <script src="ui_spreads.js?v=1"></script>
   <script src="ui_equities.js?v=1"></script>
+  <script src="ui_nav.js?v=1"></script>
 </body>
 </html>
