@@ -8,8 +8,8 @@
   <meta name="description" content="HCI FUND Radar — sovereign 2-year yield momentum across 28 FX crosses.">
   <title>HCI FUND Radar</title>
   <link rel="icon" type="image/png" href="assets/hci_logo.png">
-  <link rel="stylesheet" href="styles.css?v=20260831-cards2">
-  <link rel="stylesheet" href="theme.css?v=20260831-cards2">
+  <link rel="stylesheet" href="styles.css?v=20260831-reprovado">
+  <link rel="stylesheet" href="theme.css?v=20260831-reprovado">
 </head>
 <body>
   <header class="site-header">
@@ -47,12 +47,22 @@
       <span>Showing only what was known on <b id="timeCutLabel">—</b>. Outcomes and later days are hidden.</span>
       <button id="timeCutClear" type="button">Exit</button>
     </div>
-    <section id="systemMessage" class="system-line" aria-live="polite">FUND sets direction. Structure, zone and execution stay manual.</section>
+    <section id="systemMessage" class="system-line" aria-live="polite">Painel de pesquisa. O FUND nao decide direcao.</section>
+    <section class="aviso-reprovado">
+      <strong>Versao experimental, reprovada nos testes de utilidade direcional.</strong>
+      Em 31/ago/2026 o FUND V0.1 foi avaliado como filtro de entrada tecnica (3 setups x 3 horizontes,
+      2002-2014) e <b>nenhuma das nove combinacoes superou o percentil 95 do controle aleatorio pareado</b>:
+      o que parecia selecao era reducao de exposicao. Antes disso, 15 pre-registros ja o haviam reprovado
+      como preditor direcional isolado.
+      <b>Os pares abaixo sao candidatos para analise, sem vantagem comprovada</b> — nao sao recomendacao,
+      ordem ou ranking de qualidade. O alcance da reprovacao e desta versao, destes setups e desta amostra;
+      nao demonstra impossibilidade de contribuicao do fundamento em qualquer estrategia.
+    </section>
 
     <section class="overview" aria-label="Market summary">
       <div><span>Strongest</span><strong id="strongestCurrency">—</strong><small id="strongestValue">—</small></div>
       <div><span>Weakest</span><strong id="weakestCurrency">—</strong><small id="weakestValue">—</small></div>
-      <div><span>Directional pairs</span><strong id="alignedPairs">—</strong><small>FUND outside neutral</small></div>
+      <div><span>Fora do neutro</span><strong id="alignedPairs">—</strong><small>|FUND| >= 25 — contagem, nao vantagem</small></div>
       <div><span>Coverage</span><strong id="operationalPairs">—</strong><small id="qualityNote">—</small></div>
     </section>
 
@@ -60,8 +70,8 @@
     <div class="tab-panel is-active" data-panel="market">
       <section class="content-section">
         <div class="section-title">
-          <div><h2>Tradable now</h2></div>
-          <p>Pairs with a defined FUND side and a causal backtest of at least 10 trades.</p>
+          <div><h2>Candidatos para analise</h2></div>
+          <p>Pares com FUND fora do neutro. <b>Sem vantagem direcional comprovada</b> — o backtest ao lado e historico, nao promessa.</p>
         </div>
         <details class="tab-about">
           <summary><span>How to read the FUND and the decisions</span></summary>
@@ -415,12 +425,12 @@
     </div>
   </footer>
 
-  <script src="app.js?v=20260831-cards2"></script>
-  <script src="ui_extras.js?v=20260831-cards2"></script>
-  <script src="ui_live_yields.js?v=20260831-cards2"></script>
-  <script src="ui_cut_global.js?v=20260831-cards2"></script>
-  <script src="ui_spreads.js?v=20260831-cards2"></script>
-  <script src="ui_equities.js?v=20260831-cards2"></script>
-  <script src="ui_nav.js?v=20260831-cards2"></script>
+  <script src="app.js?v=20260831-reprovado"></script>
+  <script src="ui_extras.js?v=20260831-reprovado"></script>
+  <script src="ui_live_yields.js?v=20260831-reprovado"></script>
+  <script src="ui_cut_global.js?v=20260831-reprovado"></script>
+  <script src="ui_spreads.js?v=20260831-reprovado"></script>
+  <script src="ui_equities.js?v=20260831-reprovado"></script>
+  <script src="ui_nav.js?v=20260831-reprovado"></script>
 </body>
 </html>

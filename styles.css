@@ -731,3 +731,11 @@ body > nav#tabBar.tabs .tab.is-active { background: var(--accent-soft); color: v
 .eq-risco { color: #fcd34d; }
 .eq-assina { font-size: 10px; font-style: italic; margin-top: 9px; padding-top: 8px;
              border-top: 1px solid var(--line-soft); color: var(--muted); }
+
+/* Aviso de versao reprovada — decisao do Eduardo em 31/ago/2026 apos o Teste 1.
+   Fica no topo e visivel: o protocolo exige que o rotulo nao va para rodape. */
+.aviso-reprovado { margin: 10px 0 4px; padding: 12px 15px; border-radius: 9px; font-size: 11px;
+  line-height: 1.65; color: var(--muted); background: rgba(217,119,6,.08);
+  border: 1px solid rgba(217,119,6,.28); }
+.aviso-reprovado strong { display: block; color: #fcd34d; margin-bottom: 5px; font-size: 11.5px; }
+.aviso-reprovado b { color: var(--text); font-weight: 600; }

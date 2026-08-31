@@ -24,9 +24,13 @@ const strengthLabels = {
 };
 
 const weightLabels = {"NIVEL_FUND": "FUND level", "FUND_PESADO": "FUND heavy", "PESOS_IGUAIS": "Equal weights", "PRECO_PESADO": "Price heavy", "APRENDIDO": "Learned weights"};
+// 31-ago-2026: BUY/SELL BASE saiu. O Teste 1 reprovou o FUND como filtro de entrada
+// (0 de 9 celulas acima do controle aleatorio pareado), e antes dele 15 pre-registros o
+// reprovaram como preditor direcional. Rotulo de ordem sugeria vantagem nao demonstrada.
+// Fica so o LADO em que o fundamento aponta, sem verbo de acao.
 const decisionLabels = {
-  COMPRAR_BASE: "BUY BASE", VENDER_BASE: "SELL BASE",
-  NEUTRAL: "AGUARDAR", DADO_BLOQUEADO: "DADO BLOQUEADO",
+  COMPRAR_BASE: "base mais forte", VENDER_BASE: "base mais fraca",
+  NEUTRAL: "neutro", DADO_BLOQUEADO: "dado bloqueado",
 };
 const qualityLabels = { CURRENT: "CURRENT", DELAYED: "DELAYED", STALE: "STALE" };
 const exitLabels = {
