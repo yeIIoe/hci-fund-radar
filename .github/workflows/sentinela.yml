@@ -49,20 +49,8 @@ jobs:
           else
             echo "m=fechamento" >> $GITHUB_OUTPUT
           fi
-      # O arquivo de gatilhos tem posicao e aporte do Eduardo e NAO entra no repo
-      # (publico). Ele vem do secret e e escrito so aqui, no runner.
-      - name: gatilhos (do secret)
-        if: ${{ secrets.GATILHOS_BTD_JSON != '' }}
-        run: |
-          printf '%s' "$GATILHOS" > data/gatilhos_btd.json
-        env:
-          GATILHOS: ${{ secrets.GATILHOS_BTD_JSON }}
       - name: sentinela
         run: python equities_sentinela.py ${{ steps.modo.outputs.m }}
-      # Sem isto o proximo commit republicaria o arquivo com as posicoes.
-      - name: apaga o gatilho antes de commitar
-        if: always()
-        run: rm -f data/gatilhos_btd.json data/research_agent_state.json
       - name: commit
         run: |
           git config user.name "hci-bot"
