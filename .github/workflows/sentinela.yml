@@ -1,0 +1,61 @@
+# SENTINELA de equities na nuvem — abertura e fechamento.
+#
+# Migrada em 31-ago-2026 das schtasks HCI_Sentinela_Manha_v2 (09:00) e
+# HCI_Sentinela_Fechamento_v2 (18:30), que rodavam na maquina do Eduardo e postavam
+# no Discord. Decisao dele: nada na maquina, nada no Discord.
+#
+# Sem chave: yfinance e publico.
+#   manha      -> dips em fornecedores das gigantes + deep value scan
+#   fechamento -> BTD + HOLD + gatilhos da Opcao B (semicap)
+name: sentinela-equities
+on:
+  schedule:
+    - cron: "0 12 * * 1-5"     # ~09:00 BRT
+    - cron: "30 21 * * 1-5"    # ~18:30 BRT
+  workflow_dispatch:
+    inputs:
+      modo:
+        description: "manha ou fechamento"
+        required: false
+        default: "manha"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: dados
+  cancel-in-progress: false
+
+jobs:
+  sentinela:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: dependencias
+        run: pip install --quiet numpy pandas yfinance requests
+      - name: encoding
+        run: echo "PYTHONIOENCODING=utf-8" >> $GITHUB_ENV
+      - name: modo
+        id: modo
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "m=${{ github.event.inputs.modo }}" >> $GITHUB_OUTPUT
+          elif [ "${{ github.event.schedule }}" = "0 12 * * 1-5" ]; then
+            echo "m=manha" >> $GITHUB_OUTPUT
+          else
+            echo "m=fechamento" >> $GITHUB_OUTPUT
+          fi
+      - name: sentinela
+        run: python equities_sentinela.py ${{ steps.modo.outputs.m }}
+      - name: commit
+        run: |
+          git config user.name "hci-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add -A data
+          git commit -m "sentinela ${{ steps.modo.outputs.m }} $(date -u +%Y-%m-%dT%H:%M)Z" || echo "sem mudanca"
+          git pull --no-rebase origin main || true
+          git push

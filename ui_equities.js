@@ -61,7 +61,36 @@
         O alvo e multiplo pre-registrado vezes lucro projetado — nao e previsao de preco,
         e o que o multiplo declarado implica se o lucro projetado se realizar.
         Gerado em ${doc.gerado_em || "—"}.
-      </p>`;
+      </p>
+      <div id="sentinelaBody"></div>`;
+    renderSentinela();
+  }
+
+  /* Varredura diaria (era a sentinela que postava no Discord) */
+  async function renderSentinela() {
+    const alvo = document.getElementById("sentinelaBody");
+    if (!alvo) return;
+    let doc;
+    try {
+      const r = await fetch(`data/sentinela.json?t=${Date.now()}`, { cache: "no-store" });
+      if (!r.ok) return;
+      doc = await r.json();
+    } catch (e) { return; }
+    const turno = (nome, rotulo) => {
+      const t = doc[nome];
+      if (!t || !t.blocos || !t.blocos.length) return "";
+      return `<div class="sent-turno">
+        <h3>${rotulo} <span class="sent-quando">${t.quando || ""}</span></h3>
+        ${t.blocos.map((b) => `<details class="sent-bloco"><summary>${b.titulo}</summary>
+          <pre>${(b.texto || "").replace(/[&<>]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]))}</pre>
+        </details>`).join("")}
+      </div>`;
+    };
+    const html = turno("manha", "Abertura") + turno("fechamento", "Fechamento");
+    alvo.innerHTML = html ? `<div class="section-title" style="margin-top:26px">
+        <div><h2>Varredura diaria</h2></div>
+        <p>Dips em fornecedores, deep value e gatilhos BTD. Era o que ia para o Discord.</p>
+      </div>${html}` : "";
   }
 
   document.addEventListener("DOMContentLoaded", render);
