@@ -29,8 +29,8 @@ const weightLabels = {"NIVEL_FUND": "FUND level", "FUND_PESADO": "FUND heavy", "
 // reprovaram como preditor direcional. Rotulo de ordem sugeria vantagem nao demonstrada.
 // Fica so o LADO em que o fundamento aponta, sem verbo de acao.
 const decisionLabels = {
-  COMPRAR_BASE: "base mais forte", VENDER_BASE: "base mais fraca",
-  NEUTRAL: "neutro", DADO_BLOQUEADO: "dado bloqueado",
+  COMPRAR_BASE: "base stronger", VENDER_BASE: "base weaker",
+  NEUTRAL: "neutral", DADO_BLOQUEADO: "data blocked",
 };
 const qualityLabels = { CURRENT: "CURRENT", DELAYED: "DELAYED", STALE: "STALE" };
 const exitLabels = {
