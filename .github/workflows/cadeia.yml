@@ -42,6 +42,7 @@ jobs:
           python update_cot.py || echo "COT falhou, segue"
           python macro_calendar.py --refresh || echo "calendario macro falhou, segue"
           python fund_custo_carrego.py || echo "custo de carrego falhou, segue"
+          python fund_ficha_par.py || echo "ficha do par falhou, segue"
       - name: commit
         run: |
           git config user.name "hci-bot"
