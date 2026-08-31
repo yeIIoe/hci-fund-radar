@@ -74,4 +74,31 @@ lines.append("METODO: comprar como CESTA (10-15 nomes equal-weight, hold 1-3 ano
 rep = "\n".join(lines)
 print(rep)
 (OUT / "deep_value_scan.txt").write_text(rep, encoding="utf-8")
+
+# --- saida estruturada para o site (o texto acima continua igual) ---
+import json as _json
+_recs = []
+for (nota, t, px, ev_eb, pb, de, nc, trap, barato, forca, conf, risco) in rows:
+    _recs.append({
+        "ticker": t,
+        "aprovado": nota in "AB",
+        "nota": nota,
+        "preco": round(float(px), 2) if px is not None else None,
+        "metricas": {
+            "EV/EBITDA": round(float(ev_eb), 1) if ev_eb is not None else None,
+            "P/B": round(float(pb), 2) if pb is not None else None,
+            "D/E": ("%.0f%%" % de) if de is not None else None,   # ja vem em percentual
+            "net cash": bool(nc),
+        },
+        "porque": ("%s; %s." % (barato, forca)) if nota in "AB" else None,
+        "porque_nao": ("armadilha de valor: %s" % forca) if trap else (
+            None if nota in "AB" else "nao passou na peneira anti-armadilha"),
+        "risco": risco,
+        "confianca": ("~%s%% individual" % conf) if nota in "AB" else None,
+    })
+(OUT / "deep_value_scan.json").write_text(
+    _json.dumps({"metodo": "barato (EV/EBITDA, P/B) -> anti-armadilha (lucro+, FCF+, D/E<=50%) -> catalisador",
+                 "limite": "candidato para VOCE checar a tese e assinar. Nao e ordem.",
+                 "nomes": _recs}, indent=1, ensure_ascii=False), encoding="utf-8")
+print("[json: %s]" % (OUT / "deep_value_scan.json"))
 print(f"\n[salvo: {OUT / 'deep_value_scan.txt'}] — A/B = candidatos p/ VOCE checar a tese (por que esta barato?) e assinar. Hold 1-3 anos, 15-25 posicoes.")

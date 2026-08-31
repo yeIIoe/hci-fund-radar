@@ -708,3 +708,26 @@ body > nav#tabBar.tabs .tab.is-active { background: var(--accent-soft); color: v
 .identity { gap: 12px; }
 /* o "FUND" ao lado do logo vira secundario: a marca ja diz HCI */
 .identity strong { font-weight: 600; letter-spacing: .02em; }
+
+/* ---- CARDS DE EQUITIES ---- */
+.eq-sub { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; margin: 18px 0 10px;
+          display: flex; align-items: center; gap: 8px; }
+.eq-sub span { font-size: 10px; padding: 1px 7px; border-radius: 999px; background: rgba(148,163,184,.14); }
+.eq-sub-ok { color: #6ee7b7; }
+.eq-sub-no { color: var(--muted); }
+.eq-grade { display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 12px; }
+.eq-card { border: 1px solid var(--line-soft); border-radius: 10px; padding: 13px 15px; background: var(--surface); }
+.eq-card.eq-ok { border-left: 3px solid #10b981; }
+.eq-card.eq-no { border-left: 3px solid rgba(148,163,184,.35); opacity: .82; }
+.eq-card header { display: flex; align-items: baseline; gap: 9px; flex-wrap: wrap; margin-bottom: 9px; }
+.eq-card header strong { font-size: 14px; letter-spacing: .03em; }
+.eq-nota { font-size: 10px; color: var(--muted); }
+.eq-px { margin-left: auto; font-family: ui-monospace, Consolas, monospace; font-size: 12px; }
+.eq-mets { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 9px; }
+.eq-met { font-size: 10px; padding: 2px 7px; border-radius: 5px; background: rgba(148,163,184,.09); color: var(--muted); }
+.eq-met b { color: var(--text); font-weight: 500; }
+.eq-porque, .eq-linha { font-size: 11px; line-height: 1.55; margin: 5px 0; color: var(--muted); }
+.eq-porque b, .eq-linha b { color: var(--text); font-weight: 600; }
+.eq-risco { color: #fcd34d; }
+.eq-assina { font-size: 10px; font-style: italic; margin-top: 9px; padding-top: 8px;
+             border-top: 1px solid var(--line-soft); color: var(--muted); }

@@ -31,6 +31,7 @@ PE_MAX = 45.0                     # guarda de valuation (nao pagar qualquer prec
 
 
 def main():
+    _recs = []          # saida estruturada para o site
     ref = sys.argv[1] if len(sys.argv) > 1 else None
     ticks = US + B3 + ETF
     px = yf.download(ticks, period="1y", interval="1d", auto_adjust=True, progress=False)["Close"]
@@ -109,6 +110,15 @@ def main():
             nota = "C (idio raso — so com noticia inocente)"
         s = px[t].dropna()
         vs_alta = (s.iloc[-1] / s.max() - 1) * 100
+        _recs.append({
+            "ticker": t, "aprovado": bool(aprova), "nota": nota,
+            "retorno_hoje": round(float(ret) * 100, 1),
+            "vs_maxima_12m": round(float(vs_alta), 0),
+            "profundidade": prof,
+            "tipo_queda": "medo de mercado" if medo else "idiossincratica",
+            "porque": " · ".join(tese) if aprova else None,
+            "porque_nao": None if aprova else "nao passou no filtro de qualidade",
+        })
         lines.append(f"## {'✅' if aprova else '❌'} {t}  {ret*100:+.1f}% hoje  | dip {prof} | nota {nota}")
         lines.append(f"   preco vs maxima 12m: {vs_alta:+.0f}% | " + " · ".join(tese))
         if aprova:
@@ -116,6 +126,10 @@ def main():
                     else "~70% (medo+qualidade = o perfil mais seguro do backtest)" if nota.startswith("A")
                     else "~65% (dip fundo mas IDIO — sua leitura da noticia decide)" if nota.startswith("B")
                     else "~55-60% (idio raso — so com noticia inocente)")
+            _recs[-1]["confianca"] = conf
+            _recs[-1]["risco"] = "cauda p5 = -20/-30% no caminho (por isso qualidade e sem alavancagem)"
+            _recs[-1]["plano"] = "compra lump-sum no close, hold 3-6+ meses, venda so por TESE (qualidade caindo), nao por preco"
+            _recs[-1]["voce_assina"] = "a queda de hoje quebra a tese (fraude/guidance/negocio) ou e ruido/medo de mercado?"
             lines.append(f"   CONFIANCA: {conf}. RISCO: cauda p5 = -20/-30% no caminho (por isso qualidade + sem alavancagem).")
             lines.append("   PLANO: compra lump-sum no close · hold 3-6+ meses · venda só por TESE (qualidade caindo), não preço.")
             lines.append("   ✍️ VOCÊ ASSINA: a queda de hoje quebra a tese (fraude/guidance/negócio) ou é ruído/medo de mercado?")
@@ -125,6 +139,13 @@ def main():
     out = OUTDIR / f"btd_scan_{day.date()}.txt"
     out.write_text(rep, encoding="utf-8")
     print(f"[relatorio salvo: {out}]")
+    import json as _json
+    (OUTDIR / "btd_scan.json").write_text(
+        _json.dumps({"metodo": "dip em nome de qualidade; separa queda de MEDO (mercado junto) de IDIOSSINCRATICA",
+                     "limite": "candidato para VOCE assinar. Nao e ordem.",
+                     "dia": str(day.date()), "nomes": _recs}, indent=1, ensure_ascii=False),
+        encoding="utf-8")
+    print(f"[json: {OUTDIR / 'btd_scan.json'}]")
 
 
 if __name__ == "__main__":

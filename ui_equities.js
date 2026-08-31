@@ -87,10 +87,71 @@
       </div>`;
     };
     const html = turno("manha", "Abertura") + turno("fechamento", "Fechamento");
+    renderCards();
     alvo.innerHTML = html ? `<div class="section-title" style="margin-top:26px">
         <div><h2>Varredura diaria</h2></div>
         <p>Dips em fornecedores, deep value e gatilhos BTD. Era o que ia para o Discord.</p>
       </div>${html}` : "";
+  }
+
+
+  /* ---- CARDS POR ACAO ----
+     Antes o site mostrava o texto cru do scan dentro de um <pre>. Agora cada nome
+     vira um card com o MOTIVO ao lado, separado entre comprar e evitar. Os scans
+     passaram a emitir JSON na origem, entao nada aqui e reconstruido por regex. */
+  const esc = (t) => String(t == null ? "" : t).replace(/[&<>]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]));
+
+  function card(n, bom) {
+    const met = n.metricas ? Object.entries(n.metricas)
+      .filter(([, v]) => v !== null && v !== undefined && v !== false)
+      .map(([k, v]) => `<span class="eq-met"><b>${esc(k)}</b> ${esc(v === true ? "sim" : v)}</span>`).join("") : "";
+    const mov = n.retorno_hoje !== undefined
+      ? `<span class="eq-met"><b>hoje</b> ${n.retorno_hoje > 0 ? "+" : ""}${n.retorno_hoje}%</span>
+         <span class="eq-met"><b>vs maxima 12m</b> ${n.vs_maxima_12m}%</span>` : "";
+    const motivo = bom ? n.porque : (n.porque_nao || n.porque);
+    return `<article class="eq-card ${bom ? "eq-ok" : "eq-no"}">
+      <header><strong>${esc(n.ticker)}</strong>
+        <span class="eq-nota">${esc(n.nota)}</span>
+        ${n.preco ? `<span class="eq-px">${esc(n.preco)}</span>` : ""}</header>
+      <div class="eq-mets">${met}${mov}</div>
+      ${motivo ? `<p class="eq-porque"><b>${bom ? "Por que" : "Por que nao"}:</b> ${esc(motivo)}</p>` : ""}
+      ${n.tipo_queda ? `<p class="eq-linha"><b>Queda:</b> ${esc(n.tipo_queda)}${n.profundidade ? " · " + esc(n.profundidade) : ""}</p>` : ""}
+      ${n.risco ? `<p class="eq-linha eq-risco"><b>Risco:</b> ${esc(n.risco)}</p>` : ""}
+      ${n.confianca ? `<p class="eq-linha"><b>Confianca:</b> ${esc(n.confianca)}</p>` : ""}
+      ${n.plano ? `<p class="eq-linha"><b>Plano:</b> ${esc(n.plano)}</p>` : ""}
+      ${n.voce_assina ? `<p class="eq-assina">Voce assina: ${esc(n.voce_assina)}</p>` : ""}
+    </article>`;
+  }
+
+  async function bloco(arq, titulo, subtitulo) {
+    let doc;
+    try {
+      const r = await fetch(`data/${arq}?t=${Date.now()}`, { cache: "no-store" });
+      if (!r.ok) return "";
+      doc = await r.json();
+    } catch (e) { return ""; }
+    const ns = doc.nomes || [];
+    if (!ns.length) return "";
+    const bons = ns.filter((n) => n.aprovado), maus = ns.filter((n) => !n.aprovado);
+    const grade = (lista, bom, rot) => lista.length
+      ? `<h4 class="eq-sub ${bom ? "eq-sub-ok" : "eq-sub-no"}">${rot} <span>${lista.length}</span></h4>
+         <div class="eq-grade">${lista.map((n) => card(n, bom)).join("")}</div>` : "";
+    return `<div class="section-title" style="margin-top:30px">
+        <div><h2>${titulo}</h2></div><p>${subtitulo}</p>
+      </div>
+      <p class="method-note">${esc(doc.metodo || "")}<br><em>${esc(doc.limite || "")}</em></p>
+      ${grade(bons, true, "Candidatos a comprar")}
+      ${grade(maus, false, "Evitar")}`;
+  }
+
+  async function renderCards() {
+    const alvo = document.getElementById("sentinelaBody");
+    if (!alvo) return;
+    const dv = await bloco("deep_value_scan.json", "Deep Value",
+      "Barato de verdade, filtrado contra armadilha de valor.");
+    const btd = await bloco("btd_scan.json", "BTD + HOLD",
+      "Queda do dia em nome de qualidade — separando medo de mercado de problema da empresa.");
+    if (dv || btd) alvo.insertAdjacentHTML("beforeend", dv + btd);
   }
 
   document.addEventListener("DOMContentLoaded", render);
