@@ -8,9 +8,9 @@
   const esc = (t) => String(t == null ? "" : t).replace(/[&<>]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]));
 
   const PILL = {
-    coerente: "ff-ok", fortalecendo: "ff-ok", alta: "ff-ok",
-    contraditoria: "ff-warn", enfraquecendo: "ff-warn", baixa: "ff-warn",
-    parcial: "ff-dim", estavel: "ff-dim", media: "ff-dim",
+    coherent: "ff-ok", strengthening: "ff-ok", high: "ff-ok",
+    contradictory: "ff-warn", weakening: "ff-warn", low: "ff-warn",
+    partial: "ff-dim", flat: "ff-dim", medium: "ff-dim",
   };
   const pill = (e) => `<span class="ff-pill ${PILL[e] || "ff-dim"}">${esc(e)}</span>`;
 
@@ -24,12 +24,18 @@
     const d = F && F.fichas ? F.fichas[p] : null;
     if (!d) return "";
     const c = d.causa_dominante;
-    const causa = c ? `<div class="ff-bloco"><h5>Dominant cause</h5>
+    const causa = c ? `<div class="ff-bloco"><h5>Dominant component of the movement</h5>
         <p>${esc(c.frase)}</p>
         <p class="ff-src">2y at ${c.yield}% · 1d ${c.bp_1d} bp · 20d ${c.bp_20d} bp ·
         read ${esc(c.lido_em || "")}<br>
         ${c.fonte_url ? `<a href="${esc(c.fonte_url)}" target="_blank" rel="noopener">${esc(c.fonte || "source")}</a>` : esc(c.fonte || "")}
         ${c.bc_url ? ` · <a href="${esc(c.bc_url)}" target="_blank" rel="noopener">${esc(c.banco_central || "central bank")}</a>` : ""}</p>
+        <div class="ff-invest">
+          <p><b>Event identified:</b> ${c.evento_identificado ? esc(c.evento_identificado) : "<i>none — not yet investigated</i>"}</p>
+          <p><b>Proposed mechanism:</b> ${c.interpretacao ? esc(c.interpretacao) : "<i>none</i>"}</p>
+          <p><b>Contrary evidence:</b> ${c.evidencia_contraria ? esc(c.evidencia_contraria) : "<i>none</i>"}</p>
+          <p class="ff-src"><b>Conclusion:</b> ${esc(c.conclusao || "")}</p>
+        </div>
       </div>` : "";
     const ev = (d.evidencia || []).map((e) =>
       `<li><span class="ff-quando">${esc(e.quando)}</span>
@@ -45,10 +51,31 @@
         d.saude_da_tese && d.saude_da_tese.invalidaria
           ? `<p class="ff-src"><b>What would invalidate it:</b> ${esc(d.saude_da_tese.invalidaria)}</p>` : "")}
       ${bloco("Market confirmation", d.confirmacao_de_mercado)}
-      ${bloco("Analytical confidence", d.confianca_analitica)}
+      ${bloco("Data quality", d.confianca_analitica,
+        d.confianca_analitica ? `<p class="ff-src"><b>Analysis support:</b> ${esc(d.confianca_analitica.sustentacao_da_analise || "")}</p>
+        <p class="ff-src"><b>Operational validity:</b> ${esc(d.confianca_analitica.validade_operacional || "")}</p>` : "")}
       ${contra ? `<div class="ff-bloco ff-contra"><h5>What contradicts it</h5><ul>${contra}</ul></div>` : ""}
       ${ev ? `<div class="ff-bloco"><h5>Scheduled events that can reprice the path</h5><ul class="ff-ev">${ev}</ul></div>` : ""}
     </div></details>`;
+  }
+
+  /* Preenche as colunas que substituiram PF/trades/WR/retorno/drawdown. */
+  function preencheCelulas() {
+    document.querySelectorAll("td.ff-inline[data-pair]").forEach((td) => {
+      const d = F && F.fichas ? F.fichas[td.dataset.pair] : null;
+      if (!d) return;
+      const campo = td.dataset.ff;
+      if (campo === "evidencia") {
+        const n = (d.evidencia || []).length;
+        const contra = (d.contradiz || []).length;
+        td.innerHTML = `${n ? `<span class="ff-mini">${n} event${n > 1 ? "s" : ""}</span>` : ""}` +
+          `${contra ? `<span class="ff-mini ff-warn">${contra} contradiction${contra > 1 ? "s" : ""}</span>` : ""}` ||
+          "—";
+      } else {
+        const o = d[campo];
+        td.innerHTML = o && o.estado ? pill(o.estado) : "—";
+      }
+    });
   }
 
   async function injeta() {
@@ -73,13 +100,31 @@
       tr.after(linha);
       tr.dataset.ffDone = "1";
     });
+    preencheCelulas();
   }
 
-  // o painel redesenha a tabela em varios momentos; reinjeta quando isso acontece
-  const obs = new MutationObserver(() => { injeta(); });
-  document.addEventListener("DOMContentLoaded", () => {
-    injeta();
+  // O painel redesenha a tabela em varios momentos, entao e preciso reinjetar. Mas a
+  // propria injecao altera o DOM: sem desligar o observador durante ela, o observador
+  // se re-dispara e entra em laco infinito (foi o que travou a pagina em 31/ago).
+  let rodando = false, agendado = null;
+  const obs = new MutationObserver(() => {
+    if (rodando) return;
+    clearTimeout(agendado);
+    agendado = setTimeout(ciclo, 250);      // agrupa rajadas de mutacao
+  });
+
+  async function ciclo() {
+    if (rodando) return;
+    rodando = true;
+    obs.disconnect();
+    try { await injeta(); } catch (e) { /* nao derruba a pagina */ }
     const alvo = document.querySelector("[data-panel='market']") || document.body;
     obs.observe(alvo, { childList: true, subtree: true });
-  });
+    rodando = false;
+  }
+
+  // Se o DOMContentLoaded ja disparou antes deste script carregar, o ouvinte nunca roda.
+  // Cobre os dois casos.
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", ciclo);
+  else ciclo();
 })();

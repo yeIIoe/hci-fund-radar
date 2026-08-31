@@ -8,8 +8,8 @@
   <meta name="description" content="HCI FUND Radar — sovereign 2-year yield momentum across 28 FX crosses.">
   <title>HCI FUND Radar</title>
   <link rel="icon" type="image/png" href="assets/hci_logo.png">
-  <link rel="stylesheet" href="styles.css?v=20260831-fundficha">
-  <link rel="stylesheet" href="theme.css?v=20260831-fundficha">
+  <link rel="stylesheet" href="styles.css?v=20260831-aud3">
+  <link rel="stylesheet" href="theme.css?v=20260831-aud3">
 </head>
 <body>
   <header class="site-header">
@@ -71,7 +71,7 @@
       <section class="content-section">
         <div class="section-title">
           <div><h2>Candidates for analysis</h2></div>
-          <p>Pairs with FUND outside neutral. <b>No proven directional edge</b> — the backtest alongside is history, not a promise.</p>
+          <p>Pairs with FUND outside neutral. <b>No proven directional edge.</b> Open the pair file for the cause, what contradicts it, and the sources.</p>
         </div>
         <details class="tab-about">
           <summary><span>How to read the FUND and the decisions</span></summary>
@@ -81,7 +81,7 @@
           <strong>FUND-only</strong> engine — it does not include your entry edge.</p></div>
         </details>
         <div class="table-wrap"><table class="data-table">
-          <thead><tr><th>#</th><th>Pair</th><th>Side</th><th>FUND</th><th>PF</th><th>Trades</th><th>Win rate</th><th>Return</th><th>Drawdown</th><th>Read</th></tr></thead>
+          <thead><tr><th>#</th><th>Pair</th><th>Fundamental side</th><th>FUND</th><th>Days in band</th><th>Conviction</th><th>Thesis health</th><th>Evidence</th></tr></thead>
           <tbody id="priorityTableBody"></tbody>
         </table></div>
       </section>
@@ -110,20 +110,33 @@
         <details class="tab-about">
           <summary><span>Why the 2-year yield is the number that matters, and what moves it</span></summary>
           <div class="tab-about-body">
-            <p><strong>It is a forecast, not a price.</strong> The 2-year government yield is what the market
-            believes the central bank's policy rate will average over the next two years. It moves before the
-            central bank does, because it is a bet on what the bank will be forced to do.</p>
+            <p><strong>It is two things at once, not one.</strong> The 2-year government yield is the expected
+            average policy rate over two years <em>plus a term premium</em> — the extra compensation demanded
+            for holding duration. Reading it purely as a rate forecast is incomplete: part of any move can be
+            premium, not expectation. The San Francisco Fed publishes exactly this decomposition
+            (<a href="https://www.frbsf.org/research-and-insights/data-and-indicators/treasury-yield-premia/"
+            target="_blank" rel="noopener">Treasury yield premia</a>), and this panel does not separate the two.</p>
             <p><strong>What pushes it up.</strong> Inflation coming in above expectations, a strong labour market,
             a hawkish tone from the central bank, heavy government issuance, or a global risk-on move out of bonds.
-            <em>Any of these makes the market price more or later cuts.</em></p>
+            <em>Any of these makes the market price fewer or later cuts.</em></p>
             <p><strong>What pushes it down.</strong> Inflation below expectations, rising unemployment, a dovish
             turn, a flight to safety, or a growth scare — the market prices earlier or deeper cuts.</p>
-            <p><strong>Why it drives the currency.</strong> Capital chases relative return. What matters is never
-            one country's yield on its own, but the <em>spread</em> between two — and, more precisely, the
-            <em>change</em> in that spread. That change is exactly what the FUND measures.</p>
+            <p><strong>What we actually measured, and what we did not.</strong> Across 147,590 pair-days and 25
+            years we measured a <em>contemporaneous</em> association between the 2-year differential and the
+            exchange rate that peaks at +0.43 around 120 sessions, and a <em>predictive</em> association of
+            −0.05 at the same horizon. In plain terms: the two move together, and the differential does not
+            lead the price. A contemporaneous correlation is not causality and is not an edge — it describes
+            what has already happened. The FUND measures the change in that spread; that is a description,
+            not a mechanism.</p>
             <p><strong>Read the size, not the sign.</strong> A 2 bp move is noise; the daily standard deviation of
             most of these curves sits between 3 and 5 bp. Each card shows the move in standard deviations, so you
             can tell a real repricing from a rounding.</p>
+            <p><strong>Why the same currency can show different numbers on this page.</strong> The Sources tab
+            shows the last <em>official curve</em> observation; the Yields cards can show a live
+            <em>market quote</em> read in your browser; the pair file shows the value used when the snapshot
+            was built. Three different instants and, in one case, a different instrument — so small
+            differences are expected and are not an error. Each place states its own source and time; if two
+            of them disagree by more than a rounding, trust the one that names an official curve.</p>
             <p><strong>The honest limit.</strong> These are official curves published on each institution's own
             schedule — from D+1 for the US to <em>weekly</em> for Australia. There is no live 2-year yield here,
             and there cannot be from these sources. The staleness badge on each card is the truth about that.</p>
@@ -265,7 +278,7 @@
           </select>
         </div>
         <div class="table-wrap"><table class="data-table">
-          <thead><tr><th>Pair</th><th>Side</th><th>FUND</th><th>Strength</th><th>2Y spread</th><th>Momentum</th><th>Data</th></tr></thead>
+          <thead><tr><th>Pair</th><th>Fundamental side</th><th>FUND</th><th>Band</th><th>2Y spread</th><th>20-session momentum</th><th>Data status</th></tr></thead>
           <tbody id="pairTableBody"></tbody>
         </table></div>
       </section>
@@ -391,7 +404,7 @@
           from the tradable list.</p></div>
         </details>
         <div class="table-wrap"><table class="data-table">
-          <thead><tr><th>Currency</th><th>Status</th><th>Last observation</th><th>Age</th><th>2Y yield</th><th>Source</th></tr></thead>
+          <thead><tr><th>Currency</th><th>2Y yield</th><th>First observation</th><th>Last observation</th><th>Age</th><th>Status</th><th>Source</th><th>Route</th></tr></thead>
           <tbody id="sourceTableBody"></tbody>
         </table></div>
         <div class="table-wrap"><table class="data-table">
@@ -424,13 +437,13 @@
     </div>
   </footer>
 
-  <script src="app.js?v=20260831-fundficha"></script>
-  <script src="ui_extras.js?v=20260831-fundficha"></script>
-  <script src="ui_live_yields.js?v=20260831-fundficha"></script>
-  <script src="ui_cut_global.js?v=20260831-fundficha"></script>
-  <script src="ui_spreads.js?v=20260831-fundficha"></script>
-  <script src="ui_equities.js?v=20260831-fundficha"></script>
-  <script src="ui_fund_ficha.js?v=20260831-fundficha"></script>
-  <script src="ui_nav.js?v=20260831-fundficha"></script>
+  <script src="app.js?v=20260831-aud3"></script>
+  <script src="ui_extras.js?v=20260831-aud3"></script>
+  <script src="ui_live_yields.js?v=20260831-aud3"></script>
+  <script src="ui_cut_global.js?v=20260831-aud3"></script>
+  <script src="ui_spreads.js?v=20260831-aud3"></script>
+  <script src="ui_equities.js?v=20260831-aud3"></script>
+  <script src="ui_fund_ficha.js?v=20260831-aud3"></script>
+  <script src="ui_nav.js?v=20260831-aud3"></script>
 </body>
 </html>

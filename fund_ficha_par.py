@@ -49,9 +49,15 @@ def le(nome, padrao=None):
         return padrao
 
 
-# ----------------------------------------------------------------- 1. causa dominante
+# ------------------------------------------------- 1. componente dominante do movimento
 def causa_dominante(base, quote, Y):
-    """Qual perna moveu, quanto, e em quantos desvios. O 'por que' comeca aqui."""
+    """Qual perna moveu, quanto, e em quantos desvios.
+
+    ⚠️ NAO se chama "causa". Correcao do Eduardo em 31/ago: isto responde QUAL componente
+    se moveu, nao POR QUE. Vincular a um evento especifico exige investigacao que ainda
+    nao existe — enquanto faltar, o campo se chama COMPONENTE DOMINANTE DO MOVIMENTO e
+    os campos de evento/interpretacao/evidencia contraria ficam declarados como ausentes.
+    """
     b, q = Y.get(base), Y.get(quote)
     if not b or not q:
         return None
@@ -76,6 +82,11 @@ def causa_dominante(base, quote, Y):
         "lido_em": c.get("as_of"),
         "frase": "The %s leg moved: %s 2y %s %s bp over 5 sessions (%s sigma)."
                  % (perna, perna, sentido, abs(m["bp"] or 0), m["sigmas"]),
+        # A investigacao causal, campo a campo. Enquanto nao houver, fica NULO e visivel.
+        "evento_identificado": None,
+        "interpretacao": None,
+        "evidencia_contraria": None,
+        "conclusao": "not identified — this is the component that moved, not the reason it moved",
     }
 
 
@@ -88,20 +99,20 @@ def conviccao(par, Y):
     """
     b, q = Y.get(par["base"]), Y.get(par["quote"])
     if not b or not q:
-        return {"estado": "sem dados", "porque": "one leg missing."}
+        return {"estado": "no data", "porque": "one leg missing."}
     nivel = (b.get("yield") or 0) - (q.get("yield") or 0)
     momento = (b.get("d20") or 0) - (q.get("d20") or 0)       # em bp
     if abs(nivel) < 0.15:
-        return {"estado": "sem base", "nivel": round(nivel, 3), "momento_bp": round(momento, 1),
+        return {"estado": "no base", "nivel": round(nivel, 3), "momento_bp": round(momento, 1),
                 "porque": "Rate differential is near zero (%.2f pp): there is no level for a "
                           "thesis to rest on." % nivel}
     if abs(momento) < 3:
-        return {"estado": "parcial", "nivel": round(nivel, 3), "momento_bp": round(momento, 1),
+        return {"estado": "partial", "nivel": round(nivel, 3), "momento_bp": round(momento, 1),
                 "porque": "Level favours %s (%.2f pp) but the differential is not moving "
                           "(%.1f bp in 20 sessions): a standing level, not a live revision."
                           % (par["base"] if nivel > 0 else par["quote"], nivel, momento)}
     junto = (nivel > 0) == (momento > 0)
-    return {"estado": "coerente" if junto else "contraditoria",
+    return {"estado": "coherent" if junto else "contradictory",
             "nivel": round(nivel, 3), "momento_bp": round(momento, 1),
             "porque": ("Level and 20-session momentum point the same way: differential at %.2f pp, "
                        "moving %+.1f bp." % (nivel, momento)) if junto else
@@ -118,16 +129,16 @@ def saude(par, Y):
     """
     b, q = Y.get(par["base"]), Y.get(par["quote"])
     if not b or not q:
-        return {"estado": "sem dados"}
+        return {"estado": "no data"}
     nivel = (b.get("yield") or 0) - (q.get("yield") or 0)
     d5 = (b.get("d5") or 0) - (q.get("d5") or 0)
     if abs(d5) < 2:
-        est, txt = "estavel", "Differential barely moved over 5 sessions (%+.1f bp)." % d5
+        est, txt = "flat", "Differential barely moved over 5 sessions (%+.1f bp)." % d5
     elif (nivel > 0) == (d5 > 0):
-        est, txt = "fortalecendo", "Differential widened %+.1f bp in 5 sessions, in the same " \
+        est, txt = "strengthening", "Differential widened %+.1f bp in 5 sessions, in the same " \
                                    "direction as the level." % d5
     else:
-        est, txt = "enfraquecendo", "Differential moved %+.1f bp AGAINST the standing level in " \
+        est, txt = "weakening", "Differential moved %+.1f bp AGAINST the standing level in " \
                                     "5 sessions." % d5
     return {"estado": est, "delta_5d_bp": round(d5, 1), "porque": txt,
             "invalidaria": "The differential crossing zero, or giving back 50%% of the move that "
@@ -139,8 +150,8 @@ def confirmacao(par):
     """O preco acompanhou? ⚠️ CONTEMPORANEO, nao preditivo — e rotulado assim."""
     h = par.get("history") or []
     if len(h) < 6:
-        return {"estado": "sem dados", "porque": "not enough history."}
-    return {"estado": "nao avaliada",
+        return {"estado": "no data", "porque": "not enough history."}
+    return {"estado": "not assessed",
             "porque": "Price confirmation is measured contemporaneously, never as anticipation. "
                       "The transmission we measured is +0.430 contemporaneous and -0.046 "
                       "predictive at 120 sessions: rates MOVE the price, they do not LEAD it. "
@@ -152,7 +163,7 @@ def confianca(par, Y):
     """Qualidade, cobertura, atualidade e concordancia da evidencia."""
     b, q = Y.get(par["base"]), Y.get(par["quote"])
     if not b or not q:
-        return {"estado": "insuficiente", "porque": "one leg missing."}
+        return {"estado": "insufficient", "porque": "one leg missing."}
     sb, sq = b.get("stale_days") or 0, q.get("stale_days") or 0
     pior = max(sb, sq)
     semanal = [c for c in (par["base"], par["quote"])
@@ -162,10 +173,20 @@ def confianca(par, Y):
         notas.append("worst leg is %d day(s) stale" % pior)
     if semanal:
         notas.append("%s publishes weekly — the reading can be up to 7 days old" % ", ".join(semanal))
-    est = "alta" if (pior == 0 and not semanal) else ("media" if pior <= 2 else "baixa")
-    return {"estado": est, "stale_base": sb, "stale_quote": sq,
-            "cadencia_base": b.get("cadence"), "cadencia_quote": q.get("cadence"),
-            "porque": "; ".join(notas) if notas else "both legs current, daily cadence."}
+    est = "high" if (pior == 0 and not semanal) else ("medium" if pior <= 2 else "low")
+    return {
+        # ⚠️ Correcao do Eduardo, 31/ago: isto media ATUALIZACAO e se chamava "confianca
+        # analitica". Boa atualizacao nao e alta confianca numa interpretacao economica.
+        # Separado em tres, e so o primeiro tem nota.
+        "estado": est, "stale_base": sb, "stale_quote": sq,
+        "cadencia_base": b.get("cadence"), "cadencia_quote": q.get("cadence"),
+        "porque": "; ".join(notas) if notas else "both legs current, daily cadence.",
+        "sustentacao_da_analise": "not established — level, 5-session and 20-session change are "
+                                  "related measures of the SAME series. They are not three "
+                                  "independent confirmations.",
+        "validade_operacional": "not demonstrated. FUND V0.1 failed 15 pre-registrations as a "
+                                "directional predictor and 0 of 9 cells as an entry filter.",
+    }
 
 
 # ------------------------------------------------------------------ 6. evidencia
@@ -215,11 +236,11 @@ if __name__ == "__main__":
         c = fichas[p]["conviccao_fundamental"]
         s = fichas[p]["saude_da_tese"]
         contra = []
-        if c.get("estado") == "contraditoria":
+        if c.get("estado") == "contradictory":
             contra.append(c["porque"])
-        if s.get("estado") == "enfraquecendo":
+        if s.get("estado") == "weakening":
             contra.append(s["porque"])
-        if fichas[p]["confianca_analitica"].get("estado") == "baixa":
+        if fichas[p]["confianca_analitica"].get("estado") == "low":
             contra.append("Evidence quality is low: " + fichas[p]["confianca_analitica"]["porque"])
         fichas[p]["contradiz"] = contra or None
 

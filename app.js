@@ -19,8 +19,10 @@ const currencyOrder = ["EUR", "GBP", "AUD", "NZD", "USD", "CAD", "CHF", "JPY"];
 const $ = (selector) => document.querySelector(selector);
 
 const strengthLabels = {
-  STRONG_BULL: "STRONG BULL", BULL: "BULL", NEUTRAL: "NEUTRAL",
-  BEAR: "BEAR", STRONG_BEAR: "STRONG BEAR", SEM_DADO: "NO DATA",
+  // 31-ago-2026: BULL/BEAR sao rotulos de POSICAO e sugeriam um lado. A banda so mede
+  // o momento relativo do diferencial de juro — o nome passa a dizer isso.
+  STRONG_BULL: "RATE MOMENTUM ++", BULL: "RATE MOMENTUM +", NEUTRAL: "NEUTRAL BAND",
+  BEAR: "RATE MOMENTUM −", STRONG_BEAR: "RATE MOMENTUM −−", SEM_DADO: "NO DATA",
 };
 
 const weightLabels = {"NIVEL_FUND": "FUND level", "FUND_PESADO": "FUND heavy", "PESOS_IGUAIS": "Equal weights", "PRECO_PESADO": "Price heavy", "APRENDIDO": "Learned weights"};
@@ -28,13 +30,16 @@ const weightLabels = {"NIVEL_FUND": "FUND level", "FUND_PESADO": "FUND heavy", "
 // (0 de 9 celulas acima do controle aleatorio pareado), e antes dele 15 pre-registros o
 // reprovaram como preditor direcional. Rotulo de ordem sugeria vantagem nao demonstrada.
 // Fica so o LADO em que o fundamento aponta, sem verbo de acao.
+// 31-ago-2026: nao ha verbo de acao aqui. O rotulo descreve o INDICADOR, nao o que fazer.
 const decisionLabels = {
-  COMPRAR_BASE: "base stronger", VENDER_BASE: "base weaker",
-  NEUTRAL: "neutral", DADO_BLOQUEADO: "data blocked",
+  COMPRAR_BASE: "base leg has the higher rate momentum",
+  VENDER_BASE: "quote leg has the higher rate momentum",
+  NEUTRAL: "no side outside neutral", DADO_BLOQUEADO: "data blocked",
 };
 const qualityLabels = { CURRENT: "CURRENT", DELAYED: "DELAYED", STALE: "STALE" };
 const exitLabels = {
-  SAIR_LONG: "EXIT LONG", SAIR_SHORT: "EXIT SHORT",
+  // nao instrui saida: descreve que a banda foi perdida
+  SAIR_LONG: "left the positive band", SAIR_SHORT: "left the negative band",
   FORTALECEU: "STRENGTHENED", MUDOU_FAIXA: "BAND CHANGED",
 };
 
@@ -103,12 +108,13 @@ function pairByCurrencies(left, right) {
 }
 
 function pairReading(priority) {
-  const pf = Number(priority.profit_factor || 0);
-  if (pf >= 1.5) return ["STRONG HISTORY", "read-pass"];
-  if (pf >= 1.2) return ["POSITIVE HISTORY", "read-pass"];
-  if (pf > 1.0) return ["FRAGILE EDGE", "warning"];
-  return ["REPROVADO", "read-fail"];
+  // 31-ago-2026: este rotulo dizia "STRONG HISTORY" / "FRAGILE EDGE" a partir do profit
+  // factor de um backtest. Isso e classificacao de OPORTUNIDADE, e o Score foi congelado
+  // como reprovado nos testes direcionais — a palavra "edge" nao pode aparecer aqui.
+  // Resultado historico foi para a area de pesquisa; aqui fica so o estado do indicador.
+  return ["—", "muted"];
 }
+
 
 function showMessage(text, error = false) {
   const node = $("#systemMessage");
@@ -135,7 +141,7 @@ function renderPriorities() {
   const body = $("#priorityTableBody");
   const rows = state.snapshot.priorities;
   if (!rows.length) {
-    body.innerHTML = '<tr><td colspan="10" class="empty-state">No pair currently clears direction, data quality and a historical PF above 1 at the same time.</td></tr>';
+    body.innerHTML = '<tr><td colspan="8" class="empty-state">No pair currently clears direction, data quality and a historical PF above 1 at the same time.</td></tr>';
     return;
   }
   body.innerHTML = rows.map((item) => {
@@ -143,9 +149,15 @@ function renderPriorities() {
     return `<tr data-pair="${item.pair}">
       <td class="mono">${item.rank}</td><td class="pair-code">${item.pair}</td>
       <td>${decisionLabels[item.decision]}</td><td class="mono ${signClass(item.fund)}">${signed(item.fund)}</td>
-      <td class="mono"><strong>${plain(item.profit_factor, 2)}</strong></td><td class="mono">${item.trades}</td>
-      <td class="mono">${plain(item.win_rate, 1)}%</td><td class="mono ${signClass(item.net_return_pct)}">${percent(item.net_return_pct)}</td>
-      <td class="mono negative">−${plain(item.max_drawdown_pct, 1)}%</td><td class="${className}">${reading}</td>
+      <!-- 31-ago-2026: PF, trades, win rate, retorno e drawdown SAIRAM daqui.
+           Sao metricas de ESTRATEGIA, e o Score foi congelado como reprovado nos testes
+           direcionais — exibi-las ao lado de um par sugeria justamente a vantagem que
+           nao foi demonstrada. No lugar entram as saidas do Volume I, que descrevem o
+           fundamento sem prometer resultado. -->
+      <td class="mono">${item.days_in_band ?? "—"}</td>
+      <td class="ff-inline" data-ff="conviccao_fundamental" data-pair="${item.pair}">—</td>
+      <td class="ff-inline" data-ff="saude_da_tese" data-pair="${item.pair}">—</td>
+      <td class="ff-inline" data-ff="evidencia" data-pair="${item.pair}">—</td>
     </tr>`;
   }).join("");
   bindPairRows(body);
