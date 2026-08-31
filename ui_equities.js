@@ -63,37 +63,8 @@
         Gerado em ${doc.gerado_em || "—"}.
       </p>
       <div id="sentinelaBody"></div>`;
-    renderSentinela();
-  }
-
-  /* Varredura diaria (era a sentinela que postava no Discord) */
-  async function renderSentinela() {
-    const alvo = document.getElementById("sentinelaBody");
-    if (!alvo) return;
-    let doc;
-    try {
-      const r = await fetch(`data/sentinela.json?t=${Date.now()}`, { cache: "no-store" });
-      if (!r.ok) return;
-      doc = await r.json();
-    } catch (e) { return; }
-    const turno = (nome, rotulo) => {
-      const t = doc[nome];
-      if (!t || !t.blocos || !t.blocos.length) return "";
-      return `<div class="sent-turno">
-        <h3>${rotulo} <span class="sent-quando">${t.quando || ""}</span></h3>
-        ${t.blocos.map((b) => `<details class="sent-bloco"><summary>${b.titulo}</summary>
-          <pre>${(b.texto || "").replace(/[&<>]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]))}</pre>
-        </details>`).join("")}
-      </div>`;
-    };
-    const html = turno("manha", "Abertura") + turno("fechamento", "Fechamento");
     renderCards();
-    alvo.innerHTML = html ? `<div class="section-title" style="margin-top:26px">
-        <div><h2>Varredura diaria</h2></div>
-        <p>Dips em fornecedores, deep value e gatilhos BTD. Era o que ia para o Discord.</p>
-      </div>${html}` : "";
   }
-
 
   /* ---- CARDS POR ACAO ----
      Antes o site mostrava o texto cru do scan dentro de um <pre>. Agora cada nome
