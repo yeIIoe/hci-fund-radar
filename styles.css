@@ -665,30 +665,46 @@ body.timecut-on .tv-block { display: none; }
                   border-top: 1px solid var(--line-soft); white-space: pre-wrap; color: var(--muted); }
 
 /* ---- MENU LATERAL ----
-   9 abas nao cabem numa barra horizontal: em tela estreita elas quebravam por cima
-   dos cartoes. Vira gaveta, aberta pelo botao de 3 riscos. */
-.nav-toggle { display: flex; flex-direction: column; justify-content: center; gap: 4px;
-  width: 34px; height: 30px; padding: 0 7px; margin-right: 4px; cursor: pointer;
-  background: var(--surface); border: 1px solid var(--line-soft); border-radius: 8px; }
-.nav-toggle span { display: block; height: 2px; width: 100%; border-radius: 2px;
-  background: var(--text, #e2e8f0); transition: transform .18s ease, opacity .18s ease; }
-.nav-toggle:hover { border-color: var(--accent, #34d399); }
+   9 abas nao cabiam numa barra horizontal. Virou gaveta, aberta pelo botao de 3 riscos.
+   Dois detalhes que custaram diagnostico:
+   1) o header tem backdrop-filter, que cria bloco de contencao e prendia o position:fixed
+      da gaveta em 82px — por isso a nav mora fora do header, direto no body;
+   2) o theme.css redefine .site-header como flex, e o botao encolhia para 16px:
+      dai o flex:0 0 auto abaixo. */
+.nav-toggle {
+  flex: 0 0 auto;                      /* sem isto o flex do header esmaga o botao */
+  display: flex; flex-direction: column; justify-content: center; gap: 4px;
+  width: 36px; height: 32px; padding: 0 8px;
+  cursor: pointer; background: var(--surface); border: 1px solid var(--line-soft);
+  border-radius: 8px; position: relative; z-index: 70;
+}
+.nav-toggle span {
+  display: block; height: 2px; width: 100%; border-radius: 2px;
+  background: var(--text); transition: transform .18s ease, opacity .18s ease;
+}
+.nav-toggle:hover { border-color: var(--accent); }
 body.nav-open .nav-toggle span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
 body.nav-open .nav-toggle span:nth-child(2) { opacity: 0; }
 body.nav-open .nav-toggle span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
 
-nav.tabs#tabBar {
+body > nav#tabBar.tabs {
   position: fixed; top: 0; left: 0; bottom: 0; z-index: 60;
-  width: 232px; padding: 62px 14px 20px;
+  width: 236px; height: 100vh; margin: 0;
+  padding: 70px 14px 20px;
   display: flex; flex-direction: column; align-items: stretch; gap: 3px;
-  background: var(--surface, #0f172a); border-right: 1px solid var(--line-soft);
+  background: var(--surface); border-right: 1px solid var(--line-soft);
   transform: translateX(-100%); transition: transform .2s ease;
-  overflow-y: auto; box-shadow: 0 0 40px rgba(0,0,0,.5);
+  overflow-y: auto; box-shadow: 0 0 40px rgba(0,0,0,.5); flex-wrap: nowrap;
 }
-body.nav-open nav.tabs#tabBar { transform: translateX(0); }
-nav.tabs#tabBar .tab {
+body.nav-open > nav#tabBar.tabs { transform: translateX(0); }
+body > nav#tabBar.tabs .tab {
   width: 100%; text-align: left; padding: 10px 12px; border-radius: 7px;
-  font-size: 12px; letter-spacing: .04em; white-space: nowrap;
+  font-size: 12px; letter-spacing: .04em; white-space: nowrap; border: 0;
 }
-nav.tabs#tabBar .tab.is-active { background: rgba(52,211,153,.14); }
-.nav-scrim { position: fixed; inset: 0; z-index: 55; background: rgba(2,6,23,.6); }
+body > nav#tabBar.tabs .tab.is-active { background: var(--accent-soft); color: var(--accent); }
+.nav-scrim { position: fixed; inset: 0; z-index: 55; background: rgba(2,6,23,.62); }
+/* Logo oficial da marca (hci_logo.png: branco, fundo transparente — o header e escuro). */
+.brand-logo { height: 42px; width: auto; display: block; }
+.identity { gap: 12px; }
+/* o "FUND" ao lado do logo vira secundario: a marca ja diz HCI */
+.identity strong { font-weight: 600; letter-spacing: .02em; }
