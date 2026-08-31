@@ -641,3 +641,13 @@ body.timecut-on .tv-block { display: none; }
 .site-footer p { max-width: 68ch; }
 .footer-contact small { max-width: 34ch; margin-left: auto; }
 @media (max-width: 760px) { .site-footer { grid-template-columns: 1fr; } .footer-contact, .footer-contact small { text-align: left; margin-left: 0; } }
+
+/* ---- aba SPREADS ---- */
+.spr-pill { font-size: .6rem; letter-spacing: .05em; padding: 2px 7px; border-radius: 999px; white-space: nowrap; }
+.spr-red { background: rgba(220,38,38,.18); color: #fca5a5; }
+.spr-amber { background: rgba(217,119,6,.18); color: #fcd34d; }
+.spr-dim { background: rgba(148,163,184,.12); color: var(--muted); }
+.spr-good { color: #6ee7b7; font-weight: 600; }
+.spr-alert { margin: 10px 0; padding: 10px 12px; border-radius: 8px; font-size: 11px;
+             background: rgba(220,38,38,.12); border: 1px solid rgba(220,38,38,.3); }
+.spr-alert-dim { background: rgba(148,163,184,.08); border-color: var(--line-soft); }

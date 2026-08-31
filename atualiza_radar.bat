@@ -12,6 +12,8 @@ REM   1. update_yields    busca os 2y soberanos novos
 REM   2. update_fund      recalcula FUND, ranking e calendario
 REM   3. projection_history  grava a projecao por dia nos calendarios
 REM   4. update_setups    remapeia BO/ZOI dos candidatos do pre-FUND
+REM   5. fund_custo_carrego  estima o swap por par do diferencial de 2a
+REM      (calibrado 31/ago contra a FTMO: r=0,975, erro 0,086 pip/noite)
 REM
 REM Idempotente: rodar duas vezes no mesmo dia nao estraga nada.
 REM =====================================================================
@@ -48,5 +50,9 @@ if errorlevel 1 echo    ^>^> FALHOU projection_history >> "%LOG%"
 echo [4/5] update_setups >> "%LOG%"
 "%PY%" update_setups.py >> "%LOG%" 2>&1
 if errorlevel 1 echo    ^>^> FALHOU update_setups >> "%LOG%"
+
+echo [5/5] fund_custo_carrego (swap estimado do diferencial de juro) >> "%LOG%"
+"%PY%" fund_custo_carrego.py >> "%LOG%" 2>&1
+if errorlevel 1 echo    ^>^> FALHOU custo_carrego >> "%LOG%"
 
 echo FIM %DATE% %TIME% >> "%LOG%"

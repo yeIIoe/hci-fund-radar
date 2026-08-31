@@ -19,6 +19,7 @@
         <button type="button" class="tab" data-tab="observations">Pre-FUND</button>
       <button type="button" class="tab" data-tab="calendar">Calendar</button>
       <button type="button" class="tab" data-tab="pairs">Pairs</button>
+      <button type="button" class="tab" data-tab="spreads">Spreads</button>
       <button type="button" class="tab" data-tab="cot">COT</button>
       <button type="button" class="tab" data-tab="news">News</button>
       <button type="button" class="tab" data-tab="sources">Sources</button>
@@ -254,6 +255,44 @@
     </div>
 
     <!-- ============ TAB: COT ============ -->
+    <div class="tab-panel" data-panel="spreads">
+      <section class="content-section">
+        <div class="section-title">
+          <div><h2>Custo real de manter posicao</h2></div>
+          <p>O que cada par cobra para ser segurado — por lado, medido, nao de folheto.</p>
+        </div>
+        <details class="tab-about">
+          <summary><span>Por que o spread sozinho engana, e o que muda no swing</span></summary>
+          <div class="tab-about-body">
+            <p><strong>O spread nu nao decide nada.</strong> O que decide e quanto ele come do movimento
+            disponivel. Um par com 2 pips de spread que anda 100 pips e mais barato que um de 1 pip que
+            anda 20. Spread baixo em ativo parado e armadilha.</p>
+            <p><strong>No swing entra o swap, e ele e assimetrico.</strong> Segurar 5 dias uteis custa
+            7 noites — a quarta-feira cobra 3x para cobrir o fim de semana. Como o swap depende do
+            diferencial de juro, <em>comprado e vendido no mesmo par tem custos diferentes</em>.
+            Isso nao existe no intradiario.</p>
+            <p><strong>De onde vem o numero.</strong> O spread e medido de bid x ask de 1 minuto da
+            Dukascopy. O swap e estimado do diferencial de 2 anos que este radar ja ingere, pela conta de
+            carry: <code>preco x (r_base - r_quote) / 365 / pip</code>. A estimativa foi calibrada contra
+            a tabela real da corretora nos 28 pares e bateu com r=0,975 — por isso ela pode ser recalculada
+            aqui todo dia, sem depender de ler a pagina da corretora.</p>
+            <p><strong>A regra do diferencial pequeno.</strong> Quando |diferencial| fica abaixo de 0,8%,
+            nao ha carry suficiente para compensar a taxa que a corretora cobra, e o par fica caro
+            <em>dos dois lados</em>. Medido: abaixo de 0,8% o melhor lado custa 4,29% da faixa de 5 dias;
+            acima de 2,5%, custa 0,10%.</p>
+            <p><strong>Cuidado com o que o custo sugere.</strong> O lado barato tende a ser o lado do carry
+            — comprado na moeda de juro alto. Deixar o custo escolher a direcao e montar carry sem ter
+            decidido montar carry. O custo serve para desempatar teses e dimensionar, nunca para
+            originar a tese.</p>
+            <p><strong>Validade.</strong> O lado barato de um par tipico vira a cada 8,9 meses. Esta tabela
+            e do regime atual, nao uma verdade permanente.</p>
+          </div>
+        </details>
+        <div id="spreadBody"></div>
+      </section>
+    </div>
+
+    <!-- ============ TAB: COT ============ -->
     <div class="tab-panel" data-panel="cot">
       <section class="content-section">
         <div class="section-title">
@@ -344,5 +383,6 @@
   <script src="ui_extras.js?v=20260822-cutall4"></script>
   <script src="ui_live_yields.js?v=1"></script>
   <script src="ui_cut_global.js?v=20260822-cutall4"></script>
+  <script src="ui_spreads.js?v=1"></script>
 </body>
 </html>

@@ -1,6 +1,10 @@
 # Cadeia PESADA 2x/dia: busca yields oficiais, recalcula FUND, calendarios,
 # projecao e COT, e commita os dados. Espelha a schtask HCI_FUND_Radar_Update.
 # update_setups NAO roda na nuvem (fase 2): depende de modulos do hci-ea local.
+#
+# 31-ago-2026: migrados para ca (decisao do Eduardo — nada roda na maquina dele):
+#   - fund_custo_carrego  swap estimado do diferencial de 2a, calibrado contra a FTMO
+#   - macro_calendar      ForexFactory + FOMC fixo (era a schtask "HCI Calendar Daily")
 name: cadeia-2x-dia
 on:
   schedule:
@@ -25,7 +29,9 @@ jobs:
         with:
           python-version: "3.12"
       - name: dependencias
-        run: pip install --quiet numpy pandas openpyxl scikit-learn
+        run: pip install --quiet numpy pandas openpyxl scikit-learn pyarrow
+      - name: encoding
+        run: echo "PYTHONIOENCODING=utf-8" >> $GITHUB_ENV
       - name: cadeia
         run: |
           python tv_yields_nowcast.py || echo "nowcast falhou, segue oficial"
@@ -34,6 +40,8 @@ jobs:
           python update_fund.py
           python projection_history.py
           python update_cot.py || echo "COT falhou, segue"
+          python macro_calendar.py --refresh || echo "calendario macro falhou, segue"
+          python fund_custo_carrego.py || echo "custo de carrego falhou, segue"
       - name: commit
         run: |
           git config user.name "hci-bot"
