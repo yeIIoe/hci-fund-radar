@@ -39,7 +39,12 @@ TOLERANCIA = {
     "eur_ecb_2y": 4,
     "ust_cmt": 4,          # US Treasury, D+1
     "cad_boc": 4,
-    "jpy_mof": 5,
+    # ⚠️ 31-ago: estas fontes publicam a serie historica com cerca de UM MES de atraso —
+    # verificado na origem, nao e falha do nosso download. Tolerancia de 5 dias uteis
+    # gritaria todo mes sem haver problema.
+    "jpy_mof_all": 32,        # historico do MoF: termina no mes anterior
+    "jpy_mof_mes": 4,         # mes corrente do MoF: esse SIM e diario
+    "gbp_glc": 32,            # BoE publica o zip com a mesma defasagem
     "chf_snb": 5,
     "aud_": 10,            # RBA publica SEMANALMENTE
     "nzd_": 6,
@@ -79,7 +84,10 @@ def horas_desde_download(nome):
 
 
 # ------------------------------------------------- a ultima data DENTRO do arquivo
-DATA_RE = re.compile(r"(20\d{2})[-/](\d{2})[-/](\d{2})")
+# 31-ago: a regex exigia DOIS digitos e nao casava com o formato do MoF japones
+# (2026/7/31, mes e dia com um digito). A guarda lia uma data muito mais antiga e
+# reportava o arquivo como vencido sem ele estar.
+DATA_RE = re.compile(r'(20\d{2})[-/](\d{1,2})[-/](\d{1,2})')
 
 
 def ultima_data(caminho):

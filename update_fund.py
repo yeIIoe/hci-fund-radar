@@ -199,6 +199,14 @@ HISTORY_DOWNLOADS = {
         500_000,
         168,
     ),
+    # 31-ago-2026: o arquivo historico do MoF termina no mes ANTERIOR. Este e o do mes
+    # corrente, e e ele que fecha o buraco que impedia medir USDJPY, AUDJPY e companhia.
+    "JPY_CURRENT": (
+        "https://www.mof.go.jp/english/policy/jgbs/reference/interest_rate/jgbcme.csv",
+        RAW_DIR / "jpy_mof_mes.csv",
+        800,
+        18,
+    ),
     "AUD_HISTORY": (
         "https://www.rba.gov.au/statistics/tables/xls-hist/f02dhist.xls",
         RAW_DIR / "aud_rba_f02dhist.xls",
@@ -374,10 +382,15 @@ def refresh_usd_history(force: bool, offline: bool) -> list[DownloadResult]:
         if offline:
             results.append(DownloadResult(key, "OFFLINE", "cache local"))
             continue
+        # ⚠️ 31-ago-2026: esta URL estava MALFORMADA e devolvia HTTP 406 ha quem sabe
+        # quanto tempo, em silencio — o download caia em CACHE_APOS_FALHA e ninguem via.
+        # Os dois pedacos estavam colados: ".../TextView?type=daily_treasury_yield_curve"
+        # + "daily-treasury-rates.csv/..." virava "yield_curvedaily-treasury-rates.csv",
+        # com DOIS pontos de interrogacao na mesma URL. O Treasury respondia 406.
         url = (
-            "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve"
-            f"daily-treasury-rates.csv/{year}/all?type=daily_treasury_yield_curve&"
-            f"field_tdr_date_value={year}&_format=csv"
+            "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/"
+            f"daily-treasury-rates.csv/{year}/all"
+            f"?type=daily_treasury_yield_curve&field_tdr_date_value={year}&page&_format=csv"
         )
         # Anos encerrados sao imutaveis. --force atualiza somente o ano corrente.
         results.append(download_resource(
@@ -398,6 +411,7 @@ def refresh_downloads(force: bool, offline: bool) -> list[DownloadResult]:
         "EUR_HISTORY": SOURCES["EUR"]["url"],
         "GBP_HISTORY": SOURCES["GBP"]["url"],
         "JPY_HISTORY": SOURCES["JPY"]["url"],
+        "JPY_CURRENT": SOURCES["JPY"]["url"],
         "AUD_HISTORY": "https://www.rba.gov.au/statistics/historical-data.html",
         "NZD_HISTORY": SOURCES["NZD"]["url"],
     }
@@ -488,20 +502,36 @@ def read_gbp_history() -> dict[date, float]:
     return output
 
 
-def read_jpy_history() -> dict[date, float]:
-    path = HISTORY_DOWNLOADS["JPY_HISTORY"][1]
-    output: dict[date, float] = {}
+def _le_jgb(path, pular: int) -> dict[date, float]:
+    """Le um CSV do MoF. Os dois tem o mesmo corpo; muda so quantas linhas de aviso pular."""
+    out: dict[date, float] = {}
+    if not path.exists():
+        return out
     with path.open("r", encoding="cp932", errors="replace", newline="") as handle:
-        next(handle, None)
+        for _ in range(pular):
+            next(handle, None)
         for row in csv.DictReader(handle):
             raw = (row.get("2Y") or "").strip()
             if raw in ("", "-"):
                 continue
             try:
-                output[datetime.strptime(row["Date"], "%Y/%m/%d").date()] = float(raw)
-            except (KeyError, ValueError):
+                out[datetime.strptime(row["Date"].strip(), "%Y/%m/%d").date()] = float(raw)
+            except (KeyError, ValueError, AttributeError):
                 continue
-    return output
+    return out
+
+
+def read_jpy_history() -> dict[date, float]:
+    """Historico + mes corrente.
+
+    O arquivo historico do MoF termina no mes anterior — em 31/ago/2026 ele parava em
+    31/07, e isso deixava o JPY sem observacao por quatro semanas, o que impedia medir
+    qualquer par com iene. O arquivo do mes corrente cobre o resto.
+    """
+    base = _le_jgb(HISTORY_DOWNLOADS["JPY_HISTORY"][1], 1)
+    mes = _le_jgb(HISTORY_DOWNLOADS["JPY_CURRENT"][1], 1)
+    base.update(mes)          # o mes corrente tem prioridade onde houver sobreposicao
+    return base
 
 
 def read_core() -> dict[str, dict[date, float | None]]:
