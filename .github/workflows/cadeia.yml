@@ -43,6 +43,14 @@ jobs:
           python macro_calendar.py --refresh || echo "calendario macro falhou, segue"
           python fund_custo_carrego.py || echo "custo de carrego falhou, segue"
           python fund_ficha_par.py || echo "ficha do par falhou, segue"
+          python juros_vs_cambio.py || echo "juros x cambio falhou, segue"
+
+      # ⚠️ A GUARDA. Em 31/ago todas as fontes ficaram uma semana congeladas e nada
+      # reclamou: o TTL lia o mtime, e o checkout reescreve o mtime a cada execucao.
+      # Este passo confere a ULTIMA DATA DENTRO de cada arquivo e FALHA de proposito.
+      # Melhor a Action vermelha do que o painel publicando dado velho como atual.
+      - name: guarda de frescor
+        run: python frescor.py --estrito
       - name: commit
         run: |
           git config user.name "hci-bot"

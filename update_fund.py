@@ -289,8 +289,20 @@ def download_resource(
     url, path, min_bytes, ttl_hours = specification
     path.parent.mkdir(parents=True, exist_ok=True)
     if path.exists() and not force:
-        age = datetime.now().timestamp() - path.stat().st_mtime
-        if age < ttl_hours * 3600 and path.stat().st_size >= min_bytes:
+        # ⚠️ 31-ago-2026 — O BUG QUE CONGELOU TODAS AS FONTES POR UMA SEMANA.
+        # Isto usava path.stat().st_mtime. Na maquina local funcionava; na nuvem, nao:
+        # o actions/checkout REESCREVE todo arquivo a cada execucao, entao o mtime e
+        # sempre "agora", o TTL dava sempre "fresco" e o download NUNCA acontecia.
+        # O carimbo abaixo grava a hora REAL do download num arquivo que e commitado,
+        # entao sobrevive ao checkout.
+        try:
+            import frescor
+            idade_h = frescor.horas_desde_download(path.name)
+        except Exception:
+            idade_h = None
+        if idade_h is None:
+            idade_h = (datetime.now().timestamp() - path.stat().st_mtime) / 3600.0
+        if idade_h < ttl_hours and path.stat().st_size >= min_bytes:
             return DownloadResult(key, "CACHE", f"{path.stat().st_size:,} bytes")
 
     request = urllib.request.Request(
@@ -308,13 +320,20 @@ def download_resource(
         if len(payload) < min_bytes:
             raise RuntimeError(f"resposta suspeita: {len(payload)} bytes")
         path.write_bytes(payload)
+        try:
+            import frescor; frescor.grava_carimbo(path.name)
+        except Exception:
+            pass
         return DownloadResult(key, "BAIXADO", f"{len(payload):,} bytes")
     except Exception as exc:  # algumas fontes (RBNZ) recusam urllib, mas aceitam curl
         temp = path.with_suffix(path.suffix + ".download")
         try:
             completed = subprocess.run(
                 [
-                    "curl.exe", "-L", "--fail", "--retry", "2",
+                    # 31-ago-2026: era "curl.exe" — nome do binario no Windows. No runner do
+                    # GitHub (Linux) o arquivo nao existe, entao o fallback falhava
+                    # calado e o cache velho era mantido.
+                    "curl", "-L", "--fail", "--retry", "2",
                     "--connect-timeout", "30", "-A",
                     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/139 Safari/537.36",
                     "-e", referer, "-o", str(temp), url,
@@ -326,6 +345,10 @@ def download_resource(
             if completed.returncode == 0 and temp.exists() and temp.stat().st_size >= min_bytes:
                 size = temp.stat().st_size
                 temp.replace(path)
+                try:
+                    import frescor; frescor.grava_carimbo(path.name)
+                except Exception:
+                    pass
                 return DownloadResult(key, "BAIXADO_CURL", f"{size:,} bytes")
         except Exception:
             pass

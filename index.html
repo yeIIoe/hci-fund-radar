@@ -8,8 +8,8 @@
   <meta name="description" content="HCI FUND Radar — sovereign 2-year yield momentum across 28 FX crosses.">
   <title>HCI FUND Radar</title>
   <link rel="icon" type="image/png" href="assets/hci_logo.png">
-  <link rel="stylesheet" href="styles.css?v=20260831-aud3">
-  <link rel="stylesheet" href="theme.css?v=20260831-aud3">
+  <link rel="stylesheet" href="styles.css?v=20260831-rfx2">
+  <link rel="stylesheet" href="theme.css?v=20260831-rfx2">
 </head>
 <body>
   <header class="site-header">
@@ -33,6 +33,7 @@
         <button type="button" class="tab" data-tab="observations">Pre-FUND</button>
       <button type="button" class="tab" data-tab="calendar">Calendar</button>
       <button type="button" class="tab" data-tab="pairs">Pairs</button>
+      <button type="button" class="tab" data-tab="ratesfx">Rates &times; FX</button>
       <button type="button" class="tab" data-tab="spreads">Spreads</button>
       <button type="button" class="tab" data-tab="equities">Equities</button>
       <button type="button" class="tab" data-tab="cot">COT</button>
@@ -285,6 +286,40 @@
     </div>
 
     <!-- ============ TAB: COT ============ -->
+    <div class="tab-panel" data-panel="ratesfx">
+      <section class="content-section">
+        <div class="section-title">
+          <div><h2>Rates versus FX</h2></div>
+          <p>Trajectory, magnitude and agreement in three separate fields — a single label hides the nuance.</p>
+        </div>
+        <details class="tab-about">
+          <summary><span>What this panel does, and the four rules it cannot break</span></summary>
+          <div class="tab-about-body">
+            <p><strong>Synchronise before classifying.</strong> The same number of sessions is not the
+            same interval. When the periods do not match, no FX state is stated and the pair leaves the
+            count. Same end date is not full synchronisation either: the ECB fixing is struck at 16:00
+            CET and the yields are observed at other hours, so every pair carries
+            <em>dates aligned; times to verify</em>.</p>
+            <p><strong>Both legs before the differential.</strong> A single yield rising does not
+            determine the direction of the differential — if the other leg rises more, it narrows.
+            The differential is the base currency's yield minus the quote currency's.</p>
+            <p><strong>Relevance against the pair's own history.</strong> Every measure is compared with
+            the distribution of the same measure for <em>that differential</em> over the previous 252
+            observations, using only prior information. Never a universal basis-point threshold, and
+            never a cut chosen by looking at profitability.</p>
+            <p><strong>Trajectory apart from magnitude.</strong> A threshold decides how big a move was,
+            not whether it happened. A recovery followed by a pullback is an observed fact even when the
+            balance falls below the cut — collapsing both into one label throws that away.</p>
+            <p><strong>What this is not.</strong> No entry, exit or sizing instruction, and no
+            probability. Judging whether these classes describe the trajectory well is a different task
+            from testing profitability; a visually sensible classification is not evidence of an edge.</p>
+          </div>
+        </details>
+        <div id="jcBody"></div>
+      </section>
+    </div>
+
+    <!-- ============ TAB: SPREADS ============ -->
     <div class="tab-panel" data-panel="spreads">
       <section class="content-section">
         <div class="section-title">
@@ -437,13 +472,14 @@
     </div>
   </footer>
 
-  <script src="app.js?v=20260831-aud3"></script>
-  <script src="ui_extras.js?v=20260831-aud3"></script>
-  <script src="ui_live_yields.js?v=20260831-aud3"></script>
-  <script src="ui_cut_global.js?v=20260831-aud3"></script>
-  <script src="ui_spreads.js?v=20260831-aud3"></script>
-  <script src="ui_equities.js?v=20260831-aud3"></script>
-  <script src="ui_fund_ficha.js?v=20260831-aud3"></script>
-  <script src="ui_nav.js?v=20260831-aud3"></script>
+  <script src="app.js?v=20260831-rfx2"></script>
+  <script src="ui_extras.js?v=20260831-rfx2"></script>
+  <script src="ui_live_yields.js?v=20260831-rfx2"></script>
+  <script src="ui_cut_global.js?v=20260831-rfx2"></script>
+  <script src="ui_spreads.js?v=20260831-rfx2"></script>
+  <script src="ui_equities.js?v=20260831-rfx2"></script>
+  <script src="ui_fund_ficha.js?v=20260831-rfx2"></script>
+  <script src="ui_juros_cambio.js?v=20260831-rfx2"></script>
+  <script src="ui_nav.js?v=20260831-rfx2"></script>
 </body>
 </html>

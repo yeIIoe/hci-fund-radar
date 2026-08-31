@@ -1,15 +1,15 @@
 {
   "meta": {
     "title": "HCI FUND Radar",
-    "generated_at": "2026-08-30T12:30:10-03:00",
+    "generated_at": "2026-08-31T10:52:33-03:00",
     "timezone": "America/Sao_Paulo",
     "currencies": 8,
     "pairs": 28,
     "operational_pairs": 28,
-    "aligned_pairs": 18,
+    "aligned_pairs": 17,
     "warning": "FUND picks the side; timing, BO, REGION and ZOI remain manual decisions.",
     "backtest_warning": "AUD uses the RBA series via mirror with weekly publication; this snapshot does not replace a historical PIT backtest dataset.",
-    "news_count": 0
+    "news_count": 40
   },
   "methodology": {
     "version": "FUND V0.1 congelado",
@@ -27,38 +27,38 @@
   "downloads": [
     {
       "currency": "AUD",
-      "state": "CACHE",
-      "detail": "109,485 bytes"
+      "state": "BAIXADO",
+      "detail": "109,645 bytes"
     },
     {
       "currency": "CAD",
-      "state": "CACHE",
-      "detail": "795,190 bytes"
+      "state": "BAIXADO",
+      "detail": "795,835 bytes"
     },
     {
       "currency": "NZD",
-      "state": "CACHE",
-      "detail": "425,666 bytes"
+      "state": "BAIXADO_CURL",
+      "detail": "426,450 bytes"
     },
     {
       "currency": "CHF",
-      "state": "CACHE",
-      "detail": "489,866 bytes"
+      "state": "BAIXADO",
+      "detail": "500,254 bytes"
     },
     {
       "currency": "EUR_HISTORY",
-      "state": "CACHE",
-      "detail": "3,124,186 bytes"
+      "state": "BAIXADO",
+      "detail": "3,132,560 bytes"
     },
     {
       "currency": "GBP_HISTORY",
-      "state": "CACHE",
+      "state": "BAIXADO",
       "detail": "39,035,542 bytes"
     },
     {
       "currency": "JPY_HISTORY",
-      "state": "CACHE",
-      "detail": "1,178,417 bytes"
+      "state": "BAIXADO",
+      "detail": "1,191,689 bytes"
     },
     {
       "currency": "AUD_HISTORY",
@@ -72,43 +72,43 @@
     },
     {
       "currency": "FX_GBP",
-      "state": "CACHE",
-      "detail": "1,377,917 bytes"
+      "state": "BAIXADO",
+      "detail": "1,385,149 bytes"
     },
     {
       "currency": "FX_AUD",
-      "state": "CACHE",
-      "detail": "1,413,019 bytes"
+      "state": "BAIXADO",
+      "detail": "1,420,274 bytes"
     },
     {
       "currency": "FX_NZD",
-      "state": "CACHE",
-      "detail": "1,425,762 bytes"
+      "state": "BAIXADO",
+      "detail": "1,433,025 bytes"
     },
     {
       "currency": "FX_USD",
       "state": "CACHE",
-      "detail": "1,311,338 bytes"
+      "detail": "1,385,149 bytes"
     },
     {
       "currency": "FX_CAD",
-      "state": "CACHE",
-      "detail": "1,387,628 bytes"
+      "state": "BAIXADO",
+      "detail": "1,394,866 bytes"
     },
     {
       "currency": "FX_CHF",
-      "state": "CACHE",
-      "detail": "1,336,756 bytes"
+      "state": "BAIXADO",
+      "detail": "1,343,962 bytes"
     },
     {
       "currency": "FX_JPY",
-      "state": "CACHE",
-      "detail": "1,349,382 bytes"
+      "state": "BAIXADO",
+      "detail": "1,356,596 bytes"
     },
     {
       "currency": "NEWS_WEEK",
-      "state": "CACHE",
-      "detail": "9,398 bytes"
+      "state": "BAIXADO",
+      "detail": "15,167 bytes"
     },
     {
       "currency": "USD_2002",
@@ -232,8 +232,8 @@
     },
     {
       "currency": "USD_2026",
-      "state": "CACHE",
-      "detail": "13,070 bytes"
+      "state": "CACHE_APOS_FALHA",
+      "detail": "HTTP Error 406: Not Acceptable"
     }
   ],
   "sources": [
@@ -241,20 +241,20 @@
       "currency": "EUR",
       "status": "CURRENT",
       "first_observation": "2004-09-06",
-      "last_observation": "2026-08-30",
+      "last_observation": "2026-08-31",
       "business_days_old": 0,
-      "yield_2y": 2.8921,
+      "yield_2y": 2.8868,
       "source": "ECB AAA 2Y spot",
       "source_url": "https://data.ecb.europa.eu/data/datasets/YC",
       "cadence": "daily",
       "route": "API oficial ECB",
-      "observations": 5615
+      "observations": 5620
     },
     {
       "currency": "GBP",
       "status": "CURRENT",
       "first_observation": "1979-01-02",
-      "last_observation": "2026-08-30",
+      "last_observation": "2026-08-31",
       "business_days_old": 0,
       "yield_2y": 4.4252,
       "source": "Bank of England 2Y spot curve",
@@ -267,35 +267,35 @@
       "currency": "AUD",
       "status": "CURRENT",
       "first_observation": "1995-01-03",
-      "last_observation": "2026-08-30",
+      "last_observation": "2026-08-31",
       "business_days_old": 0,
-      "yield_2y": 4.718,
+      "yield_2y": 4.71,
       "source": "RBA F2 Australian Government 2Y",
       "source_url": "https://www.rba.gov.au/statistics/tables/",
       "cadence": "weekly",
       "route": "RBA histórico direto + atual via DBnomics",
-      "observations": 7898
+      "observations": 7903
     },
     {
       "currency": "NZD",
       "status": "CURRENT",
       "first_observation": "2009-01-29",
-      "last_observation": "2026-08-30",
+      "last_observation": "2026-08-31",
       "business_days_old": 0,
-      "yield_2y": 3.63,
+      "yield_2y": 3.643,
       "source": "RBNZ B2 Government 2Y",
       "source_url": "https://www.rbnz.govt.nz/statistics/series/exchange-and-interest-rates/wholesale-interest-rates",
       "cadence": "daily",
       "route": "arquivos oficiais histórico + atual",
-      "observations": 3831
+      "observations": 3835
     },
     {
       "currency": "USD",
       "status": "CURRENT",
       "first_observation": "2002-01-02",
-      "last_observation": "2026-08-30",
+      "last_observation": "2026-08-31",
       "business_days_old": 0,
-      "yield_2y": 4.36,
+      "yield_2y": 4.327,
       "source": "US Treasury 2Y",
       "source_url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
       "cadence": "daily",
@@ -306,35 +306,35 @@
       "currency": "CAD",
       "status": "CURRENT",
       "first_observation": "2002-01-02",
-      "last_observation": "2026-08-30",
+      "last_observation": "2026-08-31",
       "business_days_old": 0,
       "yield_2y": 3.008,
       "source": "Bank of Canada benchmark 2Y",
       "source_url": "https://www.bankofcanada.ca/rates/interest-rates/lookup-bond-yields/",
       "cadence": "daily",
       "route": "API Valet oficial",
-      "observations": 6161
+      "observations": 6166
     },
     {
       "currency": "CHF",
       "status": "CURRENT",
       "first_observation": "1988-01-04",
-      "last_observation": "2026-08-30",
+      "last_observation": "2026-08-31",
       "business_days_old": 0,
-      "yield_2y": 0.0877,
+      "yield_2y": 0.1008,
       "source": "SNB Confederation NSS spot rate 2Y",
       "source_url": "https://data.snb.ch/en/warehouse/SNB1A/cube/SNB1A@SNB.NSS.KZS.EID",
       "cadence": "daily (business days), published D+1 ~08:30 CET",
       "route": "API warehouse oficial",
-      "observations": 7798
+      "observations": 7804
     },
     {
       "currency": "JPY",
       "status": "CURRENT",
       "first_observation": "1974-09-24",
-      "last_observation": "2026-08-30",
+      "last_observation": "2026-08-31",
       "business_days_old": 0,
-      "yield_2y": 1.704,
+      "yield_2y": 1.736,
       "source": "Japan MoF JGB 2Y",
       "source_url": "https://www.mof.go.jp/english/policy/jgbs/reference/interest_rate/",
       "cadence": "daily",
@@ -345,118 +345,96 @@
   "currencies": [
     {
       "currency": "JPY",
-      "score": 36.29,
+      "score": 31.11,
       "strength": "BULL",
       "valid_crosses": 7,
       "data_status": "CURRENT",
-      "yield_2y": 1.704
-    },
-    {
-      "currency": "CAD",
-      "score": 31.59,
-      "strength": "BULL",
-      "valid_crosses": 7,
-      "data_status": "CURRENT",
-      "yield_2y": 3.008
-    },
-    {
-      "currency": "EUR",
-      "score": 24.25,
-      "strength": "NEUTRAL",
-      "valid_crosses": 7,
-      "data_status": "CURRENT",
-      "yield_2y": 2.8921
+      "yield_2y": 1.736
     },
     {
       "currency": "GBP",
-      "score": 14.6,
+      "score": 24.47,
       "strength": "NEUTRAL",
       "valid_crosses": 7,
       "data_status": "CURRENT",
       "yield_2y": 4.4252
     },
     {
-      "currency": "USD",
-      "score": -4.25,
+      "currency": "EUR",
+      "score": 19.31,
       "strength": "NEUTRAL",
       "valid_crosses": 7,
       "data_status": "CURRENT",
-      "yield_2y": 4.36
+      "yield_2y": 2.8868
     },
     {
       "currency": "AUD",
-      "score": -10.3,
+      "score": 2.28,
       "strength": "NEUTRAL",
       "valid_crosses": 7,
       "data_status": "CURRENT",
-      "yield_2y": 4.718
+      "yield_2y": 4.71
+    },
+    {
+      "currency": "CAD",
+      "score": 0.34,
+      "strength": "NEUTRAL",
+      "valid_crosses": 7,
+      "data_status": "CURRENT",
+      "yield_2y": 3.008
+    },
+    {
+      "currency": "USD",
+      "score": -14.67,
+      "strength": "NEUTRAL",
+      "valid_crosses": 7,
+      "data_status": "CURRENT",
+      "yield_2y": 4.327
     },
     {
       "currency": "NZD",
-      "score": -41.77,
+      "score": -30.8,
       "strength": "BEAR",
       "valid_crosses": 7,
       "data_status": "CURRENT",
-      "yield_2y": 3.63
+      "yield_2y": 3.643
     },
     {
       "currency": "CHF",
-      "score": -50.41,
+      "score": -32.03,
       "strength": "BEAR",
       "valid_crosses": 7,
       "data_status": "CURRENT",
-      "yield_2y": 0.0877
+      "yield_2y": 0.1008
     }
   ],
   "priorities": [
     {
       "rank": 1,
-      "pair": "USDCAD",
-      "fund": -40.8,
-      "decision": "VENDER_BASE",
-      "profit_factor": 1.651,
-      "trades": 242,
-      "win_rate": 54.13,
-      "net_return_pct": 38.19,
-      "max_drawdown_pct": 4.64
-    },
-    {
-      "rank": 2,
       "pair": "GBPNZD",
-      "fund": 50.33,
+      "fund": 46.32,
       "decision": "COMPRAR_BASE",
       "profit_factor": 1.274,
-      "trades": 195,
-      "win_rate": 54.36,
-      "net_return_pct": 15.44,
+      "trades": 196,
+      "win_rate": 54.08,
+      "net_return_pct": 15.43,
       "max_drawdown_pct": 6.37
     },
     {
-      "rank": 3,
+      "rank": 2,
       "pair": "EURUSD",
-      "fund": 33.79,
+      "fund": 32.92,
       "decision": "COMPRAR_BASE",
-      "profit_factor": 1.185,
+      "profit_factor": 1.214,
       "trades": 234,
-      "win_rate": 50.0,
-      "net_return_pct": 10.07,
-      "max_drawdown_pct": 8.08
+      "win_rate": 48.29,
+      "net_return_pct": 8.98,
+      "max_drawdown_pct": 5.87
     },
     {
-      "rank": 4,
-      "pair": "NZDUSD",
-      "fund": -32.22,
-      "decision": "VENDER_BASE",
-      "profit_factor": 1.163,
-      "trades": 239,
-      "win_rate": 51.46,
-      "net_return_pct": 12.48,
-      "max_drawdown_pct": 8.45
-    },
-    {
-      "rank": 5,
+      "rank": 3,
       "pair": "NZDJPY",
-      "fund": -45.75,
+      "fund": -31.83,
       "decision": "VENDER_BASE",
       "profit_factor": 1.089,
       "trades": 149,
@@ -470,31 +448,19 @@
       "pair": "EURGBP",
       "base": "EUR",
       "quote": "GBP",
-      "as_of": "2026-08-31",
-      "fund": -8.44,
-      "strength": "NEUTRAL",
-      "days_in_band": 2,
+      "as_of": "2026-09-01",
+      "fund": -27.4,
+      "strength": "BEAR",
+      "days_in_band": 1,
       "previous_strength": "NEUTRAL",
-      "change_5d": -22.73,
-      "spread": -1.5331,
-      "momentum20": 0.0087,
-      "yield_base": 2.8921,
+      "change_5d": -45.38,
+      "spread": -1.5384,
+      "momentum20": -0.0283,
+      "yield_base": 2.8868,
       "yield_quote": 4.4252,
-      "exit_alert": null,
-      "exit_detail": null,
+      "exit_alert": "FORTALECEU",
+      "exit_detail": "FUND gained a band in the current direction",
       "history": [
-        {
-          "date": "2025-08-26",
-          "fund": 21.38,
-          "spread": -1.8247,
-          "momentum20": 0.045
-        },
-        {
-          "date": "2025-08-27",
-          "fund": -17.41,
-          "spread": -1.8965,
-          "momentum20": -0.0752
-        },
         {
           "date": "2025-08-28",
           "fund": -25.91,
@@ -2038,19 +2004,31 @@
           "momentum20": 0.0219
         },
         {
-          "date": "2026-08-31",
-          "fund": -8.44,
-          "spread": -1.5331,
-          "momentum20": 0.0087
+          "date": "2026-08-25",
+          "fund": 12.18,
+          "spread": -1.4919,
+          "momentum20": 0.05
+        },
+        {
+          "date": "2026-08-26",
+          "fund": -16.44,
+          "spread": -1.5378,
+          "momentum20": -0.0068
+        },
+        {
+          "date": "2026-09-01",
+          "fund": -27.4,
+          "spread": -1.5384,
+          "momentum20": -0.0283
         }
       ],
       "data_status": "CURRENT",
       "operational": true,
-      "decision": "NEUTRAL",
+      "decision": "VENDER_BASE",
       "backtest": {
         "pair": "EURGBP",
         "start": "2018-01-01",
-        "end": "2026-08-24",
+        "end": "2026-08-28",
         "cost_pips": 1.0,
         "trades": 235,
         "wins": 105,
@@ -2069,49 +2047,19 @@
       "pair": "EURAUD",
       "base": "EUR",
       "quote": "AUD",
-      "as_of": "2026-08-31",
-      "fund": 38.25,
-      "strength": "BULL",
-      "days_in_band": 2,
-      "previous_strength": "BULL",
-      "change_5d": 14.51,
-      "spread": -1.8259,
-      "momentum20": 0.0695,
-      "yield_base": 2.8921,
-      "yield_quote": 4.718,
+      "as_of": "2026-09-01",
+      "fund": 9.33,
+      "strength": "NEUTRAL",
+      "days_in_band": 4,
+      "previous_strength": "NEUTRAL",
+      "change_5d": -50.55,
+      "spread": -1.8232,
+      "momentum20": -0.0083,
+      "yield_base": 2.8868,
+      "yield_quote": 4.71,
       "exit_alert": null,
       "exit_detail": null,
       "history": [
-        {
-          "date": "2025-08-26",
-          "fund": 44.88,
-          "spread": -1.3621,
-          "momentum20": 0.1586
-        },
-        {
-          "date": "2025-08-27",
-          "fund": 20.37,
-          "spread": -1.412,
-          "momentum20": 0.0604
-        },
-        {
-          "date": "2025-08-28",
-          "fund": -14.68,
-          "spread": -1.4536,
-          "momentum20": -0.066
-        },
-        {
-          "date": "2025-08-29",
-          "fund": 3.56,
-          "spread": -1.4085,
-          "momentum20": -0.0007
-        },
-        {
-          "date": "2025-09-01",
-          "fund": 29.13,
-          "spread": -1.4116,
-          "momentum20": 0.0941
-        },
         {
           "date": "2025-09-02",
           "fund": 21.64,
@@ -3626,40 +3574,70 @@
         },
         {
           "date": "2026-08-21",
-          "fund": 18.51,
-          "spread": -1.7926,
-          "momentum20": 0.0138
+          "fund": 33.05,
+          "spread": -1.7526,
+          "momentum20": 0.0538
         },
         {
           "date": "2026-08-24",
-          "fund": 53.95,
-          "spread": -1.8229,
-          "momentum20": 0.1201
+          "fund": 54.15,
+          "spread": -1.8219,
+          "momentum20": 0.1211
+        },
+        {
+          "date": "2026-08-25",
+          "fund": 59.88,
+          "spread": -1.7516,
+          "momentum20": 0.1438
+        },
+        {
+          "date": "2026-08-26",
+          "fund": 30.75,
+          "spread": -1.8176,
+          "momentum20": 0.0489
+        },
+        {
+          "date": "2026-08-27",
+          "fund": -21.7,
+          "spread": -1.8636,
+          "momentum20": -0.0896
+        },
+        {
+          "date": "2026-08-28",
+          "fund": 17.16,
+          "spread": -1.8339,
+          "momentum20": 0.012
         },
         {
           "date": "2026-08-31",
-          "fund": 38.25,
-          "spread": -1.8259,
-          "momentum20": 0.0695
+          "fund": -12.7,
+          "spread": -1.8136,
+          "momentum20": -0.0654
+        },
+        {
+          "date": "2026-09-01",
+          "fund": 9.33,
+          "spread": -1.8232,
+          "momentum20": -0.0083
         }
       ],
       "data_status": "CURRENT",
       "operational": true,
-      "decision": "COMPRAR_BASE",
+      "decision": "NEUTRAL",
       "backtest": {
         "pair": "EURAUD",
         "start": "2018-01-01",
-        "end": "2026-08-24",
+        "end": "2026-08-28",
         "cost_pips": 1.0,
-        "trades": 222,
+        "trades": 223,
         "wins": 106,
-        "losses": 114,
-        "win_rate": 47.75,
-        "profit_factor": 0.904,
+        "losses": 115,
+        "win_rate": 47.53,
+        "profit_factor": 0.896,
         "no_loss_pf": false,
-        "net_return_pct": -7.75,
-        "sum_return_pct": -6.97,
-        "max_drawdown_pct": 11.64,
+        "net_return_pct": -8.35,
+        "sum_return_pct": -7.61,
+        "max_drawdown_pct": 12.04,
         "avg_holding_days": 5.4,
         "validation": "PROVISIONAL_PIT"
       }
@@ -3668,43 +3646,19 @@
       "pair": "EURNZD",
       "base": "EUR",
       "quote": "NZD",
-      "as_of": "2026-08-31",
-      "fund": 52.12,
+      "as_of": "2026-09-01",
+      "fund": 41.18,
       "strength": "BULL",
-      "days_in_band": 5,
-      "previous_strength": "BULL",
-      "change_5d": 31.55,
-      "spread": -0.7379,
-      "momentum20": 0.2345,
-      "yield_base": 2.8921,
-      "yield_quote": 3.63,
-      "exit_alert": null,
-      "exit_detail": null,
+      "days_in_band": 1,
+      "previous_strength": "NEUTRAL",
+      "change_5d": 1.65,
+      "spread": -0.7562,
+      "momentum20": 0.1817,
+      "yield_base": 2.8868,
+      "yield_quote": 3.643,
+      "exit_alert": "FORTALECEU",
+      "exit_detail": "FUND gained a band in the current direction",
       "history": [
-        {
-          "date": "2025-08-27",
-          "fund": 72.01,
-          "spread": -1.07,
-          "momentum20": 0.3024
-        },
-        {
-          "date": "2025-08-28",
-          "fund": 56.56,
-          "spread": -1.0956,
-          "momentum20": 0.226
-        },
-        {
-          "date": "2025-08-29",
-          "fund": 65.19,
-          "spread": -1.0455,
-          "momentum20": 0.2683
-        },
-        {
-          "date": "2025-09-01",
-          "fund": 73.57,
-          "spread": -1.0486,
-          "momentum20": 0.3191
-        },
         {
           "date": "2025-09-02",
           "fund": 64.77,
@@ -5231,15 +5185,39 @@
         },
         {
           "date": "2026-08-25",
-          "fund": 31.13,
-          "spread": -0.7989,
-          "momentum20": 0.1415
+          "fund": 39.53,
+          "spread": -0.7636,
+          "momentum20": 0.1768
+        },
+        {
+          "date": "2026-08-26",
+          "fund": 34.01,
+          "spread": -0.8196,
+          "momentum20": 0.1529
+        },
+        {
+          "date": "2026-08-27",
+          "fund": 16.42,
+          "spread": -0.7846,
+          "momentum20": 0.0834
+        },
+        {
+          "date": "2026-08-28",
+          "fund": 29.08,
+          "spread": -0.8049,
+          "momentum20": 0.132
         },
         {
           "date": "2026-08-31",
-          "fund": 52.12,
-          "spread": -0.7379,
-          "momentum20": 0.2345
+          "fund": 8.78,
+          "spread": -0.7946,
+          "momentum20": 0.0546
+        },
+        {
+          "date": "2026-09-01",
+          "fund": 41.18,
+          "spread": -0.7562,
+          "momentum20": 0.1817
         }
       ],
       "data_status": "CURRENT",
@@ -5248,16 +5226,16 @@
       "backtest": {
         "pair": "EURNZD",
         "start": "2018-01-01",
-        "end": "2026-08-24",
+        "end": "2026-08-28",
         "cost_pips": 1.0,
         "trades": 205,
         "wins": 94,
         "losses": 111,
         "win_rate": 45.85,
-        "profit_factor": 0.771,
+        "profit_factor": 0.772,
         "no_loss_pf": false,
-        "net_return_pct": -15.36,
-        "sum_return_pct": -15.98,
+        "net_return_pct": -15.28,
+        "sum_return_pct": -15.89,
         "max_drawdown_pct": 20.41,
         "avg_holding_days": 5.5,
         "validation": "PIT_CAUSAL"
@@ -5267,43 +5245,19 @@
       "pair": "EURUSD",
       "base": "EUR",
       "quote": "USD",
-      "as_of": "2026-08-31",
-      "fund": 33.79,
+      "as_of": "2026-09-01",
+      "fund": 32.92,
       "strength": "BULL",
-      "days_in_band": 5,
+      "days_in_band": 2,
       "previous_strength": "BULL",
-      "change_5d": 25.26,
-      "spread": -1.4679,
-      "momentum20": 0.1125,
-      "yield_base": 2.8921,
-      "yield_quote": 4.36,
+      "change_5d": -6.44,
+      "spread": -1.4402,
+      "momentum20": 0.1077,
+      "yield_base": 2.8868,
+      "yield_quote": 4.327,
       "exit_alert": null,
       "exit_detail": null,
       "history": [
-        {
-          "date": "2025-08-26",
-          "fund": 54.5,
-          "spread": -1.7721,
-          "momentum20": 0.2536
-        },
-        {
-          "date": "2025-08-27",
-          "fund": 55.72,
-          "spread": -1.69,
-          "momentum20": 0.2624
-        },
-        {
-          "date": "2025-08-28",
-          "fund": 64.49,
-          "spread": -1.6856,
-          "momentum20": 0.326
-        },
-        {
-          "date": "2025-08-29",
-          "fund": 60.69,
-          "spread": -1.7055,
-          "momentum20": 0.2983
-        },
         {
           "date": "2025-09-01",
           "fund": 33.71,
@@ -6835,10 +6789,34 @@
           "momentum20": 0.1291
         },
         {
-          "date": "2026-08-31",
-          "fund": 33.79,
-          "spread": -1.4679,
-          "momentum20": 0.1125
+          "date": "2026-08-25",
+          "fund": 56.48,
+          "spread": -1.3936,
+          "momentum20": 0.1868
+        },
+        {
+          "date": "2026-08-26",
+          "fund": 33.78,
+          "spread": -1.4396,
+          "momentum20": 0.1129
+        },
+        {
+          "date": "2026-08-27",
+          "fund": 12.16,
+          "spread": -1.4346,
+          "momentum20": 0.0534
+        },
+        {
+          "date": "2026-08-28",
+          "fund": 33.96,
+          "spread": -1.4049,
+          "momentum20": 0.112
+        },
+        {
+          "date": "2026-09-01",
+          "fund": 32.92,
+          "spread": -1.4402,
+          "momentum20": 0.1077
         }
       ],
       "data_status": "CURRENT",
@@ -6847,17 +6825,17 @@
       "backtest": {
         "pair": "EURUSD",
         "start": "2018-01-01",
-        "end": "2026-08-24",
+        "end": "2026-08-28",
         "cost_pips": 1.0,
         "trades": 234,
-        "wins": 117,
-        "losses": 117,
-        "win_rate": 50.0,
-        "profit_factor": 1.185,
+        "wins": 113,
+        "losses": 119,
+        "win_rate": 48.29,
+        "profit_factor": 1.214,
         "no_loss_pf": false,
-        "net_return_pct": 10.07,
-        "sum_return_pct": 10.15,
-        "max_drawdown_pct": 8.08,
+        "net_return_pct": 8.98,
+        "sum_return_pct": 9.04,
+        "max_drawdown_pct": 5.87,
         "avg_holding_days": 5.1,
         "validation": "PIT_CAUSAL"
       }
@@ -6866,49 +6844,19 @@
       "pair": "EURCAD",
       "base": "EUR",
       "quote": "CAD",
-      "as_of": "2026-08-31",
-      "fund": -9.75,
+      "as_of": "2026-09-01",
+      "fund": 22.67,
       "strength": "NEUTRAL",
       "days_in_band": 1,
-      "previous_strength": "STRONG_BEAR",
-      "change_5d": 55.35,
-      "spread": -0.1159,
-      "momentum20": 0.0245,
-      "yield_base": 2.8921,
+      "previous_strength": "BEAR",
+      "change_5d": 55.24,
+      "spread": -0.1212,
+      "momentum20": 0.0867,
+      "yield_base": 2.8868,
       "yield_quote": 3.008,
       "exit_alert": "SAIR_SHORT",
       "exit_detail": "FUND lost a band of selling strength",
       "history": [
-        {
-          "date": "2025-08-26",
-          "fund": 37.06,
-          "spread": -0.7621,
-          "momentum20": 0.1636
-        },
-        {
-          "date": "2025-08-27",
-          "fund": 20.67,
-          "spread": -0.77,
-          "momentum20": 0.0924
-        },
-        {
-          "date": "2025-08-28",
-          "fund": 16.67,
-          "spread": -0.7856,
-          "momentum20": 0.076
-        },
-        {
-          "date": "2025-08-29",
-          "fund": 9.96,
-          "spread": -0.7755,
-          "momentum20": 0.0483
-        },
-        {
-          "date": "2025-09-01",
-          "fund": 20.0,
-          "spread": -0.7186,
-          "momentum20": 0.0891
-        },
         {
           "date": "2025-09-02",
           "fund": 22.89,
@@ -8434,10 +8382,40 @@
           "momentum20": -0.1409
         },
         {
+          "date": "2026-08-25",
+          "fund": -32.57,
+          "spread": -0.1636,
+          "momentum20": -0.0232
+        },
+        {
+          "date": "2026-08-26",
+          "fund": -29.54,
+          "spread": -0.1496,
+          "momentum20": -0.0171
+        },
+        {
+          "date": "2026-08-27",
+          "fund": -46.27,
+          "spread": -0.1746,
+          "momentum20": -0.0566
+        },
+        {
+          "date": "2026-08-28",
+          "fund": -38.31,
+          "spread": -0.1749,
+          "momentum20": -0.038
+        },
+        {
           "date": "2026-08-31",
-          "fund": -9.75,
-          "spread": -0.1159,
-          "momentum20": 0.0245
+          "fund": -45.25,
+          "spread": -0.2046,
+          "momentum20": -0.0554
+        },
+        {
+          "date": "2026-09-01",
+          "fund": 22.67,
+          "spread": -0.1212,
+          "momentum20": 0.0867
         }
       ],
       "data_status": "CURRENT",
@@ -8446,7 +8424,7 @@
       "backtest": {
         "pair": "EURCAD",
         "start": "2018-01-01",
-        "end": "2026-08-24",
+        "end": "2026-08-28",
         "cost_pips": 1.0,
         "trades": 211,
         "wins": 106,
@@ -8465,49 +8443,19 @@
       "pair": "EURCHF",
       "base": "EUR",
       "quote": "CHF",
-      "as_of": "2026-08-31",
-      "fund": 73.88,
-      "strength": "STRONG_BULL",
+      "as_of": "2026-09-01",
+      "fund": 53.81,
+      "strength": "BULL",
       "days_in_band": 1,
-      "previous_strength": "BULL",
-      "change_5d": 40.17,
-      "spread": 2.8044,
-      "momentum20": 0.2388,
-      "yield_base": 2.8921,
-      "yield_quote": 0.0877,
+      "previous_strength": "NEUTRAL",
+      "change_5d": -6.82,
+      "spread": 2.786,
+      "momentum20": 0.1709,
+      "yield_base": 2.8868,
+      "yield_quote": 0.1008,
       "exit_alert": "FORTALECEU",
       "exit_detail": "FUND gained a band in the current direction",
       "history": [
-        {
-          "date": "2025-08-26",
-          "fund": 23.68,
-          "spread": 2.1009,
-          "momentum20": 0.0876
-        },
-        {
-          "date": "2025-08-27",
-          "fund": -1.45,
-          "spread": 2.04,
-          "momentum20": 0.0124
-        },
-        {
-          "date": "2025-08-28",
-          "fund": -3.14,
-          "spread": 2.0544,
-          "momentum20": 0.008
-        },
-        {
-          "date": "2025-08-29",
-          "fund": -4.21,
-          "spread": 2.0245,
-          "momentum20": 0.0053
-        },
-        {
-          "date": "2025-09-01",
-          "fund": 15.44,
-          "spread": 2.0294,
-          "momentum20": 0.0641
-        },
         {
           "date": "2025-09-02",
           "fund": -5.23,
@@ -10028,15 +9976,45 @@
         },
         {
           "date": "2026-08-24",
-          "fund": 43.44,
-          "spread": 2.6821,
-          "momentum20": 0.1391
+          "fund": 52.09,
+          "spread": 2.7051,
+          "momentum20": 0.1621
+        },
+        {
+          "date": "2026-08-25",
+          "fund": 60.63,
+          "spread": 2.7544,
+          "momentum20": 0.1888
+        },
+        {
+          "date": "2026-08-26",
+          "fund": 30.48,
+          "spread": 2.7094,
+          "momentum20": 0.1099
+        },
+        {
+          "date": "2026-08-27",
+          "fund": 19.14,
+          "spread": 2.7354,
+          "momentum20": 0.0854
+        },
+        {
+          "date": "2026-08-28",
+          "fund": 55.57,
+          "spread": 2.7431,
+          "momentum20": 0.175
         },
         {
           "date": "2026-08-31",
-          "fund": 73.88,
-          "spread": 2.8044,
-          "momentum20": 0.2388
+          "fund": 13.72,
+          "spread": 2.7474,
+          "momentum20": 0.0756
+        },
+        {
+          "date": "2026-09-01",
+          "fund": 53.81,
+          "spread": 2.786,
+          "momentum20": 0.1709
         }
       ],
       "data_status": "CURRENT",
@@ -10045,16 +10023,16 @@
       "backtest": {
         "pair": "EURCHF",
         "start": "2018-01-01",
-        "end": "2026-08-24",
+        "end": "2026-08-28",
         "cost_pips": 1.0,
         "trades": 241,
         "wins": 130,
         "losses": 107,
         "win_rate": 53.94,
-        "profit_factor": 1.247,
+        "profit_factor": 1.25,
         "no_loss_pf": false,
-        "net_return_pct": 10.89,
-        "sum_return_pct": 10.84,
+        "net_return_pct": 11.06,
+        "sum_return_pct": 10.99,
         "max_drawdown_pct": 3.82,
         "avg_holding_days": 4.5,
         "validation": "PROVISIONAL_PIT"
@@ -10064,31 +10042,19 @@
       "pair": "EURJPY",
       "base": "EUR",
       "quote": "JPY",
-      "as_of": "2026-08-31",
-      "fund": -10.11,
+      "as_of": "2026-09-01",
+      "fund": 2.63,
       "strength": "NEUTRAL",
       "days_in_band": 1,
       "previous_strength": "BEAR",
-      "change_5d": 56.7,
-      "spread": 1.1881,
-      "momentum20": -0.0285,
-      "yield_base": 2.8921,
-      "yield_quote": 1.704,
+      "change_5d": 66.53,
+      "spread": 1.1508,
+      "momentum20": 0.0107,
+      "yield_base": 2.8868,
+      "yield_quote": 1.736,
       "exit_alert": "SAIR_SHORT",
       "exit_detail": "FUND lost a band of selling strength",
       "history": [
-        {
-          "date": "2025-08-26",
-          "fund": 41.53,
-          "spread": 1.0889,
-          "momentum20": 0.0536
-        },
-        {
-          "date": "2025-08-27",
-          "fund": 16.07,
-          "spread": 1.046,
-          "momentum20": -0.0266
-        },
         {
           "date": "2025-08-28",
           "fund": 1.96,
@@ -11632,10 +11598,22 @@
           "momentum20": -0.1709
         },
         {
-          "date": "2026-08-31",
-          "fund": -10.11,
-          "spread": 1.1881,
-          "momentum20": -0.0285
+          "date": "2026-08-25",
+          "fund": -35.9,
+          "spread": 1.1054,
+          "momentum20": -0.1112
+        },
+        {
+          "date": "2026-08-26",
+          "fund": -44.89,
+          "spread": 1.0594,
+          "momentum20": -0.1441
+        },
+        {
+          "date": "2026-09-01",
+          "fund": 2.63,
+          "spread": 1.1508,
+          "momentum20": 0.0107
         }
       ],
       "data_status": "CURRENT",
@@ -11644,7 +11622,7 @@
       "backtest": {
         "pair": "EURJPY",
         "start": "2018-01-01",
-        "end": "2026-08-24",
+        "end": "2026-08-28",
         "cost_pips": 1.0,
         "trades": 196,
         "wins": 93,
@@ -11663,43 +11641,19 @@
       "pair": "GBPAUD",
       "base": "GBP",
       "quote": "AUD",
-      "as_of": "2026-08-31",
-      "fund": -4.94,
+      "as_of": "2026-09-01",
+      "fund": 20.22,
       "strength": "NEUTRAL",
-      "days_in_band": 13,
-      "previous_strength": "NEUTRAL",
-      "change_5d": -1.53,
-      "spread": -0.2928,
-      "momentum20": -0.0758,
+      "days_in_band": 1,
+      "previous_strength": "BULL",
+      "change_5d": 22.12,
+      "spread": -0.2848,
+      "momentum20": 0.0129,
       "yield_base": 4.4252,
-      "yield_quote": 4.718,
-      "exit_alert": null,
-      "exit_detail": null,
+      "yield_quote": 4.71,
+      "exit_alert": "SAIR_LONG",
+      "exit_detail": "FUND lost a band of buying strength",
       "history": [
-        {
-          "date": "2025-08-22",
-          "fund": 52.34,
-          "spread": 0.4912,
-          "momentum20": 0.1772
-        },
-        {
-          "date": "2025-08-25",
-          "fund": 31.25,
-          "spread": 0.4346,
-          "momentum20": 0.1023
-        },
-        {
-          "date": "2025-08-26",
-          "fund": 34.67,
-          "spread": 0.4626,
-          "momentum20": 0.1136
-        },
-        {
-          "date": "2025-08-27",
-          "fund": 41.06,
-          "spread": 0.4846,
-          "momentum20": 0.1356
-        },
         {
           "date": "2025-08-28",
           "fund": 9.66,
@@ -13231,10 +13185,34 @@
           "momentum20": -0.0641
         },
         {
-          "date": "2026-08-31",
-          "fund": -4.94,
-          "spread": -0.2928,
-          "momentum20": -0.0758
+          "date": "2026-08-21",
+          "fund": 5.58,
+          "spread": -0.2558,
+          "momentum20": -0.0388
+        },
+        {
+          "date": "2026-08-24",
+          "fund": 42.38,
+          "spread": -0.2948,
+          "momentum20": 0.0992
+        },
+        {
+          "date": "2026-08-25",
+          "fund": 41.15,
+          "spread": -0.2598,
+          "momentum20": 0.0938
+        },
+        {
+          "date": "2026-08-26",
+          "fund": 31.66,
+          "spread": -0.2798,
+          "momentum20": 0.0557
+        },
+        {
+          "date": "2026-09-01",
+          "fund": 20.22,
+          "spread": -0.2848,
+          "momentum20": 0.0129
         }
       ],
       "data_status": "CURRENT",
@@ -13243,18 +13221,18 @@
       "backtest": {
         "pair": "GBPAUD",
         "start": "2018-01-01",
-        "end": "2026-08-24",
+        "end": "2026-08-28",
         "cost_pips": 1.0,
-        "trades": 272,
+        "trades": 273,
         "wins": 134,
-        "losses": 138,
-        "win_rate": 49.26,
-        "profit_factor": 0.892,
+        "losses": 139,
+        "win_rate": 49.08,
+        "profit_factor": 0.882,
         "no_loss_pf": false,
-        "net_return_pct": -10.03,
-        "sum_return_pct": -9.49,
+        "net_return_pct": -10.88,
+        "sum_return_pct": -10.43,
         "max_drawdown_pct": 18.41,
-        "avg_holding_days": 5.0,
+        "avg_holding_days": 4.9,
         "validation": "PROVISIONAL_PIT"
       }
     },
@@ -13262,25 +13240,19 @@
       "pair": "GBPNZD",
       "base": "GBP",
       "quote": "NZD",
-      "as_of": "2026-08-31",
-      "fund": 50.33,
+      "as_of": "2026-09-01",
+      "fund": 46.32,
       "strength": "BULL",
-      "days_in_band": 3,
+      "days_in_band": 4,
       "previous_strength": "BULL",
-      "change_5d": 38.21,
-      "spread": 0.7952,
-      "momentum20": 0.2367,
+      "change_5d": 31.17,
+      "spread": 0.7822,
+      "momentum20": 0.2101,
       "yield_base": 4.4252,
-      "yield_quote": 3.63,
+      "yield_quote": 3.643,
       "exit_alert": null,
       "exit_detail": null,
       "history": [
-        {
-          "date": "2025-08-27",
-          "fund": 73.79,
-          "spread": 0.8266,
-          "momentum20": 0.3776
-        },
         {
           "date": "2025-08-28",
           "fund": 66.04,
@@ -14830,10 +14802,16 @@
           "momentum20": 0.1268
         },
         {
-          "date": "2026-08-31",
-          "fund": 50.33,
-          "spread": 0.7952,
-          "momentum20": 0.2367
+          "date": "2026-08-26",
+          "fund": 35.91,
+          "spread": 0.7182,
+          "momentum20": 0.1597
+        },
+        {
+          "date": "2026-09-01",
+          "fund": 46.32,
+          "spread": 0.7822,
+          "momentum20": 0.2101
         }
       ],
       "data_status": "CURRENT",
@@ -14842,16 +14820,16 @@
       "backtest": {
         "pair": "GBPNZD",
         "start": "2018-01-01",
-        "end": "2026-08-24",
+        "end": "2026-08-28",
         "cost_pips": 1.0,
-        "trades": 195,
+        "trades": 196,
         "wins": 106,
-        "losses": 89,
-        "win_rate": 54.36,
+        "losses": 90,
+        "win_rate": 54.08,
         "profit_factor": 1.274,
         "no_loss_pf": false,
-        "net_return_pct": 15.44,
-        "sum_return_pct": 15.33,
+        "net_return_pct": 15.43,
+        "sum_return_pct": 15.32,
         "max_drawdown_pct": 6.37,
         "avg_holding_days": 5.0,
         "validation": "PIT_CAUSAL"
@@ -14861,18 +14839,18 @@
       "pair": "GBPUSD",
       "base": "GBP",
       "quote": "USD",
-      "as_of": "2026-08-31",
-      "fund": 22.04,
-      "strength": "NEUTRAL",
-      "days_in_band": 15,
+      "as_of": "2026-09-01",
+      "fund": 30.92,
+      "strength": "BULL",
+      "days_in_band": 1,
       "previous_strength": "NEUTRAL",
-      "change_5d": 16.85,
-      "spread": 0.0652,
-      "momentum20": 0.0742,
+      "change_5d": 25.73,
+      "spread": 0.0982,
+      "momentum20": 0.1072,
       "yield_base": 4.4252,
-      "yield_quote": 4.36,
-      "exit_alert": null,
-      "exit_detail": null,
+      "yield_quote": 4.327,
+      "exit_alert": "FORTALECEU",
+      "exit_detail": "FUND gained a band in the current direction",
       "history": [
         {
           "date": "2025-08-25",
@@ -16429,29 +16407,29 @@
           "momentum20": 0.0782
         },
         {
-          "date": "2026-08-31",
-          "fund": 22.04,
-          "spread": 0.0652,
-          "momentum20": 0.0742
+          "date": "2026-09-01",
+          "fund": 30.92,
+          "spread": 0.0982,
+          "momentum20": 0.1072
         }
       ],
       "data_status": "CURRENT",
       "operational": true,
-      "decision": "NEUTRAL",
+      "decision": "COMPRAR_BASE",
       "backtest": {
         "pair": "GBPUSD",
         "start": "2018-01-01",
-        "end": "2026-08-24",
+        "end": "2026-08-28",
         "cost_pips": 1.0,
         "trades": 249,
-        "wins": 126,
-        "losses": 123,
-        "win_rate": 50.6,
-        "profit_factor": 0.994,
+        "wins": 0,
+        "losses": 249,
+        "win_rate": 0.0,
+        "profit_factor": 0.0,
         "no_loss_pf": false,
-        "net_return_pct": -1.94,
-        "sum_return_pct": -0.51,
-        "max_drawdown_pct": 15.73,
+        "net_return_pct": -2.46,
+        "sum_return_pct": -2.49,
+        "max_drawdown_pct": 2.46,
         "avg_holding_days": 4.7,
         "validation": "PIT_CAUSAL"
       }
@@ -16460,31 +16438,19 @@
       "pair": "GBPCAD",
       "base": "GBP",
       "quote": "CAD",
-      "as_of": "2026-08-31",
-      "fund": -0.95,
-      "strength": "NEUTRAL",
+      "as_of": "2026-09-01",
+      "fund": 35.64,
+      "strength": "BULL",
       "days_in_band": 1,
-      "previous_strength": "BEAR",
-      "change_5d": 57.09,
+      "previous_strength": "NEUTRAL",
+      "change_5d": 86.69,
       "spread": 1.4172,
-      "momentum20": 0.0158,
+      "momentum20": 0.1151,
       "yield_base": 4.4252,
       "yield_quote": 3.008,
-      "exit_alert": "SAIR_SHORT",
-      "exit_detail": "FUND lost a band of selling strength",
+      "exit_alert": "FORTALECEU",
+      "exit_detail": "FUND gained a band in the current direction",
       "history": [
-        {
-          "date": "2025-08-26",
-          "fund": 24.65,
-          "spread": 1.0626,
-          "momentum20": 0.1186
-        },
-        {
-          "date": "2025-08-27",
-          "fund": 37.22,
-          "spread": 1.1266,
-          "momentum20": 0.1676
-        },
         {
           "date": "2025-08-28",
           "fund": 39.85,
@@ -18028,28 +17994,40 @@
           "momentum20": -0.1628
         },
         {
-          "date": "2026-08-31",
-          "fund": -0.95,
+          "date": "2026-08-25",
+          "fund": -32.39,
+          "spread": 1.3282,
+          "momentum20": -0.0732
+        },
+        {
+          "date": "2026-08-26",
+          "fund": -10.1,
+          "spread": 1.3882,
+          "momentum20": -0.0103
+        },
+        {
+          "date": "2026-09-01",
+          "fund": 35.64,
           "spread": 1.4172,
-          "momentum20": 0.0158
+          "momentum20": 0.1151
         }
       ],
       "data_status": "CURRENT",
       "operational": true,
-      "decision": "NEUTRAL",
+      "decision": "COMPRAR_BASE",
       "backtest": {
         "pair": "GBPCAD",
         "start": "2018-01-01",
-        "end": "2026-08-24",
+        "end": "2026-08-28",
         "cost_pips": 1.0,
         "trades": 223,
-        "wins": 89,
-        "losses": 134,
-        "win_rate": 39.91,
-        "profit_factor": 0.786,
+        "wins": 90,
+        "losses": 133,
+        "win_rate": 40.36,
+        "profit_factor": 0.789,
         "no_loss_pf": false,
-        "net_return_pct": -13.73,
-        "sum_return_pct": -14.16,
+        "net_return_pct": -13.53,
+        "sum_return_pct": -13.92,
         "max_drawdown_pct": 17.36,
         "avg_holding_days": 5.9,
         "validation": "PIT_CAUSAL"
@@ -18059,37 +18037,19 @@
       "pair": "GBPCHF",
       "base": "GBP",
       "quote": "CHF",
-      "as_of": "2026-08-31",
-      "fund": 57.63,
+      "as_of": "2026-09-01",
+      "fund": 47.52,
       "strength": "BULL",
-      "days_in_band": 1,
-      "previous_strength": "NEUTRAL",
-      "change_5d": 50.43,
-      "spread": 4.3375,
-      "momentum20": 0.2455,
+      "days_in_band": 4,
+      "previous_strength": "BULL",
+      "change_5d": 34.18,
+      "spread": 4.3244,
+      "momentum20": 0.1993,
       "yield_base": 4.4252,
-      "yield_quote": 0.0877,
-      "exit_alert": "FORTALECEU",
-      "exit_detail": "FUND gained a band in the current direction",
+      "yield_quote": 0.1008,
+      "exit_alert": null,
+      "exit_detail": null,
       "history": [
-        {
-          "date": "2025-08-25",
-          "fund": 7.03,
-          "spread": 3.8796,
-          "momentum20": 0.0693
-        },
-        {
-          "date": "2025-08-26",
-          "fund": 1.04,
-          "spread": 3.9256,
-          "momentum20": 0.0426
-        },
-        {
-          "date": "2025-08-27",
-          "fund": 11.03,
-          "spread": 3.9366,
-          "momentum20": 0.0876
-        },
         {
           "date": "2025-08-28",
           "fund": 15.92,
@@ -19627,10 +19587,28 @@
           "momentum20": 0.0122
         },
         {
-          "date": "2026-08-31",
-          "fund": 57.63,
-          "spread": 4.3375,
-          "momentum20": 0.2455
+          "date": "2026-08-24",
+          "fund": 33.81,
+          "spread": 4.2322,
+          "momentum20": 0.1402
+        },
+        {
+          "date": "2026-08-25",
+          "fund": 33.45,
+          "spread": 4.2462,
+          "momentum20": 0.1388
+        },
+        {
+          "date": "2026-08-26",
+          "fund": 27.61,
+          "spread": 4.2472,
+          "momentum20": 0.1167
+        },
+        {
+          "date": "2026-09-01",
+          "fund": 47.52,
+          "spread": 4.3244,
+          "momentum20": 0.1993
         }
       ],
       "data_status": "CURRENT",
@@ -19639,16 +19617,16 @@
       "backtest": {
         "pair": "GBPCHF",
         "start": "2018-01-01",
-        "end": "2026-08-24",
+        "end": "2026-08-28",
         "cost_pips": 1.0,
-        "trades": 263,
+        "trades": 264,
         "wins": 135,
-        "losses": 128,
-        "win_rate": 51.33,
-        "profit_factor": 1.011,
+        "losses": 129,
+        "win_rate": 51.14,
+        "profit_factor": 1.008,
         "no_loss_pf": false,
-        "net_return_pct": -0.24,
-        "sum_return_pct": 0.76,
+        "net_return_pct": -0.42,
+        "sum_return_pct": 0.59,
         "max_drawdown_pct": 13.22,
         "avg_holding_days": 4.9,
         "validation": "PROVISIONAL_PIT"
@@ -19658,16 +19636,16 @@
       "pair": "GBPJPY",
       "base": "GBP",
       "quote": "JPY",
-      "as_of": "2026-08-31",
-      "fund": -30.32,
+      "as_of": "2026-09-01",
+      "fund": -36.74,
       "strength": "BEAR",
       "days_in_band": 8,
       "previous_strength": "BEAR",
-      "change_5d": 10.06,
-      "spread": 2.7212,
-      "momentum20": -0.1582,
+      "change_5d": 3.64,
+      "spread": 2.6892,
+      "momentum20": -0.1902,
       "yield_base": 4.4252,
-      "yield_quote": 1.704,
+      "yield_quote": 1.736,
       "exit_alert": null,
       "exit_detail": null,
       "history": [
@@ -21226,10 +21204,10 @@
           "momentum20": -0.2533
         },
         {
-          "date": "2026-08-31",
-          "fund": -30.32,
-          "spread": 2.7212,
-          "momentum20": -0.1582
+          "date": "2026-09-01",
+          "fund": -36.74,
+          "spread": 2.6892,
+          "momentum20": -0.1902
         }
       ],
       "data_status": "CURRENT",
@@ -21238,17 +21216,17 @@
       "backtest": {
         "pair": "GBPJPY",
         "start": "2018-01-01",
-        "end": "2026-08-24",
+        "end": "2026-08-28",
         "cost_pips": 1.0,
         "trades": 226,
         "wins": 97,
         "losses": 129,
         "win_rate": 42.92,
-        "profit_factor": 0.825,
+        "profit_factor": 0.826,
         "no_loss_pf": false,
-        "net_return_pct": -16.13,
-        "sum_return_pct": -16.2,
-        "max_drawdown_pct": 23.62,
+        "net_return_pct": -16.11,
+        "sum_return_pct": -16.17,
+        "max_drawdown_pct": 23.6,
         "avg_holding_days": 5.7,
         "validation": "PIT_CAUSAL"
       }
@@ -21257,43 +21235,19 @@
       "pair": "AUDNZD",
       "base": "AUD",
       "quote": "NZD",
-      "as_of": "2026-08-31",
-      "fund": 39.94,
+      "as_of": "2026-09-01",
+      "fund": 39.71,
       "strength": "BULL",
       "days_in_band": 1,
       "previous_strength": "NEUTRAL",
-      "change_5d": 19.61,
-      "spread": 1.088,
-      "momentum20": 0.194,
-      "yield_base": 4.718,
-      "yield_quote": 3.63,
+      "change_5d": 48.47,
+      "spread": 1.067,
+      "momentum20": 0.19,
+      "yield_base": 4.71,
+      "yield_quote": 3.643,
       "exit_alert": "FORTALECEU",
       "exit_detail": "FUND gained a band in the current direction",
       "history": [
-        {
-          "date": "2025-08-21",
-          "fund": 44.94,
-          "spread": 0.281,
-          "momentum20": 0.209
-        },
-        {
-          "date": "2025-08-22",
-          "fund": 38.1,
-          "spread": 0.295,
-          "momentum20": 0.182
-        },
-        {
-          "date": "2025-08-25",
-          "fund": 45.8,
-          "spread": 0.308,
-          "momentum20": 0.215
-        },
-        {
-          "date": "2025-08-26",
-          "fund": 38.23,
-          "spread": 0.3,
-          "momentum20": 0.185
-        },
         {
           "date": "2025-08-27",
           "fund": 51.4,
@@ -22808,27 +22762,51 @@
         },
         {
           "date": "2026-08-21",
-          "fund": 16.91,
-          "spread": 1.054,
-          "momentum20": 0.117
+          "fund": 4.55,
+          "spread": 1.014,
+          "momentum20": 0.077
         },
         {
           "date": "2026-08-24",
-          "fund": -0.93,
-          "spread": 1.004,
-          "momentum20": 0.059
+          "fund": -1.19,
+          "spread": 1.003,
+          "momentum20": 0.058
         },
         {
           "date": "2026-08-25",
-          "fund": 2.51,
-          "spread": 1.024,
-          "momentum20": 0.069
+          "fund": -8.76,
+          "spread": 0.988,
+          "momentum20": 0.033
+        },
+        {
+          "date": "2026-08-26",
+          "fund": 13.85,
+          "spread": 0.998,
+          "momentum20": 0.104
+        },
+        {
+          "date": "2026-08-27",
+          "fund": 34.51,
+          "spread": 1.079,
+          "momentum20": 0.173
+        },
+        {
+          "date": "2026-08-28",
+          "fund": 19.0,
+          "spread": 1.029,
+          "momentum20": 0.12
         },
         {
           "date": "2026-08-31",
-          "fund": 39.94,
-          "spread": 1.088,
-          "momentum20": 0.194
+          "fund": 19.17,
+          "spread": 1.019,
+          "momentum20": 0.12
+        },
+        {
+          "date": "2026-09-01",
+          "fund": 39.71,
+          "spread": 1.067,
+          "momentum20": 0.19
         }
       ],
       "data_status": "CURRENT",
@@ -22837,16 +22815,16 @@
       "backtest": {
         "pair": "AUDNZD",
         "start": "2018-01-01",
-        "end": "2026-08-24",
+        "end": "2026-08-28",
         "cost_pips": 1.0,
-        "trades": 162,
+        "trades": 163,
         "wins": 79,
-        "losses": 83,
-        "win_rate": 48.77,
+        "losses": 84,
+        "win_rate": 48.47,
         "profit_factor": 1.075,
         "no_loss_pf": false,
-        "net_return_pct": 2.36,
-        "sum_return_pct": 2.6,
+        "net_return_pct": 2.35,
+        "sum_return_pct": 2.59,
         "max_drawdown_pct": 4.06,
         "avg_holding_days": 9.5,
         "validation": "PROVISIONAL_PIT"
@@ -22856,43 +22834,19 @@
       "pair": "AUDUSD",
       "base": "AUD",
       "quote": "USD",
-      "as_of": "2026-08-31",
-      "fund": -21.02,
+      "as_of": "2026-09-01",
+      "fund": 0.01,
       "strength": "NEUTRAL",
-      "days_in_band": 1,
-      "previous_strength": "BULL",
-      "change_5d": -19.68,
-      "spread": 0.358,
-      "momentum20": -0.027,
-      "yield_base": 4.718,
-      "yield_quote": 4.36,
-      "exit_alert": "SAIR_LONG",
-      "exit_detail": "FUND lost a band of buying strength",
+      "days_in_band": 15,
+      "previous_strength": "NEUTRAL",
+      "change_5d": -15.51,
+      "spread": 0.383,
+      "momentum20": 0.054,
+      "yield_base": 4.71,
+      "yield_quote": 4.327,
+      "exit_alert": null,
+      "exit_detail": null,
       "history": [
-        {
-          "date": "2025-08-25",
-          "fund": 48.83,
-          "spread": -0.332,
-          "momentum20": 0.175
-        },
-        {
-          "date": "2025-08-26",
-          "fund": 29.07,
-          "spread": -0.41,
-          "momentum20": 0.095
-        },
-        {
-          "date": "2025-08-27",
-          "fund": 54.46,
-          "spread": -0.278,
-          "momentum20": 0.202
-        },
-        {
-          "date": "2025-08-28",
-          "fund": 82.16,
-          "spread": -0.232,
-          "momentum20": 0.392
-        },
         {
           "date": "2025-08-29",
           "fund": 70.84,
@@ -24419,15 +24373,39 @@
         },
         {
           "date": "2026-08-21",
-          "fund": 25.34,
-          "spread": 0.394,
-          "momentum20": 0.157
+          "fund": 15.53,
+          "spread": 0.354,
+          "momentum20": 0.117
         },
         {
-          "date": "2026-08-31",
-          "fund": -21.02,
+          "date": "2026-08-24",
+          "fund": -12.27,
+          "spread": 0.393,
+          "momentum20": 0.008
+        },
+        {
+          "date": "2026-08-25",
+          "fund": -3.24,
           "spread": 0.358,
-          "momentum20": -0.027
+          "momentum20": 0.043
+        },
+        {
+          "date": "2026-08-26",
+          "fund": 2.27,
+          "spread": 0.378,
+          "momentum20": 0.064
+        },
+        {
+          "date": "2026-08-27",
+          "fund": 22.33,
+          "spread": 0.429,
+          "momentum20": 0.143
+        },
+        {
+          "date": "2026-09-01",
+          "fund": 0.01,
+          "spread": 0.383,
+          "momentum20": 0.054
         }
       ],
       "data_status": "CURRENT",
@@ -24436,17 +24414,17 @@
       "backtest": {
         "pair": "AUDUSD",
         "start": "2018-01-01",
-        "end": "2026-08-24",
+        "end": "2026-08-28",
         "cost_pips": 1.0,
-        "trades": 297,
-        "wins": 137,
-        "losses": 160,
-        "win_rate": 46.13,
-        "profit_factor": 0.745,
+        "trades": 296,
+        "wins": 129,
+        "losses": 167,
+        "win_rate": 43.58,
+        "profit_factor": 0.704,
         "no_loss_pf": false,
-        "net_return_pct": -27.55,
-        "sum_return_pct": -30.26,
-        "max_drawdown_pct": 31.03,
+        "net_return_pct": -23.59,
+        "sum_return_pct": -26.12,
+        "max_drawdown_pct": 26.13,
         "avg_holding_days": 4.0,
         "validation": "PROVISIONAL_PIT"
       }
@@ -24455,49 +24433,19 @@
       "pair": "AUDCAD",
       "base": "AUD",
       "quote": "CAD",
-      "as_of": "2026-08-31",
-      "fund": -42.39,
-      "strength": "BEAR",
-      "days_in_band": 1,
-      "previous_strength": "STRONG_BEAR",
-      "change_5d": 24.23,
-      "spread": 1.71,
-      "momentum20": -0.045,
-      "yield_base": 4.718,
+      "as_of": "2026-09-01",
+      "fund": 7.05,
+      "strength": "NEUTRAL",
+      "days_in_band": 2,
+      "previous_strength": "NEUTRAL",
+      "change_5d": 78.58,
+      "spread": 1.702,
+      "momentum20": 0.095,
+      "yield_base": 4.71,
       "yield_quote": 3.008,
-      "exit_alert": "SAIR_SHORT",
-      "exit_detail": "FUND lost a band of selling strength",
+      "exit_alert": null,
+      "exit_detail": null,
       "history": [
-        {
-          "date": "2025-08-21",
-          "fund": 24.74,
-          "spread": 0.641,
-          "momentum20": 0.129
-        },
-        {
-          "date": "2025-08-22",
-          "fund": 2.86,
-          "spread": 0.595,
-          "momentum20": 0.032
-        },
-        {
-          "date": "2025-08-25",
-          "fund": 10.29,
-          "spread": 0.658,
-          "momentum20": 0.065
-        },
-        {
-          "date": "2025-08-26",
-          "fund": -3.56,
-          "spread": 0.6,
-          "momentum20": 0.005
-        },
-        {
-          "date": "2025-08-27",
-          "fund": 2.35,
-          "spread": 0.642,
-          "momentum20": 0.032
-        },
         {
           "date": "2025-08-28",
           "fund": 26.79,
@@ -26012,30 +25960,60 @@
         },
         {
           "date": "2026-08-21",
-          "fund": -54.32,
-          "spread": 1.564,
-          "momentum20": -0.083
+          "fund": -63.97,
+          "spread": 1.524,
+          "momentum20": -0.123
         },
         {
           "date": "2026-08-24",
-          "fund": -85.24,
-          "spread": 1.554,
-          "momentum20": -0.261
+          "fund": -85.27,
+          "spread": 1.553,
+          "momentum20": -0.262
+        },
+        {
+          "date": "2026-08-25",
+          "fund": -71.53,
+          "spread": 1.588,
+          "momentum20": -0.167
+        },
+        {
+          "date": "2026-08-26",
+          "fund": -47.98,
+          "spread": 1.668,
+          "momentum20": -0.066
+        },
+        {
+          "date": "2026-08-27",
+          "fund": -15.91,
+          "spread": 1.689,
+          "momentum20": 0.033
+        },
+        {
+          "date": "2026-08-28",
+          "fund": -43.11,
+          "spread": 1.659,
+          "momentum20": -0.05
         },
         {
           "date": "2026-08-31",
-          "fund": -42.39,
-          "spread": 1.71,
-          "momentum20": -0.045
+          "fund": -23.54,
+          "spread": 1.609,
+          "momentum20": 0.01
+        },
+        {
+          "date": "2026-09-01",
+          "fund": 7.05,
+          "spread": 1.702,
+          "momentum20": 0.095
         }
       ],
       "data_status": "CURRENT",
       "operational": true,
-      "decision": "VENDER_BASE",
+      "decision": "NEUTRAL",
       "backtest": {
         "pair": "AUDCAD",
         "start": "2018-01-01",
-        "end": "2026-08-24",
+        "end": "2026-08-28",
         "cost_pips": 1.0,
         "trades": 257,
         "wins": 126,
@@ -26054,55 +26032,19 @@
       "pair": "AUDCHF",
       "base": "AUD",
       "quote": "CHF",
-      "as_of": "2026-08-31",
-      "fund": 23.54,
-      "strength": "NEUTRAL",
-      "days_in_band": 8,
+      "as_of": "2026-09-01",
+      "fund": 34.47,
+      "strength": "BULL",
+      "days_in_band": 1,
       "previous_strength": "NEUTRAL",
-      "change_5d": 23.04,
-      "spread": 4.6303,
-      "momentum20": 0.1443,
-      "yield_base": 4.718,
-      "yield_quote": 0.0877,
-      "exit_alert": null,
-      "exit_detail": null,
+      "change_5d": 46.28,
+      "spread": 4.6092,
+      "momentum20": 0.1792,
+      "yield_base": 4.71,
+      "yield_quote": 0.1008,
+      "exit_alert": "FORTALECEU",
+      "exit_detail": "FUND gained a band in the current direction",
       "history": [
-        {
-          "date": "2025-08-19",
-          "fund": 19.07,
-          "spread": 3.494,
-          "momentum20": 0.109
-        },
-        {
-          "date": "2025-08-20",
-          "fund": 17.08,
-          "spread": 3.522,
-          "momentum20": 0.101
-        },
-        {
-          "date": "2025-08-21",
-          "fund": 7.9,
-          "spread": 3.493,
-          "momentum20": 0.06
-        },
-        {
-          "date": "2025-08-22",
-          "fund": -12.25,
-          "spread": 3.449,
-          "momentum20": -0.03
-        },
-        {
-          "date": "2025-08-25",
-          "fund": -13.36,
-          "spread": 3.445,
-          "momentum20": -0.033
-        },
-        {
-          "date": "2025-08-26",
-          "fund": -21.96,
-          "spread": 3.463,
-          "momentum20": -0.071
-        },
         {
           "date": "2025-08-27",
           "fund": -17.06,
@@ -27617,35 +27559,71 @@
         },
         {
           "date": "2026-08-21",
-          "fund": 4.88,
-          "spread": 4.505,
-          "momentum20": 0.091
+          "fund": -9.55,
+          "spread": 4.465,
+          "momentum20": 0.051
+        },
+        {
+          "date": "2026-08-24",
+          "fund": -13.27,
+          "spread": 4.527,
+          "momentum20": 0.041
+        },
+        {
+          "date": "2026-08-25",
+          "fund": -11.8,
+          "spread": 4.506,
+          "momentum20": 0.045
+        },
+        {
+          "date": "2026-08-26",
+          "fund": -6.11,
+          "spread": 4.527,
+          "momentum20": 0.061
+        },
+        {
+          "date": "2026-08-27",
+          "fund": 33.71,
+          "spread": 4.599,
+          "momentum20": 0.175
+        },
+        {
+          "date": "2026-08-28",
+          "fund": 29.51,
+          "spread": 4.577,
+          "momentum20": 0.163
         },
         {
           "date": "2026-08-31",
-          "fund": 23.54,
-          "spread": 4.6303,
-          "momentum20": 0.1443
+          "fund": 21.85,
+          "spread": 4.561,
+          "momentum20": 0.141
+        },
+        {
+          "date": "2026-09-01",
+          "fund": 34.47,
+          "spread": 4.6092,
+          "momentum20": 0.1792
         }
       ],
       "data_status": "CURRENT",
       "operational": true,
-      "decision": "NEUTRAL",
+      "decision": "COMPRAR_BASE",
       "backtest": {
         "pair": "AUDCHF",
         "start": "2018-01-01",
-        "end": "2026-08-24",
+        "end": "2026-08-28",
         "cost_pips": 1.0,
-        "trades": 201,
+        "trades": 202,
         "wins": 104,
-        "losses": 97,
-        "win_rate": 51.74,
-        "profit_factor": 1.109,
+        "losses": 98,
+        "win_rate": 51.49,
+        "profit_factor": 1.108,
         "no_loss_pf": false,
-        "net_return_pct": 6.51,
-        "sum_return_pct": 7.74,
+        "net_return_pct": 6.49,
+        "sum_return_pct": 7.72,
         "max_drawdown_pct": 10.78,
-        "avg_holding_days": 6.3,
+        "avg_holding_days": 6.2,
         "validation": "PROVISIONAL_PIT"
       }
     },
@@ -27653,43 +27631,19 @@
       "pair": "AUDJPY",
       "base": "AUD",
       "quote": "JPY",
-      "as_of": "2026-08-31",
-      "fund": -38.89,
+      "as_of": "2026-09-01",
+      "fund": -35.71,
       "strength": "BEAR",
       "days_in_band": 1,
       "previous_strength": "STRONG_BEAR",
-      "change_5d": 19.25,
-      "spread": 3.014,
-      "momentum20": -0.094,
-      "yield_base": 4.718,
-      "yield_quote": 1.704,
+      "change_5d": 30.81,
+      "spread": 2.974,
+      "momentum20": -0.088,
+      "yield_base": 4.71,
+      "yield_quote": 1.736,
       "exit_alert": "SAIR_SHORT",
       "exit_detail": "FUND lost a band of selling strength",
       "history": [
-        {
-          "date": "2025-08-22",
-          "fund": -4.31,
-          "spread": 2.463,
-          "momentum20": -0.076
-        },
-        {
-          "date": "2025-08-25",
-          "fund": -1.18,
-          "spread": 2.475,
-          "momentum20": -0.065
-        },
-        {
-          "date": "2025-08-26",
-          "fund": -12.56,
-          "spread": 2.451,
-          "momentum20": -0.105
-        },
-        {
-          "date": "2025-08-27",
-          "fund": -7.64,
-          "spread": 2.458,
-          "momentum20": -0.087
-        },
         {
           "date": "2025-08-28",
           "fund": 16.54,
@@ -29221,10 +29175,34 @@
           "momentum20": -0.218
         },
         {
-          "date": "2026-08-31",
-          "fund": -38.89,
-          "spread": 3.014,
-          "momentum20": -0.094
+          "date": "2026-08-21",
+          "fund": -72.3,
+          "spread": 2.853,
+          "momentum20": -0.255
+        },
+        {
+          "date": "2026-08-24",
+          "fund": -77.13,
+          "spread": 2.892,
+          "momentum20": -0.292
+        },
+        {
+          "date": "2026-08-25",
+          "fund": -71.56,
+          "spread": 2.857,
+          "momentum20": -0.255
+        },
+        {
+          "date": "2026-08-26",
+          "fund": -60.41,
+          "spread": 2.877,
+          "momentum20": -0.193
+        },
+        {
+          "date": "2026-09-01",
+          "fund": -35.71,
+          "spread": 2.974,
+          "momentum20": -0.088
         }
       ],
       "data_status": "CURRENT",
@@ -29233,7 +29211,7 @@
       "backtest": {
         "pair": "AUDJPY",
         "start": "2018-01-01",
-        "end": "2026-08-24",
+        "end": "2026-08-28",
         "cost_pips": 1.0,
         "trades": 178,
         "wins": 82,
@@ -29252,37 +29230,19 @@
       "pair": "NZDUSD",
       "base": "NZD",
       "quote": "USD",
-      "as_of": "2026-08-31",
-      "fund": -32.22,
-      "strength": "BEAR",
-      "days_in_band": 1,
+      "as_of": "2026-09-01",
+      "fund": -16.08,
+      "strength": "NEUTRAL",
+      "days_in_band": 12,
       "previous_strength": "NEUTRAL",
-      "change_5d": -35.15,
-      "spread": -0.73,
-      "momentum20": -0.15,
-      "yield_base": 3.63,
-      "yield_quote": 4.36,
-      "exit_alert": "FORTALECEU",
-      "exit_detail": "FUND gained a band in the current direction",
+      "change_5d": -5.31,
+      "spread": -0.684,
+      "momentum20": -0.074,
+      "yield_base": 3.643,
+      "yield_quote": 4.327,
+      "exit_alert": null,
+      "exit_detail": null,
       "history": [
-        {
-          "date": "2025-08-27",
-          "fund": 3.98,
-          "spread": -0.62,
-          "momentum20": -0.04
-        },
-        {
-          "date": "2025-08-28",
-          "fund": 36.53,
-          "spread": -0.59,
-          "momentum20": 0.1
-        },
-        {
-          "date": "2025-08-29",
-          "fund": 21.06,
-          "spread": -0.66,
-          "momentum20": 0.03
-        },
         {
           "date": "2025-09-01",
           "fund": -29.06,
@@ -30820,29 +30780,47 @@
           "momentum20": 0.01
         },
         {
-          "date": "2026-08-31",
-          "fund": -32.22,
-          "spread": -0.73,
-          "momentum20": -0.15
+          "date": "2026-08-26",
+          "fund": -8.71,
+          "spread": -0.62,
+          "momentum20": -0.04
+        },
+        {
+          "date": "2026-08-27",
+          "fund": -6.51,
+          "spread": -0.65,
+          "momentum20": -0.03
+        },
+        {
+          "date": "2026-08-28",
+          "fund": -4.18,
+          "spread": -0.6,
+          "momentum20": -0.02
+        },
+        {
+          "date": "2026-09-01",
+          "fund": -16.08,
+          "spread": -0.684,
+          "momentum20": -0.074
         }
       ],
       "data_status": "CURRENT",
       "operational": true,
-      "decision": "VENDER_BASE",
+      "decision": "NEUTRAL",
       "backtest": {
         "pair": "NZDUSD",
         "start": "2018-01-01",
-        "end": "2026-08-24",
+        "end": "2026-08-28",
         "cost_pips": 1.0,
         "trades": 239,
-        "wins": 123,
-        "losses": 116,
-        "win_rate": 51.46,
-        "profit_factor": 1.163,
+        "wins": 117,
+        "losses": 122,
+        "win_rate": 48.95,
+        "profit_factor": 0.887,
         "no_loss_pf": false,
-        "net_return_pct": 12.48,
-        "sum_return_pct": 13.11,
-        "max_drawdown_pct": 8.45,
+        "net_return_pct": -8.65,
+        "sum_return_pct": -8.01,
+        "max_drawdown_pct": 14.74,
         "avg_holding_days": 4.0,
         "validation": "PIT_CAUSAL"
       }
@@ -30851,43 +30829,19 @@
       "pair": "NZDCAD",
       "base": "NZD",
       "quote": "CAD",
-      "as_of": "2026-08-31",
-      "fund": -60.76,
-      "strength": "STRONG_BEAR",
-      "days_in_band": 3,
-      "previous_strength": "STRONG_BEAR",
-      "change_5d": -3.02,
-      "spread": 0.622,
-      "momentum20": -0.218,
-      "yield_base": 3.63,
+      "as_of": "2026-09-01",
+      "fund": -32.66,
+      "strength": "BEAR",
+      "days_in_band": 6,
+      "previous_strength": "BEAR",
+      "change_5d": 24.7,
+      "spread": 0.635,
+      "momentum20": -0.095,
+      "yield_base": 3.643,
       "yield_quote": 3.008,
       "exit_alert": null,
       "exit_detail": null,
       "history": [
-        {
-          "date": "2025-08-22",
-          "fund": -32.82,
-          "spread": 0.3,
-          "momentum20": -0.15
-        },
-        {
-          "date": "2025-08-25",
-          "fund": -32.75,
-          "spread": 0.35,
-          "momentum20": -0.15
-        },
-        {
-          "date": "2025-08-26",
-          "fund": -39.93,
-          "spread": 0.3,
-          "momentum20": -0.18
-        },
-        {
-          "date": "2025-08-27",
-          "fund": -46.9,
-          "spread": 0.3,
-          "momentum20": -0.21
-        },
         {
           "date": "2025-08-28",
           "fund": -32.79,
@@ -32414,15 +32368,39 @@
         },
         {
           "date": "2026-08-25",
-          "fund": -69.73,
-          "spread": 0.53,
-          "momentum20": -0.27
+          "fund": -57.35,
+          "spread": 0.6,
+          "momentum20": -0.2
+        },
+        {
+          "date": "2026-08-26",
+          "fund": -51.1,
+          "spread": 0.67,
+          "momentum20": -0.17
+        },
+        {
+          "date": "2026-08-27",
+          "fund": -44.16,
+          "spread": 0.61,
+          "momentum20": -0.14
+        },
+        {
+          "date": "2026-08-28",
+          "fund": -51.1,
+          "spread": 0.63,
+          "momentum20": -0.17
         },
         {
           "date": "2026-08-31",
-          "fund": -60.76,
-          "spread": 0.622,
-          "momentum20": -0.218
+          "fund": -36.57,
+          "spread": 0.59,
+          "momentum20": -0.11
+        },
+        {
+          "date": "2026-09-01",
+          "fund": -32.66,
+          "spread": 0.635,
+          "momentum20": -0.095
         }
       ],
       "data_status": "CURRENT",
@@ -32431,7 +32409,7 @@
       "backtest": {
         "pair": "NZDCAD",
         "start": "2018-01-01",
-        "end": "2026-08-24",
+        "end": "2026-08-28",
         "cost_pips": 1.0,
         "trades": 247,
         "wins": 121,
@@ -32450,43 +32428,19 @@
       "pair": "NZDCHF",
       "base": "NZD",
       "quote": "CHF",
-      "as_of": "2026-08-31",
-      "fund": -11.24,
+      "as_of": "2026-09-01",
+      "fund": -7.83,
       "strength": "NEUTRAL",
-      "days_in_band": 10,
+      "days_in_band": 14,
       "previous_strength": "NEUTRAL",
-      "change_5d": -3.52,
-      "spread": 3.5423,
-      "momentum20": -0.0297,
-      "yield_base": 3.63,
-      "yield_quote": 0.0877,
+      "change_5d": -6.85,
+      "spread": 3.5422,
+      "momentum20": -0.0108,
+      "yield_base": 3.643,
+      "yield_quote": 0.1008,
       "exit_alert": null,
       "exit_detail": null,
       "history": [
-        {
-          "date": "2025-08-20",
-          "fund": 18.32,
-          "spread": 3.369,
-          "momentum20": 0.034
-        },
-        {
-          "date": "2025-08-21",
-          "fund": -41.68,
-          "spread": 3.212,
-          "momentum20": -0.149
-        },
-        {
-          "date": "2025-08-22",
-          "fund": -57.91,
-          "spread": 3.154,
-          "momentum20": -0.212
-        },
-        {
-          "date": "2025-08-25",
-          "fund": -65.55,
-          "spread": 3.137,
-          "momentum20": -0.248
-        },
         {
           "date": "2025-08-26",
           "fund": -66.87,
@@ -34007,21 +33961,45 @@
         },
         {
           "date": "2026-08-24",
-          "fund": -13.2,
-          "spread": 3.501,
-          "momentum20": -0.04
+          "fund": -7.7,
+          "spread": 3.524,
+          "momentum20": -0.017
         },
         {
           "date": "2026-08-25",
-          "fund": -9.9,
-          "spread": 3.481,
-          "momentum20": -0.025
+          "fund": -0.97,
+          "spread": 3.518,
+          "momentum20": 0.012
+        },
+        {
+          "date": "2026-08-26",
+          "fund": -14.48,
+          "spread": 3.529,
+          "momentum20": -0.043
+        },
+        {
+          "date": "2026-08-27",
+          "fund": -3.86,
+          "spread": 3.52,
+          "momentum20": 0.002
+        },
+        {
+          "date": "2026-08-28",
+          "fund": 5.92,
+          "spread": 3.548,
+          "momentum20": 0.043
         },
         {
           "date": "2026-08-31",
-          "fund": -11.24,
-          "spread": 3.5423,
-          "momentum20": -0.0297
+          "fund": 0.24,
+          "spread": 3.542,
+          "momentum20": 0.021
+        },
+        {
+          "date": "2026-09-01",
+          "fund": -7.83,
+          "spread": 3.5422,
+          "momentum20": -0.0108
         }
       ],
       "data_status": "CURRENT",
@@ -34030,7 +34008,7 @@
       "backtest": {
         "pair": "NZDCHF",
         "start": "2018-01-01",
-        "end": "2026-08-24",
+        "end": "2026-08-28",
         "cost_pips": 1.0,
         "trades": 164,
         "wins": 70,
@@ -34049,25 +34027,19 @@
       "pair": "NZDJPY",
       "base": "NZD",
       "quote": "JPY",
-      "as_of": "2026-08-31",
-      "fund": -45.75,
+      "as_of": "2026-09-01",
+      "fund": -31.83,
       "strength": "BEAR",
-      "days_in_band": 2,
+      "days_in_band": 3,
       "previous_strength": "BEAR",
-      "change_5d": 9.71,
-      "spread": 1.926,
-      "momentum20": -0.25,
-      "yield_base": 3.63,
-      "yield_quote": 1.704,
+      "change_5d": 29.5,
+      "spread": 1.907,
+      "momentum20": -0.171,
+      "yield_base": 3.643,
+      "yield_quote": 1.736,
       "exit_alert": null,
       "exit_detail": null,
       "history": [
-        {
-          "date": "2025-08-27",
-          "fund": -80.68,
-          "spread": 2.116,
-          "momentum20": -0.329
-        },
         {
           "date": "2025-08-28",
           "fund": -73.17,
@@ -35617,10 +35589,16 @@
           "momentum20": -0.288
         },
         {
-          "date": "2026-08-31",
-          "fund": -45.75,
-          "spread": 1.926,
-          "momentum20": -0.25
+          "date": "2026-08-26",
+          "fund": -53.4,
+          "spread": 1.879,
+          "momentum20": -0.297
+        },
+        {
+          "date": "2026-09-01",
+          "fund": -31.83,
+          "spread": 1.907,
+          "momentum20": -0.171
         }
       ],
       "data_status": "CURRENT",
@@ -35629,7 +35607,7 @@
       "backtest": {
         "pair": "NZDJPY",
         "start": "2018-01-01",
-        "end": "2026-08-24",
+        "end": "2026-08-28",
         "cost_pips": 1.0,
         "trades": 149,
         "wins": 70,
@@ -35648,43 +35626,19 @@
       "pair": "USDCAD",
       "base": "USD",
       "quote": "CAD",
-      "as_of": "2026-08-31",
-      "fund": -40.8,
-      "strength": "BEAR",
+      "as_of": "2026-09-01",
+      "fund": -16.16,
+      "strength": "NEUTRAL",
       "days_in_band": 1,
-      "previous_strength": "STRONG_BEAR",
-      "change_5d": 19.36,
-      "spread": 1.352,
-      "momentum20": -0.088,
-      "yield_base": 4.36,
+      "previous_strength": "BEAR",
+      "change_5d": 66.11,
+      "spread": 1.319,
+      "momentum20": -0.021,
+      "yield_base": 4.327,
       "yield_quote": 3.008,
       "exit_alert": "SAIR_SHORT",
       "exit_detail": "FUND lost a band of selling strength",
       "history": [
-        {
-          "date": "2025-08-26",
-          "fund": -33.48,
-          "spread": 1.01,
-          "momentum20": -0.09
-        },
-        {
-          "date": "2025-08-27",
-          "fund": -52.22,
-          "spread": 0.92,
-          "momentum20": -0.17
-        },
-        {
-          "date": "2025-08-28",
-          "fund": -66.85,
-          "spread": 0.9,
-          "momentum20": -0.25
-        },
-        {
-          "date": "2025-08-29",
-          "fund": -66.59,
-          "spread": 0.93,
-          "momentum20": -0.25
-        },
         {
           "date": "2025-09-01",
           "fund": -22.12,
@@ -37216,29 +37170,53 @@
           "momentum20": -0.27
         },
         {
-          "date": "2026-08-31",
-          "fund": -40.8,
-          "spread": 1.352,
-          "momentum20": -0.088
+          "date": "2026-08-25",
+          "fund": -72.28,
+          "spread": 1.23,
+          "momentum20": -0.21
+        },
+        {
+          "date": "2026-08-26",
+          "fund": -53.11,
+          "spread": 1.29,
+          "momentum20": -0.13
+        },
+        {
+          "date": "2026-08-27",
+          "fund": -47.1,
+          "spread": 1.26,
+          "momentum20": -0.11
+        },
+        {
+          "date": "2026-08-28",
+          "fund": -58.38,
+          "spread": 1.23,
+          "momentum20": -0.15
+        },
+        {
+          "date": "2026-09-01",
+          "fund": -16.16,
+          "spread": 1.319,
+          "momentum20": -0.021
         }
       ],
       "data_status": "CURRENT",
       "operational": true,
-      "decision": "VENDER_BASE",
+      "decision": "NEUTRAL",
       "backtest": {
         "pair": "USDCAD",
         "start": "2018-01-01",
-        "end": "2026-08-24",
+        "end": "2026-08-28",
         "cost_pips": 1.0,
         "trades": 242,
-        "wins": 131,
-        "losses": 111,
-        "win_rate": 54.13,
-        "profit_factor": 1.651,
+        "wins": 127,
+        "losses": 115,
+        "win_rate": 52.48,
+        "profit_factor": 0.975,
         "no_loss_pf": false,
-        "net_return_pct": 38.19,
-        "sum_return_pct": 33.27,
-        "max_drawdown_pct": 4.64,
+        "net_return_pct": -2.67,
+        "sum_return_pct": -1.85,
+        "max_drawdown_pct": 15.91,
         "avg_holding_days": 5.1,
         "validation": "PIT_CAUSAL"
       }
@@ -37247,49 +37225,19 @@
       "pair": "USDCHF",
       "base": "USD",
       "quote": "CHF",
-      "as_of": "2026-08-31",
-      "fund": 50.02,
-      "strength": "BULL",
-      "days_in_band": 1,
-      "previous_strength": "BEAR",
-      "change_5d": 47.74,
-      "spread": 4.2723,
-      "momentum20": 0.1713,
-      "yield_base": 4.36,
-      "yield_quote": 0.0877,
-      "exit_alert": "SAIR_SHORT",
-      "exit_detail": "FUND lost a band of selling strength",
+      "as_of": "2026-09-01",
+      "fund": 13.59,
+      "strength": "NEUTRAL",
+      "days_in_band": 6,
+      "previous_strength": "NEUTRAL",
+      "change_5d": 9.48,
+      "spread": 4.2262,
+      "momentum20": 0.0632,
+      "yield_base": 4.327,
+      "yield_quote": 0.1008,
+      "exit_alert": null,
+      "exit_detail": null,
       "history": [
-        {
-          "date": "2025-08-25",
-          "fund": -41.99,
-          "spread": 3.777,
-          "momentum20": -0.208
-        },
-        {
-          "date": "2025-08-26",
-          "fund": -35.46,
-          "spread": 3.873,
-          "momentum20": -0.166
-        },
-        {
-          "date": "2025-08-27",
-          "fund": -48.0,
-          "spread": 3.73,
-          "momentum20": -0.25
-        },
-        {
-          "date": "2025-08-28",
-          "fund": -56.93,
-          "spread": 3.74,
-          "momentum20": -0.318
-        },
-        {
-          "date": "2025-08-29",
-          "fund": -53.86,
-          "spread": 3.73,
-          "momentum20": -0.293
-        },
         {
           "date": "2025-09-01",
           "fund": -20.4,
@@ -38815,29 +38763,59 @@
           "momentum20": -0.066
         },
         {
-          "date": "2026-08-31",
-          "fund": 50.02,
-          "spread": 4.2723,
-          "momentum20": 0.1713
+          "date": "2026-08-24",
+          "fund": 4.1,
+          "spread": 4.134,
+          "momentum20": 0.033
+        },
+        {
+          "date": "2026-08-25",
+          "fund": -7.5,
+          "spread": 4.148,
+          "momentum20": 0.002
+        },
+        {
+          "date": "2026-08-26",
+          "fund": -9.51,
+          "spread": 4.149,
+          "momentum20": -0.003
+        },
+        {
+          "date": "2026-08-27",
+          "fund": 3.14,
+          "spread": 4.17,
+          "momentum20": 0.032
+        },
+        {
+          "date": "2026-08-28",
+          "fund": 14.21,
+          "spread": 4.148,
+          "momentum20": 0.063
+        },
+        {
+          "date": "2026-09-01",
+          "fund": 13.59,
+          "spread": 4.2262,
+          "momentum20": 0.0632
         }
       ],
       "data_status": "CURRENT",
       "operational": true,
-      "decision": "COMPRAR_BASE",
+      "decision": "NEUTRAL",
       "backtest": {
         "pair": "USDCHF",
         "start": "2018-01-01",
-        "end": "2026-08-24",
+        "end": "2026-08-28",
         "cost_pips": 1.0,
         "trades": 232,
-        "wins": 109,
-        "losses": 123,
-        "win_rate": 46.98,
-        "profit_factor": 0.885,
+        "wins": 118,
+        "losses": 114,
+        "win_rate": 50.86,
+        "profit_factor": 1.264,
         "no_loss_pf": false,
-        "net_return_pct": -8.91,
-        "sum_return_pct": -8.38,
-        "max_drawdown_pct": 16.7,
+        "net_return_pct": 15.36,
+        "sum_return_pct": 15.09,
+        "max_drawdown_pct": 6.62,
         "avg_holding_days": 5.3,
         "validation": "PROVISIONAL_PIT"
       }
@@ -38846,16 +38824,16 @@
       "pair": "USDJPY",
       "base": "USD",
       "quote": "JPY",
-      "as_of": "2026-08-31",
-      "fund": -36.36,
+      "as_of": "2026-09-01",
+      "fund": -52.35,
       "strength": "BEAR",
       "days_in_band": 1,
       "previous_strength": "STRONG_BEAR",
-      "change_5d": 21.24,
-      "spread": 2.656,
-      "momentum20": -0.143,
-      "yield_base": 4.36,
-      "yield_quote": 1.704,
+      "change_5d": 5.25,
+      "spread": 2.591,
+      "momentum20": -0.208,
+      "yield_base": 4.327,
+      "yield_quote": 1.736,
       "exit_alert": "SAIR_SHORT",
       "exit_detail": "FUND lost a band of selling strength",
       "history": [
@@ -40414,10 +40392,10 @@
           "momentum20": -0.372
         },
         {
-          "date": "2026-08-31",
-          "fund": -36.36,
-          "spread": 2.656,
-          "momentum20": -0.143
+          "date": "2026-09-01",
+          "fund": -52.35,
+          "spread": 2.591,
+          "momentum20": -0.208
         }
       ],
       "data_status": "CURRENT",
@@ -40426,17 +40404,17 @@
       "backtest": {
         "pair": "USDJPY",
         "start": "2018-01-01",
-        "end": "2026-08-24",
+        "end": "2026-08-28",
         "cost_pips": 1.0,
         "trades": 212,
-        "wins": 96,
-        "losses": 116,
-        "win_rate": 45.28,
-        "profit_factor": 0.861,
+        "wins": 100,
+        "losses": 112,
+        "win_rate": 47.17,
+        "profit_factor": 0.77,
         "no_loss_pf": false,
-        "net_return_pct": -10.83,
-        "sum_return_pct": -10.54,
-        "max_drawdown_pct": 16.27,
+        "net_return_pct": -20.61,
+        "sum_return_pct": -21.6,
+        "max_drawdown_pct": 23.57,
         "avg_holding_days": 6.2,
         "validation": "PIT_CAUSAL"
       }
@@ -40445,49 +40423,19 @@
       "pair": "CADCHF",
       "base": "CAD",
       "quote": "CHF",
-      "as_of": "2026-08-31",
-      "fund": 70.07,
-      "strength": "STRONG_BULL",
-      "days_in_band": 6,
-      "previous_strength": "STRONG_BULL",
-      "change_5d": -3.08,
-      "spread": 2.9203,
-      "momentum20": 0.2143,
+      "as_of": "2026-09-01",
+      "fund": 30.75,
+      "strength": "BULL",
+      "days_in_band": 2,
+      "previous_strength": "BULL",
+      "change_5d": -38.75,
+      "spread": 2.9072,
+      "momentum20": 0.0842,
       "yield_base": 3.008,
-      "yield_quote": 0.0877,
+      "yield_quote": 0.1008,
       "exit_alert": null,
       "exit_detail": null,
       "history": [
-        {
-          "date": "2025-08-21",
-          "fund": -17.67,
-          "spread": 2.852,
-          "momentum20": -0.069
-        },
-        {
-          "date": "2025-08-22",
-          "fund": -16.16,
-          "spread": 2.854,
-          "momentum20": -0.062
-        },
-        {
-          "date": "2025-08-25",
-          "fund": -24.08,
-          "spread": 2.787,
-          "momentum20": -0.098
-        },
-        {
-          "date": "2025-08-26",
-          "fund": -19.15,
-          "spread": 2.863,
-          "momentum20": -0.076
-        },
-        {
-          "date": "2025-08-27",
-          "fund": -19.81,
-          "spread": 2.81,
-          "momentum20": -0.08
-        },
         {
           "date": "2025-08-28",
           "fund": -17.03,
@@ -42008,15 +41956,45 @@
         },
         {
           "date": "2026-08-24",
-          "fund": 81.81,
-          "spread": 2.951,
-          "momentum20": 0.28
+          "fund": 84.69,
+          "spread": 2.974,
+          "momentum20": 0.303
+        },
+        {
+          "date": "2026-08-25",
+          "fund": 69.5,
+          "spread": 2.918,
+          "momentum20": 0.212
+        },
+        {
+          "date": "2026-08-26",
+          "fund": 46.82,
+          "spread": 2.859,
+          "momentum20": 0.127
+        },
+        {
+          "date": "2026-08-27",
+          "fund": 51.09,
+          "spread": 2.91,
+          "momentum20": 0.142
+        },
+        {
+          "date": "2026-08-28",
+          "fund": 68.77,
+          "spread": 2.918,
+          "momentum20": 0.213
         },
         {
           "date": "2026-08-31",
-          "fund": 70.07,
-          "spread": 2.9203,
-          "momentum20": 0.2143
+          "fund": 46.86,
+          "spread": 2.952,
+          "momentum20": 0.131
+        },
+        {
+          "date": "2026-09-01",
+          "fund": 30.75,
+          "spread": 2.9072,
+          "momentum20": 0.0842
         }
       ],
       "data_status": "CURRENT",
@@ -42025,7 +42003,7 @@
       "backtest": {
         "pair": "CADCHF",
         "start": "2018-01-01",
-        "end": "2026-08-24",
+        "end": "2026-08-28",
         "cost_pips": 1.0,
         "trades": 223,
         "wins": 97,
@@ -42044,31 +42022,19 @@
       "pair": "CADJPY",
       "base": "CAD",
       "quote": "JPY",
-      "as_of": "2026-08-31",
-      "fund": -3.6,
+      "as_of": "2026-09-01",
+      "fund": -11.86,
       "strength": "NEUTRAL",
-      "days_in_band": 2,
-      "previous_strength": "NEUTRAL",
-      "change_5d": 23.9,
-      "spread": 1.304,
-      "momentum20": -0.053,
+      "days_in_band": 1,
+      "previous_strength": "BEAR",
+      "change_5d": 21.79,
+      "spread": 1.272,
+      "momentum20": -0.076,
       "yield_base": 3.008,
-      "yield_quote": 1.704,
-      "exit_alert": null,
-      "exit_detail": null,
+      "yield_quote": 1.736,
+      "exit_alert": "SAIR_SHORT",
+      "exit_detail": "FUND lost a band of selling strength",
       "history": [
-        {
-          "date": "2025-08-26",
-          "fund": -7.19,
-          "spread": 1.851,
-          "momentum20": -0.11
-        },
-        {
-          "date": "2025-08-27",
-          "fund": -9.73,
-          "spread": 1.816,
-          "momentum20": -0.119
-        },
         {
           "date": "2025-08-28",
           "fund": -16.26,
@@ -43612,10 +43578,22 @@
           "momentum20": -0.03
         },
         {
-          "date": "2026-08-31",
-          "fund": -3.6,
-          "spread": 1.304,
-          "momentum20": -0.053
+          "date": "2026-08-25",
+          "fund": -14.77,
+          "spread": 1.269,
+          "momentum20": -0.088
+        },
+        {
+          "date": "2026-08-26",
+          "fund": -26.9,
+          "spread": 1.209,
+          "momentum20": -0.127
+        },
+        {
+          "date": "2026-09-01",
+          "fund": -11.86,
+          "spread": 1.272,
+          "momentum20": -0.076
         }
       ],
       "data_status": "CURRENT",
@@ -43624,16 +43602,16 @@
       "backtest": {
         "pair": "CADJPY",
         "start": "2018-01-01",
-        "end": "2026-08-24",
+        "end": "2026-08-28",
         "cost_pips": 1.0,
-        "trades": 186,
+        "trades": 187,
         "wins": 82,
-        "losses": 104,
-        "win_rate": 44.09,
-        "profit_factor": 0.974,
+        "losses": 105,
+        "win_rate": 43.85,
+        "profit_factor": 0.971,
         "no_loss_pf": false,
-        "net_return_pct": -4.45,
-        "sum_return_pct": -2.35,
+        "net_return_pct": -4.74,
+        "sum_return_pct": -2.65,
         "max_drawdown_pct": 21.45,
         "avg_holding_days": 6.8,
         "validation": "PIT_CAUSAL"
@@ -43643,37 +43621,19 @@
       "pair": "CHFJPY",
       "base": "CHF",
       "quote": "JPY",
-      "as_of": "2026-08-31",
-      "fund": -88.97,
-      "strength": "STRONG_BEAR",
-      "days_in_band": 8,
+      "as_of": "2026-09-01",
+      "fund": -51.93,
+      "strength": "BEAR",
+      "days_in_band": 1,
       "previous_strength": "STRONG_BEAR",
-      "change_5d": -4.44,
-      "spread": -1.6163,
-      "momentum20": -0.3143,
-      "yield_base": 0.0877,
-      "yield_quote": 1.704,
-      "exit_alert": null,
-      "exit_detail": null,
+      "change_5d": 41.16,
+      "spread": -1.6352,
+      "momentum20": -0.1602,
+      "yield_base": 0.1008,
+      "yield_quote": 1.736,
+      "exit_alert": "SAIR_SHORT",
+      "exit_detail": "FUND lost a band of selling strength",
       "history": [
-        {
-          "date": "2025-08-25",
-          "fund": 25.41,
-          "spread": -0.97,
-          "momentum20": -0.032
-        },
-        {
-          "date": "2025-08-26",
-          "fund": 24.52,
-          "spread": -1.012,
-          "momentum20": -0.034
-        },
-        {
-          "date": "2025-08-27",
-          "fund": 22.22,
-          "spread": -0.994,
-          "momentum20": -0.039
-        },
         {
           "date": "2025-08-28",
           "fund": 6.57,
@@ -45211,10 +45171,28 @@
           "momentum20": -0.306
         },
         {
-          "date": "2026-08-31",
-          "fund": -88.97,
-          "spread": -1.6163,
-          "momentum20": -0.3143
+          "date": "2026-08-24",
+          "fund": -90.83,
+          "spread": -1.635,
+          "momentum20": -0.333
+        },
+        {
+          "date": "2026-08-25",
+          "fund": -86.6,
+          "spread": -1.649,
+          "momentum20": -0.3
+        },
+        {
+          "date": "2026-08-26",
+          "fund": -78.67,
+          "spread": -1.65,
+          "momentum20": -0.254
+        },
+        {
+          "date": "2026-09-01",
+          "fund": -51.93,
+          "spread": -1.6352,
+          "momentum20": -0.1602
         }
       ],
       "data_status": "CURRENT",
@@ -45223,7 +45201,7 @@
       "backtest": {
         "pair": "CHFJPY",
         "start": "2018-01-01",
-        "end": "2026-08-24",
+        "end": "2026-08-28",
         "cost_pips": 1.0,
         "trades": 228,
         "wins": 108,
@@ -45239,7 +45217,688 @@
       }
     }
   ],
-  "news": [],
+  "news": [
+    {
+      "title": "BRC Shop Price Index y/y",
+      "currency": "GBP",
+      "date": "2026-08-31T19:01:00-04:00",
+      "impact": "Low",
+      "forecast": "0.9%",
+      "previous": "0.9%",
+      "category": "INFLACAO",
+      "above_scenario": "Inflação acima do consenso tende a elevar juros esperados e fortalecer GBP.",
+      "below_scenario": "Inflação abaixo do consenso tende a reduzir juros esperados e enfraquecer GBP.",
+      "related_pairs": [
+        "GBPCHF",
+        "GBPNZD",
+        "GBPJPY",
+        "GBPCAD"
+      ]
+    },
+    {
+      "title": "Capital Spending q/y",
+      "currency": "JPY",
+      "date": "2026-08-31T19:50:00-04:00",
+      "impact": "Low",
+      "forecast": "-0.2%",
+      "previous": "0.0%",
+      "category": "CONTEXTO",
+      "above_scenario": "A reading better than consensus may favour JPY; confirm the reaction in yields.",
+      "below_scenario": "A reading worse than consensus may pressure JPY; confirm the reaction in yields.",
+      "related_pairs": [
+        "USDJPY",
+        "CHFJPY",
+        "GBPJPY",
+        "AUDJPY"
+      ]
+    },
+    {
+      "title": "Final Manufacturing PMI",
+      "currency": "JPY",
+      "date": "2026-08-31T20:30:00-04:00",
+      "impact": "Low",
+      "forecast": "55.1",
+      "previous": "55.1",
+      "category": "ATIVIDADE",
+      "above_scenario": "Activity above consensus tends to strengthen JPY.",
+      "below_scenario": "Activity below consensus tends to weaken JPY.",
+      "related_pairs": [
+        "USDJPY",
+        "CHFJPY",
+        "GBPJPY",
+        "AUDJPY"
+      ]
+    },
+    {
+      "title": "Building Approvals m/m",
+      "currency": "AUD",
+      "date": "2026-08-31T21:30:00-04:00",
+      "impact": "Low",
+      "forecast": "-4.8%",
+      "previous": "7.2%",
+      "category": "CONTEXTO",
+      "above_scenario": "A reading better than consensus may favour AUD; confirm the reaction in yields.",
+      "below_scenario": "A reading worse than consensus may pressure AUD; confirm the reaction in yields.",
+      "related_pairs": [
+        "AUDNZD",
+        "AUDJPY",
+        "AUDCHF",
+        "GBPAUD"
+      ]
+    },
+    {
+      "title": "Current Account",
+      "currency": "AUD",
+      "date": "2026-08-31T21:30:00-04:00",
+      "impact": "Low",
+      "forecast": "-29.7B",
+      "previous": "-27.1B",
+      "category": "CONTEXTO",
+      "above_scenario": "A reading better than consensus may favour AUD; confirm the reaction in yields.",
+      "below_scenario": "A reading worse than consensus may pressure AUD; confirm the reaction in yields.",
+      "related_pairs": [
+        "AUDNZD",
+        "AUDJPY",
+        "AUDCHF",
+        "GBPAUD"
+      ]
+    },
+    {
+      "title": "10-y Bond Auction",
+      "currency": "JPY",
+      "date": "2026-08-31T23:35:00-04:00",
+      "impact": "Low",
+      "forecast": "",
+      "previous": "2.84|2.6",
+      "category": "CONTEXTO",
+      "above_scenario": "A reading better than consensus may favour JPY; confirm the reaction in yields.",
+      "below_scenario": "A reading worse than consensus may pressure JPY; confirm the reaction in yields.",
+      "related_pairs": [
+        "USDJPY",
+        "CHFJPY",
+        "GBPJPY",
+        "AUDJPY"
+      ]
+    },
+    {
+      "title": "Consumer Confidence",
+      "currency": "JPY",
+      "date": "2026-09-01T01:00:00-04:00",
+      "impact": "Low",
+      "forecast": "35.3",
+      "previous": "34.9",
+      "category": "ATIVIDADE",
+      "above_scenario": "Activity above consensus tends to strengthen JPY.",
+      "below_scenario": "Activity below consensus tends to weaken JPY.",
+      "related_pairs": [
+        "USDJPY",
+        "CHFJPY",
+        "GBPJPY",
+        "AUDJPY"
+      ]
+    },
+    {
+      "title": "German Retail Sales m/m",
+      "currency": "EUR",
+      "date": "2026-09-01T02:00:00-04:00",
+      "impact": "Low",
+      "forecast": "0.4%",
+      "previous": "-1.1%",
+      "category": "ATIVIDADE",
+      "above_scenario": "Activity above consensus tends to strengthen EUR.",
+      "below_scenario": "Activity below consensus tends to weaken EUR.",
+      "related_pairs": [
+        "EURCHF",
+        "EURNZD",
+        "EURUSD",
+        "EURGBP"
+      ]
+    },
+    {
+      "title": "Nationwide HPI m/m",
+      "currency": "GBP",
+      "date": "2026-09-01T02:00:00-04:00",
+      "impact": "Low",
+      "forecast": "0.1%",
+      "previous": "0.1%",
+      "category": "CONTEXTO",
+      "above_scenario": "A reading better than consensus may favour GBP; confirm the reaction in yields.",
+      "below_scenario": "A reading worse than consensus may pressure GBP; confirm the reaction in yields.",
+      "related_pairs": [
+        "GBPCHF",
+        "GBPNZD",
+        "GBPJPY",
+        "GBPCAD"
+      ]
+    },
+    {
+      "title": "Commodity Prices y/y",
+      "currency": "AUD",
+      "date": "2026-09-01T02:30:00-04:00",
+      "impact": "Low",
+      "forecast": "",
+      "previous": "15.4%",
+      "category": "CONTEXTO",
+      "above_scenario": "A reading better than consensus may favour AUD; confirm the reaction in yields.",
+      "below_scenario": "A reading worse than consensus may pressure AUD; confirm the reaction in yields.",
+      "related_pairs": [
+        "AUDNZD",
+        "AUDJPY",
+        "AUDCHF",
+        "GBPAUD"
+      ]
+    },
+    {
+      "title": "Retail Sales y/y",
+      "currency": "CHF",
+      "date": "2026-09-01T02:30:00-04:00",
+      "impact": "Low",
+      "forecast": "1.3%",
+      "previous": "1.5%",
+      "category": "ATIVIDADE",
+      "above_scenario": "Activity above consensus tends to strengthen CHF.",
+      "below_scenario": "Activity below consensus tends to weaken CHF.",
+      "related_pairs": [
+        "EURCHF",
+        "CHFJPY",
+        "GBPCHF",
+        "AUDCHF"
+      ]
+    },
+    {
+      "title": "Spanish Manufacturing PMI",
+      "currency": "EUR",
+      "date": "2026-09-01T03:15:00-04:00",
+      "impact": "Low",
+      "forecast": "50.4",
+      "previous": "50.2",
+      "category": "ATIVIDADE",
+      "above_scenario": "Activity above consensus tends to strengthen EUR.",
+      "below_scenario": "Activity below consensus tends to weaken EUR.",
+      "related_pairs": [
+        "EURCHF",
+        "EURNZD",
+        "EURUSD",
+        "EURGBP"
+      ]
+    },
+    {
+      "title": "Manufacturing PMI",
+      "currency": "CHF",
+      "date": "2026-09-01T03:30:00-04:00",
+      "impact": "Low",
+      "forecast": "54.1",
+      "previous": "53.2",
+      "category": "ATIVIDADE",
+      "above_scenario": "Activity above consensus tends to strengthen CHF.",
+      "below_scenario": "Activity below consensus tends to weaken CHF.",
+      "related_pairs": [
+        "EURCHF",
+        "CHFJPY",
+        "GBPCHF",
+        "AUDCHF"
+      ]
+    },
+    {
+      "title": "Italian Manufacturing PMI",
+      "currency": "EUR",
+      "date": "2026-09-01T03:45:00-04:00",
+      "impact": "Low",
+      "forecast": "51.6",
+      "previous": "51.3",
+      "category": "ATIVIDADE",
+      "above_scenario": "Activity above consensus tends to strengthen EUR.",
+      "below_scenario": "Activity below consensus tends to weaken EUR.",
+      "related_pairs": [
+        "EURCHF",
+        "EURNZD",
+        "EURUSD",
+        "EURGBP"
+      ]
+    },
+    {
+      "title": "French Final Manufacturing PMI",
+      "currency": "EUR",
+      "date": "2026-09-01T03:50:00-04:00",
+      "impact": "Low",
+      "forecast": "51.5",
+      "previous": "51.5",
+      "category": "ATIVIDADE",
+      "above_scenario": "Activity above consensus tends to strengthen EUR.",
+      "below_scenario": "Activity below consensus tends to weaken EUR.",
+      "related_pairs": [
+        "EURCHF",
+        "EURNZD",
+        "EURUSD",
+        "EURGBP"
+      ]
+    },
+    {
+      "title": "German Final Manufacturing PMI",
+      "currency": "EUR",
+      "date": "2026-09-01T03:55:00-04:00",
+      "impact": "Low",
+      "forecast": "54.1",
+      "previous": "54.1",
+      "category": "ATIVIDADE",
+      "above_scenario": "Activity above consensus tends to strengthen EUR.",
+      "below_scenario": "Activity below consensus tends to weaken EUR.",
+      "related_pairs": [
+        "EURCHF",
+        "EURNZD",
+        "EURUSD",
+        "EURGBP"
+      ]
+    },
+    {
+      "title": "Final Manufacturing PMI",
+      "currency": "EUR",
+      "date": "2026-09-01T04:00:00-04:00",
+      "impact": "Low",
+      "forecast": "52.8",
+      "previous": "52.8",
+      "category": "ATIVIDADE",
+      "above_scenario": "Activity above consensus tends to strengthen EUR.",
+      "below_scenario": "Activity below consensus tends to weaken EUR.",
+      "related_pairs": [
+        "EURCHF",
+        "EURNZD",
+        "EURUSD",
+        "EURGBP"
+      ]
+    },
+    {
+      "title": "Italian Monthly Unemployment Rate",
+      "currency": "EUR",
+      "date": "2026-09-01T04:30:00-04:00",
+      "impact": "Low",
+      "forecast": "5.6%",
+      "previous": "5.7%",
+      "category": "TRABALHO_INVERSO",
+      "above_scenario": "Acima do consenso indica piora no trabalho e tende a enfraquecer EUR.",
+      "below_scenario": "Abaixo do consenso indica trabalho mais firme e tende a fortalecer EUR.",
+      "related_pairs": [
+        "EURCHF",
+        "EURNZD",
+        "EURUSD",
+        "EURGBP"
+      ]
+    },
+    {
+      "title": "Final Manufacturing PMI",
+      "currency": "GBP",
+      "date": "2026-09-01T04:30:00-04:00",
+      "impact": "Low",
+      "forecast": "51.5",
+      "previous": "51.5",
+      "category": "ATIVIDADE",
+      "above_scenario": "Activity above consensus tends to strengthen GBP.",
+      "below_scenario": "Activity below consensus tends to weaken GBP.",
+      "related_pairs": [
+        "GBPCHF",
+        "GBPNZD",
+        "GBPJPY",
+        "GBPCAD"
+      ]
+    },
+    {
+      "title": "M4 Money Supply m/m",
+      "currency": "GBP",
+      "date": "2026-09-01T04:30:00-04:00",
+      "impact": "Low",
+      "forecast": "0.9%",
+      "previous": "0.8%",
+      "category": "CONTEXTO",
+      "above_scenario": "A reading better than consensus may favour GBP; confirm the reaction in yields.",
+      "below_scenario": "A reading worse than consensus may pressure GBP; confirm the reaction in yields.",
+      "related_pairs": [
+        "GBPCHF",
+        "GBPNZD",
+        "GBPJPY",
+        "GBPCAD"
+      ]
+    },
+    {
+      "title": "Mortgage Approvals",
+      "currency": "GBP",
+      "date": "2026-09-01T04:30:00-04:00",
+      "impact": "Low",
+      "forecast": "59K",
+      "previous": "58K",
+      "category": "CONTEXTO",
+      "above_scenario": "A reading better than consensus may favour GBP; confirm the reaction in yields.",
+      "below_scenario": "A reading worse than consensus may pressure GBP; confirm the reaction in yields.",
+      "related_pairs": [
+        "GBPCHF",
+        "GBPNZD",
+        "GBPJPY",
+        "GBPCAD"
+      ]
+    },
+    {
+      "title": "Net Lending to Individuals m/m",
+      "currency": "GBP",
+      "date": "2026-09-01T04:30:00-04:00",
+      "impact": "Low",
+      "forecast": "9.2B",
+      "previous": "9.5B",
+      "category": "CONTEXTO",
+      "above_scenario": "A reading better than consensus may favour GBP; confirm the reaction in yields.",
+      "below_scenario": "A reading worse than consensus may pressure GBP; confirm the reaction in yields.",
+      "related_pairs": [
+        "GBPCHF",
+        "GBPNZD",
+        "GBPJPY",
+        "GBPCAD"
+      ]
+    },
+    {
+      "title": "Core CPI Flash Estimate y/y",
+      "currency": "EUR",
+      "date": "2026-09-01T05:00:00-04:00",
+      "impact": "Medium",
+      "forecast": "2.5%",
+      "previous": "2.5%",
+      "category": "INFLACAO",
+      "above_scenario": "Inflação acima do consenso tende a elevar juros esperados e fortalecer EUR.",
+      "below_scenario": "Inflação abaixo do consenso tende a reduzir juros esperados e enfraquecer EUR.",
+      "related_pairs": [
+        "EURCHF",
+        "EURNZD",
+        "EURUSD",
+        "EURGBP"
+      ]
+    },
+    {
+      "title": "CPI Flash Estimate y/y",
+      "currency": "EUR",
+      "date": "2026-09-01T05:00:00-04:00",
+      "impact": "Medium",
+      "forecast": "3.3%",
+      "previous": "2.9%",
+      "category": "INFLACAO",
+      "above_scenario": "Inflação acima do consenso tende a elevar juros esperados e fortalecer EUR.",
+      "below_scenario": "Inflação abaixo do consenso tende a reduzir juros esperados e enfraquecer EUR.",
+      "related_pairs": [
+        "EURCHF",
+        "EURNZD",
+        "EURUSD",
+        "EURGBP"
+      ]
+    },
+    {
+      "title": "Italian Prelim CPI m/m",
+      "currency": "EUR",
+      "date": "2026-09-01T05:00:00-04:00",
+      "impact": "Low",
+      "forecast": "0.4%",
+      "previous": "0.2%",
+      "category": "INFLACAO",
+      "above_scenario": "Inflação acima do consenso tende a elevar juros esperados e fortalecer EUR.",
+      "below_scenario": "Inflação abaixo do consenso tende a reduzir juros esperados e enfraquecer EUR.",
+      "related_pairs": [
+        "EURCHF",
+        "EURNZD",
+        "EURUSD",
+        "EURGBP"
+      ]
+    },
+    {
+      "title": "Unemployment Rate",
+      "currency": "EUR",
+      "date": "2026-09-01T05:00:00-04:00",
+      "impact": "Low",
+      "forecast": "6.3%",
+      "previous": "6.3%",
+      "category": "TRABALHO_INVERSO",
+      "above_scenario": "Acima do consenso indica piora no trabalho e tende a enfraquecer EUR.",
+      "below_scenario": "Abaixo do consenso indica trabalho mais firme e tende a fortalecer EUR.",
+      "related_pairs": [
+        "EURCHF",
+        "EURNZD",
+        "EURUSD",
+        "EURGBP"
+      ]
+    },
+    {
+      "title": "FOMC Member Barr Speaks",
+      "currency": "USD",
+      "date": "2026-09-01T09:05:00-04:00",
+      "impact": "Low",
+      "forecast": "",
+      "previous": "",
+      "category": "COMUNICACAO",
+      "above_scenario": "A more hawkish tone tends to lift expected rates and strengthen USD.",
+      "below_scenario": "A more dovish tone tends to lower expected rates and weaken USD.",
+      "related_pairs": [
+        "USDJPY",
+        "EURUSD",
+        "GBPUSD",
+        "USDCAD"
+      ]
+    },
+    {
+      "title": "Manufacturing PMI",
+      "currency": "CAD",
+      "date": "2026-09-01T09:30:00-04:00",
+      "impact": "Low",
+      "forecast": "",
+      "previous": "53.5",
+      "category": "ATIVIDADE",
+      "above_scenario": "Activity above consensus tends to strengthen CAD.",
+      "below_scenario": "Activity below consensus tends to weaken CAD.",
+      "related_pairs": [
+        "GBPCAD",
+        "NZDCAD",
+        "CADCHF",
+        "EURCAD"
+      ]
+    },
+    {
+      "title": "Final Manufacturing PMI",
+      "currency": "USD",
+      "date": "2026-09-01T09:45:00-04:00",
+      "impact": "Low",
+      "forecast": "53.3",
+      "previous": "53.2",
+      "category": "ATIVIDADE",
+      "above_scenario": "Activity above consensus tends to strengthen USD.",
+      "below_scenario": "Activity below consensus tends to weaken USD.",
+      "related_pairs": [
+        "USDJPY",
+        "EURUSD",
+        "GBPUSD",
+        "USDCAD"
+      ]
+    },
+    {
+      "title": "ISM Manufacturing PMI",
+      "currency": "USD",
+      "date": "2026-09-01T10:00:00-04:00",
+      "impact": "High",
+      "forecast": "55.2",
+      "previous": "55.6",
+      "category": "ATIVIDADE",
+      "above_scenario": "Activity above consensus tends to strengthen USD.",
+      "below_scenario": "Activity below consensus tends to weaken USD.",
+      "related_pairs": [
+        "USDJPY",
+        "EURUSD",
+        "GBPUSD",
+        "USDCAD"
+      ]
+    },
+    {
+      "title": "ISM Manufacturing Prices",
+      "currency": "USD",
+      "date": "2026-09-01T10:00:00-04:00",
+      "impact": "Medium",
+      "forecast": "71.2",
+      "previous": "71.1",
+      "category": "ATIVIDADE",
+      "above_scenario": "Activity above consensus tends to strengthen USD.",
+      "below_scenario": "Activity below consensus tends to weaken USD.",
+      "related_pairs": [
+        "USDJPY",
+        "EURUSD",
+        "GBPUSD",
+        "USDCAD"
+      ]
+    },
+    {
+      "title": "JOLTS Job Openings",
+      "currency": "USD",
+      "date": "2026-09-01T10:00:00-04:00",
+      "impact": "Medium",
+      "forecast": "7.33M",
+      "previous": "7.36M",
+      "category": "CONTEXTO",
+      "above_scenario": "A reading better than consensus may favour USD; confirm the reaction in yields.",
+      "below_scenario": "A reading worse than consensus may pressure USD; confirm the reaction in yields.",
+      "related_pairs": [
+        "USDJPY",
+        "EURUSD",
+        "GBPUSD",
+        "USDCAD"
+      ]
+    },
+    {
+      "title": "Construction Spending m/m",
+      "currency": "USD",
+      "date": "2026-09-01T10:00:00-04:00",
+      "impact": "Low",
+      "forecast": "0.0%",
+      "previous": "-0.1%",
+      "category": "CONTEXTO",
+      "above_scenario": "A reading better than consensus may favour USD; confirm the reaction in yields.",
+      "below_scenario": "A reading worse than consensus may pressure USD; confirm the reaction in yields.",
+      "related_pairs": [
+        "USDJPY",
+        "EURUSD",
+        "GBPUSD",
+        "USDCAD"
+      ]
+    },
+    {
+      "title": "RCM/TIPP Economic Optimism",
+      "currency": "USD",
+      "date": "2026-09-01T10:10:00-04:00",
+      "impact": "Low",
+      "forecast": "46.2",
+      "previous": "45.1",
+      "category": "CONTEXTO",
+      "above_scenario": "A reading better than consensus may favour USD; confirm the reaction in yields.",
+      "below_scenario": "A reading worse than consensus may pressure USD; confirm the reaction in yields.",
+      "related_pairs": [
+        "USDJPY",
+        "EURUSD",
+        "GBPUSD",
+        "USDCAD"
+      ]
+    },
+    {
+      "title": "Omdia Total Vehicle Sales",
+      "currency": "USD",
+      "date": "2026-09-01T10:15:00-04:00",
+      "impact": "Low",
+      "forecast": "16.3M",
+      "previous": "16.3M",
+      "category": "CONTEXTO",
+      "above_scenario": "A reading better than consensus may favour USD; confirm the reaction in yields.",
+      "below_scenario": "A reading worse than consensus may pressure USD; confirm the reaction in yields.",
+      "related_pairs": [
+        "USDJPY",
+        "EURUSD",
+        "GBPUSD",
+        "USDCAD"
+      ]
+    },
+    {
+      "title": "GDT Price Index",
+      "currency": "NZD",
+      "date": "2026-09-01T10:50:00-04:00",
+      "impact": "Low",
+      "forecast": "",
+      "previous": "2.3%",
+      "category": "INFLACAO",
+      "above_scenario": "Inflação acima do consenso tende a elevar juros esperados e fortalecer NZD.",
+      "below_scenario": "Inflação abaixo do consenso tende a reduzir juros esperados e enfraquecer NZD.",
+      "related_pairs": [
+        "GBPNZD",
+        "EURNZD",
+        "AUDNZD",
+        "NZDCAD"
+      ]
+    },
+    {
+      "title": "API Weekly Statistical Bulletin",
+      "currency": "USD",
+      "date": "2026-09-01T16:30:00-04:00",
+      "impact": "Low",
+      "forecast": "",
+      "previous": "",
+      "category": "CONTEXTO",
+      "above_scenario": "A reading better than consensus may favour USD; confirm the reaction in yields.",
+      "below_scenario": "A reading worse than consensus may pressure USD; confirm the reaction in yields.",
+      "related_pairs": [
+        "USDJPY",
+        "EURUSD",
+        "GBPUSD",
+        "USDCAD"
+      ]
+    },
+    {
+      "title": "Building Consents m/m",
+      "currency": "NZD",
+      "date": "2026-09-01T18:45:00-04:00",
+      "impact": "Low",
+      "forecast": "",
+      "previous": "-3.6%",
+      "category": "CONTEXTO",
+      "above_scenario": "A reading better than consensus may favour NZD; confirm the reaction in yields.",
+      "below_scenario": "A reading worse than consensus may pressure NZD; confirm the reaction in yields.",
+      "related_pairs": [
+        "GBPNZD",
+        "EURNZD",
+        "AUDNZD",
+        "NZDCAD"
+      ]
+    },
+    {
+      "title": "Monetary Base y/y",
+      "currency": "JPY",
+      "date": "2026-09-01T19:50:00-04:00",
+      "impact": "Low",
+      "forecast": "-13.5%",
+      "previous": "-13.8%",
+      "category": "CONTEXTO",
+      "above_scenario": "A reading better than consensus may favour JPY; confirm the reaction in yields.",
+      "below_scenario": "A reading worse than consensus may pressure JPY; confirm the reaction in yields.",
+      "related_pairs": [
+        "USDJPY",
+        "CHFJPY",
+        "GBPJPY",
+        "AUDJPY"
+      ]
+    },
+    {
+      "title": "German Buba President Nagel Speaks",
+      "currency": "EUR",
+      "date": "2026-09-01T20:30:00-04:00",
+      "impact": "Low",
+      "forecast": "",
+      "previous": "",
+      "category": "COMUNICACAO",
+      "above_scenario": "A more hawkish tone tends to lift expected rates and strengthen EUR.",
+      "below_scenario": "A more dovish tone tends to lower expected rates and weaken EUR.",
+      "related_pairs": [
+        "EURCHF",
+        "EURNZD",
+        "EURUSD",
+        "EURGBP"
+      ]
+    }
+  ],
   "news_source": {
     "name": "Forex Factory / Fair Economy Media",
     "url": "https://www.forexfactory.com/calendar",
@@ -45247,7 +45906,7 @@
   },
   "calendar": {
     "start": "2002-01-01",
-    "end": "2026-08-30",
+    "end": "2026-08-31",
     "first_strict_full": "2009-08-27",
     "currencies": [
       "EUR",
@@ -45264,15 +45923,15 @@
     "partial_policy": "Shows only pairs whose both legs and FUND existed on that day.",
     "full_policy": "STRICT_FULL requires 8 currencies and 28 pairs with a causal reading.",
     "weekends": "CLOSED; no recommendation.",
-    "full_days": 3386,
-    "partial_days": 2923,
+    "full_days": 3388,
+    "partial_days": 2926,
     "no_data_days": 0,
-    "closed_days": 2699
+    "closed_days": 2695
   },
   "backtest": {
     "engine": "FUND_DIRECIONAL_D1",
     "start": "2018-01-01",
-    "end": "2026-08-24",
+    "end": "2026-08-28",
     "cost_pips": 1.0,
     "entry": "FUND leaves NEUTRAL; execution at the next ECB fixing",
     "exit": "FUND loses a band in the direction of the position",
@@ -45281,81 +45940,81 @@
   "next_day": {
     "meta": {
       "status": "EXPERIMENT",
-      "generated_on": "2026-08-30",
+      "generated_on": "2026-08-31",
       "target": "direction of the next daily ECB fixing",
       "signal_timing": "information available up to the close of D; target D for the next fixing",
       "lookahead": false,
       "selection": "the five lowest scores among operational pairs with FUND <= -25 (sell side)",
       "history_start": "2002-01-31",
-      "history_end": "2026-08-21",
-      "labelled_rows": 75998,
-      "all_labelled_rows": 148796,
+      "history_end": "2026-08-27",
+      "labelled_rows": 76040,
+      "all_labelled_rows": 148888,
       "training_scope": "PIT_CAUSAL pairs only; AUD/CHF may be displayed, but they neither train nor validate the model",
       "validation": "walk-forward anual expansivo; pesos APRENDIDO escolhidos dentro de cada treino",
       "warning": "An OBSERVATION is not an entry. Confirm FUND, BO, REGION and ZOI; no direction is guaranteed.",
       "best_observed_model": "FUND_ATUAL",
       "models_compared": 5,
       "promotion_rule": "o limite inferior do IC 95% do melhor modelo deve superar 50%; depois aplicar nulo-do-maximo",
-      "verdict": "SEM_EDGE_VALIDADO"
+      "verdict": "EDGE_PROVISIONAL"
     },
     "weights": {
       "current": {
-        "fund_state": 0.1,
-        "fund_change": 0.7,
-        "price_action": 0.2,
-        "relation": 0.0
+        "fund_state": 0.7,
+        "fund_change": 0.1,
+        "price_action": 0.1,
+        "relation": 0.1
       },
       "walk_forward_median": {
-        "fund_state": 0.5,
-        "fund_change": 0.25,
-        "price_action": 0.25,
-        "relation": 0.0
+        "fund_state": 0.44,
+        "fund_change": 0.33,
+        "price_action": 0.11,
+        "relation": 0.11
       }
     },
     "comparison": [
       {
         "model": "FUND_ATUAL",
         "weights": null,
-        "rows": 20876,
-        "days": 4914,
-        "directional_accuracy": 49.62,
-        "top1_fall_accuracy": 50.08,
-        "top1_ci95_low": 48.68,
-        "top1_ci95_high": 51.48,
-        "top3_fall_accuracy": 49.69,
-        "top1_avg_return_pct": -0.0053,
-        "positive_years": 12,
+        "rows": 20897,
+        "days": 4918,
+        "directional_accuracy": 52.79,
+        "top1_fall_accuracy": 53.03,
+        "top1_ci95_low": 51.63,
+        "top1_ci95_high": 54.42,
+        "top3_fall_accuracy": 52.69,
+        "top1_avg_return_pct": 0.0092,
+        "positive_years": 13,
         "tested_years": 21,
         "selective": [
           {
             "coverage_pct": 10,
-            "samples": 491,
-            "accuracy": 51.32,
-            "avg_return_pct": -0.0513
+            "samples": 492,
+            "accuracy": 55.28,
+            "avg_return_pct": -0.0282
           },
           {
             "coverage_pct": 20,
-            "samples": 983,
-            "accuracy": 50.76,
-            "avg_return_pct": -0.0452
+            "samples": 984,
+            "accuracy": 53.86,
+            "avg_return_pct": -0.0177
           },
           {
             "coverage_pct": 30,
-            "samples": 1474,
-            "accuracy": 50.27,
-            "avg_return_pct": -0.0286
+            "samples": 1475,
+            "accuracy": 52.88,
+            "avg_return_pct": -0.0003
           },
           {
             "coverage_pct": 50,
-            "samples": 2457,
-            "accuracy": 50.71,
-            "avg_return_pct": -0.0181
+            "samples": 2459,
+            "accuracy": 53.76,
+            "avg_return_pct": 0.0004
           },
           {
             "coverage_pct": 100,
-            "samples": 4914,
-            "accuracy": 50.08,
-            "avg_return_pct": -0.0053
+            "samples": 4918,
+            "accuracy": 53.03,
+            "avg_return_pct": 0.0092
           }
         ]
       },
@@ -45367,46 +46026,46 @@
           "price_action": 0.15,
           "relation": 0.1
         },
-        "rows": 20876,
-        "days": 4914,
-        "directional_accuracy": 49.68,
-        "top1_fall_accuracy": 48.88,
-        "top1_ci95_low": 47.48,
-        "top1_ci95_high": 50.28,
-        "top3_fall_accuracy": 49.63,
-        "top1_avg_return_pct": 0.0068,
-        "positive_years": 6,
+        "rows": 20897,
+        "days": 4918,
+        "directional_accuracy": 49.2,
+        "top1_fall_accuracy": 51.59,
+        "top1_ci95_low": 50.19,
+        "top1_ci95_high": 52.98,
+        "top3_fall_accuracy": 52.55,
+        "top1_avg_return_pct": 0.0156,
+        "positive_years": 13,
         "tested_years": 21,
         "selective": [
           {
             "coverage_pct": 10,
-            "samples": 491,
-            "accuracy": 48.88,
-            "avg_return_pct": -0.0603
+            "samples": 492,
+            "accuracy": 54.47,
+            "avg_return_pct": -0.0772
           },
           {
             "coverage_pct": 20,
-            "samples": 983,
-            "accuracy": 48.32,
-            "avg_return_pct": -0.0193
+            "samples": 984,
+            "accuracy": 51.12,
+            "avg_return_pct": -0.0331
           },
           {
             "coverage_pct": 30,
-            "samples": 1474,
-            "accuracy": 47.29,
-            "avg_return_pct": 0.0083
+            "samples": 1475,
+            "accuracy": 51.25,
+            "avg_return_pct": -0.0225
           },
           {
             "coverage_pct": 50,
-            "samples": 2457,
-            "accuracy": 47.66,
-            "avg_return_pct": 0.0098
+            "samples": 2459,
+            "accuracy": 50.63,
+            "avg_return_pct": 0.0032
           },
           {
             "coverage_pct": 100,
-            "samples": 4914,
-            "accuracy": 48.88,
-            "avg_return_pct": 0.0068
+            "samples": 4918,
+            "accuracy": 51.59,
+            "avg_return_pct": 0.0156
           }
         ]
       },
@@ -45418,46 +46077,46 @@
           "price_action": 0.25,
           "relation": 0.25
         },
-        "rows": 20876,
-        "days": 4914,
-        "directional_accuracy": 49.14,
-        "top1_fall_accuracy": 48.86,
-        "top1_ci95_low": 47.46,
-        "top1_ci95_high": 50.26,
-        "top3_fall_accuracy": 49.39,
-        "top1_avg_return_pct": 0.0042,
-        "positive_years": 7,
+        "rows": 20897,
+        "days": 4918,
+        "directional_accuracy": 49.29,
+        "top1_fall_accuracy": 51.26,
+        "top1_ci95_low": 49.86,
+        "top1_ci95_high": 52.66,
+        "top3_fall_accuracy": 52.87,
+        "top1_avg_return_pct": 0.0123,
+        "positive_years": 12,
         "tested_years": 21,
         "selective": [
           {
             "coverage_pct": 10,
-            "samples": 491,
-            "accuracy": 48.68,
-            "avg_return_pct": -0.0427
+            "samples": 492,
+            "accuracy": 51.42,
+            "avg_return_pct": -0.0435
           },
           {
             "coverage_pct": 20,
-            "samples": 983,
-            "accuracy": 47.0,
-            "avg_return_pct": 0.0049
+            "samples": 984,
+            "accuracy": 50.51,
+            "avg_return_pct": -0.0213
           },
           {
             "coverage_pct": 30,
-            "samples": 1474,
-            "accuracy": 48.1,
-            "avg_return_pct": 0.0018
+            "samples": 1475,
+            "accuracy": 50.58,
+            "avg_return_pct": -0.0162
           },
           {
             "coverage_pct": 50,
-            "samples": 2457,
-            "accuracy": 47.9,
-            "avg_return_pct": 0.0081
+            "samples": 2459,
+            "accuracy": 50.02,
+            "avg_return_pct": -0.006
           },
           {
             "coverage_pct": 100,
-            "samples": 4914,
-            "accuracy": 48.86,
-            "avg_return_pct": 0.0042
+            "samples": 4918,
+            "accuracy": 51.26,
+            "avg_return_pct": 0.0123
           }
         ]
       },
@@ -45469,597 +46128,597 @@
           "price_action": 0.55,
           "relation": 0.25
         },
-        "rows": 20876,
-        "days": 4914,
-        "directional_accuracy": 49.07,
-        "top1_fall_accuracy": 49.1,
-        "top1_ci95_low": 47.71,
-        "top1_ci95_high": 50.5,
-        "top3_fall_accuracy": 49.36,
-        "top1_avg_return_pct": 0.0094,
-        "positive_years": 7,
+        "rows": 20897,
+        "days": 4918,
+        "directional_accuracy": 49.73,
+        "top1_fall_accuracy": 51.77,
+        "top1_ci95_low": 50.37,
+        "top1_ci95_high": 53.17,
+        "top3_fall_accuracy": 52.81,
+        "top1_avg_return_pct": 0.0133,
+        "positive_years": 12,
         "tested_years": 21,
         "selective": [
           {
             "coverage_pct": 10,
-            "samples": 491,
-            "accuracy": 47.25,
-            "avg_return_pct": -0.0213
+            "samples": 492,
+            "accuracy": 47.97,
+            "avg_return_pct": -0.0103
           },
           {
             "coverage_pct": 20,
-            "samples": 983,
-            "accuracy": 46.49,
-            "avg_return_pct": 0.0195
+            "samples": 984,
+            "accuracy": 47.97,
+            "avg_return_pct": -0.0065
           },
           {
             "coverage_pct": 30,
-            "samples": 1474,
-            "accuracy": 47.49,
-            "avg_return_pct": 0.0099
+            "samples": 1475,
+            "accuracy": 47.93,
+            "avg_return_pct": 0.0029
           },
           {
             "coverage_pct": 50,
-            "samples": 2457,
-            "accuracy": 48.51,
-            "avg_return_pct": 0.0101
+            "samples": 2459,
+            "accuracy": 48.68,
+            "avg_return_pct": 0.0034
           },
           {
             "coverage_pct": 100,
-            "samples": 4914,
-            "accuracy": 49.1,
-            "avg_return_pct": 0.0094
+            "samples": 4918,
+            "accuracy": 51.77,
+            "avg_return_pct": 0.0133
           }
         ]
       },
       {
         "model": "APRENDIDO",
         "weights": {
-          "fund_state": 0.1,
-          "fund_change": 0.7,
-          "price_action": 0.2,
-          "relation": 0.0
+          "fund_state": 0.7,
+          "fund_change": 0.1,
+          "price_action": 0.1,
+          "relation": 0.1
         },
-        "rows": 20876,
-        "days": 4914,
-        "directional_accuracy": 49.48,
-        "top1_fall_accuracy": 49.57,
-        "top1_ci95_low": 48.17,
-        "top1_ci95_high": 50.97,
-        "top3_fall_accuracy": 49.56,
-        "top1_avg_return_pct": 0.0063,
-        "positive_years": 10,
+        "rows": 20897,
+        "days": 4918,
+        "directional_accuracy": 50.4,
+        "top1_fall_accuracy": 53.03,
+        "top1_ci95_low": 51.63,
+        "top1_ci95_high": 54.42,
+        "top3_fall_accuracy": 52.75,
+        "top1_avg_return_pct": 0.0027,
+        "positive_years": 17,
         "tested_years": 21,
         "selective": [
           {
             "coverage_pct": 10,
-            "samples": 491,
-            "accuracy": 48.88,
-            "avg_return_pct": -0.031
+            "samples": 492,
+            "accuracy": 53.05,
+            "avg_return_pct": -0.0459
           },
           {
             "coverage_pct": 20,
-            "samples": 983,
-            "accuracy": 48.73,
-            "avg_return_pct": -0.0197
+            "samples": 984,
+            "accuracy": 52.13,
+            "avg_return_pct": -0.0341
           },
           {
             "coverage_pct": 30,
-            "samples": 1474,
-            "accuracy": 48.03,
-            "avg_return_pct": 0.01
+            "samples": 1475,
+            "accuracy": 50.1,
+            "avg_return_pct": -0.0169
           },
           {
             "coverage_pct": 50,
-            "samples": 2457,
-            "accuracy": 48.88,
-            "avg_return_pct": 0.0053
+            "samples": 2459,
+            "accuracy": 52.18,
+            "avg_return_pct": -0.0143
           },
           {
             "coverage_pct": 100,
-            "samples": 4914,
-            "accuracy": 49.57,
-            "avg_return_pct": 0.0063
+            "samples": 4918,
+            "accuracy": 53.03,
+            "avg_return_pct": 0.0027
           }
         ]
       }
     ],
     "best_model": {
       "model": "FUND_ATUAL",
-      "rows": 20876,
-      "days": 4914,
-      "directional_accuracy": 49.62,
-      "top1_fall_accuracy": 50.08,
-      "top1_ci95_low": 48.68,
-      "top1_ci95_high": 51.48,
-      "top3_fall_accuracy": 49.69,
-      "top1_avg_return_pct": -0.0053,
-      "positive_years": 12,
+      "rows": 20897,
+      "days": 4918,
+      "directional_accuracy": 52.79,
+      "top1_fall_accuracy": 53.03,
+      "top1_ci95_low": 51.63,
+      "top1_ci95_high": 54.42,
+      "top3_fall_accuracy": 52.69,
+      "top1_avg_return_pct": 0.0092,
+      "positive_years": 13,
       "tested_years": 21,
       "rank_stats": {
         "1": {
-          "accuracy": 50.08,
-          "samples": 4914,
-          "avg_return_pct": -0.0053
+          "accuracy": 53.03,
+          "samples": 4918,
+          "avg_return_pct": 0.0092
         },
         "2": {
-          "accuracy": 49.0,
-          "samples": 4429,
-          "avg_return_pct": 0.0043
+          "accuracy": 51.88,
+          "samples": 4433,
+          "avg_return_pct": 0.006
         },
         "3": {
-          "accuracy": 49.99,
-          "samples": 3725,
-          "avg_return_pct": -0.0009
+          "accuracy": 53.2,
+          "samples": 3729,
+          "avg_return_pct": 0.0022
         },
         "4": {
-          "accuracy": 49.27,
-          "samples": 2884,
-          "avg_return_pct": -0.001
+          "accuracy": 52.1,
+          "samples": 2887,
+          "avg_return_pct": -0.0064
         },
         "5": {
-          "accuracy": 49.57,
-          "samples": 2090,
-          "avg_return_pct": -0.0074
+          "accuracy": 53.8,
+          "samples": 2093,
+          "avg_return_pct": -0.0138
         }
       },
       "selective": [
         {
           "coverage_pct": 10,
-          "samples": 491,
-          "accuracy": 51.32,
-          "avg_return_pct": -0.0513
+          "samples": 492,
+          "accuracy": 55.28,
+          "avg_return_pct": -0.0282
         },
         {
           "coverage_pct": 20,
-          "samples": 983,
-          "accuracy": 50.76,
-          "avg_return_pct": -0.0452
+          "samples": 984,
+          "accuracy": 53.86,
+          "avg_return_pct": -0.0177
         },
         {
           "coverage_pct": 30,
-          "samples": 1474,
-          "accuracy": 50.27,
-          "avg_return_pct": -0.0286
+          "samples": 1475,
+          "accuracy": 52.88,
+          "avg_return_pct": -0.0003
         },
         {
           "coverage_pct": 50,
-          "samples": 2457,
-          "accuracy": 50.71,
-          "avg_return_pct": -0.0181
+          "samples": 2459,
+          "accuracy": 53.76,
+          "avg_return_pct": 0.0004
         },
         {
           "coverage_pct": 100,
-          "samples": 4914,
-          "accuracy": 50.08,
-          "avg_return_pct": -0.0053
+          "samples": 4918,
+          "accuracy": 53.03,
+          "avg_return_pct": 0.0092
         }
       ],
       "year_detail": [
         {
           "year": 2006,
-          "top1_accuracy": 41.99,
-          "top1_avg_return_pct": 0.0419
+          "top1_accuracy": 47.19,
+          "top1_avg_return_pct": 0.0364
         },
         {
           "year": 2007,
-          "top1_accuracy": 54.67,
-          "top1_avg_return_pct": -0.1215
+          "top1_accuracy": 56.89,
+          "top1_avg_return_pct": -0.1238
         },
         {
           "year": 2008,
-          "top1_accuracy": 54.32,
-          "top1_avg_return_pct": -0.1408
+          "top1_accuracy": 56.79,
+          "top1_avg_return_pct": -0.0986
         },
         {
           "year": 2009,
-          "top1_accuracy": 50.68,
-          "top1_avg_return_pct": -0.0168
+          "top1_accuracy": 47.03,
+          "top1_avg_return_pct": 0.0686
         },
         {
           "year": 2010,
-          "top1_accuracy": 49.6,
-          "top1_avg_return_pct": -0.0137
+          "top1_accuracy": 47.58,
+          "top1_avg_return_pct": 0.0072
         },
         {
           "year": 2011,
-          "top1_accuracy": 55.34,
-          "top1_avg_return_pct": -0.0309
+          "top1_accuracy": 60.47,
+          "top1_avg_return_pct": -0.0275
         },
         {
           "year": 2012,
-          "top1_accuracy": 50.0,
-          "top1_avg_return_pct": 0.0147
+          "top1_accuracy": 50.91,
+          "top1_avg_return_pct": 0.0606
         },
         {
           "year": 2013,
-          "top1_accuracy": 44.29,
-          "top1_avg_return_pct": 0.0805
+          "top1_accuracy": 47.95,
+          "top1_avg_return_pct": 0.0963
         },
         {
           "year": 2014,
-          "top1_accuracy": 53.09,
-          "top1_avg_return_pct": -0.0251
+          "top1_accuracy": 62.96,
+          "top1_avg_return_pct": -0.0071
         },
         {
           "year": 2015,
-          "top1_accuracy": 54.27,
-          "top1_avg_return_pct": -0.0554
+          "top1_accuracy": 56.41,
+          "top1_avg_return_pct": -0.0467
         },
         {
           "year": 2016,
-          "top1_accuracy": 51.57,
-          "top1_avg_return_pct": 0.0209
+          "top1_accuracy": 57.87,
+          "top1_avg_return_pct": -0.0132
         },
         {
           "year": 2017,
-          "top1_accuracy": 44.08,
-          "top1_avg_return_pct": 0.0558
+          "top1_accuracy": 47.76,
+          "top1_avg_return_pct": 0.0636
         },
         {
           "year": 2018,
-          "top1_accuracy": 51.03,
-          "top1_avg_return_pct": -0.0168
+          "top1_accuracy": 54.32,
+          "top1_avg_return_pct": -0.0081
         },
         {
           "year": 2019,
           "top1_accuracy": 50.41,
-          "top1_avg_return_pct": 0.0301
+          "top1_avg_return_pct": 0.0461
         },
         {
           "year": 2020,
-          "top1_accuracy": 51.53,
-          "top1_avg_return_pct": 0.017
+          "top1_accuracy": 62.88,
+          "top1_avg_return_pct": 0.0249
         },
         {
           "year": 2021,
-          "top1_accuracy": 51.06,
-          "top1_avg_return_pct": 0.0062
+          "top1_accuracy": 54.89,
+          "top1_avg_return_pct": 0.0049
         },
         {
           "year": 2022,
-          "top1_accuracy": 51.82,
-          "top1_avg_return_pct": -0.0334
+          "top1_accuracy": 55.06,
+          "top1_avg_return_pct": -0.0028
         },
         {
           "year": 2023,
-          "top1_accuracy": 48.16,
-          "top1_avg_return_pct": 0.0403
+          "top1_accuracy": 47.35,
+          "top1_avg_return_pct": 0.057
         },
         {
           "year": 2024,
-          "top1_accuracy": 50.0,
-          "top1_avg_return_pct": -0.0228
+          "top1_accuracy": 48.74,
+          "top1_avg_return_pct": 0.0087
         },
         {
           "year": 2025,
-          "top1_accuracy": 45.31,
-          "top1_avg_return_pct": 0.0394
+          "top1_accuracy": 44.9,
+          "top1_avg_return_pct": 0.051
         },
         {
           "year": 2026,
-          "top1_accuracy": 46.79,
-          "top1_avg_return_pct": 0.0339
+          "top1_accuracy": 55.0,
+          "top1_avg_return_pct": 0.0066
         }
       ]
     },
     "observation_model": {
       "model": "FUND_ATUAL",
-      "rows": 20876,
-      "days": 4914,
-      "directional_accuracy": 49.62,
-      "top1_fall_accuracy": 50.08,
-      "top1_ci95_low": 48.68,
-      "top1_ci95_high": 51.48,
-      "top3_fall_accuracy": 49.69,
-      "top1_avg_return_pct": -0.0053,
-      "positive_years": 12,
+      "rows": 20897,
+      "days": 4918,
+      "directional_accuracy": 52.79,
+      "top1_fall_accuracy": 53.03,
+      "top1_ci95_low": 51.63,
+      "top1_ci95_high": 54.42,
+      "top3_fall_accuracy": 52.69,
+      "top1_avg_return_pct": 0.0092,
+      "positive_years": 13,
       "tested_years": 21,
       "rank_stats": {
         "1": {
-          "accuracy": 50.08,
-          "samples": 4914,
-          "avg_return_pct": -0.0053
+          "accuracy": 53.03,
+          "samples": 4918,
+          "avg_return_pct": 0.0092
         },
         "2": {
-          "accuracy": 49.0,
-          "samples": 4429,
-          "avg_return_pct": 0.0043
+          "accuracy": 51.88,
+          "samples": 4433,
+          "avg_return_pct": 0.006
         },
         "3": {
-          "accuracy": 49.99,
-          "samples": 3725,
-          "avg_return_pct": -0.0009
+          "accuracy": 53.2,
+          "samples": 3729,
+          "avg_return_pct": 0.0022
         },
         "4": {
-          "accuracy": 49.27,
-          "samples": 2884,
-          "avg_return_pct": -0.001
+          "accuracy": 52.1,
+          "samples": 2887,
+          "avg_return_pct": -0.0064
         },
         "5": {
-          "accuracy": 49.57,
-          "samples": 2090,
-          "avg_return_pct": -0.0074
+          "accuracy": 53.8,
+          "samples": 2093,
+          "avg_return_pct": -0.0138
         }
       },
       "selective": [
         {
           "coverage_pct": 10,
-          "samples": 491,
-          "accuracy": 51.32,
-          "avg_return_pct": -0.0513
+          "samples": 492,
+          "accuracy": 55.28,
+          "avg_return_pct": -0.0282
         },
         {
           "coverage_pct": 20,
-          "samples": 983,
-          "accuracy": 50.76,
-          "avg_return_pct": -0.0452
+          "samples": 984,
+          "accuracy": 53.86,
+          "avg_return_pct": -0.0177
         },
         {
           "coverage_pct": 30,
-          "samples": 1474,
-          "accuracy": 50.27,
-          "avg_return_pct": -0.0286
+          "samples": 1475,
+          "accuracy": 52.88,
+          "avg_return_pct": -0.0003
         },
         {
           "coverage_pct": 50,
-          "samples": 2457,
-          "accuracy": 50.71,
-          "avg_return_pct": -0.0181
+          "samples": 2459,
+          "accuracy": 53.76,
+          "avg_return_pct": 0.0004
         },
         {
           "coverage_pct": 100,
-          "samples": 4914,
-          "accuracy": 50.08,
-          "avg_return_pct": -0.0053
+          "samples": 4918,
+          "accuracy": 53.03,
+          "avg_return_pct": 0.0092
         }
       ],
       "year_detail": [
         {
           "year": 2006,
-          "top1_accuracy": 41.99,
-          "top1_avg_return_pct": 0.0419
+          "top1_accuracy": 47.19,
+          "top1_avg_return_pct": 0.0364
         },
         {
           "year": 2007,
-          "top1_accuracy": 54.67,
-          "top1_avg_return_pct": -0.1215
+          "top1_accuracy": 56.89,
+          "top1_avg_return_pct": -0.1238
         },
         {
           "year": 2008,
-          "top1_accuracy": 54.32,
-          "top1_avg_return_pct": -0.1408
+          "top1_accuracy": 56.79,
+          "top1_avg_return_pct": -0.0986
         },
         {
           "year": 2009,
-          "top1_accuracy": 50.68,
-          "top1_avg_return_pct": -0.0168
+          "top1_accuracy": 47.03,
+          "top1_avg_return_pct": 0.0686
         },
         {
           "year": 2010,
-          "top1_accuracy": 49.6,
-          "top1_avg_return_pct": -0.0137
+          "top1_accuracy": 47.58,
+          "top1_avg_return_pct": 0.0072
         },
         {
           "year": 2011,
-          "top1_accuracy": 55.34,
-          "top1_avg_return_pct": -0.0309
+          "top1_accuracy": 60.47,
+          "top1_avg_return_pct": -0.0275
         },
         {
           "year": 2012,
-          "top1_accuracy": 50.0,
-          "top1_avg_return_pct": 0.0147
+          "top1_accuracy": 50.91,
+          "top1_avg_return_pct": 0.0606
         },
         {
           "year": 2013,
-          "top1_accuracy": 44.29,
-          "top1_avg_return_pct": 0.0805
+          "top1_accuracy": 47.95,
+          "top1_avg_return_pct": 0.0963
         },
         {
           "year": 2014,
-          "top1_accuracy": 53.09,
-          "top1_avg_return_pct": -0.0251
+          "top1_accuracy": 62.96,
+          "top1_avg_return_pct": -0.0071
         },
         {
           "year": 2015,
-          "top1_accuracy": 54.27,
-          "top1_avg_return_pct": -0.0554
+          "top1_accuracy": 56.41,
+          "top1_avg_return_pct": -0.0467
         },
         {
           "year": 2016,
-          "top1_accuracy": 51.57,
-          "top1_avg_return_pct": 0.0209
+          "top1_accuracy": 57.87,
+          "top1_avg_return_pct": -0.0132
         },
         {
           "year": 2017,
-          "top1_accuracy": 44.08,
-          "top1_avg_return_pct": 0.0558
+          "top1_accuracy": 47.76,
+          "top1_avg_return_pct": 0.0636
         },
         {
           "year": 2018,
-          "top1_accuracy": 51.03,
-          "top1_avg_return_pct": -0.0168
+          "top1_accuracy": 54.32,
+          "top1_avg_return_pct": -0.0081
         },
         {
           "year": 2019,
           "top1_accuracy": 50.41,
-          "top1_avg_return_pct": 0.0301
+          "top1_avg_return_pct": 0.0461
         },
         {
           "year": 2020,
-          "top1_accuracy": 51.53,
-          "top1_avg_return_pct": 0.017
+          "top1_accuracy": 62.88,
+          "top1_avg_return_pct": 0.0249
         },
         {
           "year": 2021,
-          "top1_accuracy": 51.06,
-          "top1_avg_return_pct": 0.0062
+          "top1_accuracy": 54.89,
+          "top1_avg_return_pct": 0.0049
         },
         {
           "year": 2022,
-          "top1_accuracy": 51.82,
-          "top1_avg_return_pct": -0.0334
+          "top1_accuracy": 55.06,
+          "top1_avg_return_pct": -0.0028
         },
         {
           "year": 2023,
-          "top1_accuracy": 48.16,
-          "top1_avg_return_pct": 0.0403
+          "top1_accuracy": 47.35,
+          "top1_avg_return_pct": 0.057
         },
         {
           "year": 2024,
-          "top1_accuracy": 50.0,
-          "top1_avg_return_pct": -0.0228
+          "top1_accuracy": 48.74,
+          "top1_avg_return_pct": 0.0087
         },
         {
           "year": 2025,
-          "top1_accuracy": 45.31,
-          "top1_avg_return_pct": 0.0394
+          "top1_accuracy": 44.9,
+          "top1_avg_return_pct": 0.051
         },
         {
           "year": 2026,
-          "top1_accuracy": 46.79,
-          "top1_avg_return_pct": 0.0339
+          "top1_accuracy": 55.0,
+          "top1_avg_return_pct": 0.0066
         }
       ]
     },
     "observations": [
       {
         "rank": 1,
-        "pair": "CHFJPY",
+        "pair": "USDJPY",
         "direction": "CAIR",
         "model": "FUND_ATUAL",
-        "signal_date": "2026-08-31",
-        "price_as_of": "2026-08-24",
-        "model_down_score": 70.9,
+        "signal_date": "2026-09-01",
+        "price_as_of": "2026-08-28",
+        "model_down_score": 62.8,
         "status": "SEM_EDGE_VALIDADO",
-        "historical_accuracy": 50.08,
-        "historical_samples": 4914,
-        "historical_avg_return_pct": -0.0053,
-        "validation": "PROVISIONAL_PIT",
+        "historical_accuracy": 53.03,
+        "historical_samples": 4918,
+        "historical_avg_return_pct": 0.0092,
+        "validation": "PIT_CAUSAL",
         "data_status": "CURRENT",
-        "fund": -88.97,
-        "fund_d1": -0.36,
-        "fund_d5": -4.44,
-        "price_ret1_pct": -0.128,
-        "price_ret5_pct": 0.837,
+        "fund": -52.35,
+        "fund_d1": 27.53,
+        "fund_d5": 5.25,
+        "price_ret1_pct": 0.19,
+        "price_ret5_pct": 0.082,
         "reasons": [
           {
             "factor": "FUND state",
             "supports_fall": true,
-            "contribution": -0.8897,
-            "text": "FUND -89.0, persistence -1.0: fraqueza favorece queda."
+            "contribution": -0.5235,
+            "text": "FUND -52.3, persistence -1.0: fraqueza favorece queda."
           }
         ]
       },
       {
         "rank": 2,
-        "pair": "NZDCAD",
+        "pair": "CHFJPY",
         "direction": "CAIR",
         "model": "FUND_ATUAL",
-        "signal_date": "2026-08-31",
-        "price_as_of": "2026-08-24",
-        "model_down_score": 64.7,
+        "signal_date": "2026-09-01",
+        "price_as_of": "2026-08-28",
+        "model_down_score": 62.7,
         "status": "SEM_EDGE_VALIDADO",
-        "historical_accuracy": 49.0,
-        "historical_samples": 4429,
-        "historical_avg_return_pct": 0.0043,
-        "validation": "PIT_CAUSAL",
+        "historical_accuracy": 51.88,
+        "historical_samples": 4433,
+        "historical_avg_return_pct": 0.006,
+        "validation": "PROVISIONAL_PIT",
         "data_status": "CURRENT",
-        "fund": -60.76,
-        "fund_d1": 8.97,
-        "fund_d5": -3.02,
-        "price_ret1_pct": 0.364,
-        "price_ret5_pct": 0.675,
+        "fund": -51.93,
+        "fund_d1": 26.74,
+        "fund_d5": 41.16,
+        "price_ret1_pct": 0.295,
+        "price_ret5_pct": 0.022,
         "reasons": [
           {
             "factor": "FUND state",
             "supports_fall": true,
-            "contribution": -0.6076,
-            "text": "FUND -60.8, persistence -1.0: fraqueza favorece queda."
+            "contribution": -0.5193,
+            "text": "FUND -51.9, persistence -1.0: fraqueza favorece queda."
           }
         ]
       },
       {
         "rank": 3,
-        "pair": "NZDJPY",
+        "pair": "GBPJPY",
         "direction": "CAIR",
         "model": "FUND_ATUAL",
-        "signal_date": "2026-08-31",
-        "price_as_of": "2026-08-24",
-        "model_down_score": 61.2,
+        "signal_date": "2026-09-01",
+        "price_as_of": "2026-08-28",
+        "model_down_score": 59.1,
         "status": "SEM_EDGE_VALIDADO",
-        "historical_accuracy": 49.99,
-        "historical_samples": 3725,
-        "historical_avg_return_pct": -0.0009,
+        "historical_accuracy": 53.2,
+        "historical_samples": 3729,
+        "historical_avg_return_pct": 0.0022,
         "validation": "PIT_CAUSAL",
         "data_status": "CURRENT",
-        "fund": -45.75,
-        "fund_d1": 6.25,
-        "fund_d5": 9.71,
-        "price_ret1_pct": -0.165,
-        "price_ret5_pct": 0.681,
+        "fund": -36.74,
+        "fund_d1": 11.94,
+        "fund_d5": 3.64,
+        "price_ret1_pct": 0.19,
+        "price_ret5_pct": 0.082,
         "reasons": [
           {
             "factor": "FUND state",
             "supports_fall": true,
-            "contribution": -0.4575,
-            "text": "FUND -45.7, persistence -1.0: fraqueza favorece queda."
+            "contribution": -0.3674,
+            "text": "FUND -36.7, persistence -1.0: fraqueza favorece queda."
           }
         ]
       },
       {
         "rank": 4,
-        "pair": "AUDCAD",
+        "pair": "AUDJPY",
         "direction": "CAIR",
         "model": "FUND_ATUAL",
-        "signal_date": "2026-08-31",
-        "price_as_of": "2026-08-24",
-        "model_down_score": 60.4,
+        "signal_date": "2026-09-01",
+        "price_as_of": "2026-08-28",
+        "model_down_score": 58.8,
         "status": "SEM_EDGE_VALIDADO",
-        "historical_accuracy": 49.27,
-        "historical_samples": 2884,
-        "historical_avg_return_pct": -0.001,
+        "historical_accuracy": 52.1,
+        "historical_samples": 2887,
+        "historical_avg_return_pct": -0.0064,
         "validation": "PROVISIONAL_PIT",
         "data_status": "CURRENT",
-        "fund": -42.39,
-        "fund_d1": 42.85,
-        "fund_d5": 24.23,
-        "price_ret1_pct": 0.707,
-        "price_ret5_pct": 0.443,
+        "fund": -35.71,
+        "fund_d1": 24.69,
+        "fund_d5": 30.81,
+        "price_ret1_pct": 0.247,
+        "price_ret5_pct": 0.994,
         "reasons": [
           {
             "factor": "FUND state",
             "supports_fall": true,
-            "contribution": -0.4239,
-            "text": "FUND -42.4, persistence -1.0: fraqueza favorece queda."
+            "contribution": -0.3571,
+            "text": "FUND -35.7, persistence -1.0: fraqueza favorece queda."
           }
         ]
       },
       {
         "rank": 5,
-        "pair": "USDCAD",
+        "pair": "NZDCAD",
         "direction": "CAIR",
         "model": "FUND_ATUAL",
-        "signal_date": "2026-08-31",
-        "price_as_of": "2026-08-24",
-        "model_down_score": 60.1,
+        "signal_date": "2026-09-01",
+        "price_as_of": "2026-08-28",
+        "model_down_score": 58.1,
         "status": "SEM_EDGE_VALIDADO",
-        "historical_accuracy": 49.57,
-        "historical_samples": 2090,
-        "historical_avg_return_pct": -0.0074,
+        "historical_accuracy": 53.8,
+        "historical_samples": 2093,
+        "historical_avg_return_pct": -0.0138,
         "validation": "PIT_CAUSAL",
         "data_status": "CURRENT",
-        "fund": -40.8,
-        "fund_d1": 41.48,
-        "fund_d5": 19.36,
-        "price_ret1_pct": 0.799,
-        "price_ret5_pct": -0.071,
+        "fund": -32.66,
+        "fund_d1": 3.91,
+        "fund_d5": 24.7,
+        "price_ret1_pct": -0.227,
+        "price_ret5_pct": 0.123,
         "reasons": [
           {
             "factor": "FUND state",
             "supports_fall": true,
-            "contribution": -0.408,
-            "text": "FUND -40.8, persistence -1.0: fraqueza favorece queda."
+            "contribution": -0.3266,
+            "text": "FUND -32.7, persistence -1.0: fraqueza favorece queda."
           }
         ]
       }
@@ -46068,13 +46727,13 @@
   "pre_fund": {
     "meta": {
       "status": "PROVISIONAL_PRE_FUND",
-      "generated_on": "2026-08-30",
+      "generated_on": "2026-08-31",
       "target": "the pair FUND enters BEAR (<= -25) on the next business day",
       "lookahead": false,
       "history_start": "2002-01-31",
-      "history_end": "2026-08-24",
-      "labelled_rows": 54105,
-      "all_labelled_rows": 105462,
+      "history_end": "2026-08-31",
+      "labelled_rows": 54122,
+      "all_labelled_rows": 105531,
       "best_model": "NIVEL_FUND",
       "observation_floor": 8.94,
       "validation": "annual walk-forward; only PIT_CAUSAL pairs train and validate",
@@ -46087,94 +46746,94 @@
         "price": 0.0
       },
       "walk_forward_median": {
-        "level": 0.42,
-        "trajectory": 0.16,
-        "price": 0.42
+        "level": 0.5,
+        "trajectory": 0.12,
+        "price": 0.37
       }
     },
     "best_model": {
       "model": "NIVEL_FUND",
-      "days": 5612,
-      "eligible_rows": 51388,
-      "events": 3675,
-      "baseline_transition_rate": 7.1515,
-      "top1_transition_rate": 27.0848,
-      "top5_transition_rate": 12.3726,
-      "event_recall_top5": 93.1156,
-      "top1_price_fall_rate": 48.3514,
-      "top5_price_fall_rate": 48.5547,
-      "top5_price_samples": 27227,
-      "top5_avg_price_return_pct": 0.0077,
+      "days": 5617,
+      "eligible_rows": 51405,
+      "events": 3676,
+      "baseline_transition_rate": 7.1511,
+      "top1_transition_rate": 27.0785,
+      "top5_transition_rate": 12.3695,
+      "event_recall_top5": 93.1175,
+      "top1_price_fall_rate": 44.37,
+      "top5_price_fall_rate": 44.8078,
+      "top5_price_samples": 27243,
+      "top5_avg_price_return_pct": 0.006,
       "probability_bins": [
         {
           "min_probability": 0.01,
           "max_probability": 0.43,
           "mean_model_probability": 0.18,
           "empirical_transition_rate": 0.06,
-          "samples": 5139
+          "samples": 5140
         },
         {
           "min_probability": 0.43,
           "max_probability": 1.61,
           "mean_model_probability": 0.93,
           "empirical_transition_rate": 0.27,
-          "samples": 5139
+          "samples": 5141
         },
         {
           "min_probability": 1.61,
           "max_probability": 4.37,
           "mean_model_probability": 2.79,
           "empirical_transition_rate": 0.37,
-          "samples": 5138
+          "samples": 5141
         },
         {
           "min_probability": 4.37,
-          "max_probability": 9.54,
+          "max_probability": 9.55,
           "mean_model_probability": 6.71,
           "empirical_transition_rate": 0.84,
-          "samples": 5139
+          "samples": 5140
         },
         {
           "min_probability": 9.55,
           "max_probability": 18.78,
           "mean_model_probability": 13.77,
           "empirical_transition_rate": 1.05,
-          "samples": 5139
+          "samples": 5140
         },
         {
           "min_probability": 18.78,
           "max_probability": 32.24,
           "mean_model_probability": 25.11,
           "empirical_transition_rate": 2.51,
-          "samples": 5139
+          "samples": 5141
         },
         {
           "min_probability": 32.24,
           "max_probability": 49.06,
           "mean_model_probability": 40.58,
           "empirical_transition_rate": 4.28,
-          "samples": 5139
+          "samples": 5141
         },
         {
           "min_probability": 49.07,
-          "max_probability": 66.17,
-          "mean_model_probability": 57.78,
+          "max_probability": 66.15,
+          "mean_model_probability": 57.77,
           "empirical_transition_rate": 9.32,
-          "samples": 5138
+          "samples": 5140
         },
         {
-          "min_probability": 66.17,
+          "min_probability": 66.15,
           "max_probability": 80.18,
           "mean_model_probability": 73.43,
-          "empirical_transition_rate": 18.08,
-          "samples": 5139
+          "empirical_transition_rate": 18.07,
+          "samples": 5140
         },
         {
           "min_probability": 80.18,
           "max_probability": 96.74,
           "mean_model_probability": 85.59,
-          "empirical_transition_rate": 34.73,
-          "samples": 5139
+          "empirical_transition_rate": 34.74,
+          "samples": 5141
         }
       ]
     },
@@ -46186,17 +46845,17 @@
           "trajectory": 0.0,
           "price": 0.0
         },
-        "days": 5612,
-        "eligible_rows": 51388,
-        "events": 3675,
-        "baseline_transition_rate": 7.1515,
-        "top1_transition_rate": 27.0848,
-        "top5_transition_rate": 12.3726,
-        "event_recall_top5": 93.1156,
-        "top1_price_fall_rate": 48.3514,
-        "top5_price_fall_rate": 48.5547,
-        "top5_price_samples": 27227,
-        "top5_avg_price_return_pct": 0.0077
+        "days": 5617,
+        "eligible_rows": 51405,
+        "events": 3676,
+        "baseline_transition_rate": 7.1511,
+        "top1_transition_rate": 27.0785,
+        "top5_transition_rate": 12.3695,
+        "event_recall_top5": 93.1175,
+        "top1_price_fall_rate": 44.37,
+        "top5_price_fall_rate": 44.8078,
+        "top5_price_samples": 27243,
+        "top5_avg_price_return_pct": 0.006
       },
       {
         "model": "FUND_PESADO",
@@ -46205,17 +46864,17 @@
           "trajectory": 0.4,
           "price": 0.05
         },
-        "days": 5612,
-        "eligible_rows": 51388,
-        "events": 3675,
-        "baseline_transition_rate": 7.1515,
-        "top1_transition_rate": 26.5502,
-        "top5_transition_rate": 12.3545,
-        "event_recall_top5": 92.9796,
-        "top1_price_fall_rate": 47.7899,
-        "top5_price_fall_rate": 48.6613,
-        "top5_price_samples": 27227,
-        "top5_avg_price_return_pct": 0.0065
+        "days": 5617,
+        "eligible_rows": 51405,
+        "events": 3676,
+        "baseline_transition_rate": 7.1511,
+        "top1_transition_rate": 26.5088,
+        "top5_transition_rate": 12.3514,
+        "event_recall_top5": 92.9815,
+        "top1_price_fall_rate": 44.2071,
+        "top5_price_fall_rate": 44.8152,
+        "top5_price_samples": 27243,
+        "top5_avg_price_return_pct": 0.0046
       },
       {
         "model": "PESOS_IGUAIS",
@@ -46224,17 +46883,17 @@
           "trajectory": 0.33,
           "price": 0.33
         },
-        "days": 5612,
-        "eligible_rows": 51388,
-        "events": 3675,
-        "baseline_transition_rate": 7.1515,
-        "top1_transition_rate": 26.3542,
-        "top5_transition_rate": 12.3509,
-        "event_recall_top5": 92.9524,
-        "top1_price_fall_rate": 47.8623,
-        "top5_price_fall_rate": 48.6466,
-        "top5_price_samples": 27227,
-        "top5_avg_price_return_pct": 0.0068
+        "days": 5617,
+        "eligible_rows": 51405,
+        "events": 3676,
+        "baseline_transition_rate": 7.1511,
+        "top1_transition_rate": 26.224,
+        "top5_transition_rate": 12.3333,
+        "event_recall_top5": 92.8455,
+        "top1_price_fall_rate": 44.2252,
+        "top5_price_fall_rate": 44.7087,
+        "top5_price_samples": 27243,
+        "top5_avg_price_return_pct": 0.0055
       },
       {
         "model": "PRECO_PESADO",
@@ -46243,17 +46902,17 @@
           "trajectory": 0.2,
           "price": 0.6
         },
-        "days": 5612,
-        "eligible_rows": 51388,
-        "events": 3675,
-        "baseline_transition_rate": 7.1515,
-        "top1_transition_rate": 26.1404,
-        "top5_transition_rate": 12.2822,
-        "event_recall_top5": 92.4354,
-        "top1_price_fall_rate": 47.7536,
-        "top5_price_fall_rate": 48.5401,
-        "top5_price_samples": 27227,
-        "top5_avg_price_return_pct": 0.0092
+        "days": 5617,
+        "eligible_rows": 51405,
+        "events": 3676,
+        "baseline_transition_rate": 7.1511,
+        "top1_transition_rate": 26.0637,
+        "top5_transition_rate": 12.2683,
+        "event_recall_top5": 92.3558,
+        "top1_price_fall_rate": 44.0804,
+        "top5_price_fall_rate": 44.6206,
+        "top5_price_samples": 27243,
+        "top5_avg_price_return_pct": 0.0076
       },
       {
         "model": "APRENDIDO",
@@ -46262,35 +46921,143 @@
           "trajectory": 0.0,
           "price": 0.0
         },
-        "days": 5612,
-        "eligible_rows": 51388,
-        "events": 3675,
-        "baseline_transition_rate": 7.1515,
-        "top1_transition_rate": 26.7463,
-        "top5_transition_rate": 12.3183,
-        "event_recall_top5": 92.7075,
-        "top1_price_fall_rate": 47.8986,
-        "top5_price_fall_rate": 48.5107,
-        "top5_price_samples": 27227,
-        "top5_avg_price_return_pct": 0.009
+        "days": 5617,
+        "eligible_rows": 51405,
+        "events": 3676,
+        "baseline_transition_rate": 7.1511,
+        "top1_transition_rate": 26.6512,
+        "top5_transition_rate": 12.3695,
+        "event_recall_top5": 93.1175,
+        "top1_price_fall_rate": 44.4243,
+        "top5_price_fall_rate": 44.661,
+        "top5_price_samples": 27243,
+        "top5_avg_price_return_pct": 0.0055
       }
     ],
     "observations": [
       {
         "rank": 1,
-        "pair": "AUDUSD",
+        "pair": "USDCAD",
         "status": "PRE_FUND",
-        "signal_date": "2026-08-31",
-        "price_as_of": "2026-08-24",
-        "fund": -21.02,
-        "fund_d1": -46.36,
-        "fund_d3": -41.89,
-        "model_probability": 89.67,
-        "empirical_probability": 34.73,
-        "empirical_samples": 5139,
+        "signal_date": "2026-09-01",
+        "price_as_of": "2026-08-28",
+        "fund": -16.16,
+        "fund_d1": 42.22,
+        "fund_d3": 36.94,
+        "model_probability": 87.83,
+        "empirical_probability": 34.74,
+        "empirical_samples": 5141,
         "calibration_range": [
           80.18,
           96.74
+        ],
+        "validation": "PIT_CAUSAL",
+        "data_status": "CURRENT",
+        "reasons": [
+          {
+            "factor": "Proximity to the BEAR band",
+            "supports_alert": true,
+            "contribution": 1.9763,
+            "text": "FUND is -16.2; +8.8 points to reach -25. Proximity supports the alert."
+          }
+        ]
+      },
+      {
+        "rank": 2,
+        "pair": "NZDUSD",
+        "status": "PRE_FUND",
+        "signal_date": "2026-09-01",
+        "price_as_of": "2026-08-28",
+        "fund": -16.08,
+        "fund_d1": -11.89,
+        "fund_d3": -7.37,
+        "model_probability": 76.41,
+        "empirical_probability": 18.07,
+        "empirical_samples": 5140,
+        "calibration_range": [
+          66.15,
+          80.18
+        ],
+        "validation": "PIT_CAUSAL",
+        "data_status": "CURRENT",
+        "reasons": [
+          {
+            "factor": "Proximity to the BEAR band",
+            "supports_alert": true,
+            "contribution": 1.1751,
+            "text": "FUND is -16.1; +8.9 points to reach -25. Proximity supports the alert."
+          }
+        ]
+      },
+      {
+        "rank": 3,
+        "pair": "CADJPY",
+        "status": "PRE_FUND",
+        "signal_date": "2026-09-01",
+        "price_as_of": "2026-08-28",
+        "fund": -11.86,
+        "fund_d1": 15.04,
+        "fund_d3": -15.82,
+        "model_probability": 74.38,
+        "empirical_probability": 18.07,
+        "empirical_samples": 5140,
+        "calibration_range": [
+          66.15,
+          80.18
+        ],
+        "validation": "PIT_CAUSAL",
+        "data_status": "CURRENT",
+        "reasons": [
+          {
+            "factor": "Proximity to the BEAR band",
+            "supports_alert": true,
+            "contribution": 1.0657,
+            "text": "FUND is -11.9; +13.1 points to reach -25. Proximity supports the alert."
+          }
+        ]
+      },
+      {
+        "rank": 4,
+        "pair": "EURJPY",
+        "status": "PRE_FUND",
+        "signal_date": "2026-09-01",
+        "price_as_of": "2026-08-28",
+        "fund": 2.63,
+        "fund_d1": 47.52,
+        "fund_d3": 54.64,
+        "model_probability": 63.11,
+        "empirical_probability": 9.32,
+        "empirical_samples": 5140,
+        "calibration_range": [
+          49.07,
+          66.15
+        ],
+        "validation": "PIT_CAUSAL",
+        "data_status": "CURRENT",
+        "reasons": [
+          {
+            "factor": "Proximity to the BEAR band",
+            "supports_alert": true,
+            "contribution": 0.5371,
+            "text": "FUND is +2.6; +27.6 points to reach -25. Proximity supports the alert."
+          }
+        ]
+      },
+      {
+        "rank": 5,
+        "pair": "NZDCHF",
+        "status": "PRE_FUND",
+        "signal_date": "2026-09-01",
+        "price_as_of": "2026-08-28",
+        "fund": -7.83,
+        "fund_d1": -8.06,
+        "fund_d3": -3.97,
+        "model_probability": 62.4,
+        "empirical_probability": 9.32,
+        "empirical_samples": 5140,
+        "calibration_range": [
+          49.07,
+          66.15
         ],
         "validation": "PROVISIONAL_PIT",
         "data_status": "CURRENT",
@@ -46298,116 +47065,8 @@
           {
             "factor": "Proximity to the BEAR band",
             "supports_alert": true,
-            "contribution": 2.1611,
-            "text": "FUND is -21.0; +4.0 points to reach -25. Proximity supports the alert."
-          }
-        ]
-      },
-      {
-        "rank": 2,
-        "pair": "EURCAD",
-        "status": "PRE_FUND",
-        "signal_date": "2026-08-31",
-        "price_as_of": "2026-08-24",
-        "fund": -9.75,
-        "fund_d1": 63.81,
-        "fund_d3": 43.67,
-        "model_probability": 87.96,
-        "empirical_probability": 34.73,
-        "empirical_samples": 5139,
-        "calibration_range": [
-          80.18,
-          96.74
-        ],
-        "validation": "PIT_CAUSAL",
-        "data_status": "CURRENT",
-        "reasons": [
-          {
-            "factor": "Proximity to the BEAR band",
-            "supports_alert": true,
-            "contribution": 1.9888,
-            "text": "FUND is -9.7; +15.3 points to reach -25. Proximity supports the alert."
-          }
-        ]
-      },
-      {
-        "rank": 3,
-        "pair": "EURJPY",
-        "status": "PRE_FUND",
-        "signal_date": "2026-08-31",
-        "price_as_of": "2026-08-24",
-        "fund": -10.11,
-        "fund_d1": 41.9,
-        "fund_d3": 53.8,
-        "model_probability": 83.09,
-        "empirical_probability": 34.73,
-        "empirical_samples": 5139,
-        "calibration_range": [
-          80.18,
-          96.74
-        ],
-        "validation": "PIT_CAUSAL",
-        "data_status": "CURRENT",
-        "reasons": [
-          {
-            "factor": "Proximity to the BEAR band",
-            "supports_alert": true,
-            "contribution": 1.5919,
-            "text": "FUND is -10.1; +14.9 points to reach -25. Proximity supports the alert."
-          }
-        ]
-      },
-      {
-        "rank": 4,
-        "pair": "GBPCAD",
-        "status": "PRE_FUND",
-        "signal_date": "2026-08-31",
-        "price_as_of": "2026-08-24",
-        "fund": -0.95,
-        "fund_d1": 57.55,
-        "fund_d3": 50.1,
-        "model_probability": 72.37,
-        "empirical_probability": 18.08,
-        "empirical_samples": 5139,
-        "calibration_range": [
-          66.17,
-          80.18
-        ],
-        "validation": "PIT_CAUSAL",
-        "data_status": "CURRENT",
-        "reasons": [
-          {
-            "factor": "Proximity to the BEAR band",
-            "supports_alert": true,
-            "contribution": 0.963,
-            "text": "FUND is -0.9; +24.1 points to reach -25. Proximity supports the alert."
-          }
-        ]
-      },
-      {
-        "rank": 5,
-        "pair": "EURGBP",
-        "status": "PRE_FUND",
-        "signal_date": "2026-08-31",
-        "price_as_of": "2026-08-24",
-        "fund": -8.44,
-        "fund_d1": -6.87,
-        "fund_d3": -26.42,
-        "model_probability": 68.63,
-        "empirical_probability": 18.08,
-        "empirical_samples": 5139,
-        "calibration_range": [
-          66.17,
-          80.18
-        ],
-        "validation": "PIT_CAUSAL",
-        "data_status": "CURRENT",
-        "reasons": [
-          {
-            "factor": "Proximity to the BEAR band",
-            "supports_alert": true,
-            "contribution": 0.7827,
-            "text": "FUND is -8.4; +16.6 points to reach -25. Proximity supports the alert."
+            "contribution": 0.5064,
+            "text": "FUND is -7.8; +17.2 points to reach -25. Proximity supports the alert."
           }
         ]
       }
@@ -46421,7 +47080,7 @@
         "fund_today": -20.63,
         "fund_next": -52.05,
         "model_probability": 81.15,
-        "empirical_probability": 34.73,
+        "empirical_probability": 34.74,
         "transition_happened": true,
         "price_fell_next": true
       },
@@ -46433,7 +47092,7 @@
         "fund_today": -22.33,
         "fund_next": -48.8,
         "model_probability": 82.38,
-        "empirical_probability": 34.73,
+        "empirical_probability": 34.74,
         "transition_happened": true,
         "price_fell_next": false
       }
