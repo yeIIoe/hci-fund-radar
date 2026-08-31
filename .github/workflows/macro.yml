@@ -78,6 +78,10 @@ jobs:
             exit 1
           fi
           python -u estimates_logger.py
+      # O motor de revisoes so tem o que calcular DEPOIS do logger gravar o snapshot novo.
+      - name: revisoes de estimativas
+        if: steps.q.outputs.semanal == 'sim' || github.event_name == 'workflow_dispatch'
+        run: python radar_revisoes.py || echo "revisoes falharam, segue"
 
       - name: commit
         run: |

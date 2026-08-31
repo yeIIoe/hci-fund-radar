@@ -72,6 +72,48 @@ def watchlist():
             lines.append(f"{flag} {t:8} {ret*100:+.1f}% hoje | {vs:+.0f}% vs max | TESE: {TESE.get(t, '')}")
             if ret <= -0.03:
                 lines.append("   -> dip>=3% em fornecedor de NECESSIDADE: aplicar regra BTD (qualidade+medo-vs-idio) e assinar. Conf ~65-75% (backtest BTD).")
+    # --- saida estruturada para o site (o texto acima continua igual) ---
+    import json as _json
+    from datetime import datetime as _dt
+    recs = []
+    for t in WATCH:
+        ret = r1.get(t)
+        if ret is None:
+            continue
+        vs = (px[t].iloc[-1] / hi52[t] - 1) * 100
+        dip = ret <= -0.03
+        obs = ret <= -0.015
+        # NaN quebra o JSON: json.dumps escreve NaN literal, que o navegador recusa e
+        # derruba o arquivo inteiro. Converte para None antes de serializar.
+        def _n(v, casas=2):
+            try:
+                f = float(v)
+                return None if f != f else round(f, casas)
+            except Exception:
+                return None
+        recs.append({
+            "ticker": t,
+            "aprovado": bool(dip),                 # dip >= 3% e o gatilho da regra BTD
+            "nota": "DIP >=3%" if dip else ("observar" if obs else "sem dip"),
+            "preco": _n(px[t].iloc[-1]),
+            "retorno_hoje": _n(ret * 100, 1),
+            "vs_maxima_12m": _n(vs, 0),
+            "tese": TESE.get(t, ""),
+            "porque": ("Queda de %.1f%% em fornecedor de NECESSIDADE. Aplicar a regra BTD "
+                       "(qualidade + medo-vs-idiossincratico) e assinar." % (ret * 100)) if dip else None,
+            "porque_nao": None if dip else ("Queda de %.1f%%, abaixo do gatilho de 3%%." % (ret * 100)),
+            "confianca": "~65-75% (backtest BTD)" if dip else None,
+        })
+    doc = {"gerado_em": _dt.now().strftime("%Y-%m-%d %H:%M"),
+           "metodo": "Suppliers to the giants: semis, datacenter, energy, water, health, defence, "
+                     "food and waste. Flags daily drops in names with a registered thesis.",
+           "limite": "Screening for human reading. Not an order. A dip only becomes a candidate "
+                     "after the BTD rule (quality + fear-vs-idiosyncratic) is applied by you.",
+           "gatilho": "drop >= 3% = candidate; >= 1.5% = watch",
+           "nomes": recs}
+    (OUT / "fornecedores.json").write_text(
+        _json.dumps(doc, indent=1, ensure_ascii=False, allow_nan=False), encoding="utf-8")
+    print("[json] fornecedores.json (%d nomes, %d com dip)" % (len(recs), sum(1 for x in recs if x["aprovado"])))
     return "\n".join(lines) if lines else "Fornecedores: sem dips relevantes hoje. (paciencia = parte do metodo)"
 
 

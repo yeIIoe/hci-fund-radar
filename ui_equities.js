@@ -115,14 +115,58 @@
       ${grade(maus, false, "Avoid")}`;
   }
 
+  /* Revisao de estimativas — o unico sinal fundamental que sobreviveu aos testes de
+     equities da casa. Nao vira card por nome: a leitura util e o RANKING e o setor. */
+  async function blocoRevisoes() {
+    let d;
+    try {
+      const r = await fetch(`data/revisoes.json?t=${Date.now()}`, { cache: "no-store" });
+      if (!r.ok) return "";
+      d = await r.json();
+    } catch (e) { return ""; }
+    if (!d.cima || !d.cima.length) return "";
+    const linha = (n) => `<tr>
+      <td><strong>${esc(n.ticker)}</strong></td>
+      <td class="eq-setor">${esc(n.setor || "")}</td>
+      <td class="mono">${n.preco ?? "—"}</td>
+      <td class="mono ${n.rev_eps_pct >= 0 ? "spr-good" : "spr-bad"}">${n.rev_eps_pct >= 0 ? "+" : ""}${n.rev_eps_pct}%</td>
+      <td class="mono">${n.rev_receita_pct === null ? "—" : (n.rev_receita_pct >= 0 ? "+" : "") + n.rev_receita_pct + "%"}</td>
+      <td class="mono">${n.eps_ini} &rarr; ${n.eps_fim}</td>
+      <td class="mono">${n.n_analistas ?? "—"}</td></tr>`;
+    const tabela = (ns, rot, cls) => `<h4 class="eq-sub ${cls}">${rot} <span>${ns.length}</span></h4>
+      <div class="table-wrap"><table class="data-table"><thead><tr>
+        <th>Name</th><th>Sector</th><th>Price</th><th>EPS revision</th><th>Revenue revision</th>
+        <th>EPS before &rarr; after</th><th>Analysts</th></tr></thead>
+        <tbody>${ns.map(linha).join("")}</tbody></table></div>`;
+    const set = (d.setores || []).slice().sort((a, b) => b.rev_mediana - a.rev_mediana);
+    return `<div class="section-title" style="margin-top:30px">
+        <div><h2>Earnings revisions</h2></div>
+        <p>What analysts changed their minds about between two point-in-time snapshots.</p>
+      </div>
+      <p class="method-note">${esc(d.metodo || "")}<br><em>${esc(d.limite || "")}</em><br>
+        Window ${esc(d.janela || "")} · ${d.n_tickers} names ·
+        median ${d.estatistica?.mediana}% · ${d.estatistica?.subiram} up / ${d.estatistica?.cairam} down ·
+        generated ${esc(d.gerado_em || "")}.</p>
+      <div class="eq-setores">${set.map((x) => `<span class="eq-set ${x.rev_mediana >= 0 ? "eq-set-up" : "eq-set-dn"}">
+        ${esc(x.setor)} <b>${x.rev_mediana >= 0 ? "+" : ""}${x.rev_mediana}%</b>
+        <i>${x.pct_subindo}% up · n=${x.n}</i></span>`).join("")}</div>
+      ${tabela(d.cima, "Revised up", "eq-sub-ok")}
+      ${tabela(d.baixo, "Revised down", "eq-sub-no")}`;
+  }
+
   async function renderCards() {
     const alvo = document.getElementById("sentinelaBody");
     if (!alvo) return;
+    // Fornecedores voltou: sumiu quando o despejo de texto saiu, porque so existia como <pre>.
+    const forn = await bloco("fornecedores.json", "Strategic suppliers",
+      "Suppliers to the giants — semis, datacenter, energy, water, health, defence. Drops in names with a registered thesis.");
     const dv = await bloco("deep_value_scan.json", "Deep Value",
       "Genuinely cheap, screened against the value trap.");
     const btd = await bloco("btd_scan.json", "BTD + HOLD",
       "Today’s drop in a quality name — separating market fear from a company problem.");
-    if (dv || btd) alvo.insertAdjacentHTML("beforeend", dv + btd);
+    const rev = await blocoRevisoes();
+    const html = forn + dv + btd + rev;
+    if (html) alvo.insertAdjacentHTML("beforeend", html);
   }
 
   document.addEventListener("DOMContentLoaded", render);
