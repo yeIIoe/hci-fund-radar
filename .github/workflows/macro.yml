@@ -1,0 +1,89 @@
+# CAMADA MACRO na nuvem.
+#
+# Migrada em 31-ago-2026 das schtasks que rodavam na maquina do Eduardo:
+#   HCI Inflation Nowcast (12:00)  -> macro_inflation.py     sem chave
+#   HCI Macro Daily (18:00)        -> macro_fred.py          precisa FRED_API_KEY
+#   HCI Macro Weekly (sex 18:30)   -> macro_cot_gold.py      sem chave (CFTC e aberto)
+#   HCI_EstimatesLogger (sex 19:30)-> estimates_logger.py    precisa FMP_KEY
+#
+# ⚠️ O FRED EXIGE CHAVE. O codigo diz em tres lugares que ela e "opcional" e isso e
+#    FALSO — o endpoint devolve HTTP 400 sem api_key. Sem ela, 62,5% do peso do
+#    macro_score morre e o fallback de yfinance nao cobre (a serie que ele resgata
+#    nem entra no score).
+#
+# ⚠️ O estimates_logger acumula historico POINT-IN-TIME. Dado de estimativa nao se
+#    recupera depois, so se acumula: cada sexta perdida e uma semana perdida para
+#    sempre. Por isso ele tem prioridade sobre o resto desta camada.
+name: macro
+on:
+  schedule:
+    - cron: "0 15 * * 1-5"     # ~12:00 BRT, dias uteis — inflation + fred
+    - cron: "30 22 * * 5"      # ~19:30 BRT, sextas — cot de ouro + estimates
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: dados
+  cancel-in-progress: false
+
+jobs:
+  macro:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: dependencias
+        run: pip install --quiet numpy pandas requests yfinance
+      - name: encoding
+        run: echo "PYTHONIOENCODING=utf-8" >> $GITHUB_ENV
+
+      - name: e sexta?
+        id: q
+        run: |
+          if [ "${{ github.event.schedule }}" = "30 22 * * 5" ]; then
+            echo "semanal=sim" >> $GITHUB_OUTPUT
+          else
+            echo "semanal=nao" >> $GITHUB_OUTPUT
+          fi
+
+      - name: inflation nowcast
+        run: python macro_inflation.py --refresh || echo "inflation falhou, segue"
+
+      - name: fred
+        env:
+          FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
+        run: |
+          if [ -z "$FRED_API_KEY" ]; then
+            echo "::warning::FRED_API_KEY ausente — o FRED devolve 400 sem chave; pulando"
+          else
+            python macro_fred.py || echo "fred falhou, segue"
+          fi
+
+      - name: cot de ouro (semanal)
+        if: steps.q.outputs.semanal == 'sim' || github.event_name == 'workflow_dispatch'
+        run: python macro_cot_gold.py || echo "cot falhou, segue"
+
+      - name: estimates logger (semanal, historico PIT)
+        if: steps.q.outputs.semanal == 'sim' || github.event_name == 'workflow_dispatch'
+        env:
+          FMP_KEY: ${{ secrets.FMP_KEY }}
+        run: |
+          if [ -z "$FMP_KEY" ]; then
+            echo "::error::FMP_KEY ausente — o snapshot PIT desta semana sera PERDIDO e nao da para recuperar depois"
+            exit 1
+          fi
+          python -u estimates_logger.py
+
+      - name: commit
+        run: |
+          git config user.name "hci-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add -A data
+          git commit -m "macro $(date -u +%Y-%m-%dT%H:%M)Z" || echo "sem mudanca"
+          git pull --no-rebase origin main || true
+          git push
