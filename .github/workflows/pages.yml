@@ -1,5 +1,5 @@
 # Publica o site no GitHub Pages a cada mudanca de dados.
-# O artefato leva SO o que o navegador usa: html/js/css + data JSONs +
+# O artefato leva SO o que o navegador usa: html/js/css + assets + data JSONs +
 # calendarios. Fica de fora: data/core (43MB de fonte crua) e data/raw.
 name: pages
 on:
@@ -9,7 +9,7 @@ on:
   # dispara outros workflows — protecao contra loop. Sem este workflow_run, os
   # dados atualizavam no repo e o site ficava congelado para sempre.
   workflow_run:
-    workflows: ["cadeia-2x-dia", "nowcast-1h"]
+    workflows: ["cadeia-2x-dia", "nowcast-1h", "equities-research", "sentinela-equities"]
     types: [completed]
   workflow_dispatch:
 
@@ -27,17 +27,48 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      # 31-ago-2026: a lista de arquivos aqui era EXPLICITA e nao acompanhou os
+      # arquivos novos. ui_nav.js, ui_spreads.js, ui_equities.js e assets/ ficaram
+      # de fora — no Pages a gaveta nao abria e o logo dava 404. O localhost servia
+      # a pasta inteira e escondia o problema. Agora vai por PADRAO, nao por lista.
       - name: montar site
         run: |
-          mkdir -p _site/data/calendar _site/data/raw
-          cp index.html app.js styles.css theme.css ui_cut_global.js ui_extras.js ui_live_yields.js _site/
+          mkdir -p _site/data/calendar _site/data/raw _site/assets
+          cp *.html *.css *.js _site/ 2>/dev/null || true
+          rm -f _site/*.bak _site/*.pre-* 2>/dev/null || true
+          cp -r assets/. _site/assets/ 2>/dev/null || true
           cp data/*.json _site/data/ 2>/dev/null || true
           cp data/calendar/*.json _site/data/calendar/
           cp data/raw/tv_nowcast.json _site/data/raw/ 2>/dev/null || true
           cp data/raw/ff_calendar_thisweek.json _site/data/raw/ 2>/dev/null || true
+
+      # Rede de seguranca: se o index.html referenciar um arquivo que nao entrou no
+      # artefato, o build FALHA aqui em vez de publicar um site quebrado em silencio.
+      - name: conferir que todo arquivo referenciado subiu
+        run: |
+          python3 - <<'EOF'
+          import re, sys, os
+          html = open('index.html', encoding='utf-8').read()
+          refs = set()
+          for m in re.finditer(r'(?:src|href)="([^"]+)"', html):
+              a = m.group(1).split('?')[0]
+              if a.startswith(('http://', 'https://', '//', '#', 'mailto:')):
+                  continue
+              if a.endswith(('.js', '.css', '.png', '.svg', '.ico', '.webp')):
+                  refs.add(a)
+          faltando = [a for a in sorted(refs) if not os.path.isfile(os.path.join('_site', a))]
+          for a in faltando:
+              print('REFERENCIADO MAS AUSENTE NO ARTEFATO:', a)
+          if faltando:
+              sys.exit(1)
+          print('ok: %d arquivos referenciados, todos presentes' % len(refs))
+          EOF
+
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site
+
   deploy:
     needs: build
     runs-on: ubuntu-latest
