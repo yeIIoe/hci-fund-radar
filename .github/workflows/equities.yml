@@ -36,6 +36,9 @@ jobs:
         run: echo "PYTHONIOENCODING=utf-8" >> $GITHUB_ENV
       - name: research
         run: python equities_research.py
+      # A ficha le os JSON dos componentes, entao roda DEPOIS deles.
+      - name: fichas das empresas (fontes)
+        run: python radar_fichas.py || echo "fichas falharam, segue"
       - name: commit
         run: |
           git config user.name "hci-bot"

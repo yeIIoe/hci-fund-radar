@@ -70,6 +70,44 @@
      Antes o site mostrava o texto cru do scan dentro de um <pre>. Agora cada nome
      vira um card com o MOTIVO ao lado, separado entre comprar e evitar. Os scans
      passaram a emitir JSON na origem, entao nada aqui e reconstruido por regex. */
+  /* Ficha da empresa: de onde vem o numero e onde ler mais. Carregada uma vez e
+     compartilhada por todos os componentes — 94 empresas num arquivo so. */
+  let FICHAS = null;
+  async function fichas() {
+    if (FICHAS !== null) return FICHAS;
+    try {
+      const r = await fetch(`data/empresas.json?t=${Date.now()}`, { cache: "no-store" });
+      FICHAS = r.ok ? await r.json() : { empresas: {} };
+    } catch (e) { FICHAS = { empresas: {} }; }
+    return FICHAS;
+  }
+
+  function fichaHTML(tk) {
+    const d = FICHAS && FICHAS.empresas ? FICHAS.empresas[tk] : null;
+    if (!d) return "";
+    const links = [];
+    if (d.site) links.push(`<a href="${esc(d.site)}" target="_blank" rel="noopener">Company site</a>`);
+    if (d.site_ri) links.push(`<a href="${esc(d.site_ri)}" target="_blank" rel="noopener">Investor relations</a>`);
+    links.push(`<a href="https://finance.yahoo.com/quote/${encodeURIComponent(tk)}" target="_blank" rel="noopener">Yahoo Finance</a>`);
+    if (!/\./.test(tk)) links.push(`<a href="https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&ticker=${encodeURIComponent(tk)}&type=10-K" target="_blank" rel="noopener">SEC filings</a>`);
+    const meta = [d.setor, d.industria, d.pais,
+                  d.funcionarios ? Number(d.funcionarios).toLocaleString() + " employees" : null]
+                 .filter(Boolean).map((x) => `<span class="eq-met">${esc(x)}</span>`).join("");
+    const news = (d.noticias || []).map((n) =>
+      `<li><a href="${esc(n.url)}" target="_blank" rel="noopener">${esc(n.titulo)}</a>
+       <em>${esc(n.fonte || "")}</em></li>`).join("");
+    return `<details class="eq-ficha"><summary>Company file &amp; sources</summary>
+      <div class="eq-ficha-body">
+        ${d.nome ? `<p class="eq-nome">${esc(d.nome)}</p>` : ""}
+        <div class="eq-mets">${meta}</div>
+        ${d.o_que_faz ? `<p class="eq-faz">${esc(d.o_que_faz)}</p>` : ""}
+        <p class="eq-links">${links.join(" · ")}</p>
+        ${news ? `<p class="eq-linha"><b>Recent coverage</b></p><ul class="eq-news">${news}</ul>` : ""}
+        <p class="eq-fonte">Profile and news: Yahoo Finance, read ${esc(d.perfil_em || "—")}.
+        ${d.noticias_em ? "Coverage " + esc(d.noticias_em) + "." : ""}</p>
+      </div></details>`;
+  }
+
   const esc = (t) => String(t == null ? "" : t).replace(/[&<>]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]));
 
   function card(n, bom) {
@@ -91,6 +129,7 @@
       ${n.confianca ? `<p class="eq-linha"><b>Confidence:</b> ${esc(n.confianca)}</p>` : ""}
       ${n.plano ? `<p class="eq-linha"><b>Plan:</b> ${esc(n.plano)}</p>` : ""}
       ${n.voce_assina ? `<p class="eq-assina">You sign off: ${esc(n.voce_assina)}</p>` : ""}
+      ${fichaHTML(n.ticker)}
     </article>`;
   }
 
@@ -157,6 +196,7 @@
   async function renderCards() {
     const alvo = document.getElementById("sentinelaBody");
     if (!alvo) return;
+    await fichas();                       // sem isto os cards saem sem fonte
     // Fornecedores voltou: sumiu quando o despejo de texto saiu, porque so existia como <pre>.
     const forn = await bloco("fornecedores.json", "Strategic suppliers",
       "Suppliers to the giants — semis, datacenter, energy, water, health, defence. Drops in names with a registered thesis.");
