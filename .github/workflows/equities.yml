@@ -1,0 +1,46 @@
+# Research Agent de EQUITIES na nuvem.
+#
+# Migrado em 31-ago-2026 da schtask HCI_ResearchAgent, que rodava na maquina do Eduardo
+# as 18:40 e postava no Discord. Decisao dele: nada roda na maquina, nada vai pro Discord.
+#
+# Nao precisa de chave nenhuma: usa yfinance, que e publico. (A pasta de origem se chamava
+# databento_adapter, mas o agente nunca usou Databento.)
+#
+# O agente so refaz o relatorio quando o dado que o sustenta muda de verdade — por isso
+# rodar todo dia util nao gera ruido: na maioria dos dias ele nao regenera nada.
+name: equities-research
+on:
+  schedule:
+    - cron: "40 21 * * 1-5"    # ~18:40 BRT, dias uteis (espelha a schtask antiga)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: dados
+  cancel-in-progress: false
+
+jobs:
+  research:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: dependencias
+        run: pip install --quiet numpy pandas yfinance requests
+      - name: encoding
+        run: echo "PYTHONIOENCODING=utf-8" >> $GITHUB_ENV
+      - name: research
+        run: python equities_research.py
+      - name: commit
+        run: |
+          git config user.name "hci-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add -A data
+          git commit -m "equities research $(date -u +%Y-%m-%dT%H:%M)Z" || echo "sem mudanca"
+          git pull --no-rebase origin main || true
+          git push

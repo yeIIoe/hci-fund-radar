@@ -12,7 +12,7 @@
 </head>
 <body>
   <header class="site-header">
-    <a class="identity" href="#top" aria-label="HCI FUND home"><span>HCI</span><strong>FUND</strong></a>
+    <a class="identity" href="#top" aria-label="HCI FUND home"><span>HCI</span><strong>FUND</strong><em class="scope">macro de FX</em></a>
     <nav class="tabs" id="tabBar" aria-label="Sections">
       <button type="button" class="tab is-active" data-tab="market">Overview</button>
       <button class="tab" data-tab="yields" type="button">Yields</button>
@@ -20,6 +20,7 @@
       <button type="button" class="tab" data-tab="calendar">Calendar</button>
       <button type="button" class="tab" data-tab="pairs">Pairs</button>
       <button type="button" class="tab" data-tab="spreads">Spreads</button>
+      <button type="button" class="tab" data-tab="equities">Equities</button>
       <button type="button" class="tab" data-tab="cot">COT</button>
       <button type="button" class="tab" data-tab="news">News</button>
       <button type="button" class="tab" data-tab="sources">Sources</button>
@@ -293,6 +294,35 @@
     </div>
 
     <!-- ============ TAB: COT ============ -->
+    <div class="tab-panel" data-panel="equities">
+      <section class="content-section">
+        <div class="section-title">
+          <div><h2>Equities — Research Agent</h2></div>
+          <p>Outra casa, outro metodo. Aqui nao entra FUND, nao entra par de moeda.</p>
+        </div>
+        <details class="tab-about">
+          <summary><span>Por que equities e FX sao sistemas separados aqui</span></summary>
+          <div class="tab-about-body">
+            <p><strong>O FUND decide macro de FX.</strong> Ele compara a forca fundamental relativa entre
+            duas moedas a partir do diferencial de juro de 2 anos. A unidade e a MOEDA; o par e derivado.
+            Nada disso se aplica a uma acao.</p>
+            <p><strong>O Research Agent cobre equities.</strong> A unidade e a EMPRESA: preco alvo por
+            multiplo pre-registrado vezes lucro projetado, tese, o que pode impedir, e regime de mercado.
+            Ele regenera o relatorio quando o dado que o sustenta muda de verdade — preco 3%, projecao de
+            lucro 10%, resultado divulgado, virada de regime, ou 5 pregoes.</p>
+            <p><strong>Por que nao misturar.</strong> Sao horizontes, dados e criterios de invalidacao
+            diferentes. Uma tese de moeda morre quando o diferencial de juro vira; uma tese de acao morre
+            quando o lucro projetado ou o multiplo de mercado mudam. Juntar as duas num score so esconderia
+            qual das duas quebrou.</p>
+            <p><strong>O que isto NAO e.</strong> Nao e ordem nem gatilho de entrada. E leitura fundamental
+            com o dado que a sustenta exposto ao lado.</p>
+          </div>
+        </details>
+        <div id="equitiesBody"></div>
+      </section>
+    </div>
+
+    <!-- ============ TAB: COT ============ -->
     <div class="tab-panel" data-panel="cot">
       <section class="content-section">
         <div class="section-title">
@@ -384,5 +414,6 @@
   <script src="ui_live_yields.js?v=1"></script>
   <script src="ui_cut_global.js?v=20260822-cutall4"></script>
   <script src="ui_spreads.js?v=1"></script>
+  <script src="ui_equities.js?v=1"></script>
 </body>
 </html>
