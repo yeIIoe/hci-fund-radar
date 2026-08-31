@@ -36,6 +36,10 @@ jobs:
         run: echo "PYTHONIOENCODING=utf-8" >> $GITHUB_ENV
       - name: research
         run: python equities_research.py
+      # research_agent_state.json guarda o snapshot por nome; fica fora do repo publico.
+      - name: apaga estado antes de commitar
+        if: always()
+        run: rm -f data/research_agent_state.json data/gatilhos_btd.json
       - name: commit
         run: |
           git config user.name "hci-bot"
