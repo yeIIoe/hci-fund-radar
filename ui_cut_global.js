@@ -133,6 +133,10 @@ async function sincronizaCorteGlobal() {
   pintaMoedasEMatriz(dia);
   setTimeout(decorateFlags, 40);      // bandeiras nos paineis repintados
 
+  // 01/set: os cards de forca agregada saem da tela (eram a saida do FUND V0.1, reprovado).
+  // Sem esta guarda, escolher um dia no calendario estoura em null.
+  if (!document.getElementById("strongestCurrency")) return;
+
   const forte = dia.strongest, fraco = dia.weakest;
   document.getElementById("strongestCurrency").innerHTML = forte ? marcaMoeda(forte.currency) + " " + forte.currency : "—";
   document.getElementById("strongestValue").textContent = forte ? signed(forte.score) + " aggregate strength" : "no reading";

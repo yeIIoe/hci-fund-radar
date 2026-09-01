@@ -98,13 +98,13 @@ def classifica(actual, forecast):
 def empurrao(classe, fam):
     """Para que lado a surpresa empurra a decisao do BC, e com que forca."""
     if classe is None or fam is None:
-        return 0, "sem barra de comparacao"
+        return 0, "no bar to measure against"
     if classe == "EM_LINHA":
-        return 0, "veio como esperado — nao muda o que ja estava no preco"
+        return 0, "came in as expected — does not change what was already priced"
     lado = +1 if classe == "MUITO_ACIMA" else -1
     lado *= fam["sinal"]
     forca = fam["peso"] * lado
-    texto = ("empurra para APERTO" if lado > 0 else "empurra para AFROUXAMENTO")
+    texto = ("pushes toward TIGHTENING" if lado > 0 else "pushes toward EASING")
     return forca, texto
 
 
@@ -113,12 +113,12 @@ def cenarios(fam, forecast):
     if fam is None:
         return []
     s = fam["sinal"]
-    acima = "APERTO" if s > 0 else "AFROUXAMENTO"
-    abaixo = "AFROUXAMENTO" if s > 0 else "APERTO"
+    acima = "TIGHTENING" if s > 0 else "EASING"
+    abaixo = "EASING" if s > 0 else "TIGHTENING"
     return [
-        {"caso": "acima da previsao", "empurra": acima, "peso": fam["peso"]},
-        {"caso": "em linha", "empurra": "nada — ja esta no preco", "peso": 0},
-        {"caso": "abaixo da previsao", "empurra": abaixo, "peso": fam["peso"]},
+        {"caso": "above forecast", "empurra": acima, "peso": fam["peso"]},
+        {"caso": "in line", "empurra": "nothing — already in the price", "peso": 0},
+        {"caso": "below forecast", "empurra": abaixo, "peso": fam["peso"]},
     ]
 
 
