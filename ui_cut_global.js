@@ -214,6 +214,8 @@ function topCincoTradable() {
 }
 
 async function renderSetups() {
+  // 01/set: a aba Pre-FUND (observations) saiu do site.
+  if (!document.getElementById("setupList")) return;
   const lista = document.getElementById("setupList");
   const status = document.getElementById("setupStatus");
   if (!lista) return;

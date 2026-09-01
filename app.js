@@ -164,6 +164,9 @@ function renderPriorities() {
 }
 
 function renderNextDay() {
+  // 01/set: o painel Pre-FUND foi removido do site. Sem esta guarda, a primeira
+  // escrita estoura em null e derruba o carregamento inteiro do radar.
+  if (!document.getElementById("nextDayStatus")) return;
   const data = state.snapshot.pre_fund;
   const priceData = state.snapshot.next_day;
   const status = $("#nextDayStatus");
