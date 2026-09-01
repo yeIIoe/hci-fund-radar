@@ -1,5 +1,5 @@
 {
- "gerado_em": "2026-08-31 12:29",
+ "gerado_em": "2026-08-31 13:55",
  "ultima_obs_juro": "2026-08-31",
  "ultima_obs_fx": "2026-08-28",
  "janela_comum": "2026-08-28",
@@ -10,8 +10,8 @@
   "trajetoria": "concentrada quando um unico dia responde por >=60% do movimento",
   "diferencial": "yield da moeda-base menos yield da moeda-cotada"
  },
- "comparaveis": 6,
- "total": 8,
+ "comparaveis": 7,
+ "total": 10,
  "pares": [
   {
    "par": "USDCAD",
@@ -55,12 +55,12 @@
    ],
    "estado": "em recuperacao",
    "sincronizacao": "dates aligned; times to verify",
-   "fx_d5": 0.29,
-   "fx_d20": -0.15,
+   "fx_d5": 0.83,
+   "fx_d20": -1.33,
    "estado_cambial": {
     "direcao": "same direction, both up",
-    "suficiencia": "magnitude insufficient by the adopted criterion",
-    "frase": "same direction, both up — magnitude insufficient by the adopted criterion"
+    "suficiencia": "both relevant",
+    "frase": "same direction, both up — both relevant"
    }
   },
   {
@@ -105,12 +105,12 @@
    ],
    "estado": "estavel recentemente",
    "sincronizacao": "dates aligned; times to verify",
-   "fx_d5": 0.06,
-   "fx_d20": 0.17,
+   "fx_d5": -0.48,
+   "fx_d20": 1.38,
    "estado_cambial": {
-    "direcao": "opposite directions",
+    "direcao": "same direction, both down",
     "suficiencia": "magnitude insufficient by the adopted criterion",
-    "frase": "opposite directions — magnitude insufficient by the adopted criterion"
+    "frase": "same direction, both down — magnitude insufficient by the adopted criterion"
    }
   },
   {
@@ -155,8 +155,8 @@
    ],
    "estado": "estavel apos queda",
    "sincronizacao": "dates aligned; times to verify",
-   "fx_d5": 0.08,
-   "fx_d20": 0.85,
+   "fx_d5": 0.62,
+   "fx_d20": -0.34,
    "estado_cambial": {
     "direcao": "opposite directions",
     "suficiencia": "magnitude insufficient by the adopted criterion",
@@ -405,12 +405,112 @@
    ],
    "estado": "estavel recentemente",
    "sincronizacao": "dates aligned; times to verify",
-   "fx_d5": -0.17,
-   "fx_d20": 0.19,
+   "fx_d5": -0.7,
+   "fx_d20": 1.4,
    "estado_cambial": {
     "direcao": "opposite directions",
     "suficiencia": "magnitude insufficient by the adopted criterion",
     "frase": "opposite directions — magnitude insufficient by the adopted criterion"
+   }
+  },
+  {
+   "par": "AUDCHF",
+   "base": "AUD",
+   "quote": "CHF",
+   "janela_fim": "2026-08-28",
+   "fx_fim": "2026-08-28",
+   "sincronizado": true,
+   "yield_base": 4.619,
+   "yield_quote": 0.042,
+   "base_d5": 7.5,
+   "quote_d5": -3.7,
+   "base_d20": 6.0,
+   "quote_d20": -10.3,
+   "dif_nivel": 4.577,
+   "dif_d5": 11.2,
+   "dif_d20": 16.3,
+   "rel5": "relevante",
+   "rel20": "relevante",
+   "limiar5_bp": 7.2,
+   "limiar20_bp": 16.17,
+   "trajetoria": {
+    "forma": "distribuida",
+    "descricao": "rise distributed across the sessions",
+    "classe": "directional movement",
+    "amplitude_bp": 13.4,
+    "caminho_bp": 19.8,
+    "saldo_bp": 11.2,
+    "corte_amplitude_bp": 10.7,
+    "corte_saldo_bp": 4.2,
+    "razao": 1.77,
+    "virada": null,
+    "suspeita_repeticao": false
+   },
+   "passos_bp": [
+    6.2,
+    -2.1,
+    2.1,
+    7.2,
+    -2.2
+   ],
+   "estado": "em fortalecimento",
+   "sincronizacao": "dates aligned; times to verify",
+   "fx_d5": 0.97,
+   "fx_d20": 1.78,
+   "estado_cambial": {
+    "direcao": "same direction, both up",
+    "suficiencia": "both relevant",
+    "frase": "same direction, both up — both relevant"
+   }
+  },
+  {
+   "par": "GBPNZD",
+   "base": "GBP",
+   "quote": "NZD",
+   "janela_fim": "2026-08-26",
+   "fx_fim": "2026-08-28",
+   "sincronizado": false,
+   "yield_base": 4.288,
+   "yield_quote": 3.59,
+   "base_d5": 0.0,
+   "quote_d5": 6.0,
+   "base_d20": 5.0,
+   "quote_d20": -6.0,
+   "dif_nivel": 0.718,
+   "dif_d5": -1.0,
+   "dif_d20": 16.0,
+   "rel5": "pequena",
+   "rel20": "pequena",
+   "limiar5_bp": 9.47,
+   "limiar20_bp": 25.06,
+   "trajetoria": {
+    "forma": "distribuida",
+    "descricao": "fall distributed across the sessions",
+    "classe": "stability",
+    "amplitude_bp": 6.0,
+    "caminho_bp": 13.0,
+    "saldo_bp": -1.0,
+    "corte_amplitude_bp": 15.8,
+    "corte_saldo_bp": 5.9,
+    "razao": 13.0,
+    "virada": null,
+    "suspeita_repeticao": false
+   },
+   "passos_bp": [
+    4.0,
+    -1.0,
+    -5.0,
+    2.0,
+    -1.0
+   ],
+   "estado": "estavel recentemente",
+   "sincronizacao": "different periods — comparison unavailable",
+   "fx_d5": null,
+   "fx_d20": null,
+   "estado_cambial": {
+    "direcao": null,
+    "suficiencia": null,
+    "frase": "comparison unavailable — different periods"
    }
   }
  ]

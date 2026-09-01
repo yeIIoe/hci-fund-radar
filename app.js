@@ -235,7 +235,7 @@ function renderNextDay() {
     }).join("");
   }
 
-  $("#preFundAudit").innerHTML = "";   // replay cego removido a pedido do Eduardo (21/ago)
+  // 01/set: PREFUND removido do site — o elemento nao existe mais.
 
   if (priceData) {
     const direct = priceData.best_model;
@@ -588,27 +588,8 @@ function renderCalendarDetail(day) {
       : itens.map((x, i) => linhaProj(x, sentido, i)).join("");
     return `<div class="proj-side is-${sentido}"><span class="proj-head">${titulo}</span>${corpo}</div>`;
   };
-  $("#calendarProjection").innerHTML = !proj
-    ? `<div class="calendar-empty">No projection available for this day or any earlier one in this year.</div>`
-    : `${projDia ? `<p class="proj-stale">The 2-year yields for ${brDate(day.date)} are not published yet —
-         sovereign yields arrive at D+1. Showing the most recent projection available, from
-         <b>${brDate(projDia)}</b>.</p>` : ""}
-       ${grupo(proj.up, "up", "Buy side — could cross a band edge upward")}
-       ${grupo(proj.down, "down", "Sell side — could cross a band edge downward")}
-       <p class="prefund-note">Exact inversion of the FUND formula: the mean and deviation that normalise tomorrow are
-       already fixed today, so the only unknown is tomorrow's move in the 2-year yield spread. This projects the
-       <b>indicator</b>, not the price. The outcome on each row is a later check and took no part in the calculation.</p>`;
-
-  $("#calendarPreFund").innerHTML = watch.length ? `${watch.map((item) => {
-    const out = item.outcome || {};
-    const acertou = out.entered_bear === true;
-    const selo = out.entered_bear === undefined ? "" : `<em class="prefund-outcome ${acertou ? "hit" : "miss"}">${acertou ? "ENTERED BEAR" : "did not enter"}${out.next_fund === undefined ? "" : ` · FUND ${signed(out.next_fund)}`}</em>`;
-    return `<article class="prefund-row">
-      <span class="mono">${item.rank}</span>
-      <div><strong>${item.pair}</strong><small>FUND ${signed(item.fund)} · chance of turning BEAR ${item.empirical_probability}% (n ${item.empirical_samples})</small></div>
-      ${selo}
-    </article>`;
-  }).join("")}<p class="prefund-note">Causal selection from that day only (annual walk-forward). The outcome on the right is a later check and never took part in the choice.</p>` : '<div class="calendar-empty">No pair passed the observation floor on this day.</div>';
+  // 01/set: projecao do FUND removida do site.
+  // 01/set: watchlist Pre-FUND removida do site.
   $("#calendarRecommendations").innerHTML = day.recommendations.length ? `${missing}${day.recommendations.map((item) => `<article>
     <span class="mono">${item.rank}</span><div><strong>${item.pair}</strong><small>${esc(item.reason)}</small></div>
     <div class="calendar-side ${item.decision === "COMPRAR_BASE" ? "positive" : "negative"}">${decisionLabels[item.decision]}<small>${signed(item.fund)}</small></div>

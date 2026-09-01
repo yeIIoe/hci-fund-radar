@@ -6,10 +6,10 @@
   <meta name="color-scheme" content="dark">
   <meta name="robots" content="noindex, nofollow">
   <meta name="description" content="HCI FUND Radar — sovereign 2-year yield momentum across 28 FX crosses.">
-  <title>HCI FUND Radar</title>
+  <title>HCI Macro Direction</title>
   <link rel="icon" type="image/png" href="assets/hci_logo.png">
-  <link rel="stylesheet" href="styles.css?v=20260831-rfx2">
-  <link rel="stylesheet" href="theme.css?v=20260831-rfx2">
+  <link rel="stylesheet" href="styles.css?v=20260901-macro1">
+  <link rel="stylesheet" href="theme.css?v=20260901-macro1">
 </head>
 <body>
   <header class="site-header">
@@ -30,7 +30,6 @@
 <nav class="tabs" id="tabBar" aria-label="Sections">
       <button type="button" class="tab is-active" data-tab="market">Overview</button>
       <button class="tab" data-tab="yields" type="button">Yields</button>
-        <button type="button" class="tab" data-tab="observations">Pre-FUND</button>
       <button type="button" class="tab" data-tab="calendar">Calendar</button>
       <button type="button" class="tab" data-tab="pairs">Pairs</button>
       <button type="button" class="tab" data-tab="ratesfx">Rates &times; FX</button>
@@ -148,49 +147,12 @@
       </section>
     </div>
 
-    <!-- ============ TAB: PRE-FUND ============ -->
-    <div class="tab-panel" data-panel="observations">
-      <section class="observations-section">
-        <div class="section-title">
-          <div><h2>Pre-FUND watchlist for tomorrow</h2></div>
-          <p>Uses only what exists today to flag pairs that may turn bearish tomorrow.</p>
-        </div>
-        <details class="tab-about">
-          <summary><span>What the Pre-FUND is, and how to read it</span></summary>
-          <div class="tab-about-body">
-            <p><strong>It flags the indicator, not the price.</strong> Each morning it names the pairs whose
-            FUND is most likely to cross into the BEAR band on the next session. That is all it claims.</p>
-            <p><strong>Why it is useful anyway.</strong> The breakout and its zone usually form
-            <em>before</em> the FUND confirms. By the time a pair shows up as tradable, the entry has often
-            already gone. This list buys you the days needed to mark the zone first.</p>
-            <p><strong>What it is not.</strong> Not a trade signal, not a direction, not permission to enter.
-            When rank 1 does flip, the price falls the next day only about as often as a coin toss —
-            that number is in the table below, and it is the reason the zone still has to confirm on its own.</p>
-            <div id="nextDaySummary" class="observation-summary"></div>
-            <p id="nextDayStatus" class="muted"></p>
-            <div id="priceNextDayVerdict" class="verdict-block"></div>
-            <div id="nextDayMethod" class="method-note"></div>
-          </div>
-        </details>
-        <div id="nextDayList" class="observation-list"></div>
-        <div class="setup-section">
-          <div class="section-title">
-            <div><h2>Pre-mapped setups</h2></div>
-            <p>The structure already on the chart for each candidate — so the zone is marked before the pair becomes tradable.</p>
-          </div>
-          <div id="setupList" class="setup-list"></div>
-          <p id="setupStatus" class="muted"></p>
-        </div>
-        <div id="preFundAudit" class="audit-block"></div>
-      </section>
-    </div>
-
     <!-- ============ TAB: CALENDAR ============ -->
     <div class="tab-panel" data-panel="calendar">
       <section class="calendar-section">
         <div class="section-title">
-          <div><h2>Daily FUND calendar</h2></div>
-          <p>Every session since 2002, rebuilt with same-day information only.</p>
+          <div><h2>Macro calendar</h2></div>
+          <p>Scheduled releases and central bank decisions. Click an event to see what it pushes on the rate decision.</p>
         </div>        <details class="tab-about">
           <summary><span>What the calendar shows, and why it is honest</span></summary>
           <div class="tab-about-body"><p><strong>Study mode.</strong> Click any day to see what the radar would have flagged then — and,
@@ -211,13 +173,6 @@
               <div class="weekday-row" aria-hidden="true"><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span></div>
               <div id="calendarGrid" class="calendar-grid"></div>
             </div>
-            <div class="projection-section">
-              <div class="section-title">
-                <div><h2>Where the FUND could move next session</h2></div>
-                <p>Click a card to see what has to happen, why, and where to check it yourself.</p>
-              </div>
-              <div id="calendarProjection" class="calendar-projection"></div>
-            </div>
           </div>
           <aside class="calendar-detail">
             <header><div><span id="calendarCoverage" class="tag">COVERAGE</span><h3 id="calendarDate">—</h3></div><span id="calendarPairCount" class="mono muted">—</span></header>
@@ -227,7 +182,6 @@
             </div>
             <div><span class="detail-label">Currency ranking</span><div id="calendarCurrencies" class="calendar-currencies"></div></div>
             <div><span class="detail-label">Tradable that day</span><div id="calendarRecommendations" class="calendar-recommendations"></div></div>
-            <div><span class="detail-label">Pre-FUND watchlist that day <i class="label-note">bearish turns only</i></span><div id="calendarPreFund" class="calendar-prefund"></div></div>
           </aside>
         </div>
         <p class="method-note">Causal selection: only the FUND of the day itself, never a profit factor computed with the future. PARTIAL means one or more currencies had no usable 2Y series yet.</p>
@@ -239,7 +193,7 @@
       <section id="pairDetail" class="content-section selected-pair" aria-live="polite">
         <div class="pair-header">
           <div><span class="section-index">SELECTED PAIR</span><div class="pair-name-line"><h2 id="detailPair">—</h2><span id="detailStrength" class="tag">—</span><span id="detailQuality" class="tag">—</span></div></div>
-          <div class="direction-block"><span>FUND direction</span><strong id="detailDecision">—</strong></div>
+          <div class="direction-block"><span>Macro direction</span><strong id="detailDecision">—</strong></div>
         </div>
         <div id="detailAlert" class="alert-line" hidden></div>
         <div class="metric-line">
@@ -472,14 +426,14 @@
     </div>
   </footer>
 
-  <script src="app.js?v=20260831-rfx2"></script>
-  <script src="ui_extras.js?v=20260831-rfx2"></script>
-  <script src="ui_live_yields.js?v=20260831-rfx2"></script>
-  <script src="ui_cut_global.js?v=20260831-rfx2"></script>
-  <script src="ui_spreads.js?v=20260831-rfx2"></script>
-  <script src="ui_equities.js?v=20260831-rfx2"></script>
-  <script src="ui_fund_ficha.js?v=20260831-rfx2"></script>
-  <script src="ui_juros_cambio.js?v=20260831-rfx2"></script>
-  <script src="ui_nav.js?v=20260831-rfx2"></script>
+  <script src="app.js?v=20260901-macro1"></script>
+  <script src="ui_extras.js?v=20260901-macro1"></script>
+  <script src="ui_live_yields.js?v=20260901-macro1"></script>
+  <script src="ui_cut_global.js?v=20260901-macro1"></script>
+  <script src="ui_spreads.js?v=20260901-macro1"></script>
+  <script src="ui_equities.js?v=20260901-macro1"></script>
+  <script src="ui_fund_ficha.js?v=20260901-macro1"></script>
+  <script src="ui_juros_cambio.js?v=20260901-macro1"></script>
+  <script src="ui_nav.js?v=20260901-macro1"></script>
 </body>
 </html>

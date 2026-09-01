@@ -60,12 +60,32 @@ def serie_yields():
 
 
 def serie_fx():
+    """Carrega as series de cambio do BCE, conferindo a moeda DENTRO do arquivo.
+
+    31-ago-2026: fx_ecb_usdeur.csv continha a serie da LIBRA (chave interna
+    EXR.D.GBP.EUR.SP00.A). Como o carregador tirava a moeda do NOME do arquivo, dado da
+    libra entrava rotulado como dolar e os cinco pares com USD do painel — EURUSD, USDJPY,
+    USDCAD, GBPUSD, NZDUSD — sairam errados sem nenhum aviso. O GBPUSD dava exatamente
+    1.00000, e nem isso disparou alarme.
+
+    A defesa: o BCE grava a moeda na coluna CURRENCY. Conferimos contra o nome e
+    ESTOURAMOS se divergir. Melhor o painel falhar do que publicar numero trocado.
+    """
     T = {}
     for fn in glob.glob(os.path.join(D, "raw", "fx_ecb_*.csv")):
         m = os.path.basename(fn)[7:10].upper()
-        d = pd.read_csv(fn, usecols=["TIME_PERIOD", "OBS_VALUE"])
+        d = pd.read_csv(fn, usecols=["TIME_PERIOD", "OBS_VALUE", "CURRENCY"])
+        d = d.dropna(subset=["OBS_VALUE"])
+        dentro = str(d.CURRENCY.iloc[-1]).strip().upper() if len(d) else ""
+        if dentro and dentro != m:
+            raise RuntimeError(
+                "arquivo de cambio trocado: %s tem o nome de %s mas contem a serie de %s. "
+                "Rebaixe o arquivo certo antes de rodar o painel."
+                % (os.path.basename(fn), m, dentro)
+            )
         d["TIME_PERIOD"] = pd.to_datetime(d.TIME_PERIOD, errors="coerce")
-        d = d.dropna().set_index("TIME_PERIOD").OBS_VALUE.astype(float).sort_index()
+        d = d.dropna(subset=["TIME_PERIOD"]).set_index("TIME_PERIOD")
+        d = d.OBS_VALUE.astype(float).sort_index()
         T[m] = d[d > 0]
     idx = sorted(set().union(*[set(v.index) for v in T.values()]))
     T["EUR"] = pd.Series(1.0, index=pd.DatetimeIndex(idx))
@@ -242,10 +262,17 @@ if __name__ == "__main__":
     Y = serie_yields()
     T = serie_fx()
     MOEDAS = ["USD", "EUR", "GBP", "JPY", "AUD", "CAD", "NZD", "CHF"]
-    PARES = ["USDCAD", "EURUSD", "USDJPY", "GBPUSD", "AUDNZD", "EURGBP", "AUDJPY", "NZDUSD"]
+    # 31-ago: AUDCHF e GBPNZD entram porque sao posicoes em avaliacao. O painel cobre o
+    # par que estamos olhando, nao uma lista historica.
+    PARES = ["USDCAD", "EURUSD", "USDJPY", "GBPUSD", "AUDNZD", "EURGBP", "AUDJPY",
+             "NZDUSD", "AUDCHF", "GBPNZD"]
 
     ult_y = Y.dropna(how="all").index.max()
-    ult_fx = max(s.index.max() for s in T.values())
+    # 31-ago: era max(). Quando UMA moeda vem mais fresca que as outras (o arquivo do USD
+    # passou a chegar em D+0 e os demais em D-1), o max apontava para um dia em que quase
+    # nenhum par tinha preco, e o painel devolvia "FX n/d" para a maioria. A janela comum e
+    # o dia em que TODAS as moedas existem — portanto min().
+    ult_fx = min(s.index.max() for s in T.values())
     comum = min(ult_y, ult_fx)
 
     print("=" * 96)
