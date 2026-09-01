@@ -1,10 +1,13 @@
 {
- "gerado_em": "2026-09-01 00:46",
+ "gerado_em": "2026-09-01 23:32",
  "escopo": "EQUITIES — unidade e a EMPRESA. Nao usa FUND nem par de moeda.",
  "metodo": "METODO_PESQUISA_EQUITIES_HCI_v1: multiplo alvo pre-registrado x lucro projetado.",
  "limite": "Leitura fundamental. Nao e ordem nem gatilho de entrada.",
  "regenera_quando": "preco 3% | projecao de lucro 10% | resultado divulgado | virada de regime | 5 pregoes",
- "regenerados": [],
+ "regenerados": [
+  "AMAT: TP 443 (+0%) | MANTER (sem reforco) — upside +0% entre -10% e +10%; armar reforco apenas em dip | regen: preco -4.3%",
+  "LRCX: TP 289 (-0%) | MANTER (sem reforco) — upside -0% entre -10% e +10%; armar reforco apenas em dip | regen: preco -3.9%"
+ ],
  "nomes": [
   {
    "ticker": "TSM",
@@ -44,14 +47,14 @@
   },
   {
    "ticker": "AMAT",
-   "preco": 461.6700134277344,
+   "preco": 441.8500061035156,
    "tp": 443.0,
-   "upside": -0.04044016913534454,
-   "posicao": "MANTER (sem reforco) — upside -4% entre -10% e +10%; armar reforco apenas em dip >=5% com tese intacta",
+   "upside": 0.0026026793721825037,
+   "posicao": "MANTER (sem reforco) — upside +0% entre -10% e +10%; armar reforco apenas em dip >=5% com tese intacta",
    "regime_ok": true,
    "earnings": "2026-11-12",
    "hi52": 722.2277221679688,
-   "regenerado": false,
+   "regenerado": true,
    "tese": "Oligopolio de equipamento de fab; o mais proximo da guarda de valuation (P/E ~50)."
   },
   {
@@ -68,14 +71,14 @@
   },
   {
    "ticker": "LRCX",
-   "preco": 301.8999938964844,
+   "preco": 290.20001220703125,
    "tp": 289.0,
-   "upside": -0.042729361236448105,
-   "posicao": "MANTER (sem reforco) — upside -4% entre -10% e +10%; armar reforco apenas em dip >=5% com tese intacta",
+   "upside": -0.0041351211459466075,
+   "posicao": "MANTER (sem reforco) — upside -0% entre -10% e +10%; armar reforco apenas em dip >=5% com tese intacta",
    "regime_ok": true,
    "earnings": "2026-10-21",
    "hi52": 433.3299865722656,
-   "regenerado": false,
+   "regenerado": true,
    "tese": "Oligopolio etch/deposicao; alavancada a NAND/DRAM capex."
   }
  ]
