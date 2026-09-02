@@ -59,7 +59,9 @@
   });
 
   const M = { bancos: null, eventos: null, pronto: false,
-              mes: new Date(), diaSel: null };
+              mes: new Date(), diaSel: null,
+              parSel: null, filtro: "todos", moedaSel: null,
+              menuAgrupado: false };
   const BRT = -3;
 
   const FLAG = {
@@ -155,83 +157,183 @@
 
   /* --------------------------------------------------------------- MATRIZ DOS PARES */
 
-  /* A MATRIZ DOS PARES — o que da para publicar HOJE, com honestidade.
+  /* A TELA DE TRABALHO DOS PARES.
    *
-   * A leitura completa (o que cada BC VAI fazer, derivada do fluxo de dados) depende da fonte
-   * do resultado ao vivo, que ainda nao existe. Mas ha um fato que ja temos e que e util
-   * sozinho: **onde cada banco central foi da ultima vez**. Nao e previsao, e historico.
+   * Auditoria do Eduardo (02/set): "hoje o usuario escolhe um par na tabela de baixo, mas o
+   * resultado aparece no painel de cima — isso obriga a ficar subindo e descendo a pagina".
+   * Ele elegeu isto como a maior melhoria de praticidade, e esta certo.
    *
-   * O placar de hoje e 4 a 4 — quatro subiram por ultimo (NZD, EUR, JPY, AUD) e quatro
-   * cortaram (USD, GBP, CAD, CHF). Isso ja separa os pares com divergencia de CICLO dos que
-   * estao no mesmo lado.
+   * Vira duas colunas: lista dos 28 a esquerda, detalhe FIXO a direita. No celular a lista
+   * ocupa a tela e o detalhe vem abaixo, porque duas colunas em 375px nao servem a ninguem.
    *
-   * ⚠️ Divergencia de ciclo NAO e sinal de entrada. E contexto: diz que os dois bancos estao
-   * em fases diferentes, o que e condicao necessaria para a tese do Eduardo, nao suficiente.
+   * O QUE A TELA MOSTRA HOJE
+   *   Nao ha leitura de direcao ainda — ela depende da fonte do resultado ao vivo. O que ha e
+   *   FATO: onde cada banco central foi da ultima vez, quando decide de novo, e onde esta a
+   *   taxa. Isso ja separa os pares em fases diferentes dos que estao do mesmo lado.
+   *   Hierarquia pedida por ele: primeiro o par, depois a leitura, depois a qualidade do dado.
+   *   O resto fica em "what is still missing", sem competir com o principal.
    */
   const PARES = [
-    "EURUSD","GBPUSD","AUDUSD","NZDUSD","USDJPY","USDCAD","USDCHF",
-    "EURGBP","EURJPY","EURAUD","EURNZD","EURCAD","EURCHF",
-    "GBPJPY","GBPAUD","GBPNZD","GBPCAD","GBPCHF",
-    "AUDJPY","AUDNZD","AUDCAD","AUDCHF",
-    "NZDJPY","NZDCAD","NZDCHF","CADJPY","CADCHF","CHFJPY",
+    "EURUSD", "GBPUSD", "AUDUSD", "NZDUSD", "USDJPY", "USDCAD", "USDCHF",
+    "EURGBP", "EURJPY", "EURAUD", "EURNZD", "EURCAD", "EURCHF",
+    "GBPJPY", "GBPAUD", "GBPNZD", "GBPCAD", "GBPCHF",
+    "AUDJPY", "AUDNZD", "AUDCAD", "AUDCHF",
+    "NZDJPY", "NZDCAD", "NZDCHF", "CADJPY", "CADCHF", "CHFJPY",
+  ];
+
+  const cicloDe = (m) => {
+    const b = M.bancos && M.bancos.bancos[m];
+    return !b ? 0 : b.ultima_mudanca_bp > 0 ? 1 : b.ultima_mudanca_bp < 0 ? -1 : 0;
+  };
+  const ROT_CICLO = { "1": "last move up", "-1": "last move down", "0": "unchanged" };
+
+  function dadosPar(par) {
+    const b = par.slice(0, 3), q = par.slice(3);
+    const cb = cicloDe(b), cq = cicloDe(q);
+    const bs = M.bancos ? M.bancos.bancos : {};
+    const dias = Math.min(bs[b] ? bs[b].dias_ate : 99, bs[q] ? bs[q].dias_ate : 99);
+    return { par, b, q, cb, cq, diverge: cb !== cq, dias };
+  }
+
+  function itemLista(d) {
+    const sel = d.par === M.parSel ? " mac-item-sel" : "";
+    return `<button type="button" class="mac-item${sel}" data-mac-par="${d.par}">
+      <span class="mac-item-par">${d.b}<em>/</em>${d.q}</span>
+      <span class="mac-item-tag ${d.diverge ? "e-div" : "e-igual"}">${
+        d.diverge ? "divergence" : "same side"}</span>
+      <span class="mac-item-dias">${d.dias === 0 ? "decides today" : d.dias + "d"}</span>
+    </button>`;
+  }
+
+  function pernaCard(m, ciclo, papel) {
+    const b = M.bancos && M.bancos.bancos[m];
+    if (!b) {
+      return `<div class="mac-perna"><span class="mac-perna-papel">${papel}</span>
+        <strong class="mac-perna-nome">${m}</strong>
+        <div class="mac-perna-linha muted">no data</div></div>`;
+    }
+    const dias = b.dias_ate;
+    const quando = dias === 0 ? "today" : dias === 1 ? "tomorrow" : "in " + dias + " days";
+    const hora = b.hora_local
+      ? esc(b.hora_local + " " + b.fuso.split("/")[1].replace("_", " "))
+      : "no fixed release time";
+    return `<div class="mac-perna">
+      <span class="mac-perna-papel">${papel}</span>
+      <strong class="mac-perna-nome">${FLAG[m] || ""} ${m} <small>${esc(b.sigla)}</small></strong>
+      <div class="mac-perna-taxa">${esc(b.taxa_texto)}</div>
+      <div class="mac-perna-linha ${ciclo > 0 ? "positive" : ciclo < 0 ? "negative" : "muted"}">
+        ${ciclo > 0 ? "&#9650;" : ciclo < 0 ? "&#9660;" : "&mdash;"} ${ROT_CICLO[String(ciclo)]}
+        <small class="muted">&middot; ${esc(b.ultima_mudanca)}</small></div>
+      <div class="mac-perna-linha muted">next decision <strong>${quando}</strong>
+        <small>&middot; ${esc(b.proxima || "—")}</small></div>
+      <div class="mac-perna-linha muted"><small>${hora}</small></div>
+    </div>`;
+  }
+
+  function detalhePar(par) {
+    if (!par) {
+      return `<div class="mac-vazio"><strong>Pick a pair on the left.</strong>
+        <p>Each pair is two currencies. This panel reads both legs, because the reason for an
+           entry usually sits on one side, not on the pair.</p></div>`;
+    }
+    const d = dadosPar(par);
+    const g = M.bancos && M.bancos.gerado_em;
+    const min = g ? Math.round((Date.now() - new Date(g).getTime()) / 60000) : null;
+    const velho = min !== null && min > 45;
+    const idade = min === null ? "freshness unknown"
+      : velho ? "data " + (min < 90 ? min + " min" : Math.round(min / 60) + "h") + " old"
+      : "data current";
+
+    return `<div class="mac-det-topo">
+        <h2 class="mac-det-par">${d.b}<em>/</em>${d.q}</h2>
+        <span class="mac-det-leitura ${d.diverge ? "e-div" : "e-igual"}">${
+          d.diverge ? "CYCLE DIVERGENCE" : "SAME SIDE"}</span>
+        <span class="mac-det-dado ${velho ? "e-velho" : "e-fresco"}">${idade}</span>
+      </div>
+
+      <p class="mac-det-nota">${d.diverge
+        ? "The two central banks last moved in opposite directions. That is the necessary condition for a fundamental thesis &mdash; not a sufficient one."
+        : "Both central banks last moved the same way. No divergence to trade on this axis."}</p>
+
+      <div class="mac-pernas">${pernaCard(d.b, d.cb, "base")}${pernaCard(d.q, d.cq, "quote")}</div>
+
+      <details class="mac-det-mais">
+        <summary>What is still missing here</summary>
+        <div class="mac-det-mais-corpo">
+          <p>What each bank will <em>do next</em> &mdash; the reading from released data against
+             its forecast, accumulated since that bank last met. It needs the live source for the
+             released value, which is not connected yet.</p>
+          <p>And which leg carries the weight. On 2 Sep the GBPNZD move was <b>82% the kiwi</b>;
+             the same day EURJPY was <b>90% the yen</b>. When the reason sits on one leg, every
+             pair sharing that leg is the same bet &mdash; holding two does not diversify, it
+             doubles.</p>
+        </div>
+      </details>`;
+  }
+
+  const FILTROS = [
+    { k: "todos", r: "All", f: () => true },
+    { k: "div", r: "Divergence", f: (d) => d.diverge },
+    { k: "igual", r: "Same side", f: (d) => !d.diverge },
+    { k: "perto", r: "Deciding soon", f: (d) => d.dias <= 7 },
   ];
 
   function matrizPares() {
     if (!M.bancos) return "";
     const bs = M.bancos.bancos;
-    const ciclo = (m) => (bs[m] && bs[m].ultima_mudanca_bp > 0) ? 1
-                       : (bs[m] && bs[m].ultima_mudanca_bp < 0) ? -1 : 0;
-    const rot = { 1: "last move UP", "-1": "last move DOWN", 0: "unchanged" };
+    const sobe = Object.keys(bs).filter((m) => cicloDe(m) > 0);
+    const corta = Object.keys(bs).filter((m) => cicloDe(m) < 0);
 
-    const subiram = Object.keys(bs).filter((m) => ciclo(m) > 0);
-    const cortaram = Object.keys(bs).filter((m) => ciclo(m) < 0);
+    const filtro = FILTROS.find((x) => x.k === M.filtro) || FILTROS[0];
+    let lista = PARES.map(dadosPar).filter(filtro.f);
+    if (M.moedaSel) lista = lista.filter((d) => d.b === M.moedaSel || d.q === M.moedaSel);
+    lista.sort((a, b) => (b.diverge - a.diverge) || (a.dias - b.dias) || a.par.localeCompare(b.par));
 
-    const linhas = PARES.map((par) => {
-      const b = par.slice(0, 3), q = par.slice(3);
-      const cb = ciclo(b), cq = ciclo(q);
-      const diverge = cb !== cq;
-      const lado = diverge ? (cb > cq ? "base" : "quote") : null;
-      const dias = Math.min(bs[b] ? bs[b].dias_ate : 99, bs[q] ? bs[q].dias_ate : 99);
-      return { par, b, q, cb, cq, diverge, lado, dias };
-    }).sort((a, x) => (x.diverge - a.diverge) || (a.dias - x.dias));
+    const chips = FILTROS.map((x) =>
+      `<button type="button" class="mac-chip${x.k === filtro.k ? " on" : ""}" data-mac-filtro="${x.k}">${x.r}</button>`
+    ).join("") + `<span class="mac-sep"></span>` + Object.keys(bs).map((m) =>
+      `<button type="button" class="mac-chip mac-chip-moeda${m === M.moedaSel ? " on" : ""}" data-mac-moeda="${m}">${m}</button>`
+    ).join("");
 
-    const corpo = linhas.map((L) => `<tr class="${L.diverge ? "mac-div" : "mac-mesmo"}">
-      <td><strong>${L.par}</strong></td>
-      <td><span class="${L.cb > 0 ? "positive" : L.cb < 0 ? "negative" : "muted"}">
-          ${FLAG[L.b] || ""} ${L.b} · ${rot[L.cb]}</span></td>
-      <td><span class="${L.cq > 0 ? "positive" : L.cq < 0 ? "negative" : "muted"}">
-          ${FLAG[L.q] || ""} ${L.q} · ${rot[L.cq]}</span></td>
-      <td>${L.diverge
-            ? '<span class="mac-tag-div">cycle divergence</span>'
-            : '<span class="mac-tag-igual">same side</span>'}</td>
-      <td><small class="muted">next decision in ${L.dias}d</small></td>
-    </tr>`).join("");
-
-    return `<section class="content-section mac-bloco">
-      <div class="section-title"><div><h2>Policy cycle by pair</h2></div>
-        <p>Where each central bank last went. Not a forecast — the direction of its last move.</p></div>
+    return `<section class="content-section mac-bloco mac-tela">
+      <div class="section-title"><div><h2>Pairs</h2></div>
+        <p>Where each central bank last went, leg by leg. Not a forecast &mdash; the direction of
+           its last move, and when it decides again.</p></div>
 
       <div class="mac-placar">
-        <div><span>Last move UP</span><strong>${subiram.map((m) => FLAG[m] + " " + m).join("  ")}</strong></div>
-        <div><span>Last move DOWN</span><strong>${cortaram.map((m) => FLAG[m] + " " + m).join("  ")}</strong></div>
+        <div><span>Last move up</span><strong>${sobe.map((m) => (FLAG[m] || "") + " " + m).join("&nbsp; ")}</strong></div>
+        <div><span>Last move down</span><strong>${corta.map((m) => (FLAG[m] || "") + " " + m).join("&nbsp; ")}</strong></div>
       </div>
 
-      <div class="table-wrap"><table class="mac-tabela mac-pares">
-        <thead><tr><th>Pair</th><th>Base leg</th><th>Quote leg</th>
-                   <th>Cycle</th><th>Nearest meeting</th></tr></thead>
-        <tbody>${corpo}</tbody></table></div>
+      <div class="mac-chips">${chips}</div>
+      <p class="mac-conta">${lista.length} of ${PARES.length} pairs</p>
 
-      <p class="method-note"><strong>Cycle divergence is context, not a signal.</strong> Two banks in
-        different phases is the necessary condition for a fundamental thesis — not a sufficient one.
-        What is still missing is the reading of what each one will <em>do next</em>, which comes from
-        the released data measured against its forecast. That needs the live source for the released
-        value, which is not connected yet.</p>
-      <p class="method-note">⚖️ <strong>Two legs, always.</strong> A pair is not an asset, it is two
-        currencies — read each side to find which one gives the reason. And pairs sharing that leg are
-        the same bet: on 2 Sep the GBPNZD move was 82% the kiwi, so NZDUSD, NZDCAD and AUDNZD were all
-        saying the same thing. Holding two of them does not diversify, it doubles.</p>
+      <div class="mac-duas">
+        <div class="mac-lista">${lista.length
+          ? lista.map(itemLista).join("")
+          : `<div class="mac-vazio"><strong>No pair matches this filter.</strong></div>`}</div>
+        <aside class="mac-detalhe">${detalhePar(M.parSel)}</aside>
+      </div>
     </section>`;
   }
+
+  // Delegacao unica no documento: sobrevive a qualquer redesenho, sem religar ouvinte a cada vez.
+  document.addEventListener("click", function (e) {
+    const alvoPar = e.target.closest ? e.target.closest("[data-mac-par]") : null;
+    const alvoFil = e.target.closest ? e.target.closest("[data-mac-filtro]") : null;
+    const alvoMoe = e.target.closest ? e.target.closest("[data-mac-moeda]") : null;
+    if (!alvoPar && !alvoFil && !alvoMoe) return;
+    if (alvoPar) M.parSel = alvoPar.dataset.macPar;
+    if (alvoFil) M.filtro = alvoFil.dataset.macFiltro;
+    if (alvoMoe) M.moedaSel = (M.moedaSel === alvoMoe.dataset.macMoeda) ? null : alvoMoe.dataset.macMoeda;
+    const painel = document.querySelector('[data-panel="pairs"]');
+    if (painel) painel.innerHTML = matrizPares();
+    if (alvoPar && window.innerWidth < 900) {
+      const det = document.querySelector(".mac-detalhe");
+      if (det) det.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, true);
+
 
 
   /* ------------------------------------------------------------------ CALENDARIO */
@@ -425,6 +527,74 @@
         : '<div class="mac-vazio"><strong>Pick a day on the calendar above.</strong></div>'}</div>`;
   }
 
+  /* MENU AGRUPADO.
+   *
+   * Auditoria do Eduardo: "ha dez abas no mesmo nivel, e muita coisa". O agrupamento e o dele.
+   * Os BOTOES originais sao MOVIDOS, nao recriados — assim os ouvintes de clique que o app.js
+   * registrou continuam valendo. Recriar quebraria a navegacao, e foi o tipo de coisa que
+   * derrubou o site tres vezes ontem.
+   */
+  const GRUPOS = [
+    { r: "Radar",    abas: ["market", "pairs"] },
+    { r: "Macro",    abas: ["yields", "calendar", "news", "cot"] },
+    { r: "Analysis", abas: ["ratesfx", "spreads"] },
+    { r: "Method",   abas: ["sources"] },
+    { r: "Equities", abas: ["equities"] },
+  ];
+
+  function agrupaMenu() {
+    // A guarda NAO pode olhar o pai dos botoes: depois que eles sao movidos para dentro dos
+    // grupos, o pai passa a ser .mac-nav-abas e a marca se perde — o menu regrupava a cada
+    // passada e os rotulos duplicavam (medido: 100 rotulos em ~90 segundos).
+    // A marca vai numa variavel do modulo, que nao depende do DOM.
+    if (M.menuAgrupado) return;
+    const botoes = [...document.querySelectorAll("[data-tab]")];
+    if (!botoes.length) return;
+    const barra = botoes[0].parentElement;
+    if (!barra) return;
+
+    const mapa = {};
+    botoes.forEach((b) => { mapa[b.dataset.tab] = b; });
+
+    const caixa = document.createElement("div");
+    caixa.className = "mac-nav-grupos";
+
+    GRUPOS.forEach((g) => {
+      const presentes = g.abas.map((a) => mapa[a]).filter(Boolean);
+      if (!presentes.length) return;
+      const bloco = document.createElement("div");
+      bloco.className = "mac-nav-grupo";
+      const rot = document.createElement("span");
+      rot.className = "mac-nav-rotulo";
+      rot.textContent = g.r;
+      bloco.appendChild(rot);
+      const linha = document.createElement("div");
+      linha.className = "mac-nav-abas";
+      presentes.forEach((b) => linha.appendChild(b));   // MOVE, nao clona
+      bloco.appendChild(linha);
+      caixa.appendChild(bloco);
+    });
+
+    // qualquer aba que nao esteja no agrupamento vai para o fim, para nunca sumir
+    const sobrando = botoes.filter((b) => !GRUPOS.some((g) => g.abas.includes(b.dataset.tab)));
+    if (sobrando.length) {
+      const bloco = document.createElement("div");
+      bloco.className = "mac-nav-grupo";
+      const rot = document.createElement("span");
+      rot.className = "mac-nav-rotulo";
+      rot.textContent = "Other";
+      bloco.appendChild(rot);
+      const linha = document.createElement("div");
+      linha.className = "mac-nav-abas";
+      sobrando.forEach((b) => linha.appendChild(b));
+      bloco.appendChild(linha);
+      caixa.appendChild(bloco);
+    }
+
+    barra.appendChild(caixa);
+    M.menuAgrupado = true;
+  }
+
   function aplica() {
     if (!M.pronto) return;
 
@@ -468,6 +638,7 @@
     }
     desenhaCalendario();
 
+    agrupaMenu();
     limpaFundDaTela();
   }
 
@@ -475,6 +646,83 @@
   estilo.textContent = `
    .mac-bloco{margin-bottom:28px}
    .mac-frescor{font-size:12px;margin:10px 0 0}
+   .mac-nav-grupos{display:flex;gap:22px;flex-wrap:wrap;align-items:flex-end;width:100%}
+   .mac-nav-grupo{display:flex;flex-direction:column;gap:4px}
+   .mac-nav-rotulo{font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;opacity:.34;
+     padding-left:2px}
+   .mac-nav-abas{display:flex;gap:3px}
+   @media (max-width:900px){
+     .mac-nav-grupos{gap:12px}
+     .mac-nav-rotulo{display:none}
+   }
+   /* --- tela de trabalho dos pares: lista a esquerda, detalhe fixo a direita --- */
+   .mac-duas{display:grid;grid-template-columns:minmax(210px,270px) 1fr;gap:18px;
+     align-items:start}
+   .mac-lista{display:flex;flex-direction:column;gap:3px;max-height:74vh;overflow-y:auto;
+     padding-right:4px}
+   .mac-item{display:grid;grid-template-columns:1fr auto;grid-template-rows:auto auto;
+     gap:2px 8px;text-align:left;background:transparent;border:0;border-radius:8px;
+     padding:9px 11px;color:inherit;cursor:pointer;border-left:2px solid transparent}
+   .mac-item:hover{background:rgba(255,255,255,.05)}
+   .mac-item-sel{background:rgba(120,200,255,.11);border-left-color:#6cc4ff}
+   .mac-item-par{font-size:14px;font-weight:600;letter-spacing:.02em}
+   .mac-item-par em{opacity:.35;font-style:normal;margin:0 1px}
+   .mac-item-dias{grid-column:2;grid-row:1;font-size:11px;opacity:.5;
+     font-variant-numeric:tabular-nums;align-self:center}
+   .mac-item-tag{grid-column:1/-1;font-size:10px;letter-spacing:.06em;text-transform:uppercase}
+   .mac-item-tag.e-div{color:#8fd0ff}
+   .mac-item-tag.e-igual{opacity:.35}
+
+   /* o detalhe acompanha a rolagem — era a queixa principal do Eduardo */
+   .mac-detalhe{position:sticky;top:16px;border:1px solid rgba(255,255,255,.09);
+     border-radius:12px;padding:20px 22px;min-height:300px}
+   .mac-det-topo{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:4px}
+   .mac-det-par{margin:0;font-size:30px;letter-spacing:.01em}
+   .mac-det-par em{opacity:.28;font-style:normal;margin:0 2px}
+   .mac-det-leitura{font-size:11px;letter-spacing:.09em;padding:4px 11px;border-radius:20px}
+   .mac-det-leitura.e-div{background:rgba(120,200,255,.16);color:#8fd0ff}
+   .mac-det-leitura.e-igual{background:rgba(255,255,255,.06);opacity:.55}
+   .mac-det-dado{margin-left:auto;font-size:11.5px}
+   .mac-det-dado.e-fresco{color:#5fd08a}
+   .mac-det-dado.e-velho{color:#ffb84d;font-weight:600}
+   .mac-det-nota{font-size:13px;opacity:.72;line-height:1.55;margin:8px 0 18px}
+
+   .mac-pernas{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+   .mac-perna{border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:14px 15px}
+   .mac-perna-papel{display:block;font-size:10px;letter-spacing:.11em;text-transform:uppercase;
+     opacity:.4;margin-bottom:6px}
+   .mac-perna-nome{display:block;font-size:17px;margin-bottom:3px}
+   .mac-perna-nome small{opacity:.45;font-size:11px;font-weight:400;margin-left:4px}
+   .mac-perna-taxa{font-size:20px;font-weight:600;font-variant-numeric:tabular-nums;
+     margin-bottom:9px}
+   .mac-perna-linha{font-size:12.5px;line-height:1.7}
+
+   .mac-det-mais{margin-top:18px;border-top:1px solid rgba(255,255,255,.07);padding-top:13px}
+   .mac-det-mais summary{cursor:pointer;font-size:12.5px;opacity:.6}
+   .mac-det-mais summary:hover{opacity:.9}
+   .mac-det-mais-corpo{font-size:12.5px;line-height:1.62;opacity:.72;margin-top:9px}
+   .mac-det-mais-corpo p{margin:0 0 9px}
+
+   /* filtros rapidos */
+   .mac-chips{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin:2px 0 8px}
+   .mac-chip{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);
+     color:inherit;border-radius:20px;padding:5px 13px;font-size:12px;cursor:pointer}
+   .mac-chip:hover{background:rgba(255,255,255,.11)}
+   .mac-chip.on{background:rgba(120,200,255,.18);border-color:rgba(120,200,255,.5);color:#8fd0ff}
+   .mac-chip-moeda{font-size:11px;padding:4px 10px;letter-spacing:.04em}
+   .mac-sep{width:1px;height:20px;background:rgba(255,255,255,.12);margin:0 5px}
+   .mac-conta{font-size:11.5px;opacity:.45;margin:0 0 14px}
+
+   /* celular: uma coluna, detalhe abaixo da lista */
+   @media (max-width:900px){
+     .mac-duas{grid-template-columns:1fr}
+     .mac-lista{max-height:none;flex-direction:row;flex-wrap:wrap}
+     .mac-item{flex:1 1 132px}
+     .mac-detalhe{position:static}
+     .mac-pernas{grid-template-columns:1fr}
+     .mac-placar{grid-template-columns:1fr}
+     .mac-det-par{font-size:25px}
+   }
    .mac-placar{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:0 0 16px}
    .mac-placar>div{padding:11px 13px;border:1px solid rgba(255,255,255,.09);border-radius:9px}
    .mac-placar span{display:block;font-size:10.5px;text-transform:uppercase;
