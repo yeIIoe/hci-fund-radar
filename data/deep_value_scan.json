@@ -3,17 +3,33 @@
  "limite": "candidato para VOCE checar a tese e assinar. Nao e ordem.",
  "nomes": [
   {
+   "ticker": "DAC",
+   "aprovado": true,
+   "nota": "A",
+   "preco": 152.12,
+   "metricas": {
+    "EV/EBITDA": 4.0,
+    "P/B": 0.68,
+    "D/E": "30%",
+    "net cash": true
+   },
+   "porque": "fluxo barato (EV/EBITDA 4.0) + ativos c/ desconto (P/B 0.68); NET CASH (sobrevive ao inverno).",
+   "porque_nao": null,
+   "risco": "ciclo industrial/frete",
+   "confianca": "~70% individual"
+  },
+  {
    "ticker": "STNG",
    "aprovado": true,
    "nota": "A",
-   "preco": 78.66,
+   "preco": 79.03,
    "metricas": {
-    "EV/EBITDA": 3.5,
-    "P/B": 1.16,
+    "EV/EBITDA": 3.6,
+    "P/B": 1.17,
     "D/E": "20%",
     "net cash": true
    },
-   "porque": "fluxo barato (EV/EBITDA 3.5); NET CASH (sobrevive ao inverno).",
+   "porque": "fluxo barato (EV/EBITDA 3.6); NET CASH (sobrevive ao inverno).",
    "porque_nao": null,
    "risco": "preco do petroleo/gas",
    "confianca": "~70% individual"
@@ -22,30 +38,46 @@
    "ticker": "GOAU4.SA",
    "aprovado": true,
    "nota": "B",
-   "preco": 10.55,
+   "preco": 10.97,
    "metricas": {
     "EV/EBITDA": 5.9,
-    "P/B": 0.73,
+    "P/B": 0.75,
     "D/E": "28%",
     "net cash": false
    },
-   "porque": "ativos c/ desconto (P/B 0.73); divida controlada (D/E 28%).",
+   "porque": "ativos c/ desconto (P/B 0.75); divida controlada (D/E 28%).",
    "porque_nao": null,
    "risco": "preco da commodity",
    "confianca": "~60% individual"
   },
   {
+   "ticker": "GSL",
+   "aprovado": true,
+   "nota": "B",
+   "preco": 44.86,
+   "metricas": {
+    "EV/EBITDA": 3.8,
+    "P/B": 0.83,
+    "D/E": "35%",
+    "net cash": false
+   },
+   "porque": "fluxo barato (EV/EBITDA 3.8); balanco ok.",
+   "porque_nao": null,
+   "risco": "ciclo industrial/frete",
+   "confianca": "~55% individual"
+  },
+  {
    "ticker": "REPX",
    "aprovado": true,
    "nota": "B",
-   "preco": 39.14,
+   "preco": 40.58,
    "metricas": {
-    "EV/EBITDA": 3.7,
-    "P/B": 1.37,
+    "EV/EBITDA": 3.8,
+    "P/B": 1.42,
     "D/E": "42%",
     "net cash": false
    },
-   "porque": "fluxo barato (EV/EBITDA 3.7); balanco ok.",
+   "porque": "fluxo barato (EV/EBITDA 3.8); balanco ok.",
    "porque_nao": null,
    "risco": "preco do petroleo/gas",
    "confianca": "~55% individual"
@@ -54,10 +86,10 @@
    "ticker": "MUR",
    "aprovado": false,
    "nota": "C",
-   "preco": 37.06,
+   "preco": 37.94,
    "metricas": {
-    "EV/EBITDA": 4.0,
-    "P/B": 1.01,
+    "EV/EBITDA": 4.1,
+    "P/B": 1.03,
     "D/E": "42%",
     "net cash": false
    },
@@ -70,10 +102,10 @@
    "ticker": "CSAN3.SA",
    "aprovado": false,
    "nota": "D",
-   "preco": 4.04,
+   "preco": 3.83,
    "metricas": {
     "EV/EBITDA": 1.6,
-    "P/B": 3.21,
+    "P/B": 3.04,
     "D/E": "110%",
     "net cash": false
    },
@@ -86,10 +118,10 @@
    "ticker": "CSNA3.SA",
    "aprovado": false,
    "nota": "D",
-   "preco": 5.73,
+   "preco": 5.84,
    "metricas": {
     "EV/EBITDA": 6.8,
-    "P/B": 0.62,
+    "P/B": 0.64,
     "D/E": "357%",
     "net cash": false
    },
@@ -102,10 +134,10 @@
    "ticker": "FESA4.SA",
    "aprovado": false,
    "nota": "D",
-   "preco": 5.27,
+   "preco": 5.62,
    "metricas": {
-    "EV/EBITDA": 11.7,
-    "P/B": 0.54,
+    "EV/EBITDA": 12.7,
+    "P/B": 0.58,
     "D/E": "12%",
     "net cash": true
    },
@@ -118,10 +150,10 @@
    "ticker": "PARR",
    "aprovado": false,
    "nota": "D",
-   "preco": 78.37,
+   "preco": 80.9,
    "metricas": {
     "EV/EBITDA": 3.9,
-    "P/B": 1.95,
+    "P/B": 2.01,
     "D/E": "56%",
     "net cash": false
    },
@@ -134,10 +166,10 @@
    "ticker": "ROMI3.SA",
    "aprovado": false,
    "nota": "D",
-   "preco": 5.76,
+   "preco": 5.84,
    "metricas": {
     "EV/EBITDA": 8.5,
-    "P/B": 0.43,
+    "P/B": 0.44,
     "D/E": "76%",
     "net cash": false
    },
@@ -150,9 +182,9 @@
    "ticker": "SAPR11.SA",
    "aprovado": false,
    "nota": "D",
-   "preco": 33.53,
+   "preco": 34.49,
    "metricas": {
-    "EV/EBITDA": 4.3,
+    "EV/EBITDA": 4.4,
     "P/B": 0.84,
     "D/E": "60%",
     "net cash": false
@@ -166,10 +198,10 @@
    "ticker": "SM",
    "aprovado": false,
    "nota": "D",
-   "preco": 37.8,
+   "preco": 38.59,
    "metricas": {
-    "EV/EBITDA": 4.8,
-    "P/B": 1.15,
+    "EV/EBITDA": 4.9,
+    "P/B": 1.17,
     "D/E": "95%",
     "net cash": false
    },
@@ -182,10 +214,10 @@
    "ticker": "TASA4.SA",
    "aprovado": false,
    "nota": "D",
-   "preco": 5.57,
+   "preco": 5.53,
    "metricas": {
-    "EV/EBITDA": 16.1,
-    "P/B": 0.65,
+    "EV/EBITDA": 16.0,
+    "P/B": 0.62,
     "D/E": "57%",
     "net cash": false
    },
@@ -198,10 +230,10 @@
    "ticker": "USIM5.SA",
    "aprovado": false,
    "nota": "D",
-   "preco": 7.64,
+   "preco": 7.86,
    "metricas": {
-    "EV/EBITDA": 5.6,
-    "P/B": 0.45,
+    "EV/EBITDA": 5.8,
+    "P/B": 0.47,
     "D/E": "27%",
     "net cash": true
    },
