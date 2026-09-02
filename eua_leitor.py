@@ -45,6 +45,21 @@ FED_RSS = "https://www.federalreserve.gov/feeds/press_monetary.xml"
 FED_CAL = "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm"
 UA = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/128.0"}
 
+# 🔴 COTA — descoberto na marra em 02/set, estourando a cota enquanto testava.
+#    sem chave    25 chamadas/dia
+#    com chave    500 chamadas/dia   registro gratuito em data.bls.gov/registrationEngine/
+#
+#    Isto quase virou bug de producao: o cron do MACRO DIRECTION roda a cada 15 minutos, ou
+#    seja 96 vezes por dia. Sem chave, a partir da 26a o BLS devolve REQUEST_NOT_PROCESSED e o
+#    leitor ficaria mudo o resto do dia — com o site mostrando dado velho e carimbo novo, que e
+#    exatamente o genero de falha silenciosa que ja custou caro aqui.
+#
+#    A defesa nao e so a chave: o dado do BLS e MENSAL. Perguntar de 15 em 15 minutos nao traz
+#    informacao nenhuma. O cache abaixo derruba 96 chamadas/dia para no maximo 24, e o leitor
+#    passa a caber na cota mesmo SEM chave.
+CHAVE = os.environ.get("BLS_API_KEY", "").strip()
+CACHE_MIN = 60
+
 # Series do BLS, todas verificadas em 02/set/2026.
 # `familia` liga cada uma a leitura de leitor_regras.py — peso e sinal vem de la, nao daqui.
 SERIES = {
@@ -61,17 +76,49 @@ MESES = ["January", "February", "March", "April", "May", "June",
 MES = {m: i for i, m in enumerate(MESES, 1)}
 
 
+class CotaEstourada(RuntimeError):
+    """A cota diaria do BLS acabou. Distinta de falha de rede: nao adianta tentar de novo hoje."""
+
+
 def bls(series: list, ini: int, fim: int) -> dict:
-    """Um POST com todas as series — o BLS aceita lote, e sem chave sao 25 chamadas/dia."""
-    corpo = json.dumps({"seriesid": series, "startyear": str(ini), "endyear": str(fim)}).encode()
-    req = urllib.request.Request(BLS_API, data=corpo,
+    """Um POST com TODAS as series de uma vez — o BLS aceita lote, e cada chamada custa cota."""
+    corpo = {"seriesid": series, "startyear": str(ini), "endyear": str(fim)}
+    if CHAVE:
+        corpo["registrationkey"] = CHAVE
+    req = urllib.request.Request(BLS_API, data=json.dumps(corpo).encode(),
                                  headers={"Content-Type": "application/json"})
     d = json.load(urllib.request.urlopen(req, timeout=60))
+    msgs = " ".join(d.get("message") or [])
     if d.get("status") != "REQUEST_SUCCEEDED":
-        raise RuntimeError("BLS recusou: %s" % d.get("message"))
+        if "threshold" in msgs.lower() or "daily" in msgs.lower():
+            raise CotaEstourada(
+                "cota diaria do BLS esgotada (%s/dia). Registre a chave gratuita em "
+                "data.bls.gov/registrationEngine/ e ponha em BLS_API_KEY -> 500/dia."
+                % ("500" if CHAVE else "25"))
+        raise RuntimeError("BLS recusou: %s" % (msgs or d.get("status")))
     for m in (d.get("message") or []):
         print("  ! BLS: %s" % m)
     return {s["seriesID"]: s.get("data", []) for s in d.get("Results", {}).get("series", [])}
+
+
+def cache_ainda_serve(forcar: bool) -> dict | None:
+    """O dado do BLS e mensal. Se a leitura anterior e recente, nao gasta cota de novo.
+
+    Devolve o relatorio anterior quando ele ainda vale, ou None quando e hora de buscar.
+    """
+    if forcar or not os.path.exists(SAIDA):
+        return None
+    try:
+        velho = json.load(io.open(SAIDA, encoding="utf-8"))
+        gerado = dt.datetime.fromisoformat(velho["gerado_em"])
+    except Exception:
+        return None
+    idade_min = (dt.datetime.now(dt.timezone.utc) - gerado).total_seconds() / 60.0
+    if idade_min < CACHE_MIN and velho.get("indicadores"):
+        velho["reaproveitado_do_cache"] = True
+        velho["idade_min"] = round(idade_min, 1)
+        return velho
+    return None
 
 
 def serie_ordenada(dados: list) -> list:
@@ -177,15 +224,36 @@ def fomc_calendario() -> dict:
 
 def main():
     agora = dt.datetime.now(dt.timezone.utc)
+    forcar = "--forcar" in sys.argv
     print("=" * 86)
     print("LEITOR DOS ESTADOS UNIDOS")
     print("=" * 86)
+    print("  chave do BLS: %s" % ("registrada (500 chamadas/dia)" if CHAVE else
+                                  "AUSENTE — 25 chamadas/dia. Registre em "
+                                  "data.bls.gov/registrationEngine/"))
+
+    guardado = cache_ainda_serve(forcar)
+    if guardado:
+        ind = guardado.get("indicadores", {})
+        ref = max((x.get("referencia", "") for x in ind.values()), default="?")
+        print("  leitura de %.0f min atras ainda vale (dado do BLS e MENSAL) — cota poupada."
+              % guardado["idade_min"])
+        print("  %d indicadores, referencia %s. Use --forcar para buscar mesmo assim."
+              % (len(ind), ref))
+        return
 
     try:
         cru = bls(list(SERIES), agora.year - 2, agora.year)
+    except CotaEstourada as e:
+        # Sai com codigo de erro para o cron ficar VERMELHO. Falha silenciosa aqui viraria
+        # dado velho com carimbo novo no site — o pior desfecho possivel.
+        print()
+        print("  !! COTA ESTOURADA: %s" % e)
+        print("  !! A leitura anterior foi PRESERVADA — nada foi sobrescrito com vazio.")
+        sys.exit(2)
     except Exception as e:
         print("  X BLS falhou: %s" % e)
-        return
+        sys.exit(1)
 
     leitura = {}
     print()
