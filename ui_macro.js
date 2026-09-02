@@ -430,7 +430,10 @@
 
     // OVERVIEW: troca o miolo do painel
     const over = document.querySelector('[data-panel="market"]');
-    if (over && !over.querySelector(".mac-bloco")) over.innerHTML = painelBancos() + matrizPares();
+    // Overview mostra SO as reunioes; a matriz de 28 linhas fica na aba Pairs.
+    // Repetir a mesma tabela em duas abas so gera ruido — e foi o que o Eduardo apontou no
+    // FUND: informacao demais na tela confunde mais do que informa.
+    if (over && !over.querySelector(".mac-bloco")) over.innerHTML = painelBancos();
 
     // PARES: o mesmo, ate o leitor produzir
     const pares = document.querySelector('[data-panel="pairs"]');
