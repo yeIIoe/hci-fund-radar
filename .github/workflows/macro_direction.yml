@@ -1,0 +1,93 @@
+# MACRO DIRECTION — a cadeia rapida.
+#
+# POR QUE ELA EXISTE
+#   A cadeia pesada roda 2x por dia (04:35 e 08:35 BRT). Isso serve para curva de juro, que e
+#   D+1 por natureza. Nao serve para o calendario de noticias, que muda quando o numero sai.
+#   Ate 02/set os scripts do leitor nao estavam em cadeia nenhuma — so rodavam quando alguem
+#   os executava na mao, e por isso o painel ficava congelado.
+#
+# ⚠️ O LIMITE HONESTO: o GitHub Actions NAO e tempo real.
+#   O minimo do cron e 5 minutos, e agendamento em horario de pico atrasa — as vezes 10 a 20
+#   minutos. Entao "*/15" na pratica quer dizer "a cada 15 a 35 minutos".
+#   Para atualizacao no INSTANTE da divulgacao seria preciso a pagina buscar de uma fonte ao
+#   vivo, que e justamente o buraco que ainda nao fechamos (o feed do Forex Factory nao traz
+#   o campo do resultado). Isto aqui e o melhor alcancavel hoje, e esta declarado.
+#
+# CUSTO: zero. Actions e ilimitado em repositorio publico.
+
+name: macro-direction
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: macro-direction
+  cancel-in-progress: true
+
+jobs:
+  atualiza:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: encoding
+        run: echo "PYTHONIOENCODING=utf-8" >> $GITHUB_ENV
+
+      # O feed semanal do Forex Factory. Baixado direto, sem passar pelo TTL do
+      # update_fund.py — aquele TTL e de 2 horas e bloquearia a atualizacao de 15 minutos.
+      - name: feed do calendario
+        run: |
+          mkdir -p data/raw
+          curl -sS -L --max-time 60 --retry 2 \
+            "https://nfs.faireconomy.media/ff_calendar_thisweek.json" \
+            -o data/raw/ff_calendar_thisweek.json.novo
+          # so troca se veio JSON valido e nao vazio — senao mantem o anterior
+          python - <<'PY'
+          import json, os, shutil
+          novo = "data/raw/ff_calendar_thisweek.json.novo"
+          alvo = "data/raw/ff_calendar_thisweek.json"
+          try:
+              d = json.load(open(novo, encoding="utf-8"))
+              n = len(d if isinstance(d, list) else d.get("events", []))
+              if n > 0:
+                  shutil.move(novo, alvo)
+                  print("feed trocado: %d eventos" % n)
+              else:
+                  print("feed veio vazio — mantido o anterior")
+          except Exception as e:
+              print("feed invalido (%s) — mantido o anterior" % e)
+          finally:
+              if os.path.exists(novo):
+                  os.remove(novo)
+          PY
+
+      - name: gera o leitor
+        run: |
+          python bancos_centrais.py
+          python macro_eventos.py
+
+      # Commit so quando o conteudo mudou de verdade. Sem isto seriam 96 commits vazios por
+      # dia, e o historico do repositorio viraria lixo.
+      - name: commita se mudou
+        run: |
+          git config user.name  "hci-bot"
+          git config user.email "bot@hokiresearch.com"
+          git add data/macro_eventos.json data/bancos_centrais.json data/raw/ff_calendar_thisweek.json
+          if git diff --cached --quiet; then
+            echo "nada mudou — sem commit"
+          else
+            git commit -q -m "macro direction $(date -u +%Y-%m-%dT%H:%MZ)"
+            git pull --rebase -q origin main || true
+            git push -q origin main
+            echo "commitado"
+          fi

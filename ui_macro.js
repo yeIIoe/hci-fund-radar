@@ -92,6 +92,23 @@
     M.pronto = !!(M.bancos && M.eventos);
   }
 
+  // Carimbo de frescor. O Eduardo perguntou por que o painel nao atualizava a todo instante —
+  // a resposta e que a cadeia rodava 2x/dia e os scripts do leitor nao estavam em cadeia
+  // nenhuma. Agora rodam de 15 em 15 minutos, mas o GitHub Actions nao e tempo real: o cron
+  // atrasa em horario de pico. Entao o frescor fica na TELA, para nunca mais ficar escondido.
+  function frescor() {
+    const g = M.eventos && M.eventos.gerado_em;
+    if (!g) return "Freshness unknown — the calendar file has no timestamp.";
+    const min = Math.round((Date.now() - new Date(g).getTime()) / 60000);
+    const quando = min < 2 ? "just now"
+                 : min < 90 ? min + " minutes ago"
+                 : Math.round(min / 60) + " hours ago";
+    const velho = min > 45;
+    return `<span class="${velho ? "mac-velho" : "mac-fresco"}">Calendar updated ${quando}</span>` +
+           ` · refreshed every ~15 min, though scheduled runs can lag at peak hours` +
+           (velho ? " — this one is late." : ".");
+  }
+
   /* ------------------------------------------------------------------ OVERVIEW */
 
   function painelBancos() {
@@ -129,6 +146,7 @@
         <thead><tr><th>Currency</th><th>Policy rate</th><th>Last change</th>
                    <th>Next decision</th><th>Local time</th></tr></thead>
         <tbody>${linhas}</tbody></table></div>
+      <p class="mac-frescor">${frescor()}</p>
       <p class="method-note">The rate and the dates are facts, checked against each central bank's own
         pages on 1 Sep 2026. What each one will <em>do</em> is a separate reading — it comes from the
         released data, never from a score.</p>
@@ -380,6 +398,9 @@
   const estilo = document.createElement("style");
   estilo.textContent = `
    .mac-bloco{margin-bottom:28px}
+   .mac-frescor{font-size:12px;margin:10px 0 0}
+   .mac-fresco{color:#5fd08a}
+   .mac-velho{color:#ffb84d;font-weight:600}
    .mac-abaixo{margin-top:26px;padding-top:22px;
      border-top:1px solid rgba(255,255,255,.09)}
    .mac-abaixo .mac-dia{display:grid;gap:10px;
