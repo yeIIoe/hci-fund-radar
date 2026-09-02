@@ -155,20 +155,84 @@
 
   /* --------------------------------------------------------------- MATRIZ DOS PARES */
 
+  /* A MATRIZ DOS PARES — o que da para publicar HOJE, com honestidade.
+   *
+   * A leitura completa (o que cada BC VAI fazer, derivada do fluxo de dados) depende da fonte
+   * do resultado ao vivo, que ainda nao existe. Mas ha um fato que ja temos e que e util
+   * sozinho: **onde cada banco central foi da ultima vez**. Nao e previsao, e historico.
+   *
+   * O placar de hoje e 4 a 4 — quatro subiram por ultimo (NZD, EUR, JPY, AUD) e quatro
+   * cortaram (USD, GBP, CAD, CHF). Isso ja separa os pares com divergencia de CICLO dos que
+   * estao no mesmo lado.
+   *
+   * ⚠️ Divergencia de ciclo NAO e sinal de entrada. E contexto: diz que os dois bancos estao
+   * em fases diferentes, o que e condicao necessaria para a tese do Eduardo, nao suficiente.
+   */
+  const PARES = [
+    "EURUSD","GBPUSD","AUDUSD","NZDUSD","USDJPY","USDCAD","USDCHF",
+    "EURGBP","EURJPY","EURAUD","EURNZD","EURCAD","EURCHF",
+    "GBPJPY","GBPAUD","GBPNZD","GBPCAD","GBPCHF",
+    "AUDJPY","AUDNZD","AUDCAD","AUDCHF",
+    "NZDJPY","NZDCAD","NZDCHF","CADJPY","CADCHF","CHFJPY",
+  ];
+
   function matrizPares() {
+    if (!M.bancos) return "";
+    const bs = M.bancos.bancos;
+    const ciclo = (m) => (bs[m] && bs[m].ultima_mudanca_bp > 0) ? 1
+                       : (bs[m] && bs[m].ultima_mudanca_bp < 0) ? -1 : 0;
+    const rot = { 1: "last move UP", "-1": "last move DOWN", 0: "unchanged" };
+
+    const subiram = Object.keys(bs).filter((m) => ciclo(m) > 0);
+    const cortaram = Object.keys(bs).filter((m) => ciclo(m) < 0);
+
+    const linhas = PARES.map((par) => {
+      const b = par.slice(0, 3), q = par.slice(3);
+      const cb = ciclo(b), cq = ciclo(q);
+      const diverge = cb !== cq;
+      const lado = diverge ? (cb > cq ? "base" : "quote") : null;
+      const dias = Math.min(bs[b] ? bs[b].dias_ate : 99, bs[q] ? bs[q].dias_ate : 99);
+      return { par, b, q, cb, cq, diverge, lado, dias };
+    }).sort((a, x) => (x.diverge - a.diverge) || (a.dias - x.dias));
+
+    const corpo = linhas.map((L) => `<tr class="${L.diverge ? "mac-div" : "mac-mesmo"}">
+      <td><strong>${L.par}</strong></td>
+      <td><span class="${L.cb > 0 ? "positive" : L.cb < 0 ? "negative" : "muted"}">
+          ${FLAG[L.b] || ""} ${L.b} · ${rot[L.cb]}</span></td>
+      <td><span class="${L.cq > 0 ? "positive" : L.cq < 0 ? "negative" : "muted"}">
+          ${FLAG[L.q] || ""} ${L.q} · ${rot[L.cq]}</span></td>
+      <td>${L.diverge
+            ? '<span class="mac-tag-div">cycle divergence</span>'
+            : '<span class="mac-tag-igual">same side</span>'}</td>
+      <td><small class="muted">next decision in ${L.dias}d</small></td>
+    </tr>`).join("");
+
     return `<section class="content-section mac-bloco">
-      <div class="section-title"><div><h2>Pair reading</h2></div>
-        <p>Both central banks moving the same way means no divergence — and no trade.</p></div>
-      <div class="mac-vazio">
-        <strong>Not published yet.</strong>
-        <p>The reading per currency comes from the released data measured against its forecast,
-           accumulated since that central bank's last meeting. The rule engine is written; it starts
-           producing once the live source for the released value is connected.</p>
-        <p class="muted">What will show here: the pair, BULL / BEAR / NO TRADE, and a conviction
-           percentage — never a score.</p>
+      <div class="section-title"><div><h2>Policy cycle by pair</h2></div>
+        <p>Where each central bank last went. Not a forecast — the direction of its last move.</p></div>
+
+      <div class="mac-placar">
+        <div><span>Last move UP</span><strong>${subiram.map((m) => FLAG[m] + " " + m).join("  ")}</strong></div>
+        <div><span>Last move DOWN</span><strong>${cortaram.map((m) => FLAG[m] + " " + m).join("  ")}</strong></div>
       </div>
+
+      <div class="table-wrap"><table class="mac-tabela mac-pares">
+        <thead><tr><th>Pair</th><th>Base leg</th><th>Quote leg</th>
+                   <th>Cycle</th><th>Nearest meeting</th></tr></thead>
+        <tbody>${corpo}</tbody></table></div>
+
+      <p class="method-note"><strong>Cycle divergence is context, not a signal.</strong> Two banks in
+        different phases is the necessary condition for a fundamental thesis — not a sufficient one.
+        What is still missing is the reading of what each one will <em>do next</em>, which comes from
+        the released data measured against its forecast. That needs the live source for the released
+        value, which is not connected yet.</p>
+      <p class="method-note">⚖️ <strong>Two legs, always.</strong> A pair is not an asset, it is two
+        currencies — read each side to find which one gives the reason. And pairs sharing that leg are
+        the same bet: on 2 Sep the GBPNZD move was 82% the kiwi, so NZDUSD, NZDCAD and AUDNZD were all
+        saying the same thing. Holding two of them does not diversify, it doubles.</p>
     </section>`;
   }
+
 
   /* ------------------------------------------------------------------ CALENDARIO */
 
@@ -299,6 +363,15 @@
       sys2.textContent = "Reading panel. It gives the fundamental side; the entry is yours.";
     }
 
+    // o rodape ainda descrevia o FUND: "Sovereign 2-year yield momentum across 28 FX crosses"
+    document.querySelectorAll("footer p, .site-footer p, footer small").forEach((el) => {
+      if (el.children.length) return;
+      if (/2-year yield momentum|yield momentum across/i.test(el.textContent || "")) {
+        el.textContent = "Central bank readings across 28 FX crosses. It gives the fundamental "
+          + "side of each leg — entries, sizing and execution remain discretionary.";
+      }
+    });
+
     const logo = document.querySelector(".brand-name, .logo-text");
     if (logo && /FUND/i.test(logo.textContent)) logo.textContent = "MACRO DIRECTION";
   }
@@ -399,6 +472,15 @@
   estilo.textContent = `
    .mac-bloco{margin-bottom:28px}
    .mac-frescor{font-size:12px;margin:10px 0 0}
+   .mac-placar{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:0 0 16px}
+   .mac-placar>div{padding:11px 13px;border:1px solid rgba(255,255,255,.09);border-radius:9px}
+   .mac-placar span{display:block;font-size:10.5px;text-transform:uppercase;
+     letter-spacing:.09em;opacity:.5;margin-bottom:5px}
+   .mac-placar strong{font-size:14px;letter-spacing:.03em}
+   .mac-pares tr.mac-mesmo{opacity:.42}
+   .mac-tag-div{font-size:10.5px;padding:2px 8px;border-radius:20px;
+     background:rgba(120,200,255,.16);color:#8fd0ff;white-space:nowrap}
+   .mac-tag-igual{font-size:10.5px;opacity:.5}
    .mac-fresco{color:#5fd08a}
    .mac-velho{color:#ffb84d;font-weight:600}
    .mac-abaixo{margin-top:26px;padding-top:22px;
