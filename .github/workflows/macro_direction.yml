@@ -1,4 +1,4 @@
-# MACRO DIRECTION — a cadeia rapida.
+# MACRO DIRECTION — a cadeia rapida. Roda sozinha, sem a maquina de ninguem.
 #
 # POR QUE ELA EXISTE
 #   A cadeia pesada roda 2x por dia (04:35 e 08:35 BRT). Isso serve para curva de juro, que e
@@ -6,12 +6,26 @@
 #   Ate 02/set os scripts do leitor nao estavam em cadeia nenhuma — so rodavam quando alguem
 #   os executava na mao, e por isso o painel ficava congelado.
 #
+# O QUE ELA PRODUZ, EM ORDEM
+#   1. calendario_resultado.json  FXStreet: divulgado + consenso + surpresa, 8 moedas, com o
+#                                 atraso de entrega medido por evento (HIGH: mediana ~44 s)
+#   2. eua_leitura.json           BLS (CPI, NFP, desemprego, salario) + calendario do FOMC
+#   3. bancos_centrais.json       as 8 taxas e as proximas reunioes
+#   4. macro_eventos.json         o calendario INTERPRETADO — le a FXStreet; cai no Forex
+#                                 Factory so se a FXStreet faltar
+#
 # ⚠️ O LIMITE HONESTO: o GitHub Actions NAO e tempo real.
-#   O minimo do cron e 5 minutos, e agendamento em horario de pico atrasa — as vezes 10 a 20
-#   minutos. Entao "*/15" na pratica quer dizer "a cada 15 a 35 minutos".
-#   Para atualizacao no INSTANTE da divulgacao seria preciso a pagina buscar de uma fonte ao
-#   vivo, que e justamente o buraco que ainda nao fechamos (o feed do Forex Factory nao traz
-#   o campo do resultado). Isto aqui e o melhor alcancavel hoje, e esta declarado.
+#   O minimo do cron e 5 minutos, e a propria documentacao do GitHub diz que o `schedule`
+#   "can be delayed during periods of high loads" e que "some queued jobs may be dropped".
+#   Entao "*/15" na pratica quer dizer "a cada 15 a 35 minutos". A FONTE entrega em segundos;
+#   o RELOGIO e que entrega em minutos. Para leitura no instante e preciso um processo
+#   sempre ligado (VPS de ~US$5/mes), e essa decisao e anterior a qualquer fornecedor.
+#
+# ⚠️ CADA FONTE FALHA SOZINHA. Os leitores externos rodam com continue-on-error e nunca
+#   sobrescrevem o arquivo anterior quando a busca falha — o site mostra dado de 1 h atras com
+#   o carimbo de 1 h atras, nunca dado velho com carimbo novo. A cota do BLS (25/dia sem
+#   chave) e a razao do cache de 60 min dentro do eua_leitor.py; com BLS_API_KEY nos secrets
+#   viram 500/dia.
 #
 # CUSTO: zero. Actions e ilimitado em repositorio publico.
 
@@ -43,9 +57,10 @@ jobs:
       - name: encoding
         run: echo "PYTHONIOENCODING=utf-8" >> $GITHUB_ENV
 
-      # O feed semanal do Forex Factory. Baixado direto, sem passar pelo TTL do
-      # update_fund.py — aquele TTL e de 2 horas e bloquearia a atualizacao de 15 minutos.
-      - name: feed do calendario
+      # O feed semanal do Forex Factory — a RESERVA. Baixado direto, sem passar pelo TTL do
+      # update_fund.py (2 horas, bloquearia a atualizacao de 15 minutos).
+      - name: feed de reserva (Forex Factory)
+        continue-on-error: true
         run: |
           mkdir -p data/raw
           curl -sS -L --max-time 60 --retry 2 \
@@ -71,6 +86,26 @@ jobs:
                   os.remove(novo)
           PY
 
+      # A PRIMARIA. Sai com codigo 1 e NAO sobrescreve quando a fonte nao responde — por isso
+      # o continue-on-error: o passo fica vermelho no log, a cadeia segue com o arquivo anterior.
+      - name: calendario com resultado (FXStreet)
+        continue-on-error: true
+        run: python fxstreet_calendario.py
+
+      # BLS + Fed. Cache de 60 min dentro do script: o dado e mensal, e a cota e diaria.
+      # Sai com codigo 2 quando a cota acaba, preservando a leitura anterior.
+      - name: leitor dos Estados Unidos (BLS + Fed)
+        continue-on-error: true
+        env:
+          BLS_API_KEY: ${{ secrets.BLS_API_KEY }}
+        run: python eua_leitor.py
+
+      # A camada de TEXTO: frases de postura dos discursos e do comunicado, direto do Fed.
+      # Extracao por expressao, rotulada como tal — nao e interpretacao.
+      - name: discursos do Fed (frases de postura)
+        continue-on-error: true
+        run: python fed_discursos.py
+
       - name: gera o leitor
         run: |
           python bancos_centrais.py
@@ -82,7 +117,9 @@ jobs:
         run: |
           git config user.name  "hci-bot"
           git config user.email "bot@hokiresearch.com"
-          git add data/macro_eventos.json data/bancos_centrais.json data/raw/ff_calendar_thisweek.json
+          git add data/macro_eventos.json data/bancos_centrais.json \
+                  data/calendario_resultado.json data/eua_leitura.json \
+                  data/fed_discursos.json data/raw/ff_calendar_thisweek.json
           if git diff --cached --quiet; then
             echo "nada mudou — sem commit"
           else

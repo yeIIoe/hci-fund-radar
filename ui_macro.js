@@ -58,7 +58,7 @@
     try { window[nome] = protegida; } catch (e) { /* ignora */ }
   });
 
-  const M = { bancos: null, eventos: null, pronto: false,
+  const M = { bancos: null, eventos: null, eua: null, pronto: false,
               mes: new Date(), diaSel: null,
               parSel: null, filtro: "todos", moedaSel: null,
               menuAgrupado: false };
@@ -88,8 +88,11 @@
         return r.ok ? await r.json() : null;
       } catch (e) { return null; }
     };
-    [M.bancos, M.eventos] = await Promise.all([
+    // O leitor dos EUA e OPCIONAL: se o arquivo faltar (cota do BLS, fonte fora), o resto do
+    // painel desenha igual. So o bloco dos EUA some — e some declarado, nao em branco.
+    [M.bancos, M.eventos, M.eua, M.discursos] = await Promise.all([
       pega("data/bancos_centrais.json"), pega("data/macro_eventos.json"),
+      pega("data/eua_leitura.json"), pega("data/fed_discursos.json"),
     ]);
     M.pronto = !!(M.bancos && M.eventos);
   }
@@ -106,9 +109,19 @@
                  : min < 90 ? min + " minutes ago"
                  : Math.round(min / 60) + " hours ago";
     const velho = min > 45;
-    return `<span class="${velho ? "mac-velho" : "mac-fresco"}">Calendar updated ${quando}</span>` +
+    const base = `<span class="${velho ? "mac-velho" : "mac-fresco"}">Calendar updated ${quando}</span>` +
            ` · refreshed every ~15 min, though scheduled runs can lag at peak hours` +
            (velho ? " — this one is late." : ".");
+
+    // Duas defasagens, separadas de proposito. A de cima e o RELOGIO (o cron). A de baixo e a
+    // FONTE: quanto o numero levou do horario agendado ate aparecer nela, medido nesta rodada
+    // e nao alegado. Confundir as duas foi um erro meu em 02/set.
+    const L = M.eventos && M.eventos.latencia_medida;
+    if (!L || L.mediana_alta == null) return base;
+    const lento = L.mediana_alta > 120;
+    return base + `<br><span class="${lento ? "mac-velho" : "mac-fresco"}">Source delivery, measured this run:</span>` +
+      ` high-impact prints land <b>${fmtAtraso(L.mediana_alta)}</b> after the scheduled time` +
+      ` (median, n=${L.n_alta}; p90 ${fmtAtraso(L.p90_alta)} — the tail is revisions re-touching old records, not late first prints). The clock above is the bottleneck, not the source.`;
   }
 
   /* ------------------------------------------------------------------ OVERVIEW */
@@ -122,11 +135,11 @@
     const linhas = ordem.map((m) => {
       const b = bs[m];
       const dias = b.dias_ate;
-      const quando = dias === 0 ? "hoje" : dias === 1 ? "amanha" : `em ${dias} dias`;
+      const quando = dias === 0 ? "today" : dias === 1 ? "tomorrow" : `in ${dias} days`;
       const urgente = dias !== null && dias <= 7;
       const hora = b.hora_local
         ? `${b.hora_local} ${b.fuso.split("/")[1].replace("_", " ")}`
-        : "sem hora fixa";
+        : "no fixed release time";
       const emBrt = b.proxima_utc ? brt(b.proxima_utc) : null;
       const mov = b.ultima_mudanca_bp;
       return `<tr class="${urgente ? "mac-urgente" : ""}">
@@ -227,7 +240,25 @@
       <div class="mac-perna-linha muted">next decision <strong>${quando}</strong>
         <small>&middot; ${esc(b.proxima || "—")}</small></div>
       <div class="mac-perna-linha muted"><small>${hora}</small></div>
+      ${ultimosPrintsEUA(m)}
     </div>`;
+  }
+
+  // A perna do dolar ganha a ultima leitura do BLS, porque o USD e uma das pernas na maioria
+  // do book — e e a mesma taxa que ouro, NQ e ES respondem.
+  function ultimosPrintsEUA(m) {
+    if (m !== "USD" || !M.eua || !M.eua.indicadores) return "";
+    const I = M.eua.indicadores;
+    const cpi = I.CUSR0000SA0, core = I.CUSR0000SA0L1E, nfp = I.CES0000000001, u = I.LNS14000000;
+    const p = (x, d = 2) => (x === null || x === undefined) ? "—" : (x > 0 ? "+" : "") + x.toFixed(d);
+    const partes = [];
+    if (cpi && cpi.aa != null) partes.push(`CPI <b>${p(cpi.aa)}%</b> y/y`);
+    if (core && core.aa != null) partes.push(`core <b>${p(core.aa)}%</b>`);
+    if (nfp && nfp.mm != null) partes.push(`NFP <b>${p(nfp.mm, 0)}k</b> m/m`);
+    if (u && u.valor != null) partes.push(`unemployment <b>${u.valor.toFixed(1)}%</b>`);
+    if (!partes.length) return "";
+    const ref = cpi && cpi.referencia ? cpi.referencia : "";
+    return `<div class="mac-perna-linha mac-perna-eua">latest prints <small class="muted">(${esc(ref)})</small><br>${partes.join(" &middot; ")}</div>`;
   }
 
   function detalhePar(par) {
@@ -336,11 +367,135 @@
 
 
 
+  /* ------------------------------------------------------------ ESTADOS UNIDOS */
+
+  // O bloco dos EUA na Overview. Direto do BLS e do Fed, sem intermediario.
+  // Dois relogios separados de proposito: o mes que o dado DESCREVE (referencia, universal —
+  // a Bloomberg tem a mesma) e o tempo do release ate aqui (entrega, ainda nao medido).
+  function painelEUA() {
+    const U = M.eua;
+    if (!U || !U.indicadores) return "";
+    const I = U.indicadores;
+    const ORDEM = ["CUSR0000SA0", "CUSR0000SA0L1E", "CES0000000001", "LNS14000000",
+                   "CES0500000003", "LNS11300000"];
+    const sinal = (x, d) => (x === null || x === undefined) ? "—"
+      : (x > 0 ? "+" : "") + Number(x).toFixed(d);
+    const varia = (x, un) => {
+      if (x === null || x === undefined) return "—";
+      if (un === "%") return sinal(x, 2) + "%";
+      if (un === "pp") return sinal(x, 2) + " pp";
+      if (un === "mil") return sinal(x, 0) + "k";
+      return sinal(x, 2);
+    };
+    const nivel = (r) => {
+      if (r.valor === null || r.valor === undefined) return "—";
+      if (r.unidade === "mil") return Number(r.valor).toLocaleString("en-US", { maximumFractionDigits: 0 }) + "k";
+      if (r.unidade === "pp") return Number(r.valor).toFixed(1) + "%";
+      return Number(r.valor).toLocaleString("en-US", { maximumFractionDigits: 3 });
+    };
+    const linhas = ORDEM.filter((k) => I[k]).map((k) => {
+      const r = I[k];
+      return `<tr>
+        <td>${esc(r.nome)}${r.preliminar
+          ? ' <span class="mac-prelim" title="the BLS still revises the next two prints">prelim</span>' : ""}</td>
+        <td class="mac-num-td">${nivel(r)}</td>
+        <td class="mac-num-td">${varia(r.mm, r.unidade)}</td>
+        <td class="mac-num-td">${varia(r.aa, r.unidade)}</td>
+        <td class="muted mac-ref-td">${esc(r.referencia || "")}</td></tr>`;
+    }).join("");
+
+    const f = U.fomc && U.fomc.proxima;
+    const b = M.bancos && M.bancos.bancos && M.bancos.bancos.USD;
+    let fomc = "";
+    if (f && f.data) {
+      const dias = Math.round((new Date(f.data + "T00:00:00Z").getTime() - Date.now()) / 864e5);
+      fomc = `<div class="mac-eua-fomc">
+        <span class="mac-perna-papel">Next FOMC decision</span>
+        <div class="mac-eua-dias">${dias <= 0 ? "today" : dias}<small>${dias <= 0 ? "" : dias === 1 ? "day" : "days"}</small></div>
+        <div class="mac-perna-linha">${esc(f.rotulo)} &middot; ${esc(f.data)}</div>
+        ${f.com_projecoes ? '<span class="mac-dot" title="the meeting that publishes the committee\'s own rate path — the one that moves price most">with projections · dot plot</span>' : ""}
+        ${b ? `<div class="mac-perna-linha muted mac-eua-taxa">Fed funds <b>${esc(b.taxa_texto)}</b>
+          <small>&middot; last move ${esc(b.ultima_mudanca || "")}${b.ultima_mudanca_bp ? " (" + (b.ultima_mudanca_bp > 0 ? "+" : "") + b.ultima_mudanca_bp + " bp)" : ""}</small></div>` : ""}
+      </div>`;
+    }
+
+    const refs = Object.values(I).map((r) => r.referencia).filter(Boolean).sort();
+    const ref = refs.length ? refs[refs.length - 1] : null;
+    const atrasoRef = U.defasagem_referencia_meses;
+    const entrega = U.defasagem_entrega_ms
+      ? `${Math.round(U.defasagem_entrega_ms / 1000)} s`
+      : "not measured yet — Friday's payrolls print times it";
+
+    const fed = ((U.fed && U.fed.ultimos) || []).slice(0, 3).map((x) =>
+      `<li><span class="muted">${esc((x.publicado || "").slice(0, 16))}</span> ${
+        x.link ? `<a href="${esc(x.link)}" target="_blank" rel="noopener">${esc(x.titulo || "")}</a>`
+               : esc(x.titulo || "")}</li>`).join("");
+
+    return `<section class="content-section mac-bloco mac-eua">
+      <div class="section-title"><div><h2>United States</h2></div>
+        <p>One leg of most pairs, and the rate that gold, NQ and ES answer to. Read straight from
+           the BLS and the Fed — no intermediary.</p></div>
+      <div class="mac-eua-grid">
+        ${fomc}
+        <div class="mac-eua-tabela">
+          <table class="mac-tabela">
+            <thead><tr><th>indicator</th><th class="mac-num-th">latest</th><th class="mac-num-th">m/m</th>
+              <th class="mac-num-th">y/y</th><th>month</th></tr></thead>
+            <tbody>${linhas}</tbody>
+          </table>
+        </div>
+      </div>
+      <p class="mac-eua-nota">${ref ? `The newest prints describe <b>${esc(ref)}</b>${
+          atrasoRef != null ? ` — ${atrasoRef} month${atrasoRef === 1 ? "" : "s"} back` : ""}. That is the month that
+        ended, not a delivery delay; every terminal has the same lag.` : ""}
+        Delivery (release → here): <b>${entrega}</b>.</p>
+      ${falasDoFed()}
+      ${fed ? `<details class="mac-det-mais mac-eua-fed"><summary>Latest from the Fed</summary>
+        <ul>${fed}</ul></details>` : ""}
+    </section>`;
+  }
+
+  // O que os membros do Fed DISSERAM — a camada de texto. O calendario de numeros marcava
+  // "Fed's Waller speech" com actual=None no minuto em que o texto dizia "raise the policy
+  // rate". Aqui entra a frase. E extracao por expressao, rotulada como tal, nao leitura.
+  function falasDoFed() {
+    const D = M.discursos;
+    if (!D || !Array.isArray(D.itens) || !D.itens.length) return "";
+    const itens = D.itens.slice(0, 4).map((s) => {
+      const f = (s.frases && s.frases[0] && s.frases[0].frase) || "";
+      const lean = s.inclinacao_por_contagem || "none";
+      return `<li class="mac-fala">
+        <div class="mac-fala-topo"><span class="muted mac-ref-td">${esc(s.data)}</span>
+          <strong>${esc(s.orador)}</strong>
+          <span class="mac-lean mac-lean-${esc(lean)}">${
+            lean === "none" ? "no policy markers" : esc(lean) + " by count"}
+            <small>${s.marcadores_hawkish}h / ${s.marcadores_dovish}d</small></span>
+          ${s.link ? `<a class="mac-fala-link" href="${esc(s.link)}" target="_blank" rel="noopener">${esc((s.titulo || "").slice(0, 70))}</a>` : ""}</div>
+        ${f ? `<blockquote class="mac-fala-frase">“${esc(f.slice(0, 260))}${f.length > 260 ? "…" : ""}”</blockquote>` : ""}
+      </li>`;
+    }).join("");
+    return `<div class="mac-falas">
+      <div class="mac-falas-titulo"><span class="mac-perna-papel">What Fed speakers said</span>
+        <small class="muted">policy sentences pulled by expression match — a pointer to what to read, not a reading</small></div>
+      <ul>${itens}</ul></div>`;
+  }
+
   /* ------------------------------------------------------------------ CALENDARIO */
+
+  // O DIA e em BRT — a lei do Eduardo: as horas dele sao BRT. A grade agrupava por dia UTC e
+  // mostrava o Trade Balance australiano das 01:30 UTC de 03/09 dentro do dia 03 com a hora
+  // "02/09 22:30 BRT" ao lado. Mesma classe do erro de relogio que ja custou caro duas vezes.
+  function diaBrt(iso) {
+    if (!iso) return "";
+    const d = new Date(iso);
+    if (isNaN(d)) return "";
+    return new Date(d.getTime() + BRT * 3600e3).toISOString().slice(0, 10);
+  }
+  function hojeBrt() { return diaBrt(new Date().toISOString()); }
 
   function eventosDoDia(iso) {
     if (!M.eventos) return [];
-    return M.eventos.eventos.filter((e) => (e.quando_utc || "").slice(0, 10) === iso);
+    return M.eventos.eventos.filter((e) => diaBrt(e.quando_utc) === iso);
   }
 
   function celulaEventos(iso) {
@@ -356,22 +511,75 @@
     </div>`;
   }
 
+  // Atraso de entrega em unidade legivel. "+16641 s" nao diz nada; "+4.6 h" diz.
+  function fmtAtraso(s) {
+    const n = Number(s);
+    if (isNaN(n)) return "";
+    if (n < 120) return Math.round(n) + " s";
+    if (n < 7200) return Math.round(n / 60) + " min";
+    return (Math.round(n / 360) / 10) + " h";
+  }
+
+  // Numero com a unidade da fonte. Nulo continua "—": 0.0 e um resultado, nao uma ausencia.
+  function fmtN(v, un) {
+    if (v === null || v === undefined || v === "") return "—";
+    const n = Number(v);
+    if (isNaN(n)) return esc(v);
+    const s = Math.abs(n) >= 1000 ? n.toLocaleString("en-US", { maximumFractionDigits: 1 })
+            : String(Math.round(n * 1000) / 1000);
+    if (!un) return s;
+    return /^(%|K|M|B|pp)$/.test(un) ? s + esc(un) : s + " " + esc(un);
+  }
+
   function fichaEvento(e) {
     const cen = (e.cenarios || []).map((c) =>
       `<li><span>${esc(c.caso)}</span><strong>${esc(c.empurra)}</strong></li>`).join("");
-    const barra = e.previsao
-      ? `<div class="mac-barra"><span>forecast <b>${esc(e.previsao)}</b></span>
-           <span>previous <b>${esc(e.anterior || "—")}</b></span>
-           <span>actual <b>${esc(e.resultado || "not out")}</b></span></div>`
-      : `<div class="mac-barra mac-sem"><span>no forecast published — a surprise cannot be measured</span></div>`;
+    const saiu = e.resultado !== null && e.resultado !== undefined && e.resultado !== "";
+    const temPrev = e.previsao !== null && e.previsao !== undefined && e.previsao !== "";
+
+    // quanto o numero levou do horario agendado ate a fonte — medido, por evento
+    const atraso = (saiu && e.atraso_s !== null && e.atraso_s !== undefined)
+      ? `<span class="mac-atraso${e.atraso_s > 300 ? " mac-atraso-lento" : ""}"
+           title="time from the scheduled release to the value landing in the source — a late stamp usually means a later revision touched the record, not a late first print">landed +${fmtAtraso(e.atraso_s)}</span>`
+      : "";
+    const surp = (saiu && temPrev && e.diferenca !== null && e.diferenca !== undefined)
+      ? `<span class="mac-surp ${e.empurrao > 0 ? "positive" : e.empurrao < 0 ? "negative" : "muted"}">${
+          Number(e.diferenca) === 0 ? "= forecast"
+            : (e.diferenca > 0 ? "+" : "") + fmtN(e.diferenca, e.unidade) + " vs forecast"}</span>`
+      : "";
+    const revis = (e.revisado !== null && e.revisado !== undefined)
+      ? ` <small class="muted">→ revised ${fmtN(e.revisado, e.unidade)}</small>` : "";
+
+    let barra;
+    if (e.discurso) {
+      barra = `<div class="mac-barra mac-sem"><span>a speech — no number to measure; the text is the release</span></div>`;
+    } else if (temPrev || saiu) {
+      barra = `<div class="mac-barra">
+           <span>forecast <b>${fmtN(e.previsao, e.unidade)}</b></span>
+           <span>previous <b>${fmtN(e.anterior, e.unidade)}</b>${revis}</span>
+           <span>actual <b>${saiu ? fmtN(e.resultado, e.unidade) : "not out"}</b>${surp}</span>
+           ${atraso}</div>` +
+        (saiu && !temPrev
+          ? `<div class="mac-barra mac-sem"><span>released without a published forecast — the surprise cannot be measured</span></div>`
+          : "");
+    } else {
+      barra = `<div class="mac-barra mac-sem"><span>no forecast published — a surprise cannot be measured</span></div>`;
+    }
+
     const leitura = e.estado === "DIVULGADO"
       ? `<p class="mac-leitura ${e.empurrao > 0 ? "positive" : e.empurrao < 0 ? "negative" : "muted"}">
            <strong>${esc(e.classe || "")}</strong> — ${esc(e.empurrao_texto)}</p>`
       : "";
+    const avisos = [
+      e.data_a_confirmar ? "time tentative" : "",
+      e.preliminar ? "preliminary print" : "",
+    ].filter(Boolean).join(" · ");
+
     return `<article class="mac-ficha">
       <header><span class="mac-hora">${brt(e.quando_utc) || ""} BRT</span>
         <strong>${FLAG[e.moeda] || ""} ${esc(e.titulo)}</strong>
-        <span class="tag">${esc(e.impacto)}</span></header>
+        <span class="tag">${esc(e.impacto)}</span>${
+          avisos ? `<small class="muted mac-aviso">${esc(avisos)}</small>` : ""}</header>
       ${barra}${leitura}
       ${e.porque ? `<p class="mac-porque">${esc(e.porque)}</p>` : ""}
       ${cen ? `<ul class="mac-cenarios">${cen}</ul>` : ""}
@@ -412,6 +620,15 @@
     if (marca && /^\s*FUND\s*$/i.test(marca.textContent)) marca.textContent = "MACRO DIRECTION";
     const escopo = document.querySelector(".identity .scope");
     if (escopo && /^\s*FX MACRO\s*$/i.test(escopo.textContent)) escopo.remove();
+
+    // O carimbo do cabecalho ficava em "Loading" para sempre: quem o preenchia era um
+    // desenhista do FUND, hoje desligado. Passa a ser a hora do calendario — em BRT.
+    const carimbo = document.getElementById("updatedAt");
+    const g = M.eventos && M.eventos.gerado_em;
+    if (carimbo && g) {
+      const h = brt(g);
+      if (h) carimbo.textContent = "data " + h + " BRT";
+    }
 
     const sys = document.getElementById("systemMessage");
     if (sys && /FUND/i.test(sys.textContent)) {
@@ -490,7 +707,7 @@
     const primeiro = new Date(Date.UTC(ano, mes, 1));
     const vazios = (primeiro.getUTCDay() + 6) % 7;           // semana comeca na segunda
     const ndias = new Date(Date.UTC(ano, mes + 1, 0)).getUTCDate();
-    const hojeIso = new Date().toISOString().slice(0, 10);
+    const hojeIso = hojeBrt();
 
     let html = "";
     for (let i = 0; i < vazios; i++) html += '<div class="mac-dia-vazio"></div>';
@@ -604,6 +821,14 @@
     // Repetir a mesma tabela em duas abas so gera ruido — e foi o que o Eduardo apontou no
     // FUND: informacao demais na tela confunde mais do que informa.
     if (over && !over.querySelector(".mac-bloco")) over.innerHTML = painelBancos();
+    // O bloco dos EUA entra DEPOIS das reunioes e contido: um erro nele nao pode apagar a
+    // Overview inteira — foi assim que o site caiu da segunda vez.
+    if (over && over.querySelector(".mac-bloco") && !over.querySelector(".mac-eua")) {
+      try {
+        const h = painelEUA();
+        if (h) over.insertAdjacentHTML("beforeend", h);
+      } catch (e) { console.warn("[macro] painel dos EUA falhou e foi contido:", e.message); }
+    }
 
     // PARES: o mesmo, ate o leitor produzir
     const pares = document.querySelector('[data-panel="pairs"]');
@@ -645,6 +870,65 @@
   const estilo = document.createElement("style");
   estilo.textContent = `
    .mac-bloco{margin-bottom:28px}
+   /* --- Estados Unidos: contagem para o FOMC a esquerda, os prints do BLS a direita --- */
+   .mac-eua{margin-top:22px}
+   .mac-eua-grid{display:grid;grid-template-columns:minmax(230px,290px) 1fr;gap:18px;
+     align-items:start}
+   .mac-eua-fomc{border:1px solid rgba(255,255,255,.09);border-radius:12px;padding:16px 18px}
+   .mac-eua-dias{font-size:38px;font-weight:600;letter-spacing:-.02em;line-height:1;
+     font-variant-numeric:tabular-nums;margin:6px 0 8px}
+   .mac-eua-dias small{font-size:13px;font-weight:400;opacity:.55;margin-left:7px;
+     letter-spacing:0}
+   .mac-dot{display:inline-block;margin-top:9px;font-size:10.5px;letter-spacing:.08em;
+     text-transform:uppercase;padding:3px 10px;border-radius:20px;
+     background:rgba(94,234,212,.14);color:#5eead4}
+   .mac-eua-taxa{margin-top:12px;padding-top:10px;border-top:1px solid rgba(255,255,255,.07)}
+   .mac-eua-tabela{overflow-x:auto}
+   .mac-num-td,.mac-num-th{text-align:right;white-space:nowrap}
+   .mac-num-td{font-family:var(--font-mono);font-variant-numeric:tabular-nums}
+   .mac-ref-td{font-family:var(--font-mono);font-size:12px}
+   .mac-prelim{font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;opacity:.55;
+     border:1px solid rgba(255,255,255,.18);border-radius:4px;padding:1px 5px;margin-left:6px;
+     vertical-align:middle}
+   .mac-eua-nota{font-size:12.5px;line-height:1.6;opacity:.7;margin:14px 0 0;max-width:72ch}
+   .mac-eua-fed ul{list-style:none;padding:0;margin:8px 0 0;font-size:12.5px}
+   .mac-eua-fed li{margin:5px 0;opacity:.85}
+   .mac-eua-fed a{color:inherit}
+   .mac-perna-eua{margin-top:9px;padding-top:9px;border-top:1px solid rgba(255,255,255,.07);
+     font-size:12px;line-height:1.7}
+   /* --- falas do Fed: a frase de postura, com o indice de contagem ao lado --- */
+   .mac-falas{margin-top:18px;padding-top:14px;border-top:1px solid rgba(255,255,255,.07)}
+   .mac-falas-titulo{display:flex;gap:12px;align-items:baseline;flex-wrap:wrap;margin-bottom:8px}
+   .mac-falas-titulo small{font-size:11.5px}
+   .mac-falas ul{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+   .mac-fala{border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:11px 14px}
+   .mac-fala-topo{display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-size:13px}
+   .mac-fala-link{color:inherit;opacity:.6;font-size:12px;text-decoration:none;
+     border-bottom:1px dotted rgba(255,255,255,.3)}
+   .mac-fala-link:hover{opacity:1}
+   .mac-lean{font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;padding:2px 9px;
+     border-radius:20px;background:rgba(255,255,255,.06)}
+   .mac-lean small{opacity:.6;margin-left:5px;letter-spacing:0;text-transform:none;
+     font-family:var(--font-mono)}
+   .mac-lean-hawkish{background:rgba(248,122,122,.14);color:#f87a7a}
+   .mac-lean-dovish{background:rgba(82,217,138,.14);color:#52d98a}
+   .mac-lean-mixed{background:rgba(240,180,41,.14);color:#f0b429}
+   .mac-fala-frase{margin:9px 0 0;padding:0 0 0 12px;border-left:2px solid rgba(94,234,212,.5);
+     font-size:13px;line-height:1.6;opacity:.9;font-style:italic}
+   /* --- ficha do evento: surpresa e atraso de entrega, medidos --- */
+   .mac-surp{font-family:var(--font-mono);font-size:11px;padding:2px 8px;border-radius:5px;
+     margin-left:8px;white-space:nowrap}
+   .mac-surp.positive{background:rgba(82,217,138,.12)}
+   .mac-surp.negative{background:rgba(248,122,122,.12)}
+   .mac-surp.muted{background:rgba(255,255,255,.06)}
+   .mac-atraso{font-family:var(--font-mono);font-size:10.5px;padding:2px 7px;border-radius:5px;
+     background:rgba(82,217,138,.12);color:#52d98a;white-space:nowrap;margin-left:auto}
+   .mac-atraso-lento{background:rgba(240,180,41,.14);color:#f0b429}
+   .mac-aviso{font-size:10.5px;letter-spacing:.04em}
+   @media (max-width:900px){
+     .mac-eua-grid{grid-template-columns:1fr}
+     .mac-eua-dias{font-size:30px}
+   }
    .mac-frescor{font-size:12px;margin:10px 0 0}
    .mac-nav-grupos{display:flex;gap:22px;flex-wrap:wrap;align-items:flex-end;width:100%}
    .mac-nav-grupo{display:flex;flex-direction:column;gap:4px}

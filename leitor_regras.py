@@ -41,14 +41,23 @@ FAMILIAS = {
     # ---------------- INFLACAO — o mandato. Peso maximo.
     "inflacao_nucleo": {
         "peso": 10, "sinal": +1,
+        # ⚠️ dois vocabularios: o Forex Factory escreve "core cpi"; a FXStreet escreve
+        # "Core Consumer Price Index" e "Core Harmonized Index of Consumer Prices".
+        # Sem os dois, nenhum nucleo da FXStreet casava — conferido em 02/set contra os
+        # 96 titulos HIGH/MEDIUM da semana.
         "padroes": ["core cpi", "core inflation", "trimmed mean", "core pce", "core hicp",
-                    "median cpi", "core ppi"],
+                    "median cpi", "core ppi", "core consumer price", "core harmonized",
+                    "core personal consumption", "core producer price"],
         "porque": "What the central bank actually targets. Core above forecast is the strongest "
                   "case for tightening there is: it removes the 'it was energy and food' alibi.",
     },
     "inflacao_cheia": {
         "peso": 7, "sinal": +1,
-        "padroes": ["cpi", "hicp", "inflation rate", "ppi", "rpi"],
+        # "prices paid" e o sub-indice de precos do ISM — conta como inflacao, nao como
+        # atividade, e por isso esta AQUI e nao no pmi (a ordem de casamento garante).
+        "padroes": ["cpi", "hicp", "inflation rate", "ppi", "rpi", "consumer price index",
+                    "harmonized index of consumer prices", "producer price index",
+                    "prices paid", "personal consumption expenditures"],
         "porque": "It matters, but the central bank discounts energy and food shocks. A high "
                   "headline with a well-behaved core weighs LESS than the number suggests.",
     },
@@ -63,7 +72,7 @@ FAMILIAS = {
     "emprego_criacao": {
         "peso": 8, "sinal": +1,
         "padroes": ["non-farm employment", "nfp", "employment change", "payrolls",
-                    "job gains", "adp"],
+                    "job gains", "adp", "net change in employment", "job openings"],
         "porque": "A tight labour market sustains wages and services, the stubborn part of "
                   "inflation. Strong reading = hawkish.",
     },
@@ -76,7 +85,7 @@ FAMILIAS = {
     "salarios": {
         "peso": 9, "sinal": +1,
         "padroes": ["average earnings", "wage", "labor cost", "shunto", "hourly earnings",
-                    "employment cost"],
+                    "employment cost", "cash earnings"],
         "porque": "The link between labour and services inflation. For the BoJ and the BoE it is "
                   "the number they publicly say they are waiting for.",
     },
@@ -102,7 +111,8 @@ FAMILIAS = {
     },
     "varejo": {
         "peso": 4, "sinal": +1,
-        "padroes": ["retail sales", "consumer spending", "household spending"],
+        "padroes": ["retail sales", "consumer spending", "household spending", "retail trade",
+                    "retailer sales"],
         "porque": "Domestic demand, which is what the policy rate actually controls.",
     },
     "producao": {
@@ -139,7 +149,7 @@ FAMILIAS = {
     "coletiva": {
         "peso": 0, "sinal": +1,
         "padroes": ["press conference", "gov ", "governor speaks", "chair", "president speaks",
-                    "testifies", "speech"],
+                    "testifies", "speech", "hearings", "testimony"],
         "porque": "Where the GUIDANCE usually appears. Weight is 0 because how much it matters "
                   "varies by central bank — measure before scoring.",
     },
@@ -149,7 +159,8 @@ FAMILIAS = {
         "peso": 0, "sinal": +1,      # peso 0: nao entra no acumulado, ZERA o ciclo
         "padroes": ["official cash rate", "cash rate", "rate statement", "interest rate decision",
                     "policy rate", "monetary policy statement", "fomc statement", "bank rate",
-                    "overnight rate", "ocr", "refi rate", "deposit facility"],
+                    "overnight rate", "ocr", "refi rate", "deposit facility",
+                    "monetary policy review", "monetary policy decision"],
         "porque": "It does not feed the running score — it CLOSES the cycle. What matters "
                   "here is the outcome against expectations and, above all, the GUIDANCE. "
                   "On 8 Jul 2026 the RBNZ hike was already priced and price moved only on "
