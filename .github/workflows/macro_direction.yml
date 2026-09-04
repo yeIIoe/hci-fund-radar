@@ -124,16 +124,16 @@ jobs:
         continue-on-error: true
         run: python correlacao_juros.py
 
-      - name: sentimento (moeda e par)
-        continue-on-error: true
-        run: python sentimento.py
-
-      # Geopolitica (GDELT): intensidade do noticiario por moeda, com a regra declarada ao
-      # lado. Camada de contexto — NAO entra na conviccao. Cache de 3 h no script; a API
-      # limita a taxa e o script espera 6 s entre chamadas (~4 min quando roda).
+      # Geopolitica (GDELT) ANTES do sentimento: e a 4a dimensao dele e a segunda perna do
+      # ouro (decisao do Eduardo, 04/set). Cache de 3 h no script; a API limita a taxa e o
+      # script espera 12 s entre chamadas, com orcamento de 8 min.
       - name: geopolitica (GDELT)
         continue-on-error: true
         run: python geopolitica.py
+
+      - name: sentimento (moeda e par)
+        continue-on-error: true
+        run: python sentimento.py
 
       # Commit so quando o conteudo mudou de verdade. Sem isto seriam 96 commits vazios por
       # dia, e o historico do repositorio viraria lixo.

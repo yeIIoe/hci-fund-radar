@@ -341,13 +341,17 @@
   }
 
   const ROT_SINAL = { BULL: "BULL", BEAR: "BEAR", SEM_TESE: "no edge", "NAO NEGOCIA": "no trade", SEM_DADO: "no data" };
+  // faixa de forca da vantagem entre as pernas (sentimento.py: fraca <=13%, media <=25%,
+  // forte <=50%, muito forte acima). O numero e fracao do MAXIMO teorico — uma perna toda
+  // alta contra a outra toda corte — por isso 25% ja e "media" num mundo em manutencao.
+  const ROT_FORCA = { fraca: "weak", media: "moderate", forte: "strong", "muito forte": "very strong" };
   const CLS_SINAL = { BULL: "v-bull", BEAR: "v-bear", SEM_TESE: "v-nao", "NAO NEGOCIA": "v-nao", SEM_DADO: "v-nao" };
 
   function itemLista(d) {
     const sel = d.par === M.parSel ? " mac-item-sel" : "";
     const tag = d.s
       ? `<span class="mac-item-tag ${CLS_SINAL[d.s.sinal] || "v-nao"}">${ROT_SINAL[d.s.sinal] || esc(d.s.sinal)}${
-          d.tese ? ` <b>${d.conv}%</b>` : ""}</span>`
+          d.tese ? ` <b>${d.conv}%</b>${d.s.rotulo && ROT_FORCA[d.s.rotulo] ? ` <small class="mac-forca">${ROT_FORCA[d.s.rotulo]}</small>` : ""}` : ""}</span>`
       : `<span class="mac-item-tag ${d.diverge ? "e-div" : "e-igual"}">${d.diverge ? "divergence" : "same side"}</span>`;
     return `<button type="button" class="mac-item${sel}${d.instr ? " mac-item-instr" : ""}" data-mac-par="${d.par}">
       <span class="mac-item-par">${d.instr ? d.rotulo : d.b + "<em>/</em>" + d.q}</span>
@@ -420,7 +424,7 @@
     const s = d.s;
     const pill = s
       ? `<span class="mac-det-leitura ${CLS_SINAL[s.sinal] || "v-nao"}">${ROT_SINAL[s.sinal] || esc(s.sinal)}${
-          d.tese ? ` &middot; ${d.conv}%` : ""}</span>`
+          d.tese ? ` &middot; ${d.conv}%${s.rotulo && ROT_FORCA[s.rotulo] ? " &middot; " + ROT_FORCA[s.rotulo] : ""}` : ""}</span>`
       : `<span class="mac-det-leitura ${d.diverge ? "e-div" : "e-igual"}">${d.diverge ? "CYCLE DIVERGENCE" : "SAME SIDE"}</span>`;
 
     const fs = (x) => (x === null || x === undefined) ? "?" : (x > 0 ? "+" : "") + Number(x).toFixed(2);
@@ -1293,6 +1297,7 @@
    .mac-item-tag.v-bear{color:#f87a7a}
    .mac-item-tag.v-nao{opacity:.38}
    .mac-item-tag b{font-family:var(--font-mono);font-weight:600}
+   .mac-item-tag .mac-forca{opacity:.55;text-transform:none;letter-spacing:0;margin-left:2px}
    .mac-det-leitura.v-bull{background:rgba(82,217,138,.16);color:#52d98a}
    .mac-det-leitura.v-bear{background:rgba(248,122,122,.16);color:#f87a7a}
    .mac-det-leitura.v-nao{background:rgba(255,255,255,.06);opacity:.6}

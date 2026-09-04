@@ -110,6 +110,7 @@
     "Last move up": "Último movimento para cima", "Last move down": "Último movimento para baixo",
     "All": "Todos", "With a thesis": "Com tese", "No trade": "Sem tese", "Deciding soon": "Decide em breve",
     "no trade": "sem tese", "no edge": "sem vantagem", "same side": "mesmo lado", "divergence": "divergência",
+    "weak": "fraca", "moderate": "moderada", "strong": "forte", "very strong": "muito forte",
     "With the Fed's dimensions cancelling out, there is no fundamental push on this instrument.":
       "Com as dimensões do Fed se cancelando, não há empurrão fundamental neste instrumento.",
     "The pair: each currency gets a score from −1 to +1 (each voting dimension adds +0.25 for hike, −0.25 for cut, 0 for hold). The pair reads the difference between its two legs — the sign gives the direction, the size gives the confidence (a 0.50 edge is 25% of the maximum 2.00). Every pair gets a reading; \"no edge\" only when the two legs tie exactly.":
@@ -260,6 +261,8 @@
     [/^(data|speeches|cycle|market|geopolitics) (✓|✗|—)$/, (m, d, s) => ({ data: "dados", speeches: "discursos", cycle: "ciclo", market: "mercado", geopolitics: "geopolítica" })[d] + " " + s],
     [/^ceiling (\d+)% — (\d) of (\d) dimensions voting$/, "teto $1% — $2 de $3 dimensões votando"],
     [/^(\d+) of (\d+) dimensions voting$/, "$1 de $2 dimensões votando"],
+    [/^(BULL|BEAR) · (\d+)% · (weak|moderate|strong|very strong)$/,
+      (m, s, p, f) => s + " · " + p + "% · " + ({ weak: "fraca", moderate: "moderada", strong: "forte", "very strong": "muito forte" })[f]],
     [/^(▲|▼|—) last move (up|down)$/, (m, s, d) => s + " último movimento: " + (d === "up" ? "alta" : "corte")],
     [/^(▲|▼|—) unchanged$/, "$1 sem mudança"],
     [/^— (\d+) months? back\. That is the month that ended, not a delivery delay; every terminal has the same lag\.\s*(Delivery \(release → here\):)?\s*$/,
