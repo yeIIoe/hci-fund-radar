@@ -239,12 +239,16 @@ def le_moeda(m, ev, bancos, discursos, agora, geo=None):
     #   geo     +-0,25 num pico, 0 quieta
     # Assim duas pernas "em manutencao" ainda se distinguem pelo que empurra cada uma, e TODO
     # par sai com direcao e confianca (Eduardo, 04/set: "todos tinham que ter tese").
+    # Funcoes SUAVES, sem teto abrupto: com o teto em +-0,25 duas dimensoes se cancelavam em
+    # zero exato (USD em 04/set: dados -0,25 + discursos +0,25) e o par/ouro saia "sem
+    # vantagem". tanh chega perto de 0,25 sem bater nele.
+    import math
     comp = {}
     dd = dims["dados"]
-    comp["dados"] = max(-0.25, min(0.25, (dd["soma"] / (4.0 * LIMIAR_DADOS)))) if dd else 0.0
+    comp["dados"] = 0.25 * math.tanh(dd["soma"] / (2.0 * LIMIAR_DADOS)) if dd else 0.0
     tt = dims["texto"]
     if tt and (tt["hawkish"] or tt["dovish"]):
-        comp["texto"] = 0.25 * (tt["hawkish"] - tt["dovish"]) / max(4.0, tt["hawkish"] + tt["dovish"])
+        comp["texto"] = 0.25 * (tt["hawkish"] - tt["dovish"]) / (tt["hawkish"] + tt["dovish"] + 2.0)
     else:
         comp["texto"] = 0.0
     cc = dims["ciclo"]
@@ -324,10 +328,31 @@ def le_instrumentos(leituras):
     u = leituras.get("USD") or {}
     d = u.get("direcao", "MANTEM")
     s_usd = float(u.get("score") or 0.0)
-    # o instrumento e o INVERSO da perna do USD, pelo score continuo: hawkish -> cai
-    sinal = "SEM_TESE" if abs(s_usd) < 0.005 else ("BEAR" if s_usd > 0 else "BULL")
-    conv = round(abs(s_usd) * 100)
     motivos = ((u.get("dimensoes") or {}).get("dados") or {}).get("principais", [])[:4]
+
+    # SEGUNDA PERNA DOS INSTRUMENTOS: a geopolitica, direto (Eduardo, 04/set: "o ouro tem
+    # tese: juros no longo prazo + noticias macro + geopolitica"). Pico de conflito
+    # (z >= 1,5 no mundo ou nos EUA) e refugio: ouro +0,25, NQ e ES -0,25 (risk-off).
+    # Regra declarada, nao medida — como a 4a dimensao das moedas.
+    geo = carrega_json(GEO) or {}
+    zw = (((geo.get("mundo") or {}).get("conflito") or {}).get("volume") or {}).get("z")
+    zu = ((((geo.get("moedas") or {}).get("USD") or {}).get("temas") or {}).get("conflito") or {}).get("volume", {}).get("z")
+    z_conf = max([z for z in (zw, zu) if z is not None], default=None)
+    geo_conf = 0.25 if (z_conf is not None and z_conf >= GEO_Z_CORTE) else 0.0
+    manchete_geo = ((((geo.get("mundo") or {}).get("conflito") or {}).get("manchetes") or [{}])[0].get("titulo"))
+    geo_estado = ("not connected" if z_conf is None else
+                  ("conflict spike z %+.1f" % z_conf if geo_conf else "quiet (z %+.1f)" % z_conf))
+
+    def leitura_instr(sinal_geo):
+        """score do instrumento = perna do USD invertida + geopolitica (sinal proprio)."""
+        comp_usd = -s_usd
+        comp_geo = sinal_geo * geo_conf
+        s = round(comp_usd + comp_geo, 3)
+        maximo = 1.0 + 0.25                                   # USD ate +-1,00 + geo ate +-0,25
+        sinal = "SEM_TESE" if abs(s) < 0.005 else ("BULL" if s > 0 else "BEAR")
+        return s, sinal, round(abs(s) / maximo * 100), {"usd_invertido": round(comp_usd, 3),
+                                                          "geopolitica": round(comp_geo, 3),
+                                                          "maximo": maximo}
 
     # As correlacoes MEDIDAS (correlacao_juros.py): 5 anos, blocos sem sobreposicao, com a
     # preditiva ao lado. Se o arquivo faltar, o cartao diz "not measured" — nunca um numero
@@ -354,23 +379,29 @@ def le_instrumentos(leituras):
     base = {
         "perna": "USD", "leitura_usd": {"direcao": d, "score": s_usd, "conviccao_pct": u.get("conviccao_pct", 0),
                                         "teto_pct": u.get("conviccao_teto_pct")},
-        "sinal": sinal, "conviccao_pct": conv,
+        "geo": {"z_conflito": z_conf, "estado": geo_estado, "manchete": manchete_geo,
+                "regra": "conflict spike = safe haven: gold up, NQ and ES down (declared, not measured)"},
         "motivos": motivos,
         "aviso": "a reading of the fundamental side over weeks, not an entry rule: on 88 manual "
                  "trades the dollar at the minute correlated +0.26 with gold and broke 41% of "
                  "the time (DXY filter reproved).",
     }
     out = []
-    for sym, nome, canal in (
+    for sym, nome, canal, sinal_geo in (
         ("XAUUSD", "Gold",
-         "real rates: a hawkish USD reading lifts real yields and gold falls; a dovish one does the opposite"),
+         "real rates: a hawkish USD reading lifts real yields and gold falls; a dovish one does the opposite. "
+         "Geopolitics enters directly: a conflict spike is safe-haven demand for gold", +1),
         ("NQ", "Nasdaq 100",
-         "discount rate: a higher expected policy rate compresses equity multiples, and long-duration tech most of all"),
+         "discount rate: a higher expected policy rate compresses equity multiples, and long-duration tech "
+         "most of all. A conflict spike is risk-off for equities", -1),
         ("ES", "S&P 500",
-         "discount rate: same channel as NQ, with less duration and more earnings sensitivity to growth"),
+         "discount rate: same channel as NQ, with less duration and more earnings sensitivity to growth. "
+         "A conflict spike is risk-off for equities", -1),
     ):
         correl, medido = medido_de(sym)
-        out.append(dict(base, simbolo=sym, nome=nome, canal=canal, medido=medido, correlacoes=correl))
+        s, sinal, conv, comp = leitura_instr(sinal_geo)
+        out.append(dict(base, simbolo=sym, nome=nome, canal=canal, medido=medido, correlacoes=correl,
+                        sinal=sinal, conviccao_pct=conv, score=s, score_componentes=comp))
     return out
 
 
@@ -415,9 +446,12 @@ def main():
 
     instrumentos = le_instrumentos(leituras)
     print()
-    print("  INSTRUMENTOS PELA PERNA DO USD (%s %d%%):" % (leituras["USD"]["direcao"], leituras["USD"]["conviccao_pct"]))
+    print("  INSTRUMENTOS = perna do USD invertida (score %+.2f) + geopolitica (%s):"
+          % (leituras["USD"]["score"], instrumentos[0]["geo"]["estado"] if instrumentos else "?"))
     for i in instrumentos:
-        print("    %-7s %-12s %s" % (i["simbolo"], i["sinal"], i["canal"][:70]))
+        c = i["score_componentes"]
+        print("    %-7s %-9s conv %3d%%  score %+.3f = usd %+.3f + geo %+.3f"
+              % (i["simbolo"], i["sinal"], i["conviccao_pct"], i["score"], c["usd_invertido"], c["geopolitica"]))
 
     rel = {
         "gerado_em": agora.isoformat(),

@@ -149,12 +149,12 @@
       "Com o Fed lido em manutenção, não há empurrão fundamental neste instrumento.",
     "The USD reading is not built yet.": "A leitura do USD ainda não foi construída.",
     "Gold": "Ouro", "Nasdaq 100": "Nasdaq 100", "S&P 500": "S&P 500",
-    "real rates: a hawkish USD reading lifts real yields and gold falls; a dovish one does the opposite":
-      "juro real: uma leitura hawkish do USD sobe o juro real e o ouro cai; uma dovish faz o oposto",
-    "discount rate: a higher expected policy rate compresses equity multiples, and long-duration tech most of all":
-      "taxa de desconto: juro básico esperado mais alto comprime múltiplos de ações, e a tecnologia de duração longa mais que tudo",
-    "discount rate: same channel as NQ, with less duration and more earnings sensitivity to growth":
-      "taxa de desconto: mesmo canal do NQ, com menos duração e mais sensibilidade dos lucros ao crescimento",
+    "real rates: a hawkish USD reading lifts real yields and gold falls; a dovish one does the opposite. Geopolitics enters directly: a conflict spike is safe-haven demand for gold":
+      "juro real: uma leitura hawkish do USD sobe o juro real e o ouro cai; uma dovish faz o oposto. A geopolítica entra direto: pico de conflito é demanda de refúgio pelo ouro",
+    "discount rate: a higher expected policy rate compresses equity multiples, and long-duration tech most of all. A conflict spike is risk-off for equities":
+      "taxa de desconto: juro básico esperado mais alto comprime múltiplos de ações, e a tecnologia de duração longa mais que tudo. Pico de conflito é risk-off para ações",
+    "discount rate: same channel as NQ, with less duration and more earnings sensitivity to growth. A conflict spike is risk-off for equities":
+      "taxa de desconto: mesmo canal do NQ, com menos duração e mais sensibilidade dos lucros ao crescimento. Pico de conflito é risk-off para ações",
     "NOT measured in-house yet — correlacao_juros.py has not run":
       "AINDA NÃO medido em casa — correlacao_juros.py não rodou",
     "a reading of the fundamental side over weeks, not an entry rule: on 88 manual trades the dollar at the minute correlated +0.26 with gold and broke 41% of the time (DXY filter reproved).":
@@ -321,6 +321,16 @@
     [/^a (fraca|media|forte|muito forte) divergence of (\d+) degrees?\.\s*$/,
       (m, r, n) => "uma divergência " + ({ fraca: "fraca", media: "média", forte: "forte", "muito forte": "muito forte" })[r] + " de " + n + " grau" + (n === "1" ? "" : "s") + "."],
     [/^(.+?) is read through\s*$/, (m, nome) => ({ Gold: "Ouro" }[nome] || nome) + " é lido por"],
+    [/^(.+?) is read from\s*$/, (m, nome) => ({ Gold: "Ouro" }[nome] || nome) + " é lido por"],
+    [/^two legs$/, "duas pernas"],
+    [/^: the US dollar's rate reading, inverted \(USD leaning to (hike|hold|cut), score ([+\-−]?[\d.]+) → ([+\-−]?[\d.]+) for (.+?)\), plus\s*$/,
+      (m, dirr, s1, s2, nome) => ": a leitura de juro do dólar, invertida (USD inclinado a " + ({ hike: "alta", hold: "manutenção", cut: "corte" })[dirr] +
+        ", score " + s1 + " → " + s2 + " para " + ({ Gold: "Ouro" }[nome] || nome) + "), mais"],
+    [/^geopolitics$/, "geopolítica"],
+    [/^\((not connected|quiet \(z [+\-−]?[\d.]+\)|conflict spike z [+\-−]?[\d.]+) → ([+\-−]?[\d.]+)\)\. Score ([+\-−]?[\d.]+) of a possible ([\d.]+) →\s*$/,
+      (m, est, g, s, mx) => "(" + est.replace("not connected", "não conectada").replace("quiet", "quieta").replace("conflict spike", "pico de conflito") +
+        " → " + g + "). Score " + s + " de um máximo de " + mx + " →"],
+    [/^The two legs cancel out exactly today\.$/, "As duas pernas se cancelam exatamente hoje."],
     [/^one leg only — the US dollar$/, "uma perna só — o dólar americano"],
     [/^, which is leaning to\s*$/, ", que está inclinado a"],
     [/^\((\d+)% of a (\d+)% ceiling\)\.\s*(.*)$/, (m, a, b, cauda) => {

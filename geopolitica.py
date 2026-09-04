@@ -26,12 +26,18 @@ O QUE SAI, por moeda
                    choque de energia  -> inflacao para importador liquido -> empurra APERTO;
                                           para exportador (CAD, NOK) o efeito e misto
 
-🔴 O QUE ISTO NAO E
-    Nao entra nas 4 dimensoes da conviccao. E a regra da casa: filtro novo passa por medicao
-    antes de pontuar (o DXY como filtro foi reprovado nas 88 operacoes exatamente por ter
-    sido assumido). Aqui a implicacao e mostrada ao lado, rotulada como regra, para o Eduardo
-    julgar — e para virar hipotese testavel: "conflito z>2 muda o retorno de 20 dias das
-    moedas de risco?".
+🔴 COMO ENTRA NA CONVICCAO — decisao do Eduardo, 04/set/2026
+    A regra da casa diz que filtro novo passa por medicao antes de pontuar (o DXY foi
+    reprovado nas 88 operacoes por ter sido assumido). O Eduardo decidiu que a geopolitica
+    CONTA como a 4a dimensao ("quero que utilize as noticias"), no lugar de "mercado", que
+    dependeria de yield. Entao: sentimento.py le os z daqui e vota — energia z>=1,5 = ALTA
+    para importador; conflito sem energia = CORTE; sem pico = quieta, nao vota. A regra fica
+    rotulada como nao medida, e a hipotese a medir segue registrada: "conflito z>=2 muda o
+    retorno de 20 dias das moedas de risco?".
+
+⚠️ TAXA: 04/set, duas coletas simultaneas (uma esquecida viva) tomaram 429 em 12 de 13
+    chamadas. Uma coleta por vez, 8 s entre chamadas, sem a chamada de tom. Na Action o cache
+    de 3 h garante uma coleta a cada ~3 rodadas.
 """
 from __future__ import annotations
 
@@ -52,7 +58,7 @@ SAIDA = os.path.join(AQUI, "data", "geopolitica.json")
 UA = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/128.0"}
 API = "https://api.gdeltproject.org/api/v2/doc/doc?"
 CACHE_H = 3
-PAUSA_S = 5
+PAUSA_S = 8                   # 04/set: duas coletas simultaneas tomaram 429 em tudo; uma so, a 8 s, passa
 ORCAMENTO_S = 8 * 60          # a Action tem 15 min para a cadeia inteira; isto para em 8 e grava o que tem
 
 PAIS = {
@@ -208,13 +214,8 @@ def main():
                 erros.append("%s/%s: %s" % (moeda, tema, str(e)[:60]))
                 bloco["temas"][tema] = {"erro": str(e)[:80]}
                 time.sleep(PAUSA_S)
-        # tom: uma chamada por moeda; pulada quando o orcamento aperta
-        if not estourou():
-            try:
-                bloco["tom"] = tom("%s sourcelang:english" % qp)
-                time.sleep(PAUSA_S)
-            except Exception as e:
-                erros.append("%s/tom: %s" % (moeda, str(e)[:60]))
+        # tom: desligado — e a chamada menos util e custa 8 chamadas por rodada (04/set)
+        bloco["tom"] = None
         conf = (bloco["temas"].get("conflito") or {}).get("volume") or {}
         ener = (bloco["temas"].get("energia") or {}).get("volume") or {}
         bloco["implicacao"] = implicacao(moeda, conf, ener)

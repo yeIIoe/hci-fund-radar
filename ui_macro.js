@@ -504,15 +504,18 @@
       return `<div class="mac-vazio"><strong>${d.par}</strong><p>The USD reading is not built yet.</p></div>`;
     }
     const u = I.leitura_usd || {};
+    const comp = I.score_componentes || {};
     return `<div class="mac-det-topo">
         <h2 class="mac-det-par">${d.rotulo}</h2>
         <span class="mac-det-leitura ${CLS_SINAL[I.sinal] || "v-nao"}">${ROT_SINAL[I.sinal] || esc(I.sinal)}${
           d.tese ? ` &middot; ${d.conv}%` : ""}</span>
         <span class="mac-det-dado ${velho ? "e-velho" : "e-fresco"}">${idade}</span>
       </div>
-      <p class="mac-det-nota">${esc(I.nome)} is read through <b>one leg only — the US dollar</b>, which is leaning to
-        <b>${ROT_DIR[u.direcao] || "?"}</b> (${u.conviccao_pct || 0}% of a ${u.teto_pct || "?"}% ceiling; score ${(u.score > 0 ? "+" : "") + Number(u.score || 0).toFixed(2)}).
-        ${I.sinal === "SEM_TESE" || I.sinal === "NAO NEGOCIA" ? "With the Fed's dimensions cancelling out, there is no fundamental push on this instrument." : ""}</p>
+      <p class="mac-det-nota">${esc(I.nome)} is read from <b>two legs</b>: the US dollar's rate reading, inverted
+        (USD leaning to ${ROT_DIR[u.direcao] || "?"}, score ${(u.score > 0 ? "+" : "") + Number(u.score || 0).toFixed(2)} → ${(comp.usd_invertido > 0 ? "+" : "") + Number(comp.usd_invertido || 0).toFixed(2)} for ${esc(I.nome)}),
+        plus <b>geopolitics</b> (${esc((I.geo || {}).estado || "not connected")} → ${(comp.geopolitica > 0 ? "+" : "") + Number(comp.geopolitica || 0).toFixed(2)}).
+        Score ${(I.score > 0 ? "+" : "") + Number(I.score || 0).toFixed(2)} of a possible ${Number(comp.maximo || 1.25).toFixed(2)} → <b>${d.conv}%</b>.
+        ${I.sinal === "SEM_TESE" ? "The two legs cancel out exactly today." : ""}</p>
       <div class="mac-pernas">
         ${pernaCard("USD", cicloDe("USD"), "the leg that drives it")}
         <div class="mac-perna">
