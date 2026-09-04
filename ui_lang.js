@@ -113,8 +113,8 @@
     "weak": "fraca", "moderate": "moderada", "strong": "forte", "very strong": "muito forte",
     "With the Fed's dimensions cancelling out, there is no fundamental push on this instrument.":
       "Com as dimensões do Fed se cancelando, não há empurrão fundamental neste instrumento.",
-    "The pair: each currency gets a score from −1 to +1 (each voting dimension adds +0.25 for hike, −0.25 for cut, 0 for hold). The pair reads the difference between its two legs — the sign gives the direction, the size gives the confidence (a 0.50 edge is 25% of the maximum 2.00). Every pair gets a reading; \"no edge\" only when the two legs tie exactly.":
-      "O par: cada moeda ganha um score de −1 a +1 (cada dimensão que vota soma +0,25 para alta, −0,25 para corte, 0 para manutenção). O par lê a diferença entre as duas pernas — o sinal dá a direção, o tamanho dá a confiança (uma vantagem de 0,50 é 25% do máximo 2,00). Todo par recebe uma leitura; \"sem vantagem\" só quando as duas pernas empatam exatamente.",
+    "The pair: each currency gets a score from −1 to +1 (each voting dimension adds up to ±0.25, with its magnitude). The pair reads the difference between its two legs — the sign gives the direction, the size gives the confidence, as a share of the ceiling the connected dimensions allow (two legs with four voting dimensions each: 2.00; with three and two: 1.25). The ceiling is shown, so a newly connected feed never passes for new evidence. Every pair gets a reading; \"no edge\" only when the two legs tie exactly.":
+      "O par: cada moeda ganha um score de −1 a +1 (cada dimensão que vota soma até ±0,25, com a magnitude que tem). O par lê a diferença entre as duas pernas — o sinal dá a direção, o tamanho dá a confiança, como fração do teto que as dimensões ligadas permitem (duas pernas com quatro dimensões votando: 2,00; com três e duas: 1,25). O teto fica visível, para uma fonte recém-ligada nunca passar por evidência nova. Todo par recebe uma leitura; \"sem vantagem\" só quando as duas pernas empatam exatamente.",
     "SAME SIDE": "MESMO LADO", "CYCLE DIVERGENCE": "DIVERGÊNCIA DE CICLO",
     "data current": "dados atuais", "freshness unknown": "frescor desconhecido",
     "No pair matches this filter.": "Nenhum par cai neste filtro.",
@@ -296,11 +296,11 @@
     // (50%) against GBP leaning to <b>hold</b> (50%) — a media divergence of 2 degrees. The
     // reason sits on <b>EUR</b>." — cada pedaco entre tags e um no
     [/^(Long|Short) (\S+)$/, (m, ls, par) => (ls === "Long" ? "Comprado em " : "Vendido em ") + par],
-    [/^reads from the two legs: (\S+) leaning to (hike|hold|cut) \(score ([+\-−]?[\d.]+)\) against (\S+) leaning to (hike|hold|cut) \(score ([+\-−]?[\d.]+)\) — edge ([+\-−]?[\d.]+) of a possible 2\.00\.\s*(The reason sits on|Both legs carry the reason\.)?$/,
-      (m, b, db, sb, q, dq, sq, e, cauda) => {
+    [/^reads from the two legs: (\S+) leaning to (hike|hold|cut) \(score ([+\-−]?[\d.]+)\) against (\S+) leaning to (hike|hold|cut) \(score ([+\-−]?[\d.]+)\) — edge ([+\-−]?[\d.]+) of a possible ([\d.]+)\.\s*(The reason sits on|Both legs carry the reason\.)?$/,
+      (m, b, db, sb, q, dq, sq, e, mx, cauda) => {
         const D = { hike: "alta", hold: "manutenção", cut: "corte" };
         return "lê pelas duas pernas: " + b + " inclinado a " + D[db] + " (score " + sb + ") contra " + q +
-          " inclinado a " + D[dq] + " (score " + sq + ") — vantagem " + e + " de um máximo de 2,00." +
+          " inclinado a " + D[dq] + " (score " + sq + ") — vantagem " + e + " de um máximo de " + mx.replace(".", ",") + "." +
           (cauda === "The reason sits on" ? " A razão está em" : cauda ? " As duas pernas carregam a razão." : "");
       }],
     [/^The two legs score the same \((\S+) ([+\-−]?[\d.]+), (\S+) ([+\-−]?[\d.]+)\) — no edge between them on this axis\.$/,

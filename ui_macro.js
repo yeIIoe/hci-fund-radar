@@ -431,7 +431,7 @@
     let nota;
     if (s && d.tese) {
       const lb = s.leitura_base || {}, lq = s.leitura_cotada || {};
-      nota = `<b>${s.sinal === "BULL" ? "Long" : "Short"} ${d.b}/${d.q}</b> reads from the two legs: ${d.b} leaning to ${ROT_DIR[lb.direcao] || "?"} (score ${fs(lb.score)}) against ${d.q} leaning to ${ROT_DIR[lq.direcao] || "?"} (score ${fs(lq.score)}) — edge ${fs(s.diff)} of a possible 2.00. ${s.perna_motivo && s.perna_motivo !== "ambas"
+      nota = `<b>${s.sinal === "BULL" ? "Long" : "Short"} ${d.b}/${d.q}</b> reads from the two legs: ${d.b} leaning to ${ROT_DIR[lb.direcao] || "?"} (score ${fs(lb.score)}) against ${d.q} leaning to ${ROT_DIR[lq.direcao] || "?"} (score ${fs(lq.score)}) — edge ${fs(s.diff)} of a possible ${Number(s.diff_teto || 2).toFixed(2)}. ${s.perna_motivo && s.perna_motivo !== "ambas"
           ? `The reason sits on <b>${s.perna_motivo}</b>.` : "Both legs carry the reason."}
         ${s.mesma_aposta && s.mesma_aposta.length
           ? `<span class="mac-mesma">Same bet as ${s.mesma_aposta.map((p) => p.slice(0, 3) + "/" + p.slice(3)).join(", ")} &mdash; holding two does not diversify, it doubles.</span>` : ""}`;
@@ -462,9 +462,10 @@
              bank's people said), <b>cycle</b> (the last move, if under six months old) and
              <b>geopolitics</b> (news intensity from GDELT: an energy spike is an inflation push, a conflict spike a growth risk; quiet weeks do not vote).
              Conviction is the share of voting dimensions that agree &mdash; a missing or quiet dimension lowers the ceiling, it never counts as zero.</p>
-          <p>The pair: each currency gets a score from −1 to +1 (each voting dimension adds +0.25 for hike, −0.25 for cut, 0 for hold).
-             The pair reads the difference between its two legs &mdash; the sign gives the direction, the size gives the confidence
-             (a 0.50 edge is 25% of the maximum 2.00). Every pair gets a reading; "no edge" only when the two legs tie exactly.</p>
+          <p>The pair: each currency gets a score from −1 to +1 (each voting dimension adds up to ±0.25, with its magnitude).
+             The pair reads the difference between its two legs &mdash; the sign gives the direction, the size gives the confidence,
+             as a share of the ceiling the connected dimensions allow (two legs with four voting dimensions each: 2.00; with three and two: 1.25).
+             The ceiling is shown, so a newly connected feed never passes for new evidence. Every pair gets a reading; "no edge" only when the two legs tie exactly.</p>
           <p>Still missing: speeches are wired for the Fed, ECB, BoE, BoJ and BoC only (RBA and RBNZ block automation, the SNB has no feed),
              and the geopolitics rule counts by the owner's decision but has not been measured yet.</p>
           <p>Which leg carries the weight matters. On 2 Sep the GBPNZD move was <b>82% the kiwi</b>;

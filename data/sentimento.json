@@ -1,5 +1,5 @@
 {
- "gerado_em": "2026-09-04T15:25:59.429212+00:00",
+ "gerado_em": "2026-09-04T15:27:48.116162+00:00",
  "origem_eventos": "fxstreet 42 dias",
  "regua": {
   "dimensoes": [
@@ -33,7 +33,7 @@
     "ciclo": 0.0,
     "geo": 0.0
    },
-   "score_teto": 1.0,
+   "score_teto": 0.75,
    "conviccao_pct": 25,
    "conviccao_teto_pct": 75,
    "dimensoes_ligadas": 3,
@@ -294,7 +294,7 @@
     "ciclo": 0.0,
     "geo": 0.0
    },
-   "score_teto": 1.0,
+   "score_teto": 0.75,
    "conviccao_pct": 50,
    "conviccao_teto_pct": 75,
    "dimensoes_ligadas": 3,
@@ -427,7 +427,7 @@
     "ciclo": 0.25,
     "geo": 0.0
    },
-   "score_teto": 1.0,
+   "score_teto": 0.5,
    "conviccao_pct": 0,
    "conviccao_teto_pct": 50,
    "dimensoes_ligadas": 2,
@@ -456,7 +456,7 @@
        "divulgado": 0.3,
        "consenso": 0.5,
        "contribuicao": -3.24,
-       "idade_dias": 18.6
+       "idade_dias": 18.7
       },
       {
        "quando_utc": "2026-08-16T23:50:00+00:00",
@@ -467,7 +467,7 @@
        "divulgado": 1.1,
        "consenso": 2.0,
        "contribuicao": -1.62,
-       "idade_dias": 18.6
+       "idade_dias": 18.7
       },
       {
        "quando_utc": "2026-09-03T23:30:00+00:00",
@@ -489,7 +489,7 @@
        "divulgado": 0.1,
        "consenso": 0.6,
        "contribuicao": -0.66,
-       "idade_dias": 22.6
+       "idade_dias": 22.7
       },
       {
        "quando_utc": "2026-08-30T23:50:00+00:00",
@@ -500,7 +500,7 @@
        "divulgado": 0.1,
        "consenso": -0.6,
        "contribuicao": 0.51,
-       "idade_dias": 4.6
+       "idade_dias": 4.7
       },
       {
        "quando_utc": "2026-08-09T23:50:00+00:00",
@@ -511,7 +511,7 @@
        "divulgado": -92.3,
        "consenso": 1512.0,
        "contribuicao": -0.43,
-       "idade_dias": 25.6
+       "idade_dias": 25.7
       }
      ]
     },
@@ -549,7 +549,7 @@
     "ciclo": 0.25,
     "geo": 0.0
    },
-   "score_teto": 1.0,
+   "score_teto": 0.5,
    "conviccao_pct": 25,
    "conviccao_teto_pct": 50,
    "dimensoes_ligadas": 2,
@@ -638,7 +638,7 @@
     "ciclo": 0.25,
     "geo": 0.0
    },
-   "score_teto": 1.0,
+   "score_teto": 0.5,
    "conviccao_pct": 25,
    "conviccao_teto_pct": 50,
    "dimensoes_ligadas": 2,
@@ -683,7 +683,7 @@
     "ciclo": 0.0,
     "geo": 0.0
    },
-   "score_teto": 1.0,
+   "score_teto": 0.75,
    "conviccao_pct": 25,
    "conviccao_teto_pct": 75,
    "dimensoes_ligadas": 3,
@@ -753,7 +753,7 @@
     "ciclo": 0.0,
     "geo": 0.0
    },
-   "score_teto": 1.0,
+   "score_teto": 0.5,
    "conviccao_pct": 25,
    "conviccao_teto_pct": 50,
    "dimensoes_ligadas": 2,
@@ -792,7 +792,7 @@
        "impacto": "MEDIUM",
        "divulgado": 0.4,
        "consenso": 0.0,
-       "contribuicao": 3.35,
+       "contribuicao": 3.34,
        "idade_dias": 1.4
       },
       {
@@ -841,9 +841,9 @@
    "sinal": "BULL",
    "forca": 0.128,
    "rotulo": "fraca",
-   "conviccao_pct": 6,
+   "conviccao_pct": 7,
    "diff": 0.128,
-   "diff_teto": 2.0,
+   "diff_teto": 1.75,
    "motivo": "EUR score +0.17 vs USD score +0.04",
    "perna_motivo": "EUR",
    "leitura_base": {
@@ -871,9 +871,9 @@
    "sinal": "BULL",
    "forca": 0.039,
    "rotulo": "fraca",
-   "conviccao_pct": 2,
+   "conviccao_pct": 3,
    "diff": 0.039,
-   "diff_teto": 2.0,
+   "diff_teto": 1.5,
    "motivo": "GBP score +0.08 vs USD score +0.04",
    "perna_motivo": "GBP",
    "leitura_base": {
@@ -896,10 +896,10 @@
    "cotada": "USD",
    "sinal": "BULL",
    "forca": 0.226,
-   "rotulo": "fraca",
-   "conviccao_pct": 11,
+   "rotulo": "media",
+   "conviccao_pct": 18,
    "diff": 0.226,
-   "diff_teto": 2.0,
+   "diff_teto": 1.25,
    "motivo": "AUD score +0.27 vs USD score +0.04",
    "perna_motivo": "AUD",
    "leitura_base": {
@@ -929,10 +929,10 @@
    "cotada": "USD",
    "sinal": "BULL",
    "forca": 0.207,
-   "rotulo": "fraca",
-   "conviccao_pct": 10,
+   "rotulo": "media",
+   "conviccao_pct": 17,
    "diff": 0.207,
-   "diff_teto": 2.0,
+   "diff_teto": 1.25,
    "motivo": "NZD score +0.25 vs USD score +0.04",
    "perna_motivo": "NZD",
    "leitura_base": {
@@ -962,9 +962,9 @@
    "sinal": "BEAR",
    "forca": 0.072,
    "rotulo": "fraca",
-   "conviccao_pct": 4,
+   "conviccao_pct": 6,
    "diff": -0.072,
-   "diff_teto": 2.0,
+   "diff_teto": 1.25,
    "motivo": "USD score +0.04 vs JPY score +0.12",
    "perna_motivo": "JPY",
    "leitura_base": {
@@ -991,9 +991,9 @@
    "sinal": "BULL",
    "forca": 0.126,
    "rotulo": "fraca",
-   "conviccao_pct": 6,
+   "conviccao_pct": 8,
    "diff": 0.126,
-   "diff_teto": 2.0,
+   "diff_teto": 1.5,
    "motivo": "USD score +0.04 vs CAD score -0.08",
    "perna_motivo": "CAD",
    "leitura_base": {
@@ -1019,9 +1019,9 @@
    "sinal": "BEAR",
    "forca": 0.159,
    "rotulo": "fraca",
-   "conviccao_pct": 8,
+   "conviccao_pct": 13,
    "diff": -0.159,
-   "diff_teto": 2.0,
+   "diff_teto": 1.25,
    "motivo": "USD score +0.04 vs CHF score +0.20",
    "perna_motivo": "CHF",
    "leitura_base": {
@@ -1050,9 +1050,9 @@
    "sinal": "BULL",
    "forca": 0.089,
    "rotulo": "fraca",
-   "conviccao_pct": 4,
+   "conviccao_pct": 5,
    "diff": 0.089,
-   "diff_teto": 2.0,
+   "diff_teto": 1.75,
    "motivo": "EUR score +0.17 vs GBP score +0.08",
    "perna_motivo": "EUR",
    "leitura_base": {
@@ -1080,9 +1080,9 @@
    "sinal": "BULL",
    "forca": 0.056,
    "rotulo": "fraca",
-   "conviccao_pct": 3,
+   "conviccao_pct": 4,
    "diff": 0.056,
-   "diff_teto": 2.0,
+   "diff_teto": 1.5,
    "motivo": "EUR score +0.17 vs JPY score +0.12",
    "perna_motivo": "EUR",
    "leitura_base": {
@@ -1110,9 +1110,9 @@
    "sinal": "BEAR",
    "forca": 0.098,
    "rotulo": "fraca",
-   "conviccao_pct": 5,
+   "conviccao_pct": 7,
    "diff": -0.098,
-   "diff_teto": 2.0,
+   "diff_teto": 1.5,
    "motivo": "EUR score +0.17 vs AUD score +0.27",
    "perna_motivo": "AUD",
    "leitura_base": {
@@ -1143,9 +1143,9 @@
    "sinal": "BEAR",
    "forca": 0.079,
    "rotulo": "fraca",
-   "conviccao_pct": 4,
+   "conviccao_pct": 5,
    "diff": -0.079,
-   "diff_teto": 2.0,
+   "diff_teto": 1.5,
    "motivo": "EUR score +0.17 vs NZD score +0.25",
    "perna_motivo": "NZD",
    "leitura_base": {
@@ -1174,10 +1174,10 @@
    "cotada": "CAD",
    "sinal": "BULL",
    "forca": 0.254,
-   "rotulo": "fraca",
-   "conviccao_pct": 13,
+   "rotulo": "media",
+   "conviccao_pct": 15,
    "diff": 0.254,
-   "diff_teto": 2.0,
+   "diff_teto": 1.75,
    "motivo": "EUR score +0.17 vs CAD score -0.08",
    "perna_motivo": "EUR",
    "leitura_base": {
@@ -1207,7 +1207,7 @@
    "rotulo": "fraca",
    "conviccao_pct": 2,
    "diff": -0.031,
-   "diff_teto": 2.0,
+   "diff_teto": 1.5,
    "motivo": "EUR score +0.17 vs CHF score +0.20",
    "perna_motivo": "CHF",
    "leitura_base": {
@@ -1236,9 +1236,9 @@
    "sinal": "BEAR",
    "forca": 0.033,
    "rotulo": "fraca",
-   "conviccao_pct": 2,
+   "conviccao_pct": 3,
    "diff": -0.033,
-   "diff_teto": 2.0,
+   "diff_teto": 1.25,
    "motivo": "GBP score +0.08 vs JPY score +0.12",
    "perna_motivo": "JPY",
    "leitura_base": {
@@ -1264,10 +1264,10 @@
    "cotada": "AUD",
    "sinal": "BEAR",
    "forca": 0.187,
-   "rotulo": "fraca",
-   "conviccao_pct": 9,
+   "rotulo": "media",
+   "conviccao_pct": 15,
    "diff": -0.187,
-   "diff_teto": 2.0,
+   "diff_teto": 1.25,
    "motivo": "GBP score +0.08 vs AUD score +0.27",
    "perna_motivo": "AUD",
    "leitura_base": {
@@ -1298,9 +1298,9 @@
    "sinal": "BEAR",
    "forca": 0.168,
    "rotulo": "fraca",
-   "conviccao_pct": 8,
+   "conviccao_pct": 13,
    "diff": -0.168,
-   "diff_teto": 2.0,
+   "diff_teto": 1.25,
    "motivo": "GBP score +0.08 vs NZD score +0.25",
    "perna_motivo": "NZD",
    "leitura_base": {
@@ -1330,9 +1330,9 @@
    "sinal": "BULL",
    "forca": 0.165,
    "rotulo": "fraca",
-   "conviccao_pct": 8,
+   "conviccao_pct": 11,
    "diff": 0.165,
-   "diff_teto": 2.0,
+   "diff_teto": 1.5,
    "motivo": "GBP score +0.08 vs CAD score -0.08",
    "perna_motivo": "CAD",
    "leitura_base": {
@@ -1358,9 +1358,9 @@
    "sinal": "BEAR",
    "forca": 0.12,
    "rotulo": "fraca",
-   "conviccao_pct": 6,
+   "conviccao_pct": 10,
    "diff": -0.12,
-   "diff_teto": 2.0,
+   "diff_teto": 1.25,
    "motivo": "GBP score +0.08 vs CHF score +0.20",
    "perna_motivo": "CHF",
    "leitura_base": {
@@ -1388,10 +1388,10 @@
    "cotada": "JPY",
    "sinal": "BULL",
    "forca": 0.154,
-   "rotulo": "fraca",
-   "conviccao_pct": 8,
+   "rotulo": "media",
+   "conviccao_pct": 15,
    "diff": 0.154,
-   "diff_teto": 2.0,
+   "diff_teto": 1.0,
    "motivo": "AUD score +0.27 vs JPY score +0.12",
    "perna_motivo": "AUD",
    "leitura_base": {
@@ -1422,9 +1422,9 @@
    "sinal": "BULL",
    "forca": 0.019,
    "rotulo": "fraca",
-   "conviccao_pct": 1,
+   "conviccao_pct": 2,
    "diff": 0.019,
-   "diff_teto": 2.0,
+   "diff_teto": 1.0,
    "motivo": "AUD score +0.27 vs NZD score +0.25",
    "perna_motivo": "AUD",
    "leitura_base": {
@@ -1454,10 +1454,10 @@
    "cotada": "CAD",
    "sinal": "BULL",
    "forca": 0.352,
-   "rotulo": "media",
-   "conviccao_pct": 18,
+   "rotulo": "forte",
+   "conviccao_pct": 28,
    "diff": 0.352,
-   "diff_teto": 2.0,
+   "diff_teto": 1.25,
    "motivo": "AUD score +0.27 vs CAD score -0.08",
    "perna_motivo": "AUD",
    "leitura_base": {
@@ -1488,9 +1488,9 @@
    "sinal": "BULL",
    "forca": 0.067,
    "rotulo": "fraca",
-   "conviccao_pct": 3,
+   "conviccao_pct": 7,
    "diff": 0.067,
-   "diff_teto": 2.0,
+   "diff_teto": 1.0,
    "motivo": "AUD score +0.27 vs CHF score +0.20",
    "perna_motivo": "AUD",
    "leitura_base": {
@@ -1520,10 +1520,10 @@
    "cotada": "JPY",
    "sinal": "BULL",
    "forca": 0.135,
-   "rotulo": "fraca",
-   "conviccao_pct": 7,
+   "rotulo": "media",
+   "conviccao_pct": 14,
    "diff": 0.135,
-   "diff_teto": 2.0,
+   "diff_teto": 1.0,
    "motivo": "NZD score +0.25 vs JPY score +0.12",
    "perna_motivo": "NZD",
    "leitura_base": {
@@ -1552,10 +1552,10 @@
    "cotada": "CAD",
    "sinal": "BULL",
    "forca": 0.333,
-   "rotulo": "media",
-   "conviccao_pct": 17,
+   "rotulo": "forte",
+   "conviccao_pct": 27,
    "diff": 0.333,
-   "diff_teto": 2.0,
+   "diff_teto": 1.25,
    "motivo": "NZD score +0.25 vs CAD score -0.08",
    "perna_motivo": "NZD",
    "leitura_base": {
@@ -1585,9 +1585,9 @@
    "sinal": "BULL",
    "forca": 0.048,
    "rotulo": "fraca",
-   "conviccao_pct": 2,
+   "conviccao_pct": 5,
    "diff": 0.048,
-   "diff_teto": 2.0,
+   "diff_teto": 1.0,
    "motivo": "NZD score +0.25 vs CHF score +0.20",
    "perna_motivo": "NZD",
    "leitura_base": {
@@ -1616,10 +1616,10 @@
    "cotada": "JPY",
    "sinal": "BEAR",
    "forca": 0.198,
-   "rotulo": "fraca",
-   "conviccao_pct": 10,
+   "rotulo": "media",
+   "conviccao_pct": 16,
    "diff": -0.198,
-   "diff_teto": 2.0,
+   "diff_teto": 1.25,
    "motivo": "CAD score -0.08 vs JPY score +0.12",
    "perna_motivo": "JPY",
    "leitura_base": {
@@ -1646,9 +1646,9 @@
    "sinal": "BEAR",
    "forca": 0.285,
    "rotulo": "media",
-   "conviccao_pct": 14,
+   "conviccao_pct": 23,
    "diff": -0.285,
-   "diff_teto": 2.0,
+   "diff_teto": 1.25,
    "motivo": "CAD score -0.08 vs CHF score +0.20",
    "perna_motivo": "CHF",
    "leitura_base": {
@@ -1677,9 +1677,9 @@
    "sinal": "BULL",
    "forca": 0.087,
    "rotulo": "fraca",
-   "conviccao_pct": 4,
+   "conviccao_pct": 9,
    "diff": 0.087,
-   "diff_teto": 2.0,
+   "diff_teto": 1.0,
    "motivo": "CHF score +0.20 vs JPY score +0.12",
    "perna_motivo": "CHF",
    "leitura_base": {
@@ -1822,12 +1822,12 @@
     "nota": "contemporaneous columns describe the same window; the predictive columns are what an entry would need — and they sit inside noise. Rates describe the month, not the candle."
    },
    "sinal": "BEAR",
-   "conviccao_pct": 3,
+   "conviccao_pct": 4,
    "score": -0.043,
    "score_componentes": {
     "usd_invertido": -0.043,
     "geopolitica": 0.0,
-    "maximo": 1.25
+    "maximo": 1.0
    }
   },
   {
@@ -1949,12 +1949,12 @@
     "nota": "contemporaneous columns describe the same window; the predictive columns are what an entry would need — and they sit inside noise. Rates describe the month, not the candle."
    },
    "sinal": "BEAR",
-   "conviccao_pct": 3,
+   "conviccao_pct": 4,
    "score": -0.043,
    "score_componentes": {
     "usd_invertido": -0.043,
     "geopolitica": -0.0,
-    "maximo": 1.25
+    "maximo": 1.0
    }
   },
   {
@@ -2076,12 +2076,12 @@
     "nota": "contemporaneous columns describe the same window; the predictive columns are what an entry would need — and they sit inside noise. Rates describe the month, not the candle."
    },
    "sinal": "BEAR",
-   "conviccao_pct": 3,
+   "conviccao_pct": 4,
    "score": -0.043,
    "score_componentes": {
     "usd_invertido": -0.043,
     "geopolitica": -0.0,
-    "maximo": 1.25
+    "maximo": 1.0
    }
   }
  ]

@@ -259,7 +259,11 @@ def le_moeda(m, ev, bancos, discursos, agora, geo=None):
     score = round(sum(comp.values()), 3)
     return {
         "moeda": m, "direcao": direcao, "intensidade": intensidade,
-        "score": score, "score_componentes": comp, "score_teto": 1.0,
+        "score": score, "score_componentes": comp,
+        # teto do score = 0,25 por dimensao que VOTA. E a ancora da conviccao do par (04/set,
+        # Eduardo: "por que nenhum acima de 25%?" — a ancora teorica de 2,00 punia todo par
+        # que tinha so duas ou tres dimensoes ligadas).
+        "score_teto": round(0.25 * len(disponiveis), 2),
         "conviccao_pct": conv, "conviccao_teto_pct": teto,
         "dimensoes_ligadas": len(disponiveis), "dimensoes_total": len(dims),
         "concordam": {k: (v["direcao"] == direcao) for k, v in disponiveis.items()},
@@ -279,7 +283,11 @@ def le_pares(leituras):
         lb, lq = leituras[b], leituras[q]
         sb, sq = lb["score"], lq["score"]
         diff = round(sb - sq, 3)
-        conv = round(abs(diff) / 2.0 * 100)
+        # conviccao = |diff| / teto LIGADO do par (soma dos tetos das duas pernas). Com quatro
+        # dimensoes votando de cada lado o teto e 2,00; com tres e duas, 1,25. O teto sai no
+        # JSON e na tela, para uma mudanca de encanamento nunca passar por mudanca de leitura.
+        teto = round((lb.get("score_teto") or 0.0) + (lq.get("score_teto") or 0.0), 2)
+        conv = round(abs(diff) / teto * 100) if teto > 0 else 0
         if abs(diff) < 0.005:
             sinal, rotulo = "SEM_TESE", "no edge"
         else:
@@ -292,7 +300,7 @@ def le_pares(leituras):
         saida.append({
             "par": par, "base": b, "cotada": q,
             "sinal": sinal, "forca": abs(diff), "rotulo": rotulo, "conviccao_pct": conv,
-            "diff": diff, "diff_teto": 2.0,
+            "diff": diff, "diff_teto": teto,
             "motivo": "%s score %+.2f vs %s score %+.2f" % (b, sb, q, sq),
             "perna_motivo": perna,
             "leitura_base": {"direcao": lb["direcao"], "score": sb, "conviccao_pct": lb["conviccao_pct"],
@@ -348,7 +356,8 @@ def le_instrumentos(leituras):
         comp_usd = -s_usd
         comp_geo = sinal_geo * geo_conf
         s = round(comp_usd + comp_geo, 3)
-        maximo = 1.0 + 0.25                                   # USD ate +-1,00 + geo ate +-0,25
+        # teto LIGADO: 0,25 por dimensao do USD que vota + 0,25 da geopolitica (se conectada)
+        maximo = round((u.get("score_teto") or 0.0) + (0.25 if z_conf is not None else 0.0), 2) or 0.25
         sinal = "SEM_TESE" if abs(s) < 0.005 else ("BULL" if s > 0 else "BEAR")
         return s, sinal, round(abs(s) / maximo * 100), {"usd_invertido": round(comp_usd, 3),
                                                           "geopolitica": round(comp_geo, 3),
