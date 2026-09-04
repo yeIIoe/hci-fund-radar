@@ -128,6 +128,13 @@ jobs:
         continue-on-error: true
         run: python sentimento.py
 
+      # Geopolitica (GDELT): intensidade do noticiario por moeda, com a regra declarada ao
+      # lado. Camada de contexto — NAO entra na conviccao. Cache de 3 h no script; a API
+      # limita a taxa e o script espera 6 s entre chamadas (~4 min quando roda).
+      - name: geopolitica (GDELT)
+        continue-on-error: true
+        run: python geopolitica.py
+
       # Commit so quando o conteudo mudou de verdade. Sem isto seriam 96 commits vazios por
       # dia, e o historico do repositorio viraria lixo.
       - name: commita se mudou
@@ -137,7 +144,8 @@ jobs:
           git add data/macro_eventos.json data/bancos_centrais.json \
                   data/calendario_resultado.json data/eua_leitura.json \
                   data/bc_discursos.json data/sentimento.json \
-                  data/correlacao_juros.json data/raw/ff_calendar_thisweek.json
+                  data/correlacao_juros.json data/geopolitica.json \
+                  data/raw/ff_calendar_thisweek.json
           if git diff --cached --quiet; then
             echo "nada mudou — sem commit"
           else

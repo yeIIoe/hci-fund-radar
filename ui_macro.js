@@ -103,10 +103,10 @@
     };
     // O leitor dos EUA e OPCIONAL: se o arquivo faltar (cota do BLS, fonte fora), o resto do
     // painel desenha igual. So o bloco dos EUA some — e some declarado, nao em branco.
-    [M.bancos, M.eventos, M.eua, M.discursos, M.sent] = await Promise.all([
+    [M.bancos, M.eventos, M.eua, M.discursos, M.sent, M.geo] = await Promise.all([
       pega("data/bancos_centrais.json"), pega("data/macro_eventos.json"),
       pega("data/eua_leitura.json"), pega("data/bc_discursos.json"),
-      pega("data/sentimento.json"),
+      pega("data/sentimento.json"), pega("data/geopolitica.json"),
     ]);
     // valida a FORMA, nao so a presenca: um JSON truncado passaria no teste de presenca e
     // estouraria dentro dos desenhistas
@@ -214,14 +214,17 @@
 
   function dimsChips(s) {
     const D = s.dimensoes || {};
-    const rot = { dados: "data", texto: "speeches", ciclo: "cycle", mercado: "market" };
-    return `<span class="mac-dims">${["dados", "texto", "ciclo", "mercado"].map((k) => {
+    const rot = { dados: "data", texto: "speeches", ciclo: "cycle", geo: "geopolitics" };
+    return `<span class="mac-dims">${["dados", "texto", "ciclo", "geo"].map((k) => {
       const v = D[k];
       if (!v) return `<span class="mac-dim off" title="not connected">${rot[k]} —</span>`;
+      // geopolitica ligada mas sem pico: nao vota, e diz por que
+      if (!v.direcao) return `<span class="mac-dim quiet" title="${esc(v.motivo || "")}">${rot[k]} <small>quiet</small></span>`;
       const ok = s.concordam && s.concordam[k];
       const det = k === "dados" ? `data push ${v.soma > 0 ? "+" : ""}${v.soma} over ${v.n} prints since ${v.desde}`
                 : k === "texto" ? `${v.hawkish} hawkish / ${v.dovish} dovish markers in ${v.n} speech(es)`
-                : k === "ciclo" ? v.nota : "";
+                : k === "ciclo" ? v.nota
+                : k === "geo" ? (v.motivo || "") : "";
       return `<span class="mac-dim ${ok ? "ok" : "no"}" title="${esc(det)}">${rot[k]} ${ok ? "&#10003;" : "&#10007;"}
         <small>${ROT_DIR[v.direcao] || ""}</small></span>`;
     }).join("")}</span>`;
@@ -264,7 +267,8 @@
     return `<div class="mac-perna-lean">
       <span class="mac-perna-papel">Reading for the next move</span>
       <div class="mac-lean-pill big ${CLS_DIR[s.direcao]}">${SETA_DIR[s.direcao]} ${ROT_DIR[s.direcao]} <b>${s.conviccao_pct}%</b>
-        <small>ceiling ${s.conviccao_teto_pct}% — ${s.dimensoes_ligadas} of ${s.dimensoes_total} dimensions connected</small></div>
+        <small>ceiling ${s.conviccao_teto_pct}% — ${s.dimensoes_ligadas} of ${s.dimensoes_total} dimensions voting</small>
+        <small class="mac-score" title="continuous score, −1 to +1: each dimension enters with its magnitude, up to ±0.25">score <b>${(s.score > 0 ? "+" : "") + Number(s.score || 0).toFixed(2)}</b></small></div>
       ${dimsChips(s)}
       ${motivosPerna(m, s)}
     </div>`;
@@ -336,8 +340,8 @@
     return (M.sent && Array.isArray(M.sent.instrumentos)) ? INSTR.map(dadosInstr) : [];
   }
 
-  const ROT_SINAL = { BULL: "BULL", BEAR: "BEAR", "NAO NEGOCIA": "no trade", SEM_DADO: "no data" };
-  const CLS_SINAL = { BULL: "v-bull", BEAR: "v-bear", "NAO NEGOCIA": "v-nao", SEM_DADO: "v-nao" };
+  const ROT_SINAL = { BULL: "BULL", BEAR: "BEAR", SEM_TESE: "no edge", "NAO NEGOCIA": "no trade", SEM_DADO: "no data" };
+  const CLS_SINAL = { BULL: "v-bull", BEAR: "v-bear", SEM_TESE: "v-nao", "NAO NEGOCIA": "v-nao", SEM_DADO: "v-nao" };
 
   function itemLista(d) {
     const sel = d.par === M.parSel ? " mac-item-sel" : "";
@@ -377,6 +381,7 @@
         <small>&middot; ${esc(b.proxima || "—")}</small></div>
       <div class="mac-perna-linha muted"><small>${hora}</small></div>
       ${ultimosPrintsEUA(m)}
+      ${geoPerna(m)}
     </div>`;
   }
 
@@ -418,19 +423,17 @@
           d.tese ? ` &middot; ${d.conv}%` : ""}</span>`
       : `<span class="mac-det-leitura ${d.diverge ? "e-div" : "e-igual"}">${d.diverge ? "CYCLE DIVERGENCE" : "SAME SIDE"}</span>`;
 
+    const fs = (x) => (x === null || x === undefined) ? "?" : (x > 0 ? "+" : "") + Number(x).toFixed(2);
     let nota;
     if (s && d.tese) {
       const lb = s.leitura_base || {}, lq = s.leitura_cotada || {};
-      nota = `<b>${s.sinal === "BULL" ? "Long" : "Short"} ${d.b}/${d.q}</b> reads from the two legs:
-        ${d.b} leaning to <b>${ROT_DIR[lb.direcao] || "?"}</b> (${lb.conviccao_pct || 0}%) against
-        ${d.q} leaning to <b>${ROT_DIR[lq.direcao] || "?"}</b> (${lq.conviccao_pct || 0}%) &mdash;
-        a ${esc(s.rotulo || "")} divergence of ${s.forca} degree${s.forca === 1 ? "" : "s"}.
-        ${s.perna_motivo && s.perna_motivo !== "ambas"
+      nota = `<b>${s.sinal === "BULL" ? "Long" : "Short"} ${d.b}/${d.q}</b> reads from the two legs: ${d.b} leaning to ${ROT_DIR[lb.direcao] || "?"} (score ${fs(lb.score)}) against ${d.q} leaning to ${ROT_DIR[lq.direcao] || "?"} (score ${fs(lq.score)}) — edge ${fs(s.diff)} of a possible 2.00. ${s.perna_motivo && s.perna_motivo !== "ambas"
           ? `The reason sits on <b>${s.perna_motivo}</b>.` : "Both legs carry the reason."}
         ${s.mesma_aposta && s.mesma_aposta.length
           ? `<span class="mac-mesma">Same bet as ${s.mesma_aposta.map((p) => p.slice(0, 3) + "/" + p.slice(3)).join(", ")} &mdash; holding two does not diversify, it doubles.</span>` : ""}`;
     } else if (s) {
-      nota = `${esc(s.motivo || "")}. Same position on both legs &mdash; no fundamental thesis on this axis.`;
+      const lb = s.leitura_base || {}, lq = s.leitura_cotada || {};
+      nota = `The two legs score the same (${d.b} ${fs(lb.score)}, ${d.q} ${fs(lq.score)}) — no edge between them on this axis.`;
     } else {
       nota = d.diverge
         ? "The two central banks last moved in opposite directions. That is the necessary condition for a fundamental thesis &mdash; not a sufficient one."
@@ -450,13 +453,16 @@
       <details class="mac-det-mais">
         <summary>How this reading is built, and what is still missing</summary>
         <div class="mac-det-mais-corpo">
-          <p>Four dimensions, 25% each: <b>data</b> (surprises since the bank last decided, weighted by
+          <p>Four dimensions, 25% each, none of them a yield: <b>data</b> (surprises since the bank last decided, weighted by
              family and impact, half-life 21 days), <b>speeches</b> (hawkish/dovish markers in what the
              bank's people said), <b>cycle</b> (the last move, if under six months old) and
-             <b>market</b> (implied probability). Conviction is the share of connected dimensions that
-             agree &mdash; a missing dimension lowers the ceiling, it never counts as zero.</p>
-          <p>Still missing: speeches are wired for the Fed only, and the market dimension has no
-             free source. So today the ceiling is 75% for USD and 50% for the other seven.</p>
+             <b>geopolitics</b> (news intensity from GDELT: an energy spike is an inflation push, a conflict spike a growth risk; quiet weeks do not vote).
+             Conviction is the share of voting dimensions that agree &mdash; a missing or quiet dimension lowers the ceiling, it never counts as zero.</p>
+          <p>The pair: each currency gets a score from −1 to +1 (each voting dimension adds +0.25 for hike, −0.25 for cut, 0 for hold).
+             The pair reads the difference between its two legs &mdash; the sign gives the direction, the size gives the confidence
+             (a 0.50 edge is 25% of the maximum 2.00). Every pair gets a reading; "no edge" only when the two legs tie exactly.</p>
+          <p>Still missing: speeches are wired for the Fed, ECB, BoE, BoJ and BoC only (RBA and RBNZ block automation, the SNB has no feed),
+             and the geopolitics rule counts by the owner's decision but has not been measured yet.</p>
           <p>Which leg carries the weight matters. On 2 Sep the GBPNZD move was <b>82% the kiwi</b>;
              the same day EURJPY was <b>90% the yen</b>. When the reason sits on one leg, every
              pair sharing that leg is the same bet.</p>
@@ -505,8 +511,8 @@
         <span class="mac-det-dado ${velho ? "e-velho" : "e-fresco"}">${idade}</span>
       </div>
       <p class="mac-det-nota">${esc(I.nome)} is read through <b>one leg only — the US dollar</b>, which is leaning to
-        <b>${ROT_DIR[u.direcao] || "?"}</b> (${u.conviccao_pct || 0}% of a ${u.teto_pct || "?"}% ceiling).
-        ${I.sinal === "NAO NEGOCIA" ? "With the Fed read as on hold, there is no fundamental push on this instrument." : ""}</p>
+        <b>${ROT_DIR[u.direcao] || "?"}</b> (${u.conviccao_pct || 0}% of a ${u.teto_pct || "?"}% ceiling; score ${(u.score > 0 ? "+" : "") + Number(u.score || 0).toFixed(2)}).
+        ${I.sinal === "SEM_TESE" || I.sinal === "NAO NEGOCIA" ? "With the Fed's dimensions cancelling out, there is no fundamental push on this instrument." : ""}</p>
       <div class="mac-pernas">
         ${pernaCard("USD", cicloDe("USD"), "the leg that drives it")}
         <div class="mac-perna">
@@ -713,6 +719,70 @@
       <ul>${itens}</ul></div>`;
   }
 
+  /* ------------------------------------------------------------- GEOPOLITICA */
+
+  // A camada de CONTEXTO: intensidade do noticiario por moeda (GDELT), com a implicacao por
+  // REGRA DECLARADA ao lado. Nao entra na conviccao — filtro novo passa por medicao antes de
+  // pontuar (lei da casa; o DXY foi reprovado nas 88 operacoes por ter sido assumido).
+  function zPill(v, rotulo) {
+    if (!v || v.z === null || v.z === undefined) return `<span class="mac-geo-pill off">${rotulo} —</span>`;
+    const cls = v.z >= 2 ? "alto" : v.z >= 1 ? "medio" : v.z <= -1 ? "baixo" : "";
+    return `<span class="mac-geo-pill ${cls}" title="3-day article volume vs the 14-day daily mean: ratio ${v.razao ?? "?"}×, z ${v.z}">${rotulo} <b>z ${v.z > 0 ? "+" : ""}${v.z}</b> <small>${v.razao ?? "?"}×</small></span>`;
+  }
+
+  function manchetesHtml(lista, n) {
+    return (lista || []).slice(0, n).map((m) =>
+      `<li><a href="${esc(m.url || "#")}" target="_blank" rel="noopener">${esc(m.titulo || "")}</a>
+         <small class="muted">${esc(m.fonte || "")}${m.quando ? " · " + esc(String(m.quando).slice(0, 8)) : ""}</small></li>`).join("");
+  }
+
+  function painelGeo() {
+    const G = M.geo;
+    if (!G || !G.moedas) return "";
+    const W = G.mundo || {};
+    const cards = Object.keys(FLAG).filter((m) => G.moedas[m]).map((m) => {
+      const b = G.moedas[m];
+      const conf = (b.temas && b.temas.conflito) || {};
+      const ener = (b.temas && b.temas.energia) || {};
+      const imp = b.implicacao || {};
+      return `<div class="mac-geo-card">
+        <div class="mac-geo-topo"><strong>${FLAG[m] || ""} ${m}</strong>
+          ${zPill(conf.volume, "conflict")} ${zPill(ener.volume, "energy")}
+          ${b.tom !== null && b.tom !== undefined ? `<small class="muted" title="mean GDELT tone over 7 days">tone ${b.tom > 0 ? "+" : ""}${b.tom}</small>` : ""}</div>
+        ${imp.fx || imp.juro ? `<div class="mac-geo-imp">${imp.fx ? `<span>${esc(imp.fx)}</span>` : ""}${imp.juro ? `<span>${esc(imp.juro)}</span>` : ""}</div>` : ""}
+        <ul class="mac-geo-lista">${manchetesHtml(conf.manchetes, 2)}${manchetesHtml(ener.manchetes, 1)}</ul>
+      </div>`;
+    }).join("");
+
+    return `<section class="content-section mac-bloco mac-geo">
+      <div class="section-title"><div><h2>Geopolitics</h2></div>
+        <p>News intensity by currency: articles in the last 3 days against the 14-day daily mean,
+           from GDELT. The implication next to each card is a declared rule — it does not count
+           toward the conviction until it is measured.</p></div>
+      <div class="mac-geo-mundo">
+        <span class="mac-perna-papel">World backdrop</span>
+        ${zPill((W.conflito || {}).volume, "conflict")} ${zPill((W.energia || {}).volume, "energy")}
+        <ul class="mac-geo-lista">${manchetesHtml((W.conflito || {}).manchetes, 2)}${manchetesHtml((W.energia || {}).manchetes, 1)}</ul>
+      </div>
+      <div class="mac-geo-grid">${cards}</div>
+      <p class="mac-eua-nota">Rule, not measurement: a conflict spike tends to send flow to USD, CHF and JPY and out of
+        AUD, NZD and CAD; an energy spike is an inflation push for importers. The hypothesis to test before
+        it ever scores: does a conflict z ≥ 2 change the 20-day return of the risk currencies?</p>
+    </section>`;
+  }
+
+  // linha de contexto no cartao da perna
+  function geoPerna(m) {
+    const G = M.geo && M.geo.moedas && M.geo.moedas[m];
+    if (!G) return "";
+    const conf = ((G.temas || {}).conflito || {}).volume;
+    const ener = ((G.temas || {}).energia || {}).volume;
+    const imp = G.implicacao || {};
+    return `<div class="mac-perna-linha mac-perna-geo"><span class="mac-perna-papel">geopolitics</span>
+      ${zPill(conf, "conflict")} ${zPill(ener, "energy")}
+      ${imp.fx || imp.juro ? `<small class="muted">${esc(imp.fx || imp.juro)}</small>` : `<small class="muted">no spike this week</small>`}</div>`;
+  }
+
   /* ------------------------------------------------------------------ CALENDARIO */
 
   // O DIA e em BRT — a lei do Eduardo: as horas dele sao BRT. A grade agrupava por dia UTC e
@@ -884,6 +954,12 @@
     const sys = document.getElementById("systemMessage");
     if (sys && /FUND/i.test(sys.textContent)) {
       sys.textContent = "Reading panel. It gives the fundamental side; the entry is yours.";
+    }
+    // O app.js antigo marca a linha com a classe "error" (vermelha) quando o carregamento do
+    // FUND falha — e ele falha de proposito, porque os desenhistas do FUND foram desligados.
+    // O texto ja e nosso; o estado de erro nao e. (Eduardo, 04/set: "esta dando um bug".)
+    if (sys && sys.classList.contains("error") && !/Could not load|Cannot set/i.test(sys.textContent)) {
+      sys.classList.remove("error");
     }
 
     // rotulos orfaos cujo cartao ja saiu (ex.: "Outside neutral" sem numero)
@@ -1090,6 +1166,12 @@
         if (h) over.insertAdjacentHTML("beforeend", h);
       } catch (e) { console.warn("[macro] painel dos EUA falhou e foi contido:", e.message); }
     }
+    if (over && over.querySelector(".mac-bloco") && !over.querySelector(".mac-geo")) {
+      try {
+        const h = painelGeo();
+        if (h) over.insertAdjacentHTML("beforeend", h);
+      } catch (e) { console.warn("[macro] painel de geopolitica falhou e foi contido:", e.message); }
+    }
 
     // PARES: o mesmo, ate o leitor produzir
     const pares = document.querySelector('[data-panel="pairs"]');
@@ -1189,6 +1271,8 @@
    .mac-lean-pill.negative{background:rgba(248,122,122,.12)}
    .mac-lean-pill.big{font-size:14px;padding:6px 12px;gap:8px;flex-wrap:wrap}
    .mac-lean-pill.big small{font-size:10.5px;opacity:.65;white-space:normal;font-weight:400}
+   .mac-lean-pill.big .mac-score{opacity:.9;font-family:var(--font-mono)}
+   .mac-lean-pill.big .mac-score b{font-size:11px}
    .mac-perna-lean{margin:8px 0 10px;padding:10px 0 0;border-top:1px solid rgba(255,255,255,.07)}
    .mac-dims{display:flex;gap:5px;flex-wrap:wrap;margin-top:8px}
    .mac-dim{font-size:10.5px;letter-spacing:.04em;padding:2px 8px;border-radius:5px;
@@ -1197,6 +1281,7 @@
    .mac-dim.ok{border-color:rgba(82,217,138,.45);color:#52d98a}
    .mac-dim.no{border-color:rgba(248,122,122,.4);color:#f87a7a}
    .mac-dim.off{opacity:.38;border-style:dashed}
+   .mac-dim.quiet{opacity:.6;border-style:dotted}
    .mac-motivos{list-style:none;margin:6px 0 0;padding:0;font-size:12px;line-height:1.55}
    .mac-motivos li{margin:3px 0;padding-left:8px;border-left:2px solid rgba(255,255,255,.12)}
    .mac-motivos b{font-weight:600}
@@ -1212,6 +1297,32 @@
    .mac-placar-3{grid-template-columns:1fr 1fr 1fr}
    .mac-placar strong small{font-family:var(--font-mono);opacity:.55;font-weight:400;margin-left:2px}
    @media (max-width:900px){.mac-placar-3{grid-template-columns:1fr}}
+   /* --- geopolitica: intensidade por moeda, regra declarada ao lado --- */
+   .mac-geo{margin-top:22px}
+   .mac-geo-mundo{border:1px solid rgba(255,255,255,.09);border-radius:12px;padding:12px 16px;
+     margin-bottom:14px}
+   .mac-geo-mundo .mac-perna-papel{display:inline-block;margin-right:10px}
+   .mac-geo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+   .mac-geo-card{border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:12px 14px}
+   .mac-geo-topo{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:6px}
+   .mac-geo-topo strong{font-size:15px;margin-right:4px}
+   .mac-geo-pill{display:inline-flex;gap:5px;align-items:baseline;font-size:11px;padding:2px 9px;
+     border-radius:20px;background:rgba(255,255,255,.06);white-space:nowrap}
+   .mac-geo-pill b{font-family:var(--font-mono)}
+   .mac-geo-pill small{opacity:.55;font-family:var(--font-mono)}
+   .mac-geo-pill.medio{background:rgba(240,180,41,.14);color:#f0b429}
+   .mac-geo-pill.alto{background:rgba(248,122,122,.16);color:#f87a7a}
+   .mac-geo-pill.baixo{background:rgba(82,217,138,.10);color:#52d98a}
+   .mac-geo-pill.off{opacity:.4;border:1px dashed rgba(255,255,255,.18);background:transparent}
+   .mac-geo-imp{display:flex;flex-direction:column;gap:3px;font-size:12px;color:#f0b429;
+     margin:4px 0 6px}
+   .mac-geo-lista{list-style:none;margin:6px 0 0;padding:0;font-size:12.5px;line-height:1.5}
+   .mac-geo-lista li{margin:3px 0;padding-left:8px;border-left:2px solid rgba(255,255,255,.12)}
+   .mac-geo-lista a{color:inherit;text-decoration:none;border-bottom:1px dotted rgba(255,255,255,.3)}
+   .mac-geo-lista a:hover{border-bottom-style:solid}
+   .mac-perna-geo{margin-top:9px;padding-top:9px;border-top:1px solid rgba(255,255,255,.07);
+     display:flex;gap:6px;align-items:center;flex-wrap:wrap;font-size:12px}
+   .mac-perna-geo .mac-perna-papel{margin:0 4px 0 0}
    /* --- falas do Fed: a frase de postura, com o indice de contagem ao lado --- */
    .mac-falas{margin-top:18px;padding-top:14px;border-top:1px solid rgba(255,255,255,.07)}
    .mac-falas-titulo{display:flex;gap:12px;align-items:baseline;flex-wrap:wrap;margin-bottom:8px}

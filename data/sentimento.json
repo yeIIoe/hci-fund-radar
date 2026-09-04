@@ -1,29 +1,39 @@
 {
- "gerado_em": "2026-09-04T13:44:13.297920+00:00",
+ "gerado_em": "2026-09-04T14:04:44.197716+00:00",
  "origem_eventos": "fxstreet 42 dias",
  "regua": {
   "dimensoes": [
    "dados",
    "texto",
    "ciclo",
-   "mercado"
+   "geo"
   ],
   "peso_por_dimensao_pct": 25,
   "janela_dias": 42,
   "meia_vida_dias": 21.0,
   "limiar_dados": 5.0,
   "ciclo_validade_dias": 180,
+  "geo_z_corte": 1.5,
+  "sem_yield": "no dimension uses yields — decided by the owner, repeated on 4 Sep 2026",
   "nao_conectado": {
-   "texto": "only the Fed is wired (fed_discursos.py)",
-   "mercado": "no free OIS/futures source; yields excluded by design"
+   "texto": "Fed, ECB, BoE, BoJ, BoC wired; RBA and RBNZ return 403, SNB has no feed",
+   "geo": "GDELT news intensity; declared rule, counted since 4 Sep, not yet measured"
   }
  },
- "aviso": "a READING of the fundamental side of each leg, not a signal. Conviction is the share of connected dimensions that agree; a missing dimension lowers the ceiling, it never counts as zero. FUND v0.1 was closed as an entry rule after 15 null tests.",
+ "aviso": "a READING of the fundamental side of each leg, not a signal. Conviction is the share of voting dimensions that agree; a missing or quiet dimension lowers the ceiling, it never counts as zero. FUND v0.1 was closed as an entry rule after 15 null tests.",
  "moedas": {
   "USD": {
    "moeda": "USD",
    "direcao": "MANTEM",
    "intensidade": 0,
+   "score": 0.0,
+   "score_componentes": {
+    "dados": -0.25,
+    "texto": 0.25,
+    "ciclo": 0.0,
+    "geo": 0.0
+   },
+   "score_teto": 1.0,
    "conviccao_pct": 25,
    "conviccao_teto_pct": 75,
    "dimensoes_ligadas": 3,
@@ -52,7 +62,7 @@
        "impacto": "HIGH",
        "divulgado": 162.0,
        "consenso": 56.0,
-       "contribuicao": 7.99,
+       "contribuicao": 7.98,
        "idade_dias": 0.1
       },
       {
@@ -63,7 +73,7 @@
        "impacto": "HIGH",
        "divulgado": 0.1,
        "consenso": 0.3,
-       "contribuicao": -3.57,
+       "contribuicao": -3.56,
        "idade_dias": 28.1
       },
       {
@@ -85,7 +95,7 @@
        "impacto": "HIGH",
        "divulgado": 44.0,
        "consenso": 70.0,
-       "contribuicao": -2.97,
+       "contribuicao": -2.96,
        "idade_dias": 30.1
       },
       {
@@ -130,7 +140,7 @@
      "idade_dias": 268,
      "nota": "last move 268 days ago — reads as hold"
     },
-    "mercado": null
+    "geo": null
    },
    "taxa_texto": "3,50–3,75%",
    "proxima": "2026-09-16",
@@ -140,6 +150,14 @@
    "moeda": "EUR",
    "direcao": "SOBE",
    "intensidade": 2,
+   "score": 0.497,
+   "score_componentes": {
+    "dados": 0.185,
+    "texto": 0.062,
+    "ciclo": 0.25,
+    "geo": 0.0
+   },
+   "score_teto": 1.0,
    "conviccao_pct": 50,
    "conviccao_teto_pct": 75,
    "dimensoes_ligadas": 3,
@@ -224,7 +242,7 @@
        "divulgado": 0.9,
        "consenso": 0.6,
        "contribuicao": 1.81,
-       "idade_dias": 36.2
+       "idade_dias": 36.3
       }
      ]
     },
@@ -248,7 +266,7 @@
      "idade_dias": 85,
      "nota": "last move +25 bp, 85 days ago"
     },
-    "mercado": null
+    "geo": null
    },
    "taxa_texto": "2,25%  (MRO 2,40 · MLF 2,65)",
    "proxima": "2026-09-10",
@@ -258,6 +276,14 @@
    "moeda": "GBP",
    "direcao": "MANTEM",
    "intensidade": 0,
+   "score": 0.034,
+   "score_componentes": {
+    "dados": -0.16,
+    "texto": 0.194,
+    "ciclo": 0.0,
+    "geo": 0.0
+   },
+   "score_teto": 1.0,
    "conviccao_pct": 50,
    "conviccao_teto_pct": 75,
    "dimensoes_ligadas": 3,
@@ -363,7 +389,7 @@
      "idade_dias": 261,
      "nota": "last move 261 days ago — reads as hold"
     },
-    "mercado": null
+    "geo": null
    },
    "taxa_texto": "3,75%",
    "proxima": "2026-09-17",
@@ -373,6 +399,14 @@
    "moeda": "JPY",
    "direcao": "MANTEM",
    "intensidade": 0,
+   "score": 0.0,
+   "score_componentes": {
+    "dados": -0.25,
+    "texto": 0.0,
+    "ciclo": 0.25,
+    "geo": 0.0
+   },
+   "score_teto": 1.0,
    "conviccao_pct": 0,
    "conviccao_teto_pct": 50,
    "dimensoes_ligadas": 2,
@@ -467,7 +501,7 @@
      "idade_dias": 80,
      "nota": "last move +25 bp, 80 days ago"
     },
-    "mercado": null
+    "geo": null
    },
    "taxa_texto": "cerca de 1,0%",
    "proxima": "2026-09-18",
@@ -477,6 +511,14 @@
    "moeda": "AUD",
    "direcao": "MANTEM",
    "intensidade": 0,
+   "score": 0.288,
+   "score_componentes": {
+    "dados": 0.038,
+    "texto": 0.0,
+    "ciclo": 0.25,
+    "geo": 0.0
+   },
+   "score_teto": 1.0,
    "conviccao_pct": 25,
    "conviccao_teto_pct": 50,
    "dimensoes_ligadas": 2,
@@ -538,7 +580,7 @@
      "idade_dias": 122,
      "nota": "last move +25 bp, 122 days ago"
     },
-    "mercado": null
+    "geo": null
    },
    "taxa_texto": "4,35%",
    "proxima": "2026-09-29",
@@ -548,6 +590,14 @@
    "moeda": "NZD",
    "direcao": "MANTEM",
    "intensidade": 0,
+   "score": 0.25,
+   "score_componentes": {
+    "dados": 0.0,
+    "texto": 0.0,
+    "ciclo": 0.25,
+    "geo": 0.0
+   },
+   "score_teto": 1.0,
    "conviccao_pct": 25,
    "conviccao_teto_pct": 50,
    "dimensoes_ligadas": 2,
@@ -575,7 +625,7 @@
      "idade_dias": 58,
      "nota": "last move +25 bp, 58 days ago"
     },
-    "mercado": null
+    "geo": null
    },
    "taxa_texto": "2,50%",
    "proxima": "2026-10-28",
@@ -585,6 +635,14 @@
    "moeda": "CAD",
    "direcao": "MANTEM",
    "intensidade": 0,
+   "score": -0.188,
+   "score_componentes": {
+    "dados": -0.25,
+    "texto": 0.062,
+    "ciclo": 0.0,
+    "geo": 0.0
+   },
+   "score_teto": 1.0,
    "conviccao_pct": 25,
    "conviccao_teto_pct": 75,
    "dimensoes_ligadas": 3,
@@ -597,8 +655,8 @@
    "dimensoes": {
     "dados": {
      "direcao": "CORTA",
-     "soma": -7.99,
-     "n": 2,
+     "soma": -7.98,
+     "n": 3,
      "n_alto": 2,
      "desde": "2026-09-02T13:45:00+00:00",
      "zerado_por_decisao": true,
@@ -613,7 +671,7 @@
        "impacto": "HIGH",
        "divulgado": -41.7,
        "consenso": 15.0,
-       "contribuicao": -7.99,
+       "contribuicao": -7.98,
        "idade_dias": 0.1
       }
      ]
@@ -637,7 +695,7 @@
      "idade_dias": 310,
      "nota": "last move 310 days ago — reads as hold"
     },
-    "mercado": null
+    "geo": null
    },
    "taxa_texto": "2,25%  (Bank Rate 2,50 · deposito 2,20)",
    "proxima": "2026-10-28",
@@ -647,6 +705,14 @@
    "moeda": "CHF",
    "direcao": "MANTEM",
    "intensidade": 0,
+   "score": 0.25,
+   "score_componentes": {
+    "dados": 0.25,
+    "texto": 0.0,
+    "ciclo": 0.0,
+    "geo": 0.0
+   },
+   "score_teto": 1.0,
    "conviccao_pct": 25,
    "conviccao_teto_pct": 50,
    "dimensoes_ligadas": 2,
@@ -658,7 +724,7 @@
    "dimensoes": {
     "dados": {
      "direcao": "SOBE",
-     "soma": 11.23,
+     "soma": 11.22,
      "n": 8,
      "n_alto": 2,
      "desde": "2026-07-24",
@@ -674,7 +740,7 @@
        "impacto": "HIGH",
        "divulgado": 0.8,
        "consenso": 0.5,
-       "contribuicao": 6.71,
+       "contribuicao": 6.7,
        "idade_dias": 1.3
       },
       {
@@ -719,7 +785,7 @@
      "idade_dias": 442,
      "nota": "last move 442 days ago — reads as hold"
     },
-    "mercado": null
+    "geo": null
    },
    "taxa_texto": "0,00%",
    "proxima": "2026-09-24",
@@ -729,22 +795,27 @@
  "pares": [
   {
    "par": "EURUSD",
-   "sinal": "BULL",
-   "forca": 2,
-   "motivo": "EUR SOBE x USD MANTEM",
-   "rotulo": "media",
-   "quando": "2026-09-10 / 2026-09-16",
    "base": "EUR",
    "cotada": "USD",
-   "conviccao_pct": 38,
+   "sinal": "BULL",
+   "forca": 0.497,
+   "rotulo": "media",
+   "conviccao_pct": 25,
+   "diff": 0.497,
+   "diff_teto": 2.0,
+   "motivo": "EUR score +0.50 vs USD score +0.00",
    "perna_motivo": "EUR",
    "leitura_base": {
     "direcao": "SOBE",
-    "conviccao_pct": 50
+    "score": 0.497,
+    "conviccao_pct": 50,
+    "votando": 3
    },
    "leitura_cotada": {
     "direcao": "MANTEM",
-    "conviccao_pct": 25
+    "score": 0.0,
+    "conviccao_pct": 25,
+    "votando": 3
    },
    "mesma_aposta": [
     "EURGBP",
@@ -757,136 +828,202 @@
   },
   {
    "par": "GBPUSD",
-   "sinal": "NAO NEGOCIA",
-   "forca": 0,
-   "motivo": "GBP e USD na mesma posicao (MANTEM) — sem divergencia",
    "base": "GBP",
    "cotada": "USD",
-   "conviccao_pct": 0,
-   "perna_motivo": null,
+   "sinal": "BULL",
+   "forca": 0.034,
+   "rotulo": "fraca",
+   "conviccao_pct": 2,
+   "diff": 0.034,
+   "diff_teto": 2.0,
+   "motivo": "GBP score +0.03 vs USD score +0.00",
+   "perna_motivo": "GBP",
    "leitura_base": {
     "direcao": "MANTEM",
-    "conviccao_pct": 50
+    "score": 0.034,
+    "conviccao_pct": 50,
+    "votando": 3
    },
    "leitura_cotada": {
     "direcao": "MANTEM",
-    "conviccao_pct": 25
+    "score": 0.0,
+    "conviccao_pct": 25,
+    "votando": 3
    },
-   "mesma_aposta": []
+   "mesma_aposta": [
+    "GBPJPY"
+   ]
   },
   {
    "par": "AUDUSD",
-   "sinal": "NAO NEGOCIA",
-   "forca": 0,
-   "motivo": "AUD e USD na mesma posicao (MANTEM) — sem divergencia",
    "base": "AUD",
    "cotada": "USD",
-   "conviccao_pct": 0,
-   "perna_motivo": null,
+   "sinal": "BULL",
+   "forca": 0.288,
+   "rotulo": "media",
+   "conviccao_pct": 14,
+   "diff": 0.288,
+   "diff_teto": 2.0,
+   "motivo": "AUD score +0.29 vs USD score +0.00",
+   "perna_motivo": "AUD",
    "leitura_base": {
     "direcao": "MANTEM",
-    "conviccao_pct": 25
+    "score": 0.288,
+    "conviccao_pct": 25,
+    "votando": 2
    },
    "leitura_cotada": {
     "direcao": "MANTEM",
-    "conviccao_pct": 25
+    "score": 0.0,
+    "conviccao_pct": 25,
+    "votando": 3
    },
-   "mesma_aposta": []
+   "mesma_aposta": [
+    "GBPAUD",
+    "AUDJPY",
+    "AUDNZD",
+    "AUDCAD",
+    "AUDCHF"
+   ]
   },
   {
    "par": "NZDUSD",
-   "sinal": "NAO NEGOCIA",
-   "forca": 0,
-   "motivo": "NZD e USD na mesma posicao (MANTEM) — sem divergencia",
    "base": "NZD",
    "cotada": "USD",
-   "conviccao_pct": 0,
-   "perna_motivo": null,
+   "sinal": "BULL",
+   "forca": 0.25,
+   "rotulo": "fraca",
+   "conviccao_pct": 12,
+   "diff": 0.25,
+   "diff_teto": 2.0,
+   "motivo": "NZD score +0.25 vs USD score +0.00",
+   "perna_motivo": "NZD",
    "leitura_base": {
     "direcao": "MANTEM",
-    "conviccao_pct": 25
+    "score": 0.25,
+    "conviccao_pct": 25,
+    "votando": 2
    },
    "leitura_cotada": {
     "direcao": "MANTEM",
-    "conviccao_pct": 25
+    "score": 0.0,
+    "conviccao_pct": 25,
+    "votando": 3
    },
-   "mesma_aposta": []
+   "mesma_aposta": [
+    "GBPNZD",
+    "NZDJPY",
+    "NZDCAD"
+   ]
   },
   {
    "par": "USDJPY",
-   "sinal": "NAO NEGOCIA",
-   "forca": 0,
-   "motivo": "USD e JPY na mesma posicao (MANTEM) — sem divergencia",
    "base": "USD",
    "cotada": "JPY",
+   "sinal": "SEM_TESE",
+   "forca": 0.0,
+   "rotulo": "no edge",
    "conviccao_pct": 0,
+   "diff": 0.0,
+   "diff_teto": 2.0,
+   "motivo": "USD score +0.00 vs JPY score +0.00",
    "perna_motivo": null,
    "leitura_base": {
     "direcao": "MANTEM",
-    "conviccao_pct": 25
+    "score": 0.0,
+    "conviccao_pct": 25,
+    "votando": 3
    },
    "leitura_cotada": {
     "direcao": "MANTEM",
-    "conviccao_pct": 0
+    "score": 0.0,
+    "conviccao_pct": 0,
+    "votando": 2
    },
    "mesma_aposta": []
   },
   {
    "par": "USDCAD",
-   "sinal": "NAO NEGOCIA",
-   "forca": 0,
-   "motivo": "USD e CAD na mesma posicao (MANTEM) — sem divergencia",
    "base": "USD",
    "cotada": "CAD",
-   "conviccao_pct": 0,
-   "perna_motivo": null,
+   "sinal": "BULL",
+   "forca": 0.188,
+   "rotulo": "fraca",
+   "conviccao_pct": 9,
+   "diff": 0.188,
+   "diff_teto": 2.0,
+   "motivo": "USD score +0.00 vs CAD score -0.19",
+   "perna_motivo": "CAD",
    "leitura_base": {
     "direcao": "MANTEM",
-    "conviccao_pct": 25
+    "score": 0.0,
+    "conviccao_pct": 25,
+    "votando": 3
    },
    "leitura_cotada": {
     "direcao": "MANTEM",
-    "conviccao_pct": 25
+    "score": -0.188,
+    "conviccao_pct": 25,
+    "votando": 3
    },
-   "mesma_aposta": []
+   "mesma_aposta": [
+    "GBPCAD",
+    "CADJPY"
+   ]
   },
   {
    "par": "USDCHF",
-   "sinal": "NAO NEGOCIA",
-   "forca": 0,
-   "motivo": "USD e CHF na mesma posicao (MANTEM) — sem divergencia",
    "base": "USD",
    "cotada": "CHF",
-   "conviccao_pct": 0,
-   "perna_motivo": null,
+   "sinal": "BEAR",
+   "forca": 0.25,
+   "rotulo": "fraca",
+   "conviccao_pct": 12,
+   "diff": -0.25,
+   "diff_teto": 2.0,
+   "motivo": "USD score +0.00 vs CHF score +0.25",
+   "perna_motivo": "CHF",
    "leitura_base": {
     "direcao": "MANTEM",
-    "conviccao_pct": 25
+    "score": 0.0,
+    "conviccao_pct": 25,
+    "votando": 3
    },
    "leitura_cotada": {
     "direcao": "MANTEM",
-    "conviccao_pct": 25
+    "score": 0.25,
+    "conviccao_pct": 25,
+    "votando": 2
    },
-   "mesma_aposta": []
+   "mesma_aposta": [
+    "GBPCHF",
+    "CADCHF",
+    "CHFJPY"
+   ]
   },
   {
    "par": "EURGBP",
-   "sinal": "BULL",
-   "forca": 2,
-   "motivo": "EUR SOBE x GBP MANTEM",
-   "rotulo": "media",
-   "quando": "2026-09-10 / 2026-09-17",
    "base": "EUR",
    "cotada": "GBP",
-   "conviccao_pct": 50,
+   "sinal": "BULL",
+   "forca": 0.463,
+   "rotulo": "media",
+   "conviccao_pct": 23,
+   "diff": 0.463,
+   "diff_teto": 2.0,
+   "motivo": "EUR score +0.50 vs GBP score +0.03",
    "perna_motivo": "EUR",
    "leitura_base": {
     "direcao": "SOBE",
-    "conviccao_pct": 50
+    "score": 0.497,
+    "conviccao_pct": 50,
+    "votando": 3
    },
    "leitura_cotada": {
     "direcao": "MANTEM",
-    "conviccao_pct": 50
+    "score": 0.034,
+    "conviccao_pct": 50,
+    "votando": 3
    },
    "mesma_aposta": [
     "EURUSD",
@@ -899,22 +1036,27 @@
   },
   {
    "par": "EURJPY",
-   "sinal": "BULL",
-   "forca": 2,
-   "motivo": "EUR SOBE x JPY MANTEM",
-   "rotulo": "media",
-   "quando": "2026-09-10 / 2026-09-18",
    "base": "EUR",
    "cotada": "JPY",
+   "sinal": "BULL",
+   "forca": 0.497,
+   "rotulo": "media",
    "conviccao_pct": 25,
+   "diff": 0.497,
+   "diff_teto": 2.0,
+   "motivo": "EUR score +0.50 vs JPY score +0.00",
    "perna_motivo": "EUR",
    "leitura_base": {
     "direcao": "SOBE",
-    "conviccao_pct": 50
+    "score": 0.497,
+    "conviccao_pct": 50,
+    "votando": 3
    },
    "leitura_cotada": {
     "direcao": "MANTEM",
-    "conviccao_pct": 0
+    "score": 0.0,
+    "conviccao_pct": 0,
+    "votando": 2
    },
    "mesma_aposta": [
     "EURUSD",
@@ -927,22 +1069,27 @@
   },
   {
    "par": "EURAUD",
-   "sinal": "BULL",
-   "forca": 2,
-   "motivo": "EUR SOBE x AUD MANTEM",
-   "rotulo": "media",
-   "quando": "2026-09-10 / 2026-09-29",
    "base": "EUR",
    "cotada": "AUD",
-   "conviccao_pct": 38,
+   "sinal": "BULL",
+   "forca": 0.209,
+   "rotulo": "fraca",
+   "conviccao_pct": 10,
+   "diff": 0.209,
+   "diff_teto": 2.0,
+   "motivo": "EUR score +0.50 vs AUD score +0.29",
    "perna_motivo": "EUR",
    "leitura_base": {
     "direcao": "SOBE",
-    "conviccao_pct": 50
+    "score": 0.497,
+    "conviccao_pct": 50,
+    "votando": 3
    },
    "leitura_cotada": {
     "direcao": "MANTEM",
-    "conviccao_pct": 25
+    "score": 0.288,
+    "conviccao_pct": 25,
+    "votando": 2
    },
    "mesma_aposta": [
     "EURUSD",
@@ -955,22 +1102,27 @@
   },
   {
    "par": "EURNZD",
-   "sinal": "BULL",
-   "forca": 2,
-   "motivo": "EUR SOBE x NZD MANTEM",
-   "rotulo": "media",
-   "quando": "2026-09-10 / 2026-10-28",
    "base": "EUR",
    "cotada": "NZD",
-   "conviccao_pct": 38,
+   "sinal": "BULL",
+   "forca": 0.247,
+   "rotulo": "fraca",
+   "conviccao_pct": 12,
+   "diff": 0.247,
+   "diff_teto": 2.0,
+   "motivo": "EUR score +0.50 vs NZD score +0.25",
    "perna_motivo": "EUR",
    "leitura_base": {
     "direcao": "SOBE",
-    "conviccao_pct": 50
+    "score": 0.497,
+    "conviccao_pct": 50,
+    "votando": 3
    },
    "leitura_cotada": {
     "direcao": "MANTEM",
-    "conviccao_pct": 25
+    "score": 0.25,
+    "conviccao_pct": 25,
+    "votando": 2
    },
    "mesma_aposta": [
     "EURUSD",
@@ -983,22 +1135,27 @@
   },
   {
    "par": "EURCAD",
-   "sinal": "BULL",
-   "forca": 2,
-   "motivo": "EUR SOBE x CAD MANTEM",
-   "rotulo": "media",
-   "quando": "2026-09-10 / 2026-10-28",
    "base": "EUR",
    "cotada": "CAD",
-   "conviccao_pct": 38,
+   "sinal": "BULL",
+   "forca": 0.685,
+   "rotulo": "forte",
+   "conviccao_pct": 34,
+   "diff": 0.685,
+   "diff_teto": 2.0,
+   "motivo": "EUR score +0.50 vs CAD score -0.19",
    "perna_motivo": "EUR",
    "leitura_base": {
     "direcao": "SOBE",
-    "conviccao_pct": 50
+    "score": 0.497,
+    "conviccao_pct": 50,
+    "votando": 3
    },
    "leitura_cotada": {
     "direcao": "MANTEM",
-    "conviccao_pct": 25
+    "score": -0.188,
+    "conviccao_pct": 25,
+    "votando": 3
    },
    "mesma_aposta": [
     "EURUSD",
@@ -1011,22 +1168,27 @@
   },
   {
    "par": "EURCHF",
-   "sinal": "BULL",
-   "forca": 2,
-   "motivo": "EUR SOBE x CHF MANTEM",
-   "rotulo": "media",
-   "quando": "2026-09-10 / 2026-09-24",
    "base": "EUR",
    "cotada": "CHF",
-   "conviccao_pct": 38,
+   "sinal": "BULL",
+   "forca": 0.247,
+   "rotulo": "fraca",
+   "conviccao_pct": 12,
+   "diff": 0.247,
+   "diff_teto": 2.0,
+   "motivo": "EUR score +0.50 vs CHF score +0.25",
    "perna_motivo": "EUR",
    "leitura_base": {
     "direcao": "SOBE",
-    "conviccao_pct": 50
+    "score": 0.497,
+    "conviccao_pct": 50,
+    "votando": 3
    },
    "leitura_cotada": {
     "direcao": "MANTEM",
-    "conviccao_pct": 25
+    "score": 0.25,
+    "conviccao_pct": 25,
+    "votando": 2
    },
    "mesma_aposta": [
     "EURUSD",
@@ -1039,288 +1201,455 @@
   },
   {
    "par": "GBPJPY",
-   "sinal": "NAO NEGOCIA",
-   "forca": 0,
-   "motivo": "GBP e JPY na mesma posicao (MANTEM) — sem divergencia",
    "base": "GBP",
    "cotada": "JPY",
-   "conviccao_pct": 0,
-   "perna_motivo": null,
+   "sinal": "BULL",
+   "forca": 0.034,
+   "rotulo": "fraca",
+   "conviccao_pct": 2,
+   "diff": 0.034,
+   "diff_teto": 2.0,
+   "motivo": "GBP score +0.03 vs JPY score +0.00",
+   "perna_motivo": "GBP",
    "leitura_base": {
     "direcao": "MANTEM",
-    "conviccao_pct": 50
+    "score": 0.034,
+    "conviccao_pct": 50,
+    "votando": 3
    },
    "leitura_cotada": {
     "direcao": "MANTEM",
-    "conviccao_pct": 0
+    "score": 0.0,
+    "conviccao_pct": 0,
+    "votando": 2
    },
-   "mesma_aposta": []
+   "mesma_aposta": [
+    "GBPUSD"
+   ]
   },
   {
    "par": "GBPAUD",
-   "sinal": "NAO NEGOCIA",
-   "forca": 0,
-   "motivo": "GBP e AUD na mesma posicao (MANTEM) — sem divergencia",
    "base": "GBP",
    "cotada": "AUD",
-   "conviccao_pct": 0,
-   "perna_motivo": null,
+   "sinal": "BEAR",
+   "forca": 0.254,
+   "rotulo": "fraca",
+   "conviccao_pct": 13,
+   "diff": -0.254,
+   "diff_teto": 2.0,
+   "motivo": "GBP score +0.03 vs AUD score +0.29",
+   "perna_motivo": "AUD",
    "leitura_base": {
     "direcao": "MANTEM",
-    "conviccao_pct": 50
+    "score": 0.034,
+    "conviccao_pct": 50,
+    "votando": 3
    },
    "leitura_cotada": {
     "direcao": "MANTEM",
-    "conviccao_pct": 25
+    "score": 0.288,
+    "conviccao_pct": 25,
+    "votando": 2
    },
-   "mesma_aposta": []
+   "mesma_aposta": [
+    "AUDUSD",
+    "AUDJPY",
+    "AUDNZD",
+    "AUDCAD",
+    "AUDCHF"
+   ]
   },
   {
    "par": "GBPNZD",
-   "sinal": "NAO NEGOCIA",
-   "forca": 0,
-   "motivo": "GBP e NZD na mesma posicao (MANTEM) — sem divergencia",
    "base": "GBP",
    "cotada": "NZD",
-   "conviccao_pct": 0,
-   "perna_motivo": null,
+   "sinal": "BEAR",
+   "forca": 0.216,
+   "rotulo": "fraca",
+   "conviccao_pct": 11,
+   "diff": -0.216,
+   "diff_teto": 2.0,
+   "motivo": "GBP score +0.03 vs NZD score +0.25",
+   "perna_motivo": "NZD",
    "leitura_base": {
     "direcao": "MANTEM",
-    "conviccao_pct": 50
+    "score": 0.034,
+    "conviccao_pct": 50,
+    "votando": 3
    },
    "leitura_cotada": {
     "direcao": "MANTEM",
-    "conviccao_pct": 25
+    "score": 0.25,
+    "conviccao_pct": 25,
+    "votando": 2
    },
-   "mesma_aposta": []
+   "mesma_aposta": [
+    "NZDUSD",
+    "NZDJPY",
+    "NZDCAD"
+   ]
   },
   {
    "par": "GBPCAD",
-   "sinal": "NAO NEGOCIA",
-   "forca": 0,
-   "motivo": "GBP e CAD na mesma posicao (MANTEM) — sem divergencia",
    "base": "GBP",
    "cotada": "CAD",
-   "conviccao_pct": 0,
-   "perna_motivo": null,
+   "sinal": "BULL",
+   "forca": 0.222,
+   "rotulo": "fraca",
+   "conviccao_pct": 11,
+   "diff": 0.222,
+   "diff_teto": 2.0,
+   "motivo": "GBP score +0.03 vs CAD score -0.19",
+   "perna_motivo": "CAD",
    "leitura_base": {
     "direcao": "MANTEM",
-    "conviccao_pct": 50
+    "score": 0.034,
+    "conviccao_pct": 50,
+    "votando": 3
    },
    "leitura_cotada": {
     "direcao": "MANTEM",
-    "conviccao_pct": 25
+    "score": -0.188,
+    "conviccao_pct": 25,
+    "votando": 3
    },
-   "mesma_aposta": []
+   "mesma_aposta": [
+    "USDCAD",
+    "CADJPY"
+   ]
   },
   {
    "par": "GBPCHF",
-   "sinal": "NAO NEGOCIA",
-   "forca": 0,
-   "motivo": "GBP e CHF na mesma posicao (MANTEM) — sem divergencia",
    "base": "GBP",
    "cotada": "CHF",
-   "conviccao_pct": 0,
-   "perna_motivo": null,
+   "sinal": "BEAR",
+   "forca": 0.216,
+   "rotulo": "fraca",
+   "conviccao_pct": 11,
+   "diff": -0.216,
+   "diff_teto": 2.0,
+   "motivo": "GBP score +0.03 vs CHF score +0.25",
+   "perna_motivo": "CHF",
    "leitura_base": {
     "direcao": "MANTEM",
-    "conviccao_pct": 50
+    "score": 0.034,
+    "conviccao_pct": 50,
+    "votando": 3
    },
    "leitura_cotada": {
     "direcao": "MANTEM",
-    "conviccao_pct": 25
+    "score": 0.25,
+    "conviccao_pct": 25,
+    "votando": 2
    },
-   "mesma_aposta": []
+   "mesma_aposta": [
+    "USDCHF",
+    "CADCHF",
+    "CHFJPY"
+   ]
   },
   {
    "par": "AUDJPY",
-   "sinal": "NAO NEGOCIA",
-   "forca": 0,
-   "motivo": "AUD e JPY na mesma posicao (MANTEM) — sem divergencia",
    "base": "AUD",
    "cotada": "JPY",
-   "conviccao_pct": 0,
-   "perna_motivo": null,
+   "sinal": "BULL",
+   "forca": 0.288,
+   "rotulo": "media",
+   "conviccao_pct": 14,
+   "diff": 0.288,
+   "diff_teto": 2.0,
+   "motivo": "AUD score +0.29 vs JPY score +0.00",
+   "perna_motivo": "AUD",
    "leitura_base": {
     "direcao": "MANTEM",
-    "conviccao_pct": 25
+    "score": 0.288,
+    "conviccao_pct": 25,
+    "votando": 2
    },
    "leitura_cotada": {
     "direcao": "MANTEM",
-    "conviccao_pct": 0
+    "score": 0.0,
+    "conviccao_pct": 0,
+    "votando": 2
    },
-   "mesma_aposta": []
+   "mesma_aposta": [
+    "AUDUSD",
+    "GBPAUD",
+    "AUDNZD",
+    "AUDCAD",
+    "AUDCHF"
+   ]
   },
   {
    "par": "AUDNZD",
-   "sinal": "NAO NEGOCIA",
-   "forca": 0,
-   "motivo": "AUD e NZD na mesma posicao (MANTEM) — sem divergencia",
    "base": "AUD",
    "cotada": "NZD",
-   "conviccao_pct": 0,
-   "perna_motivo": null,
+   "sinal": "BULL",
+   "forca": 0.038,
+   "rotulo": "fraca",
+   "conviccao_pct": 2,
+   "diff": 0.038,
+   "diff_teto": 2.0,
+   "motivo": "AUD score +0.29 vs NZD score +0.25",
+   "perna_motivo": "AUD",
    "leitura_base": {
     "direcao": "MANTEM",
-    "conviccao_pct": 25
+    "score": 0.288,
+    "conviccao_pct": 25,
+    "votando": 2
    },
    "leitura_cotada": {
     "direcao": "MANTEM",
-    "conviccao_pct": 25
+    "score": 0.25,
+    "conviccao_pct": 25,
+    "votando": 2
    },
-   "mesma_aposta": []
+   "mesma_aposta": [
+    "AUDUSD",
+    "GBPAUD",
+    "AUDJPY",
+    "AUDCAD",
+    "AUDCHF"
+   ]
   },
   {
    "par": "AUDCAD",
-   "sinal": "NAO NEGOCIA",
-   "forca": 0,
-   "motivo": "AUD e CAD na mesma posicao (MANTEM) — sem divergencia",
    "base": "AUD",
    "cotada": "CAD",
-   "conviccao_pct": 0,
-   "perna_motivo": null,
+   "sinal": "BULL",
+   "forca": 0.476,
+   "rotulo": "media",
+   "conviccao_pct": 24,
+   "diff": 0.476,
+   "diff_teto": 2.0,
+   "motivo": "AUD score +0.29 vs CAD score -0.19",
+   "perna_motivo": "AUD",
    "leitura_base": {
     "direcao": "MANTEM",
-    "conviccao_pct": 25
+    "score": 0.288,
+    "conviccao_pct": 25,
+    "votando": 2
    },
    "leitura_cotada": {
     "direcao": "MANTEM",
-    "conviccao_pct": 25
+    "score": -0.188,
+    "conviccao_pct": 25,
+    "votando": 3
    },
-   "mesma_aposta": []
+   "mesma_aposta": [
+    "AUDUSD",
+    "GBPAUD",
+    "AUDJPY",
+    "AUDNZD",
+    "AUDCHF"
+   ]
   },
   {
    "par": "AUDCHF",
-   "sinal": "NAO NEGOCIA",
-   "forca": 0,
-   "motivo": "AUD e CHF na mesma posicao (MANTEM) — sem divergencia",
    "base": "AUD",
    "cotada": "CHF",
-   "conviccao_pct": 0,
-   "perna_motivo": null,
+   "sinal": "BULL",
+   "forca": 0.038,
+   "rotulo": "fraca",
+   "conviccao_pct": 2,
+   "diff": 0.038,
+   "diff_teto": 2.0,
+   "motivo": "AUD score +0.29 vs CHF score +0.25",
+   "perna_motivo": "AUD",
    "leitura_base": {
     "direcao": "MANTEM",
-    "conviccao_pct": 25
+    "score": 0.288,
+    "conviccao_pct": 25,
+    "votando": 2
    },
    "leitura_cotada": {
     "direcao": "MANTEM",
-    "conviccao_pct": 25
+    "score": 0.25,
+    "conviccao_pct": 25,
+    "votando": 2
    },
-   "mesma_aposta": []
+   "mesma_aposta": [
+    "AUDUSD",
+    "GBPAUD",
+    "AUDJPY",
+    "AUDNZD",
+    "AUDCAD"
+   ]
   },
   {
    "par": "NZDJPY",
-   "sinal": "NAO NEGOCIA",
-   "forca": 0,
-   "motivo": "NZD e JPY na mesma posicao (MANTEM) — sem divergencia",
    "base": "NZD",
    "cotada": "JPY",
-   "conviccao_pct": 0,
-   "perna_motivo": null,
+   "sinal": "BULL",
+   "forca": 0.25,
+   "rotulo": "fraca",
+   "conviccao_pct": 12,
+   "diff": 0.25,
+   "diff_teto": 2.0,
+   "motivo": "NZD score +0.25 vs JPY score +0.00",
+   "perna_motivo": "NZD",
    "leitura_base": {
     "direcao": "MANTEM",
-    "conviccao_pct": 25
+    "score": 0.25,
+    "conviccao_pct": 25,
+    "votando": 2
    },
    "leitura_cotada": {
     "direcao": "MANTEM",
-    "conviccao_pct": 0
+    "score": 0.0,
+    "conviccao_pct": 0,
+    "votando": 2
    },
-   "mesma_aposta": []
+   "mesma_aposta": [
+    "NZDUSD",
+    "GBPNZD",
+    "NZDCAD"
+   ]
   },
   {
    "par": "NZDCAD",
-   "sinal": "NAO NEGOCIA",
-   "forca": 0,
-   "motivo": "NZD e CAD na mesma posicao (MANTEM) — sem divergencia",
    "base": "NZD",
    "cotada": "CAD",
-   "conviccao_pct": 0,
-   "perna_motivo": null,
+   "sinal": "BULL",
+   "forca": 0.438,
+   "rotulo": "media",
+   "conviccao_pct": 22,
+   "diff": 0.438,
+   "diff_teto": 2.0,
+   "motivo": "NZD score +0.25 vs CAD score -0.19",
+   "perna_motivo": "NZD",
    "leitura_base": {
     "direcao": "MANTEM",
-    "conviccao_pct": 25
+    "score": 0.25,
+    "conviccao_pct": 25,
+    "votando": 2
    },
    "leitura_cotada": {
     "direcao": "MANTEM",
-    "conviccao_pct": 25
+    "score": -0.188,
+    "conviccao_pct": 25,
+    "votando": 3
    },
-   "mesma_aposta": []
+   "mesma_aposta": [
+    "NZDUSD",
+    "GBPNZD",
+    "NZDJPY"
+   ]
   },
   {
    "par": "NZDCHF",
-   "sinal": "NAO NEGOCIA",
-   "forca": 0,
-   "motivo": "NZD e CHF na mesma posicao (MANTEM) — sem divergencia",
    "base": "NZD",
    "cotada": "CHF",
+   "sinal": "SEM_TESE",
+   "forca": 0.0,
+   "rotulo": "no edge",
    "conviccao_pct": 0,
-   "perna_motivo": null,
+   "diff": 0.0,
+   "diff_teto": 2.0,
+   "motivo": "NZD score +0.25 vs CHF score +0.25",
+   "perna_motivo": "ambas",
    "leitura_base": {
     "direcao": "MANTEM",
-    "conviccao_pct": 25
+    "score": 0.25,
+    "conviccao_pct": 25,
+    "votando": 2
    },
    "leitura_cotada": {
     "direcao": "MANTEM",
-    "conviccao_pct": 25
+    "score": 0.25,
+    "conviccao_pct": 25,
+    "votando": 2
    },
    "mesma_aposta": []
   },
   {
    "par": "CADJPY",
-   "sinal": "NAO NEGOCIA",
-   "forca": 0,
-   "motivo": "CAD e JPY na mesma posicao (MANTEM) — sem divergencia",
    "base": "CAD",
    "cotada": "JPY",
-   "conviccao_pct": 0,
-   "perna_motivo": null,
+   "sinal": "BEAR",
+   "forca": 0.188,
+   "rotulo": "fraca",
+   "conviccao_pct": 9,
+   "diff": -0.188,
+   "diff_teto": 2.0,
+   "motivo": "CAD score -0.19 vs JPY score +0.00",
+   "perna_motivo": "CAD",
    "leitura_base": {
     "direcao": "MANTEM",
-    "conviccao_pct": 25
+    "score": -0.188,
+    "conviccao_pct": 25,
+    "votando": 3
    },
    "leitura_cotada": {
     "direcao": "MANTEM",
-    "conviccao_pct": 0
+    "score": 0.0,
+    "conviccao_pct": 0,
+    "votando": 2
    },
-   "mesma_aposta": []
+   "mesma_aposta": [
+    "USDCAD",
+    "GBPCAD"
+   ]
   },
   {
    "par": "CADCHF",
-   "sinal": "NAO NEGOCIA",
-   "forca": 0,
-   "motivo": "CAD e CHF na mesma posicao (MANTEM) — sem divergencia",
    "base": "CAD",
    "cotada": "CHF",
-   "conviccao_pct": 0,
-   "perna_motivo": null,
+   "sinal": "BEAR",
+   "forca": 0.438,
+   "rotulo": "media",
+   "conviccao_pct": 22,
+   "diff": -0.438,
+   "diff_teto": 2.0,
+   "motivo": "CAD score -0.19 vs CHF score +0.25",
+   "perna_motivo": "CHF",
    "leitura_base": {
     "direcao": "MANTEM",
-    "conviccao_pct": 25
+    "score": -0.188,
+    "conviccao_pct": 25,
+    "votando": 3
    },
    "leitura_cotada": {
     "direcao": "MANTEM",
-    "conviccao_pct": 25
+    "score": 0.25,
+    "conviccao_pct": 25,
+    "votando": 2
    },
-   "mesma_aposta": []
+   "mesma_aposta": [
+    "USDCHF",
+    "GBPCHF",
+    "CHFJPY"
+   ]
   },
   {
    "par": "CHFJPY",
-   "sinal": "NAO NEGOCIA",
-   "forca": 0,
-   "motivo": "CHF e JPY na mesma posicao (MANTEM) — sem divergencia",
    "base": "CHF",
    "cotada": "JPY",
-   "conviccao_pct": 0,
-   "perna_motivo": null,
+   "sinal": "BULL",
+   "forca": 0.25,
+   "rotulo": "fraca",
+   "conviccao_pct": 12,
+   "diff": 0.25,
+   "diff_teto": 2.0,
+   "motivo": "CHF score +0.25 vs JPY score +0.00",
+   "perna_motivo": "CHF",
    "leitura_base": {
     "direcao": "MANTEM",
-    "conviccao_pct": 25
+    "score": 0.25,
+    "conviccao_pct": 25,
+    "votando": 2
    },
    "leitura_cotada": {
     "direcao": "MANTEM",
-    "conviccao_pct": 0
+    "score": 0.0,
+    "conviccao_pct": 0,
+    "votando": 2
    },
-   "mesma_aposta": []
+   "mesma_aposta": [
+    "USDCHF",
+    "GBPCHF",
+    "CADCHF"
+   ]
   }
  ],
  "instrumentos": [
@@ -1328,10 +1657,11 @@
    "perna": "USD",
    "leitura_usd": {
     "direcao": "MANTEM",
+    "score": 0.0,
     "conviccao_pct": 25,
     "teto_pct": 75
    },
-   "sinal": "NAO NEGOCIA",
+   "sinal": "SEM_TESE",
    "conviccao_pct": 0,
    "motivos": [
     {
@@ -1342,7 +1672,7 @@
      "impacto": "HIGH",
      "divulgado": 162.0,
      "consenso": 56.0,
-     "contribuicao": 7.99,
+     "contribuicao": 7.98,
      "idade_dias": 0.1
     },
     {
@@ -1353,7 +1683,7 @@
      "impacto": "HIGH",
      "divulgado": 0.1,
      "consenso": 0.3,
-     "contribuicao": -3.57,
+     "contribuicao": -3.56,
      "idade_dias": 28.1
     },
     {
@@ -1375,7 +1705,7 @@
      "impacto": "HIGH",
      "divulgado": 44.0,
      "consenso": 70.0,
-     "contribuicao": -2.97,
+     "contribuicao": -2.96,
      "idade_dias": 30.1
     }
    ],
@@ -1442,10 +1772,11 @@
    "perna": "USD",
    "leitura_usd": {
     "direcao": "MANTEM",
+    "score": 0.0,
     "conviccao_pct": 25,
     "teto_pct": 75
    },
-   "sinal": "NAO NEGOCIA",
+   "sinal": "SEM_TESE",
    "conviccao_pct": 0,
    "motivos": [
     {
@@ -1456,7 +1787,7 @@
      "impacto": "HIGH",
      "divulgado": 162.0,
      "consenso": 56.0,
-     "contribuicao": 7.99,
+     "contribuicao": 7.98,
      "idade_dias": 0.1
     },
     {
@@ -1467,7 +1798,7 @@
      "impacto": "HIGH",
      "divulgado": 0.1,
      "consenso": 0.3,
-     "contribuicao": -3.57,
+     "contribuicao": -3.56,
      "idade_dias": 28.1
     },
     {
@@ -1489,7 +1820,7 @@
      "impacto": "HIGH",
      "divulgado": 44.0,
      "consenso": 70.0,
-     "contribuicao": -2.97,
+     "contribuicao": -2.96,
      "idade_dias": 30.1
     }
    ],
@@ -1556,10 +1887,11 @@
    "perna": "USD",
    "leitura_usd": {
     "direcao": "MANTEM",
+    "score": 0.0,
     "conviccao_pct": 25,
     "teto_pct": 75
    },
-   "sinal": "NAO NEGOCIA",
+   "sinal": "SEM_TESE",
    "conviccao_pct": 0,
    "motivos": [
     {
@@ -1570,7 +1902,7 @@
      "impacto": "HIGH",
      "divulgado": 162.0,
      "consenso": 56.0,
-     "contribuicao": 7.99,
+     "contribuicao": 7.98,
      "idade_dias": 0.1
     },
     {
@@ -1581,7 +1913,7 @@
      "impacto": "HIGH",
      "divulgado": 0.1,
      "consenso": 0.3,
-     "contribuicao": -3.57,
+     "contribuicao": -3.56,
      "idade_dias": 28.1
     },
     {
@@ -1603,7 +1935,7 @@
      "impacto": "HIGH",
      "divulgado": 44.0,
      "consenso": 70.0,
-     "contribuicao": -2.97,
+     "contribuicao": -2.96,
      "idade_dias": 30.1
     }
    ],

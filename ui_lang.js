@@ -93,6 +93,11 @@
     ". When the reason sits on one leg, every pair sharing that leg is the same bet.":
       ". Quando a razão está numa perna, todo par que compartilha essa perna é a mesma aposta.",
     "Four dimensions, 25% each:": "Quatro dimensões, 25% cada:",
+    "Four dimensions, 25% each, none of them a yield:": "Quatro dimensões, 25% cada, nenhuma delas um yield:",
+    "(news intensity from GDELT: an energy spike is an inflation push, a conflict spike a growth risk; quiet weeks do not vote). Conviction is the share of voting dimensions that agree — a missing or quiet dimension lowers the ceiling, it never counts as zero.":
+      "(intensidade do noticiário no GDELT: pico de energia é empurrão de inflação, pico de conflito é risco de crescimento; semanas quietas não votam). A convicção é a fração das dimensões que votam e concordam — dimensão ausente ou quieta baixa o teto, nunca conta como zero.",
+    "Still missing: speeches are wired for the Fed, ECB, BoE, BoJ and BoC only (RBA and RBNZ block automation, the SNB has no feed), and the geopolitics rule counts by the owner's decision but has not been measured yet.":
+      "Ainda falta: discursos ligados só para Fed, BCE, BoE, BoJ e BoC (RBA e RBNZ bloqueiam automação, o SNB não tem feed), e a regra de geopolítica conta por decisão do dono mas ainda não foi medida.",
     "(surprises since the bank last decided, weighted by family and impact, half-life 21 days),":
       "(surpresas desde a última decisão do banco, pesadas por família e impacto, meia-vida de 21 dias),",
     "(hawkish/dovish markers in what the bank's people said),": "(marcadores hawkish/dovish no que os dirigentes disseram),",
@@ -104,7 +109,11 @@
     "Leaning to hike": "Inclinado a subir", "On hold": "Em manutenção", "Leaning to cut": "Inclinado a cortar",
     "Last move up": "Último movimento para cima", "Last move down": "Último movimento para baixo",
     "All": "Todos", "With a thesis": "Com tese", "No trade": "Sem tese", "Deciding soon": "Decide em breve",
-    "no trade": "sem tese", "same side": "mesmo lado", "divergence": "divergência",
+    "no trade": "sem tese", "no edge": "sem vantagem", "same side": "mesmo lado", "divergence": "divergência",
+    "With the Fed's dimensions cancelling out, there is no fundamental push on this instrument.":
+      "Com as dimensões do Fed se cancelando, não há empurrão fundamental neste instrumento.",
+    "The pair: each currency gets a score from −1 to +1 (each voting dimension adds +0.25 for hike, −0.25 for cut, 0 for hold). The pair reads the difference between its two legs — the sign gives the direction, the size gives the confidence (a 0.50 edge is 25% of the maximum 2.00). Every pair gets a reading; \"no edge\" only when the two legs tie exactly.":
+      "O par: cada moeda ganha um score de −1 a +1 (cada dimensão que vota soma +0,25 para alta, −0,25 para corte, 0 para manutenção). O par lê a diferença entre as duas pernas — o sinal dá a direção, o tamanho dá a confiança (uma vantagem de 0,50 é 25% do máximo 2,00). Todo par recebe uma leitura; \"sem vantagem\" só quando as duas pernas empatam exatamente.",
     "SAME SIDE": "MESMO LADO", "CYCLE DIVERGENCE": "DIVERGÊNCIA DE CICLO",
     "data current": "dados atuais", "freshness unknown": "frescor desconhecido",
     "No pair matches this filter.": "Nenhum par cai neste filtro.",
@@ -113,7 +122,7 @@
       "Par é duas moedas. Este painel lê as duas pernas, porque a razão de uma entrada costuma estar de um lado, não no par.",
     "base": "base", "quote": "cotada", "the leg that drives it": "a perna que manda",
     "Reading for the next move": "Leitura do próximo passo",
-    "data": "dados", "speeches": "discursos", "cycle": "ciclo", "market": "mercado",
+    "data": "dados", "speeches": "discursos", "cycle": "ciclo", "market": "mercado", "quiet": "quieta",
     "hike": "alta", "hold": "manutenção", "cut": "corte",
     "because": "porque", "last move up": "último movimento: alta", "last move down": "último movimento: corte",
     "next decision": "próxima decisão", "latest prints": "últimos dados",
@@ -152,6 +161,14 @@
       "uma leitura do lado fundamental em semanas, não uma regra de entrada: em 88 operações manuais o dólar no minuto correlacionou +0,26 com o ouro e quebrou 41% das vezes (filtro do DXY reprovado).",
     "contemporaneous columns describe the same window; the predictive columns are what an entry would need — and they sit inside noise. Rates describe the month, not the candle.":
       "as colunas contemporâneas descrevem a mesma janela; as preditivas são o que uma entrada precisaria — e ficam dentro do ruído. O juro descreve o mês, não a vela.",
+
+    // geopolitica
+    "Geopolitics": "Geopolítica", "World backdrop": "Pano de fundo mundial",
+    "geopolitics": "geopolítica", "no spike this week": "sem pico nesta semana",
+    "News intensity by currency: articles in the last 3 days against the 14-day daily mean, from GDELT. The implication next to each card is a declared rule — it does not count toward the conviction until it is measured.":
+      "Intensidade do noticiário por moeda: artigos dos últimos 3 dias contra a média diária de 14 dias, do GDELT. A implicação ao lado de cada cartão é uma regra declarada — não conta na convicção até ser medida.",
+    "Rule, not measurement: a conflict spike tends to send flow to USD, CHF and JPY and out of AUD, NZD and CAD; an energy spike is an inflation push for importers. The hypothesis to test before it ever scores: does a conflict z ≥ 2 change the 20-day return of the risk currencies?":
+      "Regra, não medição: um pico de conflito tende a mandar fluxo para USD, CHF e JPY e tirar de AUD, NZD e CAD; um pico de energia é empurrão de inflação para importadores. A hipótese a testar antes de pontuar: um z de conflito ≥ 2 muda o retorno de 20 dias das moedas de risco?",
 
     // calendario
     "Macro calendar": "Calendário macro", "All currencies": "Todas as moedas",
@@ -240,7 +257,9 @@
       (m, n, p90, cauda) => "depois da hora agendada (mediana, n=" + n + "; p90 " + p90 +
         " — carimbo tardio costuma ser revisão retocando o registro)." +
         (/slower than the source/.test(cauda) ? " O relógio de 15 minutos acima é mais lento que a fonte." : (cauda ? " " + cauda : ""))],
-    [/^(data|speeches|cycle|market) (✓|✗|—)$/, (m, d, s) => ({ data: "dados", speeches: "discursos", cycle: "ciclo", market: "mercado" })[d] + " " + s],
+    [/^(data|speeches|cycle|market|geopolitics) (✓|✗|—)$/, (m, d, s) => ({ data: "dados", speeches: "discursos", cycle: "ciclo", market: "mercado", geopolitics: "geopolítica" })[d] + " " + s],
+    [/^ceiling (\d+)% — (\d) of (\d) dimensions voting$/, "teto $1% — $2 de $3 dimensões votando"],
+    [/^(\d+) of (\d+) dimensions voting$/, "$1 de $2 dimensões votando"],
     [/^(▲|▼|—) last move (up|down)$/, (m, s, d) => s + " último movimento: " + (d === "up" ? "alta" : "corte")],
     [/^(▲|▼|—) unchanged$/, "$1 sem mudança"],
     [/^— (\d+) months? back\. That is the month that ended, not a delivery delay; every terminal has the same lag\.\s*(Delivery \(release → here\):)?\s*$/,
@@ -274,6 +293,19 @@
     // (50%) against GBP leaning to <b>hold</b> (50%) — a media divergence of 2 degrees. The
     // reason sits on <b>EUR</b>." — cada pedaco entre tags e um no
     [/^(Long|Short) (\S+)$/, (m, ls, par) => (ls === "Long" ? "Comprado em " : "Vendido em ") + par],
+    [/^reads from the two legs: (\S+) leaning to (hike|hold|cut) \(score ([+\-−]?[\d.]+)\) against (\S+) leaning to (hike|hold|cut) \(score ([+\-−]?[\d.]+)\) — edge ([+\-−]?[\d.]+) of a possible 2\.00\.\s*(The reason sits on|Both legs carry the reason\.)?$/,
+      (m, b, db, sb, q, dq, sq, e, cauda) => {
+        const D = { hike: "alta", hold: "manutenção", cut: "corte" };
+        return "lê pelas duas pernas: " + b + " inclinado a " + D[db] + " (score " + sb + ") contra " + q +
+          " inclinado a " + D[dq] + " (score " + sq + ") — vantagem " + e + " de um máximo de 2,00." +
+          (cauda === "The reason sits on" ? " A razão está em" : cauda ? " As duas pernas carregam a razão." : "");
+      }],
+    [/^The two legs score the same \((\S+) ([+\-−]?[\d.]+), (\S+) ([+\-−]?[\d.]+)\) — no edge between them on this axis\.$/,
+      "As duas pernas têm o mesmo score ($1 $2, $3 $4) — sem vantagem entre elas neste eixo."],
+    [/^\((\d+)% of a (\d+)% ceiling; score ([+\-−]?[\d.]+)\)\.\s*(.*)$/, (m, a, b, sc, cauda) => {
+      const t = cauda ? traduz(cauda) : null;
+      return "(" + a + "% de um teto de " + b + "%; score " + sc + ")." + (cauda ? " " + (t === null ? cauda : t.trim()) : "");
+    }],
     [/^reads from the two legs: (\S+) leaning to$/, "lê pelas duas pernas: $1 inclinado a"],
     [/^\((\d+)%\) against (\S+) leaning to$/, "($1%) contra $2 inclinado a"],
     [/^\((\d+)%\) — a (fraca|media|forte|muito forte) divergence of (\d+) degrees?\.\s*(The reason sits on|Both legs carry the reason\.)?$/,
@@ -305,6 +337,14 @@
     [/^release → calendar source, measured per event: high-impact prints (.+?) \(median\) — see each card; release → BLS API: not timed yet, needs the registered key$/,
       "release → fonte do calendário, medida por evento: dados de alto impacto em $1 (mediana) — veja cada ficha; release → API do BLS: ainda não cronometrada, exige a chave registrada"],
     [/^\(\s*$/, "("],
+    [/^(conflict|energy)\s*$/, (m, t) => ({ conflict: "conflito", energy: "energia" })[t]],
+    [/^(conflict|energy) —$/, (m, t) => ({ conflict: "conflito", energy: "energia" })[t] + " —"],
+    [/^tone ([+\-−]?[\d.]+)$/, "tom $1"],
+    [/^risk-off: safe-haven flow tends to SUPPORT (\S+) \(rule\)$/, "risk-off: fluxo de refúgio tende a SUSTENTAR $1 (regra)"],
+    [/^risk-off: risk currencies tend to LOSE — (\S+) \(rule\)$/, "risk-off: moedas de risco tendem a PERDER — $1 (regra)"],
+    [/^risk-off: mixed for (\S+) \(rule\)$/, "risk-off: misto para $1 (regra)"],
+    [/^energy shock: importer — inflation push, leans TIGHTENING \(rule\)$/, "choque de energia: importador — empurrão de inflação, pende a APERTO (regra)"],
+    [/^energy shock: exporter — terms of trade up, inflation up; mixed for the rate \(rule\)$/, "choque de energia: exportador — termos de troca sobem, inflação sobe; misto para o juro (regra)"],
   ];
 
   // Fragmento que comeca com travessao ("— pushes toward TIGHTENING"): traduz o resto.

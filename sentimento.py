@@ -6,21 +6,30 @@ A PERGUNTA QUE ISTO RESPONDE
     "este par tem tese fundamental ou nao?". E leitor, nao estrategia: ele da o lado
     fundamental de cada perna; a entrada continua sendo do Eduardo.
 
-QUATRO DIMENSOES, 25% CADA — a convencao do Eduardo
-    dados    surpresas acumuladas desde a ultima decisao do banco (ou 42 dias), cada evento
-             pesado pela familia (leitor_regras), pelo impacto e por uma meia-vida de 21 dias.
-             Um empurrao de 30 dias atras vale ~37% de um de hoje.
-    texto    o que os dirigentes DISSERAM — contagem de marcadores hawkish/dovish dos discursos
-             e do comunicado. ⚠️ So o Fed esta ligado (fed_discursos.py). As outras sete moedas
-             saem "not connected" — buraco declarado, nunca zero.
-    ciclo    a direcao do ultimo movimento de juro. Movimento com mais de 180 dias le como
-             MANUTENCAO: um banco parado ha meio ano esta em hold, nao em ciclo.
-    mercado  a probabilidade implicita para a proxima reuniao. ⚠️ Nao conectada — nao ha
-             fonte gratuita de OIS/futuros, e yield nao entra por decisao de projeto.
+QUATRO DIMENSOES, 25% CADA — a convencao do Eduardo. NENHUMA USA YIELD.
+    dados        surpresas acumuladas desde a ultima decisao do banco (ou 42 dias), cada
+                 evento pesado pela familia (leitor_regras), pelo impacto e por uma meia-vida
+                 de 21 dias. Um empurrao de 30 dias atras vale ~37% de um de hoje.
+    texto        o que os dirigentes DISSERAM — contagem de marcadores hawkish/dovish dos
+                 discursos e do comunicado (bc_discursos.py: Fed, BCE, BoE, BoJ, BoC).
+                 RBA, RBNZ e SNB saem "not connected" — buraco declarado, nunca zero.
+    ciclo        a direcao do ultimo movimento de juro. Movimento com mais de 180 dias le
+                 como MANUTENCAO: um banco parado ha meio ano esta em hold, nao em ciclo.
+    geopolitica  o NOTICIARIO (geopolitica.py, GDELT): choque de ENERGIA (z >= 1,5 contra a
+                 media de 14 dias) e empurrao de inflacao -> vota SOBE para importador,
+                 fica neutro para exportador de energia (CAD); choque de CONFLITO sem energia
+                 e risco de crescimento -> vota CORTA. Sem pico, a dimensao fica QUIETA e
+                 nao vota — silencio nao e voto. ⚠️ Regra declarada, ainda nao medida: o
+                 Eduardo decidiu em 04/set que ela conta ("quero que utilize as noticias").
+                 A hipotese a medir continua registrada: conflito z>=2 muda o retorno de
+                 20 dias das moedas de risco?
 
-    Direcao da moeda = a mais votada entre as dimensoes DISPONIVEIS; empate = MANTEM.
-    Conviccao = 25% por dimensao disponivel que concorda. Com duas dimensoes ligadas o teto e
-    50%, e isso aparece na tela: "50% — 2 of 4 dimensions connected". Buraco nao vira zero.
+    ⚠️ A dimensao "mercado (probabilidade implicita)" saiu: ela dependeria de OIS/futuros de
+    juro, e yield nao entra por decisao do Eduardo (repetida em 04/set).
+
+    Direcao da moeda = a mais votada entre as dimensoes QUE VOTAM; empate = MANTEM.
+    Conviccao = 25% por dimensao que vota e concorda. Com tres dimensoes votando o teto e
+    75%, e isso aparece na tela: "50% — 3 of 4 dimensions voting". Buraco nao vira zero.
 
 A REGRA DO PAR (leitor_regras.veredito_do_par / leitor_pares.le_par)
     os dois na mesma posicao -> NAO NEGOCIA. Um sobe e o outro mantem -> negocia, lado de quem
@@ -56,6 +65,10 @@ SAIDA = os.path.join(AQUI, "data", "sentimento.json")
 BANCOS = os.path.join(AQUI, "data", "bancos_centrais.json")
 DISCURSOS = os.path.join(AQUI, "data", "bc_discursos.json")      # todas as moedas conectadas
 DISCURSOS_FED = os.path.join(AQUI, "data", "fed_discursos.json")  # reserva, so o Fed
+GEO = os.path.join(AQUI, "data", "geopolitica.json")
+
+GEO_Z_CORTE = 1.5                      # pico = 3 dias acima da media de 14 dias em >= 1,5 desvios
+EXPORTADOR_ENERGIA = ("CAD",)
 CAL_LOCAL = os.path.join(AQUI, "data", "calendario_resultado.json")
 
 JANELA_DIAS = 42
@@ -156,6 +169,30 @@ def dimensao_texto(moeda, discursos, agora):
             "nota": "expression count over speeches and the statement — a pointer, not a reading"}
 
 
+def dimensao_geo(moeda, geo):
+    """O noticiario como voto para o proximo juro — regra declarada (ver docstring).
+    None = nao conectado. direcao=None com estado='quiet' = ligado, sem pico, NAO vota."""
+    G = (geo or {}).get("moedas", {}).get(moeda)
+    if not G:
+        return None
+    t = G.get("temas") or {}
+    ze = ((t.get("energia") or {}).get("volume") or {}).get("z")
+    zc = ((t.get("conflito") or {}).get("volume") or {}).get("z")
+    base = {"z_energia": ze, "z_conflito": zc, "tom": G.get("tom"), "corte_z": GEO_Z_CORTE,
+            "manchete": (((t.get("conflito") or {}).get("manchetes") or [{}])[0].get("titulo")),
+            "nota": "declared rule on news intensity (GDELT) — decided to count on 4 Sep; not yet measured"}
+    if ze is not None and ze >= GEO_Z_CORTE:
+        if moeda in EXPORTADOR_ENERGIA:
+            return dict(base, direcao=None, estado="quiet",
+                        motivo="energy spike, but %s exports energy — mixed for the rate, no vote" % moeda)
+        return dict(base, direcao="SOBE", estado="spike",
+                    motivo="energy spike (z %+.1f): inflation push for an importer" % ze)
+    if zc is not None and zc >= GEO_Z_CORTE:
+        return dict(base, direcao="CORTA", estado="spike",
+                    motivo="conflict spike (z %+.1f) without an energy spike: growth risk" % zc)
+    return dict(base, direcao=None, estado="quiet", motivo="no news spike this week — no vote")
+
+
 def dimensao_ciclo(b, agora):
     bp, data = b.get("ultima_mudanca_bp"), b.get("ultima_mudanca")
     try:
@@ -171,15 +208,16 @@ def dimensao_ciclo(b, agora):
             "nota": "last move %+d bp, %d days ago" % (bp, idade)}
 
 
-def le_moeda(m, ev, bancos, discursos, agora):
+def le_moeda(m, ev, bancos, discursos, agora, geo=None):
     b = (bancos or {}).get("bancos", {}).get(m, {})
     dims = {
         "dados": dimensao_dados(ev, m, agora),
         "texto": dimensao_texto(m, discursos, agora),
         "ciclo": dimensao_ciclo(b, agora),
-        "mercado": None,
+        "geo": dimensao_geo(m, geo),
     }
-    disponiveis = {k: v for k, v in dims.items() if v}
+    # so VOTA quem esta ligado E tem direcao (geopolitica quieta esta ligada mas nao vota)
+    disponiveis = {k: v for k, v in dims.items() if v and v.get("direcao")}
     votos = Counter(v["direcao"] for v in disponiveis.values())
     if not votos:
         direcao, concordam = "MANTEM", 0
@@ -193,8 +231,31 @@ def le_moeda(m, ev, bancos, discursos, agora):
     conv = PESO_DIM * concordam
     teto = PESO_DIM * len(disponiveis)
     intensidade = 0 if direcao == "MANTEM" else (1 if conv <= 25 else 2 if conv <= 50 else 3)
+    # SCORE CONTINUO, -1 a +1 — e o que o par usa. Cada dimensao vale ate +-0,25, mas entra
+    # com a MAGNITUDE que tem, nao so o voto:
+    #   dados   soma decaida / (4 x limiar), limitada a +-0,25  (soma -8,4 -> -0,105)
+    #   texto   (hawkish - dovish) / max(4, total) x 0,25        (12/0 -> +0,25; 1/0 -> +0,06)
+    #   ciclo   +-0,25 se o ultimo movimento tem menos de 180 d, senao 0
+    #   geo     +-0,25 num pico, 0 quieta
+    # Assim duas pernas "em manutencao" ainda se distinguem pelo que empurra cada uma, e TODO
+    # par sai com direcao e confianca (Eduardo, 04/set: "todos tinham que ter tese").
+    comp = {}
+    dd = dims["dados"]
+    comp["dados"] = max(-0.25, min(0.25, (dd["soma"] / (4.0 * LIMIAR_DADOS)))) if dd else 0.0
+    tt = dims["texto"]
+    if tt and (tt["hawkish"] or tt["dovish"]):
+        comp["texto"] = 0.25 * (tt["hawkish"] - tt["dovish"]) / max(4.0, tt["hawkish"] + tt["dovish"])
+    else:
+        comp["texto"] = 0.0
+    cc = dims["ciclo"]
+    comp["ciclo"] = 0.25 * {"SOBE": 1, "CORTA": -1}.get(cc["direcao"], 0) if cc else 0.0
+    gg = dims["geo"]
+    comp["geo"] = 0.25 * {"SOBE": 1, "CORTA": -1}.get(gg.get("direcao"), 0) if gg else 0.0
+    comp = {k: round(v, 3) for k, v in comp.items()}
+    score = round(sum(comp.values()), 3)
     return {
         "moeda": m, "direcao": direcao, "intensidade": intensidade,
+        "score": score, "score_componentes": comp, "score_teto": 1.0,
         "conviccao_pct": conv, "conviccao_teto_pct": teto,
         "dimensoes_ligadas": len(disponiveis), "dimensoes_total": len(dims),
         "concordam": {k: (v["direcao"] == direcao) for k, v in disponiveis.items()},
@@ -204,27 +265,37 @@ def le_moeda(m, ev, bancos, discursos, agora):
 
 
 def le_pares(leituras):
-    L = {m: Leitura(m, x["direcao"], x["intensidade"], x.get("proxima") or "—",
-                    "sentimento %d%%" % x["conviccao_pct"]) for m, x in leituras.items()}
+    """O par pela DIFERENCA dos scores das duas pernas. Direcao pelo sinal, confianca pelo
+    tamanho: |diff| / 2 (o maximo possivel, 4 dimensoes de um lado contra 4 do outro).
+    'SEM_TESE' so quando as duas pernas empatam exatamente — a regra antiga ('mesma posicao =
+    nao negocia') deixava 24 de 31 sem leitura; a de agora da direcao e confianca a todos."""
     saida = []
     for par in PARES:
-        r = le_par(par, L)
         b, q = par[:3], par[3:]
         lb, lq = leituras[b], leituras[q]
-        vb, vq = L[b].valor or 0, L[q].valor or 0
-        if abs(vb) == abs(vq):
-            perna = None if vb == 0 else "ambas"
+        sb, sq = lb["score"], lq["score"]
+        diff = round(sb - sq, 3)
+        conv = round(abs(diff) / 2.0 * 100)
+        if abs(diff) < 0.005:
+            sinal, rotulo = "SEM_TESE", "no edge"
         else:
-            perna = b if abs(vb) > abs(vq) else q
-        r.update({
-            "base": b, "cotada": q,
-            "conviccao_pct": round((lb["conviccao_pct"] + lq["conviccao_pct"]) / 2)
-                             if r["sinal"] in ("BULL", "BEAR") else 0,
+            sinal = "BULL" if diff > 0 else "BEAR"
+            rotulo = "fraca" if conv <= 13 else "media" if conv <= 25 else "forte" if conv <= 50 else "muito forte"
+        if abs(sb) == abs(sq):
+            perna = None if sb == 0 and sq == 0 else "ambas"
+        else:
+            perna = b if abs(sb) > abs(sq) else q
+        saida.append({
+            "par": par, "base": b, "cotada": q,
+            "sinal": sinal, "forca": abs(diff), "rotulo": rotulo, "conviccao_pct": conv,
+            "diff": diff, "diff_teto": 2.0,
+            "motivo": "%s score %+.2f vs %s score %+.2f" % (b, sb, q, sq),
             "perna_motivo": perna,
-            "leitura_base": {"direcao": lb["direcao"], "conviccao_pct": lb["conviccao_pct"]},
-            "leitura_cotada": {"direcao": lq["direcao"], "conviccao_pct": lq["conviccao_pct"]},
+            "leitura_base": {"direcao": lb["direcao"], "score": sb, "conviccao_pct": lb["conviccao_pct"],
+                             "votando": lb["dimensoes_ligadas"]},
+            "leitura_cotada": {"direcao": lq["direcao"], "score": sq, "conviccao_pct": lq["conviccao_pct"],
+                               "votando": lq["dimensoes_ligadas"]},
         })
-        saida.append(r)
 
     # a lei das duas pernas: quem compartilha a perna que da o motivo e a MESMA aposta
     por_perna = {}
@@ -252,9 +323,10 @@ def le_instrumentos(leituras):
     """
     u = leituras.get("USD") or {}
     d = u.get("direcao", "MANTEM")
-    conv = u.get("conviccao_pct", 0)
-    inverso = {"SOBE": "BEAR", "CORTA": "BULL", "MANTEM": "NAO NEGOCIA"}
-    sinal = inverso.get(d, "NAO NEGOCIA")
+    s_usd = float(u.get("score") or 0.0)
+    # o instrumento e o INVERSO da perna do USD, pelo score continuo: hawkish -> cai
+    sinal = "SEM_TESE" if abs(s_usd) < 0.005 else ("BEAR" if s_usd > 0 else "BULL")
+    conv = round(abs(s_usd) * 100)
     motivos = ((u.get("dimensoes") or {}).get("dados") or {}).get("principais", [])[:4]
 
     # As correlacoes MEDIDAS (correlacao_juros.py): 5 anos, blocos sem sobreposicao, com a
@@ -280,9 +352,9 @@ def le_instrumentos(leituras):
                 "simbolo_micro": c.get("simbolo_micro"), "gerado_em": corr.get("gerado_em"),
                 "nota": corr.get("nota")}, txt
     base = {
-        "perna": "USD", "leitura_usd": {"direcao": d, "conviccao_pct": conv,
+        "perna": "USD", "leitura_usd": {"direcao": d, "score": s_usd, "conviccao_pct": u.get("conviccao_pct", 0),
                                         "teto_pct": u.get("conviccao_teto_pct")},
-        "sinal": sinal, "conviccao_pct": conv if d != "MANTEM" else 0,
+        "sinal": sinal, "conviccao_pct": conv,
         "motivos": motivos,
         "aviso": "a reading of the fundamental side over weeks, not an entry rule: on 88 manual "
                  "trades the dollar at the minute correlated +0.26 with gold and broke 41% of "
@@ -312,31 +384,34 @@ def main():
     discursos = carrega_json(DISCURSOS) or carrega_json(DISCURSOS_FED)
     print("  eventos na janela: %d  (%s)" % (len(ev), origem))
 
-    leituras = {m: le_moeda(m, ev, bancos, discursos, agora) for m in MOEDAS}
+    geo = carrega_json(GEO)
+    leituras = {m: le_moeda(m, ev, bancos, discursos, agora, geo) for m in MOEDAS}
     print()
     print("  %-4s %-7s %-5s %-6s  %-22s %-22s %-24s %s"
-          % ("ccy", "lean", "conv", "teto", "dados", "texto", "ciclo", "mercado"))
-    print("  " + "-" * 100)
+          % ("ccy", "lean", "conv", "teto", "dados", "texto", "ciclo", "geopolitica"))
+    print("  " + "-" * 110)
     for m in MOEDAS:
         x = leituras[m]
         D = x["dimensoes"]
-        dd = D["dados"]; tt = D["texto"]; cc = D["ciclo"]
+        dd = D["dados"]; tt = D["texto"]; cc = D["ciclo"]; gg = D["geo"]
         print("  %-4s %-7s %3d%%  %3d%%   %-22s %-22s %-24s %s"
               % (m, x["direcao"], x["conviccao_pct"], x["conviccao_teto_pct"],
                  "%s (%+.1f, n=%d)" % (dd["direcao"], dd["soma"], dd["n"]),
                  ("%s (%dh/%dd)" % (tt["direcao"], tt["hawkish"], tt["dovish"])) if tt else "not connected",
                  "%s (%s)" % (cc["direcao"], cc["nota"][:18]),
-                 "not connected"))
+                 ("%s (energia z=%s, conflito z=%s)" % (gg["direcao"] or gg["estado"], gg["z_energia"], gg["z_conflito"]))
+                 if gg else "not connected"))
 
     pares = le_pares(leituras)
     neg = [r for r in pares if r["sinal"] in ("BULL", "BEAR")]
     print()
-    print("  PARES COM TESE — %d de %d" % (len(neg), len(pares)))
-    for r in sorted(neg, key=lambda x: (-x["forca"], -x["conviccao_pct"])):
-        print("    %-7s %-4s forca %d  conv %2d%%  %-26s razao: %-5s  mesma aposta: %s"
-              % (r["par"], r["sinal"], r["forca"], r["conviccao_pct"], r["motivo"][:26],
-                 r.get("perna_motivo") or "—", ", ".join(r["mesma_aposta"][:5]) or "—"))
-    print("  NAO NEGOCIA: %d" % sum(1 for r in pares if r["sinal"] == "NAO NEGOCIA"))
+    print("  scores: %s" % "  ".join("%s %+.2f" % (m, leituras[m]["score"]) for m in MOEDAS))
+    print("  PARES COM DIRECAO — %d de %d" % (len(neg), len(pares)))
+    for r in sorted(neg, key=lambda x: -x["conviccao_pct"])[:12]:
+        print("    %-7s %-4s conv %3d%%  %-34s razao: %-5s  mesma aposta: %s"
+              % (r["par"], r["sinal"], r["conviccao_pct"], r["motivo"][:34],
+                 r.get("perna_motivo") or "—", ", ".join(r["mesma_aposta"][:4]) or "—"))
+    print("  SEM VANTAGEM (pernas empatadas): %d" % sum(1 for r in pares if r["sinal"] == "SEM_TESE"))
 
     instrumentos = le_instrumentos(leituras)
     print()
@@ -347,14 +422,15 @@ def main():
     rel = {
         "gerado_em": agora.isoformat(),
         "origem_eventos": origem,
-        "regua": {"dimensoes": ["dados", "texto", "ciclo", "mercado"], "peso_por_dimensao_pct": PESO_DIM,
+        "regua": {"dimensoes": ["dados", "texto", "ciclo", "geo"], "peso_por_dimensao_pct": PESO_DIM,
                   "janela_dias": JANELA_DIAS, "meia_vida_dias": MEIA_VIDA, "limiar_dados": LIMIAR_DADOS,
-                  "ciclo_validade_dias": CICLO_VALIDADE_DIAS,
-                  "nao_conectado": {"texto": "only the Fed is wired (fed_discursos.py)",
-                                    "mercado": "no free OIS/futures source; yields excluded by design"}},
+                  "ciclo_validade_dias": CICLO_VALIDADE_DIAS, "geo_z_corte": GEO_Z_CORTE,
+                  "sem_yield": "no dimension uses yields — decided by the owner, repeated on 4 Sep 2026",
+                  "nao_conectado": {"texto": "Fed, ECB, BoE, BoJ, BoC wired; RBA and RBNZ return 403, SNB has no feed",
+                                    "geo": "GDELT news intensity; declared rule, counted since 4 Sep, not yet measured"}},
         "aviso": "a READING of the fundamental side of each leg, not a signal. Conviction is the "
-                 "share of connected dimensions that agree; a missing dimension lowers the ceiling, "
-                 "it never counts as zero. FUND v0.1 was closed as an entry rule after 15 null tests.",
+                 "share of voting dimensions that agree; a missing or quiet dimension lowers the "
+                 "ceiling, it never counts as zero. FUND v0.1 was closed as an entry rule after 15 null tests.",
         "moedas": leituras,
         "pares": pares,
         "instrumentos": instrumentos,
