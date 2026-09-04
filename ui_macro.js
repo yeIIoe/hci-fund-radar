@@ -1600,6 +1600,17 @@
    .mac-nav-rotulo{font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;opacity:.34;
      padding-left:2px}
    .mac-nav-abas{display:flex;gap:3px}
+   /* Dentro da GAVETA lateral (styles.css: body > nav#tabBar.tabs, 236 px, coluna), os grupos
+      nao podem ficar lado a lado nem as abas em linha — a revisao de 04/set mostrou "Noticias"
+      cortada e METODO/ACOES espremidos. Na gaveta tudo empilha: grupo embaixo de grupo, aba
+      embaixo de aba, rotulo visivel (ha espaco), aba com a largura toda. */
+   body > nav#tabBar.tabs .mac-nav-grupos{flex-direction:column;flex-wrap:nowrap;gap:16px;
+     align-items:stretch;width:100%}
+   body > nav#tabBar.tabs .mac-nav-grupo{gap:6px}
+   body > nav#tabBar.tabs .mac-nav-rotulo{display:block;font-size:10px;opacity:.42;padding-left:12px}
+   body > nav#tabBar.tabs .mac-nav-abas{flex-direction:column;gap:2px;align-items:stretch}
+   body > nav#tabBar.tabs .mac-nav-abas .tab{width:100%;text-align:left;white-space:nowrap;
+     overflow:hidden;text-overflow:ellipsis}
    @media (max-width:900px){
      .mac-nav-grupos{gap:12px}
      .mac-nav-rotulo{display:none}
