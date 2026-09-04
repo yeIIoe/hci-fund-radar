@@ -1,13 +1,13 @@
 {
- "gerado_em": "2026-09-04T13:40:18.154428+00:00",
- "fonte_gerado_em": "2026-09-04T13:40:16.546287+00:00",
+ "gerado_em": "2026-09-04T15:17:20.331663+00:00",
+ "fonte_gerado_em": "2026-09-04T15:17:03.753017+00:00",
  "fonte": "fxstreet",
  "aviso_fonte": "FXStreet calendar backend: released value, consensus, previous and revision for the 8 majors, with the delivery delay measured per event. Widget backend, not a licensed product — no SLA. Fallback is the Forex Factory feed.",
  "latencia_medida": {
-  "n": 152,
-  "p25": 67.0,
-  "mediana": 184.0,
-  "p75": 730.0,
+  "n": 154,
+  "p25": 56.0,
+  "mediana": 181.0,
+  "p75": 605.0,
   "p90": 8275.0,
   "n_alta": 20,
   "mediana_alta": 34.0,
@@ -4860,10 +4860,10 @@
    "moeda": "CAD",
    "impacto": "Medium",
    "quando_utc": "2026-09-04T14:00:00+00:00",
-   "estado": "AGENDADO",
+   "estado": "SEM_BARRA",
    "previsao": null,
    "anterior": 54.1,
-   "resultado": null,
+   "resultado": 62.7,
    "revisado": null,
    "unidade": null,
    "familia": "pmi",
@@ -4876,72 +4876,40 @@
    "melhor_que_esperado": null,
    "empurrao": 0.0,
    "empurrao_texto": "no bar to measure against",
-   "atraso_s": null,
+   "atraso_s": 95.0,
    "discurso": false,
    "data_a_confirmar": false,
    "preliminar": false,
    "fonte": "fxstreet",
-   "cenarios": [
-    {
-     "caso": "above forecast",
-     "empurra": "TIGHTENING",
-     "peso": 5
-    },
-    {
-     "caso": "in line",
-     "empurra": "nothing — already in the price",
-     "peso": 0
-    },
-    {
-     "caso": "below forecast",
-     "empurra": "EASING",
-     "peso": 5
-    }
-   ]
+   "cenarios": []
   },
   {
    "titulo": "Ivey Purchasing Managers Index s.a",
    "moeda": "CAD",
    "impacto": "Medium",
    "quando_utc": "2026-09-04T14:00:00+00:00",
-   "estado": "AGENDADO",
+   "estado": "DIVULGADO",
    "previsao": 56.2,
    "anterior": 55.1,
-   "resultado": null,
+   "resultado": 64.3,
    "revisado": null,
    "unidade": null,
    "familia": "pmi",
    "familia_peso": 5,
    "familia_sinal": 1,
    "porque": "A survey, not hard data, and it lands before everything else. Above 50 means expansion. Useful for DIRECTION and EARLINESS, not magnitude. The PRICES PAID sub-index counts as inflation, not as activity.",
-   "classe": null,
-   "diferenca": null,
-   "surpresa_normalizada": null,
-   "melhor_que_esperado": null,
+   "classe": "EM_LINHA",
+   "diferenca": 8.1,
+   "surpresa_normalizada": 1.67,
+   "melhor_que_esperado": true,
    "empurrao": 0.0,
-   "empurrao_texto": "no bar to measure against",
-   "atraso_s": null,
+   "empurrao_texto": "came in as expected — does not change what was already priced",
+   "atraso_s": 8.0,
    "discurso": false,
    "data_a_confirmar": false,
    "preliminar": false,
    "fonte": "fxstreet",
-   "cenarios": [
-    {
-     "caso": "above forecast",
-     "empurra": "TIGHTENING",
-     "peso": 5
-    },
-    {
-     "caso": "in line",
-     "empurra": "nothing — already in the price",
-     "peso": 0
-    },
-    {
-     "caso": "below forecast",
-     "empurra": "EASING",
-     "peso": 5
-    }
-   ]
+   "cenarios": []
   },
   {
    "titulo": "Baker Hughes US Oil Rig Count",
@@ -5420,6 +5388,94 @@
      "caso": "below forecast",
      "empurra": "EASING",
      "peso": 3
+    }
+   ]
+  },
+  {
+   "titulo": "Lloyds House Price Index (MoM)",
+   "moeda": "GBP",
+   "impacto": "Low",
+   "quando_utc": "2026-09-07T06:00:00+00:00",
+   "estado": "AGENDADO",
+   "previsao": 0.2,
+   "anterior": 0.0,
+   "resultado": null,
+   "revisado": null,
+   "unidade": "%",
+   "familia": "inflacao_cheia",
+   "familia_peso": 7,
+   "familia_sinal": 1,
+   "porque": "It matters, but the central bank discounts energy and food shocks. A high headline with a well-behaved core weighs LESS than the number suggests.",
+   "classe": null,
+   "diferenca": null,
+   "surpresa_normalizada": null,
+   "melhor_que_esperado": null,
+   "empurrao": 0.0,
+   "empurrao_texto": "no bar to measure against",
+   "atraso_s": null,
+   "discurso": false,
+   "data_a_confirmar": false,
+   "preliminar": false,
+   "fonte": "fxstreet",
+   "cenarios": [
+    {
+     "caso": "above forecast",
+     "empurra": "TIGHTENING",
+     "peso": 7
+    },
+    {
+     "caso": "in line",
+     "empurra": "nothing — already in the price",
+     "peso": 0
+    },
+    {
+     "caso": "below forecast",
+     "empurra": "EASING",
+     "peso": 7
+    }
+   ]
+  },
+  {
+   "titulo": "Lloyds House Price Index (YoY)",
+   "moeda": "GBP",
+   "impacto": "Low",
+   "quando_utc": "2026-09-07T06:00:00+00:00",
+   "estado": "AGENDADO",
+   "previsao": 0.6,
+   "anterior": 0.1,
+   "resultado": null,
+   "revisado": null,
+   "unidade": "%",
+   "familia": "inflacao_cheia",
+   "familia_peso": 7,
+   "familia_sinal": 1,
+   "porque": "It matters, but the central bank discounts energy and food shocks. A high headline with a well-behaved core weighs LESS than the number suggests.",
+   "classe": null,
+   "diferenca": null,
+   "surpresa_normalizada": null,
+   "melhor_que_esperado": null,
+   "empurrao": 0.0,
+   "empurrao_texto": "no bar to measure against",
+   "atraso_s": null,
+   "discurso": false,
+   "data_a_confirmar": false,
+   "preliminar": false,
+   "fonte": "fxstreet",
+   "cenarios": [
+    {
+     "caso": "above forecast",
+     "empurra": "TIGHTENING",
+     "peso": 7
+    },
+    {
+     "caso": "in line",
+     "empurra": "nothing — already in the price",
+     "peso": 0
+    },
+    {
+     "caso": "below forecast",
+     "empurra": "EASING",
+     "peso": 7
     }
    ]
   },
@@ -6540,94 +6596,6 @@
      "caso": "below forecast",
      "empurra": "EASING",
      "peso": 2
-    }
-   ]
-  },
-  {
-   "titulo": "Lloyds House Price Index (MoM)",
-   "moeda": "GBP",
-   "impacto": "Low",
-   "quando_utc": "2026-09-08T06:00:00+00:00",
-   "estado": "AGENDADO",
-   "previsao": null,
-   "anterior": 0.0,
-   "resultado": null,
-   "revisado": null,
-   "unidade": "%",
-   "familia": "inflacao_cheia",
-   "familia_peso": 7,
-   "familia_sinal": 1,
-   "porque": "It matters, but the central bank discounts energy and food shocks. A high headline with a well-behaved core weighs LESS than the number suggests.",
-   "classe": null,
-   "diferenca": null,
-   "surpresa_normalizada": null,
-   "melhor_que_esperado": null,
-   "empurrao": 0.0,
-   "empurrao_texto": "no bar to measure against",
-   "atraso_s": null,
-   "discurso": false,
-   "data_a_confirmar": false,
-   "preliminar": false,
-   "fonte": "fxstreet",
-   "cenarios": [
-    {
-     "caso": "above forecast",
-     "empurra": "TIGHTENING",
-     "peso": 7
-    },
-    {
-     "caso": "in line",
-     "empurra": "nothing — already in the price",
-     "peso": 0
-    },
-    {
-     "caso": "below forecast",
-     "empurra": "EASING",
-     "peso": 7
-    }
-   ]
-  },
-  {
-   "titulo": "Lloyds House Price Index (YoY)",
-   "moeda": "GBP",
-   "impacto": "Low",
-   "quando_utc": "2026-09-08T06:00:00+00:00",
-   "estado": "AGENDADO",
-   "previsao": null,
-   "anterior": 0.1,
-   "resultado": null,
-   "revisado": null,
-   "unidade": "%",
-   "familia": "inflacao_cheia",
-   "familia_peso": 7,
-   "familia_sinal": 1,
-   "porque": "It matters, but the central bank discounts energy and food shocks. A high headline with a well-behaved core weighs LESS than the number suggests.",
-   "classe": null,
-   "diferenca": null,
-   "surpresa_normalizada": null,
-   "melhor_que_esperado": null,
-   "empurrao": 0.0,
-   "empurrao_texto": "no bar to measure against",
-   "atraso_s": null,
-   "discurso": false,
-   "data_a_confirmar": false,
-   "preliminar": false,
-   "fonte": "fxstreet",
-   "cenarios": [
-    {
-     "caso": "above forecast",
-     "empurra": "TIGHTENING",
-     "peso": 7
-    },
-    {
-     "caso": "in line",
-     "empurra": "nothing — already in the price",
-     "peso": 0
-    },
-    {
-     "caso": "below forecast",
-     "empurra": "EASING",
-     "peso": 7
     }
    ]
   },
@@ -8013,7 +7981,7 @@
    "impacto": "Low",
    "quando_utc": "2026-09-10T06:00:00+00:00",
    "estado": "AGENDADO",
-   "previsao": null,
+   "previsao": 2.9,
    "anterior": 2.9,
    "resultado": null,
    "revisado": null,
