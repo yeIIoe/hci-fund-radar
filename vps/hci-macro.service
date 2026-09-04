@@ -1,0 +1,46 @@
+# hci-macro.service — o processo sempre ligado da cadeia macro-direction.
+#
+# Instalado pelo vps/instalar.sh em /etc/systemd/system/hci-macro.service.
+# Roda como o usuario 'hci' (nunca root), dentro do clone em /home/hci/hci-fund-radar.
+#
+# Comandos do dia a dia (como root ou com sudo):
+#   systemctl status hci-macro        esta ligado? ha quanto tempo?
+#   journalctl -u hci-macro -f        acompanhar o log ao vivo (Ctrl+C sai)
+#   systemctl restart hci-macro       reiniciar (depois de git pull ou de editar o .env)
+#   systemctl stop hci-macro          parar
+#   systemctl start hci-macro         ligar de novo
+
+[Unit]
+Description=HCI Fund Radar - cadeia macro-direction sempre ligada (vps/loop.py)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=hci
+Group=hci
+WorkingDirectory=/home/hci/hci-fund-radar
+
+# vps/.env guarda BLS_API_KEY=... (uma linha). O '-' na frente torna o arquivo OPCIONAL:
+# sem ele o servico sobe do mesmo jeito, so que o BLS fica na cota de 25 chamadas/dia.
+EnvironmentFile=-/home/hci/hci-fund-radar/vps/.env
+Environment=PYTHONIOENCODING=utf-8
+Environment=PYTHONUNBUFFERED=1
+Environment=GIT_TERMINAL_PROMPT=0
+
+ExecStart=/usr/bin/python3 /home/hci/hci-fund-radar/vps/loop.py
+
+# Se o processo morrer por qualquer razao, o systemd religa em 10 s. O loop.py ja engole
+# todo erro sozinho; isto e o cinto por cima do suspensorio.
+Restart=always
+RestartSec=10
+
+# Parar com Ctrl+C (SIGINT) deixa o loop sair limpo; se demorar, SIGKILL depois de 30 s.
+KillSignal=SIGINT
+TimeoutStopSec=30
+
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
