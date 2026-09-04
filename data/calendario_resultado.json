@@ -1,5 +1,5 @@
 {
- "gerado_em": "2026-09-04T15:17:03.753017+00:00",
+ "gerado_em": "2026-09-04T17:05:38.620607+00:00",
  "fonte": "backend do calendario da FXStreet (sem chave; exige Origin/Referer)",
  "aviso_fonte": "backend de widget, NAO produto licenciado: sem contrato, sem SLA, pode ser bloqueado sem aviso. Plano B = ponte MT5.",
  "aviso_gargalo": "de nada adianta feed de 12s lido por cron de 15min. A doc do GitHub diz que o schedule pode atrasar sob carga e que jobs na fila podem ser descartados. O relogio decide antes da fonte.",
@@ -13,9 +13,9 @@
   "mediana_alta": 34.0,
   "p90_alta": 13965.0
  },
- "total": 328,
+ "total": 329,
  "divulgados": 154,
- "por_vir": 154,
+ "por_vir": 153,
  "eventos": [
   {
    "id": "457c4dd0-bb0c-4b32-a79b-c6845fb10d1f",
@@ -3843,6 +3843,28 @@
    "discurso": false,
    "data_a_confirmar": false,
    "atraso_s": 8.0,
+   "fonte": "fxstreet"
+  },
+  {
+   "id": "ad5f1352-236a-4558-9436-bfaba3d71952",
+   "moeda": "USD",
+   "pais": "US",
+   "titulo": "Fed's Hammack speech",
+   "quando_utc": "2026-09-04T16:30:00+00:00",
+   "impacto": "MEDIUM",
+   "unidade": null,
+   "escala": null,
+   "divulgado": null,
+   "consenso": null,
+   "anterior": null,
+   "revisado": null,
+   "surpresa": null,
+   "surpresa_normalizada": null,
+   "melhor_que_esperado": null,
+   "preliminar": false,
+   "discurso": true,
+   "data_a_confirmar": false,
+   "atraso_s": null,
    "fonte": "fxstreet"
   },
   {
