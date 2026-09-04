@@ -63,17 +63,26 @@ CORTE_PADRAO = {"fracao": 0.35, "minimo_abs": 0.1}
 MINIMO_FXS = 20
 
 
+def _casa(pad: str, t: str) -> bool:
+    """Padrao curto (ate 4 letras) casa por PALAVRA, nao por substring.
+    "ism" dentro de "Optimism" fazia o NFIB Business Optimism virar PMI (revisao de 03/set)."""
+    if len(pad) <= 4:
+        return re.search(r"\b" + re.escape(pad) + r"\b", t) is not None
+    return pad in t
+
+
 def familia_de(titulo: str):
     """Casa o titulo do evento com uma familia de indicador. Mais especifico primeiro."""
     t = (titulo or "").lower()
     # nucleo antes de cheia, senao "core cpi" cai em "cpi"
+    # desemprego antes de emprego_criacao: "Unemployment Change" tem que ser desemprego
     # coletiva ANTES de decisao: "RBNZ Press Conference" tem que virar coletiva, nao decisao
     ordem = ["inflacao_nucleo", "expectativa_inflacao", "salarios", "desemprego",
              "auxilio_desemprego", "emprego_criacao", "inflacao_cheia", "coletiva", "decisao",
              "pmi", "pib", "varejo", "producao", "moradia", "confianca", "balanca"]
     for nome in ordem:
         for pad in FAMILIAS[nome]["padroes"]:
-            if pad in t:
+            if _casa(pad, t):
                 return nome, FAMILIAS[nome]
     return None, None
 
@@ -100,13 +109,21 @@ def num(x):
     return v
 
 
-def classifica(actual, forecast):
+# Para a DECISAO de juro a fracao de 35% nao serve: ECB 2,25 contra 2,50 esperado e uma
+# surpresa de um quantum inteiro, mas 0,25 < 0,35 x 2,50 = 0,875 e sairia "em linha".
+# Corte absoluto de 0,10 pp = menos de meio quantum de 25 bp. Achado da revisao de 03/set;
+# a mesma duvida vale para taxa de desemprego e nivel de PMI — decisao do Eduardo, declarada.
+CORTE_DECISAO_ABS = 0.10
+
+
+def classifica(actual, forecast, corte_abs=None):
     """Tres faixas: MUITO_ABAIXO / EM_LINHA / MUITO_ACIMA."""
     a, f = num(actual), num(forecast)
     if a is None or f is None:
         return None, None
     d = a - f
-    corte = max(abs(f) * CORTE_PADRAO["fracao"], CORTE_PADRAO["minimo_abs"])
+    corte = corte_abs if corte_abs is not None else \
+        max(abs(f) * CORTE_PADRAO["fracao"], CORTE_PADRAO["minimo_abs"])
     if d > corte:
         return "MUITO_ACIMA", d
     if d < -corte:
@@ -158,14 +175,14 @@ IMPACTO_FXS = {"HIGH": "High", "MEDIUM": "Medium", "LOW": "Low", "NONE": "Low"}
 
 
 def carrega_fxstreet():
-    """Le o que fxstreet_calendario.py gravou. Devolve (eventos, latencia_medida)."""
+    """Le o que fxstreet_calendario.py gravou. Devolve (eventos, latencia_medida, gerado_em)."""
     if not os.path.exists(FXS):
-        return [], None
+        return [], None, None
     try:
         D = json.load(io.open(FXS, encoding="utf-8"))
     except Exception as e:
         print("  ! calendario_resultado.json ilegivel: %s" % e)
-        return [], None
+        return [], None, None
     out = []
     for e in D.get("eventos", []):
         out.append({
@@ -185,7 +202,7 @@ def carrega_fxstreet():
             "tentativa": bool(e.get("data_a_confirmar")),
             "preliminar": bool(e.get("preliminar")),
         })
-    return out, D.get("latencia_medida")
+    return out, D.get("latencia_medida"), D.get("gerado_em")
 
 
 def carrega_ff():
@@ -209,22 +226,22 @@ def carrega_ff():
 
 
 def escolhe_fonte():
-    fx, lat = carrega_fxstreet()
+    fx, lat, fonte_em = carrega_fxstreet()
     if len(fx) >= MINIMO_FXS:
-        return fx, lat, "fxstreet", (
+        return fx, lat, fonte_em, "fxstreet", (
             "FXStreet calendar backend: released value, consensus, previous and revision for "
             "the 8 majors, with the delivery delay measured per event. Widget backend, not a "
             "licensed product — no SLA. Fallback is the Forex Factory feed.")
     ff = carrega_ff()
     motivo = ("arquivo ausente" if not fx else "so %d eventos (minimo %d)" % (len(fx), MINIMO_FXS))
     print("  ! FXStreet indisponivel (%s) — usando a reserva do Forex Factory" % motivo)
-    return ff, None, "forexfactory", (
+    return ff, None, None, "forexfactory", (
         "Forex Factory weekly feed (FALLBACK): it never carries the released value, so events "
         "that already happened show no result. The FXStreet source was unavailable this run.")
 
 
 def main():
-    ev, latencia, fonte, aviso = escolhe_fonte()
+    ev, latencia, fonte_em, fonte, aviso = escolhe_fonte()
     agora = dt.datetime.now(dt.timezone.utc)
     saida = []
 
@@ -242,7 +259,8 @@ def main():
         mod = MODULADORES.get("impacto_" + {"high": "alto", "medium": "medio"}.get(imp, "baixo"), 0.2)
 
         actual = e["actual"]
-        classe, dif = classifica(actual, e["forecast"])
+        classe, dif = classifica(actual, e["forecast"],
+                                 CORTE_DECISAO_ABS if nome_fam == "decisao" else None)
         forca, texto = empurrao(classe, fam)
 
         # 🔴 `is None`, nunca `or`: 0.0 e um resultado, nao uma ausencia.
@@ -288,8 +306,13 @@ def main():
         })
 
     saida.sort(key=lambda x: x["quando_utc"])
+    # DOIS carimbos, de proposito: gerado_em e a hora do RELOGIO (esta rodada); fonte_gerado_em
+    # e a hora do DADO (quando a FXStreet foi lida com sucesso). Se a fonte cair, a cadeia
+    # continua rodando com o arquivo antigo — e o site tem que mostrar a idade do dado, nao a
+    # do relogio. Achado da revisao de 03/set: "dado velho com carimbo novo".
     rel = {
         "gerado_em": agora.isoformat(),
+        "fonte_gerado_em": fonte_em,
         "fonte": fonte,
         "aviso_fonte": aviso,
         "latencia_medida": latencia,

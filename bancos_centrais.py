@@ -135,6 +135,15 @@ def main():
     out = {}
     for m, b in BANCOS.items():
         futuras = [r for r in b["reunioes"] if dt.date.fromisoformat(r) >= hoje]
+        # As listas sao ESTATICAS e acabam em dezembro/2026. Quando sobrar menos de 30 dias de
+        # cobertura, grita no log — antes que o campo vire null no site (revisao de 03/set:
+        # a partir de 09/dez os 28 pares sairiam "decides today" sem este aviso e sem a guarda
+        # que a UI ganhou).
+        if b["reunioes"]:
+            fim = dt.date.fromisoformat(max(b["reunioes"]))
+            if (fim - hoje).days < 30:
+                print("  !! %s: a lista de reunioes acaba em %s (%d dias) — ESTENDER para 2027"
+                      % (m, fim, (fim - hoje).days))
         prox = futuras[0] if futuras else None
         out[m] = dict(b)
         out[m]["proxima"] = prox

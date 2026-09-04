@@ -47,7 +47,8 @@ FAMILIAS = {
         # 96 titulos HIGH/MEDIUM da semana.
         "padroes": ["core cpi", "core inflation", "trimmed mean", "core pce", "core hicp",
                     "median cpi", "core ppi", "core consumer price", "core harmonized",
-                    "core personal consumption", "core producer price"],
+                    "core personal consumption", "core producer price",
+                    "ex food", "excluding food", "ex-food"],
         "porque": "What the central bank actually targets. Core above forecast is the strongest "
                   "case for tightening there is: it removes the 'it was energy and food' alibi.",
     },
@@ -57,7 +58,8 @@ FAMILIAS = {
         # atividade, e por isso esta AQUI e nao no pmi (a ordem de casamento garante).
         "padroes": ["cpi", "hicp", "inflation rate", "ppi", "rpi", "consumer price index",
                     "harmonized index of consumer prices", "producer price index",
-                    "prices paid", "personal consumption expenditures"],
+                    "prices paid", "personal consumption expenditures", "deflator",
+                    "prices index", "price index"],
         "porque": "It matters, but the central bank discounts energy and food shocks. A high "
                   "headline with a well-behaved core weighs LESS than the number suggests.",
     },
@@ -78,7 +80,10 @@ FAMILIAS = {
     },
     "desemprego": {
         "peso": 8, "sinal": -1,   # ACIMA do esperado = mercado fraco = DOVISH
-        "padroes": ["unemployment rate", "jobless rate", "u-rate"],
+        # "unemployment change" fica AQUI (sinal invertido), senao cai em "employment change"
+        # e le desemprego subindo como criacao de emprego — revisao de 03/set
+        "padroes": ["unemployment rate", "jobless rate", "u-rate", "unemployment change",
+                    "unemployment"],
         "porque": "INVERTED sign: unemployment above forecast means slack, and slack removes "
                   "the urgency to tighten.",
     },
@@ -160,7 +165,8 @@ FAMILIAS = {
         "padroes": ["official cash rate", "cash rate", "rate statement", "interest rate decision",
                     "policy rate", "monetary policy statement", "fomc statement", "bank rate",
                     "overnight rate", "ocr", "refi rate", "deposit facility",
-                    "monetary policy review", "monetary policy decision"],
+                    "monetary policy review", "monetary policy decision",
+                    "main refinancing", "refinancing operations rate", "marginal lending"],
         "porque": "It does not feed the running score — it CLOSES the cycle. What matters "
                   "here is the outcome against expectations and, above all, the GUIDANCE. "
                   "On 8 Jul 2026 the RBNZ hike was already priced and price moved only on "

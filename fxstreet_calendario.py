@@ -98,6 +98,13 @@ def normaliza(e: dict) -> dict | None:
 
     a, c, p = num(e.get("actual")), num(e.get("consensus")), num(e.get("previous"))
 
+    # A ESCALA vem separada da unidade: NFP e potency="K", unit=None; balanca e "B" + "$".
+    # Descartar a potency fazia o consenso do NFP chegar ao site como "56" em vez de "56K"
+    # (achado da revisao de 03/set). "ZERO" e a marca deles para "sem escala".
+    pot = str(e.get("potency") or "").strip().upper()
+    escala = pot if pot in ("K", "M", "B", "T") else ""
+    unidade = (escala + str(e.get("unit") or "")).strip() or None
+
     # atraso MEDIDO: carimbo de atualizacao menos o horario agendado. So existe apos divulgar.
     atraso = None
     lu = e.get("lastUpdated")
@@ -117,7 +124,8 @@ def normaliza(e: dict) -> dict | None:
         "titulo": e.get("name"),
         "quando_utc": quando.isoformat(),
         "impacto": e.get("volatility"),
-        "unidade": e.get("unit"),
+        "unidade": unidade,
+        "escala": escala or None,
         "divulgado": a,
         "consenso": c,
         "anterior": p,

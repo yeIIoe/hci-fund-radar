@@ -60,7 +60,7 @@
 
   const M = { bancos: null, eventos: null, eua: null, pronto: false,
               mes: new Date(), diaSel: null,
-              parSel: null, filtro: "todos", moedaSel: null,
+              parSel: null, filtro: "todos", moedaSel: null, moedaCal: null, sent: null,
               menuAgrupado: false };
   const BRT = -3;
 
@@ -81,6 +81,19 @@
     return `${p(x.getUTCDate())}/${p(x.getUTCMonth() + 1)} ${p(x.getUTCHours())}:${p(x.getUTCMinutes())}`;
   }
 
+  // Dias de CALENDARIO ate uma data, contados em BRT, inteiros. Math.round de dias fracionarios
+  // dava "11 days" para o FOMC de 16/set na manha de 04/set — sao 12 (Eduardo pegou, 04/set).
+  // E conta a partir de HOJE, nao do carimbo da rodada: se o cron pular horas, a contagem nao
+  // envelhece junto.
+  function diasAte(isoData) {
+    if (!isoData || isoData.length < 10) return null;
+    const alvo = Date.UTC(+isoData.slice(0, 4), +isoData.slice(5, 7) - 1, +isoData.slice(8, 10));
+    const h = hojeBrt();
+    const hoje = Date.UTC(+h.slice(0, 4), +h.slice(5, 7) - 1, +h.slice(8, 10));
+    if (isNaN(alvo) || isNaN(hoje)) return null;
+    return Math.round((alvo - hoje) / 864e5);
+  }
+
   async function carrega() {
     const pega = async (p) => {
       try {
@@ -90,38 +103,52 @@
     };
     // O leitor dos EUA e OPCIONAL: se o arquivo faltar (cota do BLS, fonte fora), o resto do
     // painel desenha igual. So o bloco dos EUA some — e some declarado, nao em branco.
-    [M.bancos, M.eventos, M.eua, M.discursos] = await Promise.all([
+    [M.bancos, M.eventos, M.eua, M.discursos, M.sent] = await Promise.all([
       pega("data/bancos_centrais.json"), pega("data/macro_eventos.json"),
       pega("data/eua_leitura.json"), pega("data/fed_discursos.json"),
+      pega("data/sentimento.json"),
     ]);
-    M.pronto = !!(M.bancos && M.eventos);
+    // valida a FORMA, nao so a presenca: um JSON truncado passaria no teste de presenca e
+    // estouraria dentro dos desenhistas
+    M.pronto = !!(M.bancos && M.bancos.bancos && typeof M.bancos.bancos === "object" &&
+                  M.eventos && Array.isArray(M.eventos.eventos));
+    if (!M.pronto) console.warn("[macro] dados incompletos:", { bancos: !!M.bancos, eventos: !!M.eventos });
   }
 
   // Carimbo de frescor. O Eduardo perguntou por que o painel nao atualizava a todo instante —
   // a resposta e que a cadeia rodava 2x/dia e os scripts do leitor nao estavam em cadeia
   // nenhuma. Agora rodam de 15 em 15 minutos, mas o GitHub Actions nao e tempo real: o cron
   // atrasa em horario de pico. Entao o frescor fica na TELA, para nunca mais ficar escondido.
+  function idadeTexto(min) {
+    return min < 2 ? "just now" : min < 90 ? min + " minutes ago" : Math.round(min / 60) + " hours ago";
+  }
+
   function frescor() {
-    const g = M.eventos && M.eventos.gerado_em;
+    const E = M.eventos || {};
+    // Dois carimbos: o do RELOGIO (a rodada) e o do DADO (a ultima leitura boa da fonte). Se a
+    // fonte cair, a rodada continua e o relogio fica "fresco" — e o dado, velho. O que o
+    // usuario precisa ver e a idade do DADO. Revisao de 03/set.
+    const g = E.fonte_gerado_em || E.gerado_em;
     if (!g) return "Freshness unknown — the calendar file has no timestamp.";
     const min = Math.round((Date.now() - new Date(g).getTime()) / 60000);
-    const quando = min < 2 ? "just now"
-                 : min < 90 ? min + " minutes ago"
-                 : Math.round(min / 60) + " hours ago";
     const velho = min > 45;
-    const base = `<span class="${velho ? "mac-velho" : "mac-fresco"}">Calendar updated ${quando}</span>` +
+    let base = `<span class="${velho ? "mac-velho" : "mac-fresco"}">Calendar data ${idadeTexto(min)}</span>` +
            ` · refreshed every ~15 min, though scheduled runs can lag at peak hours` +
            (velho ? " — this one is late." : ".");
+    if (E.fonte && E.fonte !== "fxstreet") {
+      base += `<br><span class="mac-velho">Fallback source active: ${esc(E.aviso_fonte || E.fonte)}</span>`;
+    }
 
     // Duas defasagens, separadas de proposito. A de cima e o RELOGIO (o cron). A de baixo e a
     // FONTE: quanto o numero levou do horario agendado ate aparecer nela, medido nesta rodada
     // e nao alegado. Confundir as duas foi um erro meu em 02/set.
-    const L = M.eventos && M.eventos.latencia_medida;
+    const L = E.latencia_medida;
     if (!L || L.mediana_alta == null) return base;
     const lento = L.mediana_alta > 120;
     return base + `<br><span class="${lento ? "mac-velho" : "mac-fresco"}">Source delivery, measured this run:</span>` +
       ` high-impact prints land <b>${fmtAtraso(L.mediana_alta)}</b> after the scheduled time` +
-      ` (median, n=${L.n_alta}; p90 ${fmtAtraso(L.p90_alta)} — the tail is revisions re-touching old records, not late first prints). The clock above is the bottleneck, not the source.`;
+      ` (median, n=${L.n_alta}; p90 ${fmtAtraso(L.p90_alta)} — a late stamp usually means a revision re-touched the record).` +
+      (L.mediana_alta < 900 ? " The 15-minute clock above is slower than the source." : "");
   }
 
   /* ------------------------------------------------------------------ OVERVIEW */
@@ -130,12 +157,15 @@
     if (!M.bancos) return "";
     const bs = M.bancos.bancos;
     const ordem = Object.keys(bs).sort((a, b) =>
-      (bs[a].dias_ate ?? 999) - (bs[b].dias_ate ?? 999));
+      ((bs[a].proxima ? diasAte(bs[a].proxima) : null) ?? 999) -
+      ((bs[b].proxima ? diasAte(bs[b].proxima) : null) ?? 999));
 
     const linhas = ordem.map((m) => {
       const b = bs[m];
-      const dias = b.dias_ate;
-      const quando = dias === 0 ? "today" : dias === 1 ? "tomorrow" : `in ${dias} days`;
+      const dias = b.proxima ? diasAte(b.proxima) : null;
+      // null = a lista de reunioes acabou; nao e "hoje" nem "in null days" (revisao de 03/set)
+      const quando = dias === null ? "no date published" : dias === 0 ? "today"
+                   : dias === 1 ? "tomorrow" : `in ${dias} days`;
       const urgente = dias !== null && dias <= 7;
       const hora = b.hora_local
         ? `${b.hora_local} ${b.fuso.split("/")[1].replace("_", " ")}`
@@ -146,26 +176,76 @@
         <td class="mac-moeda">${FLAG[m] || ""} <strong>${m}</strong> <small>${esc(b.sigla)}</small></td>
         <td class="mac-taxa">${esc(b.taxa_texto)}</td>
         <td><small class="${mov > 0 ? "positive" : mov < 0 ? "negative" : "muted"}">
-            ${mov > 0 ? "+" : ""}${mov} pb</small>
+            ${mov > 0 ? "+" : ""}${mov} bp</small>
             <small class="muted"> · ${esc(b.ultima_mudanca)}</small></td>
         <td><strong>${quando}</strong><small class="muted"> · ${esc(b.proxima || "—")}</small></td>
+        <td>${leanCel(m)}</td>
         <td><small>${esc(hora)}</small>${emBrt ? `<small class="muted"> · ${emBrt} BRT</small>` : ""}</td>
       </tr>`;
     }).join("");
 
     return `<section class="content-section mac-bloco">
       <div class="section-title"><div><h2>Central bank meetings</h2></div>
-        <p>Current policy rate and when each one decides next. Times are local with the IANA zone —
-           three daylight-saving switches fall inside this calendar.</p></div>
+        <p>Current policy rate, when each one decides next, and the forward reading — what the
+           released data, the speeches and the cycle say it will do. Times are local with the IANA
+           zone — three daylight-saving switches fall inside this calendar.</p></div>
       <div class="table-wrap"><table class="mac-tabela">
         <thead><tr><th>Currency</th><th>Policy rate</th><th>Last change</th>
-                   <th>Next decision</th><th>Local time</th></tr></thead>
+                   <th>Next decision</th><th>Reading for next move</th><th>Local time</th></tr></thead>
         <tbody>${linhas}</tbody></table></div>
       <p class="mac-frescor">${frescor()}</p>
       <p class="method-note">The rate and the dates are facts, checked against each central bank's own
         pages on 1 Sep 2026. What each one will <em>do</em> is a separate reading — it comes from the
         released data, never from a score.</p>
     </section>`;
+  }
+
+  /* ---------------------------------------------------------------- SENTIMENTO */
+
+  // A leitura PARA FRENTE de uma moeda, vinda de sentimento.py. Quatro dimensoes, 25% cada:
+  // dados, texto, ciclo, mercado. Dimensao nao conectada baixa o TETO — nunca vira zero.
+  const ROT_DIR = { SOBE: "hike", MANTEM: "hold", CORTA: "cut" };
+  const SETA_DIR = { SOBE: "&#9650;", MANTEM: "&mdash;", CORTA: "&#9660;" };
+  const CLS_DIR = { SOBE: "positive", MANTEM: "muted", CORTA: "negative" };
+
+  function sentDe(m) {
+    return (M.sent && M.sent.moedas && M.sent.moedas[m]) || null;
+  }
+
+  function dimsChips(s) {
+    const D = s.dimensoes || {};
+    const rot = { dados: "data", texto: "speeches", ciclo: "cycle", mercado: "market" };
+    return `<span class="mac-dims">${["dados", "texto", "ciclo", "mercado"].map((k) => {
+      const v = D[k];
+      if (!v) return `<span class="mac-dim off" title="not connected">${rot[k]} —</span>`;
+      const ok = s.concordam && s.concordam[k];
+      const det = k === "dados" ? `data push ${v.soma > 0 ? "+" : ""}${v.soma} over ${v.n} prints since ${v.desde}`
+                : k === "texto" ? `${v.hawkish} hawkish / ${v.dovish} dovish markers in ${v.n} speech(es)`
+                : k === "ciclo" ? v.nota : "";
+      return `<span class="mac-dim ${ok ? "ok" : "no"}" title="${esc(det)}">${rot[k]} ${ok ? "&#10003;" : "&#10007;"}
+        <small>${ROT_DIR[v.direcao] || ""}</small></span>`;
+    }).join("")}</span>`;
+  }
+
+  // celula da tabela de bancos
+  function leanCel(m) {
+    const s = sentDe(m);
+    if (!s) return `<small class="muted">reading not built yet</small>`;
+    return `<span class="mac-lean-pill ${CLS_DIR[s.direcao]}">${SETA_DIR[s.direcao]} ${ROT_DIR[s.direcao]}
+        <b>${s.conviccao_pct}%</b></span>
+      <small class="muted"> of ${s.conviccao_teto_pct}% · ${s.dimensoes_ligadas} of ${s.dimensoes_total} dimensions</small>`;
+  }
+
+  // bloco dentro do cartao da perna
+  function leanPerna(m) {
+    const s = sentDe(m);
+    if (!s) return `<div class="mac-perna-linha muted"><small>forward reading not built yet</small></div>`;
+    return `<div class="mac-perna-lean">
+      <span class="mac-perna-papel">Reading for the next move</span>
+      <div class="mac-lean-pill big ${CLS_DIR[s.direcao]}">${SETA_DIR[s.direcao]} ${ROT_DIR[s.direcao]} <b>${s.conviccao_pct}%</b>
+        <small>ceiling ${s.conviccao_teto_pct}% — ${s.dimensoes_ligadas} of ${s.dimensoes_total} dimensions connected</small></div>
+      ${dimsChips(s)}
+    </div>`;
   }
 
   /* --------------------------------------------------------------- MATRIZ DOS PARES */
@@ -204,17 +284,32 @@
     const b = par.slice(0, 3), q = par.slice(3);
     const cb = cicloDe(b), cq = cicloDe(q);
     const bs = M.bancos ? M.bancos.bancos : {};
-    const dias = Math.min(bs[b] ? bs[b].dias_ate : 99, bs[q] ? bs[q].dias_ate : 99);
-    return { par, b, q, cb, cq, diverge: cb !== cq, dias };
+    // null quando a lista de reunioes de uma perna acabou — Math.min(null, 13) daria 0 e o
+    // par viraria "decides today" (revisao de 03/set, reproduzido para dezembro/2026)
+    const dd = (x) => (x && x.proxima) ? diasAte(x.proxima) : null;
+    const db = dd(bs[b]), dq = dd(bs[q]);
+    const dias = (db === null && dq === null) ? null
+               : Math.min(db === null ? 999 : db, dq === null ? 999 : dq);
+    const s = (M.sent && Array.isArray(M.sent.pares))
+      ? M.sent.pares.find((p) => p.par === par) || null : null;
+    const tese = !!(s && (s.sinal === "BULL" || s.sinal === "BEAR"));
+    return { par, b, q, cb, cq, diverge: cb !== cq, dias, s, tese,
+             conv: s ? (s.conviccao_pct || 0) : 0 };
   }
+
+  const ROT_SINAL = { BULL: "BULL", BEAR: "BEAR", "NAO NEGOCIA": "no trade", SEM_DADO: "no data" };
+  const CLS_SINAL = { BULL: "v-bull", BEAR: "v-bear", "NAO NEGOCIA": "v-nao", SEM_DADO: "v-nao" };
 
   function itemLista(d) {
     const sel = d.par === M.parSel ? " mac-item-sel" : "";
+    const tag = d.s
+      ? `<span class="mac-item-tag ${CLS_SINAL[d.s.sinal] || "v-nao"}">${ROT_SINAL[d.s.sinal] || esc(d.s.sinal)}${
+          d.tese ? ` <b>${d.conv}%</b>` : ""}</span>`
+      : `<span class="mac-item-tag ${d.diverge ? "e-div" : "e-igual"}">${d.diverge ? "divergence" : "same side"}</span>`;
     return `<button type="button" class="mac-item${sel}" data-mac-par="${d.par}">
       <span class="mac-item-par">${d.b}<em>/</em>${d.q}</span>
-      <span class="mac-item-tag ${d.diverge ? "e-div" : "e-igual"}">${
-        d.diverge ? "divergence" : "same side"}</span>
-      <span class="mac-item-dias">${d.dias === 0 ? "decides today" : d.dias + "d"}</span>
+      ${tag}
+      <span class="mac-item-dias">${d.dias === null ? "no date" : d.dias === 0 ? "decides today" : d.dias + "d"}</span>
     </button>`;
   }
 
@@ -225,8 +320,9 @@
         <strong class="mac-perna-nome">${m}</strong>
         <div class="mac-perna-linha muted">no data</div></div>`;
     }
-    const dias = b.dias_ate;
-    const quando = dias === 0 ? "today" : dias === 1 ? "tomorrow" : "in " + dias + " days";
+    const dias = b.proxima ? diasAte(b.proxima) : null;
+    const quando = dias === null ? "no date published" : dias === 0 ? "today"
+                 : dias === 1 ? "tomorrow" : "in " + dias + " days";
     const hora = b.hora_local
       ? esc(b.hora_local + " " + b.fuso.split("/")[1].replace("_", " "))
       : "no fixed release time";
@@ -234,6 +330,7 @@
       <span class="mac-perna-papel">${papel}</span>
       <strong class="mac-perna-nome">${FLAG[m] || ""} ${m} <small>${esc(b.sigla)}</small></strong>
       <div class="mac-perna-taxa">${esc(b.taxa_texto)}</div>
+      ${leanPerna(m)}
       <div class="mac-perna-linha ${ciclo > 0 ? "positive" : ciclo < 0 ? "negative" : "muted"}">
         ${ciclo > 0 ? "&#9650;" : ciclo < 0 ? "&#9660;" : "&mdash;"} ${ROT_CICLO[String(ciclo)]}
         <small class="muted">&middot; ${esc(b.ultima_mudanca)}</small></div>
@@ -275,38 +372,65 @@
       : velho ? "data " + (min < 90 ? min + " min" : Math.round(min / 60) + "h") + " old"
       : "data current";
 
+    const s = d.s;
+    const pill = s
+      ? `<span class="mac-det-leitura ${CLS_SINAL[s.sinal] || "v-nao"}">${ROT_SINAL[s.sinal] || esc(s.sinal)}${
+          d.tese ? ` &middot; ${d.conv}%` : ""}</span>`
+      : `<span class="mac-det-leitura ${d.diverge ? "e-div" : "e-igual"}">${d.diverge ? "CYCLE DIVERGENCE" : "SAME SIDE"}</span>`;
+
+    let nota;
+    if (s && d.tese) {
+      const lb = s.leitura_base || {}, lq = s.leitura_cotada || {};
+      nota = `<b>${s.sinal === "BULL" ? "Long" : "Short"} ${d.b}/${d.q}</b> reads from the two legs:
+        ${d.b} leaning to <b>${ROT_DIR[lb.direcao] || "?"}</b> (${lb.conviccao_pct || 0}%) against
+        ${d.q} leaning to <b>${ROT_DIR[lq.direcao] || "?"}</b> (${lq.conviccao_pct || 0}%) &mdash;
+        a ${esc(s.rotulo || "")} divergence of ${s.forca} degree${s.forca === 1 ? "" : "s"}.
+        ${s.perna_motivo && s.perna_motivo !== "ambas"
+          ? `The reason sits on <b>${s.perna_motivo}</b>.` : "Both legs carry the reason."}
+        ${s.mesma_aposta && s.mesma_aposta.length
+          ? `<span class="mac-mesma">Same bet as ${s.mesma_aposta.map((p) => p.slice(0, 3) + "/" + p.slice(3)).join(", ")} &mdash; holding two does not diversify, it doubles.</span>` : ""}`;
+    } else if (s) {
+      nota = `${esc(s.motivo || "")}. Same position on both legs &mdash; no fundamental thesis on this axis.`;
+    } else {
+      nota = d.diverge
+        ? "The two central banks last moved in opposite directions. That is the necessary condition for a fundamental thesis &mdash; not a sufficient one."
+        : "Both central banks last moved the same way. No divergence to trade on this axis.";
+    }
+
     return `<div class="mac-det-topo">
         <h2 class="mac-det-par">${d.b}<em>/</em>${d.q}</h2>
-        <span class="mac-det-leitura ${d.diverge ? "e-div" : "e-igual"}">${
-          d.diverge ? "CYCLE DIVERGENCE" : "SAME SIDE"}</span>
+        ${pill}
         <span class="mac-det-dado ${velho ? "e-velho" : "e-fresco"}">${idade}</span>
       </div>
 
-      <p class="mac-det-nota">${d.diverge
-        ? "The two central banks last moved in opposite directions. That is the necessary condition for a fundamental thesis &mdash; not a sufficient one."
-        : "Both central banks last moved the same way. No divergence to trade on this axis."}</p>
+      <p class="mac-det-nota">${nota}</p>
 
       <div class="mac-pernas">${pernaCard(d.b, d.cb, "base")}${pernaCard(d.q, d.cq, "quote")}</div>
 
       <details class="mac-det-mais">
-        <summary>What is still missing here</summary>
+        <summary>How this reading is built, and what is still missing</summary>
         <div class="mac-det-mais-corpo">
-          <p>What each bank will <em>do next</em> &mdash; the reading from released data against
-             its forecast, accumulated since that bank last met. It needs the live source for the
-             released value, which is not connected yet.</p>
-          <p>And which leg carries the weight. On 2 Sep the GBPNZD move was <b>82% the kiwi</b>;
+          <p>Four dimensions, 25% each: <b>data</b> (surprises since the bank last decided, weighted by
+             family and impact, half-life 21 days), <b>speeches</b> (hawkish/dovish markers in what the
+             bank's people said), <b>cycle</b> (the last move, if under six months old) and
+             <b>market</b> (implied probability). Conviction is the share of connected dimensions that
+             agree &mdash; a missing dimension lowers the ceiling, it never counts as zero.</p>
+          <p>Still missing: speeches are wired for the Fed only, and the market dimension has no
+             free source. So today the ceiling is 75% for USD and 50% for the other seven.</p>
+          <p>Which leg carries the weight matters. On 2 Sep the GBPNZD move was <b>82% the kiwi</b>;
              the same day EURJPY was <b>90% the yen</b>. When the reason sits on one leg, every
-             pair sharing that leg is the same bet &mdash; holding two does not diversify, it
-             doubles.</p>
+             pair sharing that leg is the same bet.</p>
+          <p>This is a reading of the fundamental side, not a signal: the earlier FUND was closed as
+             an entry rule after 15 null tests. The entry is yours.</p>
         </div>
       </details>`;
   }
 
   const FILTROS = [
     { k: "todos", r: "All", f: () => true },
-    { k: "div", r: "Divergence", f: (d) => d.diverge },
-    { k: "igual", r: "Same side", f: (d) => !d.diverge },
-    { k: "perto", r: "Deciding soon", f: (d) => d.dias <= 7 },
+    { k: "tese", r: "With a thesis", f: (d) => d.tese },
+    { k: "sem", r: "No trade", f: (d) => d.s && !d.tese },
+    { k: "perto", r: "Deciding soon", f: (d) => d.dias !== null && d.dias <= 7 },
   ];
 
   function matrizPares() {
@@ -318,7 +442,13 @@
     const filtro = FILTROS.find((x) => x.k === M.filtro) || FILTROS[0];
     let lista = PARES.map(dadosPar).filter(filtro.f);
     if (M.moedaSel) lista = lista.filter((d) => d.b === M.moedaSel || d.q === M.moedaSel);
-    lista.sort((a, b) => (b.diverge - a.diverge) || (a.dias - b.dias) || a.par.localeCompare(b.par));
+    // com tese primeiro, por conviccao; depois os demais por proximidade da decisao
+    lista.sort((a, b) => (b.tese - a.tese) || (b.conv - a.conv) || (b.diverge - a.diverge) ||
+                         ((a.dias ?? 999) - (b.dias ?? 999)) || a.par.localeCompare(b.par));
+
+    const S = M.sent && M.sent.moedas;
+    const lean = (dir) => S ? Object.keys(S).filter((m) => S[m].direcao === dir)
+      .map((m) => `${FLAG[m] || ""} ${m} <small>${S[m].conviccao_pct}%</small>`).join("&nbsp; ") : "";
 
     const chips = FILTROS.map((x) =>
       `<button type="button" class="mac-chip${x.k === filtro.k ? " on" : ""}" data-mac-filtro="${x.k}">${x.r}</button>`
@@ -328,12 +458,15 @@
 
     return `<section class="content-section mac-bloco mac-tela">
       <div class="section-title"><div><h2>Pairs</h2></div>
-        <p>Where each central bank last went, leg by leg. Not a forecast &mdash; the direction of
-           its last move, and when it decides again.</p></div>
+        <p>Each pair read leg by leg: what each central bank is leaning to do next, and whether
+           the two legs diverge. A reading of the fundamental side &mdash; the entry is yours.</p></div>
 
-      <div class="mac-placar">
-        <div><span>Last move up</span><strong>${sobe.map((m) => (FLAG[m] || "") + " " + m).join("&nbsp; ")}</strong></div>
-        <div><span>Last move down</span><strong>${corta.map((m) => (FLAG[m] || "") + " " + m).join("&nbsp; ")}</strong></div>
+      <div class="mac-placar${S ? " mac-placar-3" : ""}">
+        ${S ? `<div><span>Leaning to hike</span><strong>${lean("SOBE") || "&mdash;"}</strong></div>
+               <div><span>On hold</span><strong>${lean("MANTEM") || "&mdash;"}</strong></div>
+               <div><span>Leaning to cut</span><strong>${lean("CORTA") || "&mdash;"}</strong></div>`
+            : `<div><span>Last move up</span><strong>${sobe.map((m) => (FLAG[m] || "") + " " + m).join("&nbsp; ")}</strong></div>
+               <div><span>Last move down</span><strong>${corta.map((m) => (FLAG[m] || "") + " " + m).join("&nbsp; ")}</strong></div>`}
       </div>
 
       <div class="mac-chips">${chips}</div>
@@ -358,7 +491,10 @@
     if (alvoFil) M.filtro = alvoFil.dataset.macFiltro;
     if (alvoMoe) M.moedaSel = (M.moedaSel === alvoMoe.dataset.macMoeda) ? null : alvoMoe.dataset.macMoeda;
     const painel = document.querySelector('[data-panel="pairs"]');
-    if (painel) painel.innerHTML = matrizPares();
+    if (painel) {
+      try { painel.innerHTML = matrizPares(); }
+      catch (err) { console.warn("[macro] matrizPares falhou no clique e foi contida:", err.message); }
+    }
     if (alvoPar && window.innerWidth < 900) {
       const det = document.querySelector(".mac-detalhe");
       if (det) det.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -408,7 +544,7 @@
     const b = M.bancos && M.bancos.bancos && M.bancos.bancos.USD;
     let fomc = "";
     if (f && f.data) {
-      const dias = Math.round((new Date(f.data + "T00:00:00Z").getTime() - Date.now()) / 864e5);
+      const dias = diasAte(f.data);
       fomc = `<div class="mac-eua-fomc">
         <span class="mac-perna-papel">Next FOMC decision</span>
         <div class="mac-eua-dias">${dias <= 0 ? "today" : dias}<small>${dias <= 0 ? "" : dias === 1 ? "day" : "days"}</small></div>
@@ -422,9 +558,10 @@
     const refs = Object.values(I).map((r) => r.referencia).filter(Boolean).sort();
     const ref = refs.length ? refs[refs.length - 1] : null;
     const atrasoRef = U.defasagem_referencia_meses;
-    const entrega = U.defasagem_entrega_ms
-      ? `${Math.round(U.defasagem_entrega_ms / 1000)} s`
-      : "not measured yet — Friday's payrolls print times it";
+    const L = M.eventos && M.eventos.latencia_medida;
+    const entrega = (L && L.mediana_alta != null)
+      ? `release → calendar source, measured per event: high-impact prints ${fmtAtraso(L.mediana_alta)} (median) — see each card; release → BLS API: not timed yet, needs the registered key`
+      : "not measured yet";
 
     const fed = ((U.fed && U.fed.ultimos) || []).slice(0, 3).map((x) =>
       `<li><span class="muted">${esc((x.publicado || "").slice(0, 16))}</span> ${
@@ -493,9 +630,12 @@
   }
   function hojeBrt() { return diaBrt(new Date().toISOString()); }
 
+  // O filtro por moeda vive AQUI, num lugar so: a grade, a contagem "+N" e o painel do dia
+  // passam todos por esta funcao, entao nao ha como um deles esquecer o filtro.
   function eventosDoDia(iso) {
     if (!M.eventos) return [];
-    return M.eventos.eventos.filter((e) => diaBrt(e.quando_utc) === iso);
+    return M.eventos.eventos.filter((e) => diaBrt(e.quando_utc) === iso &&
+      (!M.moedaCal || e.moeda === M.moedaCal));
   }
 
   function celulaEventos(iso) {
@@ -542,11 +682,21 @@
       ? `<span class="mac-atraso${e.atraso_s > 300 ? " mac-atraso-lento" : ""}"
            title="time from the scheduled release to the value landing in the source — a late stamp usually means a later revision touched the record, not a late first print">landed +${fmtAtraso(e.atraso_s)}</span>`
       : "";
+    // diferenca de TAXA (juro, desemprego) e em pontos percentuais, nao em "%"
+    const unSurp = (e.unidade === "%" && (e.familia === "decisao" || e.familia === "desemprego")) ? "pp" : e.unidade;
     const surp = (saiu && temPrev && e.diferenca !== null && e.diferenca !== undefined)
       ? `<span class="mac-surp ${e.empurrao > 0 ? "positive" : e.empurrao < 0 ? "negative" : "muted"}">${
           Number(e.diferenca) === 0 ? "= forecast"
-            : (e.diferenca > 0 ? "+" : "") + fmtN(e.diferenca, e.unidade) + " vs forecast"}</span>`
+            : (e.diferenca > 0 ? "+" : "") + fmtN(e.diferenca, unSurp) + " vs forecast"}</span>`
       : "";
+    // resultado ausente: "not out" so vale quando a hora ainda nao chegou. Se ja passou e a
+    // fonte de reserva esta ativa, a verdade e outra: a reserva nao carrega o resultado.
+    const fonteReserva = M.eventos && M.eventos.fonte && M.eventos.fonte !== "fxstreet";
+    const jaPassou = e.quando_utc && new Date(e.quando_utc).getTime() < Date.now();
+    const semResultado = !saiu && jaPassou
+      ? (fonteReserva ? "not carried by the fallback source" : "not in the source yet")
+      : "not out";
+    const ROT_CLASSE = { EM_LINHA: "in line", MUITO_ACIMA: "well above", MUITO_ABAIXO: "well below" };
     const revis = (e.revisado !== null && e.revisado !== undefined)
       ? ` <small class="muted">→ revised ${fmtN(e.revisado, e.unidade)}</small>` : "";
 
@@ -557,7 +707,7 @@
       barra = `<div class="mac-barra">
            <span>forecast <b>${fmtN(e.previsao, e.unidade)}</b></span>
            <span>previous <b>${fmtN(e.anterior, e.unidade)}</b>${revis}</span>
-           <span>actual <b>${saiu ? fmtN(e.resultado, e.unidade) : "not out"}</b>${surp}</span>
+           <span>actual <b>${saiu ? fmtN(e.resultado, e.unidade) : semResultado}</b>${surp}</span>
            ${atraso}</div>` +
         (saiu && !temPrev
           ? `<div class="mac-barra mac-sem"><span>released without a published forecast — the surprise cannot be measured</span></div>`
@@ -568,7 +718,7 @@
 
     const leitura = e.estado === "DIVULGADO"
       ? `<p class="mac-leitura ${e.empurrao > 0 ? "positive" : e.empurrao < 0 ? "negative" : "muted"}">
-           <strong>${esc(e.classe || "")}</strong> — ${esc(e.empurrao_texto)}</p>`
+           <strong>${esc(ROT_CLASSE[e.classe] || e.classe || "")}</strong> — ${esc(e.empurrao_texto)}</p>`
       : "";
     const avisos = [
       e.data_a_confirmar ? "time tentative" : "",
@@ -624,7 +774,7 @@
     // O carimbo do cabecalho ficava em "Loading" para sempre: quem o preenchia era um
     // desenhista do FUND, hoje desligado. Passa a ser a hora do calendario — em BRT.
     const carimbo = document.getElementById("updatedAt");
-    const g = M.eventos && M.eventos.gerado_em;
+    const g = M.eventos && (M.eventos.fonte_gerado_em || M.eventos.gerado_em);
     if (carimbo && g) {
       const h = brt(g);
       if (h) carimbo.textContent = "data " + h + " BRT";
@@ -735,10 +885,11 @@
     const ev = iso ? eventosDoDia(iso).filter((e) => String(e.impacto).toLowerCase() !== "low") : [];
     abaixo.innerHTML = `<div class="section-title">
         <div><h2>${iso ? "What happens on " + iso.split("-").reverse().join("/")
-                        : "Reading of the day"}</h2></div>
+                        : "Reading of the day"}${M.moedaCal ? ` <small class="muted">· ${FLAG[M.moedaCal] || ""} ${esc(M.moedaCal)} only</small>` : ""}</h2></div>
         <p>${iso ? (ev.length
               ? "Each release, what it is measured against, and what each outcome would push on the rate decision."
-              : "Nothing above low impact scheduled this day.")
+              : (M.moedaCal ? `Nothing above low impact for ${esc(M.moedaCal)} this day.`
+                            : "Nothing above low impact scheduled this day."))
             : "Pick a day on the calendar above."}</p></div>
       <div class="mac-dia">${iso ? painelDoDia(iso)
         : '<div class="mac-vazio"><strong>Pick a day on the calendar above.</strong></div>'}</div>`;
@@ -820,7 +971,16 @@
     // Overview mostra SO as reunioes; a matriz de 28 linhas fica na aba Pairs.
     // Repetir a mesma tabela em duas abas so gera ruido — e foi o que o Eduardo apontou no
     // FUND: informacao demais na tela confunde mais do que informa.
-    if (over && !over.querySelector(".mac-bloco")) over.innerHTML = painelBancos();
+    // Cada bloco falha SOZINHO. A primeira passada de aplica() nao tinha protecao nenhuma: um
+    // erro em painelBancos derrubava Pairs e Calendar juntos (revisao de 03/set).
+    const contido = (nome, fn) => {
+      try { return fn(); }
+      catch (e) { console.warn("[macro] " + nome + " falhou e foi contido:", e.message); return null; }
+    };
+    if (over && !over.querySelector(".mac-bloco")) {
+      const h = contido("painelBancos", painelBancos);
+      if (h) over.innerHTML = h;
+    }
     // O bloco dos EUA entra DEPOIS das reunioes e contido: um erro nele nao pode apagar a
     // Overview inteira — foi assim que o site caiu da segunda vez.
     if (over && over.querySelector(".mac-bloco") && !over.querySelector(".mac-eua")) {
@@ -832,7 +992,10 @@
 
     // PARES: o mesmo, ate o leitor produzir
     const pares = document.querySelector('[data-panel="pairs"]');
-    if (pares && !pares.querySelector(".mac-bloco")) pares.innerHTML = matrizPares();
+    if (pares && !pares.querySelector(".mac-bloco")) {
+      const h = contido("matrizPares", matrizPares);
+      if (h) pares.innerHTML = h;
+    }
 
     // CALENDARIO: grade PROPRIA.
     // A grade do FUND era montada a partir dos dias que existiam no historico dele — por isso
@@ -844,6 +1007,11 @@
           <div class="section-title"><div><h2>Macro calendar</h2></div>
             <p>Scheduled releases and central bank decisions. Pick a day to read what each one
                would push on the rate decision.</p></div>
+          <div class="mac-chips mac-cal-chips">
+            <button type="button" class="mac-chip on" data-mac-cal-moeda="">All currencies</button>
+            ${Object.keys(FLAG).map((m) =>
+              `<button type="button" class="mac-chip mac-chip-moeda" data-mac-cal-moeda="${m}">${FLAG[m]} ${m}</button>`).join("")}
+          </div>
           <div class="mac-navmes">
             <button type="button" class="mac-nav" data-mac-mes="-1">◀</button>
             <strong class="mac-mes-titulo"></strong>
@@ -860,11 +1028,19 @@
           M.mes.setMonth(M.mes.getMonth() + Number(b.dataset.macMes));
           M.diaSel = null; desenhaCalendario();
         }));
+      // filtro por moeda: o pedido do Eduardo em 03/set. Nao muda o dia escolhido — so o que
+      // aparece nele e na grade.
+      painelCal.querySelectorAll("[data-mac-cal-moeda]").forEach((b) =>
+        b.addEventListener("click", () => {
+          M.moedaCal = b.dataset.macCalMoeda || null;
+          painelCal.querySelectorAll("[data-mac-cal-moeda]").forEach((x) =>
+            x.classList.toggle("on", (x.dataset.macCalMoeda || null) === M.moedaCal));
+          desenhaCalendario();
+        }));
     }
-    desenhaCalendario();
-
-    agrupaMenu();
-    limpaFundDaTela();
+    contido("desenhaCalendario", desenhaCalendario);
+    contido("agrupaMenu", agrupaMenu);
+    contido("limpaFundDaTela", limpaFundDaTela);
   }
 
   const estilo = document.createElement("style");
@@ -896,6 +1072,34 @@
    .mac-eua-fed a{color:inherit}
    .mac-perna-eua{margin-top:9px;padding-top:9px;border-top:1px solid rgba(255,255,255,.07);
      font-size:12px;line-height:1.7}
+   /* --- sentimento: a leitura para frente, por moeda e por par --- */
+   .mac-cal-chips{margin:0 0 12px}
+   .mac-lean-pill{display:inline-flex;align-items:center;gap:6px;font-size:12px;padding:3px 10px;
+     border-radius:20px;background:rgba(255,255,255,.06);white-space:nowrap}
+   .mac-lean-pill b{font-family:var(--font-mono)}
+   .mac-lean-pill.positive{background:rgba(82,217,138,.12)}
+   .mac-lean-pill.negative{background:rgba(248,122,122,.12)}
+   .mac-lean-pill.big{font-size:14px;padding:6px 12px;gap:8px;flex-wrap:wrap}
+   .mac-lean-pill.big small{font-size:10.5px;opacity:.65;white-space:normal;font-weight:400}
+   .mac-perna-lean{margin:8px 0 10px;padding:10px 0 0;border-top:1px solid rgba(255,255,255,.07)}
+   .mac-dims{display:flex;gap:5px;flex-wrap:wrap;margin-top:8px}
+   .mac-dim{font-size:10.5px;letter-spacing:.04em;padding:2px 8px;border-radius:5px;
+     border:1px solid rgba(255,255,255,.12);opacity:.85;white-space:nowrap}
+   .mac-dim small{opacity:.6;margin-left:3px}
+   .mac-dim.ok{border-color:rgba(82,217,138,.45);color:#52d98a}
+   .mac-dim.no{border-color:rgba(248,122,122,.4);color:#f87a7a}
+   .mac-dim.off{opacity:.38;border-style:dashed}
+   .mac-item-tag.v-bull{color:#52d98a}
+   .mac-item-tag.v-bear{color:#f87a7a}
+   .mac-item-tag.v-nao{opacity:.38}
+   .mac-item-tag b{font-family:var(--font-mono);font-weight:600}
+   .mac-det-leitura.v-bull{background:rgba(82,217,138,.16);color:#52d98a}
+   .mac-det-leitura.v-bear{background:rgba(248,122,122,.16);color:#f87a7a}
+   .mac-det-leitura.v-nao{background:rgba(255,255,255,.06);opacity:.6}
+   .mac-mesma{display:block;margin-top:8px;font-size:12px;color:#f0b429}
+   .mac-placar-3{grid-template-columns:1fr 1fr 1fr}
+   .mac-placar strong small{font-family:var(--font-mono);opacity:.55;font-weight:400;margin-left:2px}
+   @media (max-width:900px){.mac-placar-3{grid-template-columns:1fr}}
    /* --- falas do Fed: a frase de postura, com o indice de contagem ao lado --- */
    .mac-falas{margin-top:18px;padding-top:14px;border-top:1px solid rgba(255,255,255,.07)}
    .mac-falas-titulo{display:flex;gap:12px;align-items:baseline;flex-wrap:wrap;margin-bottom:8px}

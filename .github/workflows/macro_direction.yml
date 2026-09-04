@@ -46,7 +46,9 @@ concurrency:
 jobs:
   atualiza:
     runs-on: ubuntu-latest
-    timeout-minutes: 8
+    # 15 e nao 8: sao cinco fontes externas em sequencia, cada uma com ate 45-60 s de timeout
+    # proprio; 8 min era menor que a soma no pior caso (revisao de 03/set)
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
 
@@ -111,6 +113,13 @@ jobs:
           python bancos_centrais.py
           python macro_eventos.py
 
+      # A leitura PARA FRENTE: por moeda (4 dimensoes, 25% cada) e por par (a regra do
+      # Eduardo). Busca 42 dias da FXStreet por conta propria; se ela falhar, usa o arquivo
+      # local com janela curta e declara isso na saida.
+      - name: sentimento (moeda e par)
+        continue-on-error: true
+        run: python sentimento.py
+
       # Commit so quando o conteudo mudou de verdade. Sem isto seriam 96 commits vazios por
       # dia, e o historico do repositorio viraria lixo.
       - name: commita se mudou
@@ -119,7 +128,8 @@ jobs:
           git config user.email "bot@hokiresearch.com"
           git add data/macro_eventos.json data/bancos_centrais.json \
                   data/calendario_resultado.json data/eua_leitura.json \
-                  data/fed_discursos.json data/raw/ff_calendar_thisweek.json
+                  data/fed_discursos.json data/sentimento.json \
+                  data/raw/ff_calendar_thisweek.json
           if git diff --cached --quiet; then
             echo "nada mudou — sem commit"
           else

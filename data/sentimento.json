@@ -1,0 +1,1225 @@
+{
+ "gerado_em": "2026-09-04T13:19:37.383607+00:00",
+ "origem_eventos": "fxstreet 42 dias",
+ "regua": {
+  "dimensoes": [
+   "dados",
+   "texto",
+   "ciclo",
+   "mercado"
+  ],
+  "peso_por_dimensao_pct": 25,
+  "janela_dias": 42,
+  "meia_vida_dias": 21.0,
+  "limiar_dados": 5.0,
+  "ciclo_validade_dias": 180,
+  "nao_conectado": {
+   "texto": "only the Fed is wired (fed_discursos.py)",
+   "mercado": "no free OIS/futures source; yields excluded by design"
+  }
+ },
+ "aviso": "a READING of the fundamental side of each leg, not a signal. Conviction is the share of connected dimensions that agree; a missing dimension lowers the ceiling, it never counts as zero. FUND v0.1 was closed as an entry rule after 15 null tests.",
+ "moedas": {
+  "USD": {
+   "moeda": "USD",
+   "direcao": "MANTEM",
+   "intensidade": 0,
+   "conviccao_pct": 25,
+   "conviccao_teto_pct": 75,
+   "dimensoes_ligadas": 3,
+   "dimensoes_total": 4,
+   "concordam": {
+    "dados": false,
+    "texto": false,
+    "ciclo": true
+   },
+   "dimensoes": {
+    "dados": {
+     "direcao": "CORTA",
+     "soma": -8.37,
+     "n": 84,
+     "n_alto": 25,
+     "desde": "2026-07-29T18:00:00+00:00",
+     "zerado_por_decisao": true,
+     "limiar": 5.0,
+     "meia_vida_dias": 21.0,
+     "principais": [
+      {
+       "quando_utc": "2026-09-04T12:30:00+00:00",
+       "titulo": "Nonfarm Payrolls",
+       "familia": "emprego_criacao",
+       "classe": "MUITO_ACIMA",
+       "impacto": "HIGH",
+       "divulgado": 162.0,
+       "consenso": 56.0,
+       "contribuicao": 7.99,
+       "idade_dias": 0.0
+      },
+      {
+       "quando_utc": "2026-08-07T12:30:00+00:00",
+       "titulo": "Average Hourly Earnings (MoM)",
+       "familia": "salarios",
+       "classe": "MUITO_ABAIXO",
+       "impacto": "HIGH",
+       "divulgado": 0.1,
+       "consenso": 0.3,
+       "contribuicao": -3.57,
+       "idade_dias": 28.0
+      },
+      {
+       "quando_utc": "2026-08-07T12:30:00+00:00",
+       "titulo": "Nonfarm Payrolls",
+       "familia": "emprego_criacao",
+       "classe": "MUITO_ABAIXO",
+       "impacto": "HIGH",
+       "divulgado": -23.0,
+       "consenso": 80.0,
+       "contribuicao": -3.17,
+       "idade_dias": 28.0
+      },
+      {
+       "quando_utc": "2026-08-05T12:15:00+00:00",
+       "titulo": "ADP Employment Change",
+       "familia": "emprego_criacao",
+       "classe": "MUITO_ABAIXO",
+       "impacto": "HIGH",
+       "divulgado": 44.0,
+       "consenso": 70.0,
+       "contribuicao": -2.97,
+       "idade_dias": 30.0
+      },
+      {
+       "quando_utc": "2026-08-25T13:00:00+00:00",
+       "titulo": "Housing Price Index (MoM)",
+       "familia": "inflacao_cheia",
+       "classe": "MUITO_ABAIXO",
+       "impacto": "MEDIUM",
+       "divulgado": 0.0,
+       "consenso": 0.2,
+       "contribuicao": -2.51,
+       "idade_dias": 10.0
+      },
+      {
+       "quando_utc": "2026-07-30T12:30:00+00:00",
+       "titulo": "Gross Domestic Product Price Index",
+       "familia": "inflacao_cheia",
+       "classe": "MUITO_ACIMA",
+       "impacto": "HIGH",
+       "divulgado": 6.3,
+       "consenso": 3.6,
+       "contribuicao": 2.13,
+       "idade_dias": 36.0
+      }
+     ]
+    },
+    "texto": {
+     "direcao": "SOBE",
+     "hawkish": 12,
+     "dovish": 0,
+     "n": 3,
+     "oradores": [
+      "Waller",
+      "Barr",
+      "Warsh"
+     ],
+     "nota": "expression count over speeches and the statement — a pointer, not a reading"
+    },
+    "ciclo": {
+     "direcao": "MANTEM",
+     "bp": -25,
+     "idade_dias": 268,
+     "nota": "last move 268 days ago — reads as hold"
+    },
+    "mercado": null
+   },
+   "taxa_texto": "3,50–3,75%",
+   "proxima": "2026-09-16",
+   "dias_ate": 12
+  },
+  "EUR": {
+   "moeda": "EUR",
+   "direcao": "MANTEM",
+   "intensidade": 0,
+   "conviccao_pct": 25,
+   "conviccao_teto_pct": 50,
+   "dimensoes_ligadas": 2,
+   "dimensoes_total": 4,
+   "concordam": {
+    "dados": true,
+    "ciclo": false
+   },
+   "dimensoes": {
+    "dados": {
+     "direcao": "MANTEM",
+     "soma": 3.7,
+     "n": 157,
+     "n_alto": 17,
+     "desde": "2026-07-24",
+     "zerado_por_decisao": false,
+     "limiar": 5.0,
+     "meia_vida_dias": 21.0,
+     "principais": [
+      {
+       "quando_utc": "2026-09-04T09:00:00+00:00",
+       "titulo": "Retail Sales (YoY)",
+       "familia": "varejo",
+       "classe": "MUITO_ABAIXO",
+       "impacto": "HIGH",
+       "divulgado": 0.6,
+       "consenso": 1.1,
+       "contribuicao": -3.98,
+       "idade_dias": 0.2
+      },
+      {
+       "quando_utc": "2026-08-20T06:00:00+00:00",
+       "titulo": "Producer Price Index (MoM)",
+       "familia": "inflacao_cheia",
+       "classe": "MUITO_ACIMA",
+       "impacto": "MEDIUM",
+       "divulgado": 1.1,
+       "consenso": 0.7,
+       "contribuicao": 2.11,
+       "idade_dias": 15.3
+      },
+      {
+       "quando_utc": "2026-09-04T09:00:00+00:00",
+       "titulo": "Retail Sales (MoM)",
+       "familia": "varejo",
+       "classe": "MUITO_ABAIXO",
+       "impacto": "MEDIUM",
+       "divulgado": -0.6,
+       "consenso": 0.3,
+       "contribuicao": -1.99,
+       "idade_dias": 0.2
+      },
+      {
+       "quando_utc": "2026-07-30T08:00:00+00:00",
+       "titulo": "Gross Domestic Product (YoY)",
+       "familia": "pib",
+       "classe": "MUITO_ACIMA",
+       "impacto": "HIGH",
+       "divulgado": 0.9,
+       "consenso": 0.6,
+       "contribuicao": 1.82,
+       "idade_dias": 36.2
+      },
+      {
+       "quando_utc": "2026-07-30T09:00:00+00:00",
+       "titulo": "Gross Domestic Product s.a. (QoQ)",
+       "familia": "pib",
+       "classe": "MUITO_ACIMA",
+       "impacto": "HIGH",
+       "divulgado": 0.4,
+       "consenso": 0.2,
+       "contribuicao": 1.82,
+       "idade_dias": 36.2
+      },
+      {
+       "quando_utc": "2026-07-30T09:00:00+00:00",
+       "titulo": "Gross Domestic Product s.a. (YoY)",
+       "familia": "pib",
+       "classe": "MUITO_ACIMA",
+       "impacto": "HIGH",
+       "divulgado": 1.0,
+       "consenso": 0.5,
+       "contribuicao": 1.82,
+       "idade_dias": 36.2
+      }
+     ]
+    },
+    "texto": null,
+    "ciclo": {
+     "direcao": "SOBE",
+     "bp": 25,
+     "idade_dias": 85,
+     "nota": "last move +25 bp, 85 days ago"
+    },
+    "mercado": null
+   },
+   "taxa_texto": "2,25%  (MRO 2,40 · MLF 2,65)",
+   "proxima": "2026-09-10",
+   "dias_ate": 6
+  },
+  "GBP": {
+   "moeda": "GBP",
+   "direcao": "MANTEM",
+   "intensidade": 0,
+   "conviccao_pct": 50,
+   "conviccao_teto_pct": 50,
+   "dimensoes_ligadas": 2,
+   "dimensoes_total": 4,
+   "concordam": {
+    "dados": true,
+    "ciclo": true
+   },
+   "dimensoes": {
+    "dados": {
+     "direcao": "MANTEM",
+     "soma": -3.19,
+     "n": 34,
+     "n_alto": 7,
+     "desde": "2026-07-30T11:00:00+00:00",
+     "zerado_por_decisao": true,
+     "limiar": 5.0,
+     "meia_vida_dias": 21.0,
+     "principais": [
+      {
+       "quando_utc": "2026-08-13T06:00:00+00:00",
+       "titulo": "Gross Domestic Product (MoM)",
+       "familia": "pib",
+       "classe": "MUITO_ACIMA",
+       "impacto": "MEDIUM",
+       "divulgado": 0.3,
+       "consenso": 0.0,
+       "contribuicao": 1.44,
+       "idade_dias": 22.3
+      },
+      {
+       "quando_utc": "2026-08-21T06:00:00+00:00",
+       "titulo": "Retail Sales ex-Fuel (MoM)",
+       "familia": "varejo",
+       "classe": "MUITO_ABAIXO",
+       "impacto": "MEDIUM",
+       "divulgado": -0.9,
+       "consenso": -0.5,
+       "contribuicao": -1.25,
+       "idade_dias": 14.3
+      },
+      {
+       "quando_utc": "2026-08-19T06:00:00+00:00",
+       "titulo": "Producer Price Index - Input (MoM) n.s.a",
+       "familia": "inflacao_cheia",
+       "classe": "MUITO_ABAIXO",
+       "impacto": "LOW",
+       "divulgado": -1.7,
+       "consenso": 0.0,
+       "contribuicao": -0.82,
+       "idade_dias": 16.3
+      },
+      {
+       "quando_utc": "2026-08-13T06:00:00+00:00",
+       "titulo": "Industrial Production (MoM)",
+       "familia": "producao",
+       "classe": "MUITO_ABAIXO",
+       "impacto": "MEDIUM",
+       "divulgado": -0.2,
+       "consenso": 0.1,
+       "contribuicao": -0.72,
+       "idade_dias": 22.3
+      },
+      {
+       "quando_utc": "2026-08-13T06:00:00+00:00",
+       "titulo": "Manufacturing Production (MoM)",
+       "familia": "producao",
+       "classe": "MUITO_ABAIXO",
+       "impacto": "MEDIUM",
+       "divulgado": -0.5,
+       "consenso": -0.2,
+       "contribuicao": -0.72,
+       "idade_dias": 22.3
+      },
+      {
+       "quando_utc": "2026-08-07T06:00:00+00:00",
+       "titulo": "Lloyds House Price Index (YoY)",
+       "familia": "inflacao_cheia",
+       "classe": "MUITO_ABAIXO",
+       "impacto": "LOW",
+       "divulgado": 0.1,
+       "consenso": 0.4,
+       "contribuicao": -0.55,
+       "idade_dias": 28.3
+      }
+     ]
+    },
+    "texto": null,
+    "ciclo": {
+     "direcao": "MANTEM",
+     "bp": -25,
+     "idade_dias": 261,
+     "nota": "last move 261 days ago — reads as hold"
+    },
+    "mercado": null
+   },
+   "taxa_texto": "3,75%",
+   "proxima": "2026-09-17",
+   "dias_ate": 13
+  },
+  "JPY": {
+   "moeda": "JPY",
+   "direcao": "MANTEM",
+   "intensidade": 0,
+   "conviccao_pct": 0,
+   "conviccao_teto_pct": 50,
+   "dimensoes_ligadas": 2,
+   "dimensoes_total": 4,
+   "concordam": {
+    "dados": false,
+    "ciclo": false
+   },
+   "dimensoes": {
+    "dados": {
+     "direcao": "CORTA",
+     "soma": -6.04,
+     "n": 23,
+     "n_alto": 1,
+     "desde": "2026-07-31T03:11:27.150000+00:00",
+     "zerado_por_decisao": true,
+     "limiar": 5.0,
+     "meia_vida_dias": 21.0,
+     "principais": [
+      {
+       "quando_utc": "2026-08-16T23:50:00+00:00",
+       "titulo": "Gross Domestic Product (QoQ)",
+       "familia": "pib",
+       "classe": "MUITO_ABAIXO",
+       "impacto": "HIGH",
+       "divulgado": 0.3,
+       "consenso": 0.5,
+       "contribuicao": -3.25,
+       "idade_dias": 18.6
+      },
+      {
+       "quando_utc": "2026-08-16T23:50:00+00:00",
+       "titulo": "Gross Domestic Product Annualized",
+       "familia": "pib",
+       "classe": "MUITO_ABAIXO",
+       "impacto": "MEDIUM",
+       "divulgado": 1.1,
+       "consenso": 2.0,
+       "contribuicao": -1.63,
+       "idade_dias": 18.6
+      },
+      {
+       "quando_utc": "2026-09-03T23:30:00+00:00",
+       "titulo": "Overall Household Spending (YoY)",
+       "familia": "varejo",
+       "classe": "MUITO_ABAIXO",
+       "impacto": "LOW",
+       "divulgado": -3.6,
+       "consenso": -1.6,
+       "contribuicao": -0.78,
+       "idade_dias": 0.6
+      },
+      {
+       "quando_utc": "2026-08-12T23:50:00+00:00",
+       "titulo": "Producer Price Index (MoM)",
+       "familia": "inflacao_cheia",
+       "classe": "MUITO_ABAIXO",
+       "impacto": "LOW",
+       "divulgado": 0.1,
+       "consenso": 0.6,
+       "contribuicao": -0.66,
+       "idade_dias": 22.6
+      },
+      {
+       "quando_utc": "2026-08-30T23:50:00+00:00",
+       "titulo": "Industrial Production (MoM)",
+       "familia": "producao",
+       "classe": "MUITO_ACIMA",
+       "impacto": "LOW",
+       "divulgado": 0.1,
+       "consenso": -0.6,
+       "contribuicao": 0.52,
+       "idade_dias": 4.6
+      },
+      {
+       "quando_utc": "2026-08-09T23:50:00+00:00",
+       "titulo": "Current Account n.s.a.",
+       "familia": "balanca",
+       "classe": "MUITO_ABAIXO",
+       "impacto": "MEDIUM",
+       "divulgado": -92.3,
+       "consenso": 1512.0,
+       "contribuicao": -0.43,
+       "idade_dias": 25.6
+      }
+     ]
+    },
+    "texto": null,
+    "ciclo": {
+     "direcao": "SOBE",
+     "bp": 25,
+     "idade_dias": 80,
+     "nota": "last move +25 bp, 80 days ago"
+    },
+    "mercado": null
+   },
+   "taxa_texto": "cerca de 1,0%",
+   "proxima": "2026-09-18",
+   "dias_ate": 14
+  },
+  "AUD": {
+   "moeda": "AUD",
+   "direcao": "MANTEM",
+   "intensidade": 0,
+   "conviccao_pct": 25,
+   "conviccao_teto_pct": 50,
+   "dimensoes_ligadas": 2,
+   "dimensoes_total": 4,
+   "concordam": {
+    "dados": true,
+    "ciclo": false
+   },
+   "dimensoes": {
+    "dados": {
+     "direcao": "MANTEM",
+     "soma": 0.76,
+     "n": 16,
+     "n_alto": 6,
+     "desde": "2026-08-11T04:30:00+00:00",
+     "zerado_por_decisao": true,
+     "limiar": 5.0,
+     "meia_vida_dias": 21.0,
+     "principais": [
+      {
+       "quando_utc": "2026-08-20T01:30:00+00:00",
+       "titulo": "Employment Change s.a.",
+       "familia": "emprego_criacao",
+       "classe": "MUITO_ABAIXO",
+       "impacto": "HIGH",
+       "divulgado": -15.8,
+       "consenso": 15.0,
+       "contribuicao": -4.8,
+       "idade_dias": 15.5
+      },
+      {
+       "quando_utc": "2026-08-26T01:30:00+00:00",
+       "titulo": "Trimmed Mean CPI (MoM)",
+       "familia": "inflacao_nucleo",
+       "classe": "MUITO_ACIMA",
+       "impacto": "MEDIUM",
+       "divulgado": 0.5,
+       "consenso": 0.3,
+       "contribuicao": 3.66,
+       "idade_dias": 9.5
+      },
+      {
+       "quando_utc": "2026-09-03T01:30:00+00:00",
+       "titulo": "Trade Balance (MoM)",
+       "familia": "balanca",
+       "classe": "MUITO_ACIMA",
+       "impacto": "HIGH",
+       "divulgado": 1923.0,
+       "consenso": 1390.0,
+       "contribuicao": 1.9,
+       "idade_dias": 1.5
+      }
+     ]
+    },
+    "texto": null,
+    "ciclo": {
+     "direcao": "SOBE",
+     "bp": 25,
+     "idade_dias": 122,
+     "nota": "last move +25 bp, 122 days ago"
+    },
+    "mercado": null
+   },
+   "taxa_texto": "4,35%",
+   "proxima": "2026-09-29",
+   "dias_ate": 25
+  },
+  "NZD": {
+   "moeda": "NZD",
+   "direcao": "MANTEM",
+   "intensidade": 0,
+   "conviccao_pct": 25,
+   "conviccao_teto_pct": 50,
+   "dimensoes_ligadas": 2,
+   "dimensoes_total": 4,
+   "concordam": {
+    "dados": true,
+    "ciclo": false
+   },
+   "dimensoes": {
+    "dados": {
+     "direcao": "MANTEM",
+     "soma": 0.0,
+     "n": 0,
+     "n_alto": 0,
+     "desde": "2026-09-02T02:00:00+00:00",
+     "zerado_por_decisao": true,
+     "limiar": 5.0,
+     "meia_vida_dias": 21.0,
+     "principais": []
+    },
+    "texto": null,
+    "ciclo": {
+     "direcao": "SOBE",
+     "bp": 25,
+     "idade_dias": 58,
+     "nota": "last move +25 bp, 58 days ago"
+    },
+    "mercado": null
+   },
+   "taxa_texto": "2,50%",
+   "proxima": "2026-10-28",
+   "dias_ate": 54
+  },
+  "CAD": {
+   "moeda": "CAD",
+   "direcao": "MANTEM",
+   "intensidade": 0,
+   "conviccao_pct": 25,
+   "conviccao_teto_pct": 50,
+   "dimensoes_ligadas": 2,
+   "dimensoes_total": 4,
+   "concordam": {
+    "dados": false,
+    "ciclo": true
+   },
+   "dimensoes": {
+    "dados": {
+     "direcao": "CORTA",
+     "soma": -7.99,
+     "n": 2,
+     "n_alto": 2,
+     "desde": "2026-09-02T13:45:00+00:00",
+     "zerado_por_decisao": true,
+     "limiar": 5.0,
+     "meia_vida_dias": 21.0,
+     "principais": [
+      {
+       "quando_utc": "2026-09-04T12:30:00+00:00",
+       "titulo": "Net Change in Employment",
+       "familia": "emprego_criacao",
+       "classe": "MUITO_ABAIXO",
+       "impacto": "HIGH",
+       "divulgado": -41.7,
+       "consenso": 15.0,
+       "contribuicao": -7.99,
+       "idade_dias": 0.0
+      }
+     ]
+    },
+    "texto": null,
+    "ciclo": {
+     "direcao": "MANTEM",
+     "bp": -25,
+     "idade_dias": 310,
+     "nota": "last move 310 days ago — reads as hold"
+    },
+    "mercado": null
+   },
+   "taxa_texto": "2,25%  (Bank Rate 2,50 · deposito 2,20)",
+   "proxima": "2026-10-28",
+   "dias_ate": 54
+  },
+  "CHF": {
+   "moeda": "CHF",
+   "direcao": "MANTEM",
+   "intensidade": 0,
+   "conviccao_pct": 25,
+   "conviccao_teto_pct": 50,
+   "dimensoes_ligadas": 2,
+   "dimensoes_total": 4,
+   "concordam": {
+    "dados": false,
+    "ciclo": true
+   },
+   "dimensoes": {
+    "dados": {
+     "direcao": "SOBE",
+     "soma": 11.23,
+     "n": 8,
+     "n_alto": 2,
+     "desde": "2026-07-24",
+     "zerado_por_decisao": false,
+     "limiar": 5.0,
+     "meia_vida_dias": 21.0,
+     "principais": [
+      {
+       "quando_utc": "2026-09-03T06:30:00+00:00",
+       "titulo": "Consumer Price Index (YoY)",
+       "familia": "inflacao_cheia",
+       "classe": "MUITO_ACIMA",
+       "impacto": "HIGH",
+       "divulgado": 0.8,
+       "consenso": 0.5,
+       "contribuicao": 6.71,
+       "idade_dias": 1.3
+      },
+      {
+       "quando_utc": "2026-09-03T06:30:00+00:00",
+       "titulo": "Consumer Price Index (MoM)",
+       "familia": "inflacao_cheia",
+       "classe": "MUITO_ACIMA",
+       "impacto": "MEDIUM",
+       "divulgado": 0.4,
+       "consenso": 0.0,
+       "contribuicao": 3.35,
+       "idade_dias": 1.3
+      },
+      {
+       "quando_utc": "2026-09-01T06:30:00+00:00",
+       "titulo": "Real Retail Sales (YoY)",
+       "familia": "varejo",
+       "classe": "MUITO_ACIMA",
+       "impacto": "MEDIUM",
+       "divulgado": 2.3,
+       "consenso": 1.3,
+       "contribuicao": 1.79,
+       "idade_dias": 3.3
+      },
+      {
+       "quando_utc": "2026-07-31T06:30:00+00:00",
+       "titulo": "Real Retail Sales (YoY)",
+       "familia": "varejo",
+       "classe": "MUITO_ABAIXO",
+       "impacto": "MEDIUM",
+       "divulgado": 1.5,
+       "consenso": 3.2,
+       "contribuicao": -0.62,
+       "idade_dias": 35.3
+      }
+     ]
+    },
+    "texto": null,
+    "ciclo": {
+     "direcao": "MANTEM",
+     "bp": -25,
+     "idade_dias": 442,
+     "nota": "last move 442 days ago — reads as hold"
+    },
+    "mercado": null
+   },
+   "taxa_texto": "0,00%",
+   "proxima": "2026-09-24",
+   "dias_ate": 20
+  }
+ },
+ "pares": [
+  {
+   "par": "EURUSD",
+   "sinal": "NAO NEGOCIA",
+   "forca": 0,
+   "motivo": "EUR e USD na mesma posicao (MANTEM) — sem divergencia",
+   "base": "EUR",
+   "cotada": "USD",
+   "conviccao_pct": 0,
+   "perna_motivo": null,
+   "leitura_base": {
+    "direcao": "MANTEM",
+    "conviccao_pct": 25
+   },
+   "leitura_cotada": {
+    "direcao": "MANTEM",
+    "conviccao_pct": 25
+   },
+   "mesma_aposta": []
+  },
+  {
+   "par": "GBPUSD",
+   "sinal": "NAO NEGOCIA",
+   "forca": 0,
+   "motivo": "GBP e USD na mesma posicao (MANTEM) — sem divergencia",
+   "base": "GBP",
+   "cotada": "USD",
+   "conviccao_pct": 0,
+   "perna_motivo": null,
+   "leitura_base": {
+    "direcao": "MANTEM",
+    "conviccao_pct": 50
+   },
+   "leitura_cotada": {
+    "direcao": "MANTEM",
+    "conviccao_pct": 25
+   },
+   "mesma_aposta": []
+  },
+  {
+   "par": "AUDUSD",
+   "sinal": "NAO NEGOCIA",
+   "forca": 0,
+   "motivo": "AUD e USD na mesma posicao (MANTEM) — sem divergencia",
+   "base": "AUD",
+   "cotada": "USD",
+   "conviccao_pct": 0,
+   "perna_motivo": null,
+   "leitura_base": {
+    "direcao": "MANTEM",
+    "conviccao_pct": 25
+   },
+   "leitura_cotada": {
+    "direcao": "MANTEM",
+    "conviccao_pct": 25
+   },
+   "mesma_aposta": []
+  },
+  {
+   "par": "NZDUSD",
+   "sinal": "NAO NEGOCIA",
+   "forca": 0,
+   "motivo": "NZD e USD na mesma posicao (MANTEM) — sem divergencia",
+   "base": "NZD",
+   "cotada": "USD",
+   "conviccao_pct": 0,
+   "perna_motivo": null,
+   "leitura_base": {
+    "direcao": "MANTEM",
+    "conviccao_pct": 25
+   },
+   "leitura_cotada": {
+    "direcao": "MANTEM",
+    "conviccao_pct": 25
+   },
+   "mesma_aposta": []
+  },
+  {
+   "par": "USDJPY",
+   "sinal": "NAO NEGOCIA",
+   "forca": 0,
+   "motivo": "USD e JPY na mesma posicao (MANTEM) — sem divergencia",
+   "base": "USD",
+   "cotada": "JPY",
+   "conviccao_pct": 0,
+   "perna_motivo": null,
+   "leitura_base": {
+    "direcao": "MANTEM",
+    "conviccao_pct": 25
+   },
+   "leitura_cotada": {
+    "direcao": "MANTEM",
+    "conviccao_pct": 0
+   },
+   "mesma_aposta": []
+  },
+  {
+   "par": "USDCAD",
+   "sinal": "NAO NEGOCIA",
+   "forca": 0,
+   "motivo": "USD e CAD na mesma posicao (MANTEM) — sem divergencia",
+   "base": "USD",
+   "cotada": "CAD",
+   "conviccao_pct": 0,
+   "perna_motivo": null,
+   "leitura_base": {
+    "direcao": "MANTEM",
+    "conviccao_pct": 25
+   },
+   "leitura_cotada": {
+    "direcao": "MANTEM",
+    "conviccao_pct": 25
+   },
+   "mesma_aposta": []
+  },
+  {
+   "par": "USDCHF",
+   "sinal": "NAO NEGOCIA",
+   "forca": 0,
+   "motivo": "USD e CHF na mesma posicao (MANTEM) — sem divergencia",
+   "base": "USD",
+   "cotada": "CHF",
+   "conviccao_pct": 0,
+   "perna_motivo": null,
+   "leitura_base": {
+    "direcao": "MANTEM",
+    "conviccao_pct": 25
+   },
+   "leitura_cotada": {
+    "direcao": "MANTEM",
+    "conviccao_pct": 25
+   },
+   "mesma_aposta": []
+  },
+  {
+   "par": "EURGBP",
+   "sinal": "NAO NEGOCIA",
+   "forca": 0,
+   "motivo": "EUR e GBP na mesma posicao (MANTEM) — sem divergencia",
+   "base": "EUR",
+   "cotada": "GBP",
+   "conviccao_pct": 0,
+   "perna_motivo": null,
+   "leitura_base": {
+    "direcao": "MANTEM",
+    "conviccao_pct": 25
+   },
+   "leitura_cotada": {
+    "direcao": "MANTEM",
+    "conviccao_pct": 50
+   },
+   "mesma_aposta": []
+  },
+  {
+   "par": "EURJPY",
+   "sinal": "NAO NEGOCIA",
+   "forca": 0,
+   "motivo": "EUR e JPY na mesma posicao (MANTEM) — sem divergencia",
+   "base": "EUR",
+   "cotada": "JPY",
+   "conviccao_pct": 0,
+   "perna_motivo": null,
+   "leitura_base": {
+    "direcao": "MANTEM",
+    "conviccao_pct": 25
+   },
+   "leitura_cotada": {
+    "direcao": "MANTEM",
+    "conviccao_pct": 0
+   },
+   "mesma_aposta": []
+  },
+  {
+   "par": "EURAUD",
+   "sinal": "NAO NEGOCIA",
+   "forca": 0,
+   "motivo": "EUR e AUD na mesma posicao (MANTEM) — sem divergencia",
+   "base": "EUR",
+   "cotada": "AUD",
+   "conviccao_pct": 0,
+   "perna_motivo": null,
+   "leitura_base": {
+    "direcao": "MANTEM",
+    "conviccao_pct": 25
+   },
+   "leitura_cotada": {
+    "direcao": "MANTEM",
+    "conviccao_pct": 25
+   },
+   "mesma_aposta": []
+  },
+  {
+   "par": "EURNZD",
+   "sinal": "NAO NEGOCIA",
+   "forca": 0,
+   "motivo": "EUR e NZD na mesma posicao (MANTEM) — sem divergencia",
+   "base": "EUR",
+   "cotada": "NZD",
+   "conviccao_pct": 0,
+   "perna_motivo": null,
+   "leitura_base": {
+    "direcao": "MANTEM",
+    "conviccao_pct": 25
+   },
+   "leitura_cotada": {
+    "direcao": "MANTEM",
+    "conviccao_pct": 25
+   },
+   "mesma_aposta": []
+  },
+  {
+   "par": "EURCAD",
+   "sinal": "NAO NEGOCIA",
+   "forca": 0,
+   "motivo": "EUR e CAD na mesma posicao (MANTEM) — sem divergencia",
+   "base": "EUR",
+   "cotada": "CAD",
+   "conviccao_pct": 0,
+   "perna_motivo": null,
+   "leitura_base": {
+    "direcao": "MANTEM",
+    "conviccao_pct": 25
+   },
+   "leitura_cotada": {
+    "direcao": "MANTEM",
+    "conviccao_pct": 25
+   },
+   "mesma_aposta": []
+  },
+  {
+   "par": "EURCHF",
+   "sinal": "NAO NEGOCIA",
+   "forca": 0,
+   "motivo": "EUR e CHF na mesma posicao (MANTEM) — sem divergencia",
+   "base": "EUR",
+   "cotada": "CHF",
+   "conviccao_pct": 0,
+   "perna_motivo": null,
+   "leitura_base": {
+    "direcao": "MANTEM",
+    "conviccao_pct": 25
+   },
+   "leitura_cotada": {
+    "direcao": "MANTEM",
+    "conviccao_pct": 25
+   },
+   "mesma_aposta": []
+  },
+  {
+   "par": "GBPJPY",
+   "sinal": "NAO NEGOCIA",
+   "forca": 0,
+   "motivo": "GBP e JPY na mesma posicao (MANTEM) — sem divergencia",
+   "base": "GBP",
+   "cotada": "JPY",
+   "conviccao_pct": 0,
+   "perna_motivo": null,
+   "leitura_base": {
+    "direcao": "MANTEM",
+    "conviccao_pct": 50
+   },
+   "leitura_cotada": {
+    "direcao": "MANTEM",
+    "conviccao_pct": 0
+   },
+   "mesma_aposta": []
+  },
+  {
+   "par": "GBPAUD",
+   "sinal": "NAO NEGOCIA",
+   "forca": 0,
+   "motivo": "GBP e AUD na mesma posicao (MANTEM) — sem divergencia",
+   "base": "GBP",
+   "cotada": "AUD",
+   "conviccao_pct": 0,
+   "perna_motivo": null,
+   "leitura_base": {
+    "direcao": "MANTEM",
+    "conviccao_pct": 50
+   },
+   "leitura_cotada": {
+    "direcao": "MANTEM",
+    "conviccao_pct": 25
+   },
+   "mesma_aposta": []
+  },
+  {
+   "par": "GBPNZD",
+   "sinal": "NAO NEGOCIA",
+   "forca": 0,
+   "motivo": "GBP e NZD na mesma posicao (MANTEM) — sem divergencia",
+   "base": "GBP",
+   "cotada": "NZD",
+   "conviccao_pct": 0,
+   "perna_motivo": null,
+   "leitura_base": {
+    "direcao": "MANTEM",
+    "conviccao_pct": 50
+   },
+   "leitura_cotada": {
+    "direcao": "MANTEM",
+    "conviccao_pct": 25
+   },
+   "mesma_aposta": []
+  },
+  {
+   "par": "GBPCAD",
+   "sinal": "NAO NEGOCIA",
+   "forca": 0,
+   "motivo": "GBP e CAD na mesma posicao (MANTEM) — sem divergencia",
+   "base": "GBP",
+   "cotada": "CAD",
+   "conviccao_pct": 0,
+   "perna_motivo": null,
+   "leitura_base": {
+    "direcao": "MANTEM",
+    "conviccao_pct": 50
+   },
+   "leitura_cotada": {
+    "direcao": "MANTEM",
+    "conviccao_pct": 25
+   },
+   "mesma_aposta": []
+  },
+  {
+   "par": "GBPCHF",
+   "sinal": "NAO NEGOCIA",
+   "forca": 0,
+   "motivo": "GBP e CHF na mesma posicao (MANTEM) — sem divergencia",
+   "base": "GBP",
+   "cotada": "CHF",
+   "conviccao_pct": 0,
+   "perna_motivo": null,
+   "leitura_base": {
+    "direcao": "MANTEM",
+    "conviccao_pct": 50
+   },
+   "leitura_cotada": {
+    "direcao": "MANTEM",
+    "conviccao_pct": 25
+   },
+   "mesma_aposta": []
+  },
+  {
+   "par": "AUDJPY",
+   "sinal": "NAO NEGOCIA",
+   "forca": 0,
+   "motivo": "AUD e JPY na mesma posicao (MANTEM) — sem divergencia",
+   "base": "AUD",
+   "cotada": "JPY",
+   "conviccao_pct": 0,
+   "perna_motivo": null,
+   "leitura_base": {
+    "direcao": "MANTEM",
+    "conviccao_pct": 25
+   },
+   "leitura_cotada": {
+    "direcao": "MANTEM",
+    "conviccao_pct": 0
+   },
+   "mesma_aposta": []
+  },
+  {
+   "par": "AUDNZD",
+   "sinal": "NAO NEGOCIA",
+   "forca": 0,
+   "motivo": "AUD e NZD na mesma posicao (MANTEM) — sem divergencia",
+   "base": "AUD",
+   "cotada": "NZD",
+   "conviccao_pct": 0,
+   "perna_motivo": null,
+   "leitura_base": {
+    "direcao": "MANTEM",
+    "conviccao_pct": 25
+   },
+   "leitura_cotada": {
+    "direcao": "MANTEM",
+    "conviccao_pct": 25
+   },
+   "mesma_aposta": []
+  },
+  {
+   "par": "AUDCAD",
+   "sinal": "NAO NEGOCIA",
+   "forca": 0,
+   "motivo": "AUD e CAD na mesma posicao (MANTEM) — sem divergencia",
+   "base": "AUD",
+   "cotada": "CAD",
+   "conviccao_pct": 0,
+   "perna_motivo": null,
+   "leitura_base": {
+    "direcao": "MANTEM",
+    "conviccao_pct": 25
+   },
+   "leitura_cotada": {
+    "direcao": "MANTEM",
+    "conviccao_pct": 25
+   },
+   "mesma_aposta": []
+  },
+  {
+   "par": "AUDCHF",
+   "sinal": "NAO NEGOCIA",
+   "forca": 0,
+   "motivo": "AUD e CHF na mesma posicao (MANTEM) — sem divergencia",
+   "base": "AUD",
+   "cotada": "CHF",
+   "conviccao_pct": 0,
+   "perna_motivo": null,
+   "leitura_base": {
+    "direcao": "MANTEM",
+    "conviccao_pct": 25
+   },
+   "leitura_cotada": {
+    "direcao": "MANTEM",
+    "conviccao_pct": 25
+   },
+   "mesma_aposta": []
+  },
+  {
+   "par": "NZDJPY",
+   "sinal": "NAO NEGOCIA",
+   "forca": 0,
+   "motivo": "NZD e JPY na mesma posicao (MANTEM) — sem divergencia",
+   "base": "NZD",
+   "cotada": "JPY",
+   "conviccao_pct": 0,
+   "perna_motivo": null,
+   "leitura_base": {
+    "direcao": "MANTEM",
+    "conviccao_pct": 25
+   },
+   "leitura_cotada": {
+    "direcao": "MANTEM",
+    "conviccao_pct": 0
+   },
+   "mesma_aposta": []
+  },
+  {
+   "par": "NZDCAD",
+   "sinal": "NAO NEGOCIA",
+   "forca": 0,
+   "motivo": "NZD e CAD na mesma posicao (MANTEM) — sem divergencia",
+   "base": "NZD",
+   "cotada": "CAD",
+   "conviccao_pct": 0,
+   "perna_motivo": null,
+   "leitura_base": {
+    "direcao": "MANTEM",
+    "conviccao_pct": 25
+   },
+   "leitura_cotada": {
+    "direcao": "MANTEM",
+    "conviccao_pct": 25
+   },
+   "mesma_aposta": []
+  },
+  {
+   "par": "NZDCHF",
+   "sinal": "NAO NEGOCIA",
+   "forca": 0,
+   "motivo": "NZD e CHF na mesma posicao (MANTEM) — sem divergencia",
+   "base": "NZD",
+   "cotada": "CHF",
+   "conviccao_pct": 0,
+   "perna_motivo": null,
+   "leitura_base": {
+    "direcao": "MANTEM",
+    "conviccao_pct": 25
+   },
+   "leitura_cotada": {
+    "direcao": "MANTEM",
+    "conviccao_pct": 25
+   },
+   "mesma_aposta": []
+  },
+  {
+   "par": "CADJPY",
+   "sinal": "NAO NEGOCIA",
+   "forca": 0,
+   "motivo": "CAD e JPY na mesma posicao (MANTEM) — sem divergencia",
+   "base": "CAD",
+   "cotada": "JPY",
+   "conviccao_pct": 0,
+   "perna_motivo": null,
+   "leitura_base": {
+    "direcao": "MANTEM",
+    "conviccao_pct": 25
+   },
+   "leitura_cotada": {
+    "direcao": "MANTEM",
+    "conviccao_pct": 0
+   },
+   "mesma_aposta": []
+  },
+  {
+   "par": "CADCHF",
+   "sinal": "NAO NEGOCIA",
+   "forca": 0,
+   "motivo": "CAD e CHF na mesma posicao (MANTEM) — sem divergencia",
+   "base": "CAD",
+   "cotada": "CHF",
+   "conviccao_pct": 0,
+   "perna_motivo": null,
+   "leitura_base": {
+    "direcao": "MANTEM",
+    "conviccao_pct": 25
+   },
+   "leitura_cotada": {
+    "direcao": "MANTEM",
+    "conviccao_pct": 25
+   },
+   "mesma_aposta": []
+  },
+  {
+   "par": "CHFJPY",
+   "sinal": "NAO NEGOCIA",
+   "forca": 0,
+   "motivo": "CHF e JPY na mesma posicao (MANTEM) — sem divergencia",
+   "base": "CHF",
+   "cotada": "JPY",
+   "conviccao_pct": 0,
+   "perna_motivo": null,
+   "leitura_base": {
+    "direcao": "MANTEM",
+    "conviccao_pct": 25
+   },
+   "leitura_cotada": {
+    "direcao": "MANTEM",
+    "conviccao_pct": 0
+   },
+   "mesma_aposta": []
+  }
+ ]
+}

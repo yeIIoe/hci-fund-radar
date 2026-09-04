@@ -288,7 +288,17 @@ def main():
         print("  DEFASAGEM DE ENTREGA (release 08:30 ET -> aqui): AINDA NAO MEDIDA.")
         print("     E o que a sexta responde, com o NFP, cronometrando API e ponte MT5 juntas.")
 
+    # Se o Fed nao responder, fica o calendario e o feed da leitura ANTERIOR — nunca um
+    # {"erro": ...} sobrescrevendo 55 reunioes boas (revisao de 03/set).
+    anterior = {}
+    try:
+        anterior = json.load(io.open(SAIDA, encoding="utf-8")) if os.path.exists(SAIDA) else {}
+    except Exception:
+        anterior = {}
     fomc = fomc_calendario()
+    if fomc.get("erro") and (anterior.get("fomc") or {}).get("proximas"):
+        print("  ! calendario do FOMC falhou (%s) — mantido o anterior" % fomc["erro"])
+        fomc = dict(anterior["fomc"], reaproveitado=True)
     print()
     print("  CALENDARIO DO FOMC (direto do Fed)")
     if fomc.get("erro"):
@@ -302,6 +312,9 @@ def main():
                      "COM projecoes (dot plot)" if r["com_projecoes"] else ""))
 
     fed = fed_rss()
+    if fed.get("erro") and (anterior.get("fed") or {}).get("ultimos"):
+        print("  ! feed do Fed falhou (%s) — mantido o anterior" % fed["erro"])
+        fed = dict(anterior["fed"], reaproveitado=True)
     print()
     print("  COMUNICADOS DO FED")
     if fed.get("erro"):
@@ -320,8 +333,9 @@ def main():
         "defasagem_referencia_meses": atraso,
         "defasagem_entrega_ms": None,
         "aviso_defasagem": "sao DUAS coisas distintas. referencia = o mes que o dado descreve, "
-                           "universal e inevitavel. entrega = do release 08:30 ET ate aqui, "
-                           "AINDA NAO MEDIDA - a sexta do NFP responde.",
+                           "universal e inevitavel. entrega = do release ate aqui: MEDIDA por "
+                           "evento na fonte do calendario (FXStreet, campo atraso_s); NAO medida "
+                           "para a API do BLS, que exige a chave registrada para ser cronometrada.",
         "aviso_consenso": "o BLS nunca publica previsao. surpresa = divulgado - previsto exige "
                           "o previsto, que so existe em calendario de vendor. por isso a ponte "
                           "MT5 nao e redundante: ela da o QUANDO e o PREVISTO.",

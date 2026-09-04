@@ -148,6 +148,20 @@ def main():
                 break
 
     saida.sort(key=lambda x: x["data"], reverse=True)
+
+    # Nada veio? Entao o Fed nao respondeu (ou a janela esta vazia). Gravar itens=[] com
+    # carimbo novo apagaria as falas boas de ontem e o site mostraria "nothing said" com data
+    # de hoje — revisao de 03/set. Sai com erro e preserva o arquivo anterior.
+    if not saida:
+        anterior = None
+        try:
+            anterior = json.load(io.open(SAIDA, encoding="utf-8"))
+        except Exception:
+            pass
+        if anterior and anterior.get("itens"):
+            print("  !! nenhuma fala coletada nesta rodada — arquivo anterior PRESERVADO "
+                  "(%d itens de %s)" % (len(anterior["itens"]), anterior.get("gerado_em", "?")[:16]))
+            sys.exit(1)
     for s in saida:
         print("  %s  %-10s %-7s hawk=%d dove=%d  %s"
               % (s["data"], s["orador"][:10], s["inclinacao_por_contagem"], s["marcadores_hawkish"],
