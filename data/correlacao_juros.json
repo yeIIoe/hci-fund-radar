@@ -1,0 +1,174 @@
+{
+ "gerado_em": "2026-09-04T13:29:08.853562+00:00",
+ "fontes": {
+  "precos": "Yahoo chart API, futuros continuos diarios, 5 anos",
+  "nominal": "Fed H.15 constant maturity 2y/10y",
+  "real": "US Treasury daily real yield curve 10y (TIPS)"
+ },
+ "metodo": "Pearson entre variacao do juro (bp) e retorno log (%). Blocos de 20 e 60 pregoes SEM sobreposicao. Preditiva = juro hoje vs retorno de amanha, e juro em 5 dias vs os 5 dias seguintes (blocos sem sobreposicao). Sinal esperado: negativo.",
+ "nota": "contemporaneous columns describe the same window; the predictive columns are what an entry would need — and they sit inside noise. Rates describe the month, not the candle.",
+ "instrumentos": {
+  "XAUUSD": {
+   "nome": "Gold",
+   "simbolo_grande": "GC=F",
+   "simbolo_micro": "MGC=F",
+   "micro_vs_grande_corr": 0.9986,
+   "ultimo_preco": 4446.7001953125,
+   "series": {
+    "nominal2y": {
+     "rotulo": "US 2-year nominal",
+     "n_dias": 1244,
+     "de": "2021-09-07",
+     "ate": "2026-09-02",
+     "contemp_1d": -0.279,
+     "contemp_20d": -0.411,
+     "n_20d": 62,
+     "contemp_60d": -0.525,
+     "n_60d": 20,
+     "pred_1d": -0.009,
+     "pred_5d": -0.016,
+     "n_5d": 124,
+     "sinal_oposto_20d_pct": 60
+    },
+    "nominal10y": {
+     "rotulo": "US 10-year nominal",
+     "n_dias": 1244,
+     "de": "2021-09-07",
+     "ate": "2026-09-02",
+     "contemp_1d": -0.244,
+     "contemp_20d": -0.372,
+     "n_20d": 62,
+     "contemp_60d": -0.391,
+     "n_60d": 20,
+     "pred_1d": 0.001,
+     "pred_5d": 0.063,
+     "n_5d": 124,
+     "sinal_oposto_20d_pct": 65
+    },
+    "real10y": {
+     "rotulo": "US 10-year real (TIPS)",
+     "n_dias": 1245,
+     "de": "2021-09-07",
+     "ate": "2026-09-03",
+     "contemp_1d": -0.274,
+     "contemp_20d": -0.471,
+     "n_20d": 62,
+     "contemp_60d": -0.42,
+     "n_60d": 20,
+     "pred_1d": -0.029,
+     "pred_5d": 0.14,
+     "n_5d": 124,
+     "sinal_oposto_20d_pct": 66
+    }
+   }
+  },
+  "NQ": {
+   "nome": "Nasdaq 100",
+   "simbolo_grande": "NQ=F",
+   "simbolo_micro": "MNQ=F",
+   "micro_vs_grande_corr": 0.9997,
+   "ultimo_preco": 29569.0,
+   "series": {
+    "nominal2y": {
+     "rotulo": "US 2-year nominal",
+     "n_dias": 1244,
+     "de": "2021-09-07",
+     "ate": "2026-09-02",
+     "contemp_1d": -0.015,
+     "contemp_20d": 0.007,
+     "n_20d": 62,
+     "contemp_60d": -0.332,
+     "n_60d": 20,
+     "pred_1d": -0.034,
+     "pred_5d": -0.014,
+     "n_5d": 124,
+     "sinal_oposto_20d_pct": 55
+    },
+    "nominal10y": {
+     "rotulo": "US 10-year nominal",
+     "n_dias": 1244,
+     "de": "2021-09-07",
+     "ate": "2026-09-02",
+     "contemp_1d": -0.059,
+     "contemp_20d": -0.094,
+     "n_20d": 62,
+     "contemp_60d": -0.383,
+     "n_60d": 20,
+     "pred_1d": 0.0,
+     "pred_5d": -0.131,
+     "n_5d": 124,
+     "sinal_oposto_20d_pct": 55
+    },
+    "real10y": {
+     "rotulo": "US 10-year real (TIPS)",
+     "n_dias": 1245,
+     "de": "2021-09-07",
+     "ate": "2026-09-03",
+     "contemp_1d": -0.144,
+     "contemp_20d": -0.28,
+     "n_20d": 62,
+     "contemp_60d": -0.461,
+     "n_60d": 20,
+     "pred_1d": -0.001,
+     "pred_5d": -0.163,
+     "n_5d": 124,
+     "sinal_oposto_20d_pct": 63
+    }
+   }
+  },
+  "ES": {
+   "nome": "S&P 500",
+   "simbolo_grande": "ES=F",
+   "simbolo_micro": "MES=F",
+   "micro_vs_grande_corr": 0.9981,
+   "ultimo_preco": 7740.5,
+   "series": {
+    "nominal2y": {
+     "rotulo": "US 2-year nominal",
+     "n_dias": 1244,
+     "de": "2021-09-07",
+     "ate": "2026-09-02",
+     "contemp_1d": -0.009,
+     "contemp_20d": -0.013,
+     "n_20d": 62,
+     "contemp_60d": -0.262,
+     "n_60d": 20,
+     "pred_1d": -0.044,
+     "pred_5d": -0.011,
+     "n_5d": 124,
+     "sinal_oposto_20d_pct": 58
+    },
+    "nominal10y": {
+     "rotulo": "US 10-year nominal",
+     "n_dias": 1244,
+     "de": "2021-09-07",
+     "ate": "2026-09-02",
+     "contemp_1d": -0.066,
+     "contemp_20d": -0.131,
+     "n_20d": 62,
+     "contemp_60d": -0.334,
+     "n_60d": 20,
+     "pred_1d": 0.0,
+     "pred_5d": -0.104,
+     "n_5d": 124,
+     "sinal_oposto_20d_pct": 55
+    },
+    "real10y": {
+     "rotulo": "US 10-year real (TIPS)",
+     "n_dias": 1245,
+     "de": "2021-09-07",
+     "ate": "2026-09-03",
+     "contemp_1d": -0.168,
+     "contemp_20d": -0.359,
+     "n_20d": 62,
+     "contemp_60d": -0.422,
+     "n_60d": 20,
+     "pred_1d": -0.0,
+     "pred_5d": -0.132,
+     "n_5d": 124,
+     "sinal_oposto_20d_pct": 66
+    }
+   }
+  }
+ }
+}

@@ -1,5 +1,5 @@
 {
- "gerado_em": "2026-09-04T13:19:37.383607+00:00",
+ "gerado_em": "2026-09-04T13:30:33.702647+00:00",
  "origem_eventos": "fxstreet 42 dias",
  "regua": {
   "dimensoes": [
@@ -86,7 +86,7 @@
        "divulgado": 44.0,
        "consenso": 70.0,
        "contribuicao": -2.97,
-       "idade_dias": 30.0
+       "idade_dias": 30.1
       },
       {
        "quando_utc": "2026-08-25T13:00:00+00:00",
@@ -193,17 +193,6 @@
        "idade_dias": 0.2
       },
       {
-       "quando_utc": "2026-07-30T08:00:00+00:00",
-       "titulo": "Gross Domestic Product (YoY)",
-       "familia": "pib",
-       "classe": "MUITO_ACIMA",
-       "impacto": "HIGH",
-       "divulgado": 0.9,
-       "consenso": 0.6,
-       "contribuicao": 1.82,
-       "idade_dias": 36.2
-      },
-      {
        "quando_utc": "2026-07-30T09:00:00+00:00",
        "titulo": "Gross Domestic Product s.a. (QoQ)",
        "familia": "pib",
@@ -223,6 +212,17 @@
        "divulgado": 1.0,
        "consenso": 0.5,
        "contribuicao": 1.82,
+       "idade_dias": 36.2
+      },
+      {
+       "quando_utc": "2026-07-30T08:00:00+00:00",
+       "titulo": "Gross Domestic Product (YoY)",
+       "familia": "pib",
+       "classe": "MUITO_ACIMA",
+       "impacto": "HIGH",
+       "divulgado": 0.9,
+       "consenso": 0.6,
+       "contribuicao": 1.81,
        "idade_dias": 36.2
       }
      ]
@@ -490,7 +490,7 @@
        "impacto": "MEDIUM",
        "divulgado": 0.5,
        "consenso": 0.3,
-       "contribuicao": 3.66,
+       "contribuicao": 3.65,
        "idade_dias": 9.5
       },
       {
@@ -1220,6 +1220,350 @@
     "conviccao_pct": 0
    },
    "mesma_aposta": []
+  }
+ ],
+ "instrumentos": [
+  {
+   "perna": "USD",
+   "leitura_usd": {
+    "direcao": "MANTEM",
+    "conviccao_pct": 25,
+    "teto_pct": 75
+   },
+   "sinal": "NAO NEGOCIA",
+   "conviccao_pct": 0,
+   "motivos": [
+    {
+     "quando_utc": "2026-09-04T12:30:00+00:00",
+     "titulo": "Nonfarm Payrolls",
+     "familia": "emprego_criacao",
+     "classe": "MUITO_ACIMA",
+     "impacto": "HIGH",
+     "divulgado": 162.0,
+     "consenso": 56.0,
+     "contribuicao": 7.99,
+     "idade_dias": 0.0
+    },
+    {
+     "quando_utc": "2026-08-07T12:30:00+00:00",
+     "titulo": "Average Hourly Earnings (MoM)",
+     "familia": "salarios",
+     "classe": "MUITO_ABAIXO",
+     "impacto": "HIGH",
+     "divulgado": 0.1,
+     "consenso": 0.3,
+     "contribuicao": -3.57,
+     "idade_dias": 28.0
+    },
+    {
+     "quando_utc": "2026-08-07T12:30:00+00:00",
+     "titulo": "Nonfarm Payrolls",
+     "familia": "emprego_criacao",
+     "classe": "MUITO_ABAIXO",
+     "impacto": "HIGH",
+     "divulgado": -23.0,
+     "consenso": 80.0,
+     "contribuicao": -3.17,
+     "idade_dias": 28.0
+    },
+    {
+     "quando_utc": "2026-08-05T12:15:00+00:00",
+     "titulo": "ADP Employment Change",
+     "familia": "emprego_criacao",
+     "classe": "MUITO_ABAIXO",
+     "impacto": "HIGH",
+     "divulgado": 44.0,
+     "consenso": 70.0,
+     "contribuicao": -2.97,
+     "idade_dias": 30.1
+    }
+   ],
+   "aviso": "a reading of the fundamental side over weeks, not an entry rule: on 88 manual trades the dollar at the minute correlated +0.26 with gold and broke 41% of the time (DXY filter reproved).",
+   "simbolo": "XAUUSD",
+   "nome": "Gold",
+   "canal": "real rates: a hawkish USD reading lifts real yields and gold falls; a dovish one does the opposite",
+   "medido": "5 years of daily data, non-overlapping blocks: 10y real yield -0.274 same day, -0.471 over 20 sessions (n=62), -0.42 over 60 sessions (n=20); 2y nominal -0.525 over 60 sessions. Predictive (rates today → price tomorrow / next 5 days): -0.029 / 0.14 — inside noise. Micro contract tracks the big one at 0.9986.",
+   "correlacoes": {
+    "series": {
+     "nominal2y": {
+      "rotulo": "US 2-year nominal",
+      "n_dias": 1244,
+      "de": "2021-09-07",
+      "ate": "2026-09-02",
+      "contemp_1d": -0.279,
+      "contemp_20d": -0.411,
+      "n_20d": 62,
+      "contemp_60d": -0.525,
+      "n_60d": 20,
+      "pred_1d": -0.009,
+      "pred_5d": -0.016,
+      "n_5d": 124,
+      "sinal_oposto_20d_pct": 60
+     },
+     "nominal10y": {
+      "rotulo": "US 10-year nominal",
+      "n_dias": 1244,
+      "de": "2021-09-07",
+      "ate": "2026-09-02",
+      "contemp_1d": -0.244,
+      "contemp_20d": -0.372,
+      "n_20d": 62,
+      "contemp_60d": -0.391,
+      "n_60d": 20,
+      "pred_1d": 0.001,
+      "pred_5d": 0.063,
+      "n_5d": 124,
+      "sinal_oposto_20d_pct": 65
+     },
+     "real10y": {
+      "rotulo": "US 10-year real (TIPS)",
+      "n_dias": 1245,
+      "de": "2021-09-07",
+      "ate": "2026-09-03",
+      "contemp_1d": -0.274,
+      "contemp_20d": -0.471,
+      "n_20d": 62,
+      "contemp_60d": -0.42,
+      "n_60d": 20,
+      "pred_1d": -0.029,
+      "pred_5d": 0.14,
+      "n_5d": 124,
+      "sinal_oposto_20d_pct": 66
+     }
+    },
+    "micro_vs_grande": 0.9986,
+    "simbolo_micro": "MGC=F",
+    "gerado_em": "2026-09-04T13:29:08.853562+00:00",
+    "nota": "contemporaneous columns describe the same window; the predictive columns are what an entry would need — and they sit inside noise. Rates describe the month, not the candle."
+   }
+  },
+  {
+   "perna": "USD",
+   "leitura_usd": {
+    "direcao": "MANTEM",
+    "conviccao_pct": 25,
+    "teto_pct": 75
+   },
+   "sinal": "NAO NEGOCIA",
+   "conviccao_pct": 0,
+   "motivos": [
+    {
+     "quando_utc": "2026-09-04T12:30:00+00:00",
+     "titulo": "Nonfarm Payrolls",
+     "familia": "emprego_criacao",
+     "classe": "MUITO_ACIMA",
+     "impacto": "HIGH",
+     "divulgado": 162.0,
+     "consenso": 56.0,
+     "contribuicao": 7.99,
+     "idade_dias": 0.0
+    },
+    {
+     "quando_utc": "2026-08-07T12:30:00+00:00",
+     "titulo": "Average Hourly Earnings (MoM)",
+     "familia": "salarios",
+     "classe": "MUITO_ABAIXO",
+     "impacto": "HIGH",
+     "divulgado": 0.1,
+     "consenso": 0.3,
+     "contribuicao": -3.57,
+     "idade_dias": 28.0
+    },
+    {
+     "quando_utc": "2026-08-07T12:30:00+00:00",
+     "titulo": "Nonfarm Payrolls",
+     "familia": "emprego_criacao",
+     "classe": "MUITO_ABAIXO",
+     "impacto": "HIGH",
+     "divulgado": -23.0,
+     "consenso": 80.0,
+     "contribuicao": -3.17,
+     "idade_dias": 28.0
+    },
+    {
+     "quando_utc": "2026-08-05T12:15:00+00:00",
+     "titulo": "ADP Employment Change",
+     "familia": "emprego_criacao",
+     "classe": "MUITO_ABAIXO",
+     "impacto": "HIGH",
+     "divulgado": 44.0,
+     "consenso": 70.0,
+     "contribuicao": -2.97,
+     "idade_dias": 30.1
+    }
+   ],
+   "aviso": "a reading of the fundamental side over weeks, not an entry rule: on 88 manual trades the dollar at the minute correlated +0.26 with gold and broke 41% of the time (DXY filter reproved).",
+   "simbolo": "NQ",
+   "nome": "Nasdaq 100",
+   "canal": "discount rate: a higher expected policy rate compresses equity multiples, and long-duration tech most of all",
+   "medido": "5 years of daily data, non-overlapping blocks: 10y real yield -0.144 same day, -0.28 over 20 sessions (n=62), -0.461 over 60 sessions (n=20); 2y nominal -0.332 over 60 sessions. Predictive (rates today → price tomorrow / next 5 days): -0.001 / -0.163 — inside noise. Micro contract tracks the big one at 0.9997.",
+   "correlacoes": {
+    "series": {
+     "nominal2y": {
+      "rotulo": "US 2-year nominal",
+      "n_dias": 1244,
+      "de": "2021-09-07",
+      "ate": "2026-09-02",
+      "contemp_1d": -0.015,
+      "contemp_20d": 0.007,
+      "n_20d": 62,
+      "contemp_60d": -0.332,
+      "n_60d": 20,
+      "pred_1d": -0.034,
+      "pred_5d": -0.014,
+      "n_5d": 124,
+      "sinal_oposto_20d_pct": 55
+     },
+     "nominal10y": {
+      "rotulo": "US 10-year nominal",
+      "n_dias": 1244,
+      "de": "2021-09-07",
+      "ate": "2026-09-02",
+      "contemp_1d": -0.059,
+      "contemp_20d": -0.094,
+      "n_20d": 62,
+      "contemp_60d": -0.383,
+      "n_60d": 20,
+      "pred_1d": 0.0,
+      "pred_5d": -0.131,
+      "n_5d": 124,
+      "sinal_oposto_20d_pct": 55
+     },
+     "real10y": {
+      "rotulo": "US 10-year real (TIPS)",
+      "n_dias": 1245,
+      "de": "2021-09-07",
+      "ate": "2026-09-03",
+      "contemp_1d": -0.144,
+      "contemp_20d": -0.28,
+      "n_20d": 62,
+      "contemp_60d": -0.461,
+      "n_60d": 20,
+      "pred_1d": -0.001,
+      "pred_5d": -0.163,
+      "n_5d": 124,
+      "sinal_oposto_20d_pct": 63
+     }
+    },
+    "micro_vs_grande": 0.9997,
+    "simbolo_micro": "MNQ=F",
+    "gerado_em": "2026-09-04T13:29:08.853562+00:00",
+    "nota": "contemporaneous columns describe the same window; the predictive columns are what an entry would need — and they sit inside noise. Rates describe the month, not the candle."
+   }
+  },
+  {
+   "perna": "USD",
+   "leitura_usd": {
+    "direcao": "MANTEM",
+    "conviccao_pct": 25,
+    "teto_pct": 75
+   },
+   "sinal": "NAO NEGOCIA",
+   "conviccao_pct": 0,
+   "motivos": [
+    {
+     "quando_utc": "2026-09-04T12:30:00+00:00",
+     "titulo": "Nonfarm Payrolls",
+     "familia": "emprego_criacao",
+     "classe": "MUITO_ACIMA",
+     "impacto": "HIGH",
+     "divulgado": 162.0,
+     "consenso": 56.0,
+     "contribuicao": 7.99,
+     "idade_dias": 0.0
+    },
+    {
+     "quando_utc": "2026-08-07T12:30:00+00:00",
+     "titulo": "Average Hourly Earnings (MoM)",
+     "familia": "salarios",
+     "classe": "MUITO_ABAIXO",
+     "impacto": "HIGH",
+     "divulgado": 0.1,
+     "consenso": 0.3,
+     "contribuicao": -3.57,
+     "idade_dias": 28.0
+    },
+    {
+     "quando_utc": "2026-08-07T12:30:00+00:00",
+     "titulo": "Nonfarm Payrolls",
+     "familia": "emprego_criacao",
+     "classe": "MUITO_ABAIXO",
+     "impacto": "HIGH",
+     "divulgado": -23.0,
+     "consenso": 80.0,
+     "contribuicao": -3.17,
+     "idade_dias": 28.0
+    },
+    {
+     "quando_utc": "2026-08-05T12:15:00+00:00",
+     "titulo": "ADP Employment Change",
+     "familia": "emprego_criacao",
+     "classe": "MUITO_ABAIXO",
+     "impacto": "HIGH",
+     "divulgado": 44.0,
+     "consenso": 70.0,
+     "contribuicao": -2.97,
+     "idade_dias": 30.1
+    }
+   ],
+   "aviso": "a reading of the fundamental side over weeks, not an entry rule: on 88 manual trades the dollar at the minute correlated +0.26 with gold and broke 41% of the time (DXY filter reproved).",
+   "simbolo": "ES",
+   "nome": "S&P 500",
+   "canal": "discount rate: same channel as NQ, with less duration and more earnings sensitivity to growth",
+   "medido": "5 years of daily data, non-overlapping blocks: 10y real yield -0.168 same day, -0.359 over 20 sessions (n=62), -0.422 over 60 sessions (n=20); 2y nominal -0.262 over 60 sessions. Predictive (rates today → price tomorrow / next 5 days): -0.0 / -0.132 — inside noise. Micro contract tracks the big one at 0.9981.",
+   "correlacoes": {
+    "series": {
+     "nominal2y": {
+      "rotulo": "US 2-year nominal",
+      "n_dias": 1244,
+      "de": "2021-09-07",
+      "ate": "2026-09-02",
+      "contemp_1d": -0.009,
+      "contemp_20d": -0.013,
+      "n_20d": 62,
+      "contemp_60d": -0.262,
+      "n_60d": 20,
+      "pred_1d": -0.044,
+      "pred_5d": -0.011,
+      "n_5d": 124,
+      "sinal_oposto_20d_pct": 58
+     },
+     "nominal10y": {
+      "rotulo": "US 10-year nominal",
+      "n_dias": 1244,
+      "de": "2021-09-07",
+      "ate": "2026-09-02",
+      "contemp_1d": -0.066,
+      "contemp_20d": -0.131,
+      "n_20d": 62,
+      "contemp_60d": -0.334,
+      "n_60d": 20,
+      "pred_1d": 0.0,
+      "pred_5d": -0.104,
+      "n_5d": 124,
+      "sinal_oposto_20d_pct": 55
+     },
+     "real10y": {
+      "rotulo": "US 10-year real (TIPS)",
+      "n_dias": 1245,
+      "de": "2021-09-07",
+      "ate": "2026-09-03",
+      "contemp_1d": -0.168,
+      "contemp_20d": -0.359,
+      "n_20d": 62,
+      "contemp_60d": -0.422,
+      "n_60d": 20,
+      "pred_1d": -0.0,
+      "pred_5d": -0.132,
+      "n_5d": 124,
+      "sinal_oposto_20d_pct": 66
+     }
+    },
+    "micro_vs_grande": 0.9981,
+    "simbolo_micro": "MES=F",
+    "gerado_em": "2026-09-04T13:29:08.853562+00:00",
+    "nota": "contemporaneous columns describe the same window; the predictive columns are what an entry would need — and they sit inside noise. Rates describe the month, not the candle."
+   }
   }
  ]
 }

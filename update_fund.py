@@ -201,11 +201,16 @@ HISTORY_DOWNLOADS = {
     ),
     # 31-ago-2026: o arquivo historico do MoF termina no mes ANTERIOR. Este e o do mes
     # corrente, e e ele que fecha o buraco que impedia medir USDJPY, AUDJPY e companhia.
+    # 04-set-2026: TTL de 18 h deixou o arquivo parado em 28/08 por uma semana — a cadeia roda
+    # 2x/dia e a segunda rodada sempre pulava; a guarda de frescor ficou vermelha 2x/dia e o
+    # e-mail de falha chegou ao Eduardo. O arquivo tem 20 KB e o MOF publica todo dia util as
+    # 23:30 GMT (conferido: fonte com dado de 03/09 enquanto o repo tinha 28/08). TTL de 1 h:
+    # toda rodada baixa de novo. Custo zero, e a guarda volta a medir a FONTE, nao o cache.
     "JPY_CURRENT": (
         "https://www.mof.go.jp/english/policy/jgbs/reference/interest_rate/jgbcme.csv",
         RAW_DIR / "jpy_mof_mes.csv",
         800,
-        18,
+        1,
     ),
     "AUD_HISTORY": (
         "https://www.rba.gov.au/statistics/tables/xls-hist/f02dhist.xls",

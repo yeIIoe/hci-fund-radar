@@ -224,6 +224,71 @@ def le_pares(leituras):
     return saida
 
 
+def le_instrumentos(leituras):
+    """XAUUSD, NQ e ES — os tres respondem ao juro americano, e so a perna do USD conta.
+
+    O Eduardo apontou (02/set): "eles tem correlacao estreitamente ligada com os juros dos
+    USA". O que esta MEDIDO em casa e so o ouro: juro real de 10 anos x ouro = -0,684
+    contemporaneo em 60 pregoes (n=18, janelas sem sobreposicao); a preditiva morre no ruido
+    (-0,132). NQ e ES entram pelo canal de livro-texto (taxa de desconto comprime multiplo,
+    NQ mais que ES por ter duracao maior) — NAO medido em casa, e sai declarado assim.
+
+    ⚠️ Direcao de LEITURA, nao de entrada: nas 88 operacoes manuais do Eduardo o dolar no
+    minuto correlacionou +0,26 com o ouro e quebrou 41% das vezes (filtro do DXY reprovado).
+    Isto aqui e o lado fundamental do mes, nunca a vela.
+    """
+    u = leituras.get("USD") or {}
+    d = u.get("direcao", "MANTEM")
+    conv = u.get("conviccao_pct", 0)
+    inverso = {"SOBE": "BEAR", "CORTA": "BULL", "MANTEM": "NAO NEGOCIA"}
+    sinal = inverso.get(d, "NAO NEGOCIA")
+    motivos = ((u.get("dimensoes") or {}).get("dados") or {}).get("principais", [])[:4]
+
+    # As correlacoes MEDIDAS (correlacao_juros.py): 5 anos, blocos sem sobreposicao, com a
+    # preditiva ao lado. Se o arquivo faltar, o cartao diz "not measured" — nunca um numero
+    # de memoria.
+    corr = carrega_json(os.path.join(AQUI, "data", "correlacao_juros.json")) or {}
+    corr_inst = corr.get("instrumentos", {})
+
+    def medido_de(sym):
+        c = corr_inst.get(sym)
+        if not c or not c.get("series"):
+            return None, "NOT measured in-house yet — correlacao_juros.py has not run"
+        s = c["series"]
+        real = s.get("real10y") or {}
+        nom2 = s.get("nominal2y") or {}
+        txt = ("5 years of daily data, non-overlapping blocks: 10y real yield %s same day, %s over 20 sessions "
+               "(n=%s), %s over 60 sessions (n=%s); 2y nominal %s over 60 sessions. Predictive (rates today → "
+               "price tomorrow / next 5 days): %s / %s — inside noise. Micro contract tracks the big one at %s."
+               % (real.get("contemp_1d"), real.get("contemp_20d"), real.get("n_20d"),
+                  real.get("contemp_60d"), real.get("n_60d"), nom2.get("contemp_60d"),
+                  real.get("pred_1d"), real.get("pred_5d"), c.get("micro_vs_grande_corr")))
+        return {"series": s, "micro_vs_grande": c.get("micro_vs_grande_corr"),
+                "simbolo_micro": c.get("simbolo_micro"), "gerado_em": corr.get("gerado_em"),
+                "nota": corr.get("nota")}, txt
+    base = {
+        "perna": "USD", "leitura_usd": {"direcao": d, "conviccao_pct": conv,
+                                        "teto_pct": u.get("conviccao_teto_pct")},
+        "sinal": sinal, "conviccao_pct": conv if d != "MANTEM" else 0,
+        "motivos": motivos,
+        "aviso": "a reading of the fundamental side over weeks, not an entry rule: on 88 manual "
+                 "trades the dollar at the minute correlated +0.26 with gold and broke 41% of "
+                 "the time (DXY filter reproved).",
+    }
+    out = []
+    for sym, nome, canal in (
+        ("XAUUSD", "Gold",
+         "real rates: a hawkish USD reading lifts real yields and gold falls; a dovish one does the opposite"),
+        ("NQ", "Nasdaq 100",
+         "discount rate: a higher expected policy rate compresses equity multiples, and long-duration tech most of all"),
+        ("ES", "S&P 500",
+         "discount rate: same channel as NQ, with less duration and more earnings sensitivity to growth"),
+    ):
+        correl, medido = medido_de(sym)
+        out.append(dict(base, simbolo=sym, nome=nome, canal=canal, medido=medido, correlacoes=correl))
+    return out
+
+
 def main():
     agora = dt.datetime.now(dt.timezone.utc)
     print("=" * 88)
@@ -260,6 +325,12 @@ def main():
                  r.get("perna_motivo") or "—", ", ".join(r["mesma_aposta"][:5]) or "—"))
     print("  NAO NEGOCIA: %d" % sum(1 for r in pares if r["sinal"] == "NAO NEGOCIA"))
 
+    instrumentos = le_instrumentos(leituras)
+    print()
+    print("  INSTRUMENTOS PELA PERNA DO USD (%s %d%%):" % (leituras["USD"]["direcao"], leituras["USD"]["conviccao_pct"]))
+    for i in instrumentos:
+        print("    %-7s %-12s %s" % (i["simbolo"], i["sinal"], i["canal"][:70]))
+
     rel = {
         "gerado_em": agora.isoformat(),
         "origem_eventos": origem,
@@ -273,6 +344,7 @@ def main():
                  "it never counts as zero. FUND v0.1 was closed as an entry rule after 15 null tests.",
         "moedas": leituras,
         "pares": pares,
+        "instrumentos": instrumentos,
     }
     os.makedirs(os.path.dirname(SAIDA), exist_ok=True)
     json.dump(rel, io.open(SAIDA, "w", encoding="utf-8"), ensure_ascii=False, indent=1,

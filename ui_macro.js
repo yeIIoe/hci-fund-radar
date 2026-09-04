@@ -236,6 +236,27 @@
       <small class="muted"> of ${s.conviccao_teto_pct}% · ${s.dimensoes_ligadas} of ${s.dimensoes_total} dimensions</small>`;
   }
 
+  // Os motivos X, Y e Z: os prints que mais pesaram na dimensao de dados, e a frase do
+  // dirigente quando ha discurso ligado. O Eduardo pediu a conviccao "devido a x, y e z".
+  function motivosPerna(m, s) {
+    const D = s.dimensoes || {};
+    const top = ((D.dados || {}).principais || []).slice(0, 3);
+    const ROT = { MUITO_ACIMA: "well above", MUITO_ABAIXO: "well below", EM_LINHA: "in line" };
+    const li = top.map((x) =>
+      `<li><span class="muted mac-ref-td">${esc((x.quando_utc || "").slice(5, 10))}</span>
+         ${esc(x.titulo)} <b class="${x.contribuicao > 0 ? "positive" : "negative"}">${esc(ROT[x.classe] || x.classe || "")}</b>
+         <small class="muted">${x.contribuicao > 0 ? "+" : ""}${x.contribuicao}</small></li>`);
+    // a fala mais recente desta moeda, se o feed dela estiver ligado
+    const falas = (M.discursos && Array.isArray(M.discursos.itens)) ? M.discursos.itens : [];
+    const fala = falas.find((f) => (f.moeda || "USD") === m && f.frases && f.frases.length);
+    if (fala) {
+      li.push(`<li><span class="muted mac-ref-td">${esc((fala.data || "").slice(5, 10))}</span>
+        <b>${esc(fala.orador)}</b>: <em>“${esc(fala.frases[0].frase.slice(0, 150))}${fala.frases[0].frase.length > 150 ? "…" : ""}”</em></li>`);
+    }
+    if (!li.length) return `<div class="mac-perna-linha muted"><small>no print with a forecast in the window</small></div>`;
+    return `<span class="mac-perna-papel" style="margin-top:10px">because</span><ul class="mac-motivos">${li.join("")}</ul>`;
+  }
+
   // bloco dentro do cartao da perna
   function leanPerna(m) {
     const s = sentDe(m);
@@ -245,6 +266,7 @@
       <div class="mac-lean-pill big ${CLS_DIR[s.direcao]}">${SETA_DIR[s.direcao]} ${ROT_DIR[s.direcao]} <b>${s.conviccao_pct}%</b>
         <small>ceiling ${s.conviccao_teto_pct}% — ${s.dimensoes_ligadas} of ${s.dimensoes_total} dimensions connected</small></div>
       ${dimsChips(s)}
+      ${motivosPerna(m, s)}
     </div>`;
   }
 
@@ -297,6 +319,23 @@
              conv: s ? (s.conviccao_pct || 0) : 0 };
   }
 
+  // XAUUSD, NQ e ES entram na mesma lista, lidos pela perna do USD. Nao sao pares de duas
+  // moedas — o cartao deles mostra o canal e o que esta (ou nao) medido em casa.
+  const INSTR = ["XAUUSD", "NQ", "ES"];
+  function dadosInstr(sym) {
+    const I = (M.sent && Array.isArray(M.sent.instrumentos))
+      ? M.sent.instrumentos.find((x) => x.simbolo === sym) : null;
+    const bs = M.bancos ? M.bancos.bancos : {};
+    const dias = bs.USD && bs.USD.proxima ? diasAte(bs.USD.proxima) : null;
+    const tese = !!(I && (I.sinal === "BULL" || I.sinal === "BEAR"));
+    return { par: sym, b: "USD", q: "", rotulo: sym === "XAUUSD" ? "XAU<em>/</em>USD" : sym,
+             instr: true, info: I, s: I ? { sinal: I.sinal } : null, tese,
+             conv: I ? (I.conviccao_pct || 0) : 0, dias, diverge: false, cb: 0, cq: 0 };
+  }
+  function instrumentosLista() {
+    return (M.sent && Array.isArray(M.sent.instrumentos)) ? INSTR.map(dadosInstr) : [];
+  }
+
   const ROT_SINAL = { BULL: "BULL", BEAR: "BEAR", "NAO NEGOCIA": "no trade", SEM_DADO: "no data" };
   const CLS_SINAL = { BULL: "v-bull", BEAR: "v-bear", "NAO NEGOCIA": "v-nao", SEM_DADO: "v-nao" };
 
@@ -306,8 +345,8 @@
       ? `<span class="mac-item-tag ${CLS_SINAL[d.s.sinal] || "v-nao"}">${ROT_SINAL[d.s.sinal] || esc(d.s.sinal)}${
           d.tese ? ` <b>${d.conv}%</b>` : ""}</span>`
       : `<span class="mac-item-tag ${d.diverge ? "e-div" : "e-igual"}">${d.diverge ? "divergence" : "same side"}</span>`;
-    return `<button type="button" class="mac-item${sel}" data-mac-par="${d.par}">
-      <span class="mac-item-par">${d.b}<em>/</em>${d.q}</span>
+    return `<button type="button" class="mac-item${sel}${d.instr ? " mac-item-instr" : ""}" data-mac-par="${d.par}">
+      <span class="mac-item-par">${d.instr ? d.rotulo : d.b + "<em>/</em>" + d.q}</span>
       ${tag}
       <span class="mac-item-dias">${d.dias === null ? "no date" : d.dias === 0 ? "decides today" : d.dias + "d"}</span>
     </button>`;
@@ -364,13 +403,14 @@
         <p>Each pair is two currencies. This panel reads both legs, because the reason for an
            entry usually sits on one side, not on the pair.</p></div>`;
     }
-    const d = dadosPar(par);
+    const d = INSTR.includes(par) ? dadosInstr(par) : dadosPar(par);
     const g = M.bancos && M.bancos.gerado_em;
     const min = g ? Math.round((Date.now() - new Date(g).getTime()) / 60000) : null;
     const velho = min !== null && min > 45;
     const idade = min === null ? "freshness unknown"
       : velho ? "data " + (min < 90 ? min + " min" : Math.round(min / 60) + "h") + " old"
       : "data current";
+    if (d.instr) return detalheInstr(d, idade, velho);
 
     const s = d.s;
     const pill = s
@@ -426,6 +466,60 @@
       </details>`;
   }
 
+  // As correlacoes MEDIDAS entre o juro americano e o instrumento, quando sentimento.py as
+  // traz (correlacao_juros.py). Contemporanea e preditiva lado a lado, com n — porque a
+  // diferenca entre as duas e a licao inteira: o juro descreve o mes, nao antecipa a vela.
+  function correlacoesInstr(I) {
+    const C = I.correlacoes;
+    if (!C || !C.series) return "";
+    const f = (x) => (x === null || x === undefined) ? "—" : (x > 0 ? "+" : "") + Number(x).toFixed(2);
+    const linhas = Object.keys(C.series).map((k) => {
+      const s = C.series[k];
+      return `<tr><td>${esc(s.rotulo || k)}</td>
+        <td class="mac-num-td">${f(s.contemp_1d)}</td>
+        <td class="mac-num-td">${f(s.contemp_20d)} <small class="muted">n=${s.n_20d || "?"}</small></td>
+        <td class="mac-num-td"><b>${f(s.contemp_60d)}</b> <small class="muted">n=${s.n_60d || "?"}</small></td>
+        <td class="mac-num-td muted">${f(s.pred_1d)}</td>
+        <td class="mac-num-td muted">${f(s.pred_5d)}</td></tr>`;
+    }).join("");
+    return `<span class="mac-perna-papel" style="margin-top:12px">measured correlation with US rates — 5 years, non-overlapping blocks</span>
+      <div class="mac-eua-tabela"><table class="mac-tabela mac-corr">
+        <thead><tr><th>rate</th><th class="mac-num-th">same day</th><th class="mac-num-th">same 20 d</th>
+          <th class="mac-num-th">same 60 d</th>
+          <th class="mac-num-th">next day</th><th class="mac-num-th">next 5 d</th></tr></thead>
+        <tbody>${linhas}</tbody></table></div>
+      <small class="muted">${esc(C.nota || "")}</small>`;
+  }
+
+  // O detalhe de XAUUSD / NQ / ES: uma perna so, o canal, e o que esta medido em casa.
+  function detalheInstr(d, idade, velho) {
+    const I = d.info;
+    if (!I) {
+      return `<div class="mac-vazio"><strong>${d.par}</strong><p>The USD reading is not built yet.</p></div>`;
+    }
+    const u = I.leitura_usd || {};
+    return `<div class="mac-det-topo">
+        <h2 class="mac-det-par">${d.rotulo}</h2>
+        <span class="mac-det-leitura ${CLS_SINAL[I.sinal] || "v-nao"}">${ROT_SINAL[I.sinal] || esc(I.sinal)}${
+          d.tese ? ` &middot; ${d.conv}%` : ""}</span>
+        <span class="mac-det-dado ${velho ? "e-velho" : "e-fresco"}">${idade}</span>
+      </div>
+      <p class="mac-det-nota">${esc(I.nome)} is read through <b>one leg only — the US dollar</b>, which is leaning to
+        <b>${ROT_DIR[u.direcao] || "?"}</b> (${u.conviccao_pct || 0}% of a ${u.teto_pct || "?"}% ceiling).
+        ${I.sinal === "NAO NEGOCIA" ? "With the Fed read as on hold, there is no fundamental push on this instrument." : ""}</p>
+      <div class="mac-pernas">
+        ${pernaCard("USD", cicloDe("USD"), "the leg that drives it")}
+        <div class="mac-perna">
+          <span class="mac-perna-papel">channel</span>
+          <div class="mac-perna-linha">${esc(I.canal)}</div>
+          <span class="mac-perna-papel" style="margin-top:12px">measured in-house</span>
+          <div class="mac-perna-linha ${/NOT measured/.test(I.medido) ? "muted" : ""}">${esc(I.medido)}</div>
+          ${correlacoesInstr(I)}
+        </div>
+      </div>
+      <p class="mac-eua-nota">${esc(I.aviso)}</p>`;
+  }
+
   const FILTROS = [
     { k: "todos", r: "All", f: () => true },
     { k: "tese", r: "With a thesis", f: (d) => d.tese },
@@ -440,7 +534,8 @@
     const corta = Object.keys(bs).filter((m) => cicloDe(m) < 0);
 
     const filtro = FILTROS.find((x) => x.k === M.filtro) || FILTROS[0];
-    let lista = PARES.map(dadosPar).filter(filtro.f);
+    const instr = instrumentosLista();
+    let lista = PARES.map(dadosPar).concat(instr).filter(filtro.f);
     if (M.moedaSel) lista = lista.filter((d) => d.b === M.moedaSel || d.q === M.moedaSel);
     // com tese primeiro, por conviccao; depois os demais por proximidade da decisao
     lista.sort((a, b) => (b.tese - a.tese) || (b.conv - a.conv) || (b.diverge - a.diverge) ||
@@ -470,7 +565,7 @@
       </div>
 
       <div class="mac-chips">${chips}</div>
-      <p class="mac-conta">${lista.length} of ${PARES.length} pairs</p>
+      <p class="mac-conta">${lista.length} of ${PARES.length + instr.length}${instr.length ? ` — ${PARES.length} pairs + ${instr.length} USD-driven instruments (gold, NQ, ES)` : " pairs"}</p>
 
       <div class="mac-duas">
         <div class="mac-lista">${lista.length
@@ -1089,6 +1184,10 @@
    .mac-dim.ok{border-color:rgba(82,217,138,.45);color:#52d98a}
    .mac-dim.no{border-color:rgba(248,122,122,.4);color:#f87a7a}
    .mac-dim.off{opacity:.38;border-style:dashed}
+   .mac-motivos{list-style:none;margin:6px 0 0;padding:0;font-size:12px;line-height:1.55}
+   .mac-motivos li{margin:3px 0;padding-left:8px;border-left:2px solid rgba(255,255,255,.12)}
+   .mac-motivos b{font-weight:600}
+   .mac-item-instr{border-top:1px dashed rgba(255,255,255,.12);margin-top:4px;padding-top:11px}
    .mac-item-tag.v-bull{color:#52d98a}
    .mac-item-tag.v-bear{color:#f87a7a}
    .mac-item-tag.v-nao{opacity:.38}

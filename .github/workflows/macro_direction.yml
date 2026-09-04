@@ -50,9 +50,9 @@ jobs:
     # proprio; 8 min era menor que a soma no pior caso (revisao de 03/set)
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
 
@@ -116,6 +116,12 @@ jobs:
       # A leitura PARA FRENTE: por moeda (4 dimensoes, 25% cada) e por par (a regra do
       # Eduardo). Busca 42 dias da FXStreet por conta propria; se ela falhar, usa o arquivo
       # local com janela curta e declara isso na saida.
+      # Juro americano x NQ/ES/ouro, medido: 5 anos diarios (Yahoo + H.15 + Tesouro), blocos
+      # sem sobreposicao. Dado diario — cache de 20 h dentro do script.
+      - name: correlacao juro x futuros
+        continue-on-error: true
+        run: python correlacao_juros.py
+
       - name: sentimento (moeda e par)
         continue-on-error: true
         run: python sentimento.py
@@ -129,7 +135,7 @@ jobs:
           git add data/macro_eventos.json data/bancos_centrais.json \
                   data/calendario_resultado.json data/eua_leitura.json \
                   data/fed_discursos.json data/sentimento.json \
-                  data/raw/ff_calendar_thisweek.json
+                  data/correlacao_juros.json data/raw/ff_calendar_thisweek.json
           if git diff --cached --quiet; then
             echo "nada mudou — sem commit"
           else
