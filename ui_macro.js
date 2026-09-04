@@ -103,10 +103,10 @@
     };
     // O leitor dos EUA e OPCIONAL: se o arquivo faltar (cota do BLS, fonte fora), o resto do
     // painel desenha igual. So o bloco dos EUA some — e some declarado, nao em branco.
-    [M.bancos, M.eventos, M.eua, M.discursos, M.sent, M.geo] = await Promise.all([
+    [M.bancos, M.eventos, M.eua, M.discursos, M.sent, M.geo, M.noticias] = await Promise.all([
       pega("data/bancos_centrais.json"), pega("data/macro_eventos.json"),
       pega("data/eua_leitura.json"), pega("data/bc_discursos.json"),
-      pega("data/sentimento.json"), pega("data/geopolitica.json"),
+      pega("data/sentimento.json"), pega("data/geopolitica.json"), pega("data/noticias.json"),
     ]);
     // valida a FORMA, nao so a presenca: um JSON truncado passaria no teste de presenca e
     // estouraria dentro dos desenhistas
@@ -255,6 +255,15 @@
     if (fala) {
       li.push(`<li><span class="muted mac-ref-td">${esc((fala.data || "").slice(5, 10))}</span>
         <b>${esc(fala.orador)}</b>: <em>“${esc(fala.frases[0].frase.slice(0, 150))}${fala.frases[0].frase.length > 150 ? "…" : ""}”</em></li>`);
+    } else {
+      // sem discurso proprio (RBA, RBNZ, SNB): a manchete classificada mais recente
+      const Nm = M.noticias && M.noticias.moedas && M.noticias.moedas[m];
+      const man = Nm && (Nm.itens || []).find((x) => x.classe);
+      if (man) {
+        li.push(`<li><span class="muted mac-ref-td">${esc((man.quando_utc || "").slice(5, 10))}</span>
+          <b>${esc(man.fonte || "press")}</b>: <em>“${esc(man.titulo.slice(0, 140))}”</em>
+          <small class="muted">from headlines</small></li>`);
+      }
     }
     if (!li.length) return `<div class="mac-perna-linha muted"><small>no print with a forecast in the window</small></div>`;
     return `<span class="mac-perna-papel" style="margin-top:10px">because</span><ul class="mac-motivos">${li.join("")}</ul>`;
@@ -791,6 +800,51 @@
       ${imp.fx || imp.juro ? `<small class="muted">${esc(imp.fx || imp.juro)}</small>` : `<small class="muted">no spike this week</small>`}</div>`;
   }
 
+  /* ---------------------------------------------------------------- NOTICIAS */
+
+  // A aba News deixa de ser o feed antigo e vira as manchetes por moeda (noticias.py, Google
+  // News RSS): todas as oito, ultimas 72 h, com a contagem alta/corte/manutencao ao lado.
+  function painelNoticias() {
+    const N = M.noticias;
+    if (!N || !N.moedas) return "";
+    const sel = M.moedaNews || "USD";
+    const chips = Object.keys(FLAG).filter((m) => N.moedas[m]).map((m) => {
+      const c = N.moedas[m].contagem || {};
+      return `<button type="button" class="mac-chip mac-chip-moeda${m === sel ? " on" : ""}" data-mac-news="${m}">${FLAG[m] || ""} ${m}
+        <small class="mac-news-cont">${c.alta || 0}▲ ${c.corte || 0}▼</small></button>`;
+    }).join("");
+    const B = N.moedas[sel] || { itens: [], contagem: {} };
+    const c = B.contagem || {};
+    const lista = (B.itens || []).map((it) => `<li class="mac-news-item${it.classe ? " c-" + it.classe : ""}">
+        <span class="muted mac-ref-td">${esc(brt(it.quando_utc) || "")}</span>
+        <a href="${esc(it.link || "#")}" target="_blank" rel="noopener">${esc(it.titulo)}</a>
+        <small class="muted">${esc(it.fonte || "")}</small>
+        ${it.classe ? `<span class="mac-news-tag c-${it.classe}">${{ alta: "hike", corte: "cut", mantem: "hold" }[it.classe]}</span>` : ""}
+      </li>`).join("");
+    const g = N.gerado_em ? Math.round((Date.now() - new Date(N.gerado_em).getTime()) / 60000) : null;
+    return `<section class="content-section mac-bloco mac-news">
+      <div class="section-title"><div><h2>News by currency</h2></div>
+        <p>Headlines on each central bank and economy from the last 72 hours, Google News search feed.
+           The tags are a word count on the headline — a pointer to what to read, not a reading.
+           For RBA, RBNZ and SNB, which block automation, this is also the fallback of the speeches dimension.</p></div>
+      <div class="mac-chips">${chips}</div>
+      <p class="mac-conta">${FLAG[sel] || ""} ${sel} · ${B.n_72h || 0} headlines in 72 h · hike ${c.alta || 0} · cut ${c.corte || 0} · hold ${c.mantem || 0}${
+        g !== null ? ` · <span class="${g > 240 ? "mac-velho" : "mac-fresco"}">collected ${idadeTexto(g)}</span>` : ""}</p>
+      <ul class="mac-news-lista">${lista || "<li class='muted'>no headline in the window</li>"}</ul>
+    </section>`;
+  }
+
+  document.addEventListener("click", function (e) {
+    const alvo = e.target.closest ? e.target.closest("[data-mac-news]") : null;
+    if (!alvo) return;
+    M.moedaNews = alvo.dataset.macNews;
+    const painel = document.querySelector('[data-panel="news"]');
+    if (painel) {
+      try { painel.innerHTML = painelNoticias(); }
+      catch (err) { console.warn("[macro] painelNoticias falhou e foi contido:", err.message); }
+    }
+  }, true);
+
   /* ------------------------------------------------------------------ CALENDARIO */
 
   // O DIA e em BRT — a lei do Eduardo: as horas dele sao BRT. A grade agrupava por dia UTC e
@@ -1181,6 +1235,13 @@
       } catch (e) { console.warn("[macro] painel de geopolitica falhou e foi contido:", e.message); }
     }
 
+    // NOTICIAS: a aba News vira as manchetes por moeda
+    const news = document.querySelector('[data-panel="news"]');
+    if (news && !news.querySelector(".mac-bloco")) {
+      const h = contido("painelNoticias", painelNoticias);
+      if (h) news.innerHTML = h;
+    }
+
     // PARES: o mesmo, ate o leitor produzir
     const pares = document.querySelector('[data-panel="pairs"]');
     if (pares && !pares.querySelector(".mac-bloco")) {
@@ -1332,6 +1393,22 @@
    .mac-perna-geo{margin-top:9px;padding-top:9px;border-top:1px solid rgba(255,255,255,.07);
      display:flex;gap:6px;align-items:center;flex-wrap:wrap;font-size:12px}
    .mac-perna-geo .mac-perna-papel{margin:0 4px 0 0}
+   /* --- noticias por moeda --- */
+   .mac-news-cont{font-family:var(--font-mono);opacity:.55;margin-left:5px;font-size:10px}
+   .mac-news-lista{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+   .mac-news-item{display:grid;grid-template-columns:auto minmax(0,1fr) auto auto;gap:10px;
+     align-items:baseline;padding:8px 10px;border:1px solid rgba(255,255,255,.07);border-radius:8px;
+     font-size:13px}
+   .mac-news-item a{color:inherit;text-decoration:none}
+   .mac-news-item a:hover{text-decoration:underline}
+   .mac-news-item.c-alta{border-left:2px solid rgba(248,122,122,.6)}
+   .mac-news-item.c-corte{border-left:2px solid rgba(82,217,138,.6)}
+   .mac-news-item.c-mantem{border-left:2px solid rgba(255,255,255,.25)}
+   .mac-news-tag{font-size:10px;letter-spacing:.07em;text-transform:uppercase;padding:2px 7px;
+     border-radius:20px;background:rgba(255,255,255,.06);white-space:nowrap}
+   .mac-news-tag.c-alta{background:rgba(248,122,122,.14);color:#f87a7a}
+   .mac-news-tag.c-corte{background:rgba(82,217,138,.14);color:#52d98a}
+   @media (max-width:900px){.mac-news-item{grid-template-columns:1fr;gap:3px}}
    /* --- falas do Fed: a frase de postura, com o indice de contagem ao lado --- */
    .mac-falas{margin-top:18px;padding-top:14px;border-top:1px solid rgba(255,255,255,.07)}
    .mac-falas-titulo{display:flex;gap:12px;align-items:baseline;flex-wrap:wrap;margin-bottom:8px}

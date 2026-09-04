@@ -1,5 +1,5 @@
 {
- "gerado_em": "2026-09-04T15:27:48.116162+00:00",
+ "gerado_em": "2026-09-04T15:37:24.826330+00:00",
  "origem_eventos": "fxstreet 42 dias",
  "regua": {
   "dimensoes": [
@@ -418,23 +418,24 @@
   },
   "JPY": {
    "moeda": "JPY",
-   "direcao": "MANTEM",
-   "intensidade": 0,
-   "score": 0.115,
+   "direcao": "SOBE",
+   "intensidade": 2,
+   "score": 0.35,
    "score_componentes": {
     "dados": -0.135,
-    "texto": 0.0,
+    "texto": 0.235,
     "ciclo": 0.25,
     "geo": 0.0
    },
-   "score_teto": 0.5,
-   "conviccao_pct": 0,
-   "conviccao_teto_pct": 50,
-   "dimensoes_ligadas": 2,
+   "score_teto": 0.75,
+   "conviccao_pct": 50,
+   "conviccao_teto_pct": 75,
+   "dimensoes_ligadas": 3,
    "dimensoes_total": 4,
    "concordam": {
     "dados": false,
-    "ciclo": false
+    "texto": true,
+    "ciclo": true
    },
    "dimensoes": {
     "dados": {
@@ -515,7 +516,20 @@
       }
      ]
     },
-    "texto": null,
+    "texto": {
+     "direcao": "SOBE",
+     "hawkish": 31,
+     "dovish": 0,
+     "n": 118,
+     "oradores": [
+      "Yahoo Finance",
+      "Japan Wire by Kyodo News",
+      "nhk.or.jp",
+      "FXStreet"
+     ],
+     "origem": "headlines",
+     "nota": "from headlines (Google News, 72h) — the central bank blocks automation; a count of press wording, weaker than the bank's own speech"
+    },
     "ciclo": {
      "direcao": "SOBE",
      "bp": 25,
@@ -540,23 +554,24 @@
   },
   "AUD": {
    "moeda": "AUD",
-   "direcao": "MANTEM",
-   "intensidade": 0,
-   "score": 0.269,
+   "direcao": "SOBE",
+   "intensidade": 2,
+   "score": 0.486,
    "score_componentes": {
     "dados": 0.019,
-    "texto": 0.0,
+    "texto": 0.217,
     "ciclo": 0.25,
     "geo": 0.0
    },
-   "score_teto": 0.5,
-   "conviccao_pct": 25,
-   "conviccao_teto_pct": 50,
-   "dimensoes_ligadas": 2,
+   "score_teto": 0.75,
+   "conviccao_pct": 50,
+   "conviccao_teto_pct": 75,
+   "dimensoes_ligadas": 3,
    "dimensoes_total": 4,
    "concordam": {
-    "dados": true,
-    "ciclo": false
+    "dados": false,
+    "texto": true,
+    "ciclo": true
    },
    "dimensoes": {
     "dados": {
@@ -604,7 +619,20 @@
       }
      ]
     },
-    "texto": null,
+    "texto": {
+     "direcao": "SOBE",
+     "hawkish": 13,
+     "dovish": 0,
+     "n": 42,
+     "oradores": [
+      "CNBC",
+      "realestate.com.au",
+      "ABC News & Headlines – Australian Broadc",
+      "tbsnews.net"
+     ],
+     "origem": "headlines",
+     "nota": "from headlines (Google News, 72h) — the central bank blocks automation; a count of press wording, weaker than the bank's own speech"
+    },
     "ciclo": {
      "direcao": "SOBE",
      "bp": 25,
@@ -629,23 +657,24 @@
   },
   "NZD": {
    "moeda": "NZD",
-   "direcao": "MANTEM",
-   "intensidade": 0,
-   "score": 0.25,
+   "direcao": "SOBE",
+   "intensidade": 2,
+   "score": 0.481,
    "score_componentes": {
     "dados": 0.0,
-    "texto": 0.0,
+    "texto": 0.231,
     "ciclo": 0.25,
     "geo": 0.0
    },
-   "score_teto": 0.5,
-   "conviccao_pct": 25,
-   "conviccao_teto_pct": 50,
-   "dimensoes_ligadas": 2,
+   "score_teto": 0.75,
+   "conviccao_pct": 50,
+   "conviccao_teto_pct": 75,
+   "dimensoes_ligadas": 3,
    "dimensoes_total": 4,
    "concordam": {
-    "dados": true,
-    "ciclo": false
+    "dados": false,
+    "texto": true,
+    "ciclo": true
    },
    "dimensoes": {
     "dados": {
@@ -659,7 +688,20 @@
      "meia_vida_dias": 21.0,
      "principais": []
     },
-    "texto": null,
+    "texto": {
+     "direcao": "SOBE",
+     "hawkish": 25,
+     "dovish": 0,
+     "n": 79,
+     "oradores": [
+      "WSJ",
+      "investinglive.com",
+      "FXStreet",
+      "ET Education"
+     ],
+     "origem": "headlines",
+     "nota": "from headlines (Google News, 72h) — the central bank blocks automation; a count of press wording, weaker than the bank's own speech"
+    },
     "ciclo": {
      "direcao": "SOBE",
      "bp": 25,
@@ -744,23 +786,24 @@
   },
   "CHF": {
    "moeda": "CHF",
-   "direcao": "MANTEM",
-   "intensidade": 0,
-   "score": 0.202,
+   "direcao": "SOBE",
+   "intensidade": 2,
+   "score": 0.285,
    "score_componentes": {
     "dados": 0.202,
-    "texto": 0.0,
+    "texto": 0.083,
     "ciclo": 0.0,
     "geo": 0.0
    },
-   "score_teto": 0.5,
-   "conviccao_pct": 25,
-   "conviccao_teto_pct": 50,
-   "dimensoes_ligadas": 2,
+   "score_teto": 0.75,
+   "conviccao_pct": 50,
+   "conviccao_teto_pct": 75,
+   "dimensoes_ligadas": 3,
    "dimensoes_total": 4,
    "concordam": {
-    "dados": false,
-    "ciclo": true
+    "dados": true,
+    "texto": true,
+    "ciclo": false
    },
    "dimensoes": {
     "dados": {
@@ -819,7 +862,20 @@
       }
      ]
     },
-    "texto": null,
+    "texto": {
+     "direcao": "SOBE",
+     "hawkish": 1,
+     "dovish": 0,
+     "n": 10,
+     "oradores": [
+      "FXStreet",
+      "The Straits Times",
+      "AD HOC NEWS",
+      "TradingPedia"
+     ],
+     "origem": "headlines",
+     "nota": "from headlines (Google News, 72h) — the central bank blocks automation; a count of press wording, weaker than the bank's own speech"
+    },
     "ciclo": {
      "direcao": "MANTEM",
      "bp": -25,
@@ -860,7 +916,6 @@
    },
    "mesma_aposta": [
     "EURGBP",
-    "EURJPY",
     "EURCAD"
    ]
   },
@@ -895,18 +950,18 @@
    "base": "AUD",
    "cotada": "USD",
    "sinal": "BULL",
-   "forca": 0.226,
-   "rotulo": "media",
-   "conviccao_pct": 18,
-   "diff": 0.226,
-   "diff_teto": 1.25,
-   "motivo": "AUD score +0.27 vs USD score +0.04",
+   "forca": 0.443,
+   "rotulo": "forte",
+   "conviccao_pct": 30,
+   "diff": 0.443,
+   "diff_teto": 1.5,
+   "motivo": "AUD score +0.49 vs USD score +0.04",
    "perna_motivo": "AUD",
    "leitura_base": {
-    "direcao": "MANTEM",
-    "score": 0.269,
-    "conviccao_pct": 25,
-    "votando": 2
+    "direcao": "SOBE",
+    "score": 0.486,
+    "conviccao_pct": 50,
+    "votando": 3
    },
    "leitura_cotada": {
     "direcao": "MANTEM",
@@ -928,18 +983,18 @@
    "base": "NZD",
    "cotada": "USD",
    "sinal": "BULL",
-   "forca": 0.207,
-   "rotulo": "media",
-   "conviccao_pct": 17,
-   "diff": 0.207,
-   "diff_teto": 1.25,
-   "motivo": "NZD score +0.25 vs USD score +0.04",
+   "forca": 0.438,
+   "rotulo": "forte",
+   "conviccao_pct": 29,
+   "diff": 0.438,
+   "diff_teto": 1.5,
+   "motivo": "NZD score +0.48 vs USD score +0.04",
    "perna_motivo": "NZD",
    "leitura_base": {
-    "direcao": "MANTEM",
-    "score": 0.25,
-    "conviccao_pct": 25,
-    "votando": 2
+    "direcao": "SOBE",
+    "score": 0.481,
+    "conviccao_pct": 50,
+    "votando": 3
    },
    "leitura_cotada": {
     "direcao": "MANTEM",
@@ -960,12 +1015,12 @@
    "base": "USD",
    "cotada": "JPY",
    "sinal": "BEAR",
-   "forca": 0.072,
-   "rotulo": "fraca",
-   "conviccao_pct": 6,
-   "diff": -0.072,
-   "diff_teto": 1.25,
-   "motivo": "USD score +0.04 vs JPY score +0.12",
+   "forca": 0.307,
+   "rotulo": "media",
+   "conviccao_pct": 20,
+   "diff": -0.307,
+   "diff_teto": 1.5,
+   "motivo": "USD score +0.04 vs JPY score +0.35",
    "perna_motivo": "JPY",
    "leitura_base": {
     "direcao": "MANTEM",
@@ -974,14 +1029,16 @@
     "votando": 3
    },
    "leitura_cotada": {
-    "direcao": "MANTEM",
-    "score": 0.115,
-    "conviccao_pct": 0,
-    "votando": 2
+    "direcao": "SOBE",
+    "score": 0.35,
+    "conviccao_pct": 50,
+    "votando": 3
    },
    "mesma_aposta": [
+    "EURJPY",
     "GBPJPY",
-    "CADJPY"
+    "CADJPY",
+    "CHFJPY"
    ]
   },
   {
@@ -1017,12 +1074,12 @@
    "base": "USD",
    "cotada": "CHF",
    "sinal": "BEAR",
-   "forca": 0.159,
-   "rotulo": "fraca",
-   "conviccao_pct": 13,
-   "diff": -0.159,
-   "diff_teto": 1.25,
-   "motivo": "USD score +0.04 vs CHF score +0.20",
+   "forca": 0.242,
+   "rotulo": "media",
+   "conviccao_pct": 16,
+   "diff": -0.242,
+   "diff_teto": 1.5,
+   "motivo": "USD score +0.04 vs CHF score +0.28",
    "perna_motivo": "CHF",
    "leitura_base": {
     "direcao": "MANTEM",
@@ -1031,16 +1088,15 @@
     "votando": 3
    },
    "leitura_cotada": {
-    "direcao": "MANTEM",
-    "score": 0.202,
-    "conviccao_pct": 25,
-    "votando": 2
+    "direcao": "SOBE",
+    "score": 0.285,
+    "conviccao_pct": 50,
+    "votando": 3
    },
    "mesma_aposta": [
     "EURCHF",
     "GBPCHF",
-    "CADCHF",
-    "CHFJPY"
+    "CADCHF"
    ]
   },
   {
@@ -1069,7 +1125,6 @@
    },
    "mesma_aposta": [
     "EURUSD",
-    "EURJPY",
     "EURCAD"
    ]
   },
@@ -1077,14 +1132,14 @@
    "par": "EURJPY",
    "base": "EUR",
    "cotada": "JPY",
-   "sinal": "BULL",
-   "forca": 0.056,
+   "sinal": "BEAR",
+   "forca": 0.179,
    "rotulo": "fraca",
-   "conviccao_pct": 4,
-   "diff": 0.056,
-   "diff_teto": 1.5,
-   "motivo": "EUR score +0.17 vs JPY score +0.12",
-   "perna_motivo": "EUR",
+   "conviccao_pct": 10,
+   "diff": -0.179,
+   "diff_teto": 1.75,
+   "motivo": "EUR score +0.17 vs JPY score +0.35",
+   "perna_motivo": "JPY",
    "leitura_base": {
     "direcao": "SOBE",
     "score": 0.171,
@@ -1092,15 +1147,16 @@
     "votando": 4
    },
    "leitura_cotada": {
-    "direcao": "MANTEM",
-    "score": 0.115,
-    "conviccao_pct": 0,
-    "votando": 2
+    "direcao": "SOBE",
+    "score": 0.35,
+    "conviccao_pct": 50,
+    "votando": 3
    },
    "mesma_aposta": [
-    "EURUSD",
-    "EURGBP",
-    "EURCAD"
+    "USDJPY",
+    "GBPJPY",
+    "CADJPY",
+    "CHFJPY"
    ]
   },
   {
@@ -1108,12 +1164,12 @@
    "base": "EUR",
    "cotada": "AUD",
    "sinal": "BEAR",
-   "forca": 0.098,
-   "rotulo": "fraca",
-   "conviccao_pct": 7,
-   "diff": -0.098,
-   "diff_teto": 1.5,
-   "motivo": "EUR score +0.17 vs AUD score +0.27",
+   "forca": 0.315,
+   "rotulo": "media",
+   "conviccao_pct": 18,
+   "diff": -0.315,
+   "diff_teto": 1.75,
+   "motivo": "EUR score +0.17 vs AUD score +0.49",
    "perna_motivo": "AUD",
    "leitura_base": {
     "direcao": "SOBE",
@@ -1122,10 +1178,10 @@
     "votando": 4
    },
    "leitura_cotada": {
-    "direcao": "MANTEM",
-    "score": 0.269,
-    "conviccao_pct": 25,
-    "votando": 2
+    "direcao": "SOBE",
+    "score": 0.486,
+    "conviccao_pct": 50,
+    "votando": 3
    },
    "mesma_aposta": [
     "AUDUSD",
@@ -1141,12 +1197,12 @@
    "base": "EUR",
    "cotada": "NZD",
    "sinal": "BEAR",
-   "forca": 0.079,
-   "rotulo": "fraca",
-   "conviccao_pct": 5,
-   "diff": -0.079,
-   "diff_teto": 1.5,
-   "motivo": "EUR score +0.17 vs NZD score +0.25",
+   "forca": 0.31,
+   "rotulo": "media",
+   "conviccao_pct": 18,
+   "diff": -0.31,
+   "diff_teto": 1.75,
+   "motivo": "EUR score +0.17 vs NZD score +0.48",
    "perna_motivo": "NZD",
    "leitura_base": {
     "direcao": "SOBE",
@@ -1155,10 +1211,10 @@
     "votando": 4
    },
    "leitura_cotada": {
-    "direcao": "MANTEM",
-    "score": 0.25,
-    "conviccao_pct": 25,
-    "votando": 2
+    "direcao": "SOBE",
+    "score": 0.481,
+    "conviccao_pct": 50,
+    "votando": 3
    },
    "mesma_aposta": [
     "NZDUSD",
@@ -1194,8 +1250,7 @@
    },
    "mesma_aposta": [
     "EURUSD",
-    "EURGBP",
-    "EURJPY"
+    "EURGBP"
    ]
   },
   {
@@ -1203,12 +1258,12 @@
    "base": "EUR",
    "cotada": "CHF",
    "sinal": "BEAR",
-   "forca": 0.031,
+   "forca": 0.114,
    "rotulo": "fraca",
-   "conviccao_pct": 2,
-   "diff": -0.031,
-   "diff_teto": 1.5,
-   "motivo": "EUR score +0.17 vs CHF score +0.20",
+   "conviccao_pct": 7,
+   "diff": -0.114,
+   "diff_teto": 1.75,
+   "motivo": "EUR score +0.17 vs CHF score +0.28",
    "perna_motivo": "CHF",
    "leitura_base": {
     "direcao": "SOBE",
@@ -1217,16 +1272,15 @@
     "votando": 4
    },
    "leitura_cotada": {
-    "direcao": "MANTEM",
-    "score": 0.202,
-    "conviccao_pct": 25,
-    "votando": 2
+    "direcao": "SOBE",
+    "score": 0.285,
+    "conviccao_pct": 50,
+    "votando": 3
    },
    "mesma_aposta": [
     "USDCHF",
     "GBPCHF",
-    "CADCHF",
-    "CHFJPY"
+    "CADCHF"
    ]
   },
   {
@@ -1234,12 +1288,12 @@
    "base": "GBP",
    "cotada": "JPY",
    "sinal": "BEAR",
-   "forca": 0.033,
-   "rotulo": "fraca",
-   "conviccao_pct": 3,
-   "diff": -0.033,
-   "diff_teto": 1.25,
-   "motivo": "GBP score +0.08 vs JPY score +0.12",
+   "forca": 0.268,
+   "rotulo": "media",
+   "conviccao_pct": 18,
+   "diff": -0.268,
+   "diff_teto": 1.5,
+   "motivo": "GBP score +0.08 vs JPY score +0.35",
    "perna_motivo": "JPY",
    "leitura_base": {
     "direcao": "MANTEM",
@@ -1248,14 +1302,16 @@
     "votando": 3
    },
    "leitura_cotada": {
-    "direcao": "MANTEM",
-    "score": 0.115,
-    "conviccao_pct": 0,
-    "votando": 2
+    "direcao": "SOBE",
+    "score": 0.35,
+    "conviccao_pct": 50,
+    "votando": 3
    },
    "mesma_aposta": [
     "USDJPY",
-    "CADJPY"
+    "EURJPY",
+    "CADJPY",
+    "CHFJPY"
    ]
   },
   {
@@ -1263,12 +1319,12 @@
    "base": "GBP",
    "cotada": "AUD",
    "sinal": "BEAR",
-   "forca": 0.187,
-   "rotulo": "media",
-   "conviccao_pct": 15,
-   "diff": -0.187,
-   "diff_teto": 1.25,
-   "motivo": "GBP score +0.08 vs AUD score +0.27",
+   "forca": 0.404,
+   "rotulo": "forte",
+   "conviccao_pct": 27,
+   "diff": -0.404,
+   "diff_teto": 1.5,
+   "motivo": "GBP score +0.08 vs AUD score +0.49",
    "perna_motivo": "AUD",
    "leitura_base": {
     "direcao": "MANTEM",
@@ -1277,10 +1333,10 @@
     "votando": 3
    },
    "leitura_cotada": {
-    "direcao": "MANTEM",
-    "score": 0.269,
-    "conviccao_pct": 25,
-    "votando": 2
+    "direcao": "SOBE",
+    "score": 0.486,
+    "conviccao_pct": 50,
+    "votando": 3
    },
    "mesma_aposta": [
     "AUDUSD",
@@ -1296,12 +1352,12 @@
    "base": "GBP",
    "cotada": "NZD",
    "sinal": "BEAR",
-   "forca": 0.168,
-   "rotulo": "fraca",
-   "conviccao_pct": 13,
-   "diff": -0.168,
-   "diff_teto": 1.25,
-   "motivo": "GBP score +0.08 vs NZD score +0.25",
+   "forca": 0.399,
+   "rotulo": "forte",
+   "conviccao_pct": 27,
+   "diff": -0.399,
+   "diff_teto": 1.5,
+   "motivo": "GBP score +0.08 vs NZD score +0.48",
    "perna_motivo": "NZD",
    "leitura_base": {
     "direcao": "MANTEM",
@@ -1310,10 +1366,10 @@
     "votando": 3
    },
    "leitura_cotada": {
-    "direcao": "MANTEM",
-    "score": 0.25,
-    "conviccao_pct": 25,
-    "votando": 2
+    "direcao": "SOBE",
+    "score": 0.481,
+    "conviccao_pct": 50,
+    "votando": 3
    },
    "mesma_aposta": [
     "NZDUSD",
@@ -1356,12 +1412,12 @@
    "base": "GBP",
    "cotada": "CHF",
    "sinal": "BEAR",
-   "forca": 0.12,
-   "rotulo": "fraca",
-   "conviccao_pct": 10,
-   "diff": -0.12,
-   "diff_teto": 1.25,
-   "motivo": "GBP score +0.08 vs CHF score +0.20",
+   "forca": 0.203,
+   "rotulo": "media",
+   "conviccao_pct": 14,
+   "diff": -0.203,
+   "diff_teto": 1.5,
+   "motivo": "GBP score +0.08 vs CHF score +0.28",
    "perna_motivo": "CHF",
    "leitura_base": {
     "direcao": "MANTEM",
@@ -1370,16 +1426,15 @@
     "votando": 3
    },
    "leitura_cotada": {
-    "direcao": "MANTEM",
-    "score": 0.202,
-    "conviccao_pct": 25,
-    "votando": 2
+    "direcao": "SOBE",
+    "score": 0.285,
+    "conviccao_pct": 50,
+    "votando": 3
    },
    "mesma_aposta": [
     "USDCHF",
     "EURCHF",
-    "CADCHF",
-    "CHFJPY"
+    "CADCHF"
    ]
   },
   {
@@ -1387,24 +1442,24 @@
    "base": "AUD",
    "cotada": "JPY",
    "sinal": "BULL",
-   "forca": 0.154,
-   "rotulo": "media",
-   "conviccao_pct": 15,
-   "diff": 0.154,
-   "diff_teto": 1.0,
-   "motivo": "AUD score +0.27 vs JPY score +0.12",
+   "forca": 0.136,
+   "rotulo": "fraca",
+   "conviccao_pct": 9,
+   "diff": 0.136,
+   "diff_teto": 1.5,
+   "motivo": "AUD score +0.49 vs JPY score +0.35",
    "perna_motivo": "AUD",
    "leitura_base": {
-    "direcao": "MANTEM",
-    "score": 0.269,
-    "conviccao_pct": 25,
-    "votando": 2
+    "direcao": "SOBE",
+    "score": 0.486,
+    "conviccao_pct": 50,
+    "votando": 3
    },
    "leitura_cotada": {
-    "direcao": "MANTEM",
-    "score": 0.115,
-    "conviccao_pct": 0,
-    "votando": 2
+    "direcao": "SOBE",
+    "score": 0.35,
+    "conviccao_pct": 50,
+    "votando": 3
    },
    "mesma_aposta": [
     "AUDUSD",
@@ -1420,24 +1475,24 @@
    "base": "AUD",
    "cotada": "NZD",
    "sinal": "BULL",
-   "forca": 0.019,
+   "forca": 0.005,
    "rotulo": "fraca",
-   "conviccao_pct": 2,
-   "diff": 0.019,
-   "diff_teto": 1.0,
-   "motivo": "AUD score +0.27 vs NZD score +0.25",
+   "conviccao_pct": 0,
+   "diff": 0.005,
+   "diff_teto": 1.5,
+   "motivo": "AUD score +0.49 vs NZD score +0.48",
    "perna_motivo": "AUD",
    "leitura_base": {
-    "direcao": "MANTEM",
-    "score": 0.269,
-    "conviccao_pct": 25,
-    "votando": 2
+    "direcao": "SOBE",
+    "score": 0.486,
+    "conviccao_pct": 50,
+    "votando": 3
    },
    "leitura_cotada": {
-    "direcao": "MANTEM",
-    "score": 0.25,
-    "conviccao_pct": 25,
-    "votando": 2
+    "direcao": "SOBE",
+    "score": 0.481,
+    "conviccao_pct": 50,
+    "votando": 3
    },
    "mesma_aposta": [
     "AUDUSD",
@@ -1453,18 +1508,18 @@
    "base": "AUD",
    "cotada": "CAD",
    "sinal": "BULL",
-   "forca": 0.352,
+   "forca": 0.569,
    "rotulo": "forte",
-   "conviccao_pct": 28,
-   "diff": 0.352,
-   "diff_teto": 1.25,
-   "motivo": "AUD score +0.27 vs CAD score -0.08",
+   "conviccao_pct": 38,
+   "diff": 0.569,
+   "diff_teto": 1.5,
+   "motivo": "AUD score +0.49 vs CAD score -0.08",
    "perna_motivo": "AUD",
    "leitura_base": {
-    "direcao": "MANTEM",
-    "score": 0.269,
-    "conviccao_pct": 25,
-    "votando": 2
+    "direcao": "SOBE",
+    "score": 0.486,
+    "conviccao_pct": 50,
+    "votando": 3
    },
    "leitura_cotada": {
     "direcao": "MANTEM",
@@ -1486,24 +1541,24 @@
    "base": "AUD",
    "cotada": "CHF",
    "sinal": "BULL",
-   "forca": 0.067,
+   "forca": 0.201,
    "rotulo": "fraca",
-   "conviccao_pct": 7,
-   "diff": 0.067,
-   "diff_teto": 1.0,
-   "motivo": "AUD score +0.27 vs CHF score +0.20",
+   "conviccao_pct": 13,
+   "diff": 0.201,
+   "diff_teto": 1.5,
+   "motivo": "AUD score +0.49 vs CHF score +0.28",
    "perna_motivo": "AUD",
    "leitura_base": {
-    "direcao": "MANTEM",
-    "score": 0.269,
-    "conviccao_pct": 25,
-    "votando": 2
+    "direcao": "SOBE",
+    "score": 0.486,
+    "conviccao_pct": 50,
+    "votando": 3
    },
    "leitura_cotada": {
-    "direcao": "MANTEM",
-    "score": 0.202,
-    "conviccao_pct": 25,
-    "votando": 2
+    "direcao": "SOBE",
+    "score": 0.285,
+    "conviccao_pct": 50,
+    "votando": 3
    },
    "mesma_aposta": [
     "AUDUSD",
@@ -1519,24 +1574,24 @@
    "base": "NZD",
    "cotada": "JPY",
    "sinal": "BULL",
-   "forca": 0.135,
-   "rotulo": "media",
-   "conviccao_pct": 14,
-   "diff": 0.135,
-   "diff_teto": 1.0,
-   "motivo": "NZD score +0.25 vs JPY score +0.12",
+   "forca": 0.131,
+   "rotulo": "fraca",
+   "conviccao_pct": 9,
+   "diff": 0.131,
+   "diff_teto": 1.5,
+   "motivo": "NZD score +0.48 vs JPY score +0.35",
    "perna_motivo": "NZD",
    "leitura_base": {
-    "direcao": "MANTEM",
-    "score": 0.25,
-    "conviccao_pct": 25,
-    "votando": 2
+    "direcao": "SOBE",
+    "score": 0.481,
+    "conviccao_pct": 50,
+    "votando": 3
    },
    "leitura_cotada": {
-    "direcao": "MANTEM",
-    "score": 0.115,
-    "conviccao_pct": 0,
-    "votando": 2
+    "direcao": "SOBE",
+    "score": 0.35,
+    "conviccao_pct": 50,
+    "votando": 3
    },
    "mesma_aposta": [
     "NZDUSD",
@@ -1551,18 +1606,18 @@
    "base": "NZD",
    "cotada": "CAD",
    "sinal": "BULL",
-   "forca": 0.333,
+   "forca": 0.564,
    "rotulo": "forte",
-   "conviccao_pct": 27,
-   "diff": 0.333,
-   "diff_teto": 1.25,
-   "motivo": "NZD score +0.25 vs CAD score -0.08",
+   "conviccao_pct": 38,
+   "diff": 0.564,
+   "diff_teto": 1.5,
+   "motivo": "NZD score +0.48 vs CAD score -0.08",
    "perna_motivo": "NZD",
    "leitura_base": {
-    "direcao": "MANTEM",
-    "score": 0.25,
-    "conviccao_pct": 25,
-    "votando": 2
+    "direcao": "SOBE",
+    "score": 0.481,
+    "conviccao_pct": 50,
+    "votando": 3
    },
    "leitura_cotada": {
     "direcao": "MANTEM",
@@ -1583,24 +1638,24 @@
    "base": "NZD",
    "cotada": "CHF",
    "sinal": "BULL",
-   "forca": 0.048,
+   "forca": 0.196,
    "rotulo": "fraca",
-   "conviccao_pct": 5,
-   "diff": 0.048,
-   "diff_teto": 1.0,
-   "motivo": "NZD score +0.25 vs CHF score +0.20",
+   "conviccao_pct": 13,
+   "diff": 0.196,
+   "diff_teto": 1.5,
+   "motivo": "NZD score +0.48 vs CHF score +0.28",
    "perna_motivo": "NZD",
    "leitura_base": {
-    "direcao": "MANTEM",
-    "score": 0.25,
-    "conviccao_pct": 25,
-    "votando": 2
+    "direcao": "SOBE",
+    "score": 0.481,
+    "conviccao_pct": 50,
+    "votando": 3
    },
    "leitura_cotada": {
-    "direcao": "MANTEM",
-    "score": 0.202,
-    "conviccao_pct": 25,
-    "votando": 2
+    "direcao": "SOBE",
+    "score": 0.285,
+    "conviccao_pct": 50,
+    "votando": 3
    },
    "mesma_aposta": [
     "NZDUSD",
@@ -1615,12 +1670,12 @@
    "base": "CAD",
    "cotada": "JPY",
    "sinal": "BEAR",
-   "forca": 0.198,
-   "rotulo": "media",
-   "conviccao_pct": 16,
-   "diff": -0.198,
-   "diff_teto": 1.25,
-   "motivo": "CAD score -0.08 vs JPY score +0.12",
+   "forca": 0.433,
+   "rotulo": "forte",
+   "conviccao_pct": 29,
+   "diff": -0.433,
+   "diff_teto": 1.5,
+   "motivo": "CAD score -0.08 vs JPY score +0.35",
    "perna_motivo": "JPY",
    "leitura_base": {
     "direcao": "MANTEM",
@@ -1629,14 +1684,16 @@
     "votando": 3
    },
    "leitura_cotada": {
-    "direcao": "MANTEM",
-    "score": 0.115,
-    "conviccao_pct": 0,
-    "votando": 2
+    "direcao": "SOBE",
+    "score": 0.35,
+    "conviccao_pct": 50,
+    "votando": 3
    },
    "mesma_aposta": [
     "USDJPY",
-    "GBPJPY"
+    "EURJPY",
+    "GBPJPY",
+    "CHFJPY"
    ]
   },
   {
@@ -1644,12 +1701,12 @@
    "base": "CAD",
    "cotada": "CHF",
    "sinal": "BEAR",
-   "forca": 0.285,
+   "forca": 0.368,
    "rotulo": "media",
-   "conviccao_pct": 23,
-   "diff": -0.285,
-   "diff_teto": 1.25,
-   "motivo": "CAD score -0.08 vs CHF score +0.20",
+   "conviccao_pct": 25,
+   "diff": -0.368,
+   "diff_teto": 1.5,
+   "motivo": "CAD score -0.08 vs CHF score +0.28",
    "perna_motivo": "CHF",
    "leitura_base": {
     "direcao": "MANTEM",
@@ -1658,47 +1715,46 @@
     "votando": 3
    },
    "leitura_cotada": {
-    "direcao": "MANTEM",
-    "score": 0.202,
-    "conviccao_pct": 25,
-    "votando": 2
+    "direcao": "SOBE",
+    "score": 0.285,
+    "conviccao_pct": 50,
+    "votando": 3
    },
    "mesma_aposta": [
     "USDCHF",
     "EURCHF",
-    "GBPCHF",
-    "CHFJPY"
+    "GBPCHF"
    ]
   },
   {
    "par": "CHFJPY",
    "base": "CHF",
    "cotada": "JPY",
-   "sinal": "BULL",
-   "forca": 0.087,
+   "sinal": "BEAR",
+   "forca": 0.065,
    "rotulo": "fraca",
-   "conviccao_pct": 9,
-   "diff": 0.087,
-   "diff_teto": 1.0,
-   "motivo": "CHF score +0.20 vs JPY score +0.12",
-   "perna_motivo": "CHF",
+   "conviccao_pct": 4,
+   "diff": -0.065,
+   "diff_teto": 1.5,
+   "motivo": "CHF score +0.28 vs JPY score +0.35",
+   "perna_motivo": "JPY",
    "leitura_base": {
-    "direcao": "MANTEM",
-    "score": 0.202,
-    "conviccao_pct": 25,
-    "votando": 2
+    "direcao": "SOBE",
+    "score": 0.285,
+    "conviccao_pct": 50,
+    "votando": 3
    },
    "leitura_cotada": {
-    "direcao": "MANTEM",
-    "score": 0.115,
-    "conviccao_pct": 0,
-    "votando": 2
+    "direcao": "SOBE",
+    "score": 0.35,
+    "conviccao_pct": 50,
+    "votando": 3
    },
    "mesma_aposta": [
-    "USDCHF",
-    "EURCHF",
-    "GBPCHF",
-    "CADCHF"
+    "USDJPY",
+    "EURJPY",
+    "GBPJPY",
+    "CADJPY"
    ]
   }
  ],

@@ -66,6 +66,8 @@ BANCOS = os.path.join(AQUI, "data", "bancos_centrais.json")
 DISCURSOS = os.path.join(AQUI, "data", "bc_discursos.json")      # todas as moedas conectadas
 DISCURSOS_FED = os.path.join(AQUI, "data", "fed_discursos.json")  # reserva, so o Fed
 GEO = os.path.join(AQUI, "data", "geopolitica.json")
+NOTICIAS = os.path.join(AQUI, "data", "noticias.json")            # manchetes: reserva de "texto"
+SEM_FEED_PROPRIO = ("AUD", "NZD", "CHF")                          # RBA/RBNZ 403, SNB sem feed
 
 GEO_Z_CORTE = 1.5                      # pico = 3 dias acima da media de 14 dias em >= 1,5 desvios
 EXPORTADOR_ENERGIA = ("CAD",)
@@ -143,26 +145,45 @@ def dimensao_dados(ev, moeda, agora):
             "limiar": LIMIAR_DADOS, "meia_vida_dias": MEIA_VIDA, "principais": itens[:6]}
 
 
-def dimensao_texto(moeda, discursos, agora):
-    """Falas dos dirigentes desta moeda. So conta se o feed do banco estiver conectado —
-    AUD, NZD e CHF saem None (buraco declarado), nunca zero."""
+def dimensao_texto_manchetes(moeda, noticias, agora):
+    """RESERVA para os bancos que bloqueiam robo: a contagem de manchetes (noticias.py) sobre
+    alta/corte de juros nas ultimas 72 h. Vale menos que o discurso e so entra onde nao ha
+    discurso; sai rotulada 'from headlines'."""
+    N = ((noticias or {}).get("moedas") or {}).get(moeda)
+    if not N:
+        return None
+    c = N.get("contagem") or {}
+    h, d = int(c.get("alta") or 0), int(c.get("corte") or 0)
+    if h == 0 and d == 0:
+        return None
+    direcao = "SOBE" if h > d else "CORTA" if d > h else "MANTEM"
+    return {"direcao": direcao, "hawkish": h, "dovish": d, "n": N.get("n_72h", 0),
+            "oradores": [x.get("fonte") for x in (N.get("itens") or [])[:4]],
+            "origem": "headlines",
+            "nota": "from headlines (Google News, 72h) — the central bank blocks automation; "
+                    "a count of press wording, weaker than the bank's own speech"}
+
+
+def dimensao_texto(moeda, discursos, agora, noticias=None):
+    """Falas dos dirigentes desta moeda. Onde o banco bloqueia robo (AUD, NZD, CHF), entra a
+    reserva das manchetes; sem nada, None (buraco declarado), nunca zero."""
     D = discursos or {}
     status = (D.get("status_fontes") or {}).get(moeda)
     itens = [x for x in D.get("itens", []) if (x.get("moeda") or "USD") == moeda]
-    if status and str(status).startswith("not connected"):
-        return None
+    if moeda in SEM_FEED_PROPRIO or (status and str(status).startswith("not connected")):
+        return dimensao_texto_manchetes(moeda, noticias, agora)
     if not itens and moeda != "USD" and not status:
-        return None                                   # feed nem tentado — nao conectado
+        return dimensao_texto_manchetes(moeda, noticias, agora)
     inicio = (agora - dt.timedelta(days=JANELA_DIAS)).date().isoformat()
     itens = [x for x in itens if (x.get("data") or "") >= inicio]
     if not itens:
         # silencio nao e voto: sem fala na janela, a dimensao nao conta — nem para MANTEM.
         # Antes contava, e o GBP saia com "75% em manutencao" tendo zero discursos lidos.
-        return None
+        return dimensao_texto_manchetes(moeda, noticias, agora)
     h = sum(int(x.get("marcadores_hawkish") or 0) for x in itens)
     d = sum(int(x.get("marcadores_dovish") or 0) for x in itens)
     if h == 0 and d == 0:
-        return None                                   # falas sem marcador de politica: idem
+        return dimensao_texto_manchetes(moeda, noticias, agora)   # falas sem marcador: idem
     direcao = "SOBE" if h > d else "CORTA" if d > h else "MANTEM"
     return {"direcao": direcao, "hawkish": h, "dovish": d, "n": len(itens),
             "oradores": [x.get("orador") for x in itens][:6],
@@ -208,11 +229,11 @@ def dimensao_ciclo(b, agora):
             "nota": "last move %+d bp, %d days ago" % (bp, idade)}
 
 
-def le_moeda(m, ev, bancos, discursos, agora, geo=None):
+def le_moeda(m, ev, bancos, discursos, agora, geo=None, noticias=None):
     b = (bancos or {}).get("bancos", {}).get(m, {})
     dims = {
         "dados": dimensao_dados(ev, m, agora),
-        "texto": dimensao_texto(m, discursos, agora),
+        "texto": dimensao_texto(m, discursos, agora, noticias),
         "ciclo": dimensao_ciclo(b, agora),
         "geo": dimensao_geo(m, geo),
     }
@@ -425,7 +446,8 @@ def main():
     print("  eventos na janela: %d  (%s)" % (len(ev), origem))
 
     geo = carrega_json(GEO)
-    leituras = {m: le_moeda(m, ev, bancos, discursos, agora, geo) for m in MOEDAS}
+    noticias = carrega_json(NOTICIAS)
+    leituras = {m: le_moeda(m, ev, bancos, discursos, agora, geo, noticias) for m in MOEDAS}
     print()
     print("  %-4s %-7s %-5s %-6s  %-22s %-22s %-24s %s"
           % ("ccy", "lean", "conv", "teto", "dados", "texto", "ciclo", "geopolitica"))
@@ -437,7 +459,7 @@ def main():
         print("  %-4s %-7s %3d%%  %3d%%   %-22s %-22s %-24s %s"
               % (m, x["direcao"], x["conviccao_pct"], x["conviccao_teto_pct"],
                  "%s (%+.1f, n=%d)" % (dd["direcao"], dd["soma"], dd["n"]),
-                 ("%s (%dh/%dd)" % (tt["direcao"], tt["hawkish"], tt["dovish"])) if tt else "not connected",
+                 ("%s (%dh/%dd%s)" % (tt["direcao"], tt["hawkish"], tt["dovish"], " manchetes" if tt.get("origem") == "headlines" else "")) if tt else "not connected",
                  "%s (%s)" % (cc["direcao"], cc["nota"][:18]),
                  ("%s (energia z=%s, conflito z=%s)" % (gg["direcao"] or gg["estado"], gg["z_energia"], gg["z_conflito"]))
                  if gg else "not connected"))

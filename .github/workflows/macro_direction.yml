@@ -124,9 +124,16 @@ jobs:
         continue-on-error: true
         run: python correlacao_juros.py
 
+      # Manchetes de todas as 8 moedas (Google News RSS, sem chave, sem bloqueio). Reserva da
+      # dimensao de discursos para RBA, RBNZ e SNB, que bloqueiam robo.
+      - name: noticias por moeda (Google News)
+        continue-on-error: true
+        run: python noticias.py
+
       # Geopolitica (GDELT) ANTES do sentimento: e a 4a dimensao dele e a segunda perna do
       # ouro (decisao do Eduardo, 04/set). Cache de 3 h no script; a API limita a taxa e o
-      # script espera 12 s entre chamadas, com orcamento de 8 min.
+      # script espera 15 s entre chamadas, com orcamento de 8 min; quem falha carrega a
+      # rodada anterior por 24 h.
       - name: geopolitica (GDELT)
         continue-on-error: true
         run: python geopolitica.py
@@ -144,7 +151,7 @@ jobs:
           git add data/macro_eventos.json data/bancos_centrais.json \
                   data/calendario_resultado.json data/eua_leitura.json \
                   data/bc_discursos.json data/sentimento.json \
-                  data/correlacao_juros.json data/geopolitica.json \
+                  data/correlacao_juros.json data/geopolitica.json data/noticias.json \
                   data/raw/ff_calendar_thisweek.json
           if git diff --cached --quiet; then
             echo "nada mudou — sem commit"

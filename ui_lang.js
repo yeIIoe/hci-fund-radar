@@ -163,6 +163,13 @@
     "contemporaneous columns describe the same window; the predictive columns are what an entry would need — and they sit inside noise. Rates describe the month, not the candle.":
       "as colunas contemporâneas descrevem a mesma janela; as preditivas são o que uma entrada precisaria — e ficam dentro do ruído. O juro descreve o mês, não a vela.",
 
+    // noticias
+    "News by currency": "Notícias por moeda",
+    "Headlines on each central bank and economy from the last 72 hours, Google News search feed. The tags are a word count on the headline — a pointer to what to read, not a reading. For RBA, RBNZ and SNB, which block automation, this is also the fallback of the speeches dimension.":
+      "Manchetes sobre cada banco central e economia nas últimas 72 horas, feed de busca do Google News. As etiquetas são contagem de palavras na manchete — um ponteiro do que ler, não uma leitura. Para RBA, RBNZ e SNB, que bloqueiam automação, é também a reserva da dimensão de discursos.",
+    "no headline in the window": "nenhuma manchete na janela",
+    "hike": "alta", "cut": "corte", "hold": "manutenção",
+    "from headlines": "das manchetes",
     // geopolitica
     "Geopolitics": "Geopolítica", "World backdrop": "Pano de fundo mundial",
     "geopolitics": "geopolítica", "no spike this week": "sem pico nesta semana",
@@ -351,6 +358,11 @@
       "release → fonte do calendário, medida por evento: dados de alto impacto em $1 (mediana) — veja cada ficha; release → API do BLS: ainda não cronometrada, exige a chave registrada"],
     [/^\(\s*$/, "("],
     [/^(conflict|energy)\s*$/, (m, t) => ({ conflict: "conflito", energy: "energia" })[t]],
+    [/^(.*?)· (\d+) headlines in 72 h · hike (\d+) · cut (\d+) · hold (\d+)\s*(·)?\s*$/,
+      (m, pre, n, a, c, h, sep) => pre + "· " + n + " manchetes em 72 h · alta " + a + " · corte " + c + " · manutenção " + h + (sep ? " ·" : "")],
+    [/^collected (.+)$/, (m, q) => "coletadas " + (q === "just now" ? "agora" : (traduz(q) || q).replace(/^\s+|\s+$/g, ""))],
+    [/^(\d+) minutes ago$/, "$1 minutos atrás"],
+    [/^(\d+) hours ago$/, "$1 horas atrás"],
     [/^(conflict|energy) —$/, (m, t) => ({ conflict: "conflito", energy: "energia" })[t] + " —"],
     [/^tone ([+\-−]?[\d.]+)$/, "tom $1"],
     [/^risk-off: safe-haven flow tends to SUPPORT (\S+) \(rule\)$/, "risk-off: fluxo de refúgio tende a SUSTENTAR $1 (regra)"],

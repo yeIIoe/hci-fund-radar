@@ -58,7 +58,7 @@ SAIDA = os.path.join(AQUI, "data", "geopolitica.json")
 UA = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/128.0"}
 API = "https://api.gdeltproject.org/api/v2/doc/doc?"
 CACHE_H = 3
-PAUSA_S = 12                  # 04/set: o GDELT limita por IP; 8 s ainda tomou 429 apos rajadas anteriores
+PAUSA_S = 15                  # 04/set: o GDELT limita por IP; a 12 s o runner ainda perdeu 4 de 8 moedas
 ORCAMENTO_S = 8 * 60          # a Action tem 15 min para a cadeia inteira; isto para em 8 e grava o que tem
 
 PAIS = {
@@ -182,6 +182,17 @@ def main():
         return
 
     saida, erros = {}, []
+    # A rodada anterior: quem falhar agora (429) carrega o dado de antes, com o carimbo dele,
+    # valido por 24 h. Sem isto o CAD aparecia "nao conectado" so porque foi o 5o da fila
+    # (Eduardo, 04/set). E a ORDEM gira a cada rodada, para o limite nao cair sempre nos mesmos.
+    anterior = {}
+    try:
+        anterior = json.load(io.open(SAIDA, encoding="utf-8")) if os.path.exists(SAIDA) else {}
+    except Exception:
+        anterior = {}
+    ordem = list(PAIS.keys())
+    giro = int(agora.timestamp() // 3600) % len(ordem)
+    ordem = ordem[giro:] + ordem[:giro]
     # o mundo primeiro: o pano de fundo que todas as moedas compartilham
     mundo = {}
     for tema, q in TEMAS.items():
@@ -195,7 +206,8 @@ def main():
         (mundo.get("conflito") or {}).get("volume", {}).get("z"),
         (mundo.get("energia") or {}).get("volume", {}).get("z")))
 
-    for moeda, qp in PAIS.items():
+    for moeda in ordem:
+        qp = PAIS[moeda]
         if estourou():
             erros.append("orcamento de %d s estourado antes de %s — o resto fica para a proxima rodada" % (ORCAMENTO_S, moeda))
             break
@@ -217,6 +229,7 @@ def main():
         conf = (bloco["temas"].get("conflito") or {}).get("volume") or {}
         ener = (bloco["temas"].get("energia") or {}).get("volume") or {}
         bloco["implicacao"] = implicacao(moeda, conf, ener)
+        bloco["coletado_em"] = agora.isoformat()
         saida[moeda] = bloco
         print("  %-4s conflito z=%-6s razao=%-5s · energia z=%-6s razao=%-5s · tom=%-6s %s"
               % (moeda, conf.get("z"), conf.get("razao"), ener.get("z"), ener.get("razao"), bloco["tom"],
@@ -233,12 +246,40 @@ def main():
     if not com_dado:
         print("  !! GDELT nao respondeu nada util — arquivo anterior preservado")
         sys.exit(1)
-    # coleta PARCIAL vale (04/set: 429 por IP deixava tudo de fora). Moeda sem volume sai do
-    # arquivo — no sentimento ela le "not connected", nunca zero.
-    for m in list(saida):
-        if m not in com_dado:
-            del saida[m]
+    # coleta PARCIAL vale (04/set: 429 por IP deixava tudo de fora). Moeda sem volume nesta
+    # rodada carrega a leitura anterior se tiver menos de 24 h — com o carimbo original e a
+    # marca `reaproveitado` — senao sai do arquivo e le "not connected" no sentimento.
+    reaproveitadas = []
+    for m in list(PAIS):
+        if m in com_dado:
+            continue
+        saida.pop(m, None)
+        b = (anterior.get("moedas") or {}).get(m)
+        if b and b.get("coletado_em") and not b.get("reaproveitado_de"):
+            try:
+                idade_h = (agora - dt.datetime.fromisoformat(b["coletado_em"])).total_seconds() / 3600.0
+            except Exception:
+                idade_h = 999
+            if idade_h <= 24:
+                saida[m] = dict(b, reaproveitado_de=b["coletado_em"])
+                reaproveitadas.append("%s (%.0f h)" % (m, idade_h))
+        elif b and b.get("reaproveitado_de"):
+            try:
+                idade_h = (agora - dt.datetime.fromisoformat(b["reaproveitado_de"])).total_seconds() / 3600.0
+            except Exception:
+                idade_h = 999
+            if idade_h <= 24:
+                saida[m] = b
+                reaproveitadas.append("%s (%.0f h)" % (m, idade_h))
     print("  moedas com dado nesta rodada: %s" % ", ".join(com_dado))
+    if reaproveitadas:
+        print("  reaproveitadas da rodada anterior: %s" % ", ".join(reaproveitadas))
+    # o mundo tambem carrega a rodada anterior quando o 429 o pega
+    for tema in TEMAS:
+        if not ((mundo.get(tema) or {}).get("volume") or {}).get("z"):
+            ant = (anterior.get("mundo") or {}).get(tema)
+            if ant and ((ant.get("volume") or {}).get("z") is not None):
+                mundo[tema] = dict(ant, reaproveitado=True)
 
     rel = {"gerado_em": agora.isoformat(),
            "fonte": "GDELT DOC 2.0 API (free, no key, 15-min updates); English-language sources",
