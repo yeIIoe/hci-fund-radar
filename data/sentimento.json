@@ -1,5 +1,5 @@
 {
- "gerado_em": "2026-09-04T15:17:20.574038+00:00",
+ "gerado_em": "2026-09-04T15:25:59.429212+00:00",
  "origem_eventos": "fxstreet 42 dias",
  "regua": {
   "dimensoes": [
@@ -117,7 +117,7 @@
        "impacto": "HIGH",
        "divulgado": 6.3,
        "consenso": 3.6,
-       "contribuicao": 2.13,
+       "contribuicao": 2.12,
        "idade_dias": 36.1
       }
      ]
@@ -150,22 +150,23 @@
    "moeda": "EUR",
    "direcao": "SOBE",
    "intensidade": 2,
-   "score": 0.421,
+   "score": 0.171,
    "score_componentes": {
     "dados": 0.088,
     "texto": 0.083,
     "ciclo": 0.25,
-    "geo": 0.0
+    "geo": -0.25
    },
    "score_teto": 1.0,
    "conviccao_pct": 50,
-   "conviccao_teto_pct": 75,
-   "dimensoes_ligadas": 3,
+   "conviccao_teto_pct": 100,
+   "dimensoes_ligadas": 4,
    "dimensoes_total": 4,
    "concordam": {
     "dados": false,
     "texto": true,
-    "ciclo": true
+    "ciclo": true,
+    "geo": false
    },
    "dimensoes": {
     "dados": {
@@ -186,7 +187,7 @@
        "impacto": "HIGH",
        "divulgado": 0.6,
        "consenso": 1.1,
-       "contribuicao": -3.97,
+       "contribuicao": -3.96,
        "idade_dias": 0.3
       },
       {
@@ -266,7 +267,17 @@
      "idade_dias": 85,
      "nota": "last move +25 bp, 85 days ago"
     },
-    "geo": null
+    "geo": {
+     "z_energia": 1.18,
+     "z_conflito": 2.01,
+     "tom": null,
+     "corte_z": 1.5,
+     "manchete": null,
+     "nota": "declared rule on news intensity (GDELT) — decided to count on 4 Sep; not yet measured",
+     "direcao": "CORTA",
+     "estado": "spike",
+     "motivo": "conflict spike (z +2.0) without an energy spike: growth risk"
+    }
    },
    "taxa_texto": "2,25%  (MRO 2,40 · MLF 2,65)",
    "proxima": "2026-09-10",
@@ -334,7 +345,7 @@
        "impacto": "LOW",
        "divulgado": -1.7,
        "consenso": 0.0,
-       "contribuicao": -0.82,
+       "contribuicao": -0.81,
        "idade_dias": 16.4
       },
       {
@@ -389,7 +400,17 @@
      "idade_dias": 261,
      "nota": "last move 261 days ago — reads as hold"
     },
-    "geo": null
+    "geo": {
+     "z_energia": 0.87,
+     "z_conflito": null,
+     "tom": null,
+     "corte_z": 1.5,
+     "manchete": null,
+     "nota": "declared rule on news intensity (GDELT) — decided to count on 4 Sep; not yet measured",
+     "direcao": null,
+     "estado": "quiet",
+     "motivo": "no news spike this week — no vote"
+    }
    },
    "taxa_texto": "3,75%",
    "proxima": "2026-09-17",
@@ -501,7 +522,17 @@
      "idade_dias": 80,
      "nota": "last move +25 bp, 80 days ago"
     },
-    "geo": null
+    "geo": {
+     "z_energia": 1.07,
+     "z_conflito": -0.02,
+     "tom": null,
+     "corte_z": 1.5,
+     "manchete": null,
+     "nota": "declared rule on news intensity (GDELT) — decided to count on 4 Sep; not yet measured",
+     "direcao": null,
+     "estado": "quiet",
+     "motivo": "no news spike this week — no vote"
+    }
    },
    "taxa_texto": "cerca de 1,0%",
    "proxima": "2026-09-18",
@@ -557,7 +588,7 @@
        "impacto": "MEDIUM",
        "divulgado": 0.5,
        "consenso": 0.3,
-       "contribuicao": 3.65,
+       "contribuicao": 3.64,
        "idade_dias": 9.6
       },
       {
@@ -580,7 +611,17 @@
      "idade_dias": 122,
      "nota": "last move +25 bp, 122 days ago"
     },
-    "geo": null
+    "geo": {
+     "z_energia": 0.8,
+     "z_conflito": 0.66,
+     "tom": null,
+     "corte_z": 1.5,
+     "manchete": null,
+     "nota": "declared rule on news intensity (GDELT) — decided to count on 4 Sep; not yet measured",
+     "direcao": null,
+     "estado": "quiet",
+     "motivo": "no news spike this week — no vote"
+    }
    },
    "taxa_texto": "4,35%",
    "proxima": "2026-09-29",
@@ -798,18 +839,18 @@
    "base": "EUR",
    "cotada": "USD",
    "sinal": "BULL",
-   "forca": 0.378,
-   "rotulo": "media",
-   "conviccao_pct": 19,
-   "diff": 0.378,
+   "forca": 0.128,
+   "rotulo": "fraca",
+   "conviccao_pct": 6,
+   "diff": 0.128,
    "diff_teto": 2.0,
-   "motivo": "EUR score +0.42 vs USD score +0.04",
+   "motivo": "EUR score +0.17 vs USD score +0.04",
    "perna_motivo": "EUR",
    "leitura_base": {
     "direcao": "SOBE",
-    "score": 0.421,
+    "score": 0.171,
     "conviccao_pct": 50,
-    "votando": 3
+    "votando": 4
    },
    "leitura_cotada": {
     "direcao": "MANTEM",
@@ -820,10 +861,7 @@
    "mesma_aposta": [
     "EURGBP",
     "EURJPY",
-    "EURAUD",
-    "EURNZD",
-    "EURCAD",
-    "EURCHF"
+    "EURCAD"
    ]
   },
   {
@@ -877,6 +915,7 @@
     "votando": 3
    },
    "mesma_aposta": [
+    "EURAUD",
     "GBPAUD",
     "AUDJPY",
     "AUDNZD",
@@ -909,6 +948,7 @@
     "votando": 3
    },
    "mesma_aposta": [
+    "EURNZD",
     "GBPNZD",
     "NZDJPY",
     "NZDCAD",
@@ -997,6 +1037,7 @@
     "votando": 2
    },
    "mesma_aposta": [
+    "EURCHF",
     "GBPCHF",
     "CADCHF",
     "CHFJPY"
@@ -1007,18 +1048,18 @@
    "base": "EUR",
    "cotada": "GBP",
    "sinal": "BULL",
-   "forca": 0.339,
-   "rotulo": "media",
-   "conviccao_pct": 17,
-   "diff": 0.339,
+   "forca": 0.089,
+   "rotulo": "fraca",
+   "conviccao_pct": 4,
+   "diff": 0.089,
    "diff_teto": 2.0,
-   "motivo": "EUR score +0.42 vs GBP score +0.08",
+   "motivo": "EUR score +0.17 vs GBP score +0.08",
    "perna_motivo": "EUR",
    "leitura_base": {
     "direcao": "SOBE",
-    "score": 0.421,
+    "score": 0.171,
     "conviccao_pct": 50,
-    "votando": 3
+    "votando": 4
    },
    "leitura_cotada": {
     "direcao": "MANTEM",
@@ -1029,10 +1070,7 @@
    "mesma_aposta": [
     "EURUSD",
     "EURJPY",
-    "EURAUD",
-    "EURNZD",
-    "EURCAD",
-    "EURCHF"
+    "EURCAD"
    ]
   },
   {
@@ -1040,18 +1078,18 @@
    "base": "EUR",
    "cotada": "JPY",
    "sinal": "BULL",
-   "forca": 0.306,
-   "rotulo": "media",
-   "conviccao_pct": 15,
-   "diff": 0.306,
+   "forca": 0.056,
+   "rotulo": "fraca",
+   "conviccao_pct": 3,
+   "diff": 0.056,
    "diff_teto": 2.0,
-   "motivo": "EUR score +0.42 vs JPY score +0.12",
+   "motivo": "EUR score +0.17 vs JPY score +0.12",
    "perna_motivo": "EUR",
    "leitura_base": {
     "direcao": "SOBE",
-    "score": 0.421,
+    "score": 0.171,
     "conviccao_pct": 50,
-    "votando": 3
+    "votando": 4
    },
    "leitura_cotada": {
     "direcao": "MANTEM",
@@ -1062,29 +1100,26 @@
    "mesma_aposta": [
     "EURUSD",
     "EURGBP",
-    "EURAUD",
-    "EURNZD",
-    "EURCAD",
-    "EURCHF"
+    "EURCAD"
    ]
   },
   {
    "par": "EURAUD",
    "base": "EUR",
    "cotada": "AUD",
-   "sinal": "BULL",
-   "forca": 0.152,
+   "sinal": "BEAR",
+   "forca": 0.098,
    "rotulo": "fraca",
-   "conviccao_pct": 8,
-   "diff": 0.152,
+   "conviccao_pct": 5,
+   "diff": -0.098,
    "diff_teto": 2.0,
-   "motivo": "EUR score +0.42 vs AUD score +0.27",
-   "perna_motivo": "EUR",
+   "motivo": "EUR score +0.17 vs AUD score +0.27",
+   "perna_motivo": "AUD",
    "leitura_base": {
     "direcao": "SOBE",
-    "score": 0.421,
+    "score": 0.171,
     "conviccao_pct": 50,
-    "votando": 3
+    "votando": 4
    },
    "leitura_cotada": {
     "direcao": "MANTEM",
@@ -1093,31 +1128,31 @@
     "votando": 2
    },
    "mesma_aposta": [
-    "EURUSD",
-    "EURGBP",
-    "EURJPY",
-    "EURNZD",
-    "EURCAD",
-    "EURCHF"
+    "AUDUSD",
+    "GBPAUD",
+    "AUDJPY",
+    "AUDNZD",
+    "AUDCAD",
+    "AUDCHF"
    ]
   },
   {
    "par": "EURNZD",
    "base": "EUR",
    "cotada": "NZD",
-   "sinal": "BULL",
-   "forca": 0.171,
+   "sinal": "BEAR",
+   "forca": 0.079,
    "rotulo": "fraca",
-   "conviccao_pct": 9,
-   "diff": 0.171,
+   "conviccao_pct": 4,
+   "diff": -0.079,
    "diff_teto": 2.0,
-   "motivo": "EUR score +0.42 vs NZD score +0.25",
-   "perna_motivo": "EUR",
+   "motivo": "EUR score +0.17 vs NZD score +0.25",
+   "perna_motivo": "NZD",
    "leitura_base": {
     "direcao": "SOBE",
-    "score": 0.421,
+    "score": 0.171,
     "conviccao_pct": 50,
-    "votando": 3
+    "votando": 4
    },
    "leitura_cotada": {
     "direcao": "MANTEM",
@@ -1126,12 +1161,11 @@
     "votando": 2
    },
    "mesma_aposta": [
-    "EURUSD",
-    "EURGBP",
-    "EURJPY",
-    "EURAUD",
-    "EURCAD",
-    "EURCHF"
+    "NZDUSD",
+    "GBPNZD",
+    "NZDJPY",
+    "NZDCAD",
+    "NZDCHF"
    ]
   },
   {
@@ -1139,18 +1173,18 @@
    "base": "EUR",
    "cotada": "CAD",
    "sinal": "BULL",
-   "forca": 0.504,
-   "rotulo": "media",
-   "conviccao_pct": 25,
-   "diff": 0.504,
+   "forca": 0.254,
+   "rotulo": "fraca",
+   "conviccao_pct": 13,
+   "diff": 0.254,
    "diff_teto": 2.0,
-   "motivo": "EUR score +0.42 vs CAD score -0.08",
+   "motivo": "EUR score +0.17 vs CAD score -0.08",
    "perna_motivo": "EUR",
    "leitura_base": {
     "direcao": "SOBE",
-    "score": 0.421,
+    "score": 0.171,
     "conviccao_pct": 50,
-    "votando": 3
+    "votando": 4
    },
    "leitura_cotada": {
     "direcao": "MANTEM",
@@ -1161,29 +1195,26 @@
    "mesma_aposta": [
     "EURUSD",
     "EURGBP",
-    "EURJPY",
-    "EURAUD",
-    "EURNZD",
-    "EURCHF"
+    "EURJPY"
    ]
   },
   {
    "par": "EURCHF",
    "base": "EUR",
    "cotada": "CHF",
-   "sinal": "BULL",
-   "forca": 0.219,
+   "sinal": "BEAR",
+   "forca": 0.031,
    "rotulo": "fraca",
-   "conviccao_pct": 11,
-   "diff": 0.219,
+   "conviccao_pct": 2,
+   "diff": -0.031,
    "diff_teto": 2.0,
-   "motivo": "EUR score +0.42 vs CHF score +0.20",
-   "perna_motivo": "EUR",
+   "motivo": "EUR score +0.17 vs CHF score +0.20",
+   "perna_motivo": "CHF",
    "leitura_base": {
     "direcao": "SOBE",
-    "score": 0.421,
+    "score": 0.171,
     "conviccao_pct": 50,
-    "votando": 3
+    "votando": 4
    },
    "leitura_cotada": {
     "direcao": "MANTEM",
@@ -1192,12 +1223,10 @@
     "votando": 2
    },
    "mesma_aposta": [
-    "EURUSD",
-    "EURGBP",
-    "EURJPY",
-    "EURAUD",
-    "EURNZD",
-    "EURCAD"
+    "USDCHF",
+    "GBPCHF",
+    "CADCHF",
+    "CHFJPY"
    ]
   },
   {
@@ -1255,6 +1284,7 @@
    },
    "mesma_aposta": [
     "AUDUSD",
+    "EURAUD",
     "AUDJPY",
     "AUDNZD",
     "AUDCAD",
@@ -1287,6 +1317,7 @@
    },
    "mesma_aposta": [
     "NZDUSD",
+    "EURNZD",
     "NZDJPY",
     "NZDCAD",
     "NZDCHF"
@@ -1346,6 +1377,7 @@
    },
    "mesma_aposta": [
     "USDCHF",
+    "EURCHF",
     "CADCHF",
     "CHFJPY"
    ]
@@ -1376,6 +1408,7 @@
    },
    "mesma_aposta": [
     "AUDUSD",
+    "EURAUD",
     "GBPAUD",
     "AUDNZD",
     "AUDCAD",
@@ -1408,6 +1441,7 @@
    },
    "mesma_aposta": [
     "AUDUSD",
+    "EURAUD",
     "GBPAUD",
     "AUDJPY",
     "AUDCAD",
@@ -1440,6 +1474,7 @@
    },
    "mesma_aposta": [
     "AUDUSD",
+    "EURAUD",
     "GBPAUD",
     "AUDJPY",
     "AUDNZD",
@@ -1472,6 +1507,7 @@
    },
    "mesma_aposta": [
     "AUDUSD",
+    "EURAUD",
     "GBPAUD",
     "AUDJPY",
     "AUDNZD",
@@ -1504,6 +1540,7 @@
    },
    "mesma_aposta": [
     "NZDUSD",
+    "EURNZD",
     "GBPNZD",
     "NZDCAD",
     "NZDCHF"
@@ -1535,6 +1572,7 @@
    },
    "mesma_aposta": [
     "NZDUSD",
+    "EURNZD",
     "GBPNZD",
     "NZDJPY",
     "NZDCHF"
@@ -1566,6 +1604,7 @@
    },
    "mesma_aposta": [
     "NZDUSD",
+    "EURNZD",
     "GBPNZD",
     "NZDJPY",
     "NZDCAD"
@@ -1626,6 +1665,7 @@
    },
    "mesma_aposta": [
     "USDCHF",
+    "EURCHF",
     "GBPCHF",
     "CHFJPY"
    ]
@@ -1656,6 +1696,7 @@
    },
    "mesma_aposta": [
     "USDCHF",
+    "EURCHF",
     "GBPCHF",
     "CADCHF"
    ]
@@ -1671,9 +1712,9 @@
     "teto_pct": 75
    },
    "geo": {
-    "z_conflito": null,
-    "estado": "not connected",
-    "manchete": null,
+    "z_conflito": 0.47,
+    "estado": "quiet (z +0.5)",
+    "manchete": "U . S . attacks leave IRGC soldiers dead in Iran Kermanshah Province",
     "regra": "conflict spike = safe haven: gold up, NQ and ES down (declared, not measured)"
    },
    "motivos": [
@@ -1798,9 +1839,9 @@
     "teto_pct": 75
    },
    "geo": {
-    "z_conflito": null,
-    "estado": "not connected",
-    "manchete": null,
+    "z_conflito": 0.47,
+    "estado": "quiet (z +0.5)",
+    "manchete": "U . S . attacks leave IRGC soldiers dead in Iran Kermanshah Province",
     "regra": "conflict spike = safe haven: gold up, NQ and ES down (declared, not measured)"
    },
    "motivos": [
@@ -1925,9 +1966,9 @@
     "teto_pct": 75
    },
    "geo": {
-    "z_conflito": null,
-    "estado": "not connected",
-    "manchete": null,
+    "z_conflito": 0.47,
+    "estado": "quiet (z +0.5)",
+    "manchete": "U . S . attacks leave IRGC soldiers dead in Iran Kermanshah Province",
     "regra": "conflict spike = safe haven: gold up, NQ and ES down (declared, not measured)"
    },
    "motivos": [
