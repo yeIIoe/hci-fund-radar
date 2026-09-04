@@ -1,14 +1,14 @@
 {
- "gerado_em": "2026-09-04T04:55:18.169328+00:00",
+ "gerado_em": "2026-09-04T09:18:16.217254+00:00",
  "fonte": "fxstreet",
  "aviso_fonte": "FXStreet calendar backend: released value, consensus, previous and revision for the 8 majors, with the delivery delay measured per event. Widget backend, not a licensed product — no SLA. Fallback is the Forex Factory feed.",
  "latencia_medida": {
-  "n": 130,
+  "n": 139,
   "p25": 80.0,
-  "mediana": 210.0,
-  "p75": 1082.0,
+  "mediana": 188.0,
+  "p75": 850.0,
   "p90": 8449.0,
-  "n_alta": 14,
+  "n_alta": 15,
   "mediana_alta": 34.0,
   "p90_alta": 13965.0
  },
@@ -20,7 +20,7 @@
   },
   "nota": "corte por revisao tipica (ALFRED) ainda nao ligado; a surpresa normalizada da FXStreet vai junto, rotulada como deles"
  },
- "total": 327,
+ "total": 328,
  "eventos": [
   {
    "titulo": "G20 Finance Ministers and Central Bank Governors Meeting",
@@ -4119,7 +4119,7 @@
    "melhor_que_esperado": null,
    "empurrao": 0.0,
    "empurrao_texto": "no bar to measure against",
-   "atraso_s": 1983.0,
+   "atraso_s": 52520.0,
    "discurso": false,
    "data_a_confirmar": false,
    "preliminar": false,
@@ -4187,11 +4187,11 @@
    "moeda": "EUR",
    "impacto": "Medium",
    "quando_utc": "2026-09-04T06:00:00+00:00",
-   "estado": "AGENDADO",
+   "estado": "SEM_BARRA",
    "previsao": null,
    "anterior": 6.5,
-   "resultado": null,
-   "revisado": null,
+   "resultado": 13.1,
+   "revisado": 7.2,
    "unidade": "%",
    "familia": "producao",
    "familia_peso": 3,
@@ -4203,95 +4203,35 @@
    "melhor_que_esperado": null,
    "empurrao": 0.0,
    "empurrao_texto": "no bar to measure against",
-   "atraso_s": null,
+   "atraso_s": 138.0,
    "discurso": false,
    "data_a_confirmar": false,
    "preliminar": false,
    "fonte": "fxstreet",
-   "cenarios": [
-    {
-     "caso": "above forecast",
-     "empurra": "TIGHTENING",
-     "peso": 3
-    },
-    {
-     "caso": "in line",
-     "empurra": "nothing — already in the price",
-     "peso": 0
-    },
-    {
-     "caso": "below forecast",
-     "empurra": "EASING",
-     "peso": 3
-    }
-   ]
+   "cenarios": []
   },
   {
    "titulo": "Factory Orders s.a. (MoM)",
    "moeda": "EUR",
    "impacto": "Medium",
    "quando_utc": "2026-09-04T06:00:00+00:00",
-   "estado": "AGENDADO",
+   "estado": "DIVULGADO",
    "previsao": 0.3,
    "anterior": 3.1,
-   "resultado": null,
-   "revisado": null,
+   "resultado": 2.5,
+   "revisado": 3.7,
    "unidade": "%",
    "familia": "producao",
    "familia_peso": 3,
    "familia_sinal": 1,
    "porque": "Lower weight in a service economy; still matters in Germany and Japan.",
-   "classe": null,
-   "diferenca": null,
-   "surpresa_normalizada": null,
-   "melhor_que_esperado": null,
-   "empurrao": 0.0,
-   "empurrao_texto": "no bar to measure against",
-   "atraso_s": null,
-   "discurso": false,
-   "data_a_confirmar": false,
-   "preliminar": false,
-   "fonte": "fxstreet",
-   "cenarios": [
-    {
-     "caso": "above forecast",
-     "empurra": "TIGHTENING",
-     "peso": 3
-    },
-    {
-     "caso": "in line",
-     "empurra": "nothing — already in the price",
-     "peso": 0
-    },
-    {
-     "caso": "below forecast",
-     "empurra": "EASING",
-     "peso": 3
-    }
-   ]
-  },
-  {
-   "titulo": "Industrial Output (MoM)",
-   "moeda": "EUR",
-   "impacto": "Low",
-   "quando_utc": "2026-09-04T06:45:00+00:00",
-   "estado": "AGENDADO",
-   "previsao": null,
-   "anterior": 0.1,
-   "resultado": null,
-   "revisado": null,
-   "unidade": "%",
-   "familia": null,
-   "familia_peso": null,
-   "familia_sinal": null,
-   "porque": "indicator not mapped to a family — it does not enter the reading, and that is declared",
-   "classe": null,
-   "diferenca": null,
-   "surpresa_normalizada": null,
-   "melhor_que_esperado": null,
-   "empurrao": 0.0,
-   "empurrao_texto": "no bar to measure against",
-   "atraso_s": null,
+   "classe": "MUITO_ACIMA",
+   "diferenca": 2.2,
+   "surpresa_normalizada": 0.91,
+   "melhor_que_esperado": true,
+   "empurrao": 1.5,
+   "empurrao_texto": "pushes toward TIGHTENING",
+   "atraso_s": 48.0,
    "discurso": false,
    "data_a_confirmar": false,
    "preliminar": false,
@@ -4303,98 +4243,38 @@
    "moeda": "EUR",
    "impacto": "Low",
    "quando_utc": "2026-09-04T07:00:00+00:00",
-   "estado": "AGENDADO",
+   "estado": "DIVULGADO",
    "previsao": 0.7,
    "anterior": 0.9,
-   "resultado": null,
+   "resultado": 0.8,
    "revisado": null,
    "unidade": "%",
    "familia": "pib",
    "familia_peso": 6,
    "familia_sinal": 1,
    "porque": "Confirms the state, but it is LATE — it covers a quarter that already ended. It moves the decision little, because the bank already saw the monthly parts.",
-   "classe": null,
-   "diferenca": null,
-   "surpresa_normalizada": null,
-   "melhor_que_esperado": null,
+   "classe": "EM_LINHA",
+   "diferenca": 0.1,
+   "surpresa_normalizada": 1.25,
+   "melhor_que_esperado": true,
    "empurrao": 0.0,
-   "empurrao_texto": "no bar to measure against",
-   "atraso_s": null,
+   "empurrao_texto": "came in as expected — does not change what was already priced",
+   "atraso_s": 113.0,
    "discurso": false,
    "data_a_confirmar": false,
    "preliminar": false,
    "fonte": "fxstreet",
-   "cenarios": [
-    {
-     "caso": "above forecast",
-     "empurra": "TIGHTENING",
-     "peso": 6
-    },
-    {
-     "caso": "in line",
-     "empurra": "nothing — already in the price",
-     "peso": 0
-    },
-    {
-     "caso": "below forecast",
-     "empurra": "EASING",
-     "peso": 6
-    }
-   ]
-  },
-  {
-   "titulo": "Unemployment Rate s.a (MoM)",
-   "moeda": "CHF",
-   "impacto": "Low",
-   "quando_utc": "2026-09-04T08:00:00+00:00",
-   "estado": "AGENDADO",
-   "previsao": null,
-   "anterior": 3.1,
-   "resultado": null,
-   "revisado": null,
-   "unidade": "%",
-   "familia": "desemprego",
-   "familia_peso": 8,
-   "familia_sinal": -1,
-   "porque": "INVERTED sign: unemployment above forecast means slack, and slack removes the urgency to tighten.",
-   "classe": null,
-   "diferenca": null,
-   "surpresa_normalizada": null,
-   "melhor_que_esperado": null,
-   "empurrao": 0.0,
-   "empurrao_texto": "no bar to measure against",
-   "atraso_s": null,
-   "discurso": false,
-   "data_a_confirmar": false,
-   "preliminar": false,
-   "fonte": "fxstreet",
-   "cenarios": [
-    {
-     "caso": "above forecast",
-     "empurra": "EASING",
-     "peso": 8
-    },
-    {
-     "caso": "in line",
-     "empurra": "nothing — already in the price",
-     "peso": 0
-    },
-    {
-     "caso": "below forecast",
-     "empurra": "TIGHTENING",
-     "peso": 8
-    }
-   ]
+   "cenarios": []
   },
   {
    "titulo": "Retail Sales n.s.a (YoY)",
    "moeda": "EUR",
    "impacto": "Low",
    "quando_utc": "2026-09-04T08:00:00+00:00",
-   "estado": "AGENDADO",
+   "estado": "SEM_BARRA",
    "previsao": null,
    "anterior": 3.1,
-   "resultado": null,
+   "resultado": 0.8,
    "revisado": null,
    "unidade": "%",
    "familia": "varejo",
@@ -4407,123 +4287,75 @@
    "melhor_que_esperado": null,
    "empurrao": 0.0,
    "empurrao_texto": "no bar to measure against",
-   "atraso_s": null,
+   "atraso_s": 83.0,
    "discurso": false,
    "data_a_confirmar": false,
    "preliminar": false,
    "fonte": "fxstreet",
-   "cenarios": [
-    {
-     "caso": "above forecast",
-     "empurra": "TIGHTENING",
-     "peso": 4
-    },
-    {
-     "caso": "in line",
-     "empurra": "nothing — already in the price",
-     "peso": 0
-    },
-    {
-     "caso": "below forecast",
-     "empurra": "EASING",
-     "peso": 4
-    }
-   ]
+   "cenarios": []
   },
   {
    "titulo": "Retail Sales s.a. (MoM)",
    "moeda": "EUR",
    "impacto": "Low",
    "quando_utc": "2026-09-04T08:00:00+00:00",
-   "estado": "AGENDADO",
+   "estado": "DIVULGADO",
    "previsao": 0.2,
    "anterior": -0.1,
-   "resultado": null,
-   "revisado": null,
+   "resultado": -0.4,
+   "revisado": -0.2,
    "unidade": "%",
    "familia": "varejo",
    "familia_peso": 4,
    "familia_sinal": 1,
    "porque": "Domestic demand, which is what the policy rate actually controls.",
-   "classe": null,
-   "diferenca": null,
-   "surpresa_normalizada": null,
-   "melhor_que_esperado": null,
-   "empurrao": 0.0,
-   "empurrao_texto": "no bar to measure against",
-   "atraso_s": null,
+   "classe": "MUITO_ABAIXO",
+   "diferenca": -0.6,
+   "surpresa_normalizada": -1.05,
+   "melhor_que_esperado": false,
+   "empurrao": -0.8,
+   "empurrao_texto": "pushes toward EASING",
+   "atraso_s": 447.0,
    "discurso": false,
    "data_a_confirmar": false,
    "preliminar": false,
    "fonte": "fxstreet",
-   "cenarios": [
-    {
-     "caso": "above forecast",
-     "empurra": "TIGHTENING",
-     "peso": 4
-    },
-    {
-     "caso": "in line",
-     "empurra": "nothing — already in the price",
-     "peso": 0
-    },
-    {
-     "caso": "below forecast",
-     "empurra": "EASING",
-     "peso": 4
-    }
-   ]
+   "cenarios": []
   },
   {
    "titulo": "S&P Global Construction PMI",
    "moeda": "GBP",
    "impacto": "Low",
    "quando_utc": "2026-09-04T08:30:00+00:00",
-   "estado": "AGENDADO",
+   "estado": "DIVULGADO",
    "previsao": 45.9,
    "anterior": 44.7,
-   "resultado": null,
+   "resultado": 44.3,
    "revisado": null,
    "unidade": null,
    "familia": "pmi",
    "familia_peso": 5,
    "familia_sinal": 1,
    "porque": "A survey, not hard data, and it lands before everything else. Above 50 means expansion. Useful for DIRECTION and EARLINESS, not magnitude. The PRICES PAID sub-index counts as inflation, not as activity.",
-   "classe": null,
-   "diferenca": null,
-   "surpresa_normalizada": null,
-   "melhor_que_esperado": null,
+   "classe": "EM_LINHA",
+   "diferenca": -1.6,
+   "surpresa_normalizada": -0.48,
+   "melhor_que_esperado": false,
    "empurrao": 0.0,
-   "empurrao_texto": "no bar to measure against",
-   "atraso_s": null,
+   "empurrao_texto": "came in as expected — does not change what was already priced",
+   "atraso_s": 111.0,
    "discurso": false,
    "data_a_confirmar": false,
    "preliminar": false,
    "fonte": "fxstreet",
-   "cenarios": [
-    {
-     "caso": "above forecast",
-     "empurra": "TIGHTENING",
-     "peso": 5
-    },
-    {
-     "caso": "in line",
-     "empurra": "nothing — already in the price",
-     "peso": 0
-    },
-    {
-     "caso": "below forecast",
-     "empurra": "EASING",
-     "peso": 5
-    }
-   ]
+   "cenarios": []
   },
   {
    "titulo": "BoE's Governor Bailey speech",
    "moeda": "GBP",
    "impacto": "High",
    "quando_utc": "2026-09-04T08:50:00+00:00",
-   "estado": "AGENDADO",
+   "estado": "AGUARDANDO",
    "previsao": null,
    "anterior": null,
    "resultado": null,
@@ -4551,7 +4383,7 @@
    "moeda": "EUR",
    "impacto": "Medium",
    "quando_utc": "2026-09-04T09:00:00+00:00",
-   "estado": "AGENDADO",
+   "estado": "AGUARDANDO",
    "previsao": null,
    "anterior": null,
    "resultado": null,
@@ -4579,98 +4411,66 @@
    "moeda": "EUR",
    "impacto": "Medium",
    "quando_utc": "2026-09-04T09:00:00+00:00",
-   "estado": "AGENDADO",
+   "estado": "DIVULGADO",
    "previsao": 0.3,
    "anterior": -0.3,
-   "resultado": null,
-   "revisado": null,
+   "resultado": -0.6,
+   "revisado": 0.2,
    "unidade": "%",
    "familia": "varejo",
    "familia_peso": 4,
    "familia_sinal": 1,
    "porque": "Domestic demand, which is what the policy rate actually controls.",
-   "classe": null,
-   "diferenca": null,
-   "surpresa_normalizada": null,
-   "melhor_que_esperado": null,
-   "empurrao": 0.0,
-   "empurrao_texto": "no bar to measure against",
-   "atraso_s": null,
+   "classe": "MUITO_ABAIXO",
+   "diferenca": -0.9,
+   "surpresa_normalizada": -4.64,
+   "melhor_que_esperado": false,
+   "empurrao": -2.0,
+   "empurrao_texto": "pushes toward EASING",
+   "atraso_s": 31.0,
    "discurso": false,
    "data_a_confirmar": false,
    "preliminar": false,
    "fonte": "fxstreet",
-   "cenarios": [
-    {
-     "caso": "above forecast",
-     "empurra": "TIGHTENING",
-     "peso": 4
-    },
-    {
-     "caso": "in line",
-     "empurra": "nothing — already in the price",
-     "peso": 0
-    },
-    {
-     "caso": "below forecast",
-     "empurra": "EASING",
-     "peso": 4
-    }
-   ]
+   "cenarios": []
   },
   {
    "titulo": "Retail Sales (YoY)",
    "moeda": "EUR",
    "impacto": "High",
    "quando_utc": "2026-09-04T09:00:00+00:00",
-   "estado": "AGENDADO",
+   "estado": "DIVULGADO",
    "previsao": 1.1,
    "anterior": 0.7,
-   "resultado": null,
-   "revisado": null,
+   "resultado": 0.6,
+   "revisado": 1.4,
    "unidade": "%",
    "familia": "varejo",
    "familia_peso": 4,
    "familia_sinal": 1,
    "porque": "Domestic demand, which is what the policy rate actually controls.",
-   "classe": null,
-   "diferenca": null,
-   "surpresa_normalizada": null,
-   "melhor_que_esperado": null,
-   "empurrao": 0.0,
-   "empurrao_texto": "no bar to measure against",
-   "atraso_s": null,
+   "classe": "MUITO_ABAIXO",
+   "diferenca": -0.5,
+   "surpresa_normalizada": -1.53,
+   "melhor_que_esperado": false,
+   "empurrao": -4.0,
+   "empurrao_texto": "pushes toward EASING",
+   "atraso_s": 221.0,
    "discurso": false,
    "data_a_confirmar": false,
    "preliminar": false,
    "fonte": "fxstreet",
-   "cenarios": [
-    {
-     "caso": "above forecast",
-     "empurra": "TIGHTENING",
-     "peso": 4
-    },
-    {
-     "caso": "in line",
-     "empurra": "nothing — already in the price",
-     "peso": 0
-    },
-    {
-     "caso": "below forecast",
-     "empurra": "EASING",
-     "peso": 4
-    }
-   ]
+   "cenarios": []
   },
   {
    "titulo": "Unemployment Rate (QoQ)",
    "moeda": "EUR",
    "impacto": "Low",
    "quando_utc": "2026-09-04T09:00:00+00:00",
-   "estado": "AGENDADO",
+   "estado": "SEM_BARRA",
    "previsao": null,
    "anterior": 10.6,
-   "resultado": null,
+   "resultado": 7.9,
    "revisado": null,
    "unidade": "%",
    "familia": "desemprego",
@@ -4683,28 +4483,12 @@
    "melhor_que_esperado": null,
    "empurrao": 0.0,
    "empurrao_texto": "no bar to measure against",
-   "atraso_s": null,
+   "atraso_s": 126.0,
    "discurso": false,
    "data_a_confirmar": false,
    "preliminar": false,
    "fonte": "fxstreet",
-   "cenarios": [
-    {
-     "caso": "above forecast",
-     "empurra": "EASING",
-     "peso": 8
-    },
-    {
-     "caso": "in line",
-     "empurra": "nothing — already in the price",
-     "peso": 0
-    },
-    {
-     "caso": "below forecast",
-     "empurra": "TIGHTENING",
-     "peso": 8
-    }
-   ]
+   "cenarios": []
   },
   {
    "titulo": "Gross Domestic Product (QoQ)",
@@ -5909,6 +5693,50 @@
    "preliminar": false,
    "fonte": "fxstreet",
    "cenarios": []
+  },
+  {
+   "titulo": "Unemployment Rate s.a (MoM)",
+   "moeda": "CHF",
+   "impacto": "Low",
+   "quando_utc": "2026-09-07T08:00:00+00:00",
+   "estado": "AGENDADO",
+   "previsao": null,
+   "anterior": 3.1,
+   "resultado": null,
+   "revisado": null,
+   "unidade": "%",
+   "familia": "desemprego",
+   "familia_peso": 8,
+   "familia_sinal": -1,
+   "porque": "INVERTED sign: unemployment above forecast means slack, and slack removes the urgency to tighten.",
+   "classe": null,
+   "diferenca": null,
+   "surpresa_normalizada": null,
+   "melhor_que_esperado": null,
+   "empurrao": 0.0,
+   "empurrao_texto": "no bar to measure against",
+   "atraso_s": null,
+   "discurso": false,
+   "data_a_confirmar": false,
+   "preliminar": false,
+   "fonte": "fxstreet",
+   "cenarios": [
+    {
+     "caso": "above forecast",
+     "empurra": "EASING",
+     "peso": 8
+    },
+    {
+     "caso": "in line",
+     "empurra": "nothing — already in the price",
+     "peso": 0
+    },
+    {
+     "caso": "below forecast",
+     "empurra": "TIGHTENING",
+     "peso": 8
+    }
+   ]
   },
   {
    "titulo": "Sentix Investor Confidence",
@@ -7667,6 +7495,34 @@
    "cenarios": []
   },
   {
+   "titulo": "Industrial Output (MoM)",
+   "moeda": "EUR",
+   "impacto": "Low",
+   "quando_utc": "2026-09-09T06:45:00+00:00",
+   "estado": "AGENDADO",
+   "previsao": null,
+   "anterior": 0.1,
+   "resultado": null,
+   "revisado": null,
+   "unidade": "%",
+   "familia": null,
+   "familia_peso": null,
+   "familia_sinal": null,
+   "porque": "indicator not mapped to a family — it does not enter the reading, and that is declared",
+   "classe": null,
+   "diferenca": null,
+   "surpresa_normalizada": null,
+   "melhor_que_esperado": null,
+   "empurrao": 0.0,
+   "empurrao_texto": "no bar to measure against",
+   "atraso_s": null,
+   "discurso": false,
+   "data_a_confirmar": false,
+   "preliminar": false,
+   "fonte": "fxstreet",
+   "cenarios": []
+  },
+  {
    "titulo": "Industrial Production (YoY)",
    "moeda": "EUR",
    "impacto": "Low",
@@ -9230,6 +9086,34 @@
    "titulo": "ECB Press Conference",
    "moeda": "EUR",
    "impacto": "High",
+   "quando_utc": "2026-09-10T12:45:00+00:00",
+   "estado": "AGENDADO",
+   "previsao": null,
+   "anterior": null,
+   "resultado": null,
+   "revisado": null,
+   "unidade": null,
+   "familia": "coletiva",
+   "familia_peso": 0,
+   "familia_sinal": 1,
+   "porque": "Where the GUIDANCE usually appears. Weight is 0 because how much it matters varies by central bank — measure before scoring.",
+   "classe": null,
+   "diferenca": null,
+   "surpresa_normalizada": null,
+   "melhor_que_esperado": null,
+   "empurrao": 0.0,
+   "empurrao_texto": "a speech — no number to measure; the text is the release",
+   "atraso_s": null,
+   "discurso": true,
+   "data_a_confirmar": false,
+   "preliminar": false,
+   "fonte": "fxstreet",
+   "cenarios": []
+  },
+  {
+   "titulo": "ECB's Nagel speech",
+   "moeda": "EUR",
+   "impacto": "Medium",
    "quando_utc": "2026-09-10T12:45:00+00:00",
    "estado": "AGENDADO",
    "previsao": null,
