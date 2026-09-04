@@ -58,7 +58,7 @@ SAIDA = os.path.join(AQUI, "data", "geopolitica.json")
 UA = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/128.0"}
 API = "https://api.gdeltproject.org/api/v2/doc/doc?"
 CACHE_H = 3
-PAUSA_S = 8                   # 04/set: duas coletas simultaneas tomaram 429 em tudo; uma so, a 8 s, passa
+PAUSA_S = 12                  # 04/set: o GDELT limita por IP; 8 s ainda tomou 429 apos rajadas anteriores
 ORCAMENTO_S = 8 * 60          # a Action tem 15 min para a cadeia inteira; isto para em 8 e grava o que tem
 
 PAIS = {
@@ -205,11 +205,9 @@ def main():
             try:
                 v = volume(q)
                 time.sleep(PAUSA_S)
-                # manchetes so do conflito (o tema que move); energia entra pelo volume
-                mh = manchetes(q, 3) if tema == "conflito" else []
-                if tema == "conflito":
-                    time.sleep(PAUSA_S)
-                bloco["temas"][tema] = {"volume": v, "manchetes": mh}
+                # manchetes por moeda desligadas (04/set): so o mundo traz manchetes —
+                # cada chamada a menos e uma chance a menos de 429
+                bloco["temas"][tema] = {"volume": v, "manchetes": []}
             except Exception as e:
                 erros.append("%s/%s: %s" % (moeda, tema, str(e)[:60]))
                 bloco["temas"][tema] = {"erro": str(e)[:80]}
@@ -229,9 +227,18 @@ def main():
 
     if erros:
         print("  ! erros: %d — %s" % (len(erros), "; ".join(erros[:4])))
-    if not saida or all(not (b["temas"].get("conflito") or {}).get("volume") for b in saida.values()):
+    def tem_volume(b):
+        return any(((b["temas"].get(t) or {}).get("volume") or {}).get("z") is not None for t in TEMAS)
+    com_dado = [m for m, b in saida.items() if tem_volume(b)]
+    if not com_dado:
         print("  !! GDELT nao respondeu nada util — arquivo anterior preservado")
         sys.exit(1)
+    # coleta PARCIAL vale (04/set: 429 por IP deixava tudo de fora). Moeda sem volume sai do
+    # arquivo — no sentimento ela le "not connected", nunca zero.
+    for m in list(saida):
+        if m not in com_dado:
+            del saida[m]
+    print("  moedas com dado nesta rodada: %s" % ", ".join(com_dado))
 
     rel = {"gerado_em": agora.isoformat(),
            "fonte": "GDELT DOC 2.0 API (free, no key, 15-min updates); English-language sources",
