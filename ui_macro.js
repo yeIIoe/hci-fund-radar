@@ -1370,8 +1370,9 @@
      .mac-nav-rotulo{display:none}
    }
    /* --- tela de trabalho dos pares: lista a esquerda, detalhe fixo a direita --- */
-   .mac-duas{display:grid;grid-template-columns:minmax(210px,270px) 1fr;gap:18px;
+   .mac-duas{display:grid;grid-template-columns:minmax(210px,270px) minmax(0,1fr);gap:18px;
      align-items:start}
+   .mac-detalhe{min-width:0}
    .mac-lista{display:flex;flex-direction:column;gap:3px;max-height:74vh;overflow-y:auto;
      padding-right:4px}
    .mac-item{display:grid;grid-template-columns:1fr auto;grid-template-rows:auto auto;
@@ -1401,8 +1402,19 @@
    .mac-det-dado.e-velho{color:#ffb84d;font-weight:600}
    .mac-det-nota{font-size:13px;opacity:.72;line-height:1.55;margin:8px 0 18px}
 
-   .mac-pernas{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-   .mac-perna{border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:14px 15px}
+   /* minmax(0,1fr) e min-width:0: sem isso a tabela de correlacao empurrava o cartao para
+      fora da tela em janela estreita (Eduardo, 04/set, janela de ~950 px) */
+   .mac-pernas{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px}
+   .mac-perna{border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:14px 15px;min-width:0}
+   .mac-perna .mac-eua-tabela{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+   .mac-corr th,.mac-corr td{white-space:nowrap;font-size:12px;padding:6px 8px}
+   .mac-corr td:first-child{font-size:12px}
+   .mac-det-nota{overflow-wrap:anywhere}
+   @media (max-width:1180px){
+     .mac-pernas{grid-template-columns:1fr}
+     .mac-duas{grid-template-columns:minmax(180px,230px) minmax(0,1fr)}
+     .mac-det-par{font-size:26px}
+   }
    .mac-perna-papel{display:block;font-size:10px;letter-spacing:.11em;text-transform:uppercase;
      opacity:.4;margin-bottom:6px}
    .mac-perna-nome{display:block;font-size:17px;margin-bottom:3px}
