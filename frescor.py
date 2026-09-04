@@ -171,8 +171,7 @@ if __name__ == "__main__":
         print()
         print("  O painel NAO deve publicar isto como se fosse atual.")
         if estrito:
-            print("  --estrito: falhando a execucao de proposito.")
-            sys.exit(1)
+            print("  --estrito: falhando a execucao de proposito (depois de gravar o relatorio).")
     else:
         print("  ✅ todas as fontes dentro da tolerancia.")
 
@@ -194,3 +193,7 @@ if __name__ == "__main__":
               ensure_ascii=False, indent=1)
     print()
     print("  gravado: data/frescor.json")
+    # 04-set-2026: o exit(1) vinha ANTES do relatorio — em --estrito o arquivo nunca era
+    # gravado, e o motivo da falha so existia no log (que exige login). Agora grava e falha.
+    if velhos and estrito:
+        sys.exit(1)

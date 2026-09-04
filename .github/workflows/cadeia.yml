@@ -50,8 +50,11 @@ jobs:
       # Este passo confere a ULTIMA DATA DENTRO de cada arquivo e FALHA de proposito.
       # Melhor a Action vermelha do que o painel publicando dado velho como atual.
       - name: guarda de frescor
+        id: guarda
+        continue-on-error: true
         run: python frescor.py --estrito
       - name: commit
+        if: steps.guarda.outcome == 'success'
         run: |
           git config user.name "hci-bot"
           git config user.email "actions@users.noreply.github.com"
@@ -59,3 +62,17 @@ jobs:
           git commit -m "cadeia $(date -u +%Y-%m-%dT%H:%M)Z" || echo "sem mudanca"
           git pull --rebase origin main || true
           git push
+      # 04-set-2026: a guarda falhou 2x/dia por uma semana e o motivo so era visivel logado.
+      # Quando ela falha, publica SO o relatorio dela (data/frescor.json) — nunca os dados
+      # velhos — e ai falha, para o e-mail continuar chegando e o arquivo dizer qual fonte.
+      - name: publica o relatorio da guarda e falha
+        if: steps.guarda.outcome == 'failure'
+        run: |
+          git config user.name "hci-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/frescor.json
+          git commit -m "guarda de frescor FALHOU $(date -u +%Y-%m-%dT%H:%M)Z — so o relatorio" || echo "relatorio igual"
+          git pull --rebase origin main || true
+          git push || true
+          echo "guarda de frescor falhou — veja data/frescor.json (fora_da_tolerancia)"
+          exit 1
