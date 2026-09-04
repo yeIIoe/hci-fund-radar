@@ -41,6 +41,26 @@
     </nav>
 
 
+  <!-- Aberto do disco (file://) o painel nao funciona: o Chrome bloqueia fetch() dos JSONs de
+       dados, e nada e desenhado. Aconteceu em 04/set. O aviso vale mais que a pagina crua. -->
+  <script>
+    if (location.protocol === "file:") {
+      document.addEventListener("DOMContentLoaded", function () {
+        var a = document.createElement("div");
+        a.setAttribute("style", "position:fixed;inset:0;z-index:9999;background:#090c13;color:#eef2f8;" +
+          "font:16px/1.6 system-ui,sans-serif;padding:48px 32px;text-align:center");
+        a.innerHTML = "<div style='max-width:640px;margin:0 auto'>" +
+          "<h1 style='font-size:22px;margin:0 0 14px'>Este painel não funciona aberto do disco</h1>" +
+          "<p>Ele busca os dados por HTTP, e o navegador bloqueia isso em arquivo local (<code>file://</code>). " +
+          "Por isso aparece cru e sem leitura.</p>" +
+          "<p>Abra a versão publicada, que se atualiza sozinha:<br>" +
+          "<a href='https://yeiioe.github.io/hci-fund-radar/' style='color:#5eead4;font-size:18px'>yeiioe.github.io/hci-fund-radar</a></p>" +
+          "<p style='opacity:.6;font-size:13px'>Para testar localmente, sirva a pasta: <code>python -m http.server 8797</code> " +
+          "e abra <code>http://localhost:8797</code>.</p></div>";
+        document.body.appendChild(a);
+      });
+    }
+  </script>
   <main id="top">
     <div id="timeCutBanner" class="timecut-banner" hidden>
       <strong>TIME CUT ACTIVE</strong>
