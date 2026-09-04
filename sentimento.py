@@ -54,7 +54,8 @@ from leitor_pares import PARES, MOEDAS, Leitura, le_par                   # noqa
 
 SAIDA = os.path.join(AQUI, "data", "sentimento.json")
 BANCOS = os.path.join(AQUI, "data", "bancos_centrais.json")
-DISCURSOS = os.path.join(AQUI, "data", "fed_discursos.json")
+DISCURSOS = os.path.join(AQUI, "data", "bc_discursos.json")      # todas as moedas conectadas
+DISCURSOS_FED = os.path.join(AQUI, "data", "fed_discursos.json")  # reserva, so o Fed
 CAL_LOCAL = os.path.join(AQUI, "data", "calendario_resultado.json")
 
 JANELA_DIAS = 42
@@ -130,13 +131,25 @@ def dimensao_dados(ev, moeda, agora):
 
 
 def dimensao_texto(moeda, discursos, agora):
-    if moeda != "USD":
-        return None                                   # nao conectado — buraco declarado
-    itens = (discursos or {}).get("itens", [])
+    """Falas dos dirigentes desta moeda. So conta se o feed do banco estiver conectado —
+    AUD, NZD e CHF saem None (buraco declarado), nunca zero."""
+    D = discursos or {}
+    status = (D.get("status_fontes") or {}).get(moeda)
+    itens = [x for x in D.get("itens", []) if (x.get("moeda") or "USD") == moeda]
+    if status and str(status).startswith("not connected"):
+        return None
+    if not itens and moeda != "USD" and not status:
+        return None                                   # feed nem tentado — nao conectado
     inicio = (agora - dt.timedelta(days=JANELA_DIAS)).date().isoformat()
     itens = [x for x in itens if (x.get("data") or "") >= inicio]
+    if not itens:
+        # silencio nao e voto: sem fala na janela, a dimensao nao conta — nem para MANTEM.
+        # Antes contava, e o GBP saia com "75% em manutencao" tendo zero discursos lidos.
+        return None
     h = sum(int(x.get("marcadores_hawkish") or 0) for x in itens)
     d = sum(int(x.get("marcadores_dovish") or 0) for x in itens)
+    if h == 0 and d == 0:
+        return None                                   # falas sem marcador de politica: idem
     direcao = "SOBE" if h > d else "CORTA" if d > h else "MANTEM"
     return {"direcao": direcao, "hawkish": h, "dovish": d, "n": len(itens),
             "oradores": [x.get("orador") for x in itens][:6],
@@ -296,7 +309,7 @@ def main():
     print("=" * 88)
     ev, origem = eventos_janela(agora)
     bancos = carrega_json(BANCOS)
-    discursos = carrega_json(DISCURSOS)
+    discursos = carrega_json(DISCURSOS) or carrega_json(DISCURSOS_FED)
     print("  eventos na janela: %d  (%s)" % (len(ev), origem))
 
     leituras = {m: le_moeda(m, ev, bancos, discursos, agora) for m in MOEDAS}

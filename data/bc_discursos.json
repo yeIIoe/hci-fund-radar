@@ -1,0 +1,364 @@
+{
+ "gerado_em": "2026-09-04T13:43:58.472245+00:00",
+ "status_fontes": {
+  "USD": "ok",
+  "EUR": "ok",
+  "GBP": "ok",
+  "JPY": "ok",
+  "CAD": "ok",
+  "AUD": "not connected: RBA returns 403 to automation",
+  "NZD": "not connected: RBNZ returns 403 to automation",
+  "CHF": "not connected: SNB feed not found (404 on the known routes)"
+ },
+ "aviso": "EXTRACAO mecanica de frases de postura e contagem de expressoes em ingles. Nao e interpretacao: um indice grosseiro para apontar QUAL texto ler.",
+ "marcadores": {
+  "hawkish": [
+   "raise the policy rate",
+   "raise rates",
+   "raise interest rates",
+   "rate increase",
+   "hike",
+   "holding the target",
+   "hold the target",
+   "keep the policy rate",
+   "remain restrictive",
+   "restrictive for longer",
+   "premature to",
+   "upside risks to inflation",
+   "inflation remains too high",
+   "not yet time",
+   "patient before",
+   "tighten",
+   "further increases",
+   "additional tightening",
+   "sufficiently restrictive"
+  ],
+  "dovish": [
+   "cut the policy rate",
+   "lower the policy rate",
+   "reduce the policy rate",
+   "rate cut",
+   "cut rates",
+   "cutting rates",
+   "cut interest rates",
+   "lower interest rates",
+   "reduce interest rates",
+   "rate reduction",
+   "ease policy",
+   "easing policy",
+   "appropriate to reduce",
+   "downside risks to employment",
+   "labor market is weakening",
+   "labour market is weakening",
+   "labor market has weakened",
+   "further softening",
+   "insurance cut",
+   "move toward neutral",
+   "less restrictive",
+   "easing cycle"
+  ],
+  "postura": [
+   "i would",
+   "i believe",
+   "i expect",
+   "i support",
+   "i favor",
+   "i favour",
+   "inclined to",
+   "it may be appropriate",
+   "it would be appropriate",
+   "appropriate to",
+   "my view",
+   "i think the committee",
+   "we should",
+   "the committee should",
+   "the council",
+   "governing council",
+   "the mpc",
+   "the bank will",
+   "the bank expects",
+   "we expect",
+   "we will",
+   "we are prepared",
+   "we judge",
+   "our assessment"
+  ]
+ },
+ "itens": [
+  {
+   "moeda": "EUR",
+   "banco": "ECB",
+   "tipo": "speech",
+   "data": "2026-09-04",
+   "orador": "Philip R. Lane",
+   "titulo": "Philip R. Lane: Diversity at the European Central Bank",
+   "link": "https://www.ecb.europa.eu//press/key/date/2026/html/ecb.sp260904~7b9257099b.en.pdf",
+   "caracteres": 297466,
+   "frases": [],
+   "marcadores_hawkish": 0,
+   "marcadores_dovish": 0,
+   "inclinacao_por_contagem": "none"
+  },
+  {
+   "moeda": "GBP",
+   "banco": "BoE",
+   "tipo": "speech",
+   "data": "2026-09-04",
+   "orador": "Andrew Bailey",
+   "titulo": "The institutional form of independent central banks: from history to contemporary challenges - speech by Andrew Bailey",
+   "link": "https://www.bankofengland.co.uk/speech/2026/september/andrew-bailey-keynote-speech-at-lse-trium-anniversary-conference",
+   "caracteres": 25731,
+   "frases": [],
+   "marcadores_hawkish": 0,
+   "marcadores_dovish": 0,
+   "inclinacao_por_contagem": "none"
+  },
+  {
+   "moeda": "USD",
+   "banco": "Fed",
+   "tipo": "speech",
+   "data": "2026-09-03",
+   "orador": "Waller",
+   "titulo": "Waller, The Economic Outlook and Some Comments on My Policy Communication",
+   "link": "https://www.federalreserve.gov/newsevents/speech/waller20260903a.htm",
+   "caracteres": 15278,
+   "frases": [
+    {
+     "frase": "If this continues in the data due over the next two weeks, I would be inclined to support holding the target for the federal funds rate at its current setting.",
+     "hawkish": 1,
+     "dovish": 0
+    },
+    {
+     "frase": "If the incoming data for August show this improvement has been fleeting, then it may be appropriate to raise the policy rate when the FOMC meets on September 15 and 16.",
+     "hawkish": 1,
+     "dovish": 0
+    },
+    {
+     "frase": "But if inflation comes in hot, I would consider a rate hike.",
+     "hawkish": 1,
+     "dovish": 0
+    },
+    {
+     "frase": "But as this would only happen after asset purchases had stopped, I supported forward guidance that strongly signaled the end of those purchases, setting the stage for rate increases in 2022.",
+     "hawkish": 1,
+     "dovish": 0
+    }
+   ],
+   "marcadores_hawkish": 7,
+   "marcadores_dovish": 0,
+   "inclinacao_por_contagem": "hawkish"
+  },
+  {
+   "moeda": "GBP",
+   "banco": "BoE",
+   "tipo": "speech",
+   "data": "2026-09-03",
+   "orador": "Huw Pill",
+   "titulo": "Homophones – Remarks by Huw Pill",
+   "link": "https://www.bankofengland.co.uk/speech/2026/september/remarks-at-the-edinburgh-chamber-of-commerce",
+   "caracteres": 55752,
+   "frases": [
+    {
+     "frase": "Just as we the MPC was wary of allowing markets to ‘get-ahead-of-themselves’ with respect to prospective Bank Rate hikes in the immediate after math of hostilities breaking out in the Gulf, we should also recognise that markets may have already ‘gotten-ahead-of-themselves’ with respect to prospective Bank Rate cuts before the energy price shock.",
+     "hawkish": 1,
+     "dovish": 1
+    },
+    {
+     "frase": "Whether implicitly (via their internal thinking or analysis) or explicitly (via the material published in the Bank Insights article), it is natural for market participants to interpret this set of scenarios as suggesting the MPC is seeking to keep rates on hold but would raise rates aggressively if the inflation outlook were to deteriorate significantly.",
+     "hawkish": 1,
+     "dovish": 0
+    },
+    {
+     "frase": "And the danger exists that the market may lose confidence that expected Bank Rate increases will be implemented just at the time as it starts to entertain doubts that the MPC ability or willingness to bring inflation down to target.",
+     "hawkish": 1,
+     "dovish": 0
+    },
+    {
+     "frase": "So, there is potential ‘wrong-way risk’ here: in this setting, the market will ease financial conditions just when the MPC needs them to tighten.",
+     "hawkish": 1,
+     "dovish": 0
+    },
+    {
+     "frase": "[13] Let the uncertainties resolve themselves so that the MPC can form a reliable view about the level and forward path of energy prices and the strength of the direct, indirect and second-round effects on our target variable (UK CPI inflation), and only then set Bank Rate at a level that best serves the lasting achievement of the 2% inflation target.",
+     "hawkish": 0,
+     "dovish": 0
+    }
+   ],
+   "marcadores_hawkish": 8,
+   "marcadores_dovish": 1,
+   "inclinacao_por_contagem": "hawkish"
+  },
+  {
+   "moeda": "CAD",
+   "banco": "BoC",
+   "tipo": "speech",
+   "data": "2026-09-03",
+   "orador": "BoC",
+   "titulo": "Unveiling of Vertical $20 Bank Note",
+   "link": "https://www.bankofcanada.ca/2026/09/unveiling-of-vertical-20-bank-note/",
+   "caracteres": 7687,
+   "frases": [],
+   "marcadores_hawkish": 0,
+   "marcadores_dovish": 0,
+   "inclinacao_por_contagem": "none"
+  },
+  {
+   "moeda": "CAD",
+   "banco": "BoC",
+   "tipo": "speech",
+   "data": "2026-09-03",
+   "orador": "BoC",
+   "titulo": "Unveiling Canada’s new $20 bank note - Speech (Webcasts)",
+   "link": "https://www.bankofcanada.ca/multimedia/unveiling-canadas-new-20-bank-note-speech-webcasts/",
+   "caracteres": 505,
+   "frases": [],
+   "marcadores_hawkish": 0,
+   "marcadores_dovish": 0,
+   "inclinacao_por_contagem": "none"
+  },
+  {
+   "moeda": "CAD",
+   "banco": "BoC",
+   "tipo": "speech",
+   "data": "2026-09-02",
+   "orador": "Press Conference",
+   "titulo": "Press Conference: Policy Rate Announcement — September 2026",
+   "link": "https://www.bankofcanada.ca/multimedia/press-conference-policy-rate-announcement-september-2026/",
+   "caracteres": 943,
+   "frases": [],
+   "marcadores_hawkish": 0,
+   "marcadores_dovish": 0,
+   "inclinacao_por_contagem": "none"
+  },
+  {
+   "moeda": "CAD",
+   "banco": "BoC",
+   "tipo": "speech",
+   "data": "2026-09-02",
+   "orador": "BoC",
+   "titulo": "Monetary Policy Decision Press Conference Opening Statement",
+   "link": "https://www.bankofcanada.ca/2026/09/opening-statement-2026-09-02/",
+   "caracteres": 5581,
+   "frases": [],
+   "marcadores_hawkish": 1,
+   "marcadores_dovish": 0,
+   "inclinacao_por_contagem": "hawkish"
+  },
+  {
+   "moeda": "USD",
+   "banco": "Fed",
+   "tipo": "speech",
+   "data": "2026-09-01",
+   "orador": "Barr",
+   "titulo": "Barr, Unlocking Opportunities for Workers and Entrepreneurs with a Criminal Record",
+   "link": "https://www.federalreserve.gov/newsevents/speech/barr20260901a.htm",
+   "caracteres": 23895,
+   "frases": [
+    {
+     "frase": "However, if inflation appears not to be moderating sufficiently, then I think we should act decisively to raise rates.",
+     "hawkish": 1,
+     "dovish": 0
+    }
+   ],
+   "marcadores_hawkish": 2,
+   "marcadores_dovish": 0,
+   "inclinacao_por_contagem": "hawkish"
+  },
+  {
+   "moeda": "EUR",
+   "banco": "ECB",
+   "tipo": "speech",
+   "data": "2026-09-01",
+   "orador": "Boris Vujčić",
+   "titulo": "Boris Vujčić: Listening to households: expectations, behaviour and monetary policy",
+   "link": "https://www.ecb.europa.eu//press/key/date/2026/html/ecb.sp260901~bb28f33f54.en.html",
+   "caracteres": 18149,
+   "frases": [],
+   "marcadores_hawkish": 1,
+   "marcadores_dovish": 0,
+   "inclinacao_por_contagem": "hawkish"
+  },
+  {
+   "moeda": "USD",
+   "banco": "Fed",
+   "tipo": "speech",
+   "data": "2026-08-28",
+   "orador": "Warsh",
+   "titulo": "Warsh, In Our Time",
+   "link": "https://www.federalreserve.gov/newsevents/speech/warsh20260828a.htm",
+   "caracteres": 27169,
+   "frases": [
+    {
+     "frase": "7 And I believe when policymakers make quasi-commitments on interest rates through the cycle, we inhibit our own freedom to make the right calls when it's time to decide.",
+     "hawkish": 0,
+     "dovish": 0
+    }
+   ],
+   "marcadores_hawkish": 3,
+   "marcadores_dovish": 0,
+   "inclinacao_por_contagem": "hawkish"
+  },
+  {
+   "moeda": "EUR",
+   "banco": "ECB",
+   "tipo": "speech",
+   "data": "2026-08-28",
+   "orador": "Isabel Schnabel",
+   "titulo": "Isabel Schnabel: Central banks on-chain",
+   "link": "https://www.ecb.europa.eu//press/key/date/2026/html/ecb.sp260828~fe9afc86e8.en.html",
+   "caracteres": 31272,
+   "frases": [],
+   "marcadores_hawkish": 0,
+   "marcadores_dovish": 0,
+   "inclinacao_por_contagem": "none"
+  },
+  {
+   "moeda": "EUR",
+   "banco": "ECB",
+   "tipo": "speech",
+   "data": "2026-08-26",
+   "orador": "Piero Cipollone",
+   "titulo": "Piero Cipollone: From vision to delivery: building Europe’s tokenised financial market",
+   "link": "https://www.ecb.europa.eu//press/key/date/2026/html/ecb.sp260826~3641116314.en.html",
+   "caracteres": 22023,
+   "frases": [],
+   "marcadores_hawkish": 0,
+   "marcadores_dovish": 0,
+   "inclinacao_por_contagem": "none"
+  },
+  {
+   "moeda": "EUR",
+   "banco": "ECB",
+   "tipo": "speech",
+   "data": "2026-08-24",
+   "orador": "Piero Cipollone",
+   "titulo": "Piero Cipollone: Interview with ilsussidiario.net",
+   "link": "https://www.ecb.europa.eu//press/inter/date/2026/html/ecb.in260824~fa5acbddea.en.html",
+   "caracteres": 9670,
+   "frases": [],
+   "marcadores_hawkish": 0,
+   "marcadores_dovish": 0,
+   "inclinacao_por_contagem": "none"
+  },
+  {
+   "moeda": "JPY",
+   "banco": "BoJ",
+   "tipo": "statement",
+   "data": "2026-08-17",
+   "orador": "BoJ",
+   "titulo": "Highlights of the Outlook for Economic Activity and Prices (July 2026)",
+   "link": "http://www.boj.or.jp/en/mopo/outlook/highlight/ten202607.htm",
+   "caracteres": 2788,
+   "frases": [
+    {
+     "frase": "As for the conduct of monetary policy, the Bank will continue to raise the policy interest rate and adjust the degree of monetary accommodation, in response to developments in economic activity and prices as well as financial conditions.",
+     "hawkish": 0,
+     "dovish": 0
+    }
+   ],
+   "marcadores_hawkish": 0,
+   "marcadores_dovish": 0,
+   "inclinacao_por_contagem": "none"
+  }
+ ]
+}

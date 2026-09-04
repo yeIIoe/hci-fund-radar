@@ -1,5 +1,5 @@
 {
- "gerado_em": "2026-09-04T13:40:18.338360+00:00",
+ "gerado_em": "2026-09-04T13:44:13.297920+00:00",
  "origem_eventos": "fxstreet 42 dias",
  "regua": {
   "dimensoes": [
@@ -53,7 +53,7 @@
        "divulgado": 162.0,
        "consenso": 56.0,
        "contribuicao": 7.99,
-       "idade_dias": 0.0
+       "idade_dias": 0.1
       },
       {
        "quando_utc": "2026-08-07T12:30:00+00:00",
@@ -64,7 +64,7 @@
        "divulgado": 0.1,
        "consenso": 0.3,
        "contribuicao": -3.57,
-       "idade_dias": 28.0
+       "idade_dias": 28.1
       },
       {
        "quando_utc": "2026-08-07T12:30:00+00:00",
@@ -75,7 +75,7 @@
        "divulgado": -23.0,
        "consenso": 80.0,
        "contribuicao": -3.17,
-       "idade_dias": 28.0
+       "idade_dias": 28.1
       },
       {
        "quando_utc": "2026-08-05T12:15:00+00:00",
@@ -108,7 +108,7 @@
        "divulgado": 6.3,
        "consenso": 3.6,
        "contribuicao": 2.13,
-       "idade_dias": 36.0
+       "idade_dias": 36.1
       }
      ]
     },
@@ -138,15 +138,16 @@
   },
   "EUR": {
    "moeda": "EUR",
-   "direcao": "MANTEM",
-   "intensidade": 0,
-   "conviccao_pct": 25,
-   "conviccao_teto_pct": 50,
-   "dimensoes_ligadas": 2,
+   "direcao": "SOBE",
+   "intensidade": 2,
+   "conviccao_pct": 50,
+   "conviccao_teto_pct": 75,
+   "dimensoes_ligadas": 3,
    "dimensoes_total": 4,
    "concordam": {
-    "dados": true,
-    "ciclo": false
+    "dados": false,
+    "texto": true,
+    "ciclo": true
    },
    "dimensoes": {
     "dados": {
@@ -227,7 +228,20 @@
       }
      ]
     },
-    "texto": null,
+    "texto": {
+     "direcao": "SOBE",
+     "hawkish": 1,
+     "dovish": 0,
+     "n": 5,
+     "oradores": [
+      "Philip R. Lane",
+      "Boris Vujčić",
+      "Isabel Schnabel",
+      "Piero Cipollone",
+      "Piero Cipollone"
+     ],
+     "nota": "expression count over speeches and the statement — a pointer, not a reading"
+    },
     "ciclo": {
      "direcao": "SOBE",
      "bp": 25,
@@ -245,11 +259,12 @@
    "direcao": "MANTEM",
    "intensidade": 0,
    "conviccao_pct": 50,
-   "conviccao_teto_pct": 50,
-   "dimensoes_ligadas": 2,
+   "conviccao_teto_pct": 75,
+   "dimensoes_ligadas": 3,
    "dimensoes_total": 4,
    "concordam": {
     "dados": true,
+    "texto": false,
     "ciclo": true
    },
    "dimensoes": {
@@ -331,7 +346,17 @@
       }
      ]
     },
-    "texto": null,
+    "texto": {
+     "direcao": "SOBE",
+     "hawkish": 8,
+     "dovish": 1,
+     "n": 2,
+     "oradores": [
+      "Andrew Bailey",
+      "Huw Pill"
+     ],
+     "nota": "expression count over speeches and the statement — a pointer, not a reading"
+    },
     "ciclo": {
      "direcao": "MANTEM",
      "bp": -25,
@@ -359,7 +384,7 @@
    "dimensoes": {
     "dados": {
      "direcao": "CORTA",
-     "soma": -6.04,
+     "soma": -6.03,
      "n": 23,
      "n_alto": 1,
      "desde": "2026-07-31T03:11:27.150000+00:00",
@@ -479,7 +504,7 @@
        "impacto": "HIGH",
        "divulgado": -15.8,
        "consenso": 15.0,
-       "contribuicao": -4.8,
+       "contribuicao": -4.79,
        "idade_dias": 15.5
       },
       {
@@ -561,11 +586,12 @@
    "direcao": "MANTEM",
    "intensidade": 0,
    "conviccao_pct": 25,
-   "conviccao_teto_pct": 50,
-   "dimensoes_ligadas": 2,
+   "conviccao_teto_pct": 75,
+   "dimensoes_ligadas": 3,
    "dimensoes_total": 4,
    "concordam": {
     "dados": false,
+    "texto": false,
     "ciclo": true
    },
    "dimensoes": {
@@ -588,11 +614,23 @@
        "divulgado": -41.7,
        "consenso": 15.0,
        "contribuicao": -7.99,
-       "idade_dias": 0.0
+       "idade_dias": 0.1
       }
      ]
     },
-    "texto": null,
+    "texto": {
+     "direcao": "SOBE",
+     "hawkish": 1,
+     "dovish": 0,
+     "n": 4,
+     "oradores": [
+      "BoC",
+      "BoC",
+      "Press Conference",
+      "BoC"
+     ],
+     "nota": "expression count over speeches and the statement — a pointer, not a reading"
+    },
     "ciclo": {
      "direcao": "MANTEM",
      "bp": -25,
@@ -691,22 +729,31 @@
  "pares": [
   {
    "par": "EURUSD",
-   "sinal": "NAO NEGOCIA",
-   "forca": 0,
-   "motivo": "EUR e USD na mesma posicao (MANTEM) — sem divergencia",
+   "sinal": "BULL",
+   "forca": 2,
+   "motivo": "EUR SOBE x USD MANTEM",
+   "rotulo": "media",
+   "quando": "2026-09-10 / 2026-09-16",
    "base": "EUR",
    "cotada": "USD",
-   "conviccao_pct": 0,
-   "perna_motivo": null,
+   "conviccao_pct": 38,
+   "perna_motivo": "EUR",
    "leitura_base": {
-    "direcao": "MANTEM",
-    "conviccao_pct": 25
+    "direcao": "SOBE",
+    "conviccao_pct": 50
    },
    "leitura_cotada": {
     "direcao": "MANTEM",
     "conviccao_pct": 25
    },
-   "mesma_aposta": []
+   "mesma_aposta": [
+    "EURGBP",
+    "EURJPY",
+    "EURAUD",
+    "EURNZD",
+    "EURCAD",
+    "EURCHF"
+   ]
   },
   {
    "par": "GBPUSD",
@@ -824,117 +871,171 @@
   },
   {
    "par": "EURGBP",
-   "sinal": "NAO NEGOCIA",
-   "forca": 0,
-   "motivo": "EUR e GBP na mesma posicao (MANTEM) — sem divergencia",
+   "sinal": "BULL",
+   "forca": 2,
+   "motivo": "EUR SOBE x GBP MANTEM",
+   "rotulo": "media",
+   "quando": "2026-09-10 / 2026-09-17",
    "base": "EUR",
    "cotada": "GBP",
-   "conviccao_pct": 0,
-   "perna_motivo": null,
+   "conviccao_pct": 50,
+   "perna_motivo": "EUR",
    "leitura_base": {
-    "direcao": "MANTEM",
-    "conviccao_pct": 25
+    "direcao": "SOBE",
+    "conviccao_pct": 50
    },
    "leitura_cotada": {
     "direcao": "MANTEM",
     "conviccao_pct": 50
    },
-   "mesma_aposta": []
+   "mesma_aposta": [
+    "EURUSD",
+    "EURJPY",
+    "EURAUD",
+    "EURNZD",
+    "EURCAD",
+    "EURCHF"
+   ]
   },
   {
    "par": "EURJPY",
-   "sinal": "NAO NEGOCIA",
-   "forca": 0,
-   "motivo": "EUR e JPY na mesma posicao (MANTEM) — sem divergencia",
+   "sinal": "BULL",
+   "forca": 2,
+   "motivo": "EUR SOBE x JPY MANTEM",
+   "rotulo": "media",
+   "quando": "2026-09-10 / 2026-09-18",
    "base": "EUR",
    "cotada": "JPY",
-   "conviccao_pct": 0,
-   "perna_motivo": null,
+   "conviccao_pct": 25,
+   "perna_motivo": "EUR",
    "leitura_base": {
-    "direcao": "MANTEM",
-    "conviccao_pct": 25
+    "direcao": "SOBE",
+    "conviccao_pct": 50
    },
    "leitura_cotada": {
     "direcao": "MANTEM",
     "conviccao_pct": 0
    },
-   "mesma_aposta": []
+   "mesma_aposta": [
+    "EURUSD",
+    "EURGBP",
+    "EURAUD",
+    "EURNZD",
+    "EURCAD",
+    "EURCHF"
+   ]
   },
   {
    "par": "EURAUD",
-   "sinal": "NAO NEGOCIA",
-   "forca": 0,
-   "motivo": "EUR e AUD na mesma posicao (MANTEM) — sem divergencia",
+   "sinal": "BULL",
+   "forca": 2,
+   "motivo": "EUR SOBE x AUD MANTEM",
+   "rotulo": "media",
+   "quando": "2026-09-10 / 2026-09-29",
    "base": "EUR",
    "cotada": "AUD",
-   "conviccao_pct": 0,
-   "perna_motivo": null,
+   "conviccao_pct": 38,
+   "perna_motivo": "EUR",
    "leitura_base": {
-    "direcao": "MANTEM",
-    "conviccao_pct": 25
+    "direcao": "SOBE",
+    "conviccao_pct": 50
    },
    "leitura_cotada": {
     "direcao": "MANTEM",
     "conviccao_pct": 25
    },
-   "mesma_aposta": []
+   "mesma_aposta": [
+    "EURUSD",
+    "EURGBP",
+    "EURJPY",
+    "EURNZD",
+    "EURCAD",
+    "EURCHF"
+   ]
   },
   {
    "par": "EURNZD",
-   "sinal": "NAO NEGOCIA",
-   "forca": 0,
-   "motivo": "EUR e NZD na mesma posicao (MANTEM) — sem divergencia",
+   "sinal": "BULL",
+   "forca": 2,
+   "motivo": "EUR SOBE x NZD MANTEM",
+   "rotulo": "media",
+   "quando": "2026-09-10 / 2026-10-28",
    "base": "EUR",
    "cotada": "NZD",
-   "conviccao_pct": 0,
-   "perna_motivo": null,
+   "conviccao_pct": 38,
+   "perna_motivo": "EUR",
    "leitura_base": {
-    "direcao": "MANTEM",
-    "conviccao_pct": 25
+    "direcao": "SOBE",
+    "conviccao_pct": 50
    },
    "leitura_cotada": {
     "direcao": "MANTEM",
     "conviccao_pct": 25
    },
-   "mesma_aposta": []
+   "mesma_aposta": [
+    "EURUSD",
+    "EURGBP",
+    "EURJPY",
+    "EURAUD",
+    "EURCAD",
+    "EURCHF"
+   ]
   },
   {
    "par": "EURCAD",
-   "sinal": "NAO NEGOCIA",
-   "forca": 0,
-   "motivo": "EUR e CAD na mesma posicao (MANTEM) — sem divergencia",
+   "sinal": "BULL",
+   "forca": 2,
+   "motivo": "EUR SOBE x CAD MANTEM",
+   "rotulo": "media",
+   "quando": "2026-09-10 / 2026-10-28",
    "base": "EUR",
    "cotada": "CAD",
-   "conviccao_pct": 0,
-   "perna_motivo": null,
+   "conviccao_pct": 38,
+   "perna_motivo": "EUR",
    "leitura_base": {
-    "direcao": "MANTEM",
-    "conviccao_pct": 25
+    "direcao": "SOBE",
+    "conviccao_pct": 50
    },
    "leitura_cotada": {
     "direcao": "MANTEM",
     "conviccao_pct": 25
    },
-   "mesma_aposta": []
+   "mesma_aposta": [
+    "EURUSD",
+    "EURGBP",
+    "EURJPY",
+    "EURAUD",
+    "EURNZD",
+    "EURCHF"
+   ]
   },
   {
    "par": "EURCHF",
-   "sinal": "NAO NEGOCIA",
-   "forca": 0,
-   "motivo": "EUR e CHF na mesma posicao (MANTEM) — sem divergencia",
+   "sinal": "BULL",
+   "forca": 2,
+   "motivo": "EUR SOBE x CHF MANTEM",
+   "rotulo": "media",
+   "quando": "2026-09-10 / 2026-09-24",
    "base": "EUR",
    "cotada": "CHF",
-   "conviccao_pct": 0,
-   "perna_motivo": null,
+   "conviccao_pct": 38,
+   "perna_motivo": "EUR",
    "leitura_base": {
-    "direcao": "MANTEM",
-    "conviccao_pct": 25
+    "direcao": "SOBE",
+    "conviccao_pct": 50
    },
    "leitura_cotada": {
     "direcao": "MANTEM",
     "conviccao_pct": 25
    },
-   "mesma_aposta": []
+   "mesma_aposta": [
+    "EURUSD",
+    "EURGBP",
+    "EURJPY",
+    "EURAUD",
+    "EURNZD",
+    "EURCAD"
+   ]
   },
   {
    "par": "GBPJPY",
@@ -1242,7 +1343,7 @@
      "divulgado": 162.0,
      "consenso": 56.0,
      "contribuicao": 7.99,
-     "idade_dias": 0.0
+     "idade_dias": 0.1
     },
     {
      "quando_utc": "2026-08-07T12:30:00+00:00",
@@ -1253,7 +1354,7 @@
      "divulgado": 0.1,
      "consenso": 0.3,
      "contribuicao": -3.57,
-     "idade_dias": 28.0
+     "idade_dias": 28.1
     },
     {
      "quando_utc": "2026-08-07T12:30:00+00:00",
@@ -1264,7 +1365,7 @@
      "divulgado": -23.0,
      "consenso": 80.0,
      "contribuicao": -3.17,
-     "idade_dias": 28.0
+     "idade_dias": 28.1
     },
     {
      "quando_utc": "2026-08-05T12:15:00+00:00",
@@ -1356,7 +1457,7 @@
      "divulgado": 162.0,
      "consenso": 56.0,
      "contribuicao": 7.99,
-     "idade_dias": 0.0
+     "idade_dias": 0.1
     },
     {
      "quando_utc": "2026-08-07T12:30:00+00:00",
@@ -1367,7 +1468,7 @@
      "divulgado": 0.1,
      "consenso": 0.3,
      "contribuicao": -3.57,
-     "idade_dias": 28.0
+     "idade_dias": 28.1
     },
     {
      "quando_utc": "2026-08-07T12:30:00+00:00",
@@ -1378,7 +1479,7 @@
      "divulgado": -23.0,
      "consenso": 80.0,
      "contribuicao": -3.17,
-     "idade_dias": 28.0
+     "idade_dias": 28.1
     },
     {
      "quando_utc": "2026-08-05T12:15:00+00:00",
@@ -1470,7 +1571,7 @@
      "divulgado": 162.0,
      "consenso": 56.0,
      "contribuicao": 7.99,
-     "idade_dias": 0.0
+     "idade_dias": 0.1
     },
     {
      "quando_utc": "2026-08-07T12:30:00+00:00",
@@ -1481,7 +1582,7 @@
      "divulgado": 0.1,
      "consenso": 0.3,
      "contribuicao": -3.57,
-     "idade_dias": 28.0
+     "idade_dias": 28.1
     },
     {
      "quando_utc": "2026-08-07T12:30:00+00:00",
@@ -1492,7 +1593,7 @@
      "divulgado": -23.0,
      "consenso": 80.0,
      "contribuicao": -3.17,
-     "idade_dias": 28.0
+     "idade_dias": 28.1
     },
     {
      "quando_utc": "2026-08-05T12:15:00+00:00",

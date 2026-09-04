@@ -105,7 +105,7 @@
     // painel desenha igual. So o bloco dos EUA some — e some declarado, nao em branco.
     [M.bancos, M.eventos, M.eua, M.discursos, M.sent] = await Promise.all([
       pega("data/bancos_centrais.json"), pega("data/macro_eventos.json"),
-      pega("data/eua_leitura.json"), pega("data/fed_discursos.json"),
+      pega("data/eua_leitura.json"), pega("data/bc_discursos.json"),
       pega("data/sentimento.json"),
     ]);
     // valida a FORMA, nao so a presenca: um JSON truncado passaria no teste de presenca e
@@ -642,7 +642,7 @@
       const dias = diasAte(f.data);
       fomc = `<div class="mac-eua-fomc">
         <span class="mac-perna-papel">Next FOMC decision</span>
-        <div class="mac-eua-dias">${dias <= 0 ? "today" : dias}<small>${dias <= 0 ? "" : dias === 1 ? "day" : "days"}</small></div>
+        <div class="mac-eua-dias">${dias <= 0 ? "today" : dias} <small>${dias <= 0 ? "" : dias === 1 ? "day" : "days"}</small></div>
         <div class="mac-perna-linha">${esc(f.rotulo)} &middot; ${esc(f.data)}</div>
         ${f.com_projecoes ? '<span class="mac-dot" title="the meeting that publishes the committee\'s own rate path — the one that moves price most">with projections · dot plot</span>' : ""}
         ${b ? `<div class="mac-perna-linha muted mac-eua-taxa">Fed funds <b>${esc(b.taxa_texto)}</b>
@@ -693,7 +693,8 @@
   function falasDoFed() {
     const D = M.discursos;
     if (!D || !Array.isArray(D.itens) || !D.itens.length) return "";
-    const itens = D.itens.slice(0, 4).map((s) => {
+    // no bloco dos EUA so o Fed; as outras moedas aparecem no cartao da perna delas
+    const itens = D.itens.filter((s) => (s.moeda || "USD") === "USD").slice(0, 4).map((s) => {
       const f = (s.frases && s.frases[0] && s.frases[0].frase) || "";
       const lean = s.inclinacao_por_contagem || "none";
       return `<li class="mac-fala">
@@ -872,7 +873,12 @@
     const g = M.eventos && (M.eventos.fonte_gerado_em || M.eventos.gerado_em);
     if (carimbo && g) {
       const h = brt(g);
-      if (h) carimbo.textContent = "data " + h + " BRT";
+      const novo = "data " + h + " BRT";
+      // so escreve quando muda: reescrever o mesmo texto a cada 900 ms gerava uma mutacao
+      // por tique, e o modulo de idioma varria a pagina inteira a toa
+      if (h && carimbo.textContent !== novo && !/^dados /.test(carimbo.textContent || "")) {
+        carimbo.textContent = novo;
+      }
     }
 
     const sys = document.getElementById("systemMessage");
@@ -1133,7 +1139,14 @@
           desenhaCalendario();
         }));
     }
-    contido("desenhaCalendario", desenhaCalendario);
+    // So redesenha o calendario quando a FONTE muda (ou na primeira vez). aplica() roda a cada
+    // 900 ms, e redesenhar a grade e o painel do dia a cada tique apagava a traducao 60 ms
+    // depois de aplicada — a tela oscilava entre ingles e portugues (medido em 04/set) — alem
+    // de ser trabalho inutil. Os cliques chamam desenhaCalendario() diretamente.
+    if (M.calFonte !== M.eventos) {
+      M.calFonte = M.eventos;
+      contido("desenhaCalendario", desenhaCalendario);
+    }
     contido("agrupaMenu", agrupaMenu);
     contido("limpaFundDaTela", limpaFundDaTela);
   }

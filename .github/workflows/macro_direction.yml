@@ -104,9 +104,11 @@ jobs:
 
       # A camada de TEXTO: frases de postura dos discursos e do comunicado, direto do Fed.
       # Extracao por expressao, rotulada como tal — nao e interpretacao.
-      - name: discursos do Fed (frases de postura)
+      # Fed, BCE, BoE, BoJ e BoC: frases de postura direto de cada banco. RBA e RBNZ
+      # bloqueiam (403) e o SNB nao tem feed conhecido — saem "not connected", nunca zero.
+      - name: discursos dos bancos centrais (frases de postura)
         continue-on-error: true
-        run: python fed_discursos.py
+        run: python bc_discursos.py
 
       - name: gera o leitor
         run: |
@@ -134,7 +136,7 @@ jobs:
           git config user.email "bot@hokiresearch.com"
           git add data/macro_eventos.json data/bancos_centrais.json \
                   data/calendario_resultado.json data/eua_leitura.json \
-                  data/fed_discursos.json data/sentimento.json \
+                  data/bc_discursos.json data/sentimento.json \
                   data/correlacao_juros.json data/raw/ff_calendar_thisweek.json
           if git diff --cached --quiet; then
             echo "nada mudou — sem commit"
