@@ -1,10 +1,14 @@
 {
- "gerado_em": "2026-09-03 23:30",
+ "gerado_em": "2026-09-04 23:15",
  "escopo": "EQUITIES — unidade e a EMPRESA. Nao usa FUND nem par de moeda.",
  "metodo": "METODO_PESQUISA_EQUITIES_HCI_v1: multiplo alvo pre-registrado x lucro projetado.",
  "limite": "Leitura fundamental. Nao e ordem nem gatilho de entrada.",
  "regenera_quando": "preco 3% | projecao de lucro 10% | resultado divulgado | virada de regime | 5 pregoes",
- "regenerados": [],
+ "regenerados": [
+  "MU: TP 1550 (+52%) | COMPRA/MANTER — upside +52% >= +10% pela regua | regen: preco +9.0%",
+  "KLAC: TP 187 (+1%) | MANTER (sem reforco) — upside +1% entre -10% e +10%; armar reforco apenas em dip | regen: preco +5.7%",
+  "LRCX: TP 289 (-6%) | MANTER (sem reforco) — upside -6% entre -10% e +10%; armar reforco apenas em dip | regen: preco +6.0%"
+ ],
  "nomes": [
   {
    "ticker": "TSM",
@@ -20,14 +24,14 @@
   },
   {
    "ticker": "MU",
-   "preco": 932.8599853515625,
+   "preco": 1016.5900268554688,
    "tp": 1550.0,
-   "upside": 0.6615569585352714,
-   "posicao": "COMPRA/MANTER — upside +66% >= +10% pela regua",
+   "upside": 0.5247051014207593,
+   "posicao": "COMPRA/MANTER — upside +52% >= +10% pela regua",
    "regime_ok": true,
    "earnings": "2026-09-30",
    "hi52": 1213.3734130859375,
-   "regenerado": false,
+   "regenerado": true,
    "tese": "O gargalo do buildout de IA migrou de GPU para HBM; LTAs de 3-5 anos deram poder de preco estrutural."
   },
   {
@@ -56,26 +60,26 @@
   },
   {
    "ticker": "KLAC",
-   "preco": 175.5399932861328,
+   "preco": 185.60000610351562,
    "tp": 187.0,
-   "upside": 0.06528430643828953,
-   "posicao": "MANTER (sem reforco) — upside +7% entre -10% e +10%; armar reforco apenas em dip >=5% com tese intacta",
+   "upside": 0.007543070314898426,
+   "posicao": "MANTER (sem reforco) — upside +1% entre -10% e +10%; armar reforco apenas em dip >=5% com tese intacta",
    "regime_ok": true,
    "earnings": "2026-10-28",
    "hi52": 301.3693542480469,
-   "regenerado": false,
+   "regenerado": true,
    "tese": "Oligopolio de inspecao: quanto menor o node, mais inspecao por wafer."
   },
   {
    "ticker": "LRCX",
-   "preco": 290.20001220703125,
+   "preco": 307.6499938964844,
    "tp": 289.0,
-   "upside": -0.0041351211459466075,
-   "posicao": "MANTER (sem reforco) — upside -0% entre -10% e +10%; armar reforco apenas em dip >=5% com tese intacta",
+   "upside": -0.060620816728374716,
+   "posicao": "MANTER (sem reforco) — upside -6% entre -10% e +10%; armar reforco apenas em dip >=5% com tese intacta",
    "regime_ok": true,
    "earnings": "2026-10-21",
    "hi52": 433.3299865722656,
-   "regenerado": false,
+   "regenerado": true,
    "tese": "Oligopolio etch/deposicao; alavancada a NAND/DRAM capex."
   }
  ]
