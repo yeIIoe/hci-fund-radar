@@ -235,8 +235,8 @@
     const s = sentDe(m);
     if (!s) return `<small class="muted">reading not built yet</small>`;
     return `<span class="mac-lean-pill ${CLS_DIR[s.direcao]}">${SETA_DIR[s.direcao]} ${ROT_DIR[s.direcao]}
-        <b>${s.conviccao_pct}%</b></span>
-      <small class="muted"> of ${s.conviccao_teto_pct}% · ${s.dimensoes_ligadas} of ${s.dimensoes_total} dimensions</small>`;
+        <b>${Math.round(s.conviccao_pct / 25)}/${s.dimensoes_ligadas}</b></span>
+      <small class="muted"> dimensions agree · score ${(s.score > 0 ? "+" : "") + Number(s.score || 0).toFixed(2)}</small>`;
   }
 
   // Os motivos X, Y e Z: os prints que mais pesaram na dimensao de dados, e a frase do
@@ -275,8 +275,9 @@
     if (!s) return `<div class="mac-perna-linha muted"><small>forward reading not built yet</small></div>`;
     return `<div class="mac-perna-lean">
       <span class="mac-perna-papel">Reading for the next move</span>
-      <div class="mac-lean-pill big ${CLS_DIR[s.direcao]}">${SETA_DIR[s.direcao]} ${ROT_DIR[s.direcao]} <b>${s.conviccao_pct}%</b>
-        <small>ceiling ${s.conviccao_teto_pct}% — ${s.dimensoes_ligadas} of ${s.dimensoes_total} dimensions voting</small>
+      <div class="mac-lean-pill big ${CLS_DIR[s.direcao]}">${SETA_DIR[s.direcao]} ${ROT_DIR[s.direcao]}
+        <b>${Math.round(s.conviccao_pct / 25)} of ${s.dimensoes_ligadas}</b>
+        <small>voting dimensions agree (${s.dimensoes_ligadas} of ${s.dimensoes_total} connected)</small>
         <small class="mac-score" title="continuous score, −1 to +1: each dimension enters with its magnitude, up to ±0.25">score <b>${(s.score > 0 ? "+" : "") + Number(s.score || 0).toFixed(2)}</b></small></div>
       ${dimsChips(s)}
       ${motivosPerna(m, s)}
@@ -360,7 +361,7 @@
     const sel = d.par === M.parSel ? " mac-item-sel" : "";
     const tag = d.s
       ? `<span class="mac-item-tag ${CLS_SINAL[d.s.sinal] || "v-nao"}">${ROT_SINAL[d.s.sinal] || esc(d.s.sinal)}${
-          d.tese ? ` <b>${d.conv}%</b>${d.s.rotulo && ROT_FORCA[d.s.rotulo] ? ` <small class="mac-forca">${ROT_FORCA[d.s.rotulo]}</small>` : ""}` : ""}</span>`
+          d.tese ? ` <b>${d.conv}</b><small class="mac-de100">/100</small>${d.s.rotulo && ROT_FORCA[d.s.rotulo] ? ` <small class="mac-forca">${ROT_FORCA[d.s.rotulo]}</small>` : ""}` : ""}</span>`
       : `<span class="mac-item-tag ${d.diverge ? "e-div" : "e-igual"}">${d.diverge ? "divergence" : "same side"}</span>`;
     return `<button type="button" class="mac-item${sel}${d.instr ? " mac-item-instr" : ""}" data-mac-par="${d.par}">
       <span class="mac-item-par">${d.instr ? d.rotulo : d.b + "<em>/</em>" + d.q}</span>
@@ -432,8 +433,9 @@
 
     const s = d.s;
     const pill = s
-      ? `<span class="mac-det-leitura ${CLS_SINAL[s.sinal] || "v-nao"}">${ROT_SINAL[s.sinal] || esc(s.sinal)}${
-          d.tese ? ` &middot; ${d.conv}%${s.rotulo && ROT_FORCA[s.rotulo] ? " &middot; " + ROT_FORCA[s.rotulo] : ""}` : ""}</span>`
+      ? `<span class="mac-det-leitura ${CLS_SINAL[s.sinal] || "v-nao"}">${
+          s.sinal === "BULL" ? "long bias" : s.sinal === "BEAR" ? "short bias" : ROT_SINAL[s.sinal] || esc(s.sinal)}${
+          d.tese && s.rotulo && ROT_FORCA[s.rotulo] ? ` &middot; ${ROT_FORCA[s.rotulo]}` : ""}</span>`
       : `<span class="mac-det-leitura ${d.diverge ? "e-div" : "e-igual"}">${d.diverge ? "CYCLE DIVERGENCE" : "SAME SIDE"}</span>`;
 
     const fs = (x) => (x === null || x === undefined) ? "?" : (x > 0 ? "+" : "") + Number(x).toFixed(2);
@@ -459,7 +461,10 @@
         <span class="mac-det-dado ${velho ? "e-velho" : "e-fresco"}">${idade}</span>
       </div>
 
-      <p class="mac-det-nota">${nota}</p>
+      ${resumoPar(d)}
+
+      <details class="mac-det-mais mac-det-nota-wrap"><summary>How the two legs add up</summary>
+        <p class="mac-det-nota">${nota}</p></details>
 
       <div class="mac-pernas">${pernaCard(d.b, d.cb, "base")}${pernaCard(d.q, d.cq, "quote")}</div>
 
@@ -543,6 +548,77 @@
       <p class="mac-eua-nota">${esc(I.aviso)}</p>`;
   }
 
+  // O CARD-RESUMO: a conclusao primeiro (revisao externa de 04/set). Direcao relativa,
+  // forca da divergencia em /100 com a faixa, concordancia das dimensoes na perna que manda,
+  // o catalisador principal e o proximo risco — cada numero com o significado escrito.
+  function resumoPar(d) {
+    const s = d.s;
+    if (!s) return "";
+    const bs = M.bancos ? M.bancos.bancos : {};
+    const S = (M.sent && M.sent.moedas) || {};
+    const forte = s.perna_motivo && s.perna_motivo !== "ambas" ? s.perna_motivo : null;
+    const fraca = forte ? (forte === d.b ? d.q : d.b) : null;
+    const long = s.sinal === "BULL";
+    const forca = d.conv;
+    const faixa = ROT_FORCA[s.rotulo] || "";
+
+    // concordancia: na perna que manda, quantas dimensoes que votam apontam para o lado dela
+    const sm = forte ? S[forte] : null;
+    let concordam = null, votando = null;
+    if (sm && sm.concordam) {
+      const vals = Object.values(sm.concordam);
+      votando = vals.length;
+      concordam = vals.filter(Boolean).length;
+    }
+    // catalisador: o maior componente do score da perna que manda
+    const rotComp = { dados: "released data", texto: "central bank speeches", ciclo: "the last rate move", geo: "geopolitics" };
+    let catalisador = null;
+    if (sm && sm.score_componentes) {
+      const cs = Object.entries(sm.score_componentes).sort((a, b) => Math.abs(b[1]) - Math.abs(a[1]));
+      if (cs.length && Math.abs(cs[0][1]) > 0) {
+        catalisador = `${rotComp[cs[0][0]] || cs[0][0]} on ${forte} (${cs[0][1] > 0 ? "hawkish" : "dovish"}, ${cs[0][1] > 0 ? "+" : ""}${Number(cs[0][1]).toFixed(2)})`;
+      }
+    }
+    // proximo risco: a decisao mais proxima entre as duas pernas
+    const riscos = [d.b, d.q].map((m) => {
+      const b = bs[m];
+      const dias = b && b.proxima ? diasAte(b.proxima) : null;
+      return { m, sigla: b ? b.sigla : m, dias, data: b ? b.proxima : null };
+    }).filter((r) => r.dias !== null).sort((a, b) => a.dias - b.dias);
+    const risco = riscos[0] || null;
+
+    const semTese = s.sinal === "SEM_TESE";
+    return `<div class="mac-resumo ${long ? "r-long" : semTese ? "r-nao" : "r-short"}">
+      <div class="mac-resumo-grid">
+        <div class="mac-resumo-item">
+          <span class="mac-resumo-rot">relative direction</span>
+          <strong>${semTese ? "no edge" : long ? "long " + d.b + "/" + d.q : "short " + d.b + "/" + d.q}</strong>
+          <small>${semTese ? "the two legs score the same" : (forte
+            ? `${forte} relatively stronger than ${fraca}`
+            : `${long ? d.b : d.q} relatively stronger than ${long ? d.q : d.b}`)}</small>
+        </div>
+        <div class="mac-resumo-item">
+          <span class="mac-resumo-rot">divergence strength</span>
+          <strong>${forca}<small class="mac-de100">/100</small></strong>
+          <div class="mac-barra-forca"><i style="width:${Math.max(2, Math.min(100, forca))}%"></i></div>
+          <small>${faixa ? faixa + " · " : ""}share of the ceiling the connected dimensions allow (${Number(s.diff_teto || 2).toFixed(2)})</small>
+        </div>
+        <div class="mac-resumo-item">
+          <span class="mac-resumo-rot">agreement of factors</span>
+          <strong>${concordam !== null ? `${concordam} of ${votando}` : "—"}</strong>
+          <small>${forte ? `dimensions on ${forte} point the same way` : "no leading leg"}</small>
+        </div>
+        <div class="mac-resumo-item">
+          <span class="mac-resumo-rot">next risk</span>
+          <strong>${risco ? `${esc(risco.sigla)} ${risco.dias === 0 ? "today" : risco.dias === 1 ? "tomorrow" : "in " + risco.dias + " days"}` : "—"}</strong>
+          <small>${risco ? `${risco.m} decision · ${esc(risco.data)}` : "no date published"}</small>
+        </div>
+      </div>
+      <p class="mac-resumo-frase"><span class="mac-resumo-rot">main catalyst</span> ${catalisador ? esc(catalisador) : "no dimension pushing on either leg"}.
+        <span class="mac-resumo-rot" style="margin-left:10px">horizon</span> weeks (swing) — a reading of the fundamental side, not an entry.</p>
+    </div>`;
+  }
+
   const FILTROS = [
     { k: "todos", r: "All", f: () => true },
     { k: "tese", r: "With a thesis", f: (d) => d.tese },
@@ -565,8 +641,9 @@
                          ((a.dias ?? 999) - (b.dias ?? 999)) || a.par.localeCompare(b.par));
 
     const S = M.sent && M.sent.moedas;
+    // "2/4" = dimensoes que concordam sobre as que votam — nao "50%", que lia como probabilidade
     const lean = (dir) => S ? Object.keys(S).filter((m) => S[m].direcao === dir)
-      .map((m) => `${FLAG[m] || ""} ${m} <small>${S[m].conviccao_pct}%</small>`).join("&nbsp; ") : "";
+      .map((m) => `${FLAG[m] || ""} ${m} <small>${Math.round(S[m].conviccao_pct / 25)}/${S[m].dimensoes_ligadas}</small>`).join("&nbsp; ") : "";
 
     const chips = FILTROS.map((x) =>
       `<button type="button" class="mac-chip${x.k === filtro.k ? " on" : ""}" data-mac-filtro="${x.k}">${x.r}</button>`
@@ -1202,6 +1279,27 @@
     M.menuAgrupado = true;
   }
 
+  // Antes de substituir o miolo de um painel, os elementos com id que o app.js antigo ainda
+  // escreve (#newsList, #calendarGrid, #pairTableBody...) sao MOVIDOS para um contêiner
+  // oculto. Destrui-los fazia o app.js estourar em null e imprimir "Could not load the
+  // radar" no topo — o revisor externo viu isso em 04/set. Mover preserva ouvintes e deixa
+  // o app.js escrever onde ninguem ve.
+  function recolheLegado(painel) {
+    if (!painel) return;
+    let sink = document.getElementById("macSink");
+    if (!sink) {
+      sink = document.createElement("div");
+      sink.id = "macSink";
+      sink.hidden = true;
+      sink.setAttribute("aria-hidden", "true");
+      document.body.appendChild(sink);
+    }
+    painel.querySelectorAll("[id]").forEach((el) => {
+      if (el.closest("#macSink")) return;
+      sink.appendChild(el);
+    });
+  }
+
   function aplica() {
     if (!M.pronto) return;
 
@@ -1218,7 +1316,7 @@
     };
     if (over && !over.querySelector(".mac-bloco")) {
       const h = contido("painelBancos", painelBancos);
-      if (h) over.innerHTML = h;
+      if (h) { recolheLegado(over); over.innerHTML = h; }
     }
     // O bloco dos EUA entra DEPOIS das reunioes e contido: um erro nele nao pode apagar a
     // Overview inteira — foi assim que o site caiu da segunda vez.
@@ -1239,14 +1337,14 @@
     const news = document.querySelector('[data-panel="news"]');
     if (news && !news.querySelector(".mac-bloco")) {
       const h = contido("painelNoticias", painelNoticias);
-      if (h) news.innerHTML = h;
+      if (h) { recolheLegado(news); news.innerHTML = h; }
     }
 
     // PARES: o mesmo, ate o leitor produzir
     const pares = document.querySelector('[data-panel="pairs"]');
     if (pares && !pares.querySelector(".mac-bloco")) {
       const h = contido("matrizPares", matrizPares);
-      if (h) pares.innerHTML = h;
+      if (h) { recolheLegado(pares); pares.innerHTML = h; }
     }
 
     // CALENDARIO: grade PROPRIA.
@@ -1255,6 +1353,7 @@
     // tem que ser dirigido por DATA, nao por dado historico. Entao construimos a nossa.
     const painelCal = document.querySelector('[data-panel="calendar"]');
     if (painelCal && !painelCal.querySelector(".mac-cal")) {
+      recolheLegado(painelCal);
       painelCal.innerHTML = `<section class="content-section mac-bloco">
           <div class="section-title"><div><h2>Macro calendar</h2></div>
             <p>Scheduled releases and central bank decisions. Pick a day to read what each one
@@ -1305,6 +1404,59 @@
   const estilo = document.createElement("style");
   estilo.textContent = `
    .mac-bloco{margin-bottom:28px}
+   /* --- profundidade (revisao externa, 04/set): fundo verde-petroleo escuro com gradiente,
+          cartoes com elevacao, bordas menos visiveis, brilho so no que importa --- */
+   body{background:radial-gradient(1400px 700px at 18% -12%,#0d2420 0%,#07130f 42%,#050c0a 100%) fixed;
+     color:#e6efeb}
+   .content-section,.mac-perna,.mac-geo-card,.mac-fala,.mac-eua-fomc,.mac-geo-mundo,.mac-ficha{
+     background:linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,.012));
+     border-color:rgba(255,255,255,.06)!important;
+     box-shadow:0 1px 0 rgba(255,255,255,.03) inset,0 10px 30px -18px rgba(0,0,0,.7)}
+   .mac-detalhe{background:linear-gradient(180deg,rgba(94,234,212,.045),rgba(255,255,255,.012));
+     border-color:rgba(94,234,212,.16)!important;box-shadow:0 20px 50px -30px rgba(94,234,212,.35)}
+   .mac-item-sel{background:rgba(94,234,212,.10);border-left-color:#5eead4}
+   .mac-item:hover{background:rgba(255,255,255,.04)}
+   .mac-duas{grid-template-columns:minmax(180px,220px) minmax(0,1fr)}
+   .mac-lista{gap:2px}
+   .mac-item{padding:7px 10px}
+   .mac-item-par{font-size:13.5px}
+   .mac-item-tag b{font-size:12px}
+   .mac-de100{opacity:.45;font-weight:400;margin-left:1px;font-family:var(--font-mono);font-size:.8em}
+   .mac-det-par{font-size:34px;font-weight:700;letter-spacing:-.01em}
+   .mac-det-leitura{font-size:11.5px;font-weight:600}
+   .mac-det-leitura.v-bull{background:rgba(94,234,212,.16);color:#5eead4}
+   .mac-det-leitura.v-bear{background:rgba(248,122,122,.16);color:#f87a7a}
+   /* --- o card-resumo: conclusao primeiro --- */
+   .mac-resumo{border:1px solid rgba(94,234,212,.18);border-radius:14px;padding:16px 18px;margin:12px 0 16px;
+     background:linear-gradient(135deg,rgba(94,234,212,.09),rgba(94,234,212,.02) 60%,rgba(255,255,255,.01));
+     box-shadow:0 0 0 1px rgba(94,234,212,.05) inset}
+   .mac-resumo.r-short{border-color:rgba(248,122,122,.2);
+     background:linear-gradient(135deg,rgba(248,122,122,.09),rgba(248,122,122,.02) 60%,rgba(255,255,255,.01))}
+   .mac-resumo.r-nao{border-color:rgba(255,255,255,.1);background:rgba(255,255,255,.02)}
+   .mac-resumo-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+   .mac-resumo-item{min-width:0}
+   .mac-resumo-rot{display:block;font-size:10px;letter-spacing:.12em;text-transform:uppercase;opacity:.55;margin-bottom:5px}
+   .mac-resumo-item strong{display:block;font-size:22px;font-weight:700;letter-spacing:-.01em;line-height:1.15;
+     font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+   .mac-resumo-item small{display:block;font-size:12px;opacity:.7;margin-top:4px;line-height:1.45}
+   .mac-barra-forca{height:5px;border-radius:3px;background:rgba(255,255,255,.08);margin:7px 0 4px;overflow:hidden}
+   .mac-barra-forca i{display:block;height:100%;background:linear-gradient(90deg,#5eead4,#8fd0ff);border-radius:3px}
+   .r-short .mac-barra-forca i{background:linear-gradient(90deg,#f87a7a,#f0b429)}
+   .mac-resumo-frase{margin:14px 0 0;font-size:13.5px;line-height:1.55;opacity:.92}
+   .mac-resumo-frase .mac-resumo-rot{display:inline;margin:0 6px 0 0}
+   .mac-det-nota-wrap{margin:0 0 14px;border-top:0;padding-top:0}
+   .mac-det-nota-wrap summary{font-size:12px;opacity:.55;cursor:pointer}
+   .mac-det-nota-wrap .mac-det-nota{margin:8px 0 0;font-size:13px}
+   .mac-perna-papel{font-size:10px;letter-spacing:.12em}
+   .mac-perna-taxa{font-size:22px}
+   .mac-lean-pill.big{font-size:15px}
+   .mac-lean-pill.big b{font-size:16px}
+   .mac-motivos{font-size:12.5px}
+   .mac-det-mais summary{font-size:12.5px}
+   .mac-tabela td{font-size:13.5px}
+   .mac-tabela td small{font-size:12px}
+   @media (max-width:1180px){.mac-resumo-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+   @media (max-width:640px){.mac-resumo-grid{grid-template-columns:1fr}}
    /* --- Estados Unidos: contagem para o FOMC a esquerda, os prints do BLS a direita --- */
    .mac-eua{margin-top:22px}
    .mac-eua-grid{display:grid;grid-template-columns:minmax(230px,290px) 1fr;gap:18px;
@@ -1453,7 +1605,7 @@
      .mac-nav-rotulo{display:none}
    }
    /* --- tela de trabalho dos pares: lista a esquerda, detalhe fixo a direita --- */
-   .mac-duas{display:grid;grid-template-columns:minmax(210px,270px) minmax(0,1fr);gap:18px;
+   .mac-duas{display:grid;grid-template-columns:minmax(180px,225px) minmax(0,1fr);gap:18px;
      align-items:start}
    .mac-detalhe{min-width:0}
    .mac-lista{display:flex;flex-direction:column;gap:3px;max-height:74vh;overflow-y:auto;
