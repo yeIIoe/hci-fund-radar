@@ -1,5 +1,5 @@
 {
- "gerado_em": "2026-09-04T21:50:49.348706+00:00",
+ "gerado_em": "2026-09-05T01:25:37.311966+00:00",
  "fonte": "GDELT DOC 2.0 API (free, no key, 15-min updates); English-language sources",
  "metodo": "article volume for the last 3 days vs the daily mean of the 14-day window (ratio and z); mean tone over 7 days; top headlines by hybrid relevance",
  "aviso": "CONTEXT layer. The implication is a declared rule (risk-off -> safe havens; energy shock -> inflation push), not a measurement, and it is NOT counted in the conviction. Hypothesis to test: does conflict z>=2 change 20-day returns of risk currencies?",
@@ -53,6 +53,54 @@
   }
  },
  "moedas": {
+  "EUR": {
+   "temas": {
+    "conflito": {
+     "volume": {
+      "n": 14,
+      "recente_3d": 0.6631,
+      "base_14d": 0.3565,
+      "razao": 1.86,
+      "z": 4.34
+     },
+     "manchetes": []
+    },
+    "energia": {
+     "erro": "HTTP Error 429: Too Many Requests"
+    }
+   },
+   "tom": null,
+   "implicacao": {
+    "regra": "declared rule, not measured — shown for judgement, not counted in conviction",
+    "fx": "risk-off: mixed for EUR (rule)",
+    "juro": null
+   },
+   "coletado_em": "2026-09-05T01:25:37.311966+00:00"
+  },
+  "GBP": {
+   "temas": {
+    "conflito": {
+     "erro": "HTTP Error 429: Too Many Requests"
+    },
+    "energia": {
+     "volume": {
+      "n": 14,
+      "recente_3d": 0.2385,
+      "base_14d": 0.1557,
+      "razao": 1.53,
+      "z": 1.45
+     },
+     "manchetes": []
+    }
+   },
+   "tom": null,
+   "implicacao": {
+    "regra": "declared rule, not measured — shown for judgement, not counted in conviction",
+    "fx": null,
+    "juro": null
+   },
+   "coletado_em": "2026-09-05T01:25:37.311966+00:00"
+  },
   "NZD": {
    "temas": {
     "conflito": {
@@ -82,7 +130,8 @@
     "fx": null,
     "juro": "energy shock: importer — inflation push, leans TIGHTENING (rule)"
    },
-   "coletado_em": "2026-09-04T21:50:49.348706+00:00"
+   "coletado_em": "2026-09-04T21:50:49.348706+00:00",
+   "reaproveitado_de": "2026-09-04T21:50:49.348706+00:00"
   },
   "CAD": {
    "temas": {
@@ -106,16 +155,19 @@
     "fx": null,
     "juro": null
    },
-   "coletado_em": "2026-09-04T21:50:49.348706+00:00"
+   "coletado_em": "2026-09-04T21:50:49.348706+00:00",
+   "reaproveitado_de": "2026-09-04T21:50:49.348706+00:00"
   }
  },
  "erros": [
   "mundo/conflito: HTTP Error 429: Too Many Requests",
   "mundo/energia: HTTP Error 429: Too Many Requests",
-  "CAD/energia: HTTP Error 429: Too Many Requests",
-  "CHF/conflito: HTTP Error 429: Too Many Requests",
-  "CHF/energia: HTTP Error 429: Too Many Requests",
-  "USD/conflito: HTTP Error 429: Too Many Requests",
-  "orcamento de 480 s estourado antes de EUR — o resto fica para a proxima rodada"
+  "EUR/energia: HTTP Error 429: Too Many Requests",
+  "GBP/conflito: HTTP Error 429: Too Many Requests",
+  "JPY/conflito: HTTP Error 429: Too Many Requests",
+  "JPY/energia: HTTP Error 429: Too Many Requests",
+  "AUD/conflito: HTTP Error 429: Too Many Requests",
+  "AUD/energia: HTTP Error 429: Too Many Requests",
+  "orcamento de 480 s estourado antes de NZD — o resto fica para a proxima rodada"
  ]
 }
