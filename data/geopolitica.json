@@ -1,5 +1,5 @@
 {
- "gerado_em": "2026-09-04T21:50:49.348706+00:00",
+ "gerado_em": "2026-09-05T10:34:46.465198+00:00",
  "fonte": "GDELT DOC 2.0 API (gratuita, sem chave, atualização de 15 min); fontes em inglês",
  "metodo": "volume de artigos dos últimos 3 dias contra a média diária da janela de 14 dias (razão e z); manchetes por relevância híbrida, agrupadas por evento antes de aparecer",
  "aviso": "Camada de CONTEXTO. A implicação é uma regra declarada (aversão a risco -> moedas de refúgio; choque de energia -> empurrão de inflação), não é medição, e NÃO entra na convicção. Hipótese a medir: um pico de conflito z>=2 muda o retorno de 20 dias das moedas de risco?",
@@ -132,6 +132,51 @@
   }
  },
  "moedas": {
+  "JPY": {
+   "temas": {
+    "conflito": {
+     "volume": {
+      "n": 14,
+      "recente_3d": 0.1238,
+      "base_14d": 0.1526,
+      "razao": 0.81,
+      "z": -0.67
+     },
+     "manchetes": [],
+     "manchetes_unicas": [],
+     "duplicatas_removidas": 0,
+     "vota": false,
+     "selo": "experimental — contexto, não vota"
+    },
+    "energia": {
+     "volume": {
+      "n": 14,
+      "recente_3d": 0.1084,
+      "base_14d": 0.0826,
+      "razao": 1.31,
+      "z": 0.53
+     },
+     "manchetes": [],
+     "manchetes_unicas": [],
+     "duplicatas_removidas": 0,
+     "vota": false,
+     "selo": "experimental — contexto, não vota"
+    }
+   },
+   "tom": null,
+   "implicacao": {
+    "regra": "regra declarada, não medida — está aqui para o julgamento, não entra na convicção",
+    "fx": null,
+    "juro": null
+   },
+   "coletado_em": "2026-09-05T10:34:46.465198+00:00",
+   "vota": false,
+   "experimental": true,
+   "selo": "experimental — contexto, não vota",
+   "selo_motivo": "Camada de contexto. A implicação é regra declarada, nunca medida, e não entra na convicção nem no teto do sentimento. A interface pode recolher esta seção por padrão: a informação continua inteira no arquivo.",
+   "recolher_por_padrao": true,
+   "peso_no_sentimento": 0.0
+  },
   "NZD": {
    "temas": {
     "conflito": {
@@ -175,7 +220,8 @@
    "selo": "experimental — contexto, não vota",
    "selo_motivo": "Camada de contexto. A implicação é regra declarada, nunca medida, e não entra na convicção nem no teto do sentimento. A interface pode recolher esta seção por padrão: a informação continua inteira no arquivo.",
    "recolher_por_padrao": true,
-   "peso_no_sentimento": 0.0
+   "peso_no_sentimento": 0.0,
+   "reaproveitado_de": "2026-09-04T21:50:49.348706+00:00"
   },
   "CAD": {
    "temas": {
@@ -213,17 +259,20 @@
    "selo": "experimental — contexto, não vota",
    "selo_motivo": "Camada de contexto. A implicação é regra declarada, nunca medida, e não entra na convicção nem no teto do sentimento. A interface pode recolher esta seção por padrão: a informação continua inteira no arquivo.",
    "recolher_por_padrao": true,
-   "peso_no_sentimento": 0.0
+   "peso_no_sentimento": 0.0,
+   "reaproveitado_de": "2026-09-04T21:50:49.348706+00:00"
   }
  },
  "erros": [
   "mundo/conflito: HTTP Error 429: Too Many Requests",
   "mundo/energia: HTTP Error 429: Too Many Requests",
-  "CAD/energia: HTTP Error 429: Too Many Requests",
-  "CHF/conflito: HTTP Error 429: Too Many Requests",
-  "CHF/energia: HTTP Error 429: Too Many Requests",
-  "USD/conflito: HTTP Error 429: Too Many Requests",
-  "orcamento de 480 s estourado antes de EUR — o resto fica para a proxima rodada"
+  "GBP/conflito: HTTP Error 429: Too Many Requests",
+  "GBP/energia: HTTP Error 429: Too Many Requests",
+  "AUD/conflito: HTTP Error 429: Too Many Requests",
+  "AUD/energia: HTTP Error 429: Too Many Requests",
+  "NZD/conflito: HTTP Error 429: Too Many Requests",
+  "NZD/energia: HTTP Error 429: Too Many Requests",
+  "orcamento de 480 s estourado antes de CAD — o resto fica para a proxima rodada"
  ],
  "vota": false,
  "experimental": true,
