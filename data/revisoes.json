@@ -1,95 +1,96 @@
 {
- "gerado_em": "2026-08-31 09:57",
+ "gerado_em": "2026-09-05 00:24",
  "snapshots": [
   "2026-08-14",
   "2026-08-21",
-  "2026-08-28"
+  "2026-08-28",
+  "2026-09-05"
  ],
- "janela": "2026-08-14 a 2026-08-28",
- "n_tickers": 1013,
+ "janela": "2026-08-14 a 2026-09-05",
+ "n_tickers": 1000,
  "metodo": "Revision of consensus EPS for the current fiscal year, between two PIT snapshots. Point-in-time by construction: each snapshot was taken that day, with no retroactive revision and no survivorship. Liquidity floor: volume > 500k, market cap > 2B.",
  "limite": "Screening for human reading. Not an order, not an entry trigger. Estimate revision is the fundamental signal that survived this house's equity tests — surviving a screen is not the same as being validated as a strategy.",
  "estatistica": {
-  "mediana": 0.03,
-  "p10": -6.73,
-  "p90": 7.59,
-  "acima_0_5pct": 652,
-  "subiram": 529,
-  "cairam": 424
+  "mediana": -5.94,
+  "p10": -44.7,
+  "p90": 10.82,
+  "acima_0_5pct": 855,
+  "subiram": 321,
+  "cairam": 650
  },
  "setores": [
   {
    "setor": "Energy",
-   "n": 78,
-   "rev_mediana": 0.66,
-   "pct_subindo": 58.0
+   "n": 77,
+   "rev_mediana": 3.26,
+   "pct_subindo": 53.0
+  },
+  {
+   "setor": "Financial Services",
+   "n": 118,
+   "rev_mediana": -0.0,
+   "pct_subindo": 47.0
+  },
+  {
+   "setor": "Real Estate",
+   "n": 49,
+   "rev_mediana": -1.15,
+   "pct_subindo": 35.0
   },
   {
    "setor": "Technology",
    "n": 219,
-   "rev_mediana": 0.13,
-   "pct_subindo": 59.0
-  },
-  {
-   "setor": "Financial Services",
-   "n": 119,
-   "rev_mediana": 0.1,
-   "pct_subindo": 58.0
-  },
-  {
-   "setor": "Real Estate",
-   "n": 50,
-   "rev_mediana": 0.05,
-   "pct_subindo": 50.0
-  },
-  {
-   "setor": "Communication Services",
-   "n": 47,
-   "rev_mediana": 0.04,
-   "pct_subindo": 55.0
-  },
-  {
-   "setor": "Consumer Cyclical",
-   "n": 107,
-   "rev_mediana": 0.01,
-   "pct_subindo": 51.0
-  },
-  {
-   "setor": "Industrials",
-   "n": 107,
-   "rev_mediana": 0.01,
-   "pct_subindo": 52.0
-  },
-  {
-   "setor": "Healthcare",
-   "n": 135,
-   "rev_mediana": 0.0,
-   "pct_subindo": 47.0
+   "rev_mediana": -1.63,
+   "pct_subindo": 40.0
   },
   {
    "setor": "Consumer Defensive",
-   "n": 55,
-   "rev_mediana": -0.0,
-   "pct_subindo": 45.0
+   "n": 51,
+   "rev_mediana": -5.44,
+   "pct_subindo": 16.0
+  },
+  {
+   "setor": "Consumer Cyclical",
+   "n": 105,
+   "rev_mediana": -6.29,
+   "pct_subindo": 28.0
   },
   {
    "setor": "Utilities",
    "n": 33,
-   "rev_mediana": -0.0,
-   "pct_subindo": 45.0
+   "rev_mediana": -7.54,
+   "pct_subindo": 3.0
   },
   {
    "setor": "Basic Materials",
-   "n": 63,
-   "rev_mediana": -0.65,
-   "pct_subindo": 32.0
+   "n": 62,
+   "rev_mediana": -8.93,
+   "pct_subindo": 18.0
+  },
+  {
+   "setor": "Communication Services",
+   "n": 50,
+   "rev_mediana": -9.53,
+   "pct_subindo": 26.0
+  },
+  {
+   "setor": "Industrials",
+   "n": 105,
+   "rev_mediana": -10.51,
+   "pct_subindo": 29.0
+  },
+  {
+   "setor": "Healthcare",
+   "n": 131,
+   "rev_mediana": -11.0,
+   "pct_subindo": 22.0
   }
  ],
  "cima": [
   {
    "ticker": "CXW",
    "setor": "Real Estate",
-   "preco": 33.81,
+   "preco": 34.71,
    "rev_eps_pct": 910.87,
    "rev_receita_pct": 5.56,
    "eps_ini": 1.61,
@@ -97,19 +98,69 @@
    "n_analistas": 2
   },
   {
-   "ticker": "INSM",
+   "ticker": "ECHO",
+   "setor": "Communication Services",
+   "preco": 89.8,
+   "rev_eps_pct": 645.39,
+   "rev_receita_pct": 6.09,
+   "eps_ini": 2.556,
+   "eps_fim": 19.049,
+   "n_analistas": 2
+  },
+  {
+   "ticker": "LFTO",
+   "setor": "Communication Services",
+   "preco": 18.74,
+   "rev_eps_pct": 400.0,
+   "rev_receita_pct": 2.52,
+   "eps_ini": 0.14,
+   "eps_fim": 0.7,
+   "n_analistas": 5
+  },
+  {
+   "ticker": "SRPT",
    "setor": "Healthcare",
-   "preco": 118.54,
-   "rev_eps_pct": 188.74,
-   "rev_receita_pct": 4.4,
-   "eps_ini": 0.333,
-   "eps_fim": 0.961,
-   "n_analistas": 16
+   "preco": 22.5,
+   "rev_eps_pct": 327.29,
+   "rev_receita_pct": 30.1,
+   "eps_ini": 0.764,
+   "eps_fim": 3.263,
+   "n_analistas": 11
+  },
+  {
+   "ticker": "GDS",
+   "setor": "Technology",
+   "preco": 31.36,
+   "rev_eps_pct": 203.25,
+   "rev_receita_pct": -8.64,
+   "eps_ini": 1.68,
+   "eps_fim": 5.094,
+   "n_analistas": 3
+  },
+  {
+   "ticker": "DK",
+   "setor": "Energy",
+   "preco": 71.86,
+   "rev_eps_pct": 195.97,
+   "rev_receita_pct": 13.17,
+   "eps_ini": 4.201,
+   "eps_fim": 12.435,
+   "n_analistas": 6
+  },
+  {
+   "ticker": "VG",
+   "setor": "Energy",
+   "preco": 14.42,
+   "rev_eps_pct": 130.39,
+   "rev_receita_pct": 16.79,
+   "eps_ini": 0.716,
+   "eps_fim": 1.649,
+   "n_analistas": 9
   },
   {
    "ticker": "BKD",
    "setor": "Healthcare",
-   "preco": 11.72,
+   "preco": 11.77,
    "rev_eps_pct": 125.25,
    "rev_receita_pct": -1.34,
    "eps_ini": -0.133,
@@ -117,29 +168,59 @@
    "n_analistas": 2
   },
   {
-   "ticker": "OUST",
-   "setor": "Technology",
-   "preco": 34.62,
-   "rev_eps_pct": 104.85,
-   "rev_receita_pct": -0.05,
-   "eps_ini": -0.155,
-   "eps_fim": 0.007,
-   "n_analistas": 3
+   "ticker": "TALO",
+   "setor": "Energy",
+   "preco": 16.84,
+   "rev_eps_pct": 119.58,
+   "rev_receita_pct": 2.41,
+   "eps_ini": 0.512,
+   "eps_fim": 1.124,
+   "n_analistas": 4
   },
   {
-   "ticker": "U",
-   "setor": "Technology",
-   "preco": 43.31,
-   "rev_eps_pct": 90.88,
-   "rev_receita_pct": 10.09,
-   "eps_ini": 0.544,
-   "eps_fim": 1.038,
-   "n_analistas": 12
+   "ticker": "GLNG",
+   "setor": "Energy",
+   "preco": 52.12,
+   "rev_eps_pct": 107.3,
+   "rev_receita_pct": -1.96,
+   "eps_ini": 0.534,
+   "eps_fim": 1.106,
+   "n_analistas": 4
+  },
+  {
+   "ticker": "UDR",
+   "setor": "Real Estate",
+   "preco": 36.38,
+   "rev_eps_pct": 104.2,
+   "rev_receita_pct": -2.98,
+   "eps_ini": 0.526,
+   "eps_fim": 1.075,
+   "n_analistas": 9
+  },
+  {
+   "ticker": "BMNR",
+   "setor": "Financial Services",
+   "preco": 24.97,
+   "rev_eps_pct": 103.6,
+   "rev_receita_pct": 243.33,
+   "eps_ini": -15.82,
+   "eps_fim": 0.57,
+   "n_analistas": 1
+  },
+  {
+   "ticker": "PBF",
+   "setor": "Energy",
+   "preco": 74.34,
+   "rev_eps_pct": 80.38,
+   "rev_receita_pct": 13.01,
+   "eps_ini": 9.598,
+   "eps_fim": 17.313,
+   "n_analistas": 6
   },
   {
    "ticker": "SPCX",
    "setor": "Industrials",
-   "preco": 141.5,
+   "preco": 147.95,
    "rev_eps_pct": 72.22,
    "rev_receita_pct": 6.81,
    "eps_ini": -0.54,
@@ -147,161 +228,141 @@
    "n_analistas": 13
   },
   {
-   "ticker": "USAR",
-   "setor": "Basic Materials",
-   "preco": 17.99,
-   "rev_eps_pct": 56.2,
-   "rev_receita_pct": 7.07,
-   "eps_ini": -0.209,
-   "eps_fim": -0.091,
-   "n_analistas": 3
-  },
-  {
-   "ticker": "TBBB",
-   "setor": "Consumer Defensive",
-   "preco": 48.99,
-   "rev_eps_pct": 51.43,
-   "rev_receita_pct": 3.63,
-   "eps_ini": -3.075,
-   "eps_fim": -1.493,
-   "n_analistas": 2
-  },
-  {
-   "ticker": "TALO",
+   "ticker": "OXY",
    "setor": "Energy",
-   "preco": 16.67,
-   "rev_eps_pct": 50.58,
-   "rev_receita_pct": 2.36,
-   "eps_ini": 0.512,
-   "eps_fim": 0.771,
-   "n_analistas": 5
-  },
-  {
-   "ticker": "NTRA",
-   "setor": "Healthcare",
-   "preco": 326.26,
-   "rev_eps_pct": 45.48,
-   "rev_receita_pct": 4.52,
-   "eps_ini": -0.298,
-   "eps_fim": -0.163,
+   "preco": 60.04,
+   "rev_eps_pct": 67.22,
+   "rev_receita_pct": 10.58,
+   "eps_ini": 3.671,
+   "eps_fim": 6.139,
    "n_analistas": 12
   },
   {
-   "ticker": "CBRS",
-   "setor": "Technology",
-   "preco": 179.08,
-   "rev_eps_pct": 41.57,
-   "rev_receita_pct": 2.79,
-   "eps_ini": -0.89,
-   "eps_fim": -0.52,
-   "n_analistas": 5
-  },
-  {
-   "ticker": "FIGS",
-   "setor": "Consumer Cyclical",
-   "preco": 15.42,
-   "rev_eps_pct": 40.31,
-   "rev_receita_pct": 4.41,
-   "eps_ini": 0.262,
-   "eps_fim": 0.368,
-   "n_analistas": 4
-  },
-  {
-   "ticker": "ASST",
-   "setor": "Financial Services",
-   "preco": 21.74,
-   "rev_eps_pct": 39.39,
-   "rev_receita_pct": -2.14,
-   "eps_ini": -3.857,
-   "eps_fim": -2.337,
-   "n_analistas": 2
-  },
-  {
-   "ticker": "CGNX",
-   "setor": "Technology",
-   "preco": 60.46,
-   "rev_eps_pct": 34.25,
-   "rev_receita_pct": 12.63,
-   "eps_ini": 1.495,
-   "eps_fim": 2.007,
-   "n_analistas": 13
-  },
-  {
-   "ticker": "SMCI",
-   "setor": "Technology",
-   "preco": 37.08,
-   "rev_eps_pct": 33.94,
-   "rev_receita_pct": 26.68,
-   "eps_ini": 3.239,
-   "eps_fim": 4.338,
-   "n_analistas": 7
-  },
-  {
-   "ticker": "DK",
+   "ticker": "MPC",
    "setor": "Energy",
-   "preco": 72.25,
-   "rev_eps_pct": 33.28,
-   "rev_receita_pct": 4.3,
-   "eps_ini": 4.201,
-   "eps_fim": 5.6,
-   "n_analistas": 7
-  },
-  {
-   "ticker": "KRG",
-   "setor": "Real Estate",
-   "preco": 26.0,
-   "rev_eps_pct": 33.23,
-   "rev_receita_pct": -0.45,
-   "eps_ini": 0.655,
-   "eps_fim": 0.872,
-   "n_analistas": 5
-  },
-  {
-   "ticker": "DRH",
-   "setor": "Real Estate",
-   "preco": 12.7,
-   "rev_eps_pct": 32.74,
-   "rev_receita_pct": 0.07,
-   "eps_ini": 0.555,
-   "eps_fim": 0.737,
-   "n_analistas": 4
-  },
-  {
-   "ticker": "GLW",
-   "setor": "Technology",
-   "preco": 148.87,
-   "rev_eps_pct": 32.11,
-   "rev_receita_pct": 18.65,
-   "eps_ini": 3.268,
-   "eps_fim": 4.317,
+   "preco": 388.9,
+   "rev_eps_pct": 62.67,
+   "rev_receita_pct": 10.69,
+   "eps_ini": 30.769,
+   "eps_fim": 50.053,
    "n_analistas": 10
   },
   {
-   "ticker": "LGN",
-   "setor": "Industrials",
-   "preco": 53.84,
-   "rev_eps_pct": 30.47,
-   "rev_receita_pct": 10.96,
-   "eps_ini": 2.025,
-   "eps_fim": 2.642,
+   "ticker": "VLO",
+   "setor": "Energy",
+   "preco": 370.72,
+   "rev_eps_pct": 61.6,
+   "rev_receita_pct": 17.6,
+   "eps_ini": 26.675,
+   "eps_fim": 43.106,
+   "n_analistas": 11
+  },
+  {
+   "ticker": "LBRT",
+   "setor": "Energy",
+   "preco": 20.59,
+   "rev_eps_pct": 59.22,
+   "rev_receita_pct": -6.97,
+   "eps_ini": 0.173,
+   "eps_fim": 0.276,
+   "n_analistas": 5
+  },
+  {
+   "ticker": "DINO",
+   "setor": "Energy",
+   "preco": 105.41,
+   "rev_eps_pct": 58.92,
+   "rev_receita_pct": 12.82,
+   "eps_ini": 9.165,
+   "eps_fim": 14.565,
    "n_analistas": 8
+  },
+  {
+   "ticker": "BP",
+   "setor": "Energy",
+   "preco": 43.81,
+   "rev_eps_pct": 56.59,
+   "rev_receita_pct": 8.47,
+   "eps_ini": 4.011,
+   "eps_fim": 6.281,
+   "n_analistas": 12
   }
  ],
  "baixo": [
   {
+   "ticker": "CORZ",
+   "setor": "Technology",
+   "preco": 17.89,
+   "rev_eps_pct": -1529.49,
+   "rev_receita_pct": -41.26,
+   "eps_ini": 0.295,
+   "eps_fim": -4.22,
+   "n_analistas": 6
+  },
+  {
+   "ticker": "WULF",
+   "setor": "Financial Services",
+   "preco": 16.51,
+   "rev_eps_pct": -1084.38,
+   "rev_receita_pct": -71.09,
+   "eps_ini": -0.246,
+   "eps_fim": -2.913,
+   "n_analistas": 6
+  },
+  {
    "ticker": "LI",
    "setor": "Consumer Cyclical",
-   "preco": 12.23,
-   "rev_eps_pct": -921.91,
-   "rev_receita_pct": -4.62,
+   "preco": 12.37,
+   "rev_eps_pct": -898.29,
+   "rev_receita_pct": -6.25,
    "eps_ini": 0.457,
-   "eps_fim": -3.757,
+   "eps_fim": -3.649,
    "n_analistas": 8
+  },
+  {
+   "ticker": "CELC",
+   "setor": "Healthcare",
+   "preco": 95.7,
+   "rev_eps_pct": -860.79,
+   "rev_receita_pct": -90.26,
+   "eps_ini": -0.505,
+   "eps_fim": -4.851,
+   "n_analistas": 5
+  },
+  {
+   "ticker": "IREN",
+   "setor": "Technology",
+   "preco": 44.68,
+   "rev_eps_pct": -673.3,
+   "rev_receita_pct": -2.63,
+   "eps_ini": -0.196,
+   "eps_fim": -1.513,
+   "n_analistas": 5
+  },
+  {
+   "ticker": "INSM",
+   "setor": "Healthcare",
+   "preco": 126.29,
+   "rev_eps_pct": -580.55,
+   "rev_receita_pct": -35.04,
+   "eps_ini": 0.333,
+   "eps_fim": -1.599,
+   "n_analistas": 15
+  },
+  {
+   "ticker": "BBIO",
+   "setor": "Healthcare",
+   "preco": 74.84,
+   "rev_eps_pct": -579.22,
+   "rev_receita_pct": -36.43,
+   "eps_ini": 0.579,
+   "eps_fim": -2.775,
+   "n_analistas": 12
   },
   {
    "ticker": "AADX",
    "setor": "Industrials",
-   "preco": 13.3,
+   "preco": 12.93,
    "rev_eps_pct": -535.71,
    "rev_receita_pct": 1.3,
    "eps_ini": 0.14,
@@ -309,184 +370,124 @@
    "n_analistas": 3
   },
   {
-   "ticker": "STRC",
-   "setor": "Technology",
-   "preco": 97.33,
-   "rev_eps_pct": -204.45,
-   "rev_receita_pct": 0.54,
-   "eps_ini": -7.562,
-   "eps_fim": -23.021,
-   "n_analistas": 2
+   "ticker": "COLD",
+   "setor": "Real Estate",
+   "preco": 14.22,
+   "rev_eps_pct": -482.52,
+   "rev_receita_pct": 0.01,
+   "eps_ini": 0.192,
+   "eps_fim": -0.734,
+   "n_analistas": 3
   },
   {
-   "ticker": "CELC",
+   "ticker": "CIFR",
+   "setor": "Technology",
+   "preco": 17.74,
+   "rev_eps_pct": -372.37,
+   "rev_receita_pct": -72.98,
+   "eps_ini": -0.277,
+   "eps_fim": -1.309,
+   "n_analistas": 7
+  },
+  {
+   "ticker": "NTRA",
    "setor": "Healthcare",
-   "preco": 88.44,
-   "rev_eps_pct": -199.8,
-   "rev_receita_pct": -1.43,
-   "eps_ini": -0.505,
-   "eps_fim": -1.514,
+   "preco": 328.18,
+   "rev_eps_pct": -353.71,
+   "rev_receita_pct": -12.71,
+   "eps_ini": -0.298,
+   "eps_fim": -1.354,
+   "n_analistas": 12
+  },
+  {
+   "ticker": "LIFE",
+   "setor": "Financial Services",
+   "preco": 39.85,
+   "rev_eps_pct": -338.19,
+   "rev_receita_pct": -18.93,
+   "eps_ini": 0.882,
+   "eps_fim": -2.101,
+   "n_analistas": 3
+  },
+  {
+   "ticker": "UUUU",
+   "setor": "Energy",
+   "preco": 14.47,
+   "rev_eps_pct": -248.78,
+   "rev_receita_pct": -44.77,
+   "eps_ini": 0.168,
+   "eps_fim": -0.25,
+   "n_analistas": 3
+  },
+  {
+   "ticker": "MAC",
+   "setor": "Real Estate",
+   "preco": 23.24,
+   "rev_eps_pct": -241.26,
+   "rev_receita_pct": -6.41,
+   "eps_ini": 0.113,
+   "eps_fim": -0.16,
    "n_analistas": 5
   },
   {
    "ticker": "MSTR",
    "setor": "Technology",
-   "preco": 127.31,
-   "rev_eps_pct": -137.03,
-   "rev_receita_pct": -0.17,
+   "preco": 142.8,
+   "rev_eps_pct": -234.71,
+   "rev_receita_pct": 0.47,
    "eps_ini": -7.562,
-   "eps_fim": -17.923,
-   "n_analistas": 8
+   "eps_fim": -25.309,
+   "n_analistas": 7
   },
   {
-   "ticker": "IREN",
+   "ticker": "STRC",
    "setor": "Technology",
-   "preco": 35.45,
-   "rev_eps_pct": -133.57,
-   "rev_receita_pct": -0.64,
-   "eps_ini": -0.196,
-   "eps_fim": -0.457,
-   "n_analistas": 8
-  },
-  {
-   "ticker": "BTU",
-   "setor": "Energy",
-   "preco": 28.92,
-   "rev_eps_pct": -100.58,
-   "rev_receita_pct": -1.17,
-   "eps_ini": 0.196,
-   "eps_fim": -0.001,
+   "preco": 97.75,
+   "rev_eps_pct": -234.71,
+   "rev_receita_pct": 0.47,
+   "eps_ini": -7.562,
+   "eps_fim": -25.309,
    "n_analistas": 2
   },
   {
-   "ticker": "BBIO",
+   "ticker": "U",
+   "setor": "Technology",
+   "preco": 41.66,
+   "rev_eps_pct": -226.22,
+   "rev_receita_pct": -9.11,
+   "eps_ini": 0.544,
+   "eps_fim": -0.686,
+   "n_analistas": 12
+  },
+  {
+   "ticker": "HIMS",
    "setor": "Healthcare",
-   "preco": 76.6,
-   "rev_eps_pct": -91.34,
-   "rev_receita_pct": 4.66,
-   "eps_ini": 0.579,
-   "eps_fim": 0.05,
-   "n_analistas": 12
+   "preco": 27.71,
+   "rev_eps_pct": -222.79,
+   "rev_receita_pct": -9.03,
+   "eps_ini": 0.47,
+   "eps_fim": -0.578,
+   "n_analistas": 7
   },
   {
-   "ticker": "TTD",
-   "setor": "Communication Services",
-   "preco": 13.57,
-   "rev_eps_pct": -80.23,
-   "rev_receita_pct": -24.62,
-   "eps_ini": 1.193,
-   "eps_fim": 0.236,
-   "n_analistas": 17
-  },
-  {
-   "ticker": "XPEV",
-   "setor": "Consumer Cyclical",
-   "preco": 11.53,
-   "rev_eps_pct": -58.79,
-   "rev_receita_pct": -3.17,
-   "eps_ini": -1.284,
-   "eps_fim": -2.038,
-   "n_analistas": 6
-  },
-  {
-   "ticker": "MNST",
-   "setor": "Consumer Defensive",
-   "preco": 46.86,
-   "rev_eps_pct": -49.73,
-   "rev_receita_pct": 2.35,
-   "eps_ini": 2.604,
-   "eps_fim": 1.309,
-   "n_analistas": 12
-  },
-  {
-   "ticker": "COLD",
+   "ticker": "SUI",
    "setor": "Real Estate",
-   "preco": 15.01,
-   "rev_eps_pct": -48.49,
-   "rev_receita_pct": -0.04,
-   "eps_ini": 0.192,
-   "eps_fim": 0.099,
+   "preco": 119.44,
+   "rev_eps_pct": -217.94,
+   "rev_receita_pct": -3.63,
+   "eps_ini": 2.803,
+   "eps_fim": -3.305,
    "n_analistas": 4
   },
   {
-   "ticker": "GDS",
-   "setor": "Technology",
-   "preco": 33.41,
-   "rev_eps_pct": -45.52,
-   "rev_receita_pct": 0.77,
-   "eps_ini": 1.68,
-   "eps_fim": 0.915,
-   "n_analistas": 4
-  },
-  {
-   "ticker": "FRVO",
-   "setor": "Utilities",
-   "preco": 14.77,
-   "rev_eps_pct": -42.51,
-   "rev_receita_pct": -7.68,
-   "eps_ini": -0.263,
-   "eps_fim": -0.374,
-   "n_analistas": 5
-  },
-  {
-   "ticker": "DHT",
-   "setor": "Industrials",
-   "preco": 19.66,
-   "rev_eps_pct": -42.41,
-   "rev_receita_pct": -29.12,
-   "eps_ini": 3.38,
-   "eps_fim": 1.946,
+   "ticker": "ADPT",
+   "setor": "Healthcare",
+   "preco": 24.28,
+   "rev_eps_pct": -209.22,
+   "rev_receita_pct": -17.93,
+   "eps_ini": -0.176,
+   "eps_fim": -0.545,
    "n_analistas": 6
-  },
-  {
-   "ticker": "CRWV",
-   "setor": "Technology",
-   "preco": 84.23,
-   "rev_eps_pct": -41.35,
-   "rev_receita_pct": 5.69,
-   "eps_ini": -1.363,
-   "eps_fim": -1.927,
-   "n_analistas": 16
-  },
-  {
-   "ticker": "RIOT",
-   "setor": "Financial Services",
-   "preco": 18.99,
-   "rev_eps_pct": -36.74,
-   "rev_receita_pct": 1.23,
-   "eps_ini": -0.831,
-   "eps_fim": -1.136,
-   "n_analistas": 8
-  },
-  {
-   "ticker": "FLNC",
-   "setor": "Utilities",
-   "preco": 10.88,
-   "rev_eps_pct": -36.67,
-   "rev_receita_pct": -4.75,
-   "eps_ini": 0.22,
-   "eps_fim": 0.139,
-   "n_analistas": 6
-  },
-  {
-   "ticker": "JBS",
-   "setor": "Consumer Defensive",
-   "preco": 13.59,
-   "rev_eps_pct": -35.23,
-   "rev_receita_pct": 0.32,
-   "eps_ini": 7.075,
-   "eps_fim": 4.582,
-   "n_analistas": 5
-  },
-  {
-   "ticker": "SHO",
-   "setor": "Real Estate",
-   "preco": 11.33,
-   "rev_eps_pct": -34.04,
-   "rev_receita_pct": 0.07,
-   "eps_ini": 0.45,
-   "eps_fim": 0.297,
-   "n_analistas": 3
   }
  ]
 }
