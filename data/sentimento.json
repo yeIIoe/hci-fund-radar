@@ -1,15 +1,15 @@
 {
- "gerado_em": "2026-09-05T10:43:55.955383+00:00",
- "gerado_em_brt": "05/09/2026 07:43 (BRT)",
+ "gerado_em": "2026-09-05T13:33:34.588682+00:00",
+ "gerado_em_brt": "05/09/2026 10:33 (BRT)",
  "origem_eventos": "fxstreet 42 dias atrás + 30 à frente",
  "frescor": {
-  "atraso_min": 10,
-  "atraso_texto": "10 min",
+  "atraso_min": 1,
+  "atraso_texto": "1 min",
   "estado": "ok",
-  "ultima_sincronizacao_ok_utc": "2026-09-05T10:34:03.797859+00:00",
-  "ultima_sincronizacao_ok_brt": "05/09/2026 07:34 (BRT)",
+  "ultima_sincronizacao_ok_utc": "2026-09-05T13:32:54.447136+00:00",
+  "ultima_sincronizacao_ok_brt": "05/09/2026 10:32 (BRT)",
   "bloqueia_leitura": false,
-  "texto": "Dados sincronizados há 10 min (05/09 07:34, BRT). Leituras válidas.",
+  "texto": "Dados sincronizados há 1 min (05/09 10:32, BRT). Leituras válidas.",
   "limiares_provisorios": {
    "atrasado_min": 45,
    "muito_atrasado_min": 120
@@ -21,7 +21,7 @@
     "arquivo": "FXStreet ao vivo",
     "alimenta": "dimensão de dados (VOTA)",
     "vota": true,
-    "sincronizado_em": "2026-09-05T10:43:55.955383+00:00",
+    "sincronizado_em": "2026-09-05T13:33:34.588682+00:00",
     "atraso_min": 0,
     "ao_vivo": true,
     "atraso_texto": "0 min"
@@ -31,27 +31,27 @@
     "arquivo": "bancos_centrais.json",
     "alimenta": "dimensão de ciclo (VOTA)",
     "vota": true,
-    "sincronizado_em": "2026-09-05T10:34:03.797859+00:00",
-    "atraso_min": 10,
-    "atraso_texto": "10 min"
+    "sincronizado_em": "2026-09-05T13:32:54.447136+00:00",
+    "atraso_min": 1,
+    "atraso_texto": "1 min"
    },
    {
     "fonte": "discursos dos bancos centrais",
     "arquivo": "bc_discursos.json",
     "alimenta": "dimensão de fala (contexto, NÃO vota)",
     "vota": false,
-    "sincronizado_em": "2026-09-05T10:33:48.625020+00:00",
-    "atraso_min": 10,
-    "atraso_texto": "10 min"
+    "sincronizado_em": "2026-09-05T13:32:40.081663+00:00",
+    "atraso_min": 1,
+    "atraso_texto": "1 min"
    },
    {
     "fonte": "imprensa",
     "arquivo": "noticias.json",
     "alimenta": "contexto de fala (NÃO vota)",
     "vota": false,
-    "sincronizado_em": "2026-09-05T10:34:09.674903+00:00",
-    "atraso_min": 10,
-    "atraso_texto": "10 min"
+    "sincronizado_em": "2026-09-05T13:32:54.621471+00:00",
+    "atraso_min": 1,
+    "atraso_texto": "1 min"
    },
    {
     "fonte": "geopolítica (GDELT)",
@@ -59,8 +59,8 @@
     "alimenta": "dimensão experimental (NÃO vota)",
     "vota": false,
     "sincronizado_em": "2026-09-05T10:34:46.465198+00:00",
-    "atraso_min": 9,
-    "atraso_texto": "9 min"
+    "atraso_min": 179,
+    "atraso_texto": "2h 59min"
    }
   ],
   "o_que_conta": "só as fontes que alimentam dimensão QUE VOTA entram no atraso (calendário e bancos centrais). Discurso, imprensa e geopolítica são contexto: a idade deles fica gravada, rotulada, e não muda o estado.",
@@ -282,9 +282,9 @@
     "quando_utc": "2026-09-10T12:30:00+00:00",
     "quando_brt": "10/09 09:30",
     "impacto": "HIGH",
-    "dias": 5,
-    "horas": 1,
-    "horas_total": 121,
+    "dias": 4,
+    "horas": 22,
+    "horas_total": 118,
     "reserva": false,
     "texto": "PPI (núcleo) em 10/09 às 09:30 (BRT)",
     "nota": "é o próximo DADO relevante, não a próxima decisão: ele diz até quando vale procurar BO + ZOI. A reunião continua no campo `proxima`, como limite final do ciclo."
@@ -311,8 +311,8 @@
      "direcao_antes_do_teto": "CORTA",
      "vota": true,
      "por_que_nao_vota": null,
-     "soma": -11.87,
-     "soma_antes_do_teto": -8.11,
+     "soma": -11.83,
+     "soma_antes_do_teto": -8.1,
      "n": 84,
      "n_alto": 25,
      "desde": "2026-07-29T18:00:00+00:00",
@@ -324,13 +324,13 @@
       "texto": null
      },
      "deslocamento_pelo_teto": {
-      "valor": -3.76,
+      "valor": -3.73,
       "direcao_mudou": false,
-      "texto": "cortar os itens moveu a soma em -3.76 (de -8.11 para -11.87) — winsorizar termos de uma SOMA desloca o total para o lado contrário ao do item cortado, não amortece"
+      "texto": "cortar os itens moveu a soma em -3.73 (de -8.10 para -11.83) — winsorizar termos de uma SOMA desloca o total para o lado contrário ao do item cortado, não amortece"
      },
      "winsor": {
       "teto_por_item": 4.0,
-      "mediana_absoluta": 1.79,
+      "mediana_absoluta": 1.78,
       "mediana_manda_no_teto": false,
       "itens_cortados": 1,
       "regra": "cada divulgacao entra com no maximo 4,0 em modulo, que e 0,8 do limiar de 5,0 da dimensao. Como 4,0 < 5,0, NENHUMA divulgacao sozinha atinge o limiar: sao precisas pelo menos duas. Numero PROVISORIO, escolhido por ordem de grandeza (e a menor folga que ainda deixa duas divulgacoes grandes virarem a leitura), nao por calibracao — vai ao backtest junto com o limiar.",
@@ -375,9 +375,9 @@
        "impacto": "HIGH",
        "divulgado": 162.0,
        "consenso": 56.0,
-       "contribuicao_bruta": 7.76,
+       "contribuicao_bruta": 7.73,
        "contribuicao": 4.0,
-       "idade_dias": 0.9,
+       "idade_dias": 1.0,
        "winsorizado": true
       },
       {
@@ -388,9 +388,9 @@
        "impacto": "HIGH",
        "divulgado": 0.1,
        "consenso": 0.3,
-       "contribuicao_bruta": -3.46,
-       "contribuicao": -3.46,
-       "idade_dias": 28.9,
+       "contribuicao_bruta": -3.45,
+       "contribuicao": -3.45,
+       "idade_dias": 29.0,
        "winsorizado": false
       },
       {
@@ -401,9 +401,9 @@
        "impacto": "HIGH",
        "divulgado": -23.0,
        "consenso": 80.0,
-       "contribuicao_bruta": -3.08,
-       "contribuicao": -3.08,
-       "idade_dias": 28.9,
+       "contribuicao_bruta": -3.07,
+       "contribuicao": -3.07,
+       "idade_dias": 29.0,
        "winsorizado": false
       },
       {
@@ -414,9 +414,9 @@
        "impacto": "HIGH",
        "divulgado": 44.0,
        "consenso": 70.0,
-       "contribuicao_bruta": -2.88,
-       "contribuicao": -2.88,
-       "idade_dias": 30.9,
+       "contribuicao_bruta": -2.87,
+       "contribuicao": -2.87,
+       "idade_dias": 31.1,
        "winsorizado": false
       },
       {
@@ -427,9 +427,9 @@
        "impacto": "MEDIUM",
        "divulgado": 0.0,
        "consenso": 0.2,
-       "contribuicao_bruta": -2.44,
-       "contribuicao": -2.44,
-       "idade_dias": 10.9,
+       "contribuicao_bruta": -2.43,
+       "contribuicao": -2.43,
+       "idade_dias": 11.0,
        "winsorizado": false
       },
       {
@@ -440,9 +440,9 @@
        "impacto": "HIGH",
        "divulgado": 6.3,
        "consenso": 3.6,
-       "contribuicao_bruta": 2.07,
-       "contribuicao": 2.07,
-       "idade_dias": 36.9,
+       "contribuicao_bruta": 2.06,
+       "contribuicao": 2.06,
+       "idade_dias": 37.0,
        "winsorizado": false
       }
      ]
@@ -601,9 +601,9 @@
    "moeda": "EUR",
    "direcao": "MANTEM",
    "intensidade": 0,
-   "score": 0.237,
+   "score": 0.238,
    "score_componentes": {
-    "dados": 0.085,
+    "dados": 0.086,
     "texto": 0.0,
     "ciclo": 0.152,
     "geo": 0.0
@@ -616,9 +616,9 @@
    "regime_motivo": "último movimento de +25 pb há 86 dias, ainda pesando (61% do peso cheio)",
    "leitura": "inclinado_alta",
    "leitura_texto": "inclinado à alta",
-   "leitura_motivo": "inclinado à alta: intensidade relativa 47% do teto, com 2 de 2 dimensões votando; as dimensões que votam discordam entre si, então a direção vem da MAGNITUDE, não da contagem de votos",
-   "intensidade_relativa_pct": 47,
-   "intensidade_relativa_pelo_teto_ligado_pct": 47,
+   "leitura_motivo": "inclinado à alta: intensidade relativa 48% do teto, com 2 de 2 dimensões votando; as dimensões que votam discordam entre si, então a direção vem da MAGNITUDE, não da contagem de votos",
+   "intensidade_relativa_pct": 48,
+   "intensidade_relativa_pelo_teto_ligado_pct": 48,
    "faixas_leitura_provisorias": {
     "intensidade_minima_pct": 15,
     "dimensoes_minimas_votando": 2,
@@ -651,8 +651,8 @@
     "quando_brt": "10/09 03:00",
     "impacto": "HIGH",
     "dias": 4,
-    "horas": 19,
-    "horas_total": 115,
+    "horas": 16,
+    "horas_total": 112,
     "reserva": false,
     "texto": "CPI em 10/09 às 03:00 (BRT)",
     "nota": "é o próximo DADO relevante, não a próxima decisão: ele diz até quando vale procurar BO + ZOI. A reunião continua no campo `proxima`, como limite final do ciclo."
@@ -679,8 +679,8 @@
      "direcao_antes_do_teto": "MANTEM",
      "vota": true,
      "por_que_nao_vota": null,
-     "soma": 3.56,
-     "soma_antes_do_teto": 3.56,
+     "soma": 3.59,
+     "soma_antes_do_teto": 3.59,
      "n": 157,
      "n_alto": 17,
      "desde": "2026-07-25",
@@ -740,9 +740,9 @@
        "impacto": "HIGH",
        "divulgado": 0.6,
        "consenso": 1.1,
-       "contribuicao_bruta": -3.86,
-       "contribuicao": -3.86,
-       "idade_dias": 1.1,
+       "contribuicao_bruta": -3.85,
+       "contribuicao": -3.85,
+       "idade_dias": 1.2,
        "winsorizado": false
       },
       {
@@ -753,9 +753,9 @@
        "impacto": "MEDIUM",
        "divulgado": 1.1,
        "consenso": 0.7,
-       "contribuicao_bruta": 2.05,
-       "contribuicao": 2.05,
-       "idade_dias": 16.2,
+       "contribuicao_bruta": 2.04,
+       "contribuicao": 2.04,
+       "idade_dias": 16.3,
        "winsorizado": false
       },
       {
@@ -766,9 +766,9 @@
        "impacto": "MEDIUM",
        "divulgado": -0.6,
        "consenso": 0.3,
-       "contribuicao_bruta": -1.93,
-       "contribuicao": -1.93,
-       "idade_dias": 1.1,
+       "contribuicao_bruta": -1.92,
+       "contribuicao": -1.92,
+       "idade_dias": 1.2,
        "winsorizado": false
       },
       {
@@ -781,7 +781,7 @@
        "consenso": 0.6,
        "contribuicao_bruta": 1.76,
        "contribuicao": 1.76,
-       "idade_dias": 37.1,
+       "idade_dias": 37.2,
        "winsorizado": false
       },
       {
@@ -794,7 +794,7 @@
        "consenso": 0.2,
        "contribuicao_bruta": 1.76,
        "contribuicao": 1.76,
-       "idade_dias": 37.1,
+       "idade_dias": 37.2,
        "winsorizado": false
       },
       {
@@ -807,7 +807,7 @@
        "consenso": 0.5,
        "contribuicao_bruta": 1.76,
        "contribuicao": 1.76,
-       "idade_dias": 37.1,
+       "idade_dias": 37.2,
        "winsorizado": false
       }
      ]
@@ -1024,8 +1024,8 @@
     "quando_brt": "15/09 03:00",
     "impacto": "HIGH",
     "dias": 9,
-    "horas": 19,
-    "horas_total": 235,
+    "horas": 16,
+    "horas_total": 232,
     "reserva": false,
     "texto": "emprego em 15/09 às 03:00 (BRT)",
     "nota": "é o próximo DADO relevante, não a próxima decisão: ele diz até quando vale procurar BO + ZOI. A reunião continua no campo `proxima`, como limite final do ciclo."
@@ -1052,8 +1052,8 @@
      "direcao_antes_do_teto": "MANTEM",
      "vota": true,
      "por_que_nao_vota": null,
-     "soma": -3.09,
-     "soma_antes_do_teto": -3.09,
+     "soma": -3.08,
+     "soma_antes_do_teto": -3.08,
      "n": 34,
      "n_alto": 7,
      "desde": "2026-07-30T11:00:00+00:00",
@@ -1071,7 +1071,7 @@
      },
      "winsor": {
       "teto_por_item": 4.0,
-      "mediana_absoluta": 0.7,
+      "mediana_absoluta": 0.69,
       "mediana_manda_no_teto": false,
       "itens_cortados": 0,
       "regra": "cada divulgacao entra com no maximo 4,0 em modulo, que e 0,8 do limiar de 5,0 da dimensao. Como 4,0 < 5,0, NENHUMA divulgacao sozinha atinge o limiar: sao precisas pelo menos duas. Numero PROVISORIO, escolhido por ordem de grandeza (e a menor folga que ainda deixa duas divulgacoes grandes virarem a leitura), nao por calibracao — vai ao backtest junto com o limiar.",
@@ -1114,9 +1114,9 @@
        "impacto": "MEDIUM",
        "divulgado": 0.3,
        "consenso": 0.0,
-       "contribuicao_bruta": 1.4,
-       "contribuicao": 1.4,
-       "idade_dias": 23.2,
+       "contribuicao_bruta": 1.39,
+       "contribuicao": 1.39,
+       "idade_dias": 23.3,
        "winsorizado": false
       },
       {
@@ -1129,7 +1129,7 @@
        "consenso": -0.5,
        "contribuicao_bruta": -1.21,
        "contribuicao": -1.21,
-       "idade_dias": 15.2,
+       "idade_dias": 15.3,
        "winsorizado": false
       },
       {
@@ -1142,7 +1142,7 @@
        "consenso": 0.0,
        "contribuicao_bruta": -0.79,
        "contribuicao": -0.79,
-       "idade_dias": 17.2,
+       "idade_dias": 17.3,
        "winsorizado": false
       },
       {
@@ -1153,9 +1153,9 @@
        "impacto": "MEDIUM",
        "divulgado": -0.2,
        "consenso": 0.1,
-       "contribuicao_bruta": -0.7,
-       "contribuicao": -0.7,
-       "idade_dias": 23.2,
+       "contribuicao_bruta": -0.69,
+       "contribuicao": -0.69,
+       "idade_dias": 23.3,
        "winsorizado": false
       },
       {
@@ -1166,9 +1166,9 @@
        "impacto": "MEDIUM",
        "divulgado": -0.5,
        "consenso": -0.2,
-       "contribuicao_bruta": -0.7,
-       "contribuicao": -0.7,
-       "idade_dias": 23.2,
+       "contribuicao_bruta": -0.69,
+       "contribuicao": -0.69,
+       "idade_dias": 23.3,
        "winsorizado": false
       },
       {
@@ -1181,7 +1181,7 @@
        "consenso": 0.4,
        "contribuicao_bruta": -0.53,
        "contribuicao": -0.53,
-       "idade_dias": 29.2,
+       "idade_dias": 29.3,
        "winsorizado": false
       }
      ]
@@ -1329,9 +1329,9 @@
    "moeda": "JPY",
    "direcao": "MANTEM",
    "intensidade": 0,
-   "score": 0.025,
+   "score": 0.026,
    "score_componentes": {
-    "dados": -0.132,
+    "dados": -0.131,
     "texto": 0.0,
     "ciclo": 0.157,
     "geo": 0.0
@@ -1379,8 +1379,8 @@
     "quando_brt": "07/09 20:50",
     "impacto": "HIGH",
     "dias": 2,
-    "horas": 13,
-    "horas_total": 61,
+    "horas": 10,
+    "horas_total": 58,
     "reserva": false,
     "texto": "PIB em 07/09 às 20:50 (BRT)",
     "nota": "é o próximo DADO relevante, não a próxima decisão: ele diz até quando vale procurar BO + ZOI. A reunião continua no campo `proxima`, como limite final do ciclo."
@@ -1407,8 +1407,8 @@
      "direcao_antes_do_teto": "CORTA",
      "vota": true,
      "por_que_nao_vota": null,
-     "soma": -5.87,
-     "soma_antes_do_teto": -5.87,
+     "soma": -5.83,
+     "soma_antes_do_teto": -5.83,
      "n": 23,
      "n_alto": 1,
      "desde": "2026-07-31T03:11:27.150000+00:00",
@@ -1468,9 +1468,9 @@
        "impacto": "HIGH",
        "divulgado": 0.3,
        "consenso": 0.5,
-       "contribuicao_bruta": -3.16,
-       "contribuicao": -3.16,
-       "idade_dias": 19.5,
+       "contribuicao_bruta": -3.14,
+       "contribuicao": -3.14,
+       "idade_dias": 19.6,
        "winsorizado": false
       },
       {
@@ -1481,9 +1481,9 @@
        "impacto": "MEDIUM",
        "divulgado": 1.1,
        "consenso": 2.0,
-       "contribuicao_bruta": -1.58,
-       "contribuicao": -1.58,
-       "idade_dias": 19.5,
+       "contribuicao_bruta": -1.57,
+       "contribuicao": -1.57,
+       "idade_dias": 19.6,
        "winsorizado": false
       },
       {
@@ -1496,7 +1496,7 @@
        "consenso": -1.6,
        "contribuicao_bruta": -0.76,
        "contribuicao": -0.76,
-       "idade_dias": 1.5,
+       "idade_dias": 1.6,
        "winsorizado": false
       },
       {
@@ -1507,9 +1507,9 @@
        "impacto": "LOW",
        "divulgado": 0.1,
        "consenso": 0.6,
-       "contribuicao_bruta": -0.65,
-       "contribuicao": -0.65,
-       "idade_dias": 23.5,
+       "contribuicao_bruta": -0.64,
+       "contribuicao": -0.64,
+       "idade_dias": 23.6,
        "winsorizado": false
       },
       {
@@ -1522,7 +1522,7 @@
        "consenso": -0.6,
        "contribuicao_bruta": 0.5,
        "contribuicao": 0.5,
-       "idade_dias": 5.5,
+       "idade_dias": 5.6,
        "winsorizado": false
       },
       {
@@ -1535,7 +1535,7 @@
        "consenso": 1512.0,
        "contribuicao_bruta": -0.42,
        "contribuicao": -0.42,
-       "idade_dias": 26.5,
+       "idade_dias": 26.6,
        "winsorizado": false
       }
      ]
@@ -1631,7 +1631,7 @@
     "componentes": {
      "quantidade": 100,
      "diversidade": 75,
-     "atualidade": 53,
+     "atualidade": 52,
      "confiabilidade": null
     },
     "confiabilidade_da_fala_se_votasse": 100,
@@ -1685,9 +1685,9 @@
    "moeda": "AUD",
    "direcao": "MANTEM",
    "intensidade": 0,
-   "score": 0.158,
+   "score": 0.157,
    "score_componentes": {
-    "dados": 0.035,
+    "dados": 0.034,
     "texto": 0.0,
     "ciclo": 0.123,
     "geo": 0.0
@@ -1700,9 +1700,9 @@
    "regime_motivo": "último movimento de +25 pb há 123 dias, ainda pesando (49% do peso cheio)",
    "leitura": "inclinado_alta",
    "leitura_texto": "inclinado à alta",
-   "leitura_motivo": "inclinado à alta: intensidade relativa 32% do teto, com 2 de 2 dimensões votando; as dimensões que votam discordam entre si, então a direção vem da MAGNITUDE, não da contagem de votos",
-   "intensidade_relativa_pct": 32,
-   "intensidade_relativa_pelo_teto_ligado_pct": 32,
+   "leitura_motivo": "inclinado à alta: intensidade relativa 31% do teto, com 2 de 2 dimensões votando; as dimensões que votam discordam entre si, então a direção vem da MAGNITUDE, não da contagem de votos",
+   "intensidade_relativa_pct": 31,
+   "intensidade_relativa_pelo_teto_ligado_pct": 31,
    "faixas_leitura_provisorias": {
     "intensidade_minima_pct": 15,
     "dimensoes_minimas_votando": 2,
@@ -1735,8 +1735,8 @@
     "quando_brt": "23/09 22:30",
     "impacto": "HIGH",
     "dias": 18,
-    "horas": 14,
-    "horas_total": 446,
+    "horas": 11,
+    "horas_total": 443,
     "reserva": false,
     "texto": "emprego em 23/09 às 22:30 (BRT)",
     "nota": "é o próximo DADO relevante, não a próxima decisão: ele diz até quando vale procurar BO + ZOI. A reunião continua no campo `proxima`, como limite final do ciclo."
@@ -1763,7 +1763,7 @@
      "direcao_antes_do_teto": "MANTEM",
      "vota": true,
      "por_que_nao_vota": null,
-     "soma": 1.4,
+     "soma": 1.38,
      "soma_antes_do_teto": 0.74,
      "n": 16,
      "n_alto": 6,
@@ -1776,13 +1776,13 @@
       "texto": null
      },
      "deslocamento_pelo_teto": {
-      "valor": 0.66,
+      "valor": 0.64,
       "direcao_mudou": false,
-      "texto": "cortar os itens moveu a soma em +0.66 (de +0.74 para +1.40) — winsorizar termos de uma SOMA desloca o total para o lado contrário ao do item cortado, não amortece"
+      "texto": "cortar os itens moveu a soma em +0.64 (de +0.74 para +1.38) — winsorizar termos de uma SOMA desloca o total para o lado contrário ao do item cortado, não amortece"
      },
      "winsor": {
       "teto_por_item": 4.0,
-      "mediana_absoluta": 3.55,
+      "mediana_absoluta": 3.54,
       "mediana_manda_no_teto": false,
       "itens_cortados": 1,
       "regra": "cada divulgacao entra com no maximo 4,0 em modulo, que e 0,8 do limiar de 5,0 da dimensao. Como 4,0 < 5,0, NENHUMA divulgacao sozinha atinge o limiar: sao precisas pelo menos duas. Numero PROVISORIO, escolhido por ordem de grandeza (e a menor folga que ainda deixa duas divulgacoes grandes virarem a leitura), nao por calibracao — vai ao backtest junto com o limiar.",
@@ -1824,9 +1824,9 @@
        "impacto": "HIGH",
        "divulgado": -15.8,
        "consenso": 15.0,
-       "contribuicao_bruta": -4.66,
+       "contribuicao_bruta": -4.64,
        "contribuicao": -4.0,
-       "idade_dias": 16.4,
+       "idade_dias": 16.5,
        "winsorizado": true
       },
       {
@@ -1837,9 +1837,9 @@
        "impacto": "MEDIUM",
        "divulgado": 0.5,
        "consenso": 0.3,
-       "contribuicao_bruta": 3.55,
-       "contribuicao": 3.55,
-       "idade_dias": 10.4,
+       "contribuicao_bruta": 3.54,
+       "contribuicao": 3.54,
+       "idade_dias": 10.5,
        "winsorizado": false
       },
       {
@@ -1850,9 +1850,9 @@
        "impacto": "HIGH",
        "divulgado": 1923.0,
        "consenso": 1390.0,
-       "contribuicao_bruta": 1.85,
-       "contribuicao": 1.85,
-       "idade_dias": 2.4,
+       "contribuicao_bruta": 1.84,
+       "contribuicao": 1.84,
+       "idade_dias": 2.5,
        "winsorizado": false
       }
      ]
@@ -1866,9 +1866,9 @@
      "conectada": true,
      "hawkish": 6,
      "dovish": 0,
-     "n": 28,
+     "n": 29,
      "n_falas": 0,
-     "n_contexto": 29,
+     "n_contexto": 30,
      "contagem_contexto": {
       "alta": 6,
       "corte": 0
@@ -1880,8 +1880,8 @@
      "oradores": [
       "realestate.com.au",
       "The Nightly",
-      "The Tribune",
-      "The New Daily"
+      "equiti.com",
+      "The Tribune"
      ],
      "datas": [
       "2026-09-05",
@@ -1895,7 +1895,7 @@
      "peso_aplicado": 0.0,
      "peso_da_fonte": 0.0,
      "peso_se_votasse": 0.0,
-     "itens_unicos": 28,
+     "itens_unicos": 29,
      "duplicatas_removidas": 1,
      "rotulo_contexto": "sem fala oficial disponivel — o banco bloqueia automacao; a imprensa abaixo e contexto, nao voto",
      "veredito_por_orador": [],
@@ -1944,8 +1944,8 @@
     "partes_sem_dado": [
      "confiabilidade"
     ],
-    "contexto_nao_contado": 28,
-    "explicacao": "qualidade 78/100 do AUD (média de 3 parte(s) com dado; sem dado em confiabilidade) — 16 divulgações e 0 fala(s) que votam na janela; 28 item(ns) de imprensa que NÃO votam ficaram de fora da conta; 3 de 4 famílias independentes (atividade, emprego, inflacao); o item que mais pesa tem 16 dia(s); fonte da fala: MANCHETE de imprensa — mas a fala NÃO VOTA desde 05/set, então a parte confiabilidade sai SEM DADO em vez de valer 0/100.",
+    "contexto_nao_contado": 29,
+    "explicacao": "qualidade 78/100 do AUD (média de 3 parte(s) com dado; sem dado em confiabilidade) — 16 divulgações e 0 fala(s) que votam na janela; 29 item(ns) de imprensa que NÃO votam ficaram de fora da conta; 3 de 4 famílias independentes (atividade, emprego, inflacao); o item que mais pesa tem 16 dia(s); fonte da fala: MANCHETE de imprensa — mas a fala NÃO VOTA desde 05/set, então a parte confiabilidade sai SEM DADO em vez de valer 0/100.",
     "provisorio": true,
     "regua": {
      "satura_em_itens": 12,
@@ -1997,7 +1997,7 @@
     "ciclo": 0.246,
     "geo": 0.0
    },
-   "score_texto_se_votasse": 0.08,
+   "score_texto_se_votasse": 0.078,
    "score_teto": 0.25,
    "score_teto_teorico": 0.5,
    "score_nao_vai_para_a_tela": "lei do dono: a palavra 'score' e o número não aparecem em lugar nenhum da interface — nem no detalhe, nem em tooltip. Para a tela existem leitura_texto, concordancia_texto e evidencia_rotulo.",
@@ -2040,8 +2040,8 @@
     "quando_brt": "16/09 19:45",
     "impacto": "HIGH",
     "dias": 11,
-    "horas": 12,
-    "horas_total": 276,
+    "horas": 9,
+    "horas_total": 273,
     "reserva": false,
     "texto": "PIB em 16/09 às 19:45 (BRT)",
     "nota": "é o próximo DADO relevante, não a próxima decisão: ele diz até quando vale procurar BO + ZOI. A reunião continua no campo `proxima`, como limite final do ciclo."
@@ -2112,13 +2112,13 @@
      "vota": false,
      "selo": "experimental — contexto, não vota",
      "conectada": true,
-     "hawkish": 8,
+     "hawkish": 7,
      "dovish": 0,
-     "n": 26,
+     "n": 22,
      "n_falas": 1,
-     "n_contexto": 27,
+     "n_contexto": 23,
      "contagem_contexto": {
-      "alta": 8,
+      "alta": 7,
       "corte": 0
      },
      "contagem_voto": {
@@ -2130,7 +2130,7 @@
      ],
      "datas": [
       "2026-09-04",
-      "2026-09-04",
+      "2026-09-05",
       "2026-09-04",
       "2026-09-04",
       "2026-09-04",
@@ -2140,13 +2140,13 @@
      "peso_aplicado": 0.0,
      "peso_da_fonte": 0.4,
      "peso_se_votasse": 0.4,
-     "itens_unicos": 26,
+     "itens_unicos": 22,
      "duplicatas_removidas": 1,
      "rotulo_contexto": "sem fala oficial disponivel — o banco bloqueia automacao; a imprensa abaixo e contexto, nao voto",
      "veredito_por_orador": [],
      "por_que_nao_vota": "a leitura de fala é CONTAGEM DE PALAVRAS, e contagem de palavras não lê negação, nem condição, nem referência temporal: 'holding the target' está na lista de termos hawkish, então Waller defendendo MANTER saía como alta. Desde 05/set a dimensão fica como CONTEXTO, com peso 0,0 — não entra no score, não entra no teto e não conta como MANTEM. O veredito por orador ao lado lê condição e negação, mas TAMBÉM não vota: nunca foi medido contra rótulo humano.",
      "nota": "imprensa (Google News, 72 h) — o banco central bloqueia automação. É contagem de expressão da imprensa, NÃO é fala do banco. Não vota desde 05/set, como nenhuma fala vota.",
-     "nota_peso": "NÃO VOTA: os 8 'alta' e 0 'corte' são CONTEXTO da imprensa. Se a régua antiga valesse, esta origem (imprensa_com_fala) pesaria 0.4."
+     "nota_peso": "NÃO VOTA: os 7 'alta' e 0 'corte' são CONTEXTO da imprensa. Se a régua antiga valesse, esta origem (imprensa_com_fala) pesaria 0.4."
     },
     "ciclo": {
      "bp": 25,
@@ -2203,8 +2203,8 @@
      "atualidade",
      "confiabilidade"
     ],
-    "contexto_nao_contado": 26,
-    "explicacao": "qualidade 0/100 do NZD (média de 2 parte(s) com dado; sem dado em atualidade, confiabilidade) — 0 divulgações e 0 fala(s) que votam na janela; 26 item(ns) de imprensa que NÃO votam ficaram de fora da conta; 0 de 4 famílias independentes (nenhuma); nada com peso na janela — a parte atualidade sai sem dado, não zero; fonte da fala: imprensa com fala de dirigente nomeado — mas a fala NÃO VOTA desde 05/set, então a parte confiabilidade sai SEM DADO em vez de valer 40/100.",
+    "contexto_nao_contado": 22,
+    "explicacao": "qualidade 0/100 do NZD (média de 2 parte(s) com dado; sem dado em atualidade, confiabilidade) — 0 divulgações e 0 fala(s) que votam na janela; 22 item(ns) de imprensa que NÃO votam ficaram de fora da conta; 0 de 4 famílias independentes (nenhuma); nada com peso na janela — a parte atualidade sai sem dado, não zero; fonte da fala: imprensa com fala de dirigente nomeado — mas a fala NÃO VOTA desde 05/set, então a parte confiabilidade sai SEM DADO em vez de valer 40/100.",
     "provisorio": true,
     "regua": {
      "satura_em_itens": 12,
@@ -2294,9 +2294,9 @@
     "quando_utc": "2026-09-14T12:30:00+00:00",
     "quando_brt": "14/09 09:30",
     "impacto": "HIGH",
-    "dias": 9,
-    "horas": 1,
-    "horas_total": 217,
+    "dias": 8,
+    "horas": 22,
+    "horas_total": 214,
     "reserva": false,
     "texto": "CPI (núcleo) em 14/09 às 09:30 (BRT)",
     "nota": "é o próximo DADO relevante, não a próxima decisão: ele diz até quando vale procurar BO + ZOI. A reunião continua no campo `proxima`, como limite final do ciclo."
@@ -2324,7 +2324,7 @@
      "vota": true,
      "por_que_nao_vota": null,
      "soma": -4.0,
-     "soma_antes_do_teto": -7.76,
+     "soma_antes_do_teto": -7.73,
      "n": 3,
      "n_alto": 2,
      "desde": "2026-09-02T13:45:00+00:00",
@@ -2336,13 +2336,13 @@
       "texto": null
      },
      "deslocamento_pelo_teto": {
-      "valor": 3.76,
+      "valor": 3.73,
       "direcao_mudou": true,
-      "texto": "cortar os itens moveu a soma em +3.76 (de -7.76 para -4.00); a DIREÇÃO mudou de CORTA para MANTEM — winsorizar termos de uma SOMA desloca o total para o lado contrário ao do item cortado, não amortece"
+      "texto": "cortar os itens moveu a soma em +3.73 (de -7.73 para -4.00); a DIREÇÃO mudou de CORTA para MANTEM — winsorizar termos de uma SOMA desloca o total para o lado contrário ao do item cortado, não amortece"
      },
      "winsor": {
       "teto_por_item": 4.0,
-      "mediana_absoluta": 7.76,
+      "mediana_absoluta": 7.73,
       "mediana_manda_no_teto": false,
       "itens_cortados": 1,
       "regra": "cada divulgacao entra com no maximo 4,0 em modulo, que e 0,8 do limiar de 5,0 da dimensao. Como 4,0 < 5,0, NENHUMA divulgacao sozinha atinge o limiar: sao precisas pelo menos duas. Numero PROVISORIO, escolhido por ordem de grandeza (e a menor folga que ainda deixa duas divulgacoes grandes virarem a leitura), nao por calibracao — vai ao backtest junto com o limiar.",
@@ -2376,9 +2376,9 @@
        "impacto": "HIGH",
        "divulgado": -41.7,
        "consenso": 15.0,
-       "contribuicao_bruta": -7.76,
+       "contribuicao_bruta": -7.73,
        "contribuicao": -4.0,
-       "idade_dias": 0.9,
+       "idade_dias": 1.0,
        "winsorizado": true
       }
      ]
@@ -2579,8 +2579,8 @@
     "quando_brt": "01/10 03:30",
     "impacto": "HIGH",
     "dias": 25,
-    "horas": 19,
-    "horas_total": 619,
+    "horas": 16,
+    "horas_total": 616,
     "reserva": false,
     "texto": "CPI em 01/10 às 03:30 (BRT)",
     "nota": "é o próximo DADO relevante, não a próxima decisão: ele diz até quando vale procurar BO + ZOI. A reunião continua no campo `proxima`, como limite final do ciclo."
@@ -2607,8 +2607,8 @@
      "direcao_antes_do_teto": "SOBE",
      "vota": true,
      "por_que_nao_vota": null,
-     "soma": 8.39,
-     "soma_antes_do_teto": 10.9,
+     "soma": 8.38,
+     "soma_antes_do_teto": 10.87,
      "n": 8,
      "n_alto": 2,
      "desde": "2026-07-25",
@@ -2620,13 +2620,13 @@
       "texto": null
      },
      "deslocamento_pelo_teto": {
-      "valor": -2.51,
+      "valor": -2.49,
       "direcao_mudou": false,
-      "texto": "cortar os itens moveu a soma em -2.51 (de +10.90 para +8.39) — winsorizar termos de uma SOMA desloca o total para o lado contrário ao do item cortado, não amortece"
+      "texto": "cortar os itens moveu a soma em -2.49 (de +10.87 para +8.38) — winsorizar termos de uma SOMA desloca o total para o lado contrário ao do item cortado, não amortece"
      },
      "winsor": {
       "teto_por_item": 4.0,
-      "mediana_absoluta": 2.5,
+      "mediana_absoluta": 2.49,
       "mediana_manda_no_teto": false,
       "itens_cortados": 1,
       "regra": "cada divulgacao entra com no maximo 4,0 em modulo, que e 0,8 do limiar de 5,0 da dimensao. Como 4,0 < 5,0, NENHUMA divulgacao sozinha atinge o limiar: sao precisas pelo menos duas. Numero PROVISORIO, escolhido por ordem de grandeza (e a menor folga que ainda deixa duas divulgacoes grandes virarem a leitura), nao por calibracao — vai ao backtest junto com o limiar.",
@@ -2665,9 +2665,9 @@
        "impacto": "HIGH",
        "divulgado": 0.8,
        "consenso": 0.5,
-       "contribuicao_bruta": 6.51,
+       "contribuicao_bruta": 6.49,
        "contribuicao": 4.0,
-       "idade_dias": 2.2,
+       "idade_dias": 2.3,
        "winsorizado": true
       },
       {
@@ -2678,9 +2678,9 @@
        "impacto": "MEDIUM",
        "divulgado": 0.4,
        "consenso": 0.0,
-       "contribuicao_bruta": 3.26,
-       "contribuicao": 3.26,
-       "idade_dias": 2.2,
+       "contribuicao_bruta": 3.24,
+       "contribuicao": 3.24,
+       "idade_dias": 2.3,
        "winsorizado": false
       },
       {
@@ -2693,7 +2693,7 @@
        "consenso": 1.3,
        "contribuicao_bruta": 1.74,
        "contribuicao": 1.74,
-       "idade_dias": 4.2,
+       "idade_dias": 4.3,
        "winsorizado": false
       },
       {
@@ -2704,9 +2704,9 @@
        "impacto": "MEDIUM",
        "divulgado": 1.5,
        "consenso": 3.2,
-       "contribuicao_bruta": -0.61,
-       "contribuicao": -0.61,
-       "idade_dias": 36.2,
+       "contribuicao_bruta": -0.6,
+       "contribuicao": -0.6,
+       "idade_dias": 36.3,
        "winsorizado": false
       }
      ]
@@ -2721,7 +2721,7 @@
      "dovish": 0,
      "n": 0,
      "n_falas": 0,
-     "n_contexto": 10,
+     "n_contexto": 9,
      "contagem_contexto": {
       "alta": 0,
       "corte": 0
@@ -2735,9 +2735,9 @@
      "itens_unicos": 0,
      "duplicatas_removidas": 0,
      "veredito_por_orador": [],
-     "por_que_nao_vota": "o CHF não tem feed do banco; a imprensa trouxe 10 item(ns) na janela, nenhum com marcador de política monetária — contexto, não fala do banco",
-     "nota": "o CHF não tem feed do banco; a imprensa trouxe 10 item(ns) na janela, nenhum com marcador de política monetária — contexto, não fala do banco",
-     "nota_peso": "o CHF não tem feed do banco; a imprensa trouxe 10 item(ns) na janela, nenhum com marcador de política monetária — contexto, não fala do banco"
+     "por_que_nao_vota": "o CHF não tem feed do banco; a imprensa trouxe 9 item(ns) na janela, nenhum com marcador de política monetária — contexto, não fala do banco",
+     "nota": "o CHF não tem feed do banco; a imprensa trouxe 9 item(ns) na janela, nenhum com marcador de política monetária — contexto, não fala do banco",
+     "nota_peso": "o CHF não tem feed do banco; a imprensa trouxe 9 item(ns) na janela, nenhum com marcador de política monetária — contexto, não fala do banco"
     },
     "ciclo": {
      "bp": -25,
@@ -2829,7 +2829,7 @@
    "base": "EUR",
    "cotada": "USD",
    "sinal": "BULL",
-   "forca": 0.444,
+   "forca": 0.445,
    "rotulo": "forte",
    "divergencia": 44,
    "conviccao_pct": 44,
@@ -2883,14 +2883,14 @@
     "nenhuma das duas pernas tem fala votando: desde 05/set a dimensão de discurso é contexto com selo, e a leitura vem de DADOS e CICLO apenas — duas dimensões por perna, teto 1.00 no par",
     "mesma aposta que EURGBP, EURJPY, EURCAD — compartilham a perna EUR e não diversificam"
    ],
-   "diff": 0.444,
+   "diff": 0.445,
    "diff_teto": 1.0,
    "diff_teto_teorico": 1.0,
    "motivo": "EUR +0.24 contra USD -0.21",
    "perna_motivo": "EUR",
    "leitura_base": {
     "direcao": "MANTEM",
-    "score": 0.237,
+    "score": 0.238,
     "conviccao_pct": 25,
     "votando": 2,
     "leitura": "inclinado_alta",
@@ -2920,8 +2920,8 @@
     "quando_brt": "10/09 03:00",
     "impacto": "HIGH",
     "dias": 4,
-    "horas": 19,
-    "horas_total": 115,
+    "horas": 16,
+    "horas_total": 112,
     "reserva": false,
     "texto": "CPI em 10/09 às 03:00 (BRT)",
     "nota": "é o próximo DADO relevante, não a próxima decisão: ele diz até quando vale procurar BO + ZOI. A reunião continua no campo `proxima`, como limite final do ciclo."
@@ -3027,9 +3027,9 @@
     "quando_utc": "2026-09-10T12:30:00+00:00",
     "quando_brt": "10/09 09:30",
     "impacto": "HIGH",
-    "dias": 5,
-    "horas": 1,
-    "horas_total": 121,
+    "dias": 4,
+    "horas": 22,
+    "horas_total": 118,
     "reserva": false,
     "texto": "PPI (núcleo) em 10/09 às 09:30 (BRT)",
     "nota": "é o próximo DADO relevante, não a próxima decisão: ele diz até quando vale procurar BO + ZOI. A reunião continua no campo `proxima`, como limite final do ciclo."
@@ -3045,7 +3045,7 @@
    "base": "AUD",
    "cotada": "USD",
    "sinal": "BULL",
-   "forca": 0.365,
+   "forca": 0.364,
    "rotulo": "moderada",
    "divergencia": 36,
    "conviccao_pct": 36,
@@ -3099,14 +3099,14 @@
     "nenhuma das duas pernas tem fala votando: desde 05/set a dimensão de discurso é contexto com selo, e a leitura vem de DADOS e CICLO apenas — duas dimensões por perna, teto 1.00 no par",
     "mesma aposta que USDJPY, USDCHF — compartilham a perna USD e não diversificam"
    ],
-   "diff": 0.365,
+   "diff": 0.364,
    "diff_teto": 1.0,
    "diff_teto_teorico": 1.0,
    "motivo": "AUD +0.16 contra USD -0.21",
    "perna_motivo": "USD",
    "leitura_base": {
     "direcao": "MANTEM",
-    "score": 0.158,
+    "score": 0.157,
     "conviccao_pct": 25,
     "votando": 2,
     "leitura": "inclinado_alta",
@@ -3135,9 +3135,9 @@
     "quando_utc": "2026-09-10T12:30:00+00:00",
     "quando_brt": "10/09 09:30",
     "impacto": "HIGH",
-    "dias": 5,
-    "horas": 1,
-    "horas_total": 121,
+    "dias": 4,
+    "horas": 22,
+    "horas_total": 118,
     "reserva": false,
     "texto": "PPI (núcleo) em 10/09 às 09:30 (BRT)",
     "nota": "é o próximo DADO relevante, não a próxima decisão: ele diz até quando vale procurar BO + ZOI. A reunião continua no campo `proxima`, como limite final do ciclo."
@@ -3244,9 +3244,9 @@
     "quando_utc": "2026-09-10T12:30:00+00:00",
     "quando_brt": "10/09 09:30",
     "impacto": "HIGH",
-    "dias": 5,
-    "horas": 1,
-    "horas_total": 121,
+    "dias": 4,
+    "horas": 22,
+    "horas_total": 118,
     "reserva": false,
     "texto": "PPI (núcleo) em 10/09 às 09:30 (BRT)",
     "nota": "é o próximo DADO relevante, não a próxima decisão: ele diz até quando vale procurar BO + ZOI. A reunião continua no campo `proxima`, como limite final do ciclo."
@@ -3262,7 +3262,7 @@
    "base": "USD",
    "cotada": "JPY",
    "sinal": "BEAR",
-   "forca": 0.232,
+   "forca": 0.233,
    "rotulo": "observação",
    "divergencia": 23,
    "conviccao_pct": 23,
@@ -3317,7 +3317,7 @@
     "nenhuma das duas pernas tem fala votando: desde 05/set a dimensão de discurso é contexto com selo, e a leitura vem de DADOS e CICLO apenas — duas dimensões por perna, teto 1.00 no par",
     "mesma aposta que AUDUSD, USDCHF — compartilham a perna USD e não diversificam"
    ],
-   "diff": -0.232,
+   "diff": -0.233,
    "diff_teto": 1.0,
    "diff_teto_teorico": 1.0,
    "motivo": "USD -0.21 contra JPY +0.03",
@@ -3336,7 +3336,7 @@
    },
    "leitura_cotada": {
     "direcao": "MANTEM",
-    "score": 0.025,
+    "score": 0.026,
     "conviccao_pct": 0,
     "votando": 2,
     "leitura": "sem_leitura",
@@ -3354,8 +3354,8 @@
     "quando_brt": "07/09 20:50",
     "impacto": "HIGH",
     "dias": 2,
-    "horas": 13,
-    "horas_total": 61,
+    "horas": 10,
+    "horas_total": 58,
     "reserva": false,
     "texto": "PIB em 07/09 às 20:50 (BRT)",
     "nota": "é o próximo DADO relevante, não a próxima decisão: ele diz até quando vale procurar BO + ZOI. A reunião continua no campo `proxima`, como limite final do ciclo."
@@ -3461,9 +3461,9 @@
     "quando_utc": "2026-09-10T12:30:00+00:00",
     "quando_brt": "10/09 09:30",
     "impacto": "HIGH",
-    "dias": 5,
-    "horas": 1,
-    "horas_total": 121,
+    "dias": 4,
+    "horas": 22,
+    "horas_total": 118,
     "reserva": false,
     "texto": "PPI (núcleo) em 10/09 às 09:30 (BRT)",
     "nota": "é o próximo DADO relevante, não a próxima decisão: ele diz até quando vale procurar BO + ZOI. A reunião continua no campo `proxima`, como limite final do ciclo."
@@ -3570,9 +3570,9 @@
     "quando_utc": "2026-09-10T12:30:00+00:00",
     "quando_brt": "10/09 09:30",
     "impacto": "HIGH",
-    "dias": 5,
-    "horas": 1,
-    "horas_total": 121,
+    "dias": 4,
+    "horas": 22,
+    "horas_total": 118,
     "reserva": false,
     "texto": "PPI (núcleo) em 10/09 às 09:30 (BRT)",
     "nota": "é o próximo DADO relevante, não a próxima decisão: ele diz até quando vale procurar BO + ZOI. A reunião continua no campo `proxima`, como limite final do ciclo."
@@ -3587,7 +3587,7 @@
    "base": "EUR",
    "cotada": "GBP",
    "sinal": "BULL",
-   "forca": 0.312,
+   "forca": 0.313,
    "rotulo": "moderada",
    "divergencia": 31,
    "conviccao_pct": 31,
@@ -3641,14 +3641,14 @@
     "nenhuma das duas pernas tem fala votando: desde 05/set a dimensão de discurso é contexto com selo, e a leitura vem de DADOS e CICLO apenas — duas dimensões por perna, teto 1.00 no par",
     "mesma aposta que EURUSD, EURJPY, EURCAD — compartilham a perna EUR e não diversificam"
    ],
-   "diff": 0.312,
+   "diff": 0.313,
    "diff_teto": 1.0,
    "diff_teto_teorico": 1.0,
    "motivo": "EUR +0.24 contra GBP -0.07",
    "perna_motivo": "EUR",
    "leitura_base": {
     "direcao": "MANTEM",
-    "score": 0.237,
+    "score": 0.238,
     "conviccao_pct": 25,
     "votando": 2,
     "leitura": "inclinado_alta",
@@ -3678,8 +3678,8 @@
     "quando_brt": "10/09 03:00",
     "impacto": "HIGH",
     "dias": 4,
-    "horas": 19,
-    "horas_total": 115,
+    "horas": 16,
+    "horas_total": 112,
     "reserva": false,
     "texto": "CPI em 10/09 às 03:00 (BRT)",
     "nota": "é o próximo DADO relevante, não a próxima decisão: ele diz até quando vale procurar BO + ZOI. A reunião continua no campo `proxima`, como limite final do ciclo."
@@ -3757,7 +3757,7 @@
    "perna_motivo": "EUR",
    "leitura_base": {
     "direcao": "MANTEM",
-    "score": 0.237,
+    "score": 0.238,
     "conviccao_pct": 25,
     "votando": 2,
     "leitura": "inclinado_alta",
@@ -3769,7 +3769,7 @@
    },
    "leitura_cotada": {
     "direcao": "MANTEM",
-    "score": 0.025,
+    "score": 0.026,
     "conviccao_pct": 0,
     "votando": 2,
     "leitura": "sem_leitura",
@@ -3787,8 +3787,8 @@
     "quando_brt": "07/09 20:50",
     "impacto": "HIGH",
     "dias": 2,
-    "horas": 13,
-    "horas_total": 61,
+    "horas": 10,
+    "horas_total": 58,
     "reserva": false,
     "texto": "PIB em 07/09 às 20:50 (BRT)",
     "nota": "é o próximo DADO relevante, não a próxima decisão: ele diz até quando vale procurar BO + ZOI. A reunião continua no campo `proxima`, como limite final do ciclo."
@@ -3804,7 +3804,7 @@
    "base": "EUR",
    "cotada": "AUD",
    "sinal": "SEM_TESE",
-   "forca": 0.079,
+   "forca": 0.081,
    "rotulo": "sem tese",
    "divergencia": 8,
    "conviccao_pct": 8,
@@ -3858,14 +3858,14 @@
     "nenhuma das duas pernas tem fala votando: desde 05/set a dimensão de discurso é contexto com selo, e a leitura vem de DADOS e CICLO apenas — duas dimensões por perna, teto 1.00 no par",
     "divergência 8 está na zona neutra (0-14): sem tese, o par sai da lista principal mas continua gravado"
    ],
-   "diff": 0.079,
+   "diff": 0.081,
    "diff_teto": 1.0,
    "diff_teto_teorico": 1.0,
    "motivo": "EUR +0.24 contra AUD +0.16",
    "perna_motivo": "EUR",
    "leitura_base": {
     "direcao": "MANTEM",
-    "score": 0.237,
+    "score": 0.238,
     "conviccao_pct": 25,
     "votando": 2,
     "leitura": "inclinado_alta",
@@ -3877,7 +3877,7 @@
    },
    "leitura_cotada": {
     "direcao": "MANTEM",
-    "score": 0.158,
+    "score": 0.157,
     "conviccao_pct": 25,
     "votando": 2,
     "leitura": "inclinado_alta",
@@ -3895,8 +3895,8 @@
     "quando_brt": "10/09 03:00",
     "impacto": "HIGH",
     "dias": 4,
-    "horas": 19,
-    "horas_total": 115,
+    "horas": 16,
+    "horas_total": 112,
     "reserva": false,
     "texto": "CPI em 10/09 às 03:00 (BRT)",
     "nota": "é o próximo DADO relevante, não a próxima decisão: ele diz até quando vale procurar BO + ZOI. A reunião continua no campo `proxima`, como limite final do ciclo."
@@ -3913,7 +3913,7 @@
    "base": "EUR",
    "cotada": "NZD",
    "sinal": "SEM_TESE",
-   "forca": 0.009,
+   "forca": 0.008,
    "rotulo": "sem tese",
    "divergencia": 1,
    "conviccao_pct": 1,
@@ -3969,14 +3969,14 @@
     "este par tem 0.75 de 1.00 do teto ligado: falta dimensão em uma das pernas. A divergência é dividida pelo teto TEÓRICO (1.00), então a falta de dado BAIXA a leitura em vez de inflá-la — pela conta antiga este par sairia com 1 em vez de 1",
     "divergência 1 está na zona neutra (0-14): sem tese, o par sai da lista principal mas continua gravado"
    ],
-   "diff": -0.009,
+   "diff": -0.008,
    "diff_teto": 0.75,
    "diff_teto_teorico": 1.0,
    "motivo": "EUR +0.24 contra NZD +0.25",
    "perna_motivo": "NZD",
    "leitura_base": {
     "direcao": "MANTEM",
-    "score": 0.237,
+    "score": 0.238,
     "conviccao_pct": 25,
     "votando": 2,
     "leitura": "inclinado_alta",
@@ -4006,8 +4006,8 @@
     "quando_brt": "10/09 03:00",
     "impacto": "HIGH",
     "dias": 4,
-    "horas": 19,
-    "horas_total": 115,
+    "horas": 16,
+    "horas_total": 112,
     "reserva": false,
     "texto": "CPI em 10/09 às 03:00 (BRT)",
     "nota": "é o próximo DADO relevante, não a próxima decisão: ele diz até quando vale procurar BO + ZOI. A reunião continua no campo `proxima`, como limite final do ciclo."
@@ -4024,7 +4024,7 @@
    "base": "EUR",
    "cotada": "CAD",
    "sinal": "BULL",
-   "forca": 0.332,
+   "forca": 0.333,
    "rotulo": "moderada",
    "divergencia": 33,
    "conviccao_pct": 33,
@@ -4079,14 +4079,14 @@
     "nenhuma das duas pernas tem fala votando: desde 05/set a dimensão de discurso é contexto com selo, e a leitura vem de DADOS e CICLO apenas — duas dimensões por perna, teto 1.00 no par",
     "mesma aposta que EURUSD, EURGBP, EURJPY — compartilham a perna EUR e não diversificam"
    ],
-   "diff": 0.332,
+   "diff": 0.333,
    "diff_teto": 1.0,
    "diff_teto_teorico": 1.0,
    "motivo": "EUR +0.24 contra CAD -0.10",
    "perna_motivo": "EUR",
    "leitura_base": {
     "direcao": "MANTEM",
-    "score": 0.237,
+    "score": 0.238,
     "conviccao_pct": 25,
     "votando": 2,
     "leitura": "inclinado_alta",
@@ -4116,8 +4116,8 @@
     "quando_brt": "10/09 03:00",
     "impacto": "HIGH",
     "dias": 4,
-    "horas": 19,
-    "horas_total": 115,
+    "horas": 16,
+    "horas_total": 112,
     "reserva": false,
     "texto": "CPI em 10/09 às 03:00 (BRT)",
     "nota": "é o próximo DADO relevante, não a próxima decisão: ele diz até quando vale procurar BO + ZOI. A reunião continua no campo `proxima`, como limite final do ciclo."
@@ -4133,7 +4133,7 @@
    "base": "EUR",
    "cotada": "CHF",
    "sinal": "SEM_TESE",
-   "forca": 0.066,
+   "forca": 0.067,
    "rotulo": "sem tese",
    "divergencia": 7,
    "conviccao_pct": 7,
@@ -4188,14 +4188,14 @@
     "nenhuma das duas pernas tem fala votando: desde 05/set a dimensão de discurso é contexto com selo, e a leitura vem de DADOS e CICLO apenas — duas dimensões por perna, teto 1.00 no par",
     "divergência 7 está na zona neutra (0-14): sem tese, o par sai da lista principal mas continua gravado"
    ],
-   "diff": 0.066,
+   "diff": 0.067,
    "diff_teto": 1.0,
    "diff_teto_teorico": 1.0,
    "motivo": "EUR +0.24 contra CHF +0.17",
    "perna_motivo": "EUR",
    "leitura_base": {
     "direcao": "MANTEM",
-    "score": 0.237,
+    "score": 0.238,
     "conviccao_pct": 25,
     "votando": 2,
     "leitura": "inclinado_alta",
@@ -4225,8 +4225,8 @@
     "quando_brt": "10/09 03:00",
     "impacto": "HIGH",
     "dias": 4,
-    "horas": 19,
-    "horas_total": 115,
+    "horas": 16,
+    "horas_total": 112,
     "reserva": false,
     "texto": "CPI em 10/09 às 03:00 (BRT)",
     "nota": "é o próximo DADO relevante, não a próxima decisão: ele diz até quando vale procurar BO + ZOI. A reunião continua no campo `proxima`, como limite final do ciclo."
@@ -4243,7 +4243,7 @@
    "base": "GBP",
    "cotada": "JPY",
    "sinal": "SEM_TESE",
-   "forca": 0.1,
+   "forca": 0.101,
    "rotulo": "sem tese",
    "divergencia": 10,
    "conviccao_pct": 10,
@@ -4283,7 +4283,7 @@
    "conviccao_historica_nota": "ainda não calibrada — precisa de backtest com amostra declarada",
    "perna_dominante": {
     "moeda": "GBP",
-    "share_pct": 75
+    "share_pct": 74
    },
    "acao": "Sem tese",
    "proximo_evento_invalidante": {
@@ -4298,7 +4298,7 @@
     "nenhuma das duas pernas tem fala votando: desde 05/set a dimensão de discurso é contexto com selo, e a leitura vem de DADOS e CICLO apenas — duas dimensões por perna, teto 1.00 no par",
     "divergência 10 está na zona neutra (0-14): sem tese, o par sai da lista principal mas continua gravado"
    ],
-   "diff": -0.1,
+   "diff": -0.101,
    "diff_teto": 1.0,
    "diff_teto_teorico": 1.0,
    "motivo": "GBP -0.07 contra JPY +0.03",
@@ -4317,7 +4317,7 @@
    },
    "leitura_cotada": {
     "direcao": "MANTEM",
-    "score": 0.025,
+    "score": 0.026,
     "conviccao_pct": 0,
     "votando": 2,
     "leitura": "sem_leitura",
@@ -4335,8 +4335,8 @@
     "quando_brt": "07/09 20:50",
     "impacto": "HIGH",
     "dias": 2,
-    "horas": 13,
-    "horas_total": 61,
+    "horas": 10,
+    "horas_total": 58,
     "reserva": false,
     "texto": "PIB em 07/09 às 20:50 (BRT)",
     "nota": "é o próximo DADO relevante, não a próxima decisão: ele diz até quando vale procurar BO + ZOI. A reunião continua no campo `proxima`, como limite final do ciclo."
@@ -4348,7 +4348,7 @@
    "base": "GBP",
    "cotada": "AUD",
    "sinal": "BEAR",
-   "forca": 0.233,
+   "forca": 0.232,
    "rotulo": "observação",
    "divergencia": 23,
    "conviccao_pct": 23,
@@ -4402,7 +4402,7 @@
     "nenhuma das duas pernas tem fala votando: desde 05/set a dimensão de discurso é contexto com selo, e a leitura vem de DADOS e CICLO apenas — duas dimensões por perna, teto 1.00 no par",
     "mesma aposta que AUDCAD — compartilham a perna AUD e não diversificam"
    ],
-   "diff": -0.233,
+   "diff": -0.232,
    "diff_teto": 1.0,
    "diff_teto_teorico": 1.0,
    "motivo": "GBP -0.07 contra AUD +0.16",
@@ -4421,7 +4421,7 @@
    },
    "leitura_cotada": {
     "direcao": "MANTEM",
-    "score": 0.158,
+    "score": 0.157,
     "conviccao_pct": 25,
     "votando": 2,
     "leitura": "inclinado_alta",
@@ -4439,8 +4439,8 @@
     "quando_brt": "15/09 03:00",
     "impacto": "HIGH",
     "dias": 9,
-    "horas": 19,
-    "horas_total": 235,
+    "horas": 16,
+    "horas_total": 232,
     "reserva": false,
     "texto": "emprego em 15/09 às 03:00 (BRT)",
     "nota": "é o próximo DADO relevante, não a próxima decisão: ele diz até quando vale procurar BO + ZOI. A reunião continua no campo `proxima`, como limite final do ciclo."
@@ -4547,8 +4547,8 @@
     "quando_brt": "15/09 03:00",
     "impacto": "HIGH",
     "dias": 9,
-    "horas": 19,
-    "horas_total": 235,
+    "horas": 16,
+    "horas_total": 232,
     "reserva": false,
     "texto": "emprego em 15/09 às 03:00 (BRT)",
     "nota": "é o próximo DADO relevante, não a próxima decisão: ele diz até quando vale procurar BO + ZOI. A reunião continua no campo `proxima`, como limite final do ciclo."
@@ -4655,9 +4655,9 @@
     "quando_utc": "2026-09-14T12:30:00+00:00",
     "quando_brt": "14/09 09:30",
     "impacto": "HIGH",
-    "dias": 9,
-    "horas": 1,
-    "horas_total": 217,
+    "dias": 8,
+    "horas": 22,
+    "horas_total": 214,
     "reserva": false,
     "texto": "CPI (núcleo) em 14/09 às 09:30 (BRT)",
     "nota": "é o próximo DADO relevante, não a próxima decisão: ele diz até quando vale procurar BO + ZOI. A reunião continua no campo `proxima`, como limite final do ciclo."
@@ -4722,7 +4722,7 @@
     "qualidade da evidência do par = 74/100, a MENOR das duas pernas (elo fraco: GBP, 74/100 contra 78/100 do CHF)",
     "o CHF não tem fonte de fala conectada (sem_fonte) — buraco declarado, não zero",
     "nenhuma das duas pernas tem fala votando: desde 05/set a dimensão de discurso é contexto com selo, e a leitura vem de DADOS e CICLO apenas — duas dimensões por perna, teto 1.00 no par",
-    "mesma aposta que CADCHF, CHFJPY — compartilham a perna CHF e não diversificam"
+    "mesma aposta que CADCHF — compartilham a perna CHF e não diversificam"
    ],
    "diff": -0.246,
    "diff_teto": 1.0,
@@ -4761,15 +4761,14 @@
     "quando_brt": "15/09 03:00",
     "impacto": "HIGH",
     "dias": 9,
-    "horas": 19,
-    "horas_total": 235,
+    "horas": 16,
+    "horas_total": 232,
     "reserva": false,
     "texto": "emprego em 15/09 às 03:00 (BRT)",
     "nota": "é o próximo DADO relevante, não a próxima decisão: ele diz até quando vale procurar BO + ZOI. A reunião continua no campo `proxima`, como limite final do ciclo."
    },
    "mesma_aposta": [
-    "CADCHF",
-    "CHFJPY"
+    "CADCHF"
    ]
   },
   {
@@ -4777,7 +4776,7 @@
    "base": "AUD",
    "cotada": "JPY",
    "sinal": "SEM_TESE",
-   "forca": 0.133,
+   "forca": 0.131,
    "rotulo": "sem tese",
    "divergencia": 13,
    "conviccao_pct": 13,
@@ -4832,14 +4831,14 @@
     "nenhuma das duas pernas tem fala votando: desde 05/set a dimensão de discurso é contexto com selo, e a leitura vem de DADOS e CICLO apenas — duas dimensões por perna, teto 1.00 no par",
     "divergência 13 está na zona neutra (0-14): sem tese, o par sai da lista principal mas continua gravado"
    ],
-   "diff": 0.133,
+   "diff": 0.131,
    "diff_teto": 1.0,
    "diff_teto_teorico": 1.0,
    "motivo": "AUD +0.16 contra JPY +0.03",
    "perna_motivo": "AUD",
    "leitura_base": {
     "direcao": "MANTEM",
-    "score": 0.158,
+    "score": 0.157,
     "conviccao_pct": 25,
     "votando": 2,
     "leitura": "inclinado_alta",
@@ -4851,7 +4850,7 @@
    },
    "leitura_cotada": {
     "direcao": "MANTEM",
-    "score": 0.025,
+    "score": 0.026,
     "conviccao_pct": 0,
     "votando": 2,
     "leitura": "sem_leitura",
@@ -4869,8 +4868,8 @@
     "quando_brt": "07/09 20:50",
     "impacto": "HIGH",
     "dias": 2,
-    "horas": 13,
-    "horas_total": 61,
+    "horas": 10,
+    "horas_total": 58,
     "reserva": false,
     "texto": "PIB em 07/09 às 20:50 (BRT)",
     "nota": "é o próximo DADO relevante, não a próxima decisão: ele diz até quando vale procurar BO + ZOI. A reunião continua no campo `proxima`, como limite final do ciclo."
@@ -4885,7 +4884,7 @@
    "base": "AUD",
    "cotada": "NZD",
    "sinal": "SEM_TESE",
-   "forca": 0.088,
+   "forca": 0.089,
    "rotulo": "sem tese",
    "divergencia": 9,
    "conviccao_pct": 9,
@@ -4941,14 +4940,14 @@
     "este par tem 0.75 de 1.00 do teto ligado: falta dimensão em uma das pernas. A divergência é dividida pelo teto TEÓRICO (1.00), então a falta de dado BAIXA a leitura em vez de inflá-la — pela conta antiga este par sairia com 12 em vez de 9",
     "divergência 9 está na zona neutra (0-14): sem tese, o par sai da lista principal mas continua gravado"
    ],
-   "diff": -0.088,
+   "diff": -0.089,
    "diff_teto": 0.75,
    "diff_teto_teorico": 1.0,
    "motivo": "AUD +0.16 contra NZD +0.25",
    "perna_motivo": "NZD",
    "leitura_base": {
     "direcao": "MANTEM",
-    "score": 0.158,
+    "score": 0.157,
     "conviccao_pct": 25,
     "votando": 2,
     "leitura": "inclinado_alta",
@@ -4978,8 +4977,8 @@
     "quando_brt": "16/09 19:45",
     "impacto": "HIGH",
     "dias": 11,
-    "horas": 12,
-    "horas_total": 276,
+    "horas": 9,
+    "horas_total": 273,
     "reserva": false,
     "texto": "PIB em 16/09 às 19:45 (BRT)",
     "nota": "é o próximo DADO relevante, não a próxima decisão: ele diz até quando vale procurar BO + ZOI. A reunião continua no campo `proxima`, como limite final do ciclo."
@@ -4996,7 +4995,7 @@
    "base": "AUD",
    "cotada": "CAD",
    "sinal": "BULL",
-   "forca": 0.253,
+   "forca": 0.252,
    "rotulo": "moderada",
    "divergencia": 25,
    "conviccao_pct": 25,
@@ -5051,14 +5050,14 @@
     "nenhuma das duas pernas tem fala votando: desde 05/set a dimensão de discurso é contexto com selo, e a leitura vem de DADOS e CICLO apenas — duas dimensões por perna, teto 1.00 no par",
     "mesma aposta que GBPAUD — compartilham a perna AUD e não diversificam"
    ],
-   "diff": 0.253,
+   "diff": 0.252,
    "diff_teto": 1.0,
    "diff_teto_teorico": 1.0,
    "motivo": "AUD +0.16 contra CAD -0.10",
    "perna_motivo": "AUD",
    "leitura_base": {
     "direcao": "MANTEM",
-    "score": 0.158,
+    "score": 0.157,
     "conviccao_pct": 25,
     "votando": 2,
     "leitura": "inclinado_alta",
@@ -5087,9 +5086,9 @@
     "quando_utc": "2026-09-14T12:30:00+00:00",
     "quando_brt": "14/09 09:30",
     "impacto": "HIGH",
-    "dias": 9,
-    "horas": 1,
-    "horas_total": 217,
+    "dias": 8,
+    "horas": 22,
+    "horas_total": 214,
     "reserva": false,
     "texto": "CPI (núcleo) em 14/09 às 09:30 (BRT)",
     "nota": "é o próximo DADO relevante, não a próxima decisão: ele diz até quando vale procurar BO + ZOI. A reunião continua no campo `proxima`, como limite final do ciclo."
@@ -5103,7 +5102,7 @@
    "base": "AUD",
    "cotada": "CHF",
    "sinal": "SEM_TESE",
-   "forca": 0.013,
+   "forca": 0.014,
    "rotulo": "sem tese",
    "divergencia": 1,
    "conviccao_pct": 1,
@@ -5158,14 +5157,14 @@
     "nenhuma das duas pernas tem fala votando: desde 05/set a dimensão de discurso é contexto com selo, e a leitura vem de DADOS e CICLO apenas — duas dimensões por perna, teto 1.00 no par",
     "divergência 1 está na zona neutra (0-14): sem tese, o par sai da lista principal mas continua gravado"
    ],
-   "diff": -0.013,
+   "diff": -0.014,
    "diff_teto": 1.0,
    "diff_teto_teorico": 1.0,
    "motivo": "AUD +0.16 contra CHF +0.17",
    "perna_motivo": "CHF",
    "leitura_base": {
     "direcao": "MANTEM",
-    "score": 0.158,
+    "score": 0.157,
     "conviccao_pct": 25,
     "votando": 2,
     "leitura": "inclinado_alta",
@@ -5195,16 +5194,15 @@
     "quando_brt": "23/09 22:30",
     "impacto": "HIGH",
     "dias": 18,
-    "horas": 14,
-    "horas_total": 446,
+    "horas": 11,
+    "horas_total": 443,
     "reserva": false,
     "texto": "emprego em 23/09 às 22:30 (BRT)",
     "nota": "é o próximo DADO relevante, não a próxima decisão: ele diz até quando vale procurar BO + ZOI. A reunião continua no campo `proxima`, como limite final do ciclo."
    },
    "mesma_aposta": [
     "GBPCHF",
-    "CADCHF",
-    "CHFJPY"
+    "CADCHF"
    ]
   },
   {
@@ -5212,7 +5210,7 @@
    "base": "NZD",
    "cotada": "JPY",
    "sinal": "BULL",
-   "forca": 0.221,
+   "forca": 0.22,
    "rotulo": "observação",
    "divergencia": 22,
    "conviccao_pct": 22,
@@ -5252,7 +5250,7 @@
    "conviccao_historica_nota": "ainda não calibrada — precisa de backtest com amostra declarada",
    "perna_dominante": {
     "moeda": "NZD",
-    "share_pct": 91
+    "share_pct": 90
    },
    "acao": "Compra NZD/JPY",
    "proximo_evento_invalidante": {
@@ -5269,7 +5267,7 @@
     "este par tem 0.75 de 1.00 do teto ligado: falta dimensão em uma das pernas. A divergência é dividida pelo teto TEÓRICO (1.00), então a falta de dado BAIXA a leitura em vez de inflá-la — pela conta antiga este par sairia com 29 em vez de 22",
     "mesma aposta que NZDUSD, GBPNZD, NZDCAD — compartilham a perna NZD e não diversificam"
    ],
-   "diff": 0.221,
+   "diff": 0.22,
    "diff_teto": 0.75,
    "diff_teto_teorico": 1.0,
    "motivo": "NZD +0.25 contra JPY +0.03",
@@ -5288,7 +5286,7 @@
    },
    "leitura_cotada": {
     "direcao": "MANTEM",
-    "score": 0.025,
+    "score": 0.026,
     "conviccao_pct": 0,
     "votando": 2,
     "leitura": "sem_leitura",
@@ -5306,8 +5304,8 @@
     "quando_brt": "07/09 20:50",
     "impacto": "HIGH",
     "dias": 2,
-    "horas": 13,
-    "horas_total": 61,
+    "horas": 10,
+    "horas_total": 58,
     "reserva": false,
     "texto": "PIB em 07/09 às 20:50 (BRT)",
     "nota": "é o próximo DADO relevante, não a próxima decisão: ele diz até quando vale procurar BO + ZOI. A reunião continua no campo `proxima`, como limite final do ciclo."
@@ -5416,9 +5414,9 @@
     "quando_utc": "2026-09-14T12:30:00+00:00",
     "quando_brt": "14/09 09:30",
     "impacto": "HIGH",
-    "dias": 9,
-    "horas": 1,
-    "horas_total": 217,
+    "dias": 8,
+    "horas": 22,
+    "horas_total": 214,
     "reserva": false,
     "texto": "CPI (núcleo) em 14/09 às 09:30 (BRT)",
     "nota": "é o próximo DADO relevante, não a próxima decisão: ele diz até quando vale procurar BO + ZOI. A reunião continua no campo `proxima`, como limite final do ciclo."
@@ -5528,8 +5526,8 @@
     "quando_brt": "16/09 19:45",
     "impacto": "HIGH",
     "dias": 11,
-    "horas": 12,
-    "horas_total": 276,
+    "horas": 9,
+    "horas_total": 273,
     "reserva": false,
     "texto": "PIB em 16/09 às 19:45 (BRT)",
     "nota": "é o próximo DADO relevante, não a próxima decisão: ele diz até quando vale procurar BO + ZOI. A reunião continua no campo `proxima`, como limite final do ciclo."
@@ -5546,7 +5544,7 @@
    "base": "CAD",
    "cotada": "JPY",
    "sinal": "SEM_TESE",
-   "forca": 0.12,
+   "forca": 0.121,
    "rotulo": "sem tese",
    "divergencia": 12,
    "conviccao_pct": 12,
@@ -5602,7 +5600,7 @@
     "nenhuma das duas pernas tem fala votando: desde 05/set a dimensão de discurso é contexto com selo, e a leitura vem de DADOS e CICLO apenas — duas dimensões por perna, teto 1.00 no par",
     "divergência 12 está na zona neutra (0-14): sem tese, o par sai da lista principal mas continua gravado"
    ],
-   "diff": -0.12,
+   "diff": -0.121,
    "diff_teto": 1.0,
    "diff_teto_teorico": 1.0,
    "motivo": "CAD -0.10 contra JPY +0.03",
@@ -5621,7 +5619,7 @@
    },
    "leitura_cotada": {
     "direcao": "MANTEM",
-    "score": 0.025,
+    "score": 0.026,
     "conviccao_pct": 0,
     "votando": 2,
     "leitura": "sem_leitura",
@@ -5639,8 +5637,8 @@
     "quando_brt": "07/09 20:50",
     "impacto": "HIGH",
     "dias": 2,
-    "horas": 13,
-    "horas_total": 61,
+    "horas": 10,
+    "horas_total": 58,
     "reserva": false,
     "texto": "PIB em 07/09 às 20:50 (BRT)",
     "nota": "é o próximo DADO relevante, não a próxima decisão: ele diz até quando vale procurar BO + ZOI. A reunião continua no campo `proxima`, como limite final do ciclo."
@@ -5706,7 +5704,7 @@
     "qualidade da evidência do par = 57/100, a MENOR das duas pernas (elo fraco: CAD, 57/100 contra 78/100 do CHF)",
     "o CHF não tem fonte de fala conectada (sem_fonte) — buraco declarado, não zero",
     "nenhuma das duas pernas tem fala votando: desde 05/set a dimensão de discurso é contexto com selo, e a leitura vem de DADOS e CICLO apenas — duas dimensões por perna, teto 1.00 no par",
-    "mesma aposta que GBPCHF, CHFJPY — compartilham a perna CHF e não diversificam"
+    "mesma aposta que GBPCHF — compartilham a perna CHF e não diversificam"
    ],
    "diff": -0.266,
    "diff_teto": 1.0,
@@ -5744,35 +5742,34 @@
     "quando_utc": "2026-09-14T12:30:00+00:00",
     "quando_brt": "14/09 09:30",
     "impacto": "HIGH",
-    "dias": 9,
-    "horas": 1,
-    "horas_total": 217,
+    "dias": 8,
+    "horas": 22,
+    "horas_total": 214,
     "reserva": false,
     "texto": "CPI (núcleo) em 14/09 às 09:30 (BRT)",
     "nota": "é o próximo DADO relevante, não a próxima decisão: ele diz até quando vale procurar BO + ZOI. A reunião continua no campo `proxima`, como limite final do ciclo."
    },
    "mesma_aposta": [
-    "GBPCHF",
-    "CHFJPY"
+    "GBPCHF"
    ]
   },
   {
    "par": "CHFJPY",
    "base": "CHF",
    "cotada": "JPY",
-   "sinal": "BULL",
-   "forca": 0.146,
-   "rotulo": "observação",
-   "divergencia": 15,
-   "conviccao_pct": 15,
-   "divergencia_pelo_teto_ligado": 15,
+   "sinal": "SEM_TESE",
+   "forca": 0.145,
+   "rotulo": "sem tese",
+   "divergencia": 14,
+   "conviccao_pct": 14,
+   "divergencia_pelo_teto_ligado": 14,
    "divergencia_normalizador": {
     "usa": "teto_teorico",
     "teto_teorico": 1.0,
     "teto_ligado": 1.0,
     "texto": "divergência = |diferença| / teto TEÓRICO (1.00) x 100. O teto ligado deste par é 1.00 e serve só para dizer quanta dimensão está de pé — não normaliza mais nada, porque dividir pelo teto ligado fazia a falta de dado INFLAR a divergência. ⚠️ O teto teórico caiu de 1,50 para 1,00 em 05/set, quando a fala parou de votar: a mesma diferença econômica sai 50% maior em divergência, e as faixas provisórias foram desenhadas na escala velha."
    },
-   "estado": "observacao",
+   "estado": "sem_tese",
    "faixas_provisorias": {
     "sem_tese": [
      0,
@@ -5803,7 +5800,7 @@
     "moeda": "CHF",
     "share_pct": 87
    },
-   "acao": "Compra CHF/JPY",
+   "acao": "Sem tese",
    "proximo_evento_invalidante": {
     "moeda": "JPY",
     "evento": "BoJ",
@@ -5815,9 +5812,9 @@
     "o CHF não tem fonte de fala conectada (sem_fonte) — buraco declarado, não zero",
     "a perna JPY está SEM LEITURA (sem leitura: intensidade relativa 5% abaixo do mínimo provisório de 15% (a leitura está perto demais de zero para virar direção). A moeda continua no arquivo, com tudo o que foi medido — o que não existe é a DIREÇÃO.) — a tese do par se apoia só na outra perna",
     "nenhuma das duas pernas tem fala votando: desde 05/set a dimensão de discurso é contexto com selo, e a leitura vem de DADOS e CICLO apenas — duas dimensões por perna, teto 1.00 no par",
-    "mesma aposta que GBPCHF, CADCHF — compartilham a perna CHF e não diversificam"
+    "divergência 14 está na zona neutra (0-14): sem tese, o par sai da lista principal mas continua gravado"
    ],
-   "diff": 0.146,
+   "diff": 0.145,
    "diff_teto": 1.0,
    "diff_teto_teorico": 1.0,
    "motivo": "CHF +0.17 contra JPY +0.03",
@@ -5836,7 +5833,7 @@
    },
    "leitura_cotada": {
     "direcao": "MANTEM",
-    "score": 0.025,
+    "score": 0.026,
     "conviccao_pct": 0,
     "votando": 2,
     "leitura": "sem_leitura",
@@ -5854,8 +5851,8 @@
     "quando_brt": "07/09 20:50",
     "impacto": "HIGH",
     "dias": 2,
-    "horas": 13,
-    "horas_total": 61,
+    "horas": 10,
+    "horas_total": 58,
     "reserva": false,
     "texto": "PIB em 07/09 às 20:50 (BRT)",
     "nota": "é o próximo DADO relevante, não a próxima decisão: ele diz até quando vale procurar BO + ZOI. A reunião continua no campo `proxima`, como limite final do ciclo."
@@ -5893,9 +5890,9 @@
      "impacto": "HIGH",
      "divulgado": 162.0,
      "consenso": 56.0,
-     "contribuicao_bruta": 7.76,
+     "contribuicao_bruta": 7.73,
      "contribuicao": 4.0,
-     "idade_dias": 0.9,
+     "idade_dias": 1.0,
      "winsorizado": true
     },
     {
@@ -5906,9 +5903,9 @@
      "impacto": "HIGH",
      "divulgado": 0.1,
      "consenso": 0.3,
-     "contribuicao_bruta": -3.46,
-     "contribuicao": -3.46,
-     "idade_dias": 28.9,
+     "contribuicao_bruta": -3.45,
+     "contribuicao": -3.45,
+     "idade_dias": 29.0,
      "winsorizado": false
     },
     {
@@ -5919,9 +5916,9 @@
      "impacto": "HIGH",
      "divulgado": -23.0,
      "consenso": 80.0,
-     "contribuicao_bruta": -3.08,
-     "contribuicao": -3.08,
-     "idade_dias": 28.9,
+     "contribuicao_bruta": -3.07,
+     "contribuicao": -3.07,
+     "idade_dias": 29.0,
      "winsorizado": false
     },
     {
@@ -5932,9 +5929,9 @@
      "impacto": "HIGH",
      "divulgado": 44.0,
      "consenso": 70.0,
-     "contribuicao_bruta": -2.88,
-     "contribuicao": -2.88,
-     "idade_dias": 30.9,
+     "contribuicao_bruta": -2.87,
+     "contribuicao": -2.87,
+     "idade_dias": 31.1,
      "winsorizado": false
     }
    ],
@@ -6060,9 +6057,9 @@
      "impacto": "HIGH",
      "divulgado": 162.0,
      "consenso": 56.0,
-     "contribuicao_bruta": 7.76,
+     "contribuicao_bruta": 7.73,
      "contribuicao": 4.0,
-     "idade_dias": 0.9,
+     "idade_dias": 1.0,
      "winsorizado": true
     },
     {
@@ -6073,9 +6070,9 @@
      "impacto": "HIGH",
      "divulgado": 0.1,
      "consenso": 0.3,
-     "contribuicao_bruta": -3.46,
-     "contribuicao": -3.46,
-     "idade_dias": 28.9,
+     "contribuicao_bruta": -3.45,
+     "contribuicao": -3.45,
+     "idade_dias": 29.0,
      "winsorizado": false
     },
     {
@@ -6086,9 +6083,9 @@
      "impacto": "HIGH",
      "divulgado": -23.0,
      "consenso": 80.0,
-     "contribuicao_bruta": -3.08,
-     "contribuicao": -3.08,
-     "idade_dias": 28.9,
+     "contribuicao_bruta": -3.07,
+     "contribuicao": -3.07,
+     "idade_dias": 29.0,
      "winsorizado": false
     },
     {
@@ -6099,9 +6096,9 @@
      "impacto": "HIGH",
      "divulgado": 44.0,
      "consenso": 70.0,
-     "contribuicao_bruta": -2.88,
-     "contribuicao": -2.88,
-     "idade_dias": 30.9,
+     "contribuicao_bruta": -2.87,
+     "contribuicao": -2.87,
+     "idade_dias": 31.1,
      "winsorizado": false
     }
    ],
@@ -6227,9 +6224,9 @@
      "impacto": "HIGH",
      "divulgado": 162.0,
      "consenso": 56.0,
-     "contribuicao_bruta": 7.76,
+     "contribuicao_bruta": 7.73,
      "contribuicao": 4.0,
-     "idade_dias": 0.9,
+     "idade_dias": 1.0,
      "winsorizado": true
     },
     {
@@ -6240,9 +6237,9 @@
      "impacto": "HIGH",
      "divulgado": 0.1,
      "consenso": 0.3,
-     "contribuicao_bruta": -3.46,
-     "contribuicao": -3.46,
-     "idade_dias": 28.9,
+     "contribuicao_bruta": -3.45,
+     "contribuicao": -3.45,
+     "idade_dias": 29.0,
      "winsorizado": false
     },
     {
@@ -6253,9 +6250,9 @@
      "impacto": "HIGH",
      "divulgado": -23.0,
      "consenso": 80.0,
-     "contribuicao_bruta": -3.08,
-     "contribuicao": -3.08,
-     "idade_dias": 28.9,
+     "contribuicao_bruta": -3.07,
+     "contribuicao": -3.07,
+     "idade_dias": 29.0,
      "winsorizado": false
     },
     {
@@ -6266,9 +6263,9 @@
      "impacto": "HIGH",
      "divulgado": 44.0,
      "consenso": 70.0,
-     "contribuicao_bruta": -2.88,
-     "contribuicao": -2.88,
-     "idade_dias": 30.9,
+     "contribuicao_bruta": -2.87,
+     "contribuicao": -2.87,
+     "idade_dias": 31.1,
      "winsorizado": false
     }
    ],
