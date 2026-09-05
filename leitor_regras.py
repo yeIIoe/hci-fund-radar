@@ -49,8 +49,9 @@ FAMILIAS = {
                     "median cpi", "core ppi", "core consumer price", "core harmonized",
                     "core personal consumption", "core producer price",
                     "ex food", "excluding food", "ex-food"],
-        "porque": "What the central bank actually targets. Core above forecast is the strongest "
-                  "case for tightening there is: it removes the 'it was energy and food' alibi.",
+        "porque": "É nisto que o banco central mira de verdade. Núcleo acima da previsão é o "
+                  "argumento mais forte que existe para apertar: tira o álibi de que "
+                  "'foi energia e comida'.",
     },
     "inflacao_cheia": {
         "peso": 7, "sinal": +1,
@@ -60,14 +61,14 @@ FAMILIAS = {
                     "harmonized index of consumer prices", "producer price index",
                     "prices paid", "personal consumption expenditures", "deflator",
                     "prices index", "price index"],
-        "porque": "It matters, but the central bank discounts energy and food shocks. A high "
-                  "headline with a well-behaved core weighs LESS than the number suggests.",
+        "porque": "Importa, mas o banco central desconta choque de energia e de comida. Um "
+                  "cheio alto com o núcleo comportado pesa MENOS do que o número sugere.",
     },
     "expectativa_inflacao": {
         "peso": 6, "sinal": +1,
         "padroes": ["inflation expectations", "inflation gauge", "5-year", "breakeven"],
-        "porque": "Central banks fear de-anchoring more than the current level. Rising expectations "
-                  "trigger tightening even while current inflation falls.",
+        "porque": "Banco central teme mais o desancoramento do que o nível de hoje. Expectativa "
+                  "subindo dispara aperto mesmo com a inflação corrente caindo.",
     },
 
     # ---------------- MERCADO DE TRABALHO — o segundo mandato (e o unico do Fed junto com preco)
@@ -75,8 +76,8 @@ FAMILIAS = {
         "peso": 8, "sinal": +1,
         "padroes": ["non-farm employment", "nfp", "employment change", "payrolls",
                     "job gains", "adp", "net change in employment", "job openings"],
-        "porque": "A tight labour market sustains wages and services, the stubborn part of "
-                  "inflation. Strong reading = hawkish.",
+        "porque": "Mercado de trabalho apertado sustenta salário e serviços, a parte teimosa da "
+                  "inflação. Leitura forte = viés de alta de juro.",
     },
     "desemprego": {
         "peso": 8, "sinal": -1,   # ACIMA do esperado = mercado fraco = DOVISH
@@ -84,64 +85,64 @@ FAMILIAS = {
         # e le desemprego subindo como criacao de emprego — revisao de 03/set
         "padroes": ["unemployment rate", "jobless rate", "u-rate", "unemployment change",
                     "unemployment"],
-        "porque": "INVERTED sign: unemployment above forecast means slack, and slack removes "
-                  "the urgency to tighten.",
+        "porque": "Sinal INVERTIDO: desemprego acima da previsão significa folga, e folga tira a "
+                  "urgência de apertar.",
     },
     "salarios": {
         "peso": 9, "sinal": +1,
         "padroes": ["average earnings", "wage", "labor cost", "shunto", "hourly earnings",
                     "employment cost", "cash earnings"],
-        "porque": "The link between labour and services inflation. For the BoJ and the BoE it is "
-                  "the number they publicly say they are waiting for.",
+        "porque": "É a ligação entre trabalho e inflação de serviços. Para o BoJ e para o BoE é o "
+                  "número que eles dizem publicamente estar esperando.",
     },
     "auxilio_desemprego": {
         "peso": 3, "sinal": -1,
         "padroes": ["jobless claims", "unemployment claims", "continuing claims"],
-        "porque": "High frequency and noisy. Useful for a turn in trend, not for a level.",
+        "porque": "Alta frequência e barulhento. Serve para virada de tendência, não para nível.",
     },
 
     # ---------------- ATIVIDADE — decide o RITMO do aperto, nao a direcao
     "pmi": {
         "peso": 5, "sinal": +1,
         "padroes": ["pmi", "ism", "purchasing managers"],
-        "porque": "A survey, not hard data, and it lands before everything else. Above 50 means "
-                  "expansion. Useful for DIRECTION and EARLINESS, not magnitude. "
-                  "The PRICES PAID sub-index counts as inflation, not as activity.",
+        "porque": "É pesquisa, não dado duro, e chega antes de todo mundo. Acima de 50 é "
+                  "expansão. Serve para DIREÇÃO e ANTECEDÊNCIA, não para magnitude. O "
+                  "sub-índice de PREÇOS PAGOS conta como inflação, não como atividade.",
     },
     "pib": {
         "peso": 6, "sinal": +1,
         "padroes": ["gdp", "gross domestic product"],
-        "porque": "Confirms the state, but it is LATE — it covers a quarter that already ended. "
-                  "It moves the decision little, because the bank already saw the monthly parts.",
+        "porque": "Confirma o estado, mas é ATRASADO — cobre um trimestre que já acabou. Move "
+                  "pouco a decisão, porque o banco já viu as partes mensais.",
     },
     "varejo": {
         "peso": 4, "sinal": +1,
         "padroes": ["retail sales", "consumer spending", "household spending", "retail trade",
                     "retailer sales"],
-        "porque": "Domestic demand, which is what the policy rate actually controls.",
+        "porque": "Demanda doméstica, que é o que a taxa de juro de fato controla.",
     },
     "producao": {
         "peso": 3, "sinal": +1,
         "padroes": ["industrial production", "manufacturing production", "factory orders"],
-        "porque": "Lower weight in a service economy; still matters in Germany and Japan.",
+        "porque": "Peso menor em economia de serviços; ainda importa na Alemanha e no Japão.",
     },
     "confianca": {
         "peso": 2, "sinal": +1,
         "padroes": ["confidence", "sentiment", "zew", "ifo", "gfk"],
-        "porque": "A mood survey. It leads, but it misses often. Low weight on purpose.",
+        "porque": "Pesquisa de humor. Antecipa, mas erra muito. Peso baixo de propósito.",
     },
     "moradia": {
         "peso": 3, "sinal": +1,
         "padroes": ["housing", "building permits", "home sales", "building consents",
                     "house price"],
-        "porque": "The channel most sensitive to rates — it reacts first when tightening bites.",
+        "porque": "O canal mais sensível ao juro — reage primeiro quando o aperto morde.",
     },
 
     # ---------------- EXTERNO — pesa pouco, salvo em economia aberta
     "balanca": {
         "peso": 2, "sinal": +1,
         "padroes": ["trade balance", "current account", "exports", "imports"],
-        "porque": "Low weight except in AUD, NZD and CAD, where terms of trade genuinely matter.",
+        "porque": "Peso baixo, exceto em AUD, NZD e CAD, onde os termos de troca importam de verdade.",
     },
 
     # A COLETIVA — separada da decisao de proposito.
@@ -155,8 +156,8 @@ FAMILIAS = {
         "peso": 0, "sinal": +1,
         "padroes": ["press conference", "gov ", "governor speaks", "chair", "president speaks",
                     "testifies", "speech", "hearings", "testimony"],
-        "porque": "Where the GUIDANCE usually appears. Weight is 0 because how much it matters "
-                  "varies by central bank — measure before scoring.",
+        "porque": "É onde a ORIENTAÇÃO costuma aparecer. Peso 0 porque o quanto ela importa varia "
+                  "de banco para banco — medir antes de pontuar.",
     },
 
     # ---------------- A PROPRIA DECISAO — nao e dado, e o desfecho
@@ -167,11 +168,11 @@ FAMILIAS = {
                     "overnight rate", "ocr", "refi rate", "deposit facility",
                     "monetary policy review", "monetary policy decision",
                     "main refinancing", "refinancing operations rate", "marginal lending"],
-        "porque": "It does not feed the running score — it CLOSES the cycle. What matters "
-                  "here is the outcome against expectations and, above all, the GUIDANCE. "
-                  "On 8 Jul 2026 the RBNZ hike was already priced and price moved only on "
-                  "the guidance — which came in the STATEMENT at 14:00 NZ, not in the press "
-                  "conference at 15:00, which moved nothing (3.9 pips of range).",
+        "porque": "Não alimenta o acumulado — ela FECHA o ciclo. O que importa aqui é o desfecho "
+                  "contra as expectativas e, acima de tudo, a ORIENTAÇÃO. Em 08/jul/2026 a "
+                  "alta do RBNZ já estava no preço e o preço só se moveu com a orientação — "
+                  "que veio no COMUNICADO das 14:00 NZ, e não na coletiva das 15:00, que não "
+                  "moveu nada (3,9 pips de amplitude).",
     },
 }
 

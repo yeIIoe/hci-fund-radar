@@ -34,11 +34,54 @@
     "Previous": "Anterior", "Next": "Próximo", "Loading": "Carregando",
     "Overview": "Visão geral", "Yields": "Juros", "Calendar": "Calendário", "Pairs": "Pares",
     "Equities": "Ações", "News": "Notícias", "Sources": "Fontes",
+    "Rates × FX": "Juro × Câmbio", "Spreads": "Spreads", "COT": "COT",
     "Radar": "Radar", "Macro": "Macro", "Analysis": "Análise", "Method": "Método", "Other": "Outros",
     "Reading panel. It gives the fundamental side; the entry is yours.":
       "Painel de leitura. Ele dá o lado fundamental; a entrada é sua.",
     "Showing only what was known on": "Mostrando só o que se sabia em",
     ". Outcomes and later days are hidden.": ". Resultados e dias posteriores ficam ocultos.",
+
+    /* ------------------------------------------------------- CORTE DE TEMPO (item d)
+     * O index.html ja sai em portugues. O que faltava era o que o ui_cut_global.js escreve
+     * por JavaScript: tres avisos que continuavam em ingles na tela quando o corte liga.
+     * Esta area agora esta inteira em portugues — a revisao pediu a conferencia. */
+    "TIME CUT ACTIVE": "CORTE DE TEMPO ATIVO",
+    "Time cut date": "Data do corte de tempo",
+    "Hide everything after a chosen date, so you can judge a day without knowing what came next":
+      "Esconde tudo o que veio depois de uma data escolhida, para você julgar um dia sem saber o que aconteceu em seguida",
+    "Time cut active. Showing the 2-year yield as it was known on":
+      "Corte de tempo ativo. Mostrando o juro de 2 anos como se sabia em",
+    "— the last observation published on or before that date, with changes computed only from earlier observations. Nothing after the cut is used.":
+      "— a última observação publicada até aquela data, com as variações calculadas só a partir de observações anteriores. Nada depois do corte é usado.",
+    "Time cut active. Showing": "Corte de tempo ativo. Mostrando",
+
+    /* O QUE O CORTE ESCONDE — verificacao de 05/set. O ui_cut_global.js escreve estes avisos
+     * em ingles direto no DOM quando o corte liga, e nenhum tinha traducao: com o corte
+     * ligado a tela voltava a falar ingles justamente na area que o dono mandou conferir. */
+    "Hidden by the time cut": "Escondido pelo corte de tempo",
+    "Hidden by the time cut.": "Escondido pelo corte de tempo.",
+    "hidden by the cut": "escondido pelo corte",
+    "after the cut": "depois do corte",
+    "outcome hidden": "desfecho escondido",
+    "Hidden by the time cut — that day could not be loaded.":
+      "Escondido pelo corte de tempo — não foi possível carregar aquele dia.",
+    "No session data could be loaded for that date. Everything after the cut is hidden; nothing on screen is current.":
+      "Não foi possível carregar dado de pregão para essa data. Tudo depois do corte está escondido; nada na tela é atual.",
+    "Economic calendar history is not stored, so upcoming releases cannot be rebuilt for a past date.":
+      "O histórico do calendário econômico não é guardado, então as divulgações futuras não podem ser reconstruídas para uma data passada.",
+    "The backtest already runs on closed data — set an end date there instead of using the time cut.":
+      "O backtest já roda em dado fechado — defina a data final lá, em vez de usar o corte de tempo.",
+    "Market closed. No reading is carried over.": "Mercado fechado. Nenhuma leitura é carregada adiante.",
+    "No yield reading available on or before that date.":
+      "Nenhuma leitura de juro disponível até aquela data.",
+    "No currency ranking for that day.": "Sem ranking de moedas para aquele dia.",
+    "No pair passed the observation floor on this day.":
+      "Nenhum par passou do piso de observação neste dia.",
+    "Header, overview and watchlist rebuilt from that day's calendar. News and backtest are hidden.":
+      "Cabeçalho, visão geral e watchlist reconstruídos a partir do calendário daquele dia. Notícias e backtest ficam escondidos.",
+    "The watchlist is built from the live chart and is hidden under the time cut.":
+      "A watchlist é montada a partir do gráfico ao vivo e fica escondida sob o corte de tempo.",
+    "no reading": "sem leitura",
 
     // visao geral — reunioes
     "Central bank meetings": "Reuniões dos bancos centrais",
@@ -92,18 +135,18 @@
     "; the same day EURJPY was": "; no mesmo dia o EURJPY foi",
     ". When the reason sits on one leg, every pair sharing that leg is the same bet.":
       ". Quando a razão está numa perna, todo par que compartilha essa perna é a mesma aposta.",
-    "Four dimensions, 25% each:": "Quatro dimensões, 25% cada:",
-    "Four dimensions, 25% each, none of them a yield:": "Quatro dimensões, 25% cada, nenhuma delas um yield:",
+    "Four dimensions, 25% each:": "Três dimensões que votam, 25% cada (a geopolítica é experimental e não vota):",
+    "Four dimensions, 25% each, none of them a yield:": "Três dimensões que votam, 25% cada, nenhuma delas um yield (a geopolítica é experimental e não vota):",
     "(news intensity from GDELT: an energy spike is an inflation push, a conflict spike a growth risk; quiet weeks do not vote). Conviction is the share of voting dimensions that agree — a missing or quiet dimension lowers the ceiling, it never counts as zero.":
-      "(intensidade do noticiário no GDELT: pico de energia é empurrão de inflação, pico de conflito é risco de crescimento; semanas quietas não votam). A convicção é a fração das dimensões que votam e concordam — dimensão ausente ou quieta baixa o teto, nunca conta como zero.",
+      "(intensidade do noticiário no GDELT: desde 05/set a geopolítica é EXPERIMENTAL e NÃO VOTA — fica visível, fora do placar e fora do teto). O placar é quantas das dimensões que votam concordam entre si; dimensão ausente ou quieta baixa o teto e nunca conta como zero. Isto não é convicção: convicção é acerto no passado, e hoje sai null por falta de backtest.",
     "Still missing: speeches are wired for the Fed, ECB, BoE, BoJ and BoC only (RBA and RBNZ block automation, the SNB has no feed), and the geopolitics rule counts by the owner's decision but has not been measured yet.":
       "Ainda falta: discursos ligados só para Fed, BCE, BoE, BoJ e BoC (RBA e RBNZ bloqueiam automação, o SNB não tem feed), e a regra de geopolítica conta por decisão do dono mas ainda não foi medida.",
     "(surprises since the bank last decided, weighted by family and impact, half-life 21 days),":
       "(surpresas desde a última decisão do banco, pesadas por família e impacto, meia-vida de 21 dias),",
     "(hawkish/dovish markers in what the bank's people said),": "(marcadores hawkish/dovish no que os dirigentes disseram),",
-    "(the last move, if under six months old) and": "(o último movimento, se tiver menos de seis meses) e",
+    "(the last move, if under six months old) and": "(o último movimento, com peso caindo pela metade a cada 120 dias) e",
     "(implied probability). Conviction is the share of connected dimensions that agree — a missing dimension lowers the ceiling, it never counts as zero.":
-      "(probabilidade implícita). A convicção é a fração das dimensões ligadas que concordam — dimensão ausente baixa o teto, nunca conta como zero.",
+      "(a dimensão de probabilidade implícita saiu: dependia de yield, e yield não entra no sentimento). O placar é quantas das dimensões que votam concordam entre si; dimensão ausente baixa o teto e nunca conta como zero. Isto não é convicção: convicção é acerto no passado, e hoje sai null por falta de backtest.",
 
     // pares
     "Leaning to hike": "Inclinado a subir", "On hold": "Em manutenção", "Leaning to cut": "Inclinado a cortar",
@@ -115,18 +158,18 @@
     "relative direction": "direção relativa", "divergence strength": "força da divergência",
     "agreement of factors": "concordância dos fatores", "next risk": "próximo risco",
     "main catalyst": "principal catalisador", "horizon": "horizonte",
-    "the two legs score the same": "as duas pernas têm o mesmo score",
+    "the two legs score the same": "as duas pernas leem igual",
     "no leading leg": "nenhuma perna manda", "no date published": "sem data publicada",
     "no dimension pushing on either leg": "nenhuma dimensão empurrando em nenhuma perna",
     "weeks (swing) — a reading of the fundamental side, not an entry.": "semanas (swing) — leitura do lado fundamental, não uma entrada.",
     "How the two legs add up": "Como as duas pernas se somam",
     "long bias": "viés comprador", "short bias": "viés vendedor",
     "voting dimensions agree": "dimensões que votam concordam",
-    "dimensions agree · score": "dimensões concordam · score",
+    "dimensions agree · score": "dimensões que votam concordam",
     "With the Fed's dimensions cancelling out, there is no fundamental push on this instrument.":
       "Com as dimensões do Fed se cancelando, não há empurrão fundamental neste instrumento.",
     "The pair: each currency gets a score from −1 to +1 (each voting dimension adds up to ±0.25, with its magnitude). The pair reads the difference between its two legs — the sign gives the direction, the size gives the confidence, as a share of the ceiling the connected dimensions allow (two legs with four voting dimensions each: 2.00; with three and two: 1.25). The ceiling is shown, so a newly connected feed never passes for new evidence. Every pair gets a reading; \"no edge\" only when the two legs tie exactly.":
-      "O par: cada moeda ganha um score de −1 a +1 (cada dimensão que vota soma até ±0,25, com a magnitude que tem). O par lê a diferença entre as duas pernas — o sinal dá a direção, o tamanho dá a confiança, como fração do teto que as dimensões ligadas permitem (duas pernas com quatro dimensões votando: 2,00; com três e duas: 1,25). O teto fica visível, para uma fonte recém-ligada nunca passar por evidência nova. Todo par recebe uma leitura; \"sem vantagem\" só quando as duas pernas empatam exatamente.",
+      "O par: cada moeda é lida pelas dimensões que votam, e o par lê a DIFERENÇA entre as duas pernas — o sinal dá a direção e o tamanho dá a confiança, como fração do teto que as dimensões ligadas permitem. O teto fica visível, para uma fonte recém-ligada nunca passar por evidência nova. Todo par recebe uma leitura; \"sem vantagem\" só quando as duas pernas leem igual.",
     "SAME SIDE": "MESMO LADO", "CYCLE DIVERGENCE": "DIVERGÊNCIA DE CICLO",
     "data current": "dados atuais", "freshness unknown": "frescor desconhecido",
     "No pair matches this filter.": "Nenhum par cai neste filtro.",
@@ -257,6 +300,125 @@
       "Onde a ORIENTAÇÃO costuma aparecer. Peso 0 porque quanto importa varia por banco central — medir antes de pontuar.",
     "It does not feed the running score — it CLOSES the cycle. What matters here is the outcome against expectations and, above all, the GUIDANCE. On 8 Jul 2026 the RBNZ hike was already priced and price moved only on the guidance — which came in the STATEMENT at 14:00 NZ, not in the press conference at 15:00, which moved nothing (3.9 pips of range).":
       "Não alimenta o acumulado — FECHA o ciclo. O que importa aqui é o desfecho contra a expectativa e, acima de tudo, a ORIENTAÇÃO. Em 08/jul/2026 a alta do RBNZ já estava no preço e o preço só andou na orientação — que veio no COMUNICADO às 14:00 NZ, não na coletiva das 15:00, que não moveu nada (3,9 pips de amplitude).",
+    /* ================= VARREDURA DE 05/set — o que ainda saia em ingles =================
+     * O ui_macro.js e o index.html passaram a nascer em portugues nesta revisao. O que
+     * sobrou vem dos OUTROS modulos (app.js, ui_cut_global.js, ui_extras.js,
+     * ui_equities.js), que este dicionario continua cobrindo no DOM. Levantado com uma
+     * varredura de literais contra o dicionario, nao a olho. */
+
+    // app.js — linha de estado e veredito das observacoes
+    "Open it through ABRIR_RADAR.bat.": "Abra pelo ABRIR_RADAR.bat.",
+    "Computing causal signals and D+1 executions.":
+      "Calculando sinais causais e execuções em D+1.",
+    "a previous server is still running; close it and reopen from the shortcut to refresh without wiping the pre-FUND":
+      "um servidor anterior ainda está rodando; feche-o e reabra pelo atalho para atualizar sem apagar o estado anterior",
+    "already inside the BEAR band": "já dentro da faixa vendida",
+    "base leg has the higher rate momentum": "a perna base tem o maior momento de juro",
+    "quote leg has the higher rate momentum": "a perna cotada tem o maior momento de juro",
+    "did not cross": "não cruzou",
+    "left the negative band": "saiu da faixa negativa",
+    "left the positive band": "saiu da faixa positiva",
+
+    // ui_cut_global.js — corte de tempo, watchlist e desfechos
+    "No watchlist yet. Run update_setups.py after refreshing the FUND.":
+      "Ainda não há watchlist. Rode o update_setups.py depois de atualizar os dados.",
+    "ON DECK": "NA FILA",
+    "Pair in the top 5 tradable": "Par entre os 5 operáveis do topo",
+    "Structure on the chart": "Estrutura no gráfico",
+    "30m candle reacts in the zone": "a vela de 30 min reage dentro da zona",
+    "price at the zone": "preço na zona",
+    "your call, on the chart": "decisão sua, no gráfico",
+    "inside the daily noise": "dentro do ruído do dia",
+    "not yet": "ainda não",
+    "FUND band is mature": "a faixa já está madura",
+    "outcomes hidden by the time cut.": "desfechos escondidos pelo corte de tempo.",
+    "Nothing after the cut is used.": "Nada depois do corte é usado.",
+    "The chart is rebuilt from the daily FUND stored for each session up to that date;":
+      "O gráfico é reconstruído a partir do valor diário guardado de cada pregão até aquela data;",
+    "nothing after the cut is used. The backtest column stays hidden because it ends today.":
+      "nada depois do corte é usado. A coluna de backtest fica oculta porque termina hoje.",
+
+    // ui_extras.js — COT e corte
+    "Cut on": "Corte em",
+    "(latest available before the cut)": "(o mais recente disponível antes do corte)",
+    "No CFTC report published before the time cut.":
+      "Nenhum relatório da CFTC publicado antes do corte de tempo.",
+    "Pick a date first: the time cut hides everything after it.":
+      "Escolha uma data primeiro: o corte de tempo esconde tudo o que vem depois dela.",
+    "60 seconds, so it follows the next update without a reload.":
+      "60 segundos, então ele acompanha a próxima atualização sem recarregar a página.",
+
+    // ui_equities.js — as tres listas da aba Ações
+    "Candidates to buy": "Candidatas a compra",
+    "Genuinely cheap, screened against the value trap.":
+      "Genuinamente baratas, filtradas contra a armadilha de valor.",
+    "Why not": "Por que não",
+
+    /* ---------- aba JUROS (ui_live_yields.js + app.js) ---------- */
+    "Why it moved, and where to look": "Por que ele andou, e onde olhar",
+    "Size of today's move": "Tamanho do movimento de hoje",
+    "What would explain a rise": "O que explicaria uma alta",
+    "Check the decision": "Confira a decisão",
+    "Check the number": "Confira o número",
+    "· published weekly": "· publicado semanalmente",
+    "· published daily": "· publicado diariamente",
+    "inside the daily noise. One standard deviation on this curve is":
+      "dentro do ruído do dia. Um desvio-padrão nesta curva é",
+    "Official sovereign 2-year curves. Each central bank publishes on its own schedule — this is not a live feed and never can be from these sources. Every card shows how many business days old its reading is. Oldest reading on screen:":
+      "Curvas soberanas oficiais de 2 anos. Cada banco central publica no próprio calendário — isto não é feed ao vivo e nunca poderá ser, com estas fontes. Cada cartão mostra a idade da própria leitura em dias úteis. Leitura mais velha na tela:",
+    ". This page re-reads the file every 60 seconds, so it follows the next update without a reload.":
+      ". Esta página relê o arquivo a cada 60 segundos, então acompanha a próxima atualização sem recarregar.",
+
+    /* ---------- aba JURO x CÂMBIO (ui_juros_cambio.js) ---------- */
+    "Computed on the common window ending": "Calculado na janela comum que termina em",
+    "Same end date is not full synchronisation": "Mesma data final não é sincronização completa",
+    "— the fixing is struck at 16:00 CET and the yields are observed at other hours, so every pair carries":
+      "— o fixing é fechado às 16:00 CET e os juros são observados em outros horários, então todo par carrega",
+    "information only": "só informação",
+    "rise with no consistency across sessions": "alta sem consistência entre os pregões",
+    "fall with no consistency across sessions": "queda sem consistência entre os pregões",
+    "rise distributed across the sessions": "alta distribuída ao longo dos pregões",
+    "fall distributed across the sessions": "queda distribuída ao longo dos pregões",
+    "same direction, both up — magnitude insufficient by the adopted criterion":
+      "mesma direção, as duas subindo — magnitude insuficiente pelo critério adotado",
+    "same direction, both down — magnitude insufficient by the adopted criterion":
+      "mesma direção, as duas caindo — magnitude insuficiente pelo critério adotado",
+    "same direction, both up — both relevant": "mesma direção, as duas subindo — as duas relevantes",
+    "same direction, both down — both relevant": "mesma direção, as duas caindo — as duas relevantes",
+    "opposite directions — magnitude insufficient by the adopted criterion":
+      "direções opostas — magnitude insuficiente pelo critério adotado",
+    "opposite directions — both relevant": "direções opostas — as duas relevantes",
+    "Direction and sufficiency are reported separately. Neither claims the price will follow the differential.":
+      "Direção e suficiência são reportadas em separado. Nenhuma das duas afirma que o preço vai seguir o diferencial.",
+    "of the cumulative levels inside the window, not the path travelled; the ratio path ÷ |balance| is shown as information and never as a criterion, because it explodes as the balance approaches zero (measured p99 = 98, maximum = 3,973). Percentiles were measured across 28 pairs and 24 years and then frozen — a documented convention, not a discovered truth, and not tuned against profitability.":
+      "dos níveis acumulados dentro da janela, não do caminho percorrido; a razão caminho ÷ |saldo| é mostrada como informação e nunca como critério, porque ela explode quando o saldo se aproxima de zero (p99 medido = 98, máximo = 3.973). Os percentis foram medidos em 28 pares e 24 anos e depois congelados — convenção documentada, não verdade descoberta, e não ajustada contra rentabilidade.",
+
+    /* ---------- aba CUSTOS (ui_spreads.js) ---------- */
+    "Cheap side about to flip:": "Lado barato prestes a virar:",
+    "No good side for swing": "Nenhum lado bom para swing",
+    "no good side": "nenhum lado bom",
+    "Spread measured": "Spread medido",
+    "2y rate diff": "Diferencial de 2 anos",
+    "Cheap side": "Lado barato",
+    "5d cost long": "custo 5d comprado",
+    "5d cost short": "custo 5d vendido",
+    "State": "Estado",
+    "Avg hold": "Tempo médio",
+    "Validation": "Validação",
+    "Rank": "Posição",
+
+    /* ---------- aba AÇÕES (ui_equities.js) ---------- */
+    "Price": "Preço",
+    "buy / hold": "compra / manter",
+    "Why not:": "Por que não:",
+    "The report is only rebuilt when the data behind it really moves: preco 3% | projecao de lucro 10% | resultado divulgado | virada de regime | 5 pregoes.":
+      "O relatório só é refeito quando o dado por trás dele realmente anda: preço 3% | projeção de lucro 10% | resultado divulgado | virada de regime | 5 pregões.",
+    "Screening for human reading. Not an order. A dip only becomes a candidate after the BTD rule (quality + fear-vs-idiosyncratic) is applied by you.":
+      "Filtro para leitura humana. Não é ordem. Uma queda só vira candidata depois que você aplica a regra de compra na baixa (qualidade + medo contra problema da própria empresa).",
+    "Suppliers to the giants — semis, datacenter, energy, water, health, defence. Drops in names with a registered thesis.":
+      "Fornecedoras das gigantes — semicondutores, datacenter, energia, água, saúde, defesa. Quedas em nomes com tese registrada.",
+    "Suppliers to the giants: semis, datacenter, energy, water, health, defence, food and waste. Flags daily drops in names with a registered thesis.":
+      "Fornecedoras das gigantes: semicondutores, datacenter, energia, água, saúde, defesa, alimentos e resíduos. Marca as quedas diárias em nomes com tese registrada.",
   };
 
   /* ---------------------------------------------------------- PADROES COM NUMERO */
@@ -266,12 +428,17 @@
   const REGEX = [
     [/^in (\d+) days$/, "em $1 dias"],
     [/^(\d+)d$/, "$1d"],
-    [/^Calendar data just now$/, "Dados do calendário de agora"],
-    [/^Calendar data (\d+) minutes ago$/, "Dados do calendário de $1 minutos atrás"],
-    [/^Calendar data (\d+) hours ago$/, "Dados do calendário de $1 horas atrás"],
+    [/^Calendar data just now$/, "Calendário atualizado agora mesmo"],
+    [/^Calendar data (\d+) minutes ago$/, "Calendário atualizado há $1 minutos"],
+    [/^Calendar data (\d+) hours ago$/, "Calendário atualizado há $1 horas"],
     [/^· refreshed every ~15 min, though scheduled runs can lag at peak hours\.?$/,
       "· atualizado a cada ~15 min, embora as rodadas agendadas atrasem em horário de pico."],
     [/^Fallback source active: (.*)$/, "Fonte reserva ativa: $1"],
+    // corte de tempo (item d): os dois avisos que o ui_cut_global.js monta com a data no meio
+    [/^Time cut active\. No pair reached the tradable threshold on (.+)\.$/,
+      "Corte de tempo ativo. Nenhum par atingiu o limiar operável em $1."],
+    [/^— the pair the radar ranked first on (.+?)\. The chart is rebuilt from the daily FUND stored for each session up to that date; nothing after the cut is used\. The backtest column stays hidden because it ends today\.$/,
+      "— o par que o radar colocou em primeiro em $1. O gráfico é reconstruído a partir do FUND diário guardado de cada pregão até aquela data; nada depois do corte é usado. A coluna de backtest fica oculta porque termina hoje."],
     [/^high-impact prints land\s*$/, "dados de alto impacto chegam"],
     [/^after the scheduled time \(median, n=(\d+); p90 (.+?) — a late stamp usually means a revision re-touched the record\)\.?\s*(.*)$/,
       (m, n, p90, cauda) => "depois da hora agendada (mediana, n=" + n + "; p90 " + p90 +
@@ -296,7 +463,9 @@
     [/^(released data|central bank speeches|the last rate move|geopolitics) on (\S+) \((hawkish|dovish), ([+\-−]?[\d.]+)\)\.$/,
       (m, c, leg, hd, v) => ({ "released data": "dados divulgados", "central bank speeches": "discursos do banco central", "the last rate move": "o último movimento de juro", geopolitics: "geopolítica" })[c] + " em " + leg + " (" + hd + ", " + v + ")."],
     [/^voting dimensions agree \((\d+) of (\d+) connected\)$/, "dimensões que votam concordam ($1 de $2 ligadas)"],
-    [/^dimensions agree · score ([+\-−]?[\d.]+)$/, "dimensões concordam · score $1"],
+    // O score saiu da interface principal (item c). Qualquer resto em ingles ainda cai aqui,
+    // mas ja SEM o numero — a tela nao mostra mais pontuacao fora do expansivel do par.
+    [/^dimensions agree · score ([+\-−]?[\d.]+)$/, "dimensões que votam concordam"],
     [/^(▲|▼|—) last move (up|down)$/, (m, s, d) => s + " último movimento: " + (d === "up" ? "alta" : "corte")],
     [/^(▲|▼|—) unchanged$/, "$1 sem mudança"],
     [/^— (\d+) months? back\. That is the month that ended, not a delivery delay; every terminal has the same lag\.\s*(Delivery \(release → here\):)?\s*$/,
@@ -307,7 +476,15 @@
       "$1. Mesma posição nas duas pernas — sem tese fundamental neste eixo."],
     [/^(\d+) of (\d+) dimensions connected$/, "$1 de $2 dimensões ligadas"],
     [/^landed \+(.+)$/, "chegou +$1"],
-    [/^([+\-−]?[\d.,]+\S*) vs forecast$/, "$1 vs previsão"],
+    // avisos do corte de tempo que carregam a data ou o numero no meio (ui_cut_global.js)
+    [/^Watchlist as published on (.+?) — outcomes hidden by the time cut\.$/,
+      "Watchlist como publicada em $1 — desfechos escondidos pelo corte de tempo."],
+    [/^No pair reached \|FUND\| ≥ (\d+) on this day\.$/,
+      "Nenhum par atingiu |macro| ≥ $1 neste dia."],
+    [/^([+\-−]?[\d.,]+) aggregate strength$/, "$1 de força agregada"],
+    // o valor pode vir com a unidade separada por espaco ("-2.83 B$ vs forecast"): o \S*
+    // anterior nao casava e a frase ficava em ingles na ficha do evento (verificacao 05/set)
+    [/^([+\-−]?[\d.,]+(?:\s?\S+)?) vs forecast$/, "$1 vs previsão"],
     [/^→ revised (.+)$/, "→ revisado $1"],
     [/^What happens on (\d{2}\/\d{2}\/\d{4})$/, "O que acontece em $1"],
     [/^· (\S+) (\S+) only$/, "· só $1 $2"],
@@ -316,8 +493,12 @@
     [/^(January|February|March|April|May|June|July|August|September|October|November|December) (\d{4})$/,
       (m, mes, ano) => MESES[mes] + " de " + ano],
     [/^data (\d{2}\/\d{2} \d{2}:\d{2}) BRT$/, "dados $1 BRT"],
-    [/^data (\d+) min old$/, "dados de $1 min"],
-    [/^data (\d+)h old$/, "dados de $1h"],
+    // Item (b) da revisao do dono: "dados de 3h" lia como duracao. O que ele quer e a hora da
+    // ultima atualizacao. O ui_macro.js ja escreve "atualizado há 3 horas" na fonte; estas duas
+    // linhas cobrem qualquer desenhista antigo que ainda emita o formato em ingles.
+    [/^data (\d+) min old$/, "atualizado há $1 minutos"],
+    [/^data (\d+)h old$/, "atualizado há $1 horas"],
+    [/^data current$/, "atualizado agora mesmo"],
     [/^of (\d+)% · (\d) of (\d) dimensions$/, "de $1% · $2 de $3 dimensões"],
     [/^ceiling (\d+)% — (\d) of (\d) dimensions connected$/, "teto $1% — $2 de $3 dimensões ligadas"],
     [/^(▲|▼|—) (hike|hold|cut)$/, (m, s, d) => s + " " + ({ hike: "alta", hold: "manutenção", cut: "corte" })[d]],
@@ -333,15 +514,15 @@
     [/^reads from the two legs: (\S+) leaning to (hike|hold|cut) \(score ([+\-−]?[\d.]+)\) against (\S+) leaning to (hike|hold|cut) \(score ([+\-−]?[\d.]+)\) — edge ([+\-−]?[\d.]+) of a possible ([\d.]+)\.\s*(The reason sits on|Both legs carry the reason\.)?$/,
       (m, b, db, sb, q, dq, sq, e, mx, cauda) => {
         const D = { hike: "alta", hold: "manutenção", cut: "corte" };
-        return "lê pelas duas pernas: " + b + " inclinado a " + D[db] + " (score " + sb + ") contra " + q +
-          " inclinado a " + D[dq] + " (score " + sq + ") — vantagem " + e + " de um máximo de " + mx.replace(".", ",") + "." +
+        return "lê pelas duas pernas: " + b + " inclinado a " + D[db] + " contra " + q +
+          " inclinado a " + D[dq] + "." +
           (cauda === "The reason sits on" ? " A razão está em" : cauda ? " As duas pernas carregam a razão." : "");
       }],
-    [/^The two legs score the same \((\S+) ([+\-−]?[\d.]+), (\S+) ([+\-−]?[\d.]+)\) — no edge between them on this axis\.$/,
-      "As duas pernas têm o mesmo score ($1 $2, $3 $4) — sem vantagem entre elas neste eixo."],
-    [/^\((\d+)% of a (\d+)% ceiling; score ([+\-−]?[\d.]+)\)\.\s*(.*)$/, (m, a, b, sc, cauda) => {
+    [/^The two legs score the same \((\S+) [+\-−]?[\d.]+, (\S+) [+\-−]?[\d.]+\) — no edge between them on this axis\.$/,
+      "As duas pernas leem igual ($1 e $2) — sem vantagem entre elas neste eixo."],
+    [/^\((\d+)% of a (\d+)% ceiling; score [+\-−]?[\d.]+\)\.\s*(.*)$/, (m, a, b, cauda) => {
       const t = cauda ? traduz(cauda) : null;
-      return "(" + a + "% de um teto de " + b + "%; score " + sc + ")." + (cauda ? " " + (t === null ? cauda : t.trim()) : "");
+      return "(" + a + "% de um teto de " + b + "%)." + (cauda ? " " + (t === null ? cauda : t.trim()) : "");
     }],
     [/^reads from the two legs: (\S+) leaning to$/, "lê pelas duas pernas: $1 inclinado a"],
     [/^\((\d+)%\) against (\S+) leaning to$/, "($1%) contra $2 inclinado a"],
@@ -360,13 +541,13 @@
     [/^(.+?) is read through\s*$/, (m, nome) => ({ Gold: "Ouro" }[nome] || nome) + " é lido por"],
     [/^(.+?) is read from\s*$/, (m, nome) => ({ Gold: "Ouro" }[nome] || nome) + " é lido por"],
     [/^two legs$/, "duas pernas"],
-    [/^: the US dollar's rate reading, inverted \(USD leaning to (hike|hold|cut), score ([+\-−]?[\d.]+) → ([+\-−]?[\d.]+) for (.+?)\), plus\s*$/,
-      (m, dirr, s1, s2, nome) => ": a leitura de juro do dólar, invertida (USD inclinado a " + ({ hike: "alta", hold: "manutenção", cut: "corte" })[dirr] +
-        ", score " + s1 + " → " + s2 + " para " + ({ Gold: "Ouro" }[nome] || nome) + "), mais"],
+    [/^: the US dollar's rate reading, inverted \(USD leaning to (hike|hold|cut), score [+\-−]?[\d.]+ → [+\-−]?[\d.]+ for (.+?)\), plus\s*$/,
+      (m, dirr, nome) => ": a leitura de juro do dólar, invertida (USD inclinado a " + ({ hike: "alta", hold: "manutenção", cut: "corte" })[dirr] +
+        ", para " + ({ Gold: "Ouro" }[nome] || nome) + "), mais"],
     [/^geopolitics$/, "geopolítica"],
-    [/^\((not connected|quiet \(z [+\-−]?[\d.]+\)|conflict spike z [+\-−]?[\d.]+) → ([+\-−]?[\d.]+)\)\. Score ([+\-−]?[\d.]+) of a possible ([\d.]+) →\s*$/,
-      (m, est, g, s, mx) => "(" + est.replace("not connected", "não conectada").replace("quiet", "quieta").replace("conflict spike", "pico de conflito") +
-        " → " + g + "). Score " + s + " de um máximo de " + mx + " →"],
+    [/^\((not connected|quiet \(z [+\-−]?[\d.]+\)|conflict spike z [+\-−]?[\d.]+) → [+\-−]?[\d.]+\)\. Score [+\-−]?[\d.]+ of a possible [\d.]+ →\s*$/,
+      (m, est) => "(" + est.replace("not connected", "não conectada").replace("quiet", "quieta").replace("conflict spike", "pico de conflito") +
+        ") →"],
     [/^The two legs cancel out exactly today\.$/, "As duas pernas se cancelam exatamente hoje."],
     [/^one leg only — the US dollar$/, "uma perna só — o dólar americano"],
     [/^, which is leaning to\s*$/, ", que está inclinado a"],
@@ -396,8 +577,294 @@
     [/^risk-off: risk currencies tend to LOSE — (\S+) \(rule\)$/, "risk-off: moedas de risco tendem a PERDER — $1 (regra)"],
     [/^risk-off: mixed for (\S+) \(rule\)$/, "risk-off: misto para $1 (regra)"],
     [/^energy shock: importer — inflation push, leans TIGHTENING \(rule\)$/, "choque de energia: importador — empurrão de inflação, pende a APERTO (regra)"],
+    /* --- varredura de 05/set: o que sobrou em ingles nas abas Juros, Juro x Cambio,
+       Custos e Acoes, sempre com numero ou data no meio (por isso vem por padrao). --- */
+    [/^(\d+) days?$/, (m, n) => n + (n === "1" ? " dia" : " dias")],
+    [/^(\d+) business days?$/, (m, n) => n + (n === "1" ? " dia útil" : " dias úteis")],
+    [/^a large move, ([\d.,]+)σ\. One standard deviation on this curve is$/,
+      (m, z) => "movimento grande, " + z.replace(".", ",") + "σ. Um desvio-padrão nesta curva é"],
+    [/^, from the last (\d+) observations\.$/, ", das últimas $1 observações."],
+    [/^inflation above expectations, a firm labour market, or a hawkish turn — all of them make the market price fewer or later cuts from the (.+)\. A fall means the opposite\.$/,
+      "inflação acima do esperado, mercado de trabalho firme, ou uma virada para o lado da alta — todos fazem o mercado precificar menos cortes, ou cortes mais tarde, do $1. Uma queda quer dizer o contrário."],
+    [/^· published daily \(business days\), published D\+1 ~([\d:]+) CET$/,
+      "· publicado diariamente (dias úteis), sai em D+1 por volta das $1 CET"],
+    [/^Rates through (.+?); ECB fixing through (.+?)\.$/,
+      "Juros até $1; fixing do BCE até $2."],
+    [/^(\d+) of (\d+) pairs have aligned dates; times not verified\.$/,
+      "$1 de $2 pares têm datas alinhadas; horários não verificados."],
+    [/^cut ([\d.,]+)$/, (m, n) => "corte " + n.replace(".", ",")],
+    /* --- cenarios do calendario (macro_eventos.py grava a frase em ingles) --- */
+    [/^A more hawkish tone tends to lift expected rates and strengthen ([A-Z]{3})\.$/,
+      "Um tom mais de alta tende a subir o juro esperado e fortalecer o $1."],
+    [/^Activity above consensus tends to strengthen ([A-Z]{3})\.$/,
+      "Atividade acima do consenso tende a fortalecer o $1."],
+    [/^Activity below consensus tends to weaken ([A-Z]{3})\.$/,
+      "Atividade abaixo do consenso tende a enfraquecer o $1."],
+    [/^Inflation above consensus tends to strengthen ([A-Z]{3})\.$/,
+      "Inflação acima do consenso tende a fortalecer o $1."],
+    [/^Inflation below consensus tends to weaken ([A-Z]{3})\.$/,
+      "Inflação abaixo do consenso tende a enfraquecer o $1."],
+    [/^20d momentum · 252d ex-ante normalisation · lag \+1 dia util$/,
+      "momento de 20 dias · normalização ex-ante de 252 dias · defasagem +1 dia útil"],
+    [/^A more dovish tone tends to lower expected rates and weaken ([A-Z]{3})\.$/,
+      "Um tom mais de corte tende a baixar o juro esperado e enfraquecer o $1."],
+    [/^A reading better than consensus may favour ([A-Z]{3}); confirm the reaction in yields\.$/,
+      "Um dado melhor que o consenso pode favorecer o $1; confirme a reação no juro."],
+    [/^A reading worse than consensus may pressure ([A-Z]{3}); confirm the reaction in yields\.$/,
+      "Um dado pior que o consenso pode pressionar o $1; confirme a reação no juro."],
+    [/^A reading above consensus may favour ([A-Z]{3}); confirm the reaction in yields\.$/,
+      "Um dado acima do consenso pode favorecer o $1; confirme a reação no juro."],
+    [/^A reading below consensus may pressure ([A-Z]{3}); confirm the reaction in yields\.$/,
+      "Um dado abaixo do consenso pode pressionar o $1; confirme a reação no juro."],
+
+    /* --- app.js: cobertura do calendario e o veredito da perna --- */
+    [/^(\d+) full days · (\d+) partial · full coverage since (.+)\.$/,
+      "$1 dias completos · $2 parciais · cobertura completa desde $3."],
+    [/^base leg has the higher rate momentum · (.+)$/,
+      "a perna base tem o maior momento de juro · $1"],
+    [/^quote leg has the higher rate momentum · (.+)$/,
+      "a perna cotada tem o maior momento de juro · $1"],
+
+    /* --- rodape da aba Custos (ui_spreads.js, com os numeros da calibracao) --- */
+    [/^Spread measured from 1-minute bid x ask \(Dukascopy; median, (.+?) days per pair\)\. Swap estimated from the 2-year differential and calibrated against the broker's own table \((.+?)\): r=(.+?), R2=(.+?), median error (.+?) pip per night\. 5-day cost = spread \+ commission \((.+?) pip\) \+ swap x (\d+) nights \(Wednesday charges 3x\)\. Values in pips per lot\. Yields as of (.+?)\. Generated (.+?)\.$/,
+      "Spread medido em barras de 1 minuto de compra × venda (Dukascopy; mediana, $1 dias por par). " +
+      "Swap estimado pelo diferencial de 2 anos e calibrado contra a tabela da própria corretora " +
+      "($2): r=$3, R2=$4, erro mediano $5 pip por noite. Custo de 5 dias = spread + comissão " +
+      "($6 pip) + swap × $7 noites (a quarta cobra 3×). Valores em pips por lote. Juros de $8. " +
+      "Gerado em $9."],
+    [/^hike ([\d.,]+)$/, (m, n) => "alta " + n.replace(".", ",")],
+    [/^\(differential below ([\d.,]+)% — no carry to offset the markup\): (.+)$/,
+      (m, x, resto) => "(diferencial abaixo de " + x.replace(".", ",") + "% — sem carrego para compensar a margem): " + resto],
+    [/^(.+) sigmas from zero\)(.*)$/, "$1 sigmas de distância de zero)$2"],
+    [/^The target is a pre-registered multiple times projected earnings — not a price forecast, but what the declared multiple implies if the projection holds\. Generated (.+)\.$/,
+      "O alvo é um múltiplo pré-registrado vezes o lucro projetado — não é previsão de preço, é o que o múltiplo declarado implica se a projeção se confirmar. Gerado em $1."],
+    [/^Profile and news: Yahoo Finance, read (.+?)\. Coverage (.+?)\.$/,
+      "Perfil e notícias: Yahoo Finance, lido em $1. Cobertura $2."],
+    [/^CFTC Legacy report .* week of $/, "Relatório CFTC Legacy — semana de "],
+    [/^Time cut active\. No pair reached the tradable threshold on $/,
+      "Corte de tempo ativo. Nenhum par atingiu o limiar operável em "],
+    [/^Watchlist as published on $/, "Watchlist como foi publicada em "],
+    [/^ in band . needs $/, " na faixa — falta "],
+    [/^observations\. Nothing after the cut is used\.$/,
+      "observações. Nada depois do corte é usado."],
     [/^energy shock: exporter — terms of trade up, inflation up; mixed for the rate \(rule\)$/, "choque de energia: exportador — termos de troca sobem, inflação sobe; misto para o juro (regra)"],
   ];
+
+
+  /* ==================================================================================
+   * TITULOS DE EVENTO DO CALENDARIO (FXStreet) — traducao COMPOSICIONAL.
+   *
+   * O buraco medido em 05/set: o calendario, a coluna "proximo evento relevante", a lista
+   * "porque" de cada perna e a coluna "casado com" dos dados americanos imprimiam o titulo
+   * cru da FXStreet — "Nonfarm Payrolls", "Gross Domestic Product (QoQ)", "Net Change in
+   * Employment". Eram dezenas de strings em ingles na tela, e um dicionario exato nunca
+   * fecharia: sao 201 titulos distintos so nos arquivos de hoje, e a lista muda toda semana.
+   *
+   * A saida e compor: uma tabela de TERMOS (do mais especifico para o mais generico) mais
+   * os sufixos de periodicidade. O que protege contra estrago e a REGRA DA COBERTURA TOTAL —
+   * se sobrar QUALQUER palavra inglesa depois das trocas, a funcao devolve null e o texto
+   * fica como estava. E por isso que uma manchete ("Swiss Franc weakens ahead of Unemployment
+   * Rate data") nao vira meia-traducao: sobra "of", e a regra recusa o conjunto.
+   * ================================================================================== */
+  const TERMOS_EVENTO = [
+    // decisao de juro e comunicacao do banco
+    [/\bInterest Rate Decision\b/g, "decisão de juro"],
+    [/\bMonetary Policy Meeting Minutes\b/g, "ata da reunião de política monetária"],
+    [/\bMonetary Policy Statement\b/g, "comunicado de política monetária"],
+    [/\bMonetary Policy Review\b/g, "revisão de política monetária"],
+    [/\bPress Conference\b/g, "coletiva de imprensa"],
+    [/\bBeige Book\b/g, "Livro Bege"],
+    [/\bMain Refinancing Operations Rate\b/g, "taxa das operações principais de refinanciamento"],
+    [/\bRate On Deposit Facility\b/g, "taxa do depósito"],
+    [/\bDeposit Facility Rate\b/g, "taxa do depósito"],
+    // precos
+    [/\bHarmonized Index of Consumer Prices\b/g, "CPI harmonizado"],
+    [/\bConsumer Price Index - Harmonized\b/g, "CPI harmonizado"],
+    [/\bConsumer Price Index ex Food & Energy\b/g, "CPI exceto alimentos e energia"],
+    [/\bProducer Price Index ex Food & Energy\b/g, "PPI exceto alimentos e energia"],
+    [/\bConsumer Price Index Core\b/g, "CPI núcleo"],
+    [/\bCore Consumer Price Index\b/g, "CPI núcleo"],
+    [/\bTrimmed Mean CPI\b/g, "CPI de média aparada"],
+    [/\bConsumer Price Index\b/g, "CPI"],
+    [/\bProducer Price Index - Input\b/g, "PPI de insumos"],
+    [/\bProducer Price Index - Output\b/g, "PPI de produtos"],
+    [/\bProducer Price Index\b/g, "PPI"],
+    [/\bHICP\b/g, "CPI harmonizado"],
+    [/\bWholesale Prices\b/g, "preços no atacado"],
+    [/\bRICS Housing Price Balance\b/g, "saldo de preços de imóveis (RICS)"],
+    [/\bLloyds House Price Index\b/g, "índice de preços de imóveis (Lloyds)"],
+    [/\bHousing Price Index\b/g, "índice de preços de imóveis"],
+    [/\bHouse Price Index\b/g, "índice de preços de imóveis"],
+    // produto
+    [/\bGross Domestic Product Price Index\b/g, "deflator do PIB"],
+    [/\bGross Domestic Product Deflator\b/g, "deflator do PIB"],
+    [/\bGross Domestic Product Annualized\b/g, "PIB anualizado"],
+    [/\bGross Domestic Product Qtr Final\b/g, "PIB trimestral final"],
+    [/\bGross Domestic Product\b/g, "PIB"],
+    // emprego e renda
+    [/\bNonfarm Payrolls\b/g, "criação de vagas (NFP)"],
+    [/\bNonfarm Productivity\b/g, "produtividade não agrícola"],
+    [/\bADP Employment Change\b/g, "variação do emprego (ADP)"],
+    [/\bNet Change in Employment\b/g, "variação líquida do emprego"],
+    [/\bEmployment Change\b/g, "variação do emprego"],
+    [/\bUnemployment Change\b/g, "variação do desemprego"],
+    [/\bU6 Underemployment Rate\b/g, "taxa de subemprego (U6)"],
+    [/\bUnemployment Rate\b/g, "taxa de desemprego"],
+    [/\bLabor Force Participation Rate\b/g, "taxa de participação na força de trabalho"],
+    [/\bParticipation Rate\b/g, "taxa de participação"],
+    [/\bAverage Hourly Earnings\b/g, "salário médio por hora"],
+    [/\bAverage Hourly Wages\b/g, "salário médio por hora"],
+    [/\bAverage Weekly Hours\b/g, "jornada semanal média"],
+    [/\bLabor Cash Earnings\b/g, "rendimento do trabalho"],
+    [/\bLabor Productivity\b/g, "produtividade do trabalho"],
+    [/\bUnit Labor Costs\b/g, "custo unitário do trabalho"],
+    [/\bInitial Jobless Claims\b/g, "pedidos iniciais de seguro-desemprego"],
+    [/\bContinuing Jobless Claims\b/g, "pedidos continuados de seguro-desemprego"],
+    [/\bChallenger Job Cuts\b/g, "cortes de vagas (Challenger)"],
+    [/\bANZ Job Advertisements\b/g, "anúncios de vagas (ANZ)"],
+    // atividade
+    [/\bIndustrial Output Cal Adjusted\b/g, "produção industrial ajustada por calendário"],
+    [/\bIndustrial Production\b/g, "produção industrial"],
+    [/\bIndustrial Output\b/g, "produção industrial"],
+    [/\bManufacturing Production\b/g, "produção da indústria"],
+    [/\bManufacturing Output\b/g, "produção da indústria"],
+    [/\bManufacturing Sales\b/g, "vendas da indústria"],
+    [/\bFactory Orders\b/g, "pedidos à indústria"],
+    [/\bMachine Tool Orders\b/g, "pedidos de máquinas-ferramenta"],
+    [/\bBRC Like-For-Like Retail Sales\b/g, "vendas no varejo comparáveis (BRC)"],
+    [/\bReal Retail Sales\b/g, "vendas no varejo reais"],
+    [/\bRetail Sales ex-Fuel\b/g, "vendas no varejo exceto combustível"],
+    [/\bRetail Sales\b/g, "vendas no varejo"],
+    [/\bOverall Household Spending\b/g, "gasto das famílias"],
+    [/\bConsumer Spending Volume\b/g, "volume de consumo das famílias"],
+    [/\bConsumer Credit Change\b/g, "variação do crédito ao consumidor"],
+    [/\bConsumer Inflation Expectations\b/g, "expectativa de inflação do consumidor"],
+    // setor externo
+    [/\bGoods and Services Trade Balance\b/g, "balança comercial de bens e serviços"],
+    [/\bGoods Trade Balance\b/g, "balança comercial de bens"],
+    [/\bForeign Trade Balance\b/g, "balança comercial"],
+    [/\bGlobal Trade Balance\b/g, "balança comercial global"],
+    [/\bTrade Balance - BOP Basis\b/g, "balança comercial (base BP)"],
+    [/\bTrade Balance\b/g, "balança comercial"],
+    [/\bCurrent Account\b/g, "conta corrente"],
+    [/\bInternational Merchandise Trade\b/g, "comércio internacional de mercadorias"],
+    [/\bTerms of Trade Index\b/g, "índice de termos de troca"],
+    [/\bForeign Investment in Japan Stocks\b/g, "investimento estrangeiro em ações do Japão"],
+    [/\bForeign Bond Investment\b/g, "investimento estrangeiro em títulos"],
+    [/\bForeign Currency Reserves\b/g, "reservas em moeda estrangeira"],
+    [/\bJP Foreign Reserves\b/g, "reservas internacionais do Japão"],
+    [/\bExports\b/g, "exportações"],
+    [/\bImports\b/g, "importações"],
+    // pesquisas, confianca e indices
+    [/\bIvey Purchasing Managers Index\b/g, "PMI Ivey"],
+    [/\bPurchasing Managers Index\b/g, "PMI"],
+    [/\bISM Services Employment Index\b/g, "emprego em serviços (ISM)"],
+    [/\bISM Services New Orders Index\b/g, "novos pedidos em serviços (ISM)"],
+    [/\bISM Services Prices Paid\b/g, "preços pagos em serviços (ISM)"],
+    [/\bISM Services PMI\b/g, "PMI de serviços (ISM)"],
+    [/\bISM Manufacturing PMI\b/g, "PMI da indústria (ISM)"],
+    [/\bServices PMI\b/g, "PMI de serviços"],
+    [/\bComposite PMI\b/g, "PMI composto"],
+    [/\bManufacturing PMI\b/g, "PMI da indústria"],
+    [/\bConstruction PMI\b/g, "PMI da construção"],
+    [/\bSentix Investor Confidence\b/g, "confiança do investidor (Sentix)"],
+    [/\bWestpac Consumer Confidence\b/g, "confiança do consumidor (Westpac)"],
+    [/\bNational Australia Bank's Business Conditions\b/g, "condições dos negócios (NAB)"],
+    [/\bNational Australia Bank's Business Confidence\b/g, "confiança dos negócios (NAB)"],
+    [/\bNFIB Business Optimism Index\b/g, "otimismo das pequenas empresas (NFIB)"],
+    [/\bEco Watchers Survey: Current\b/g, "pesquisa Eco Watchers: situação atual"],
+    [/\bEco Watchers Survey: Outlook\b/g, "pesquisa Eco Watchers: perspectiva"],
+    [/\bLeading Economic Index\b/g, "índice antecedente"],
+    [/\bCoincident Index\b/g, "índice coincidente"],
+    [/\bRedbook Index\b/g, "índice Redbook"],
+    [/\bMBA Mortgage Applications\b/g, "pedidos de hipoteca (MBA)"],
+    [/\bANZ Commodity Price\b/g, "preço de commodities (ANZ)"],
+    [/\bBudget Balance\b/g, "resultado orçamentário"],
+    [/\bMoney Supply M2\+CD\b/g, "oferta de moeda M2+CD"],
+    [/\bBank Lending\b/g, "crédito bancário"],
+    // energia e commodities
+    [/\bEIA Crude Oil Stocks Change\b/g, "estoques de petróleo (EIA)"],
+    [/\bEIA Distillate Stocks Change\b/g, "estoques de destilados (EIA)"],
+    [/\bEIA Gasoline Stocks Change\b/g, "estoques de gasolina (EIA)"],
+    [/\bEIA Heating Oil Stocks Change\b/g, "estoques de óleo de aquecimento (EIA)"],
+    [/\bEIA Natural Gas Storage Change\b/g, "estoques de gás natural (EIA)"],
+    [/\bAPI Weekly Crude Oil Stock\b/g, "estoques de petróleo (API, semanal)"],
+    [/\bBaker Hughes US Oil Rig Count\b/g, "sondas de petróleo nos EUA (Baker Hughes)"],
+    // posicionamento e leiloes
+    [/\bCFTC (.+?) NC Net Positions\b/g, "posições líquidas não comerciais em $1 (CFTC)"],
+    [/\b(\d+)-Week Bill Auction\b/gi, "leilão de letras de $1 semanas"],
+    [/\b(\d+)-Month Bill Auction\b/gi, "leilão de letras de $1 meses"],
+    [/\b(\d+)-Month Letras Auction\b/gi, "leilão de Letras de $1 meses"],
+    [/\b(\d+)-y(?:ear)? Bond Auction\b/gi, "leilão de títulos de $1 anos"],
+    [/\b(\d+)-y(?:ear)? Note Auction\b/gi, "leilão de notas de $1 anos"],
+    [/\b(\d+)-y(?:ear)? Obligaciones Auction\b/gi, "leilão de Obligaciones de $1 anos"],
+    // ativo, no bloco de posicionamento da CFTC
+    [/\bCFTC Gold NC\b/g, "CFTC Ouro NC"],
+    [/\bCFTC Oil NC\b/g, "CFTC Petróleo NC"],
+    [/\bCFTC Silver NC\b/g, "CFTC Prata NC"],
+    // discursos (o nome do orador fica como esta — e nome proprio; o banco vira a sigla PT)
+    [/\bBoE's Governor ([A-Z][\w.'-]*)\s+speech\b/g, "discurso do presidente $1 (BoE)"],
+    [/\bECB's ([A-Z][\w.'-]*(?: [A-Z][\w.'-]*)?)\s+speech\b/g, "discurso de $1 (BCE)"],
+    [/\b([A-Za-z]{2,6})'s ([A-Z][\w.'-]*(?: [A-Z][\w.'-]*)?)\s+speech\b/g, "discurso de $2 ($1)"],
+    [/\bspeech\b/g, "discurso"],
+    // feriado
+    [/\bLabor Day\b/g, "Dia do Trabalho (feriado)"],
+    // a sigla do banco vem na frente na FXStreet; em portugues ela vai para o fim
+    [/^(RBNZ|RBA|BoC|BoE|BoJ|ECB|SNB|Fed|FOMC) (decisão de juro|comunicado de política monetária|revisão de política monetária|coletiva de imprensa|ata da reunião de política monetária)/g,
+      (m, banco, o) => o + " (" + (banco === "ECB" ? "BCE" : banco) + ")"],
+    // sufixos de periodicidade e de ajuste — sempre por ultimo
+    [/\(MoM\)/g, "(mês a mês)"],
+    [/\(YoY\)/g, "(ano a ano)"],
+    [/\(QoQ\)/g, "(trim. a trim.)"],
+    [/\(3M\)/g, "(3 meses)"],
+    [/\b4-week average\b/g, "média de 4 semanas"],
+    [/\bn\.s\.a\.?/g, "(sem ajuste sazonal)"],
+    [/\bs\.a\.?/g, "(dessazonalizado)"],
+    [/\bw\.d\.a\.?/g, "(por dias úteis)"],
+    [/\bCal Adjusted\b/g, "ajustado por calendário"],
+  ];
+
+  /* Palavra inglesa que, se SOBRAR depois das trocas, cancela a traducao inteira.
+     E o que impede meia-traducao em manchete e em frase corrida. */
+  /* Letra, para o lookaround: inclui as acentuadas. O \b do JS so conhece ASCII, e por
+     isso "for" casava DENTRO de "forca" e cancelava a traducao inteira — medido em 05/set,
+     em "Labor Force Participation Rate". */
+  const LETRA = "A-Za-z\\u00C0-\\u024F";
+  const RESTO_INGLES = new RegExp("(?<![" + LETRA + "])(the|of|in|on|for|and|to|with|from|by|as|at|is|are|was|were|be|been|has|have|will|would|should|could|not|new|old|more|most|less|change|changes|rate|rates|index|indices|sales|price|prices|production|output|balance|orders|claims|employment|unemployment|earnings|spending|confidence|survey|current|net|total|final|core|goods|services|trade|bank|business|consumer|producer|house|housing|money|supply|reserves|auction|bill|note|bond|stock|stocks|count|speech|day|week|month|year|years|average|weekly|hourly|labor|labour|force|participation|productivity|costs|jobless|initial|continuing|building|permits|approvals|capacity|utilization|durable|wholesale|retail|inflation|expectations|investment|foreign|domestic|gross|product|deflator|annualized|underemployment|payrolls|nonfarm|purchasing|managers|composite|manufacturing|construction|crude|oil|gas|natural|gasoline|distillate|heating|storage|rig|positions|holiday|market|committee|federal|reserve|minutes|statement|conference|press|policy|monetary|decision|interest|deposit|facility|refinancing|operations|main|data|report|jumps|rises|falls|gains|weakens|ahead|after|before|about|higher|lower)(?![" + LETRA + "])", "i");
+
+  /* Traduz um titulo de evento INTEIRO, ou devolve null.
+     Recusa quando: e longo demais, tem cara de frase/manchete, ou sobra ingles no fim. */
+  function tituloEvento(bruto) {
+    const txt = String(bruto == null ? "" : bruto).trim();
+    if (!txt || txt.length > 72) return null;
+    if (/[“”"]/.test(txt)) return null;             // citacao, nunca titulo
+    if (/\s-\s[\w-]+\.[a-z]{2,}$/i.test(txt)) return null;    // manchete "... - dominio.com"
+    if (txt.split(/\s+/).length > 10) return null;
+    let t = txt, mudou = false;
+    for (const par of TERMOS_EVENTO) {
+      const novo = t.replace(par[0], par[1]);
+      if (novo !== t) { t = novo; mudou = true; }
+    }
+    if (!mudou) return null;
+    if (RESTO_INGLES.test(t)) return null;                    // cobertura total, ou nada
+    return t.replace(/\s{2,}/g, " ").trim();
+  }
+
+  // (b) a coluna dos dados americanos: "casado com <titulo>"
+  REGEX.push([/^casado com (.+)$/, (m, tit) => {
+    const t = tituloEvento(tit);
+    return t === null ? m : "casado com " + t;
+  }]);
+  // (c) o nome oficial da taxa, que o bancos_centrais.py ainda grava em ingles, e o
+  //     "deposito" sem acento que vem do mesmo lugar
+  REGEX.push([/^(.*)\bBank Rate\b(.*)$/, (m, a, b) => a + "taxa básica" + b]);
+  REGEX.push([/^(.*)\bdeposito\b(.*)$/, (m, a, b) => a + "depósito" + b]);
+  // (d) titulos de publicacao do Fed — formularios fixos do feed oficial
+  REGEX.push([/^Federal Reserve issues FOMC statement$/, "Fed divulga o comunicado do FOMC"]);
+  REGEX.push([/^Minutes of the Federal Open Market Committee, (.+)$/,
+    "Ata do Comitê Federal de Mercado Aberto (FOMC), $1"]);
+  REGEX.push([/^Minutes of the Board(?:&#39;|'|’)s discount rate meetings on (.+)$/,
+    "Ata das reuniões da Diretoria sobre a taxa de redesconto em $1"]);
 
   // Fragmento que comeca com travessao ("— pushes toward TIGHTENING"): traduz o resto.
   // E o formato da linha de leitura da ficha, onde a classe vem em <strong> e o texto do
@@ -405,6 +872,18 @@
   REGEX.push([/^— (.+)$/, (m, resto) => {
     const t = traduz(resto);
     return "— " + (t === null ? resto : t.trim());
+  }]);
+
+  /* O APANHADOR DE TITULO FICA POR ULTIMO, de proposito: traduz() devolve na PRIMEIRA regra
+     que casa, e este padrao casa com qualquer no. Colocado antes, ele matava todas as regras
+     seguintes. Quando tituloEvento() devolve null (o caso comum) o texto sai igual, e
+     traduz() segue devolvendo null como antes. */
+  // (a) o titulo sozinho no no — celula do calendario, ficha do dia, lista "porque" e a
+  //     coluna "proximo evento relevante". A bandeira, quando existe, e preservada.
+  REGEX.push([/^(?:(?:\uD83C[\uDDE6-\uDDFF]){2}\s*)?\S[\s\S]*$/, (m) => {
+    const b = /^((?:\uD83C[\uDDE6-\uDDFF]){2}\s*)?([\s\S]*)$/.exec(m);
+    const t = tituloEvento(b[2]);
+    return t === null ? m : (b[1] || "") + t;
   }]);
 
   function traduz(texto) {
@@ -462,7 +941,8 @@
     b.id = "macLang";
     b.className = "mac-lang";
     b.setAttribute("translate", "no");
-    b.title = idioma === "pt" ? "Switch to English" : "Mudar para português";
+    // O seletor tambem e tela: nem o title dele pode sair em ingles (lei da casa).
+    b.title = idioma === "pt" ? "Mudar para inglês" : "Mudar para português";
     b.innerHTML = idioma === "pt"
       ? '<b>PT</b><span>·</span>EN'
       : 'PT<span>·</span><b>EN</b>';
@@ -485,7 +965,7 @@
 
   /* ------------------------------------------------------------------ ARRANQUE */
   const idioma = idiomaAtual();
-  window.__macIdioma = { idioma, aplica, traduz };
+  window.__macIdioma = { idioma, aplica, traduz, tituloEvento };
   document.documentElement.lang = idioma === "pt" ? "pt-BR" : "en";
 
   function arranca() {

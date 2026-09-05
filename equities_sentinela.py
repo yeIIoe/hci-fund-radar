@@ -78,11 +78,10 @@ def watchlist():
     recs = []
     for t in WATCH:
         ret = r1.get(t)
-        if ret is None:
-            continue
-        vs = (px[t].iloc[-1] / hi52[t] - 1) * 100
-        dip = ret <= -0.03
-        obs = ret <= -0.015
+        valido = ret is not None and ret == ret
+        vs = (px[t].iloc[-1] / hi52[t] - 1) * 100 if valido else None
+        dip = bool(valido and ret <= -0.03)
+        obs = bool(valido and ret <= -0.015)
         # NaN quebra o JSON: json.dumps escreve NaN literal, que o navegador recusa e
         # derruba o arquivo inteiro. Converte para None antes de serializar.
         def _n(v, casas=2):
@@ -91,17 +90,23 @@ def watchlist():
                 return None if f != f else round(f, casas)
             except Exception:
                 return None
+        if not valido:
+            motivo_fora = "Variação diária indisponível; sem setup até a próxima leitura válida."
+        elif ret < 0:
+            motivo_fora = "Queda de %.1f%%, abaixo do gatilho de 3%%." % abs(ret * 100)
+        else:
+            motivo_fora = "Alta de %.1f%%; não houve queda para acionar o gatilho." % (ret * 100)
         recs.append({
             "ticker": t,
             "aprovado": bool(dip),                 # dip >= 3% e o gatilho da regra BTD
             "nota": "DIP >=3%" if dip else ("observar" if obs else "sem dip"),
             "preco": _n(px[t].iloc[-1]),
-            "retorno_hoje": _n(ret * 100, 1),
+            "retorno_hoje": _n(ret * 100, 1) if valido else None,
             "vs_maxima_12m": _n(vs, 0),
             "tese": TESE.get(t, ""),
             "porque": ("Queda de %.1f%% em fornecedor de NECESSIDADE. Aplicar a regra BTD "
                        "(qualidade + medo-vs-idiossincratico) e assinar." % (ret * 100)) if dip else None,
-            "porque_nao": None if dip else ("Queda de %.1f%%, abaixo do gatilho de 3%%." % (ret * 100)),
+            "porque_nao": None if dip else motivo_fora,
             "confianca": "~65-75% (backtest BTD)" if dip else None,
         })
     doc = {"gerado_em": _dt.now().strftime("%Y-%m-%d %H:%M"),

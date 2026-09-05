@@ -134,17 +134,17 @@ def classifica(actual, forecast, corte_abs=None):
 def empurrao(classe, fam):
     """Para que lado a surpresa empurra a decisao do BC, e com que forca."""
     if classe is None:
-        return 0, "no bar to measure against"
+        return 0, "sem régua para medir — não há previsão publicada"
     if fam is None:
         # a barra existe (tem previsao e resultado); o que falta e a familia. Dizer "no bar"
         # aqui e mentira — e foi o que a tela mostrou para Nonfarm Productivity em 03/set.
-        return 0, "not in the reading — indicator not mapped to a family"
+        return 0, "fora da leitura — indicador sem família mapeada"
     if classe == "EM_LINHA":
-        return 0, "came in as expected — does not change what was already priced"
+        return 0, "veio como esperado — não muda o que já estava no preço"
     lado = +1 if classe == "MUITO_ACIMA" else -1
     lado *= fam["sinal"]
     forca = fam["peso"] * lado
-    texto = ("pushes toward TIGHTENING" if lado > 0 else "pushes toward EASING")
+    texto = ("empurra para APERTO" if lado > 0 else "empurra para ALÍVIO")
     return forca, texto
 
 
@@ -157,12 +157,12 @@ def cenarios(fam, forecast):
     if fam is None or not fam.get("peso"):
         return []
     s = fam["sinal"]
-    acima = "TIGHTENING" if s > 0 else "EASING"
-    abaixo = "EASING" if s > 0 else "TIGHTENING"
+    acima = "APERTO" if s > 0 else "ALÍVIO"
+    abaixo = "ALÍVIO" if s > 0 else "APERTO"
     return [
-        {"caso": "above forecast", "empurra": acima, "peso": fam["peso"]},
-        {"caso": "in line", "empurra": "nothing — already in the price", "peso": 0},
-        {"caso": "below forecast", "empurra": abaixo, "peso": fam["peso"]},
+        {"caso": "acima da previsão", "empurra": acima, "peso": fam["peso"]},
+        {"caso": "em linha", "empurra": "nada — já está no preço", "peso": 0},
+        {"caso": "abaixo da previsão", "empurra": abaixo, "peso": fam["peso"]},
     ]
 
 
@@ -272,7 +272,7 @@ def main():
             estado = "DIVULGADO"
 
         if e["discurso"]:
-            texto = "a speech — no number to measure; the text is the release"
+            texto = "é um discurso — não há número para medir; o texto é a divulgação"
 
         saida.append({
             "titulo": titulo,
@@ -289,7 +289,7 @@ def main():
             "familia_peso": fam["peso"] if fam else None,
             "familia_sinal": fam["sinal"] if fam else None,
             "porque": fam["porque"] if fam else
-                      "indicator not mapped to a family — it does not enter the reading, and that is declared",
+                      "indicador sem família mapeada — não entra na leitura, e isso fica declarado",
             "classe": classe,
             "diferenca": round(dif, 4) if dif is not None else None,
             "surpresa_normalizada": e["surpresa_normalizada"],

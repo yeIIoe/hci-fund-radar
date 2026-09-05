@@ -54,7 +54,8 @@ for t in UNIV:
              (" + " if (ev_eb and ev_eb <= 5 and pb <= 0.8) else "") + \
              (f"ativos c/ desconto (P/B {pb:.2f})" if pb <= 0.8 else "")
     forca = ("NET CASH (sobrevive ao inverno)" if netcash else (f"divida controlada (D/E {de:.0f}%)" if de is not None and de <= 30 else "balanco ok"))
-    conf = min(70, 55 + (10 if netcash else 0) + (5 if (de is not None and de <= 30) else 0))
+    # Sem calibracao fora da amostra, a peneira nao vira probabilidade por empresa.
+    conf = None
     risco = RISCO.get(i.get("sector", ""), "ciclo do setor")
     rows.append((nota, t, px, ev_eb, pb, de, netcash, trap, barato, forca, conf, risco))
 
@@ -66,7 +67,7 @@ for (nota, t, px, ev_eb, pb, de, nc, trap, barato, forca, conf, risco) in rows:
     de_s = f"{de:.0f}%" if de is not None else "n/a"
     lines.append(f"{'✅' if ok else '❌'} {t:10} nota {nota} | {px:.2f} | EV/EBITDA {ev_s} | P/B {pb:.2f} | D/E {de_s}")
     if ok:
-        lines.append(f"   TESE: {barato}; {forca}. RISCO: {risco}. CONFIANCA: ~{conf}% individual.")
+        lines.append(f"   TESE: {barato}; {forca}. RISCO: {risco}. CONFIANCA: nao calibrada.")
     else:
         lines.append(f"   REJEITADA: {', '.join(trap) if trap else 'sem margem'} -> barato que pode quebrar/sangrar (a licao da peneira).")
 lines.append("")
@@ -91,10 +92,12 @@ for (nota, t, px, ev_eb, pb, de, nc, trap, barato, forca, conf, risco) in rows:
             "net cash": bool(nc),
         },
         "porque": ("%s; %s." % (barato, forca)) if nota in "AB" else None,
-        "porque_nao": ("armadilha de valor: %s" % forca) if trap else (
-            None if nota in "AB" else "nao passou na peneira anti-armadilha"),
+        "porque_nao": ("armadilha de valor: %s" % ", ".join(trap)) if trap else (
+            None if nota in "AB" else "margem de seguranca insuficiente para a peneira"),
+        "reprovacoes": trap,
         "risco": risco,
-        "confianca": ("~%s%% individual" % conf) if nota in "AB" else None,
+        "confianca": None,
+        "confianca_status": "nao calibrada" if nota in "AB" else None,
     })
 (OUT / "deep_value_scan.json").write_text(
     _json.dumps({"metodo": "barato (EV/EBITDA, P/B) -> anti-armadilha (lucro+, FCF+, D/E<=50%) -> catalisador",

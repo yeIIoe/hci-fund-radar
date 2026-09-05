@@ -1,5 +1,5 @@
 {
- "gerado_em": "2026-09-05T01:24:55.357701+00:00",
+ "gerado_em": "2026-09-05T05:58:12.941954+00:00",
  "status_fontes": {
   "USD": "ok",
   "EUR": "ok",
@@ -10,7 +10,571 @@
   "NZD": "not connected: RBNZ returns 403 to automation",
   "CHF": "not connected: SNB feed not found (404 on the known routes)"
  },
- "aviso": "EXTRACAO mecanica de frases de postura e contagem de expressoes em ingles. Nao e interpretacao: um indice grosseiro para apontar QUAL texto ler.",
+ "status_fontes_texto": {
+  "USD": "conectado",
+  "EUR": "conectado",
+  "GBP": "conectado",
+  "JPY": "conectado",
+  "CAD": "conectado",
+  "AUD": "nao conectado: o RBA devolve 403 para automacao",
+  "NZD": "nao conectado: o RBNZ devolve 403 para automacao",
+  "CHF": "nao conectado: o SNB nao publica feed nas rotas conhecidas (404)"
+ },
+ "aviso": "EXTRACAO mecanica de frases de postura e contagem de expressoes em ingles. A contagem NAO e interpretacao: e um indice grosseiro para apontar QUAL texto ler, e fica aqui so como rastro. O que se le na tela e o veredito por orador do leitor_falas — que e CONTEXTO e NAO VOTA.",
+ "hierarquia_pesos": {
+  "discurso_oficial": 1.0,
+  "comunicado_ata": 1.0,
+  "imprensa_com_fala": 0.4,
+  "manchete": 0.0
+ },
+ "hierarquia_nota": "peso gravado no item para o sentimento aplicar. Este arquivo so produz discurso_oficial e comunicado_ata (paginas do proprio banco). imprensa_com_fala (0,4) e manchete (0,0) nascem em noticias.py.",
+ "filtro_assunto": {
+  "inclusao": {
+   "politica monetaria": [
+    "monetary policy",
+    "policy decision",
+    "policy rate",
+    "bank rate",
+    "cash rate",
+    "official cash rate",
+    "federal funds",
+    "rate decision",
+    "policy stance",
+    "quantitative tightening",
+    "quantitative easing",
+    "balance sheet policy",
+    "asset purchase"
+   ],
+   "inflacao": [
+    "inflation",
+    "price stability",
+    "consumer price",
+    "cpi",
+    "disinflation",
+    "price pressure",
+    "wage growth"
+   ],
+   "juros": [
+    "interest rate",
+    "rate cut",
+    "rate hike",
+    "rate increase",
+    "rate reduction",
+    "restrictive",
+    "accommodative",
+    "neutral rate",
+    "easing cycle"
+   ],
+   "economia e perspectivas": [
+    "economic outlook",
+    "outlook for",
+    "economic activity",
+    "growth outlook",
+    "gdp",
+    "projections",
+    "forecast",
+    "the economy",
+    "economic conditions",
+    "economy",
+    "economic",
+    "recession",
+    "productivity"
+   ],
+   "mercado de trabalho": [
+    "labour market",
+    "labor market",
+    "employment",
+    "unemployment",
+    "payrolls",
+    "jobs report"
+   ],
+   "estabilidade financeira": [
+    "financial stability",
+    "financial system",
+    "banking system",
+    "systemic risk",
+    "stress test",
+    "financial conditions"
+   ]
+  },
+  "exclusao": {
+   "cedula": [
+    "bank note",
+    "banknote",
+    "bank-note",
+    "currency note",
+    "polymer note",
+    "unveiling",
+    "unveil",
+    "new note",
+    "note series"
+   ],
+   "aniversario": [
+    "anniversary",
+    "centenary",
+    "birthday",
+    "years of the bank"
+   ],
+   "homenagem": [
+    "tribute",
+    "in memoriam",
+    "memorial",
+    "farewell",
+    "obituary",
+    "eulogy",
+    "honouring",
+    "honoring",
+    "in honour of",
+    "in honor of"
+   ],
+   "premio": [
+    "award",
+    "prize",
+    "medal",
+    "laureate",
+    "scholarship"
+   ],
+   "museu": [
+    "museum",
+    "exhibition",
+    "gallery",
+    "art collection",
+    "heritage"
+   ],
+   "nomeacao administrativa": [
+    "appointment",
+    "appointed",
+    "reappointment",
+    "names new",
+    "board of directors",
+    "staff change",
+    "retirement of",
+    "resignation",
+    "steps down",
+    "term of office",
+    "swearing-in",
+    "takes office",
+    "new head of"
+   ]
+  },
+  "termos_fortes_corpo": [
+   "monetary policy",
+   "policy rate",
+   "interest rate",
+   "inflation",
+   "bank rate",
+   "cash rate",
+   "federal funds",
+   "labour market",
+   "labor market"
+  ],
+  "min_termos_fortes_no_corpo": 3,
+  "provisorio": true,
+  "nota": "limiar PROVISORIO, a calibrar pelo backtest. Titulo com assunto excluido e sem tema de politica monetaria e descartado; titulo neutro so sobrevive vindo de pagina de comunicado."
+ },
+ "resumo_por_moeda": {
+  "AUD": {
+   "discurso_oficial": 0,
+   "comunicado_ata": 0,
+   "descartados": 0,
+   "itens_que_votam": 0,
+   "com_orador_identificado": 0,
+   "veredito_por_orador": []
+  },
+  "CAD": {
+   "discurso_oficial": 0,
+   "comunicado_ata": 2,
+   "descartados": 2,
+   "itens_que_votam": 2,
+   "com_orador_identificado": 2,
+   "veredito_por_orador": [
+    {
+     "orador": "Macklem",
+     "veredito": "indeterminado",
+     "motivo": "nenhuma frase de postura foi extraída do texto.",
+     "trecho": "",
+     "data": "2026-09-02",
+     "link": "https://www.bankofcanada.ca/multimedia/press-conference-policy-rate-announcement-september-2026/",
+     "banco": "BoC",
+     "falas_lidas": 2,
+     "frases_analisadas": 0,
+     "selo": "experimental — contexto, não vota",
+     "vota": false
+    }
+   ]
+  },
+  "CHF": {
+   "discurso_oficial": 0,
+   "comunicado_ata": 0,
+   "descartados": 0,
+   "itens_que_votam": 0,
+   "com_orador_identificado": 0,
+   "veredito_por_orador": []
+  },
+  "EUR": {
+   "discurso_oficial": 4,
+   "comunicado_ata": 0,
+   "descartados": 3,
+   "itens_que_votam": 4,
+   "com_orador_identificado": 4,
+   "veredito_por_orador": [
+    {
+     "orador": "Vujcic",
+     "veredito": "indeterminado",
+     "motivo": "nenhuma frase de postura foi extraída do texto.",
+     "trecho": "",
+     "data": "2026-09-01",
+     "link": "https://www.ecb.europa.eu//press/key/date/2026/html/ecb.sp260901~bb28f33f54.en.html",
+     "banco": "ECB",
+     "falas_lidas": 1,
+     "frases_analisadas": 0,
+     "selo": "experimental — contexto, não vota",
+     "vota": false
+    },
+    {
+     "orador": "Schnabel",
+     "veredito": "indeterminado",
+     "motivo": "nenhuma frase de postura foi extraída do texto.",
+     "trecho": "",
+     "data": "2026-08-28",
+     "link": "https://www.ecb.europa.eu//press/key/date/2026/html/ecb.sp260828~fe9afc86e8.en.html",
+     "banco": "ECB",
+     "falas_lidas": 1,
+     "frases_analisadas": 0,
+     "selo": "experimental — contexto, não vota",
+     "vota": false
+    },
+    {
+     "orador": "Cipollone",
+     "veredito": "indeterminado",
+     "motivo": "nenhuma frase de postura foi extraída do texto.",
+     "trecho": "",
+     "data": "2026-08-24",
+     "link": "https://www.ecb.europa.eu//press/inter/date/2026/html/ecb.in260824~fa5acbddea.en.html",
+     "banco": "ECB",
+     "falas_lidas": 1,
+     "frases_analisadas": 0,
+     "selo": "experimental — contexto, não vota",
+     "vota": false
+    },
+    {
+     "orador": "Lagarde",
+     "veredito": "indeterminado",
+     "motivo": "nenhuma frase de postura foi extraída do texto.",
+     "trecho": "",
+     "data": "2026-08-19",
+     "link": "https://www.ecb.europa.eu//press/key/date/2026/html/ecb.sp260819~98ddf24b7b.en.html",
+     "banco": "ECB",
+     "falas_lidas": 1,
+     "frases_analisadas": 0,
+     "selo": "experimental — contexto, não vota",
+     "vota": false
+    }
+   ]
+  },
+  "GBP": {
+   "discurso_oficial": 2,
+   "comunicado_ata": 0,
+   "descartados": 0,
+   "itens_que_votam": 2,
+   "com_orador_identificado": 2,
+   "veredito_por_orador": [
+    {
+     "orador": "Pill",
+     "veredito": "manutenção",
+     "motivo": "apoio explícito a MANTER os juros (“keep rates on hold”). A condição não muda a manutenção: manter sob condição continua manter.",
+     "trecho": "Whether implicitly (via their internal thinking or analysis) or explicitly (via the material published in the Bank Insights article), it is natural for market participants to interpret this set of scenarios as suggesting the MPC is seeking to keep rates on hold but would raise rates aggressively if the inflation outloo...",
+     "data": "2026-09-03",
+     "link": "https://www.bankofengland.co.uk/speech/2026/september/remarks-at-the-edinburgh-chamber-of-commerce",
+     "banco": "BoE",
+     "falas_lidas": 1,
+     "frases_analisadas": 5,
+     "selo": "experimental — contexto, não vota",
+     "vota": false
+    },
+    {
+     "orador": "Andrew Bailey",
+     "veredito": "indeterminado",
+     "motivo": "nenhuma frase de postura foi extraída do texto.",
+     "trecho": "",
+     "data": "2026-09-04",
+     "link": "https://www.bankofengland.co.uk/speech/2026/september/andrew-bailey-keynote-speech-at-lse-trium-anniversary-conference",
+     "banco": "BoE",
+     "falas_lidas": 1,
+     "frases_analisadas": 0,
+     "selo": "experimental — contexto, não vota",
+     "vota": false
+    }
+   ]
+  },
+  "JPY": {
+   "discurso_oficial": 0,
+   "comunicado_ata": 1,
+   "descartados": 0,
+   "itens_que_votam": 1,
+   "com_orador_identificado": 0,
+   "veredito_por_orador": [
+    {
+     "orador": "BoJ",
+     "veredito": "alta",
+     "motivo": "postura firme de alta: “raise the policy interest rate”, sem condição, sem negação e sobre o próximo passo.",
+     "trecho": "As for the conduct of monetary policy, the Bank will continue to raise the policy interest rate and adjust the degree of monetary accommodation, in response to developments in economic activity and prices as well as financial conditions.",
+     "data": "2026-08-17",
+     "link": "http://www.boj.or.jp/en/mopo/outlook/highlight/ten202607.htm",
+     "banco": "BoJ",
+     "falas_lidas": 1,
+     "frases_analisadas": 1,
+     "selo": "experimental — contexto, não vota",
+     "vota": false
+    }
+   ]
+  },
+  "NZD": {
+   "discurso_oficial": 0,
+   "comunicado_ata": 0,
+   "descartados": 0,
+   "itens_que_votam": 0,
+   "com_orador_identificado": 0,
+   "veredito_por_orador": []
+  },
+  "USD": {
+   "discurso_oficial": 3,
+   "comunicado_ata": 0,
+   "descartados": 0,
+   "itens_que_votam": 3,
+   "com_orador_identificado": 3,
+   "veredito_por_orador": [
+    {
+     "orador": "Waller",
+     "veredito": "manutenção",
+     "motivo": "apoio explícito a MANTER os juros (“holding the target”). A condição não muda a manutenção: manter sob condição continua manter.",
+     "trecho": "If this continues in the data due over the next two weeks, I would be inclined to support holding the target for the federal funds rate at its current setting.",
+     "data": "2026-09-03",
+     "link": "https://www.federalreserve.gov/newsevents/speech/waller20260903a.htm",
+     "banco": "Fed",
+     "falas_lidas": 1,
+     "frases_analisadas": 4,
+     "selo": "experimental — contexto, não vota",
+     "vota": false
+    },
+    {
+     "orador": "Barr",
+     "veredito": "alta condicional",
+     "motivo": "Alta CONDICIONADA: “raise rates” só vale se a condição se realizar (marcador de condição: “if”) — é cenário, não direção firme.",
+     "trecho": "However, if inflation appears not to be moderating sufficiently, then I think we should act decisively to raise rates.",
+     "data": "2026-09-01",
+     "link": "https://www.federalreserve.gov/newsevents/speech/barr20260901a.htm",
+     "banco": "Fed",
+     "falas_lidas": 1,
+     "frases_analisadas": 1,
+     "selo": "experimental — contexto, não vota",
+     "vota": false
+    },
+    {
+     "orador": "Warsh",
+     "veredito": "indeterminado",
+     "motivo": "trata de política de juros (“interest rate”), mas não indica alta, corte nem manutenção.",
+     "trecho": "7 And I believe when policymakers make quasi-commitments on interest rates through the cycle, we inhibit our own freedom to make the right calls when it's time to decide.",
+     "data": "2026-08-28",
+     "link": "https://www.federalreserve.gov/newsevents/speech/warsh20260828a.htm",
+     "banco": "Fed",
+     "falas_lidas": 1,
+     "frases_analisadas": 1,
+     "selo": "experimental — contexto, não vota",
+     "vota": false
+    }
+   ]
+  }
+ },
+ "veredito_por_orador": {
+  "GBP": [
+   {
+    "orador": "Pill",
+    "veredito": "manutenção",
+    "motivo": "apoio explícito a MANTER os juros (“keep rates on hold”). A condição não muda a manutenção: manter sob condição continua manter.",
+    "trecho": "Whether implicitly (via their internal thinking or analysis) or explicitly (via the material published in the Bank Insights article), it is natural for market participants to interpret this set of scenarios as suggesting the MPC is seeking to keep rates on hold but would raise rates aggressively if the inflation outloo...",
+    "data": "2026-09-03",
+    "link": "https://www.bankofengland.co.uk/speech/2026/september/remarks-at-the-edinburgh-chamber-of-commerce",
+    "banco": "BoE",
+    "falas_lidas": 1,
+    "frases_analisadas": 5,
+    "selo": "experimental — contexto, não vota",
+    "vota": false
+   },
+   {
+    "orador": "Andrew Bailey",
+    "veredito": "indeterminado",
+    "motivo": "nenhuma frase de postura foi extraída do texto.",
+    "trecho": "",
+    "data": "2026-09-04",
+    "link": "https://www.bankofengland.co.uk/speech/2026/september/andrew-bailey-keynote-speech-at-lse-trium-anniversary-conference",
+    "banco": "BoE",
+    "falas_lidas": 1,
+    "frases_analisadas": 0,
+    "selo": "experimental — contexto, não vota",
+    "vota": false
+   }
+  ],
+  "USD": [
+   {
+    "orador": "Waller",
+    "veredito": "manutenção",
+    "motivo": "apoio explícito a MANTER os juros (“holding the target”). A condição não muda a manutenção: manter sob condição continua manter.",
+    "trecho": "If this continues in the data due over the next two weeks, I would be inclined to support holding the target for the federal funds rate at its current setting.",
+    "data": "2026-09-03",
+    "link": "https://www.federalreserve.gov/newsevents/speech/waller20260903a.htm",
+    "banco": "Fed",
+    "falas_lidas": 1,
+    "frases_analisadas": 4,
+    "selo": "experimental — contexto, não vota",
+    "vota": false
+   },
+   {
+    "orador": "Barr",
+    "veredito": "alta condicional",
+    "motivo": "Alta CONDICIONADA: “raise rates” só vale se a condição se realizar (marcador de condição: “if”) — é cenário, não direção firme.",
+    "trecho": "However, if inflation appears not to be moderating sufficiently, then I think we should act decisively to raise rates.",
+    "data": "2026-09-01",
+    "link": "https://www.federalreserve.gov/newsevents/speech/barr20260901a.htm",
+    "banco": "Fed",
+    "falas_lidas": 1,
+    "frases_analisadas": 1,
+    "selo": "experimental — contexto, não vota",
+    "vota": false
+   },
+   {
+    "orador": "Warsh",
+    "veredito": "indeterminado",
+    "motivo": "trata de política de juros (“interest rate”), mas não indica alta, corte nem manutenção.",
+    "trecho": "7 And I believe when policymakers make quasi-commitments on interest rates through the cycle, we inhibit our own freedom to make the right calls when it's time to decide.",
+    "data": "2026-08-28",
+    "link": "https://www.federalreserve.gov/newsevents/speech/warsh20260828a.htm",
+    "banco": "Fed",
+    "falas_lidas": 1,
+    "frases_analisadas": 1,
+    "selo": "experimental — contexto, não vota",
+    "vota": false
+   }
+  ],
+  "CAD": [
+   {
+    "orador": "Macklem",
+    "veredito": "indeterminado",
+    "motivo": "nenhuma frase de postura foi extraída do texto.",
+    "trecho": "",
+    "data": "2026-09-02",
+    "link": "https://www.bankofcanada.ca/multimedia/press-conference-policy-rate-announcement-september-2026/",
+    "banco": "BoC",
+    "falas_lidas": 2,
+    "frases_analisadas": 0,
+    "selo": "experimental — contexto, não vota",
+    "vota": false
+   }
+  ],
+  "EUR": [
+   {
+    "orador": "Vujcic",
+    "veredito": "indeterminado",
+    "motivo": "nenhuma frase de postura foi extraída do texto.",
+    "trecho": "",
+    "data": "2026-09-01",
+    "link": "https://www.ecb.europa.eu//press/key/date/2026/html/ecb.sp260901~bb28f33f54.en.html",
+    "banco": "ECB",
+    "falas_lidas": 1,
+    "frases_analisadas": 0,
+    "selo": "experimental — contexto, não vota",
+    "vota": false
+   },
+   {
+    "orador": "Schnabel",
+    "veredito": "indeterminado",
+    "motivo": "nenhuma frase de postura foi extraída do texto.",
+    "trecho": "",
+    "data": "2026-08-28",
+    "link": "https://www.ecb.europa.eu//press/key/date/2026/html/ecb.sp260828~fe9afc86e8.en.html",
+    "banco": "ECB",
+    "falas_lidas": 1,
+    "frases_analisadas": 0,
+    "selo": "experimental — contexto, não vota",
+    "vota": false
+   },
+   {
+    "orador": "Cipollone",
+    "veredito": "indeterminado",
+    "motivo": "nenhuma frase de postura foi extraída do texto.",
+    "trecho": "",
+    "data": "2026-08-24",
+    "link": "https://www.ecb.europa.eu//press/inter/date/2026/html/ecb.in260824~fa5acbddea.en.html",
+    "banco": "ECB",
+    "falas_lidas": 1,
+    "frases_analisadas": 0,
+    "selo": "experimental — contexto, não vota",
+    "vota": false
+   },
+   {
+    "orador": "Lagarde",
+    "veredito": "indeterminado",
+    "motivo": "nenhuma frase de postura foi extraída do texto.",
+    "trecho": "",
+    "data": "2026-08-19",
+    "link": "https://www.ecb.europa.eu//press/key/date/2026/html/ecb.sp260819~98ddf24b7b.en.html",
+    "banco": "ECB",
+    "falas_lidas": 1,
+    "frases_analisadas": 0,
+    "selo": "experimental — contexto, não vota",
+    "vota": false
+   }
+  ],
+  "JPY": [
+   {
+    "orador": "BoJ",
+    "veredito": "alta",
+    "motivo": "postura firme de alta: “raise the policy interest rate”, sem condição, sem negação e sobre o próximo passo.",
+    "trecho": "As for the conduct of monetary policy, the Bank will continue to raise the policy interest rate and adjust the degree of monetary accommodation, in response to developments in economic activity and prices as well as financial conditions.",
+    "data": "2026-08-17",
+    "link": "http://www.boj.or.jp/en/mopo/outlook/highlight/ten202607.htm",
+    "banco": "BoJ",
+    "falas_lidas": 1,
+    "frases_analisadas": 1,
+    "selo": "experimental — contexto, não vota",
+    "vota": false
+   }
+  ]
+ },
+ "leitor_falas": {
+  "versao": "leitor_falas v0.1 (05/set/2026) — regras PROVISÓRIAS, sem validação histórica",
+  "selo": "experimental — contexto, não vota",
+  "vota": false,
+  "vereditos_possiveis": [
+   "alta",
+   "corte",
+   "manutenção",
+   "alta condicional",
+   "corte condicional",
+   "indeterminado"
+  ],
+  "regras": {
+   "ordem": [
+    "sujeito",
+    "marcador",
+    "tempo verbal",
+    "atribuição a terceiros",
+    "negação",
+    "condição"
+   ],
+   "forca": {
+    "4_firme": "marcador limpo",
+    "3_negacao": "manutenção deduzida da negação",
+    "2_condicional": "alta/corte condicional",
+    "1_nada": "indeterminado"
+   },
+   "manutencao_sob_condicao": "continua manutenção (não existe veredito 'manutenção condicional')",
+   "provisorio": true,
+   "janela_expectativa_caracteres": 40
+  },
+  "validacao_aceitavel": "Só passa a votar depois de comparar o veredito com a DECISÃO SEGUINTE do próprio banco, ponto-no-tempo (só texto publicado antes da reunião), em amostra declarada antes de rodar: n ≥ 200 falas, ≥ 5 bancos, ≥ 3 anos, com pelo menos 30 falas em cada classe de decisão (subiu / manteve / cortou); tem de ganhar da referência burra “sempre manutenção”; os vereditos condicionais são medidos à parte (o banco subiu QUANDO a condição se realizou?); e a regra é congelada antes da janela de fora da amostra. Nada disso existe hoje.",
+  "nota": "classificador por REGRA (negação, condição, tempo verbal e sujeito). É CONTEXTO: não entra em nenhuma soma e não move nenhuma leitura, exatamente como a geopolítica. A contagem de marcadores segue gravada no item apenas como rastro de auditoria."
+ },
  "marcadores": {
   "hawkish": [
    "raise the policy rate",
@@ -86,53 +650,58 @@
  },
  "itens": [
   {
-   "moeda": "EUR",
-   "banco": "ECB",
-   "tipo": "speech",
-   "data": "2026-09-04",
-   "orador": "Philip R. Lane",
-   "titulo": "Philip R. Lane: Diversity at the European Central Bank",
-   "link": "https://www.ecb.europa.eu//press/key/date/2026/html/ecb.sp260904~7b9257099b.en.pdf",
-   "caracteres": 297466,
-   "frases": [],
-   "marcadores_hawkish": 0,
-   "marcadores_dovish": 0,
-   "inclinacao_por_contagem": "none"
-  },
-  {
    "moeda": "GBP",
    "banco": "BoE",
    "tipo": "speech",
    "data": "2026-09-04",
+   "origem": "discurso_oficial",
+   "peso": 1.0,
+   "orador_identificado": "Andrew Bailey",
    "orador": "Andrew Bailey",
+   "origem_motivo": "fala assinada por Andrew Bailey no site do banco",
+   "assunto": {
+    "veredito": "politica_monetaria",
+    "temas": [
+     "pelo corpo"
+    ],
+    "termos_fortes_no_corpo": 4,
+    "motivo": "titulo neutro, mas 4 termos fortes no corpo (minimo 3)"
+   },
    "titulo": "The institutional form of independent central banks: from history to contemporary challenges - speech by Andrew Bailey",
    "link": "https://www.bankofengland.co.uk/speech/2026/september/andrew-bailey-keynote-speech-at-lse-trium-anniversary-conference",
-   "caracteres": 25776,
+   "caracteres": 25798,
    "frases": [],
    "marcadores_hawkish": 0,
    "marcadores_dovish": 0,
-   "inclinacao_por_contagem": "none"
-  },
-  {
-   "moeda": "CAD",
-   "banco": "BoC",
-   "tipo": "speech",
-   "data": "2026-09-04",
-   "orador": "BoC",
-   "titulo": "Unveiling of Vertical $20 Bank Note",
-   "link": "https://www.bankofcanada.ca/2026/09/unveiling-of-vertical-20-bank-note/",
-   "caracteres": 7687,
-   "frases": [],
-   "marcadores_hawkish": 0,
-   "marcadores_dovish": 0,
-   "inclinacao_por_contagem": "none"
+   "inclinacao_por_contagem": "none",
+   "veredito_leitor": {
+    "veredito": "indeterminado",
+    "motivo": "nenhuma frase de postura foi extraída do texto.",
+    "trecho": "",
+    "forca": 1,
+    "selo": "experimental — contexto, não vota",
+    "vota": false,
+    "frases_analisadas": 0
+   }
   },
   {
    "moeda": "USD",
    "banco": "Fed",
    "tipo": "speech",
    "data": "2026-09-03",
+   "origem": "discurso_oficial",
+   "peso": 1.0,
+   "orador_identificado": "Waller",
    "orador": "Waller",
+   "origem_motivo": "fala assinada por Waller no site do banco",
+   "assunto": {
+    "veredito": "politica_monetaria",
+    "temas": [
+     "economia e perspectivas"
+    ],
+    "termos_fortes_no_corpo": 55,
+    "motivo": "titulo bate em: economia e perspectivas"
+   },
    "titulo": "Waller, The Economic Outlook and Some Comments on My Policy Communication",
    "link": "https://www.federalreserve.gov/newsevents/speech/waller20260903a.htm",
    "caracteres": 15278,
@@ -160,17 +729,38 @@
    ],
    "marcadores_hawkish": 7,
    "marcadores_dovish": 0,
-   "inclinacao_por_contagem": "hawkish"
+   "inclinacao_por_contagem": "hawkish",
+   "veredito_leitor": {
+    "veredito": "manutenção",
+    "motivo": "apoio explícito a MANTER os juros (“holding the target”). A condição não muda a manutenção: manter sob condição continua manter.",
+    "trecho": "If this continues in the data due over the next two weeks, I would be inclined to support holding the target for the federal funds rate at its current setting.",
+    "forca": 4,
+    "selo": "experimental — contexto, não vota",
+    "vota": false,
+    "frases_analisadas": 4
+   }
   },
   {
    "moeda": "GBP",
    "banco": "BoE",
    "tipo": "speech",
    "data": "2026-09-03",
-   "orador": "Huw Pill",
+   "origem": "discurso_oficial",
+   "peso": 1.0,
+   "orador_identificado": "Pill",
+   "orador": "Pill",
+   "origem_motivo": "fala assinada por Pill no site do banco",
+   "assunto": {
+    "veredito": "politica_monetaria",
+    "temas": [
+     "pelo corpo"
+    ],
+    "termos_fortes_no_corpo": 217,
+    "motivo": "titulo neutro, mas 217 termos fortes no corpo (minimo 3)"
+   },
    "titulo": "Homophones – Remarks by Huw Pill",
    "link": "https://www.bankofengland.co.uk/speech/2026/september/remarks-at-the-edinburgh-chamber-of-commerce",
-   "caracteres": 55752,
+   "caracteres": 55845,
    "frases": [
     {
      "frase": "Just as we the MPC was wary of allowing markets to ‘get-ahead-of-themselves’ with respect to prospective Bank Rate hikes in the immediate after math of hostilities breaking out in the Gulf, we should also recognise that markets may have already ‘gotten-ahead-of-themselves’ with respect to prospective Bank Rate cuts before the energy price shock.",
@@ -200,56 +790,105 @@
    ],
    "marcadores_hawkish": 8,
    "marcadores_dovish": 1,
-   "inclinacao_por_contagem": "hawkish"
-  },
-  {
-   "moeda": "CAD",
-   "banco": "BoC",
-   "tipo": "speech",
-   "data": "2026-09-03",
-   "orador": "BoC",
-   "titulo": "Unveiling Canada’s new $20 bank note - Speech (Webcasts)",
-   "link": "https://www.bankofcanada.ca/multimedia/unveiling-canadas-new-20-bank-note-speech-webcasts/",
-   "caracteres": 505,
-   "frases": [],
-   "marcadores_hawkish": 0,
-   "marcadores_dovish": 0,
-   "inclinacao_por_contagem": "none"
+   "inclinacao_por_contagem": "hawkish",
+   "veredito_leitor": {
+    "veredito": "manutenção",
+    "motivo": "apoio explícito a MANTER os juros (“keep rates on hold”). A condição não muda a manutenção: manter sob condição continua manter.",
+    "trecho": "Whether implicitly (via their internal thinking or analysis) or explicitly (via the material published in the Bank Insights article), it is natural for market participants to interpret this set of scenarios as suggesting the MPC is seeking to keep rates on hold but would raise rates aggressively if the inflation outloo...",
+    "forca": 4,
+    "selo": "experimental — contexto, não vota",
+    "vota": false,
+    "frases_analisadas": 5
+   }
   },
   {
    "moeda": "CAD",
    "banco": "BoC",
    "tipo": "speech",
    "data": "2026-09-02",
-   "orador": "Press Conference",
+   "origem": "comunicado_ata",
+   "peso": 1.0,
+   "orador_identificado": "Macklem",
+   "orador": "Macklem",
+   "origem_motivo": "titulo de comunicado/ata/coletiva",
+   "assunto": {
+    "veredito": "politica_monetaria",
+    "temas": [
+     "politica monetaria"
+    ],
+    "termos_fortes_no_corpo": 6,
+    "motivo": "titulo bate em: politica monetaria"
+   },
    "titulo": "Press Conference: Policy Rate Announcement — September 2026",
    "link": "https://www.bankofcanada.ca/multimedia/press-conference-policy-rate-announcement-september-2026/",
    "caracteres": 943,
    "frases": [],
    "marcadores_hawkish": 0,
    "marcadores_dovish": 0,
-   "inclinacao_por_contagem": "none"
+   "inclinacao_por_contagem": "none",
+   "veredito_leitor": {
+    "veredito": "indeterminado",
+    "motivo": "nenhuma frase de postura foi extraída do texto.",
+    "trecho": "",
+    "forca": 1,
+    "selo": "experimental — contexto, não vota",
+    "vota": false,
+    "frases_analisadas": 0
+   }
   },
   {
    "moeda": "CAD",
    "banco": "BoC",
    "tipo": "speech",
    "data": "2026-09-02",
-   "orador": "BoC",
+   "origem": "comunicado_ata",
+   "peso": 1.0,
+   "orador_identificado": "Macklem",
+   "orador": "Macklem",
+   "origem_motivo": "titulo de comunicado/ata/coletiva",
+   "assunto": {
+    "veredito": "politica_monetaria",
+    "temas": [
+     "politica monetaria"
+    ],
+    "termos_fortes_no_corpo": 23,
+    "motivo": "titulo bate em: politica monetaria"
+   },
    "titulo": "Monetary Policy Decision Press Conference Opening Statement",
    "link": "https://www.bankofcanada.ca/2026/09/opening-statement-2026-09-02/",
    "caracteres": 5581,
    "frases": [],
    "marcadores_hawkish": 1,
    "marcadores_dovish": 0,
-   "inclinacao_por_contagem": "hawkish"
+   "inclinacao_por_contagem": "hawkish",
+   "veredito_leitor": {
+    "veredito": "indeterminado",
+    "motivo": "nenhuma frase de postura foi extraída do texto.",
+    "trecho": "",
+    "forca": 1,
+    "selo": "experimental — contexto, não vota",
+    "vota": false,
+    "frases_analisadas": 0
+   }
   },
   {
    "moeda": "USD",
    "banco": "Fed",
    "tipo": "speech",
    "data": "2026-09-01",
+   "origem": "discurso_oficial",
+   "peso": 1.0,
+   "orador_identificado": "Barr",
    "orador": "Barr",
+   "origem_motivo": "fala assinada por Barr no site do banco",
+   "assunto": {
+    "veredito": "politica_monetaria",
+    "temas": [
+     "pelo corpo"
+    ],
+    "termos_fortes_no_corpo": 17,
+    "motivo": "titulo neutro, mas 17 termos fortes no corpo (minimo 3)"
+   },
    "titulo": "Barr, Unlocking Opportunities for Workers and Entrepreneurs with a Criminal Record",
    "link": "https://www.federalreserve.gov/newsevents/speech/barr20260901a.htm",
    "caracteres": 23895,
@@ -262,28 +901,70 @@
    ],
    "marcadores_hawkish": 2,
    "marcadores_dovish": 0,
-   "inclinacao_por_contagem": "hawkish"
+   "inclinacao_por_contagem": "hawkish",
+   "veredito_leitor": {
+    "veredito": "alta condicional",
+    "motivo": "Alta CONDICIONADA: “raise rates” só vale se a condição se realizar (marcador de condição: “if”) — é cenário, não direção firme.",
+    "trecho": "However, if inflation appears not to be moderating sufficiently, then I think we should act decisively to raise rates.",
+    "forca": 2,
+    "selo": "experimental — contexto, não vota",
+    "vota": false,
+    "frases_analisadas": 1
+   }
   },
   {
    "moeda": "EUR",
    "banco": "ECB",
    "tipo": "speech",
    "data": "2026-09-01",
-   "orador": "Boris Vujčić",
+   "origem": "discurso_oficial",
+   "peso": 1.0,
+   "orador_identificado": "Vujcic",
+   "orador": "Vujcic",
+   "origem_motivo": "fala assinada por Vujcic no site do banco",
+   "assunto": {
+    "veredito": "politica_monetaria",
+    "temas": [
+     "politica monetaria"
+    ],
+    "termos_fortes_no_corpo": 47,
+    "motivo": "titulo bate em: politica monetaria"
+   },
    "titulo": "Boris Vujčić: Listening to households: expectations, behaviour and monetary policy",
    "link": "https://www.ecb.europa.eu//press/key/date/2026/html/ecb.sp260901~bb28f33f54.en.html",
    "caracteres": 18149,
    "frases": [],
    "marcadores_hawkish": 1,
    "marcadores_dovish": 0,
-   "inclinacao_por_contagem": "hawkish"
+   "inclinacao_por_contagem": "hawkish",
+   "veredito_leitor": {
+    "veredito": "indeterminado",
+    "motivo": "nenhuma frase de postura foi extraída do texto.",
+    "trecho": "",
+    "forca": 1,
+    "selo": "experimental — contexto, não vota",
+    "vota": false,
+    "frases_analisadas": 0
+   }
   },
   {
    "moeda": "USD",
    "banco": "Fed",
    "tipo": "speech",
    "data": "2026-08-28",
+   "origem": "discurso_oficial",
+   "peso": 1.0,
+   "orador_identificado": "Warsh",
    "orador": "Warsh",
+   "origem_motivo": "fala assinada por Warsh no site do banco",
+   "assunto": {
+    "veredito": "politica_monetaria",
+    "temas": [
+     "pelo corpo"
+    ],
+    "termos_fortes_no_corpo": 48,
+    "motivo": "titulo neutro, mas 48 termos fortes no corpo (minimo 3)"
+   },
    "titulo": "Warsh, In Our Time",
    "link": "https://www.federalreserve.gov/newsevents/speech/warsh20260828a.htm",
    "caracteres": 27169,
@@ -296,56 +977,140 @@
    ],
    "marcadores_hawkish": 3,
    "marcadores_dovish": 0,
-   "inclinacao_por_contagem": "hawkish"
+   "inclinacao_por_contagem": "hawkish",
+   "veredito_leitor": {
+    "veredito": "indeterminado",
+    "motivo": "trata de política de juros (“interest rate”), mas não indica alta, corte nem manutenção.",
+    "trecho": "7 And I believe when policymakers make quasi-commitments on interest rates through the cycle, we inhibit our own freedom to make the right calls when it's time to decide.",
+    "forca": 1,
+    "selo": "experimental — contexto, não vota",
+    "vota": false,
+    "frases_analisadas": 1
+   }
   },
   {
    "moeda": "EUR",
    "banco": "ECB",
    "tipo": "speech",
    "data": "2026-08-28",
-   "orador": "Isabel Schnabel",
+   "origem": "discurso_oficial",
+   "peso": 1.0,
+   "orador_identificado": "Schnabel",
+   "orador": "Schnabel",
+   "origem_motivo": "fala assinada por Schnabel no site do banco",
+   "assunto": {
+    "veredito": "politica_monetaria",
+    "temas": [
+     "pelo corpo"
+    ],
+    "termos_fortes_no_corpo": 11,
+    "motivo": "titulo neutro, mas 11 termos fortes no corpo (minimo 3)"
+   },
    "titulo": "Isabel Schnabel: Central banks on-chain",
    "link": "https://www.ecb.europa.eu//press/key/date/2026/html/ecb.sp260828~fe9afc86e8.en.html",
    "caracteres": 31272,
    "frases": [],
    "marcadores_hawkish": 0,
    "marcadores_dovish": 0,
-   "inclinacao_por_contagem": "none"
-  },
-  {
-   "moeda": "EUR",
-   "banco": "ECB",
-   "tipo": "speech",
-   "data": "2026-08-26",
-   "orador": "Piero Cipollone",
-   "titulo": "Piero Cipollone: From vision to delivery: building Europe’s tokenised financial market",
-   "link": "https://www.ecb.europa.eu//press/key/date/2026/html/ecb.sp260826~3641116314.en.html",
-   "caracteres": 22023,
-   "frases": [],
-   "marcadores_hawkish": 0,
-   "marcadores_dovish": 0,
-   "inclinacao_por_contagem": "none"
+   "inclinacao_por_contagem": "none",
+   "veredito_leitor": {
+    "veredito": "indeterminado",
+    "motivo": "nenhuma frase de postura foi extraída do texto.",
+    "trecho": "",
+    "forca": 1,
+    "selo": "experimental — contexto, não vota",
+    "vota": false,
+    "frases_analisadas": 0
+   }
   },
   {
    "moeda": "EUR",
    "banco": "ECB",
    "tipo": "speech",
    "data": "2026-08-24",
-   "orador": "Piero Cipollone",
+   "origem": "discurso_oficial",
+   "peso": 1.0,
+   "orador_identificado": "Cipollone",
+   "orador": "Cipollone",
+   "origem_motivo": "fala assinada por Cipollone no site do banco",
+   "assunto": {
+    "veredito": "politica_monetaria",
+    "temas": [
+     "pelo corpo"
+    ],
+    "termos_fortes_no_corpo": 10,
+    "motivo": "titulo neutro, mas 10 termos fortes no corpo (minimo 3)"
+   },
    "titulo": "Piero Cipollone: Interview with ilsussidiario.net",
    "link": "https://www.ecb.europa.eu//press/inter/date/2026/html/ecb.in260824~fa5acbddea.en.html",
    "caracteres": 9670,
    "frases": [],
    "marcadores_hawkish": 0,
    "marcadores_dovish": 0,
-   "inclinacao_por_contagem": "none"
+   "inclinacao_por_contagem": "none",
+   "veredito_leitor": {
+    "veredito": "indeterminado",
+    "motivo": "nenhuma frase de postura foi extraída do texto.",
+    "trecho": "",
+    "forca": 1,
+    "selo": "experimental — contexto, não vota",
+    "vota": false,
+    "frases_analisadas": 0
+   }
+  },
+  {
+   "moeda": "EUR",
+   "banco": "ECB",
+   "tipo": "speech",
+   "data": "2026-08-19",
+   "origem": "discurso_oficial",
+   "peso": 1.0,
+   "orador_identificado": "Lagarde",
+   "orador": "Lagarde",
+   "origem_motivo": "fala assinada por Lagarde no site do banco",
+   "assunto": {
+    "veredito": "politica_monetaria",
+    "temas": [
+     "economia e perspectivas"
+    ],
+    "termos_fortes_no_corpo": 0,
+    "motivo": "titulo bate em: economia e perspectivas"
+   },
+   "titulo": "Christine Lagarde: Panel remarks about the European economy during a discussion on the global economic outlook at the World Economic Forum",
+   "link": "https://www.ecb.europa.eu//press/key/date/2026/html/ecb.sp260819~98ddf24b7b.en.html",
+   "caracteres": 10245,
+   "frases": [],
+   "marcadores_hawkish": 0,
+   "marcadores_dovish": 0,
+   "inclinacao_por_contagem": "none",
+   "veredito_leitor": {
+    "veredito": "indeterminado",
+    "motivo": "nenhuma frase de postura foi extraída do texto.",
+    "trecho": "",
+    "forca": 1,
+    "selo": "experimental — contexto, não vota",
+    "vota": false,
+    "frases_analisadas": 0
+   }
   },
   {
    "moeda": "JPY",
    "banco": "BoJ",
    "tipo": "statement",
    "data": "2026-08-17",
+   "origem": "comunicado_ata",
+   "peso": 1.0,
+   "orador_identificado": null,
    "orador": "BoJ",
+   "origem_motivo": "feed de comunicado do banco",
+   "assunto": {
+    "veredito": "politica_monetaria",
+    "temas": [
+     "economia e perspectivas"
+    ],
+    "termos_fortes_no_corpo": 8,
+    "motivo": "titulo bate em: economia e perspectivas"
+   },
    "titulo": "Highlights of the Outlook for Economic Activity and Prices (July 2026)",
    "link": "http://www.boj.or.jp/en/mopo/outlook/highlight/ten202607.htm",
    "caracteres": 2788,
@@ -358,7 +1123,68 @@
    ],
    "marcadores_hawkish": 0,
    "marcadores_dovish": 0,
-   "inclinacao_por_contagem": "none"
+   "inclinacao_por_contagem": "none",
+   "veredito_leitor": {
+    "veredito": "alta",
+    "motivo": "postura firme de alta: “raise the policy interest rate”, sem condição, sem negação e sobre o próximo passo.",
+    "trecho": "As for the conduct of monetary policy, the Bank will continue to raise the policy interest rate and adjust the degree of monetary accommodation, in response to developments in economic activity and prices as well as financial conditions.",
+    "forca": 4,
+    "selo": "experimental — contexto, não vota",
+    "vota": false,
+    "frases_analisadas": 1
+   }
+  }
+ ],
+ "descartados": [
+  {
+   "moeda": "EUR",
+   "banco": "ECB",
+   "tipo_feed": "speech",
+   "data": "2026-09-04",
+   "titulo": "Philip R. Lane: Diversity at the European Central Bank",
+   "link": "https://www.ecb.europa.eu//press/key/date/2026/html/ecb.sp260904~7b9257099b.en.pdf",
+   "orador_identificado": null,
+   "motivo": "texto nao legivel (35% de caracteres legiveis, minimo provisorio 80%) — a pagina provavelmente e PDF e o leitor so sabe tirar tag de HTML"
+  },
+  {
+   "moeda": "CAD",
+   "banco": "BoC",
+   "tipo_feed": "speech",
+   "data": "2026-09-04",
+   "titulo": "Unveiling of Vertical $20 Bank Note",
+   "link": "https://www.bankofcanada.ca/2026/09/unveiling-of-vertical-20-bank-note/",
+   "motivo": "assunto excluido no titulo (cedula) e nenhum tema de politica monetaria",
+   "orador_identificado": "Macklem"
+  },
+  {
+   "moeda": "CAD",
+   "banco": "BoC",
+   "tipo_feed": "speech",
+   "data": "2026-09-03",
+   "titulo": "Unveiling Canada’s new $20 bank note - Speech (Webcasts)",
+   "link": "https://www.bankofcanada.ca/multimedia/unveiling-canadas-new-20-bank-note-speech-webcasts/",
+   "motivo": "assunto excluido no titulo (cedula) e nenhum tema de politica monetaria",
+   "orador_identificado": "Macklem"
+  },
+  {
+   "moeda": "EUR",
+   "banco": "ECB",
+   "tipo_feed": "speech",
+   "data": "2026-08-26",
+   "titulo": "Piero Cipollone: From vision to delivery: building Europe’s tokenised financial market",
+   "link": "https://www.ecb.europa.eu//press/key/date/2026/html/ecb.sp260826~3641116314.en.html",
+   "motivo": "assunto neutro fora de pagina de comunicado — titulo neutro e so 1 termos fortes no corpo (minimo 3)",
+   "orador_identificado": "Cipollone"
+  },
+  {
+   "moeda": "EUR",
+   "banco": "ECB",
+   "tipo_feed": "speech",
+   "data": "2026-08-17",
+   "titulo": "Philip R. Lane: The rise in defence spending and the euro area economy",
+   "link": "https://www.ecb.europa.eu//press/key/date/2026/html/ecb.sp260817~1f9f7149c9.en.pdf",
+   "orador_identificado": null,
+   "motivo": "texto nao legivel (34% de caracteres legiveis, minimo provisorio 80%) — a pagina provavelmente e PDF e o leitor so sabe tirar tag de HTML"
   }
  ]
 }

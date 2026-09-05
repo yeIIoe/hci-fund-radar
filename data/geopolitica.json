@@ -1,8 +1,8 @@
 {
- "gerado_em": "2026-09-05T01:25:37.311966+00:00",
- "fonte": "GDELT DOC 2.0 API (free, no key, 15-min updates); English-language sources",
- "metodo": "article volume for the last 3 days vs the daily mean of the 14-day window (ratio and z); mean tone over 7 days; top headlines by hybrid relevance",
- "aviso": "CONTEXT layer. The implication is a declared rule (risk-off -> safe havens; energy shock -> inflation push), not a measurement, and it is NOT counted in the conviction. Hypothesis to test: does conflict z>=2 change 20-day returns of risk currencies?",
+ "gerado_em": "2026-09-04T21:50:49.348706+00:00",
+ "fonte": "GDELT DOC 2.0 API (gratuita, sem chave, atualização de 15 min); fontes em inglês",
+ "metodo": "volume de artigos dos últimos 3 dias contra a média diária da janela de 14 dias (razão e z); manchetes por relevância híbrida, agrupadas por evento antes de aparecer",
+ "aviso": "Camada de CONTEXTO. A implicação é uma regra declarada (aversão a risco -> moedas de refúgio; choque de energia -> empurrão de inflação), não é medição, e NÃO entra na convicção. Hipótese a medir: um pico de conflito z>=2 muda o retorno de 20 dias das moedas de risco?",
  "mundo": {
   "conflito": {
    "volume": {
@@ -49,58 +49,89 @@
      "pais_fonte": "Ukraine"
     }
    ],
-   "reaproveitado": true
+   "reaproveitado": true,
+   "manchetes_unicas": [
+    {
+     "titulo": "Putin Praises Iran Amid US War, Pledges Moscow Support",
+     "url": "https://www.kyivpost.com/post/83531",
+     "fonte": "kyivpost.com",
+     "quando": "20260902T043000Z",
+     "pais_fonte": "Ukraine",
+     "titulo_original": "Putin Praises Iran Amid US War , Pledges Moscow Support",
+     "confiabilidade": "media",
+     "fontes": [
+      "kyivpost.com",
+      "freemalaysiatoday.com"
+     ],
+     "n_republicacoes": 2,
+     "acao": "diplomacia",
+     "entidades": [
+      "eua",
+      "ira",
+      "russia"
+     ],
+     "agrupadas": [
+      {
+       "titulo": "Iran president thanks Putin for Russia stance during war with US",
+       "fonte": "freemalaysiatoday.com",
+       "confiabilidade": "baixa",
+       "url": "https://www.freemalaysiatoday.com/category/world/2026/09/01/iran-s-president-thanks-putin-for-russia-s-stance-during-war-with-us"
+      }
+     ]
+    },
+    {
+     "titulo": "U.S. attacks leave IRGC soldiers dead in Iran Kermanshah Province",
+     "url": "https://www.trend.az/iran/4219891.html",
+     "fonte": "trend.az",
+     "quando": "20260902T084500Z",
+     "pais_fonte": "Azerbaijan",
+     "titulo_original": "U . S . attacks leave IRGC soldiers dead in Iran Kermanshah Province",
+     "confiabilidade": "baixa",
+     "fontes": [
+      "trend.az",
+      "khaama.com"
+     ],
+     "n_republicacoes": 2,
+     "acao": "ataque",
+     "entidades": [
+      "eua",
+      "ira",
+      "irgc"
+     ],
+     "agrupadas": [
+      {
+       "titulo": "Death Toll From U.S. Strikes in Iran Rises to 18, IRGC Says Four Aerospace Members Killed",
+       "fonte": "khaama.com",
+       "confiabilidade": "baixa",
+       "url": "https://www.khaama.com/death-toll-from-u-s-strikes-in-iran-rises-to-18-irgc-says-four-aerospace-members-killed/"
+      }
+     ]
+    },
+    {
+     "titulo": "Irans president says Iran would return to ceasefire agreement if...",
+     "url": "https://dailypioneer.com/news/irans-president-says-iran-would-return-to-ceasefire",
+     "fonte": "dailypioneer.com",
+     "quando": "20260901T163000Z",
+     "pais_fonte": "India",
+     "titulo_original": "Irans president says Iran would return to ceasefire agreement if ... ",
+     "confiabilidade": "baixa",
+     "fontes": [
+      "dailypioneer.com"
+     ],
+     "n_republicacoes": 1,
+     "acao": "cessar_fogo",
+     "entidades": [
+      "ira"
+     ],
+     "agrupadas": []
+    }
+   ],
+   "duplicatas_removidas": 2,
+   "vota": false,
+   "selo": "experimental — contexto, não vota"
   }
  },
  "moedas": {
-  "EUR": {
-   "temas": {
-    "conflito": {
-     "volume": {
-      "n": 14,
-      "recente_3d": 0.6631,
-      "base_14d": 0.3565,
-      "razao": 1.86,
-      "z": 4.34
-     },
-     "manchetes": []
-    },
-    "energia": {
-     "erro": "HTTP Error 429: Too Many Requests"
-    }
-   },
-   "tom": null,
-   "implicacao": {
-    "regra": "declared rule, not measured — shown for judgement, not counted in conviction",
-    "fx": "risk-off: mixed for EUR (rule)",
-    "juro": null
-   },
-   "coletado_em": "2026-09-05T01:25:37.311966+00:00"
-  },
-  "GBP": {
-   "temas": {
-    "conflito": {
-     "erro": "HTTP Error 429: Too Many Requests"
-    },
-    "energia": {
-     "volume": {
-      "n": 14,
-      "recente_3d": 0.2385,
-      "base_14d": 0.1557,
-      "razao": 1.53,
-      "z": 1.45
-     },
-     "manchetes": []
-    }
-   },
-   "tom": null,
-   "implicacao": {
-    "regra": "declared rule, not measured — shown for judgement, not counted in conviction",
-    "fx": null,
-    "juro": null
-   },
-   "coletado_em": "2026-09-05T01:25:37.311966+00:00"
-  },
   "NZD": {
    "temas": {
     "conflito": {
@@ -111,7 +142,11 @@
       "razao": 1.34,
       "z": 0.79
      },
-     "manchetes": []
+     "manchetes": [],
+     "manchetes_unicas": [],
+     "duplicatas_removidas": 0,
+     "vota": false,
+     "selo": "experimental — contexto, não vota"
     },
     "energia": {
      "volume": {
@@ -121,17 +156,26 @@
       "razao": 2.32,
       "z": 1.85
      },
-     "manchetes": []
+     "manchetes": [],
+     "manchetes_unicas": [],
+     "duplicatas_removidas": 0,
+     "vota": false,
+     "selo": "experimental — contexto, não vota"
     }
    },
    "tom": null,
    "implicacao": {
-    "regra": "declared rule, not measured — shown for judgement, not counted in conviction",
+    "regra": "regra declarada, não medida — está aqui para o julgamento, não entra na convicção",
     "fx": null,
-    "juro": "energy shock: importer — inflation push, leans TIGHTENING (rule)"
+    "juro": "choque de energia: importador — empurrão de inflação, inclina ao APERTO (regra)"
    },
    "coletado_em": "2026-09-04T21:50:49.348706+00:00",
-   "reaproveitado_de": "2026-09-04T21:50:49.348706+00:00"
+   "vota": false,
+   "experimental": true,
+   "selo": "experimental — contexto, não vota",
+   "selo_motivo": "Camada de contexto. A implicação é regra declarada, nunca medida, e não entra na convicção nem no teto do sentimento. A interface pode recolher esta seção por padrão: a informação continua inteira no arquivo.",
+   "recolher_por_padrao": true,
+   "peso_no_sentimento": 0.0
   },
   "CAD": {
    "temas": {
@@ -143,31 +187,79 @@
       "razao": 0.65,
       "z": -0.95
      },
-     "manchetes": []
+     "manchetes": [],
+     "manchetes_unicas": [],
+     "duplicatas_removidas": 0,
+     "vota": false,
+     "selo": "experimental — contexto, não vota"
     },
     "energia": {
-     "erro": "HTTP Error 429: Too Many Requests"
+     "erro": "HTTP Error 429: Too Many Requests",
+     "manchetes_unicas": [],
+     "duplicatas_removidas": 0,
+     "vota": false,
+     "selo": "experimental — contexto, não vota"
     }
    },
    "tom": null,
    "implicacao": {
-    "regra": "declared rule, not measured — shown for judgement, not counted in conviction",
+    "regra": "regra declarada, não medida — está aqui para o julgamento, não entra na convicção",
     "fx": null,
     "juro": null
    },
    "coletado_em": "2026-09-04T21:50:49.348706+00:00",
-   "reaproveitado_de": "2026-09-04T21:50:49.348706+00:00"
+   "vota": false,
+   "experimental": true,
+   "selo": "experimental — contexto, não vota",
+   "selo_motivo": "Camada de contexto. A implicação é regra declarada, nunca medida, e não entra na convicção nem no teto do sentimento. A interface pode recolher esta seção por padrão: a informação continua inteira no arquivo.",
+   "recolher_por_padrao": true,
+   "peso_no_sentimento": 0.0
   }
  },
  "erros": [
   "mundo/conflito: HTTP Error 429: Too Many Requests",
   "mundo/energia: HTTP Error 429: Too Many Requests",
-  "EUR/energia: HTTP Error 429: Too Many Requests",
-  "GBP/conflito: HTTP Error 429: Too Many Requests",
-  "JPY/conflito: HTTP Error 429: Too Many Requests",
-  "JPY/energia: HTTP Error 429: Too Many Requests",
-  "AUD/conflito: HTTP Error 429: Too Many Requests",
-  "AUD/energia: HTTP Error 429: Too Many Requests",
-  "orcamento de 480 s estourado antes de NZD — o resto fica para a proxima rodada"
- ]
+  "CAD/energia: HTTP Error 429: Too Many Requests",
+  "CHF/conflito: HTTP Error 429: Too Many Requests",
+  "CHF/energia: HTTP Error 429: Too Many Requests",
+  "USD/conflito: HTTP Error 429: Too Many Requests",
+  "orcamento de 480 s estourado antes de EUR — o resto fica para a proxima rodada"
+ ],
+ "vota": false,
+ "experimental": true,
+ "selo": "experimental — contexto, não vota",
+ "selo_motivo": "Camada de contexto. A implicação é regra declarada, nunca medida, e não entra na convicção nem no teto do sentimento. A interface pode recolher esta seção por padrão: a informação continua inteira no arquivo.",
+ "recolher_por_padrao": true,
+ "duplicatas_removidas_total": 2,
+ "regra_deduplicacao": {
+  "metodo": "duas regras em OU, sobre o título normalizado",
+  "regra_1": "Jaccard >= 0.55 sobre as palavras de 4+ letras",
+  "regra_2": "mesma classe de ação E Jaccard das entidades >= 0.60 E >= 2 entidades em comum",
+  "normalizacao": "minúsculas, sem acento, sem pontuação, sigla pontuada colapsada (U . S . -> US), sem o nome do veículo, sem palavras vazias em inglês",
+  "representante": "a fonte de maior confiabilidade; empatando, a publicação mais antiga",
+  "entidades": "léxico declarado e finito (países, capitais, gentílicos, organismos, dirigentes) mais as siglas em caixa alta que não são veículo, moeda, indicador nem banco central",
+  "acoes": [
+   "ataque",
+   "cessar_fogo",
+   "sancoes",
+   "energia",
+   "nuclear",
+   "diplomacia"
+  ],
+  "buracos_declarados": [
+   "manchete sobre lugar fora do léxico não ganha assinatura de entidade e cai só na regra 1: deduplica menos, nunca deduplica errado",
+   "evento com uma entidade só não agrupa (exige 2 em comum) — a duplicata visível é preferível à fusão errada"
+  ],
+  "provisorio": true
+ },
+ "confiabilidade_fonte": {
+  "faixas": {
+   "alta": "agência internacional, jornal financeiro de referência, agência oficial e governo",
+   "media": "grande jornal ou emissora nacional conhecida",
+   "baixa": "o resto, e todo agregador"
+  },
+  "casamento": "pelo domínio ou pelo nome da fonte; domínio oficial (.gov e afins) é alta",
+  "ordenacao": "as manchetes exibidas saem por confiabilidade e depois por n_republicacoes",
+  "provisorio": true
+ }
 }

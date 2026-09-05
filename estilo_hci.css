@@ -1,0 +1,1598 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..800&family=Spline+Sans+Mono:wght@400;500;600;700&family=Spectral:ital,wght@0,400;0,600;1,400&display=swap');
+
+/* ============================================================================
+   HCI MACRO DIRECTION — estilo_hci.css
+   Sistema visual da DIRECAO C ("sala de controle"), tema unico escuro.
+
+   ORDEM DE CARGA. Esta folha entra DEPOIS de styles.css e de theme.css, e
+   precisa vencer os dois. Mas ha um terceiro adversario: o ui_macro.js injeta
+   um <style> no fim do <head> em tempo de execucao, ou seja, DEPOIS desta
+   folha. Por isso, contra as classes .mac-* nao basta vir por ultimo — e
+   preciso ganhar por especificidade. A tatica desta folha:
+     (a) prefixo `html` nos seletores .mac-*  →  0,0,1,1 contra 0,0,1,0;
+     (b) `!important` apenas nos tres varredores estruturais (elevacao,
+         gradiente e opacidade sobre texto), que a especificacao exige que
+         sejam apagados sem excecao.
+   Nada aqui edita ui_macro.js, ui_lang.js, index.html nem arquivo .py.
+   A ligacao (a tag <link>) e do orquestrador.
+   ============================================================================ */
+
+/* ============================================================================
+   §1 · TOKENS
+   ============================================================================ */
+:root{
+  /* --- 1.1 superficies --- */
+  --fundo:        #071310;   /* fundo da pagina */
+  --fundo-band:   #04100D;   /* faixa de estado, rodape do sistema, caixa de codigo */
+  --painel:       #0C1D19;   /* corpo do cartao */
+  --painel-alto:  #0F241F;   /* ZEBRA da tabela, linha em destaque, fundo de chip mudo */
+  --painel-fundo: #091815;   /* cabeca de cartao, cabeca de tabela, rodape de tabela */
+
+  /* --- 1.2 reguas (fio de 1px, tres forcas) --- */
+  --regua-fraca:  #112420;   /* divisor entre linhas, divisor interno de lista */
+  --regua:        #16302A;   /* borda do cartao, separacao entre blocos */
+  --regua-forte:  #21473E;   /* fio sob a cabeca da tabela, borda de chip e de controle */
+
+  /* --- 1.3 tinta (tres tintas; piso 4,5:1 medido contra a ZEBRA) --- */
+  --tinta:        #E9F3EF;   /* numero heroi, titulo, valor que responde a pergunta */
+  --tinta-2:      #9FB6AF;   /* texto corrido, valor secundario, prosa de metodologia */
+  --tinta-3:      #7E9791;   /* rotulo, unidade, nota de linha, carimbo */
+
+  /* --- 1.4 semantica: quatro cores, quatro significados, nada alem disso --- */
+  --alta:         #4FD08E;   /* SO alta de juro / bp positivo / vies hawkish */
+  --corte:        #FF7C68;   /* SO corte de juro / bp negativo / vies dovish / risco */
+  --aviso:        #F0B252;   /* SO degradacao do sistema (dado atrasado, fonte fora) */
+  --marca:        #45DCCB;   /* SO marca, selecao, aba ativa, agulha, perna que da o motivo */
+
+  /* --- as quatro variantes fracas (preenchimento de chip e de faixa) --- */
+  --alta-fraca:   rgba(79,208,142,.14);
+  --corte-fraca:  rgba(255,124,104,.14);
+  --aviso-fraca:  rgba(240,178,82,.13);
+  --marca-fraca:  rgba(69,220,203,.12);
+
+  /* --- bordas das variantes (42% da cor do estado, §6.3) --- */
+  --alta-borda:   rgba(79,208,142,.42);
+  --corte-borda:  rgba(255,124,104,.42);
+  --aviso-borda:  rgba(240,178,82,.42);
+  --marca-borda:  rgba(69,220,203,.42);
+
+  /* --- fios do bloco de alarme (§6.6) --- */
+  --aviso-fio:    rgba(240,178,82,.38);
+  --aviso-fio-2:  rgba(240,178,82,.16);
+
+  /* --- LED cinza informativo da faixa de estado (§6.1). Nao e texto. --- */
+  --led-mudo:     #2C4A42;
+
+  /* --- §3.3 escala tipografica, px FIXOS: sem rem, sem fluid type --- */
+  --t-micro:  9.5px;   /* rotulo de painel, nota de linha, chip, rodape de tabela */
+  --t-nano:  10.5px;   /* rotulo e valor de medidor, faixa de estado */
+  --t-min:   11.5px;   /* alerta, par chave-valor, navegacao, controle */
+  --t-base:  12.5px;   /* corpo de celula, nome de banco, texto de interface */
+  --t-md:      14px;   /* hora local, codigo de perna, destaque secundario */
+  --t-lg:      17px;   /* valor de ficha, nome da marca no cabecalho */
+  --t-xl:      21px;   /* taxa de politica, score da moeda — a heroina */
+  --t-hero:    27px;   /* identificador do cartao, divergencia do par, nota de qualidade */
+  --t-display: 34px;   /* reservado: no maximo uma vez por tela, ou nenhuma */
+
+  /* --- §4 escala de espaco: 2·4·6·8·12·16·20·28·40. Nada fora disso. --- */
+  --e1:2px; --e2:4px; --e3:6px; --e4:8px; --e5:12px;
+  --e6:16px; --e7:20px; --e8:28px; --e9:40px;
+
+  /* --- §4.1 raio: 3px em cartao e controle, 2px em chip e caixa de codigo --- */
+  --raio-cartao: 3px;
+  --raio-chip:   2px;
+
+  /* --- altura padrao de controle no cabecalho (§8) --- */
+  --altura-controle: 28px;
+
+  /* --- §3.1 tres familias, tres trabalhos que nao se cruzam --- */
+  --sans:    "Archivo", "Helvetica Neue", Arial, system-ui, sans-serif;
+  --mono:    "Spline Sans Mono", SFMono-Regular, Consolas, "Liberation Mono", monospace;
+  --serifa:  "Spectral", "Iowan Old Style", Palatino, Georgia, serif;
+
+  /* Os apelidos do produto antigo passam a apontar para as familias novas, para que
+     o codigo herdado que escreve var(--font-mono) caia no lugar certo sozinho. */
+  --font-ui:   var(--sans);
+  --font-mono: var(--mono);
+
+  /* Tokens do produto antigo, remapeados para a paleta nova. Assim tudo o que o
+     styles.css e o theme.css pintam por variavel ja nasce dentro da regua. */
+  --bg:         var(--fundo);
+  --surface:    var(--painel);
+  --surface-2:  var(--painel-alto);
+  --line:       var(--regua);
+  --line-soft:  var(--regua-fraca);
+  --text:       var(--tinta);
+  --text-2:     var(--tinta-2);
+  --text-3:     var(--tinta-3);
+  --muted:      var(--tinta-3);
+  --dim:        var(--tinta-3);
+  --accent:     var(--marca);
+  --accent-soft:var(--marca-fraca);
+  --positive:   var(--alta);
+  --negative:   var(--corte);
+  --warn:       var(--aviso);
+}
+
+/* ============================================================================
+   §4.1 · ELEVACAO ZERO — os tres varredores
+   Esta e a regra que impede a pagina de parecer painel generico. A separacao
+   vem do fio de 1px mais a cabeca em --painel-fundo, nunca de sombra.
+   ============================================================================ */
+
+/* (a) NENHUMA SOMBRA. Apaga as 3 do styles.css, as do ui_macro.js (o --elev com
+       0 10px 30px, o brilho turquesa do .mac-detalhe, o halo do .mac-item-sel) e a
+       gaveta lateral. A unica sombra que volta a existir nesta folha e o fio
+       `inset 2px 0 0 var(--marca)`, reposto adiante com !important e mais
+       especificidade — sombra important so perde para outra important. */
+html *, html *::before, html *::after{ box-shadow:none !important; }
+
+/* (b) NENHUM GRADIENTE. Apaga o radial do body (styles.css, theme.css e
+       ui_macro.js pintam um cada), os lineares de cartao, de barra e de tarja.
+       A hachura de 45 graus e a unica trama do sistema (§6.4) e volta adiante,
+       tambem com !important e mais especificidade. */
+html *, html *::before, html *::after{ background-image:none !important; }
+html body{
+  background-image:none !important;
+  background-color:var(--fundo) !important;
+}
+
+/* (c) NENHUM `opacity` SOBRE TEXTO. Proibicao dura da §1.3: opacity .55 sobre
+       --tinta-2 derruba para 3,4:1 e .7 sobre --tinta-3 derruba para 3,1:1 — as
+       duas reprovam. O produto antigo usava opacity como apagador em mais de
+       oitenta declaracoes. Aqui todas caem de uma vez, e a hierarquia volta a
+       ser feita por COR (--tinta / --tinta-2 / --tinta-3) e, quando precisa de
+       mais sinal, por hachura. */
+html [class],
+html [class]::before,
+html [class]::after,
+html small, html em, html i, html b, html strong, html summary,
+html p, html span, html div, html li, html td, html th{ opacity:1 !important; }
+
+/* (d) sem desfoque de fundo: o backdrop-filter do cabecalho criava bloco de
+       contencao e prendia o position:fixed da gaveta lateral (esta anotado no
+       proprio styles.css). Com a cabeca chapada em --fundo-band, some o efeito
+       e some o defeito junto. */
+html .site-header{ backdrop-filter:none !important; -webkit-backdrop-filter:none !important; }
+
+/* (e) nada de animacao de entrada de aba: a tabela nao deve piscar. */
+html .tab-panel.is-active{ animation:none !important; }
+
+/* ============================================================================
+   §3 · TIPOGRAFIA
+   Tres familias, tres papeis exclusivos:
+     MONO MEDE  · SANS OPERA · SERIFA ARGUMENTA
+   Se um texto nao e numero, nao e controle e nao e argumento, ele nao existe.
+   ============================================================================ */
+html{ font-size:16px; }
+
+html body{
+  font-family:var(--sans);
+  font-size:var(--t-base);
+  line-height:1.35;              /* 1,35 interface · 1,5 alerta e lista · 1,62 prosa */
+  letter-spacing:0;
+  color:var(--tinta);
+  background-color:var(--fundo);
+  -webkit-font-smoothing:antialiased;
+}
+
+/* MONO MEDE — todo algarismo, codigo de moeda, data, hora, unidade, chip. */
+html .mono, html code, html pre, html kbd, html samp,
+html .num, html .mac-num, html .mac-num-td, html .mac-ref-td, html .mac-taxa,
+html .mac-brt, html .mac-hora, html .mac-pl-num, html .mac-perna-taxa,
+html .mac-eua-dias, html .mac-de100, html .mac-lang{
+  font-family:var(--mono);
+  font-variant-numeric:tabular-nums lining-nums;
+  font-feature-settings:"tnum" 1,"lnum" 1;
+}
+
+/* SERIFA ARGUMENTA — so o argumento: prosa de metodologia, notas numeradas,
+   frase de deck sob o titulo de secao. Nunca rotulo, nunca celula. */
+html .method-note,
+html .metodo-corpo p,
+html .notas li,
+html .section-title p,
+html .mac-eua-nota,
+html .mac-falas-nota,
+html .mac-det-mais-corpo,
+html .tab-about-body p{
+  font-family:var(--serifa);
+  font-size:var(--t-base);
+  line-height:1.62;
+  color:var(--tinta-2);          /* NUNCA --tinta-3: a prosa que declara os limites
+                                    do metodo e a ultima coisa que pode ficar ilegivel */
+  max-width:62ch;
+}
+html .metodo-corpo p em, html .method-note em, html .notas li em{
+  font-style:italic; color:var(--tinta-2);
+}
+
+/* --- §3.2 O ROTULO DE PAINEL — a assinatura da casa.
+       O tique visual da marca e o Archivo em largura expandida, nao uma cor. --- */
+html .rot{
+  font-family:var(--sans);
+  font-stretch:116%;
+  font-weight:700;
+  font-size:var(--t-micro);
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--tinta-3);
+  line-height:1.35;
+  display:inline-block;
+}
+/* na cabeca de tabela a entreletra afrouxa para .14em (§5.1) */
+html .rot--tabela,
+html thead th,
+html .data-table thead th,
+html .mac-tabela th,
+html .mac-num-th{
+  font-family:var(--sans);
+  font-stretch:116%;
+  font-weight:700;
+  font-size:var(--t-micro);
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--tinta-3);
+}
+
+/* Os rotulos do produto antigo passam a ser o mesmo objeto tipografico. */
+html .detail-label, html .section-index, html .eq-sub,
+html .mac-resumo-rot, html .mac-perna-papel, html .mac-nav-rotulo,
+html .mac-placar span, html .mac-placar-sem span, html .mac-semana span{
+  font-family:var(--sans);
+  font-stretch:116%;
+  font-weight:700;
+  font-size:var(--t-micro);
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--tinta-3);
+}
+
+/* --- ESCALA APLICADA (px fixos) --- */
+html h1, html h2{ font-family:var(--sans); font-stretch:108%; font-weight:600;
+  font-size:var(--t-lg); letter-spacing:.01em; color:var(--tinta); margin:0; }
+html h3, html h4{ font-family:var(--sans); font-stretch:108%; font-weight:600;
+  font-size:var(--t-md); color:var(--tinta); margin:0; }
+html .section-title h2{ font-size:var(--t-lg); color:var(--tinta); margin:0 0 var(--e2); }
+html .section-title{ margin-bottom:var(--e6); }
+html p, html li, html td, html th, html span, html div, html label{ letter-spacing:0; }
+html small, html .muted{ color:var(--tinta-3); }
+
+/* --- §3.3 REGRA DOS TRES DEGRAUS ---------------------------------------------
+   A nota que acompanha um numero heroi fica pelo menos tres degraus abaixo dele.
+   21 (xl) → 9,5 (micro) sao cinco degraus; 21 com 14 ao lado EMPATAM e por isso
+   estao proibidos. Onde a marcacao atual poe um <small> colado num heroi, esse
+   <small> desce para 9,5px aqui.
+   ---------------------------------------------------------------------------- */
+html .mac-eua-dias small,
+html .mac-perna-nome small,
+html .mac-placar strong small,
+html .mac-resumo-item small,
+html .mac-taxa small,
+html .mac-moeda small,
+html .mac-barra b small,
+html .taxa-nota, html .nota-heroi{
+  font-family:var(--mono);
+  font-size:var(--t-micro);
+  font-weight:400;
+  letter-spacing:0;
+  color:var(--tinta-3);
+  display:block;
+  margin-top:var(--e1);
+  line-height:1.35;
+}
+
+/* --- §3.3 REGRA DE UM HEROI POR CARTAO ---------------------------------------
+   Cada cartao tem exatamente um numero em 21 ou 27. Onde dois disputavam, um
+   desceu para 14. Aplicado onde a marcacao atual permite:
+     .mac-det-par       27  heroi do cartao de par        (era 30/34, disputava)
+     .mac-eua-dias      27  heroi do cartao do FOMC       (era 38, fora da escala)
+     .mac-perna-taxa    21  heroi de cada cartao de perna (era 20/22)
+     .mac-taxa          21  heroina da linha de banco
+     .mac-resumo-item strong 21 heroi de cada quadro do resumo (era 22)
+   E os que DESCERAM para nao empatar:
+     .mac-geo-sum       17 → 14 · .mac-perna-nome 17 → 14 · .mac-det-leitura → 11,5
+   ---------------------------------------------------------------------------- */
+html .mac-det-par{ font-family:var(--mono); font-size:var(--t-hero); font-weight:700;
+  letter-spacing:.01em; line-height:1; color:var(--tinta); margin:0; }
+html .mac-det-par em{ font-style:normal; color:var(--tinta-3); margin:0 var(--e1); }
+html .mac-eua-dias{ font-family:var(--mono); font-size:var(--t-hero); font-weight:600;
+  letter-spacing:-.01em; line-height:1; margin:var(--e3) 0 var(--e4); color:var(--tinta); }
+html .mac-perna-taxa{ font-family:var(--mono); font-size:var(--t-xl); font-weight:600;
+  line-height:1; margin-bottom:var(--e4); color:var(--tinta); }
+html .mac-taxa{ font-family:var(--mono); font-size:var(--t-xl); font-weight:600;
+  line-height:1; letter-spacing:-.02em; color:var(--tinta); }
+html .mac-resumo-item strong{ font-family:var(--mono); font-size:var(--t-xl);
+  font-weight:600; line-height:1.05; letter-spacing:-.01em; color:var(--tinta); display:block; }
+html .mac-geo-sum{ font-size:var(--t-md); font-weight:600; letter-spacing:0; color:var(--tinta); }
+html .mac-perna-nome{ font-size:var(--t-md); font-weight:600; color:var(--tinta);
+  display:block; margin-bottom:var(--e1); }
+html .mac-bm-linha1{ font-size:var(--t-base); font-weight:600; color:var(--tinta); }
+html .mac-bloco-moeda.big .mac-bm-linha1{ font-size:var(--t-md); }
+html .mac-det-acao{ font-weight:700; font-size:var(--t-md); }
+html .mac-det-sigla{ font-family:var(--mono); font-size:var(--t-micro); font-weight:400;
+  letter-spacing:.05em; margin-left:var(--e3); color:var(--tinta-3); }
+html .mac-naocal{ font-size:var(--t-md) !important; font-weight:600 !important;
+  letter-spacing:0 !important; color:var(--tinta-2); }
+
+/* Texto corrido e valores secundarios: cor, nunca opacidade. */
+html .mac-bm-linha2, html .mac-bm-linha3, html .mac-item-par, html .mac-item-dias,
+html .mac-det-nota, html .mac-motivos, html .mac-perna-linha, html .mac-resumo-frase,
+html .mac-resumo-estado, html .mac-resumo-linhas, html .mac-leitura, html .mac-barra,
+html .mac-geo-lista, html .mac-eua-fed li, html .mac-fala-topo, html .mac-frescor,
+html .mac-conta, html .mac-vazio p, html .mac-cenarios, html .mac-porque,
+html .mac-fala-motivo, html .mac-pl-rodape, html .mac-familias, html .mac-origem-txt{
+  color:var(--tinta-2);
+}
+html .mac-bm-motivo, html .mac-bm-nota, html .mac-pl-legenda, html .mac-eua-nivel,
+html .mac-eua-casado, html .mac-ref-td, html .mac-hora, html .mac-hora-local,
+html .mac-ev, html .mac-mais, html .mac-de100, html .mac-item-par em,
+html .mac-tag-igual, html .mac-news-cont, html .mac-dim small, html .mac-lean small,
+html .mac-geo-pill small, html .mac-perna-nome small, html .mac-fala-link,
+html .mac-cenarios span, html .mac-prov-mini, html .mac-provisorio{
+  color:var(--tinta-3);
+}
+html .mac-fresco{ color:var(--alta); }
+html .mac-velho, html .mac-det-dado.e-velho, html .mac-mesma{ color:var(--aviso); }
+html .mac-det-dado.e-fresco{ color:var(--alta); }
+
+/* Item desligado / suspenso: --tinta-3 e, quando precisa de mais sinal, o fio
+   ambar a esquerda. Nunca opacity (§1.3). */
+html .mac-atrasado{
+  color:var(--tinta-3);
+  border-left:2px solid var(--aviso-fio);
+  padding-left:var(--e5);
+}
+html .mac-atrasado .positive, html .mac-atrasado .negative,
+html .mac-atrasado .mac-bm-linha1.positive, html .mac-atrasado .mac-bm-linha1.negative,
+html .mac-atrasado .mac-item-acao.v-bull, html .mac-atrasado .mac-item-acao.v-bear,
+html .mac-atrasado .mac-regime.positive, html .mac-atrasado .mac-regime.negative{
+  color:var(--tinta-3);   /* leitura possivelmente invalida nao continua verde nem vermelha */
+}
+html .mac-item-acao.v-nao, html .mac-det-acao.v-nao,
+html .mac-item-tag.v-nao, html .mac-item-tag.e-igual, html .mac-geo-dup,
+html .mac-dim.off, html .mac-dim.quiet, html .mac-dim.exp, html .mac-veredito.v-indet{
+  color:var(--tinta-3);
+}
+
+/* Regua semantica aplicada ao texto herdado: verde SO alta, vermelho SO corte. */
+html .positive, html .mac-bm-linha1.positive, html .mac-item-acao.v-bull,
+html .mac-det-acao.v-bull, html .mac-item-tag.v-bull, html .mac-pl-num.p,
+html .mac-pl-rot.p, html .mac-veredito.v-alta, html .mac-lean-dovish,
+html .mac-eq-sub-ok, html .spr-good{ color:var(--alta); }
+html .negative, html .mac-bm-linha1.negative, html .mac-item-acao.v-bear,
+html .mac-det-acao.v-bear, html .mac-item-tag.v-bear, html .mac-pl-num.n,
+html .mac-pl-rot.n, html .mac-veredito.v-corte, html .mac-lean-hawkish,
+html .spr-bad{ color:var(--corte); }
+html .mac-veredito.v-alta-cond{ color:var(--alta); }
+html .mac-veredito.v-corte-cond{ color:var(--corte); }
+html .mac-veredito.v-mantem, html .mac-dim.d-mantem{ color:var(--tinta-2); }
+html .mac-decisao, html .mac-geo-imp, html .mac-lean-mixed{ color:var(--aviso); }
+/* REGRA 2 DA §2: variacao m/m e a/a de NIVEL nao tem direcao de politica.
+   CPI +0,07% m/m nao e bom nem ruim — e um nivel. Logo, cinza, sempre. */
+html .ficha .delta, html .ficha .delta .g, html .ficha .delta .r,
+html .mac-eua-nivel .g, html .mac-eua-nivel .r,
+html .mac-eua-casado .g, html .mac-eua-casado .r{ color:var(--tinta-2) !important; }
+
+/* ============================================================================
+   §4 · ESPACO, FIO E RAIO
+   Hierarquia se faz com peso, tamanho, cor e regua — nao com ar.
+   ============================================================================ */
+html .content-section, html .calendar-section, html .observations-section,
+html .mac-bloco{ margin-bottom:var(--e8); }
+
+html .mac-eua, html .mac-geo{ margin-top:var(--e7); }
+html .mac-abaixo{ margin-top:var(--e8); padding-top:var(--e7);
+  border-top:1px solid var(--regua); }
+html .mac-falas{ margin-top:var(--e6); padding-top:var(--e5);
+  border-top:1px solid var(--regua); }
+
+/* fio de 1px em tres forcas, nunca 2px — excecao unica: sob a cabeca da tabela
+   quando ela e rolante, e o fio inset da linha selecionada. */
+html hr, html .mac-sep{ border:0; border-top:1px solid var(--regua); height:1px;
+  background:var(--regua); margin:var(--e5) 0; }
+html .mac-sep{ width:1px; height:var(--e7); margin:0 var(--e3); }
+
+/* raio: 3px em cartao e controle, 2px em chip e caixa de codigo. Nada alem. */
+html .content-section, html .mac-perna, html .mac-geo-card, html .mac-fala,
+html .mac-eua-fomc, html .mac-geo-mundo, html .mac-ficha, html .mac-detalhe,
+html .mac-item, html .mac-resumo, html .mac-vazio, html .mac-dia-cel,
+html .mac-tarja, html .mac-tarja-atraso, html .overview, html .eq-card,
+html .explain, html .tab-about, html .cartao, html .metodo, html .alarme-bloco,
+html button, html input, html select, html .mac-nav, html .nav-toggle,
+html #updateButton, html #timeCutToggle, html #timeCutDate, html .mac-lang,
+html .tabs .tab{ border-radius:var(--raio-cartao); }
+
+html .chip, html .mac-chip, html .mac-dim, html .mac-lean, html .mac-lean-pill,
+html .mac-selo, html .mac-tag-div, html .mac-surp, html .mac-atraso, html .mac-conf,
+html .mac-geo-pill, html .mac-news-tag, html .mac-prelim, html .mac-dot,
+html .mac-provisorio, html .spr-pill, html .eq-met, html code, html pre,
+html .mac-item-tag .mac-forca{ border-radius:var(--raio-chip); }
+
+/* ============================================================================
+   §6.1 · FAIXA DE ESTADO (sticky no topo) — a faixa nunca sai da tela
+   Classes prontas para o modulo de medidores injetar: .faixa-estado > .faixa-seg,
+   cada segmento com .led + .rot + valor em --tinta.
+   ============================================================================ */
+html .faixa-estado{
+  position:sticky; top:0; z-index:60;
+  display:flex; align-items:stretch; gap:0;
+  height:30px; min-height:30px;
+  background:var(--fundo-band);
+  border-bottom:1px solid var(--regua);
+  font-family:var(--mono);
+  font-size:var(--t-nano);
+  color:var(--tinta-2);
+  overflow-x:auto;
+  scrollbar-width:thin;
+  white-space:nowrap;
+}
+html .faixa-seg{
+  display:flex; align-items:center; gap:var(--e3);
+  padding:0 var(--e5);
+  border-right:1px solid var(--regua-fraca);
+  white-space:nowrap; flex:none;
+}
+html .faixa-seg:last-child{ border-right:0; }
+html .faixa-seg .rot{ letter-spacing:.14em; }
+html .faixa-seg b, html .faixa-seg strong{ color:var(--tinta); font-weight:600; }
+html .faixa-seg span{ color:var(--tinta-2); }
+html .faixa-seg--fim{ margin-left:auto; border-right:0;
+  border-left:1px solid var(--regua-fraca); }
+
+/* as quatro cores de LED (§6.1). Sao pontos de 6px, nao texto: sem exigencia de
+   contraste de leitura, mas todo LED vem acompanhado da palavra ao lado. */
+html .led{ width:6px; height:6px; border-radius:50%; flex:none; display:inline-block;
+  background:var(--led-mudo); }
+html .led-ok{     background:var(--alta);    }  /* sincronizado          */
+html .led-atraso{ background:var(--aviso);   }  /* atrasado              */
+html .led-fora{   background:var(--corte);   }  /* fonte fora do ar      */
+html .led-mudo{   background:var(--led-mudo);}  /* informativo           */
+
+/* ============================================================================
+   §8 · CABECALHO E NAVEGACAO
+   O header estava apertado, com alturas e raios diferentes em cada controle.
+   Padronizado: altura 28px, raio 3px, a MESMA borda --regua-forte, e o seletor
+   de idioma na mesma linha de base dos botoes.
+   ============================================================================ */
+html .site-header{
+  position:sticky; top:0; z-index:50;
+  display:flex; align-items:center; gap:var(--e6);
+  min-height:44px; height:auto;
+  padding:var(--e3) var(--e7);
+  margin:0;
+  background:var(--fundo-band);
+  border-bottom:1px solid var(--regua-forte);
+  border-radius:0;
+}
+html .identity{
+  display:flex; align-items:center; gap:var(--e4);
+  flex:none; text-decoration:none; color:var(--tinta);
+}
+html .identity .brand-logo{ height:26px; width:auto; display:block; }
+html .identity strong{
+  font-family:var(--sans); font-stretch:116%; font-weight:800;
+  font-size:var(--t-lg); letter-spacing:.055em; line-height:1;
+  color:var(--tinta); text-transform:none;
+}
+html .identity span{
+  font-family:var(--mono); font-size:var(--t-micro); font-weight:600;
+  letter-spacing:.13em; text-transform:uppercase;
+  color:var(--marca); background:transparent; border-radius:0; padding:0;
+}
+html .identity .scope{
+  font-family:var(--mono); font-size:var(--t-micro); letter-spacing:.1em;
+  text-transform:uppercase; color:var(--tinta-3);
+  margin-left:var(--e4); padding-left:var(--e4);
+  border-left:1px solid var(--regua);
+}
+
+/* Todos os controles do cabecalho na MESMA linha de base: 28px de altura,
+   3px de raio, borda --regua-forte, mono 11,5px, alinhados pelo centro. */
+html .header-update{
+  display:flex; align-items:center; gap:var(--e2);
+  margin-left:auto; flex:none; flex-wrap:wrap;
+  font-family:var(--mono); font-size:var(--t-min); color:var(--tinta-3);
+}
+html .header-update .timecut{ display:flex; align-items:center; gap:var(--e2); }
+html #updateButton, html #timeCutToggle, html #timeCutDate,
+html .mac-lang, html .timecut input, html .header-update button{
+  height:var(--altura-controle);
+  min-height:var(--altura-controle);
+  box-sizing:border-box;
+  display:inline-flex; align-items:center; gap:var(--e3);
+  padding:0 10px; margin:0;
+  border:1px solid var(--regua-forte);
+  border-radius:var(--raio-cartao);
+  background:var(--painel);
+  color:var(--tinta-2);
+  font-family:var(--mono); font-size:var(--t-min); font-weight:400;
+  letter-spacing:.04em; line-height:1; cursor:pointer;
+  vertical-align:middle;
+}
+html #timeCutDate{ font-variant-numeric:tabular-nums lining-nums; cursor:text; }
+html #updateButton:hover, html #timeCutToggle:hover, html .mac-lang:hover{
+  border-color:var(--marca-borda); color:var(--tinta); background:var(--painel-alto);
+}
+html .mac-lang b{ color:var(--marca); font-weight:600; }
+html .mac-lang span{ color:var(--tinta-3); margin:0 var(--e2); }
+html .header-update > span, html #updatedAt{
+  color:var(--tinta-3); font-family:var(--mono); font-size:var(--t-micro);
+  letter-spacing:.04em; align-self:center;
+}
+html .nav-toggle{
+  flex:0 0 auto;
+  width:var(--altura-controle); height:var(--altura-controle);
+  padding:0 var(--e3); gap:var(--e2);
+  display:flex; flex-direction:column; justify-content:center;
+  background:var(--painel);
+  border:1px solid var(--regua-forte);
+  border-radius:var(--raio-cartao);
+}
+html .nav-toggle span{ height:1px; width:100%; border-radius:0; background:var(--tinta-2); }
+html .nav-toggle:hover{ border-color:var(--marca-borda); }
+html .nav-scrim{ background:rgba(4,16,13,.72); }
+
+/* --- abas --------------------------------------------------------------- */
+html .tabs{ display:flex; gap:0; flex-wrap:wrap; margin:0; }
+html .tabs .tab{
+  height:var(--altura-controle); min-height:var(--altura-controle);
+  box-sizing:border-box;
+  display:inline-flex; align-items:center; gap:var(--e3);
+  padding:0 11px; margin:0;
+  background:transparent; border:0;
+  border-bottom:2px solid transparent; border-radius:0;
+  color:var(--tinta-3);
+  font-family:var(--sans); font-stretch:108%; font-weight:600;
+  font-size:var(--t-min); letter-spacing:.05em; text-transform:uppercase;
+  white-space:nowrap; cursor:pointer; transition:none;
+}
+html .tabs .tab:hover{ color:var(--tinta); background:transparent; }
+html .tabs .tab.is-active{
+  color:var(--marca); background:transparent;
+  border-bottom-color:var(--marca); font-weight:700;
+}
+
+/* --- gaveta lateral: os grupos empilham, o rotulo fica visivel ----------- */
+html body > nav#tabBar.tabs{
+  width:236px; padding:var(--e9) var(--e5) var(--e7);
+  background:var(--fundo-band);
+  border-right:1px solid var(--regua-forte);
+  border-radius:0;
+  gap:var(--e1);
+}
+html body > nav#tabBar.tabs .tab{
+  width:100%; text-align:left; justify-content:flex-start;
+  padding:0 var(--e5); border-bottom:0;
+  border-left:2px solid transparent; border-radius:0;
+}
+html body > nav#tabBar.tabs .tab.is-active{
+  background:var(--marca-fraca); color:var(--marca); border-left-color:var(--marca);
+}
+html .mac-nav-grupos{ display:flex; gap:var(--e7); flex-wrap:wrap;
+  align-items:flex-end; width:100%; }
+html .mac-nav-grupo{ display:flex; flex-direction:column; gap:var(--e2); }
+html .mac-nav-rotulo{
+  font-family:var(--sans); font-stretch:116%; font-weight:700;
+  font-size:var(--t-micro); letter-spacing:.16em; text-transform:uppercase;
+  color:var(--tinta-3); padding-left:var(--e1); display:block;
+}
+html .mac-nav-abas{ display:flex; gap:0; }
+html body > nav#tabBar.tabs .mac-nav-grupos{ flex-direction:column; flex-wrap:nowrap;
+  gap:var(--e6); align-items:stretch; }
+html body > nav#tabBar.tabs .mac-nav-grupo{ gap:var(--e2); }
+html body > nav#tabBar.tabs .mac-nav-rotulo{ display:block; padding-left:var(--e5); }
+html body > nav#tabBar.tabs .mac-nav-abas{ flex-direction:column; gap:0;
+  align-items:stretch; }
+html .mac-nav{
+  height:var(--altura-controle); box-sizing:border-box;
+  display:inline-flex; align-items:center; padding:0 var(--e5);
+  background:var(--painel); border:1px solid var(--regua-forte);
+  border-radius:var(--raio-cartao);
+  color:var(--tinta-2); font-family:var(--mono); font-size:var(--t-min);
+  cursor:pointer;
+}
+html .mac-nav:hover{ background:var(--painel-alto); color:var(--tinta); }
+html .mac-navmes{ display:flex; align-items:center; gap:var(--e5); margin:0 0 var(--e5); }
+html .mac-mes-titulo{ font-size:var(--t-md); font-weight:600; color:var(--tinta); }
+
+/* --- linha de sistema ---------------------------------------------------- */
+html .system-line{
+  margin:var(--e6) 0;
+  padding:var(--e3) 0;
+  border:0; border-bottom:1px solid var(--regua);
+  background:none;
+  font-family:var(--mono); font-size:var(--t-micro);
+  letter-spacing:.04em; color:var(--tinta-3);
+}
+html .system-line::before{
+  content:"ESTADO"; margin-right:var(--e5);
+  font-family:var(--sans); font-stretch:116%; font-weight:700;
+  font-size:var(--t-micro); letter-spacing:.16em;
+  color:var(--marca);
+}
+html .system-line.error{ color:var(--corte); }
+html .system-line.error::before{ color:var(--corte); }
+
+/* ============================================================================
+   §7 · GRADE E RESPONSIVO
+   Largura maxima 1280, centrada, margem lateral 20px.
+   ============================================================================ */
+html main, html footer.site-footer{
+  width:min(1280px, calc(100% - (2 * var(--e7))));
+  max-width:1280px;
+  margin:0 auto;
+  padding-left:0; padding-right:0;
+}
+html main{ padding-top:var(--e6); padding-bottom:var(--e9); }
+
+/* A grade principal canonica da §7. */
+html .grade-principal{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 386px;
+  gap:var(--e6);
+  align-items:start;
+}
+
+/* As duas grades reais deste produto usam a MESMA medida de 386px, com a coluna
+   estreita PRIMEIRO porque e essa a ordem da marcacao (lista antes do detalhe,
+   cartao do FOMC antes da tabela) e a marcacao nao pode ser editada aqui. */
+html .mac-duas{
+  display:grid;
+  grid-template-columns:386px minmax(0,1fr);
+  gap:var(--e6);
+  align-items:start;
+}
+html .mac-eua-grid{
+  display:grid;
+  grid-template-columns:386px minmax(0,1fr);
+  gap:var(--e6);
+  align-items:start;
+}
+html .mac-pernas{ display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  gap:var(--e5); }
+html .mac-geo-grid{ display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:var(--e5); }
+html .mac-placar{ display:grid; grid-template-columns:1fr 1fr; gap:var(--e5);
+  margin:0 0 var(--e6); }
+html .mac-placar-3{ grid-template-columns:repeat(3,minmax(0,1fr)); }
+html .mac-resumo-grid{ display:grid; grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:var(--e5); }
+html .mac-resumo-3{ grid-template-columns:repeat(3,minmax(0,1fr)); }
+html .mac-semana, html .mac-cal{ display:grid; grid-template-columns:repeat(7,1fr);
+  gap:var(--e3); }
+html .fichas{ display:grid; grid-template-columns:repeat(6,1fr); gap:1px;
+  background:var(--regua); border-bottom:1px solid var(--regua); }
+
+/* --- abaixo de 1180px vira COLUNA UNICA (§7) --- */
+@media (max-width:1180px){
+  html .grade-principal,
+  html .mac-duas,
+  html .mac-eua-grid,
+  html .mac-pernas{ grid-template-columns:minmax(0,1fr); }
+  html .mac-resumo-grid, html .mac-resumo-3{ grid-template-columns:repeat(2,minmax(0,1fr)); }
+  html .mac-detalhe{ position:static; }
+}
+/* --- quebra do ALARME: 4 colunas → 1 abaixo de 900px (§6.6 e §7) --- */
+@media (max-width:900px){
+  html .alarme{ grid-template-columns:minmax(0,1fr); }
+  html .alarme > div{ border-left:0; border-top:1px solid var(--aviso-fio-2); }
+  html .mac-placar, html .mac-placar-3{ grid-template-columns:minmax(0,1fr); }
+  html .mac-geo-grid{ grid-template-columns:minmax(0,1fr); }
+  html .fichas{ grid-template-columns:repeat(3,1fr); }
+  /* --- quebra do METODO: 3 colunas → 1 abaixo de 900px (§6.8) --- */
+  html .metodo-corpo, html .tab-about-body{ columns:1; }
+}
+/* --- rodape do sistema: 4 → 2 abaixo de 1000px → 1 abaixo de 620px (§7) --- */
+@media (max-width:1000px){ html .sistema-grade{ grid-template-columns:repeat(2,1fr); } }
+@media (max-width:640px){
+  html .mac-resumo-grid, html .mac-resumo-3{ grid-template-columns:minmax(0,1fr); }
+  html .fichas{ grid-template-columns:repeat(2,1fr); }
+}
+@media (max-width:620px){ html .sistema-grade{ grid-template-columns:minmax(0,1fr); } }
+
+/* ============================================================================
+   §6.2 · CARTAO
+   Fundo --painel, borda 1px --regua, raio 3px, SEM sombra. Cabeca em
+   --painel-fundo, altura minima 31px, rotulo .rot a esquerda e a PROCEDENCIA
+   em mono 9,5px --tinta-3 a direita. Todo cartao declara a sua procedencia.
+   ============================================================================ */
+html .cartao,
+html .content-section,
+html .mac-perna, html .mac-geo-card, html .mac-fala, html .mac-eua-fomc,
+html .mac-geo-mundo, html .mac-ficha, html .mac-detalhe, html .mac-vazio,
+html .eq-card, html .explain, html .overview{
+  background:var(--painel);
+  border:1px solid var(--regua);
+  border-radius:var(--raio-cartao);
+  overflow:hidden;
+}
+html .content-section{ padding:0; }
+html .content-section > .section-title,
+html .cartao-cab{
+  display:flex; align-items:center; gap:var(--e4); flex-wrap:wrap;
+  min-height:31px; padding:var(--e3) var(--e5);
+  margin:0;
+  background:var(--painel-fundo);
+  border-bottom:1px solid var(--regua);
+}
+html .content-section > .section-title > div{ display:flex; align-items:baseline;
+  gap:var(--e5); flex-wrap:wrap; }
+html .content-section > .section-title p{ flex:1 1 100%; margin:var(--e2) 0 0; }
+html .cartao-corpo,
+html .content-section > *:not(.section-title):not(.table-wrap):not(.tab-pe):not(.fichas){
+  padding-left:var(--e5); padding-right:var(--e5);
+}
+html .content-section > p:last-child{ padding-bottom:var(--e5); }
+html .cartao-corpo{ padding:var(--e5); }
+/* a procedencia, sempre a direita da cabeca */
+html .procedencia, html .cartao-cab .procedencia{
+  margin-left:auto; text-align:right;
+  font-family:var(--mono); font-size:var(--t-micro);
+  color:var(--tinta-3); letter-spacing:.02em;
+}
+html .mac-perna, html .mac-geo-card, html .mac-fala, html .mac-eua-fomc,
+html .mac-geo-mundo, html .mac-ficha, html .eq-card{ padding:var(--e5); }
+html .mac-detalhe{ padding:var(--e5); position:sticky; top:var(--e6); min-width:0; }
+html .mac-resumo{
+  background:var(--painel-alto);
+  border:1px solid var(--regua-forte);
+  border-radius:var(--raio-cartao);
+  padding:var(--e5);
+  margin:var(--e5) 0 var(--e6);
+}
+html .mac-resumo.e-forte, html .mac-resumo.e-mod{ border-color:var(--marca-borda); }
+html .mac-resumo.e-obs{ border-color:var(--aviso-borda); background:var(--aviso-fraca); }
+html .mac-resumo.e-sem, html .mac-resumo.r-nao{ border-color:var(--regua-forte); }
+html .mac-resumo.r-short{ border-color:var(--corte-borda); }
+html .mac-resumo-item{ min-width:0; }
+html .mac-resumo-frase, html .mac-resumo-estado{ margin:var(--e5) 0 0;
+  font-size:var(--t-min); line-height:1.5; }
+html .mac-resumo-linhas{ margin-top:var(--e5); padding-top:var(--e4);
+  border-top:1px solid var(--regua); display:grid; gap:var(--e3);
+  font-size:var(--t-min); line-height:1.5; }
+/* barra de forca: trilho chapado, sem gradiente (§4.1) */
+html .mac-barra-forca{
+  height:6px; border-radius:1px; overflow:hidden;
+  background:var(--fundo-band);
+  border:1px solid var(--regua-fraca);
+  margin:var(--e3) 0 var(--e2);
+}
+html .mac-barra-forca i{ display:block; height:100%; border-radius:0;
+  background:var(--tinta-2) !important; }
+html .mac-resumo.e-forte .mac-barra-forca i,
+html .mac-resumo.e-mod .mac-barra-forca i{ background:var(--marca) !important; }
+html .mac-resumo.r-short .mac-barra-forca i{ background:var(--corte) !important; }
+html .mac-atrasado .mac-barra-forca i{ background:var(--tinta-3) !important; }
+
+/* ============================================================================
+   §6.3 · CHIP DE ESTADO — seis variantes
+   Altura 18px, padding 0 6px, raio 2px, mono 9,5px, entreletra .05em,
+   borda 1px na cor do estado a 42% e fundo na variante fraca.
+   ============================================================================ */
+html .chip,
+html .mac-chip, html .mac-dim, html .mac-lean, html .mac-lean-pill, html .mac-selo,
+html .mac-tag-div, html .mac-surp, html .mac-atraso, html .mac-conf,
+html .mac-geo-pill, html .mac-news-tag, html .mac-prelim, html .mac-dot,
+html .mac-provisorio, html .mac-det-leitura, html .spr-pill, html .eq-met{
+  display:inline-flex; align-items:center; gap:var(--e2);
+  height:18px; min-height:18px; box-sizing:border-box;
+  padding:0 var(--e3); margin:0;
+  border:1px solid var(--regua-forte);
+  border-radius:var(--raio-chip);
+  background:var(--painel-alto);
+  color:var(--tinta-3);
+  font-family:var(--mono); font-size:var(--t-micro); font-weight:500;
+  letter-spacing:.05em; white-space:nowrap; line-height:1;
+  text-transform:uppercase; vertical-align:middle;
+}
+/* as seis variantes */
+html .chip-alta,  html .mac-dim.d-alta, html .mac-lean-dovish, html .mac-news-tag.c-alta,
+html .mac-surp.positive, html .mac-lean-pill.positive, html .mac-conf.c-alta,
+html .mac-atraso{
+  color:var(--alta); border-color:var(--alta-borda); background:var(--alta-fraca);
+}
+html .chip-corte, html .mac-dim.d-corte, html .mac-lean-hawkish, html .mac-news-tag.c-corte,
+html .mac-surp.negative, html .mac-lean-pill.negative, html .mac-conf.c-baixa,
+html .mac-geo-pill.alto{
+  color:var(--corte); border-color:var(--corte-borda); background:var(--corte-fraca);
+}
+html .chip-aviso, html .mac-lean-mixed, html .mac-conf.c-media, html .mac-geo-pill.medio,
+html .mac-atraso-lento{
+  color:var(--aviso); border-color:var(--aviso-borda); background:var(--aviso-fraca);
+}
+html .chip-marca, html .mac-chip.on, html .mac-tag-div, html .mac-dot,
+html .mac-det-leitura.e-div, html .mac-det-leitura.e-forte, html .mac-det-leitura.e-mod,
+html .mac-det-leitura.v-bull{
+  color:var(--marca); border-color:var(--marca-borda); background:var(--marca-fraca);
+}
+html .chip-mudo, html .mac-surp.muted, html .mac-geo-pill.baixo, html .mac-geo-pill.off,
+html .mac-det-leitura.e-igual, html .mac-det-leitura.e-sem, html .mac-det-leitura.v-nao,
+html .mac-dim.d-mantem, html .mac-news-tag, html .mac-selo, html .mac-prelim,
+html .mac-provisorio, html .spr-dim{
+  color:var(--tinta-3); border-color:var(--regua-forte); background:var(--painel-alto);
+}
+html .chip-alto{                                   /* impacto: --tinta sobre a zebra */
+  color:var(--tinta); border-color:var(--regua-forte); background:var(--painel-alto);
+}
+/* estados de forma, nao de cor: dimensao desligada usa HACHURA (§6.4) — a unica
+   trama do sistema, e ela significa exatamente "nao existe dado aqui". */
+html .mac-dim.off, html .mac-dim.exp, html .hachura{
+  border-style:dashed; border-color:var(--aviso-borda); color:var(--aviso);
+  background-image:repeating-linear-gradient(45deg,
+    transparent 0 3px, var(--aviso-fraca) 3px 6px) !important;
+}
+html .mac-dim.discorda{ border-style:dotted; }
+html .mac-chip{ height:22px; padding:0 var(--e5); cursor:pointer; text-transform:none;
+  font-size:var(--t-min); letter-spacing:.03em; }
+html .mac-chip:hover{ border-color:var(--marca-borda); color:var(--tinta); }
+html .mac-chip-moeda{ height:18px; padding:0 var(--e3); font-size:var(--t-micro);
+  letter-spacing:.05em; }
+html .mac-chips{ display:flex; gap:var(--e3); flex-wrap:wrap; align-items:center;
+  margin:0 0 var(--e4); }
+html .mac-dims{ display:flex; gap:var(--e2); flex-wrap:wrap; margin-top:var(--e4); }
+html .mac-lean-pill.big{ height:22px; font-size:var(--t-min); }
+html .mac-lean-pill.big small{ font-size:var(--t-micro); color:var(--tinta-3); }
+
+/* ============================================================================
+   §5 · TABELAS — regras por inteiro
+   ============================================================================ */
+
+/* --- §5.1 a tabela ROLA, nao encolhe. Nunca reflow para cartoes empilhados. --- */
+html .table-wrap, html .mac-eua-tabela, html .rolo, html .tabela-rolo{
+  overflow-x:auto;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:thin;
+  max-width:100%;
+}
+
+html table, html .data-table, html .mac-tabela{
+  width:100%;
+  border-collapse:collapse;
+  border-spacing:0;
+  font-size:var(--t-base);
+  font-family:var(--sans);
+  color:var(--tinta-2);
+}
+
+/* min-width declarado por tabela (§5.5). O colgroup vive no JS que esta proibido
+   de editar, por isso as larguras entram por nth-child logo abaixo. */
+html .table-wrap > table.mac-tabela,
+html .tabela-bancos{ min-width:1040px; }              /* Bancos centrais */
+html .mac-eua-grid .mac-eua-tabela > table.mac-tabela,
+html .tabela-eua{ min-width:960px; }                  /* Estados Unidos  */
+html table.mac-pares, html .mac-duas table.mac-tabela,
+html .tabela-pares{ min-width:880px; }                /* Pares           */
+html .mac-eua-tabela > table.mac-corr{ min-width:640px; }
+
+/* --- §5.1 cabeca de tabela: --painel-fundo, rotulo .rot 9,5px/.14em,
+       --tinta-3, alinhamento igual ao da coluna, nowrap, fio inferior forte. --- */
+html thead th, html .data-table thead th, html .mac-tabela th{
+  padding:var(--e3) var(--e5) var(--e3);
+  background:var(--painel-fundo);
+  border-bottom:1px solid var(--regua-forte);
+  color:var(--tinta-3);
+  text-align:left;
+  white-space:nowrap;
+  vertical-align:bottom;
+}
+html thead th.dir, html .mac-num-th, html th.mac-num-th{ text-align:right; }
+/* fio de 2px: a UNICA excecao a regra do 1px, e so quando a cabeca e rolante. */
+html .table-wrap > table > thead th,
+html .mac-eua-tabela > table > thead th{ border-bottom-width:2px; }
+
+/* --- §5.2 altura de linha: 64 bancos · 44 EUA e pares · 34 listas simples.
+       A altura vem do padding 7/12 mais o conteudo; nao se fixa height na TR.
+       Em celula de tabela, `height` age como MINIMO — por isso vai na TD. --- */
+html tbody td, html .data-table tbody td, html .mac-tabela td{
+  padding:7px var(--e5);
+  border-bottom:1px solid var(--regua-fraca);
+  vertical-align:middle;
+  color:var(--tinta-2);
+  line-height:1.35;
+}
+html .table-wrap > table.mac-tabela > tbody > tr > td,
+html .tabela-bancos > tbody > tr > td{
+  height:64px;                 /* tres informacoes empilhadas + regua de dias */
+  vertical-align:top;          /* §5.2: top so onde a celula empilha tres blocos */
+}
+html .mac-eua-grid .mac-eua-tabela > table.mac-tabela > tbody > tr > td,
+html .tabela-eua > tbody > tr > td,
+html .tabela-pares > tbody > tr > td,
+html table.mac-pares > tbody > tr > td{ height:44px; }  /* valor e nota */
+html .mac-corr > tbody > tr > td,
+html .tabela-lista > tbody > tr > td,
+html .mac-cenarios li{ height:34px; }                   /* uma linha e uma nota curta */
+
+/* --- §5.3 zebra, reguas e estado --- */
+html tbody tr:nth-child(even),
+html .data-table tbody tr:nth-child(even),
+html .mac-tabela tbody tr:nth-child(even){ background:var(--painel-alto); }
+html tbody tr:last-child > td,
+html .mac-tabela tbody tr:last-child > td{ border-bottom:0; }
+/* sem linhas verticais entre colunas dentro do tbody */
+html tbody td{ border-left:0; border-right:0; }
+
+/* HOVER NAO MUDA O FUNDO. Mudar o fundo no hover e o que derruba o contraste do
+   texto terciario (era 3,69:1 na direcao B). O hover e um FIO turquesa de 2px a
+   esquerda, e a tinta secundaria SOBE para --tinta. */
+html tbody tr:hover,
+html .data-table tbody tr:hover,
+html .mac-tabela tbody tr:hover{
+  background:inherit;
+  box-shadow:inset 2px 0 0 var(--marca) !important;
+}
+html tbody tr:nth-child(even):hover,
+html .mac-tabela tbody tr:nth-child(even):hover{ background:var(--painel-alto); }
+html tbody tr:hover > td,
+html .data-table tbody tr:hover > td,
+html .mac-tabela tbody tr:hover > td{ color:var(--tinta); }
+html tbody tr:hover .muted, html .mac-tabela tbody tr:hover small{ color:var(--tinta-2); }
+
+/* linha selecionada / "a proxima": mesma regua turquesa, permanente, mais
+   --marca-fraca de fundo. */
+html tbody tr.selecionada, html tbody tr.mac-sel, html .mac-tabela tr.mac-urgente{
+  background:var(--marca-fraca) !important;
+  box-shadow:inset 2px 0 0 var(--marca) !important;
+}
+html .mac-tabela tr.mac-urgente > td{ background:transparent; }
+html .mac-pares tr.mac-mesmo > td{ color:var(--tinta-3); }
+
+/* --- §5.4 alinhamento: TODO algarismo a direita, mono, tabular + lining --- */
+html td.dir, html th.dir, html .mac-num-td, html td.mac-num-td, html .num,
+html .mac-taxa, html .mac-brt, html .mac-ref-td, html .mac-pl-num{
+  text-align:right;
+  font-family:var(--mono);
+  font-variant-numeric:tabular-nums lining-nums;
+  font-feature-settings:"tnum" 1,"lnum" 1;
+  white-space:nowrap;
+}
+/* a unidade acompanha o numero, em 9,5px --tinta-3, FORA do bloco tabular,
+   para nao desalinhar a coluna. */
+html .unidade{
+  font-family:var(--mono); font-size:var(--t-micro); font-weight:400;
+  color:var(--tinta-3); letter-spacing:0; margin-left:var(--e2);
+  font-variant-numeric:normal;
+}
+/* nota sob o numero, dentro da celula */
+html td .mac-ref-td, html td .mac-eua-nivel, html td .mac-eua-casado,
+html td .mac-hora-local, html td .sub{
+  display:block; margin-top:var(--e1);
+  font-family:var(--mono); font-size:var(--t-micro);
+  color:var(--tinta-3); line-height:1.3; white-space:normal;
+}
+html td .mac-brt{ display:block; font-weight:700; font-size:var(--t-md);
+  color:var(--tinta); }
+
+/* --- §5.5 LARGURAS DECLARADAS por nth-child ------------------------------
+   O colgroup obrigatorio da §5.1 mora no JS que esta proibido de editar; a
+   largura entra aqui, por posicao de coluna, com o mesmo efeito visual.
+   -------------------------------------------------------------------------- */
+
+/* BANCOS CENTRAIS — min-width 1040
+   1 Moeda 58e · 2 Banco/instrumento min 180 elastica · 3 Taxa 158d
+   4 Ultima mudanca 172d · 5 Proxima reuniao 192e · 6 Hora local 128d */
+html .table-wrap > table.mac-tabela th:nth-child(1),
+html .table-wrap > table.mac-tabela td:nth-child(1),
+html .tabela-bancos th:nth-child(1), html .tabela-bancos td:nth-child(1){
+  width:58px; text-align:left; }
+html .table-wrap > table.mac-tabela th:nth-child(2),
+html .table-wrap > table.mac-tabela td:nth-child(2),
+html .tabela-bancos th:nth-child(2), html .tabela-bancos td:nth-child(2){
+  min-width:180px; width:auto; text-align:left; }
+html .table-wrap > table.mac-tabela th:nth-child(3),
+html .table-wrap > table.mac-tabela td:nth-child(3),
+html .tabela-bancos th:nth-child(3), html .tabela-bancos td:nth-child(3){
+  width:158px; text-align:right; }
+html .table-wrap > table.mac-tabela th:nth-child(4),
+html .table-wrap > table.mac-tabela td:nth-child(4),
+html .tabela-bancos th:nth-child(4), html .tabela-bancos td:nth-child(4){
+  width:172px; text-align:right; }
+html .table-wrap > table.mac-tabela th:nth-child(5),
+html .table-wrap > table.mac-tabela td:nth-child(5),
+html .tabela-bancos th:nth-child(5), html .tabela-bancos td:nth-child(5){
+  width:192px; text-align:left; }
+html .table-wrap > table.mac-tabela th:nth-child(6),
+html .table-wrap > table.mac-tabela td:nth-child(6),
+html .tabela-bancos th:nth-child(6), html .tabela-bancos td:nth-child(6){
+  width:128px; text-align:right; }
+
+/* ESTADOS UNIDOS — min-width 960
+   1 Quando(UTC) 116e · 2 Impacto 44e · 3 Indicador min 210 elastica
+   4 Atual 100d · 5 Esperado 92d · 6 Anterior 104d · 7 Surpresa 152d · 8 Entrega 92d */
+html .tabela-eua th:nth-child(1), html .tabela-eua td:nth-child(1){ width:116px; text-align:left; }
+html .tabela-eua th:nth-child(2), html .tabela-eua td:nth-child(2){ width:44px;  text-align:left; }
+html .tabela-eua th:nth-child(3), html .tabela-eua td:nth-child(3){ min-width:210px; width:auto; text-align:left; }
+html .tabela-eua th:nth-child(4), html .tabela-eua td:nth-child(4){ width:100px; text-align:right; }
+html .tabela-eua th:nth-child(5), html .tabela-eua td:nth-child(5){ width:92px;  text-align:right; }
+html .tabela-eua th:nth-child(6), html .tabela-eua td:nth-child(6){ width:104px; text-align:right; }
+html .tabela-eua th:nth-child(7), html .tabela-eua td:nth-child(7){ width:152px; text-align:right; }
+html .tabela-eua th:nth-child(8), html .tabela-eua td:nth-child(8){ width:92px;  text-align:right; }
+/* a tabela dos EUA que hoje existe tem 6 colunas
+   (Indicador · Atual · Esperado · Anterior · Surpresa · Media 3m): a coluna
+   elastica e a 1, e as cinco numericas seguem a mesma regua da direita. */
+html .mac-eua-grid .mac-eua-tabela > table.mac-tabela th:nth-child(1),
+html .mac-eua-grid .mac-eua-tabela > table.mac-tabela td:nth-child(1){
+  min-width:210px; width:auto; text-align:left; }
+html .mac-eua-grid .mac-eua-tabela > table.mac-tabela th:nth-child(2),
+html .mac-eua-grid .mac-eua-tabela > table.mac-tabela td:nth-child(2){ width:100px; text-align:right; }
+html .mac-eua-grid .mac-eua-tabela > table.mac-tabela th:nth-child(3),
+html .mac-eua-grid .mac-eua-tabela > table.mac-tabela td:nth-child(3){ width:92px;  text-align:right; }
+html .mac-eua-grid .mac-eua-tabela > table.mac-tabela th:nth-child(4),
+html .mac-eua-grid .mac-eua-tabela > table.mac-tabela td:nth-child(4){ width:104px; text-align:right; }
+html .mac-eua-grid .mac-eua-tabela > table.mac-tabela th:nth-child(5),
+html .mac-eua-grid .mac-eua-tabela > table.mac-tabela td:nth-child(5){ width:152px; text-align:right; }
+html .mac-eua-grid .mac-eua-tabela > table.mac-tabela th:nth-child(6),
+html .mac-eua-grid .mac-eua-tabela > table.mac-tabela td:nth-child(6){ width:92px;  text-align:right; }
+
+/* PARES — min-width 880
+   1 Par 96e · 2 Divergencia 88d · 3 Qualidade 88d · 4 Faixa 104e
+   5 Motivo min 220 elastica · 6 Perna que manda 112e · 7 Acao 96e */
+html .tabela-pares th:nth-child(1), html .tabela-pares td:nth-child(1),
+html table.mac-pares th:nth-child(1), html table.mac-pares td:nth-child(1){ width:96px;  text-align:left; }
+html .tabela-pares th:nth-child(2), html .tabela-pares td:nth-child(2),
+html table.mac-pares th:nth-child(2), html table.mac-pares td:nth-child(2){ width:88px;  text-align:right; }
+html .tabela-pares th:nth-child(3), html .tabela-pares td:nth-child(3),
+html table.mac-pares th:nth-child(3), html table.mac-pares td:nth-child(3){ width:88px;  text-align:right; }
+html .tabela-pares th:nth-child(4), html .tabela-pares td:nth-child(4),
+html table.mac-pares th:nth-child(4), html table.mac-pares td:nth-child(4){ width:104px; text-align:left; }
+html .tabela-pares th:nth-child(5), html .tabela-pares td:nth-child(5),
+html table.mac-pares th:nth-child(5), html table.mac-pares td:nth-child(5){ min-width:220px; width:auto; text-align:left; }
+html .tabela-pares th:nth-child(6), html .tabela-pares td:nth-child(6),
+html table.mac-pares th:nth-child(6), html table.mac-pares td:nth-child(6){ width:112px; text-align:left; }
+html .tabela-pares th:nth-child(7), html .tabela-pares td:nth-child(7),
+html table.mac-pares th:nth-child(7), html table.mac-pares td:nth-child(7){ width:96px;  text-align:left; }
+
+/* correlacao: densa, uma linha por celula */
+html .mac-corr th, html .mac-corr td{ white-space:nowrap; font-size:var(--t-min);
+  padding:var(--e3) var(--e4); }
+
+/* --- §5.1 RODAPE DE TABELA: toda tabela tem rodape ------------------------
+   Fundo --painel-fundo, mono 9,5px, --tinta-3, itens separados por fio vertical
+   de 1px. E onde vivem convencao, o n da amostra e a ressalva curta.
+   -------------------------------------------------------------------------- */
+html .tab-pe,
+html .mac-frescor,
+html .mac-eua-nota,
+html .method-note{
+  display:block;
+  margin:0;
+  padding:7px var(--e5);
+  border-top:1px solid var(--regua);
+  background:var(--painel-fundo);
+}
+html .tab-pe{
+  display:flex; gap:var(--e5); flex-wrap:wrap; align-items:baseline;
+  font-family:var(--mono); font-size:var(--t-micro);
+  color:var(--tinta-3); line-height:1.5;
+}
+html .tab-pe > span + span{ border-left:1px solid var(--regua); padding-left:var(--e5); }
+html .tab-pe b{ color:var(--tinta-2); font-weight:500; }
+html .tab-pe em{ font-style:normal; color:var(--aviso); }
+html .mac-frescor{ font-family:var(--mono); font-size:var(--t-micro);
+  color:var(--tinta-3); }
+
+/* caixa de codigo: o unico elemento que pode parecer selo. Raio 2px. */
+html pre, html code, html .sent-bloco pre{
+  background:var(--fundo-band);
+  border:1px solid var(--regua);
+  border-radius:var(--raio-chip);
+  color:var(--tinta-2);
+  font-family:var(--mono); font-size:var(--t-micro); line-height:1.5;
+}
+html pre{ padding:var(--e4) var(--e5); overflow-x:auto; }
+html code{ padding:1px var(--e2); }
+
+/* ============================================================================
+   §6.5 · FICHAS DE NIVEL
+   Grade de 6 colunas coladas por fio de 1px, fundo --painel-fundo.
+   Nome mono 9,5px versal --tinta-3 · valor mono 17px/600 --tinta ·
+   DELTA mono 9,5px --tinta-2 E SEM COR (regra 2 da §2: nivel nao tem direcao
+   de politica; +0,07% m/m nao e "bom" nem "ruim").
+   ============================================================================ */
+html .ficha{
+  background:var(--painel-fundo);
+  padding:var(--e4) var(--e5);
+  border:0; border-radius:0;
+  min-width:0;
+}
+html .ficha .nome{
+  font-family:var(--mono); font-size:var(--t-micro);
+  letter-spacing:.07em; text-transform:uppercase; color:var(--tinta-3);
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis; display:block;
+}
+html .ficha .valor{
+  font-family:var(--mono); font-size:var(--t-lg); font-weight:600;
+  font-variant-numeric:tabular-nums lining-nums;
+  color:var(--tinta); line-height:1; margin-top:var(--e3); display:block;
+}
+html .ficha .delta{
+  font-family:var(--mono); font-size:var(--t-micro);
+  font-variant-numeric:tabular-nums lining-nums;
+  color:var(--tinta-2);              /* SEM COR — vale a regra 2 da §2 */
+  margin-top:var(--e3); display:block; letter-spacing:0;
+}
+
+/* ============================================================================
+   §6.6 · BLOCO DE ALARME
+   Grade de QUATRO colunas: 96px identificador+chip · 190px assunto ·
+   1fr medida (o numero) · 1fr consequencia (frase inteira, obrigatoria).
+   Fundo --aviso-fraca CHAPADO, sem gradiente. Fios .38 e .16.
+   ============================================================================ */
+html .alarme-bloco, html .mac-tarja-atraso, html .mac-tarja, html .aviso-reprovado{
+  margin:0 0 var(--e6);
+  border:1px solid var(--aviso-fio);
+  border-radius:var(--raio-cartao);
+  background:var(--aviso-fraca);
+  color:var(--tinta-2);
+  overflow:hidden;
+  padding:0;
+}
+html .alarme-cab, html .mac-tarja-atraso > strong:first-child{
+  display:flex; align-items:center; gap:var(--e4); flex-wrap:wrap;
+  min-height:26px; padding:var(--e3) var(--e5);
+  border-bottom:1px solid rgba(240,178,82,.24);
+  background:var(--aviso-fraca);
+}
+html .alarme-cab .rot{ color:var(--aviso); }
+html .alarme-cab .verificacao{
+  margin-left:auto; font-family:var(--mono); font-size:var(--t-micro);
+  color:var(--aviso); letter-spacing:.02em;
+}
+/* a frase de escopo, obrigatoria sob a cabeca, em --tinta-2 */
+html .alarme-escopo{
+  padding:var(--e4) var(--e5);
+  font-family:var(--serifa); font-size:var(--t-base); font-style:italic;
+  line-height:1.62; color:var(--tinta-2);
+  border-bottom:1px solid var(--aviso-fio-2);
+}
+html .alarme{
+  display:grid;
+  grid-template-columns:96px 190px 1fr 1fr;
+  gap:0;
+  border-top:1px solid var(--aviso-fio-2);
+  align-items:stretch;
+}
+html .alarme:first-of-type{ border-top:0; }
+html .alarme > div{
+  padding:var(--e4) var(--e5);
+  border-left:1px solid var(--aviso-fio-2);
+  min-width:0;
+}
+html .alarme > div:first-child{
+  border-left:0; display:flex; align-items:center; gap:var(--e3); flex-wrap:wrap;
+}
+html .alarme .identificador{
+  font-family:var(--mono); font-size:var(--t-nano);
+  color:var(--aviso); letter-spacing:.06em;
+}
+html .alarme .assunto{
+  font-family:var(--mono); font-size:var(--t-base); font-weight:600; color:var(--tinta);
+}
+html .alarme .rot{ display:block; margin-bottom:var(--e1); }
+html .alarme .medida, html .alarme .consequencia{
+  font-size:var(--t-min); line-height:1.5; color:var(--tinta-2);
+}
+html .alarme .medida .num, html .alarme .consequencia b{ color:var(--tinta); }
+html .alarme em{ font-style:normal; color:var(--aviso); }
+/* a tarja herdada, remontada nas mesmas cores e no mesmo espaco */
+html .mac-tarja, html .mac-tarja-atraso, html .aviso-reprovado{
+  padding:var(--e4) var(--e5); display:block;
+  font-size:var(--t-min); line-height:1.5;
+}
+html .mac-tarja-atraso strong, html .aviso-reprovado strong{
+  display:block; font-size:var(--t-base); font-weight:700; color:var(--aviso);
+  margin-bottom:var(--e2);
+}
+html .mac-tarja-atraso.grave{ border-color:var(--corte-borda);
+  background:var(--corte-fraca); }
+html .mac-tarja-atraso.grave strong{ color:var(--corte); }
+html .mac-tarja-atraso small{ display:block; margin-top:var(--e3);
+  font-size:var(--t-micro); color:var(--tinta-2); line-height:1.5; }
+
+/* ============================================================================
+   §6.7 · NOTAS DE RODAPE NUMERADAS
+   Marcador <sup> em mono 9,5px --tinta-3, colado ao termo. Resolve num bloco
+   numerado no fim da pagina. O marcador e a ressalva curta; a nota e o
+   argumento inteiro. Numeracao corrida por pagina, comecando em 1.
+   ============================================================================ */
+html sup, html .nota-ref{
+  font-family:var(--mono); font-size:var(--t-micro); font-weight:400;
+  color:var(--tinta-3); letter-spacing:0; vertical-align:super;
+  line-height:0; margin-left:1px;
+}
+html a.nota-ref{ text-decoration:none; border-bottom:1px dotted var(--regua-forte); }
+html a.nota-ref:hover{ color:var(--marca); border-bottom-color:var(--marca-borda); }
+html .notas{
+  counter-reset:nota;
+  list-style:none; margin:var(--e6) 0 0; padding:var(--e5);
+  background:var(--painel-fundo);
+  border:1px solid var(--regua);
+  border-radius:var(--raio-cartao);
+}
+html .notas li{
+  counter-increment:nota;
+  position:relative;
+  padding:var(--e3) 0 var(--e3) var(--e8);
+  border-top:1px solid var(--regua-fraca);
+  font-family:var(--serifa); font-size:var(--t-base); line-height:1.62;
+  color:var(--tinta-2); max-width:62ch;
+}
+html .notas li:first-child{ border-top:0; }
+html .notas li::before{
+  content:counter(nota);
+  position:absolute; left:0; top:var(--e3);
+  font-family:var(--mono); font-size:var(--t-micro); font-weight:600;
+  color:var(--tinta-3); letter-spacing:0;
+}
+
+/* ============================================================================
+   §6.8 · BLOCO DE METODO — sempre DEPOIS do dado, nunca antes
+   Caixa propria com fundo --painel-fundo, cabeca com .rot declarando o estado
+   do metodo. Corpo em 3 colunas (1 abaixo de 900px), column-rule de 1px,
+   column-gap 20px, paragrafos em Spectral 12,5/1,62 --tinta-2, break-inside
+   avoid, cada um aberto por um rotulo .rot na propria linha.
+   ============================================================================ */
+html .metodo, html .tab-about{
+  margin:var(--e6) 0 var(--e8);
+  background:var(--painel-fundo);
+  border:1px solid var(--regua);
+  border-radius:var(--raio-cartao);
+  overflow:hidden;
+}
+html .metodo-cab, html .tab-about > summary{
+  display:flex; align-items:center; gap:var(--e4);
+  min-height:29px; padding:var(--e3) var(--e5);
+  border-bottom:1px solid var(--regua);
+  background:var(--painel-fundo);
+  color:var(--tinta-3);
+  font-family:var(--sans); font-stretch:116%; font-weight:700;
+  font-size:var(--t-micro); letter-spacing:.16em; text-transform:uppercase;
+  cursor:pointer; list-style:none;
+}
+html .tab-about > summary::-webkit-details-marker{ display:none; }
+html .metodo-corpo, html .tab-about-body{
+  padding:var(--e5);
+  columns:3;
+  column-gap:var(--e7);
+  column-rule:1px solid var(--regua-fraca);
+}
+html .metodo-corpo p, html .tab-about-body p{
+  margin:0 0 var(--e5);
+  font-family:var(--serifa);
+  font-size:var(--t-base);
+  line-height:1.62;
+  color:var(--tinta-2);
+  max-width:62ch;
+  break-inside:avoid;
+  -webkit-column-break-inside:avoid;
+}
+html .metodo-corpo p:last-child, html .tab-about-body p:last-child{ margin-bottom:0; }
+html .metodo-corpo p > .rot{ display:block; margin-bottom:var(--e2); }
+html .metodo-corpo b, html .tab-about-body strong{ color:var(--tinta); font-weight:600; }
+html .metodo-corpo .num{ font-family:var(--mono); color:var(--tinta);
+  font-variant-numeric:tabular-nums lining-nums; }
+html .method-note{
+  font-family:var(--serifa); font-size:var(--t-base); line-height:1.62;
+  color:var(--tinta-2); max-width:62ch;
+}
+
+/* ============================================================================
+   RESTO DA CASA — listas, itens, medidores herdados
+   ============================================================================ */
+html .mac-lista{ display:flex; flex-direction:column; gap:0; max-height:74vh;
+  overflow-y:auto; padding-right:var(--e2); }
+html .mac-item{
+  display:grid; grid-template-columns:1fr auto; grid-template-rows:auto auto auto;
+  gap:var(--e1) var(--e4);
+  text-align:left;
+  background:var(--painel);
+  border:1px solid var(--regua-fraca);
+  border-left:2px solid transparent;
+  border-radius:0;
+  padding:var(--e3) var(--e5);
+  color:var(--tinta-2); cursor:pointer;
+  min-height:34px;
+}
+html .mac-lista > .mac-item + .mac-item{ border-top:0; }
+html .mac-lista > .mac-item:nth-child(even){ background:var(--painel-alto); }
+/* mesmo hover das tabelas: fio turquesa, sem mudar o fundo */
+html .mac-item:hover{
+  background:var(--painel);
+  box-shadow:inset 2px 0 0 var(--marca) !important;
+  color:var(--tinta);
+}
+html .mac-lista > .mac-item:nth-child(even):hover{ background:var(--painel-alto); }
+html .mac-item-sel{
+  background:var(--marca-fraca) !important;
+  border-left-color:var(--marca);
+  box-shadow:inset 2px 0 0 var(--marca) !important;
+}
+html .mac-item-acao{ grid-column:1; grid-row:1; font-size:var(--t-base);
+  font-weight:700; letter-spacing:.02em; }
+html .mac-item-par{ grid-column:1; grid-row:2; font-family:var(--mono);
+  font-size:var(--t-min); letter-spacing:.03em; }
+html .mac-item-dias{ grid-column:2; grid-row:1; font-family:var(--mono);
+  font-size:var(--t-micro); align-self:center;
+  font-variant-numeric:tabular-nums lining-nums; color:var(--tinta-3); }
+html .mac-item-tag{ grid-column:1/-1; grid-row:3;
+  font-family:var(--mono); font-size:var(--t-micro);
+  letter-spacing:.06em; text-transform:uppercase; color:var(--tinta-3); }
+html .mac-item-tag.e-div{ color:var(--marca); }
+html .mac-item-instr{ border-top:1px solid var(--regua-fraca);
+  margin-top:var(--e2); padding-top:var(--e4); }
+
+html .mac-motivos, html .mac-geo-lista, html .mac-cenarios, html .mac-eua-fed ul,
+html .mac-falas ul, html .mac-news-lista{ list-style:none; margin:var(--e3) 0 0;
+  padding:0; font-size:var(--t-min); line-height:1.5; }
+html .mac-motivos li, html .mac-geo-lista li{
+  margin:var(--e1) 0; padding-left:var(--e4);
+  border-left:1px solid var(--regua-forte); }
+html .mac-cenarios li{ display:flex; justify-content:space-between; align-items:center;
+  padding:var(--e2) 0; border-top:1px solid var(--regua-fraca); }
+html .mac-news-item{
+  display:grid; grid-template-columns:auto minmax(0,1fr) auto auto; gap:var(--e5);
+  align-items:baseline;
+  padding:var(--e3) var(--e5);
+  border:0; border-bottom:1px solid var(--regua-fraca);
+  border-left:2px solid transparent;
+  border-radius:0;
+  background:var(--painel);
+  font-size:var(--t-min); line-height:1.5; color:var(--tinta-2);
+  min-height:34px;
+}
+html .mac-news-lista > .mac-news-item:nth-child(even){ background:var(--painel-alto); }
+html .mac-news-item:hover{ box-shadow:inset 2px 0 0 var(--marca) !important;
+  color:var(--tinta); }
+html .mac-news-item.c-alta{   border-left-color:var(--alta);  }
+html .mac-news-item.c-corte{  border-left-color:var(--corte); }
+html .mac-news-item.c-mantem{ border-left-color:var(--regua-forte); }
+html .mac-news-item a, html .mac-geo-lista a, html .mac-eua-fed a, html .mac-fala-link{
+  color:inherit; text-decoration:none;
+  border-bottom:1px dotted var(--regua-forte); }
+html .mac-news-item a:hover, html .mac-geo-lista a:hover{
+  color:var(--marca); border-bottom-color:var(--marca-borda); }
+
+html .mac-fala-frase{
+  margin:var(--e4) 0 0; padding:0 0 0 var(--e5);
+  border-left:2px solid var(--marca);
+  font-family:var(--serifa); font-size:var(--t-base); font-style:italic;
+  line-height:1.62; color:var(--tinta-2); max-width:62ch;
+}
+html .mac-falas-titulo{ display:flex; gap:var(--e5); align-items:baseline;
+  flex-wrap:wrap; margin-bottom:var(--e4); }
+
+/* medidores herdados: trilho chapado, fio de 1px, sem gradiente e sem raio grande */
+html .mac-pl-trilho, html .mac-pl-barra{ border-radius:1px; }
+html .mac-pl-trilho{ display:block; height:9px; background:var(--fundo-band);
+  border:1px solid var(--regua-fraca); overflow:hidden; }
+html .mac-pl-barra{ display:block; height:100%; }
+html .mac-pl-barra.p{ background:var(--alta) !important; }
+html .mac-pl-barra.n{ background:var(--corte) !important; }
+html .mac-pl-barra.z{ background:var(--tinta-3) !important; }
+html .mac-pl-linha{ display:grid; grid-template-columns:82px 120px minmax(0,1fr);
+  align-items:center; gap:var(--e5); margin:var(--e3) 0; }
+html .mac-pl-moeda{ font-family:var(--mono); font-size:var(--t-min); font-weight:600;
+  letter-spacing:.02em; color:var(--tinta); }
+html .mac-pl-num, html .mac-pl-rot{ font-family:var(--mono); font-size:var(--t-min);
+  font-weight:600; text-align:right; }
+html .mac-pl-rodape{ display:flex; flex-wrap:wrap; gap:var(--e3) var(--e6);
+  margin-top:var(--e4); padding-top:var(--e4);
+  border-top:1px solid var(--regua); font-size:var(--t-min); }
+html .mac-pl-legenda{ margin:var(--e4) 0 0; font-family:var(--mono);
+  font-size:var(--t-micro); line-height:1.5; }
+
+/* calendario */
+html .mac-dia-cel{
+  min-height:78px; text-align:left;
+  background:var(--painel);
+  border:1px solid var(--regua-fraca);
+  border-radius:var(--raio-cartao);
+  padding:var(--e3); color:var(--tinta-2); cursor:pointer;
+  display:flex; flex-direction:column; gap:var(--e1); overflow:hidden;
+}
+html .mac-dia-cel:hover{ background:var(--painel-alto); border-color:var(--regua-forte); }
+html .mac-dia-cel.mac-tem{ border-color:var(--regua); }
+html .mac-dia-cel.mac-hoje{ outline:1px solid var(--marca); outline-offset:-1px; }
+html .mac-dia-cel.mac-sel{ background:var(--marca-fraca); border-color:var(--marca-borda); }
+html .mac-dia-vazio{ min-height:78px; }
+html .mac-num{ font-family:var(--mono); font-size:var(--t-min); font-weight:600;
+  color:var(--tinta); }
+html .mac-cel{ display:flex; flex-direction:column; gap:var(--e1); margin-top:var(--e2); }
+html .mac-ev{ font-size:var(--t-micro); white-space:nowrap; overflow:hidden;
+  text-overflow:ellipsis; }
+html .mac-ev.alto{ color:var(--tinta); font-weight:600; }
+html .mac-decisao{ font-family:var(--mono); font-size:var(--t-micro); font-weight:700;
+  letter-spacing:.04em; }
+
+/* rodape do sistema (a regua de cor por extenso vive aqui) */
+html .sistema{ border-top:1px solid var(--regua); background:var(--fundo-band);
+  padding:var(--e7); }
+html .sistema-grade{ display:grid; grid-template-columns:repeat(4,1fr); gap:var(--e7); }
+html .sistema dl{ margin:0; font-family:var(--mono); font-size:var(--t-nano);
+  line-height:1.6; color:var(--tinta-3); }
+html .sistema dt{ color:var(--tinta-2); min-width:92px; flex:none; }
+html .sistema dd{ margin:0; color:var(--tinta-3); }
+html .site-footer{ border-top:1px solid var(--regua); background:var(--fundo-band);
+  padding:var(--e7); margin-top:var(--e8);
+  display:grid; grid-template-columns:minmax(0,1fr) auto; gap:var(--e8);
+  align-items:start; font-size:var(--t-min); color:var(--tinta-3); }
+
+/* foco visivel: fio turquesa, nunca halo */
+html :focus-visible{ outline:1px solid var(--marca); outline-offset:1px; }
+
+/* ============================================================================
+   FIM DAS REGRAS
+   ============================================================================ */
+
+/* ============================================================================
+   ============================================================================
+
+   A REGUA DE COR, POR EXTENSO
+
+   Cinza e o padrao. Cor e excecao que significa alguma coisa. Se nao da para
+   dizer numa frase o que a cor esta afirmando, ela sai da tela.
+
+   VERDE   #4FD08E  --alta
+     Significa ALTA DE JURO, e so isso: bp positivo, leitura SOBE, vies hawkish.
+     Nao significa "o numero subiu", nao significa "bom", nao significa "acima do
+     esperado" quando o indicador nao tem sinal de politica declarado.
+
+   VERMELHO #FF7C68  --corte
+     Significa CORTE DE JURO, e so isso: bp negativo, leitura CORTA, vies dovish,
+     item que puxa contra a tese, risco. Dovish reaproveita o vermelho porque
+     dovish E corte — nao e uma segunda ideia.
+
+   AMBAR   #F0B252  --aviso
+     Significa DEGRADACAO DO SISTEMA, e so isso: dado atrasado, fonte fora do ar,
+     hora indefinida, elo fraco de qualidade, entrega lenta, contagem regressiva
+     curta. Ambar e sempre sobre o SISTEMA, nunca sobre o mercado. Se aparece
+     ambar, alguma coisa da coleta esta quebrada e o leitor deve achar a causa
+     num clique.
+
+   TURQUESA #45DCCB  --marca
+     Significa MARCA, SELECAO E AGULHA, e so isso: aba ativa, linha selecionada,
+     hover de tabela, perna que da o motivo, agulha do medidor. Turquesa NAO faz
+     urgencia — urgencia e ambar.
+
+   Quatro regras que caem fora dessas quatro cores:
+     · Variacao m/m e a/a de NIVEL (as fichas do BLS) fica em --tinta-2, sempre:
+       CPI +0,07% m/m nao e bom nem ruim, e um nivel. Codificado na regra
+       `.ficha .delta { color: var(--tinta-2) !important }`.
+     · "EM LINHA" nao recebe cor, mesmo com z alto. z de 1,99 numa serie pouco
+       volatil e desvio pequeno, nao surpresa. Chip mudo.
+     · Solido vs. vazado substitui uma quinta cor: barra solida = direcao
+       declarada; barra so com contorno = MANTEM. Mesma cor, dois estados.
+     · Hachura diagonal a 45 graus e a UNICA trama do sistema e significa
+       exatamente "nao existe dado aqui". Nunca decoracao.
+
+   ============================================================================
+
+   CONTRASTE MEDIDO — cada tinta sobre cada superficie (WCAG 2.x, sRGB)
+   Piso obrigatorio 4,5:1. A superficie que CONTA e a zebra --painel-alto
+   #0F241F, porque metade das linhas da tabela e zebra.
+
+                    fundo     faixa     painel    ZEBRA     cab.painel
+                    #071310   #04100D   #0C1D19   #0F241F   #091815
+   --tinta   E9F3EF  16,70:1   17,08:1   15,37:1   14,34:1   16,07:1   passa
+   --tinta-2 9FB6AF   8,82:1    9,02:1    8,12:1    7,57:1    8,49:1   passa
+   --tinta-3 7E9791   6,06:1    6,20:1    5,58:1    5,20:1    5,83:1   passa
+   --alta    4FD08E   9,68:1    9,90:1    8,91:1    8,31:1    9,32:1   passa
+   --corte   FF7C68   7,51:1    7,68:1    6,91:1    6,45:1    7,23:1   passa
+   --aviso   F0B252  10,09:1   10,32:1    9,29:1    8,66:1    9,71:1   passa
+   --marca   45DCCB  11,13:1   11,38:1   10,25:1    9,56:1   10,71:1   passa
+
+   PIOR CASO DO SISTEMA: --tinta-3 sobre a zebra --painel-alto = 5,20:1.
+   Sobra de 0,70 sobre o piso de 4,5:1. Nada abaixo disso entra.
+
+   Nao e texto e nao entra na tabela: --led-mudo #2C4A42 (1,68:1 na zebra) e um
+   ponto de 6px na faixa de estado, e todo LED vem com a palavra escrita ao lado.
+   O ponto e reforco do texto, nunca a unica fonte.
+
+   Por que `opacity` esta proibido sobre texto: opacity .55 sobre --tinta-2
+   derruba a leitura para ~3,4:1 e opacity .7 sobre --tinta-3 derruba para
+   ~3,1:1 — as duas REPROVAM o piso. O produto antigo usava opacity como
+   apagador em mais de oitenta declaracoes; todas caem no varredor (c) da §4.1
+   desta folha, e a hierarquia volta a ser feita por cor.
+
+   ============================================================================
+
+   LISTA DE VERIFICACAO DA §8 — resultado item a item
+
+   1. Todo numero esta em Spline Sans Mono, tabular, a direita?
+      SIM, para o que esta folha alcanca. A pilha mono cobre .num, .mono,
+      .mac-num, .mac-num-td, .mac-ref-td, .mac-taxa, .mac-brt, .mac-hora,
+      .mac-pl-num, .mac-perna-taxa, .mac-eua-dias, .mac-de100 e .mac-lang, todas
+      com `font-variant-numeric: tabular-nums lining-nums`. O alinhamento a
+      direita entra por .dir, .mac-num-td/.mac-num-th e pelas larguras de coluna
+      por nth-child. RESSALVA HONESTA: numero que o ui_macro.js escreve solto
+      dentro de um <td> sem classe nenhuma nao pode ser alcancado por folha de
+      estilo — depende de quem escreve o HTML por a classe. Esta e a unica parte
+      do item 1 que nao esta no meu alcance.
+
+   2. Cada cartao tem UM heroi em 21/27, e a nota dele esta tres degraus abaixo?
+      SIM onde a marcacao permite. Herois fixados: .mac-det-par 27, .mac-eua-dias
+      27, .mac-perna-taxa 21, .mac-taxa 21, .mac-resumo-item strong 21. Os que
+      empatavam DESCERAM: .mac-geo-sum 17→14, .mac-perna-nome 17→14,
+      .mac-det-leitura →11,5, .mac-eua-dias 38→27, .mac-resumo-item strong 22→21.
+      Toda nota colada a um heroi (.mac-eua-dias small, .mac-perna-nome small,
+      .mac-placar strong small, .mac-resumo-item small, .taxa-nota) foi levada a
+      9,5px — cinco degraus abaixo de 21, nunca 14 ao lado.
+
+   3. Alguma cor afirma algo que nao seja alta, corte, degradacao ou selecao?
+      NAO. As paletas antigas foram remapeadas: #52d98a e #5fe0a0 → --alta;
+      #f87a7a e #ff8f8f → --corte; #f0b429, #ffc400 e #ffcf5c → --aviso;
+      #5eead4, #8fd0ff, #6cc4ff e #c9a7ff → --marca ou tinta neutra. O azul e o
+      roxo do produto antigo (que nao afirmavam nada) sairam da tela. A variacao
+      de nivel do BLS foi forcada a --tinta-2 com !important, porque nivel nao
+      tem direcao de politica.
+
+   4. Existe algum `opacity` sobre texto? (deve ser zero)
+      ZERO. Varredor (c) da §4.1: `opacity:1 !important` sobre [class],
+      ::before, ::after e sobre small/em/i/b/strong/summary/p/span/div/li/td/th.
+      Como nenhuma das mais de oitenta declaracoes de opacity do styles.css, do
+      theme.css e do <style> do ui_macro.js e `!important`, todas perdem. Esta
+      folha nao escreve NENHUMA declaracao de opacity.
+
+   5. --tinta-3 esta sobre --painel-alto em algum lugar? Sobre algo mais claro?
+      SIM sobre a zebra --painel-alto, e e o pior caso do sistema: 5,20:1, passa.
+      Sobre nada mais claro que isso. A superficie mais clara desta folha e
+      justamente #0F241F; nao existe nenhuma superficie acima dela, porque a
+      elevacao e zero e nao ha camada de "branco a 4%" empilhando clareza. Os
+      preenchimentos fracos (--*-fraca, 12-14% de alfa) tambem assentam sobre
+      --painel ou --painel-alto e nao clareiam alem de #0F241F de forma
+      perceptivel.
+
+   6. Todo aviso tem coluna de consequencia escrita em frase inteira?
+      A ESTRUTURA ESTA PRONTA E OBRIGA: `.alarme` e uma grade de quatro colunas
+      96/190/1fr/1fr e a quarta e `.consequencia`, com tipo de frase corrida
+      (11,5px/1,5, --tinta-2), nao de rotulo. Um alarme sem a quarta coluna sai
+      visivelmente quebrado. RESSALVA HONESTA: escrever a frase e do gerador; CSS
+      nao pode conferir texto. O que esta folha garante e que nao existe forma de
+      desenhar um alarme sem o lugar da consequencia.
+
+   7. O bloco de metodo esta depois do dado, em Spectral, em --tinta-2?
+      SPECTRAL E --TINTA-2, SIM: .metodo-corpo p, .method-note, .notas li,
+      .tab-about-body p e .mac-eua-nota estao em Spectral 12,5/1,62 --tinta-2,
+      max 62ch, tres colunas com column-rule de 1px, uma coluna abaixo de 900px.
+      "DEPOIS DO DADO" e ordem de marcacao, nao de folha de estilo — no HTML de
+      hoje a .method-note ja vem no fim de cada .content-section, o que satisfaz
+      a regra; se o orquestrador mover, a folha nao impede.
+
+   8. Toda tabela tem colgroup, min-width e rodape com convencao e n?
+      PARCIAL, e a limitacao e declarada. min-width: SIM, os tres declarados
+      (bancos 1040, EUA 960, pares 880) mais 640 na correlacao. Rodape: SIM, a
+      classe .tab-pe existe com fio vertical entre itens, e .mac-frescor,
+      .mac-eua-nota e .method-note ja recebem o tratamento de rodape de tabela.
+      COLGROUP: NAO — o colgroup e marcacao, mora no ui_macro.js, e este arquivo
+      esta proibido de edita-lo. A largura foi entregue por nth-child, coluna a
+      coluna, com o mesmo efeito visual; o colgroup em si continua sendo tarefa
+      de quem escreve o HTML.
+
+   9. Alguma sombra ou gradiente sobrou? Devem ser zero.
+      ZERO, com uma excecao declarada em cada caso.
+      SOMBRA: varredor (a) da §4.1, `box-shadow:none !important` em html *,
+      ::before e ::after. A unica sombra que volta e o FIO
+      `inset 2px 0 0 var(--marca)`, em quatro lugares (hover de linha, linha
+      selecionada, hover de .mac-item e .mac-item-sel, hover de .mac-news-item).
+      Fio, nao sombra: sem desfoque, sem deslocamento, sem cor de sombra.
+      GRADIENTE: varredor (b), `background-image:none !important`. O que volta e
+      a HACHURA `repeating-linear-gradient(45deg, ...)` em .mac-dim.off,
+      .mac-dim.exp e .hachura — a trama permitida da §6.4, que significa "nao
+      existe dado aqui". Nenhum gradiente de cor, nenhum radial, nenhum
+      degrade de cabecalho.
+
+  10. A palavra "sinal" aparece sem a negacao ao lado?
+      NAO NESTA FOLHA — e este arquivo nao escreve conteudo, so o desenha. O que
+      esta folha faz pelo item 10: o `.system-line::before` do produto antigo
+      dizia "STATUS" e agora diz "ESTADO", em turquesa, no topo de main, no lugar
+      exato onde o HTML de hoje ja carrega a frase "Painel de leitura. Ele da o
+      lado fundamental; a entrada e sua." — ou seja, a negacao chega ao leitor no
+      primeiro bloco da pagina, com destaque de marca. O bloco de metodo repete a
+      negacao e esta folha o poe em Spectral --tinta-2, legivel, nunca em
+      --tinta-3. RESSALVA: garantir a frase e do gerador de HTML, nao do CSS.
+
+   ============================================================================
+   Fim de estilo_hci.css
+   ============================================================================ */

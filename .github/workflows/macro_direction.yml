@@ -124,15 +124,17 @@ jobs:
         continue-on-error: true
         run: python correlacao_juros.py
 
-      # Manchetes de todas as 8 moedas (Google News RSS, sem chave, sem bloqueio). Reserva da
-      # dimensao de discursos para RBA, RBNZ e SNB, que bloqueiam robo.
+      # Manchetes de todas as 8 moedas (Google News RSS, sem chave, sem bloqueio).
+      # Sao contexto na aba Noticias e NAO substituem discursos oficiais no voto do modelo.
       - name: noticias por moeda (Google News)
         continue-on-error: true
         run: python noticias.py
 
-      # Geopolitica (GDELT) ANTES do sentimento: e a 4a dimensao dele e a segunda perna do
-      # ouro (decisao do Eduardo, 04/set). Cache de 3 h no script; a API limita a taxa e o
-      # script espera 15 s entre chamadas, com orcamento de 8 min; quem falha carrega a
+      # Geopolitica (GDELT) ANTES do sentimento porque ele LE este arquivo — mas desde
+      # 05/set ela NAO VOTA: entra como dimensao experimental, com selo, fora do score e
+      # fora do teto (a decisao de 04/set, que a fazia 4a dimensao e segunda perna do ouro,
+      # foi revogada por nunca ter sido medida). Cache de 3 h no script; a API limita a taxa
+      # e o script espera 15 s entre chamadas, com orcamento de 8 min; quem falha carrega a
       # rodada anterior por 24 h.
       - name: geopolitica (GDELT)
         continue-on-error: true
@@ -141,6 +143,17 @@ jobs:
       - name: sentimento (moeda e par)
         continue-on-error: true
         run: python sentimento.py
+
+      # O REGISTRO IMUTAVEL. Depois do sentimento, porque le o que ele acabou de escrever.
+      # Grava em data/snapshots/AAAA-MM-DD.jsonl, APPEND-ONLY: nunca reescreve linha antiga.
+      # Nao grava os 28 pares em toda rodada — so a primeira leitura do dia, quando muda
+      # direcao/divergencia/qualidade, e logo depois de evento de impacto alto. Sem isto a
+      # "conviccao historica" fica null para sempre: nao ha amostra para calibrar, porque a
+      # leitura de hoje NAO pode ser reconstruida amanha (a FXStreet e buscada ao vivo e as
+      # manchetes tem janela de 72 h).
+      - name: registro imutavel (snapshot dos pares)
+        continue-on-error: true
+        run: python snapshot.py
 
       # Commit so quando o conteudo mudou de verdade. Sem isto seriam 96 commits vazios por
       # dia, e o historico do repositorio viraria lixo.
@@ -152,7 +165,8 @@ jobs:
                   data/calendario_resultado.json data/eua_leitura.json \
                   data/bc_discursos.json data/sentimento.json \
                   data/correlacao_juros.json data/geopolitica.json data/noticias.json \
-                  data/raw/ff_calendar_thisweek.json
+                  data/raw/ff_calendar_thisweek.json \
+                  data/snapshots/
           if git diff --cached --quiet; then
             echo "nada mudou — sem commit"
           else

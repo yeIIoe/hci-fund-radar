@@ -10,3 +10,8 @@ nul
 
 out.tmp
 *.tmp
+
+# 05-set-2026: a trava exclusiva do snapshot.py cria um arquivo vazio ao lado do .jsonl.
+# Ele e mecanismo, nao registro — nao entra no repositorio junto com os snapshots.
+data/snapshots/*.lock
+.claude/

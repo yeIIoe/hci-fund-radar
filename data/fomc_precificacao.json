@@ -1,0 +1,78 @@
+{
+ "reuniao": "2026-09-16",
+ "faixa_atual": [
+  3.5,
+  3.75
+ ],
+ "coletado_em": "2026-09-04 18:33 UTC",
+ "effr": {
+  "taxa": 3.63,
+  "data": "2026-09-03",
+  "faixa": [
+   3.5,
+   3.75
+  ]
+ },
+ "contrato_mes": {
+  "sym": "ZQU26.CBT",
+  "preco": 96.305,
+  "hora": "2026-09-04 18:23 UTC",
+  "nome": "30 Day Federal Funds Futures,Se"
+ },
+ "contrato_seguinte": {
+  "sym": "ZQV26.CBT",
+  "preco": 96.215,
+  "hora": "2026-09-04 18:23 UTC",
+  "nome": "30 Day Federal Funds Futures,Oc"
+ },
+ "curva_zq": [
+  {
+   "sym": "ZQU26.CBT",
+   "preco": 96.305,
+   "taxa_implicita": 3.695,
+   "hora": "2026-09-04 18:23 UTC"
+  },
+  {
+   "sym": "ZQV26.CBT",
+   "preco": 96.215,
+   "taxa_implicita": 3.785,
+   "hora": "2026-09-04 18:23 UTC"
+  },
+  {
+   "sym": "ZQX26.CBT",
+   "preco": 96.155,
+   "taxa_implicita": 3.845,
+   "hora": "2026-09-04 18:24 UTC"
+  },
+  {
+   "sym": "ZQZ26.CBT",
+   "preco": 96.06,
+   "taxa_implicita": 3.94,
+   "hora": "2026-09-04 18:25 UTC"
+  },
+  {
+   "sym": "ZQF27.CBT",
+   "preco": 96.02,
+   "taxa_implicita": 3.98,
+   "hora": "2026-09-04 18:10 UTC"
+  },
+  {
+   "sym": "ZQG27.CBT",
+   "preco": 95.965,
+   "taxa_implicita": 4.035,
+   "hora": "2026-09-04 18:10 UTC"
+  }
+ ],
+ "taxa_mes_reuniao": 3.695,
+ "dias_antes": 16,
+ "dias_depois": 14,
+ "taxa_pos_via_contrato_mes": 3.7693,
+ "taxa_pos_via_mes_seguinte": 3.785,
+ "taxa_pos": 3.785,
+ "delta_bp": 15.5,
+ "p_corte": 0.0,
+ "p_manter": 0.38,
+ "p_alta": 0.62,
+ "fonte_taxa_pos": "contrato do mês seguinte",
+ "conta": "EFFR 3.63 (2026-09-03). ZQU26.CBT = 96.305 -> taxa media do mes 3.695. 16 dias a EFFR + 14 dias a taxa_pos => taxa_pos(via mes) = (3.695*30 - 3.63*16)/14 = 3.769. ZQV26.CBT = 96.215 => taxa_pos = 3.785. delta = +15.5 bp. P(alta) = 0.620, P(corte) = 0.000, P(manter) = 0.380."
+}

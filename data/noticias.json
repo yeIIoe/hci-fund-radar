@@ -1,333 +1,1239 @@
 {
- "gerado_em": "2026-09-05T01:25:04.567009+00:00",
- "fonte": "Google News RSS (search), English",
+ "gerado_em": "2026-09-05T05:41:44.219631+00:00",
+ "fonte": "Google News RSS (busca), em ingles",
  "janela_h": 72,
- "aviso": "headline COUNT by expression, not a reading. Enters the sentiment only as a fallback for the speeches dimension where the central bank blocks automation (AUD, NZD, CHF).",
+ "aviso": "Contagem de expressao na manchete, nao leitura. Manchete tem peso 0,0: e CONTEXTO, nunca voto. So vota o item 'imprensa_com_fala' — dirigente nomeado, verbo de fala e veiculo acima do limiar — e com peso 0,4.",
+ "hierarquia_pesos": {
+  "discurso_oficial": 1.0,
+  "comunicado_ata": 1.0,
+  "imprensa_com_fala": 0.4,
+  "manchete": 0.0
+ },
+ "hierarquia_nota": "discurso_oficial e comunicado_ata nascem em bc_discursos.py (site do proprio banco). Aqui nascem imprensa_com_fala (0,4) e manchete (0,0).",
+ "regra_deduplicacao": {
+  "metodo": "Jaccard sobre palavras normalizadas",
+  "limiar_jaccard": 0.7,
+  "atalho": "assinatura das 8 palavras mais longas",
+  "normalizacao": "minusculas, sem acento, sem pontuacao, sem o nome do veiculo, sem palavras vazias",
+  "representante": "fonte de maior peso; a origem do grupo e a maior entre os membros",
+  "provisorio": true
+ },
+ "peso_fonte": {
+  "tabela": {
+   "1.0": [
+    "reuters",
+    "bloomberg",
+    "financial times",
+    "wall street journal",
+    "wsj",
+    "dow jones",
+    "federal reserve",
+    "european central bank",
+    "bank of england",
+    "bank of japan",
+    "bank of canada",
+    "reserve bank",
+    "swiss national bank",
+    "gov.uk",
+    "gov.au",
+    ".gov",
+    "treasury",
+    "statistics",
+    "ons",
+    "eurostat"
+   ],
+   "0.8": [
+    "associated press",
+    "ap news",
+    "afp",
+    "cnbc",
+    "marketwatch",
+    "barron",
+    "nikkei",
+    "the economist",
+    "financial review",
+    "afr",
+    "politico",
+    "axios",
+    "bbc"
+   ],
+   "0.6": [
+    "the guardian",
+    "abc news",
+    "the australian",
+    "sydney morning herald",
+    "the age",
+    "new zealand herald",
+    "nzherald",
+    "rnz",
+    "stuff.co.nz",
+    "globe and mail",
+    "financial post",
+    "cbc",
+    "national post",
+    "the times",
+    "telegraph",
+    "independent",
+    "japan times",
+    "asahi",
+    "yomiuri",
+    "kyodo",
+    "le monde",
+    "handelsblatt",
+    "frankfurter",
+    "swissinfo",
+    "neue zurcher",
+    "nzz",
+    "the national",
+    "cnn",
+    "new york times",
+    "washington post",
+    "forbes",
+    "business insider",
+    "sky news"
+   ]
+  },
+  "padrao": 0.3,
+  "minimo_para_fala": 0.6,
+  "provisorio": true
+ },
+ "buraco_declarado": {
+  "moedas": [
+   "AUD",
+   "CHF",
+   "NZD"
+  ],
+  "bancos": {
+   "AUD": "RBA",
+   "NZD": "RBNZ",
+   "CHF": "SNB"
+  },
+  "rotulo": "sem fala oficial disponivel — o banco bloqueia automacao; a imprensa abaixo e contexto, nao voto",
+  "nota": "sem fala de dirigente, a dimensao de texto destas moedas fica SEM VOTO — nao com voto fraco. Silencio nao e voto."
+ },
  "moedas": {
   "USD": {
    "itens": [
     {
+     "titulo": "Fed's Waller says safety premium for Treasuries is gone, pushing neutral rate higher - Reuters",
+     "fonte": "Reuters",
+     "link": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxQUVFaVFFacUdlWTV3R2pKeGRYSjR5WDlmQ1d1aTlPVmVEVTZVamxTa0gwMVdvUnJWRkY5MjczVTUxaTEwZHdtTHBqdk1fa1FTRHFnaTFVRWlKRk1EVUJGZzhxV1gxS0ZmdV9oNWVhZXI1eGg3VE80czNCUVdBYnY4ay1UTGNYWlg2bHRocUpUbUNhT2pQQlljUzhPdjBxOXg5OTVVamdSNWN2Z3RxdmJZSUlSN3BxQ2R1YmVGR3pkNWk?oc=5",
+     "quando_utc": "2026-09-03T17:47:44+00:00",
+     "classe": null,
+     "origem": "imprensa_com_fala",
+     "peso": 0.4,
+     "orador_identificado": "Waller",
+     "peso_fonte": 1.0,
+     "motivo_origem": null,
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "gone",
+      "higher",
+      "neutral",
+      "premium",
+      "pushing",
+      "safety",
+      "treasuries",
+      "waller"
+     ]
+    },
+    {
+     "titulo": "Fed’s Waller Hints at September Rate Pause—If August Inflation Plays Along - Barron's",
+     "fonte": "Barron's",
+     "link": "https://news.google.com/rss/articles/CBMigwFBVV95cUxNOVNtYzFGajhKSUhpaWJ4RXNuZVcyQVpMdDhzd2pqUWZsMF9vUzROTFRZWDVFNWlSRUk1dzdWWXR0QWRBZlZUdWVGLURPVnF1YXNCT0ttZXN3V0dfUXFrclA3VUpYdnd1YVdCdExJb21SYlZITnZwdVdSZjZZWEM2bXp2VQ?oc=5",
+     "quando_utc": "2026-09-03T16:31:00+00:00",
+     "classe": null,
+     "origem": "imprensa_com_fala",
+     "peso": 0.4,
+     "orador_identificado": "Waller",
+     "peso_fonte": 0.8,
+     "motivo_origem": null,
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "along",
+      "august",
+      "hints",
+      "inflation",
+      "pause",
+      "plays",
+      "september",
+      "waller"
+     ]
+    },
+    {
+     "titulo": "Treasury yields fall after Fed's Waller signals support for no rate hike - CNBC",
+     "fonte": "CNBC",
+     "link": "https://news.google.com/rss/articles/CBMibkFVX3lxTE5ZeVk1ak5PdXJlMmRuLTY4cFU2TVd1ZDhrUG9MWnRWTzVXNTJjMUQ1eFFuTzZwQ2tjR05tcDV2VDRCVUJlQXdyc29qbEJpTG1UQ0lGZWdicWNxckMtNFNqcVVCNHg4OHlUcm8ycXFB0gFzQVVfeXFMTzV6UWFJbUNWeHZWOFZlRGVJbzlkQ29UbUI5YjlycVB6Qzlwb0NqeklpRktwYWVyZHMwODA4REtkQWdZM3otQXdmV3V2QmN2WU5ac25OQXhmMTBTZFpMZDRIdmo4MjdxRU0wUzREWG1zamRiYw?oc=5",
+     "quando_utc": "2026-09-03T08:48:50+00:00",
+     "classe": "alta",
+     "origem": "imprensa_com_fala",
+     "peso": 0.4,
+     "orador_identificado": "Waller",
+     "peso_fonte": 0.8,
+     "motivo_origem": null,
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "fall",
+      "hike",
+      "rate",
+      "signals",
+      "support",
+      "treasury",
+      "waller",
+      "yields"
+     ]
+    },
+    {
+     "titulo": "Gold jumps 2% as Fed Governor Waller's comments temper rate hike bets - Reuters",
+     "fonte": "Reuters",
+     "link": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxNTUhNZ1JkRGozUnRmOFd3alQyWTVjNjd4WXp4SmV4anJuRndaaEVRdzlXajB2b1pWUjh5LTJscnFjY0l6QkhINE9MaXAtRVVWVkdrVXZTSlRudFlSU2cxVVlMT1pkN21TTG55MUxyZEkxalhRUGNwRkVNYXZOeWZuX3VsSWx4alNGeENzSzdfSFRvRzlwdHNZRUppTGdIcHMtTUdrU05KV2VoQmNiWTNfOS1kVjNFMzFDQzFR?oc=5",
+     "quando_utc": "2026-09-03T02:41:00+00:00",
+     "classe": "alta",
+     "origem": "imprensa_com_fala",
+     "peso": 0.4,
+     "orador_identificado": "Waller",
+     "peso_fonte": 1.0,
+     "motivo_origem": null,
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "bets",
+      "comments",
+      "gold",
+      "governor",
+      "hike",
+      "jumps",
+      "temper",
+      "waller"
+     ]
+    },
+    {
+     "titulo": "Bond yields fall, stocks rally as Fed's Waller comments curb rate hike bets - Reuters",
+     "fonte": "Reuters",
+     "link": "https://news.google.com/rss/articles/CBMigwFBVV95cUxQZHUxMWV6alo1MWFYM191bnlDTlhjTlc0Y2t0UjE4TndrZW9PczcxTmg5a1M0ZWk5M2Fqb0RvVlNIQWFuNG1nb3BtbjhhM2NmbkhDVENZTF9qYU53UDBWR3ROTl9XSlFDVGNLUF9sN29rSlhZc0xfSGZKcWlFanB4b2R1bw?oc=5",
+     "quando_utc": "2026-09-03T02:02:00+00:00",
+     "classe": "alta",
+     "origem": "imprensa_com_fala",
+     "peso": 0.4,
+     "orador_identificado": "Waller",
+     "peso_fonte": 1.0,
+     "motivo_origem": null,
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "bets",
+      "bond",
+      "comments",
+      "curb",
+      "rally",
+      "stocks",
+      "waller",
+      "yields"
+     ]
+    },
+    {
+     "titulo": "Trump: FIFA World Cup generated over US$18b for US economy - The Malaysian Reserve",
+     "fonte": "The Malaysian Reserve",
+     "link": "https://news.google.com/rss/articles/CBMiogFBVV95cUxNQ3VjaHFmUkVwcHd4Y2dtSERKbUljd2dFMENyTlJOV1JLWVFqSFdzTGhOSnUxd2N4eW1FdW5vczZuYTdzX2d2VjBub21BZ0tORlM4Qy1UTTRHTkpVRWE4cEhTSlNaZ2IwdkxoeEdYbTNBUjdKNDJjQWZPTVZjRnc5S0RORkFyeXg3R0FlclZfQkRXb0pSV21fT0pydFd0ci1sc3c?oc=5",
+     "quando_utc": "2026-09-05T05:06:23+00:00",
+     "classe": null,
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 0.3,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "18b",
+      "cup",
+      "economy",
+      "fifa",
+      "generated",
+      "trump",
+      "world"
+     ]
+    },
+    {
      "titulo": "Opinion | Trump’s new plan to lower interest rates? Extort the Fed. - The Washington Post",
      "fonte": "The Washington Post",
      "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxPb1dGZDNHNGtqTGc0SWdKZWpQd2dXTnh4Wl9NUFNCcFQ1TU4zZFUzSEt1WTlKSFhiU3hJRGo2WTZuS3dYSDRZaHZJZFZYWlhwcC1mWlRpUHhBVFB0M0hmcnhiZlFvWlZFS1VNX0dSMXgtZnJjNVBkLTM2TWk4WnVzSTVybWJGT3dzN2NTRFUyVU5Tamd3OUN5alNySnRGX2lDVUxCejZaWFp1LTNRZ1E?oc=5",
-     "quando_utc": "2026-09-05T01:07:55+00:00",
-     "classe": null
+     "quando_utc": "2026-09-05T05:04:51+00:00",
+     "classe": null,
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 0.6,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "extort",
+      "fed",
+      "interest",
+      "lower",
+      "plan",
+      "rates",
+      "trump"
+     ]
     },
     {
      "titulo": "Here’s why wages are falling behind inflation, an economic warning sign - The Washington Post",
      "fonte": "The Washington Post",
      "link": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxNYXMyTVFzaXpSUEZfd2JiMUxIa1FaTWFyalE1WUJtejVvX0RzNURQcGhxNllPQTdKR096dzJ4c3gxdE9SMVB3SUlUbXJ5STV4amtmdUF2OWl1b29rUkNnSzQtSzB1TDM1ZUdqTG1jWmRIV2FGbmM4dUdJUUhDVFlHU2g0azBoMEpHMTZYR3E2V1ZmUExEYlZOTkgyWGVZNXJfQWJ6NV9yNkFuVmp2Ym9CZ0pka1c5OHp0QzhXQ1RodWVMUQ?oc=5",
-     "quando_utc": "2026-09-05T00:59:32+00:00",
-     "classe": null
+     "quando_utc": "2026-09-05T04:56:26+00:00",
+     "classe": null,
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 0.6,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "behind",
+      "economic",
+      "falling",
+      "here",
+      "inflation",
+      "sign",
+      "wages",
+      "warning"
+     ]
     },
     {
      "titulo": "Trump demands Fed rate cut, reasserts pressure - China Daily Global Edition",
      "fonte": "China Daily Global Edition",
      "link": "https://news.google.com/rss/articles/CBMiggFBVV95cUxQdnAwSGtZVTMyTlh2RlJPUHowYUV0bVFsNVhGMDNHM21qNjVvcFlVeTgzakpuTGxGekVaY3E4ck1BNUJpbWtkdmIwTlduWmZjYVFoRldoS1FYQ25GbVBzX2MtLXNpajFFNjdpMzhJeGJ5alA2QzdHYXdWcW9RSVFaRFhR?oc=5",
      "quando_utc": "2026-09-05T00:26:49+00:00",
-     "classe": "corte"
+     "classe": "corte",
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 0.3,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "cut",
+      "demands",
+      "fed",
+      "pressure",
+      "rate",
+      "reasserts",
+      "trump"
+     ]
     },
     {
-     "titulo": "U.S. Hiring Jumps, an Encouraging Sign for the Economy - The New York Times",
+     "titulo": "Jobs Report Live Updates: U.S. Hiring Jumps, an Encouraging Sign for the Economy - The New York Times",
      "fonte": "The New York Times",
      "link": "https://news.google.com/rss/articles/CBMid0FVX3lxTE1uWnNDV3Q2ZXZINW9nT3FBQ1ktcUxBQ2ZIazNtN3JIYU4yaWJHWnJWQm83UlpyR3N1N0JkWk56b0JEWTFub1YwdmNDeUpLTlh4dVQtLUduY19QZDB6T1M1RFB1dXcyNlJJaktzVE5MdXMwVWFzN1lZ?oc=5",
-     "quando_utc": "2026-09-05T00:26:26+00:00",
-     "classe": null
+     "quando_utc": "2026-09-05T00:26:00+00:00",
+     "classe": null,
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 0.6,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "economy",
+      "encouraging",
+      "hiring",
+      "jobs",
+      "jumps",
+      "sign"
+     ]
     },
     {
      "titulo": "August Jobs Report Shows Stronger Hiring as Gas Prices Remain High - NBC Palm Springs",
      "fonte": "NBC Palm Springs",
      "link": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxQWHVVTEdyVUFaTnF6NlBKM2tEQlhlUkJhSndzZkRvX3RnR3BGZGstZjBzTkl5eVFBVG5iOG80ZFZPM0xsWi1vVnJlTG9lMFhFY1NERGoxUHU3T1V3RXFkakVrdzVWVlRybzhMai1TSDBueDh1WFVwQ09DOGUyZENxMnBfNk5QU1FkV1hOWEl2cEVaa29Zd0xrVzl5UDhwMWpXRHBETmg1Y25uSjYyeF9aSmQ5UFdVWWJGYlhWWVNhSTVZZw?oc=5",
      "quando_utc": "2026-09-04T23:15:00+00:00",
-     "classe": null
-    },
-    {
-     "titulo": "The U.S. economy added 162,000 jobs in August, beating expectations - The Washington Post",
-     "fonte": "The Washington Post",
-     "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxNOEZSSExUMkVpTnFpOER4MTU3Zzh2YXRzUjRkeHh3NXFydXRyQTA3Y0xHUUJWeGNpZ3poOGlNdGhCVlNlUld5NHB0Wm9KWVZKWmdCMklSNUFLbkQ4aGVSUnh1dTZrU2VGTDdoa09ka0Y1X203dXJDamdCT1VOaG9nakxpQXczUk9Ka05XWV82MXozSWdJWi1mTFp3NldxSlN4bC1HbzRWM1JSNlp1?oc=5",
-     "quando_utc": "2026-09-04T23:06:05+00:00",
-     "classe": null
+     "classe": null,
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 0.3,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "august",
+      "high",
+      "hiring",
+      "jobs",
+      "prices",
+      "remain",
+      "shows",
+      "stronger"
+     ]
     },
     {
      "titulo": "Wall Street ends lower as solid jobs data fuels hawkish Fed bets - Reuters",
      "fonte": "Reuters",
      "link": "https://news.google.com/rss/articles/CBMimgFBVV95cUxNeHN0dDlKUW5GZFotZml1LU1iRHB2dkFERDZDbVhFTUdZcFJtQmdqNFhDS0RsUk9PNEdCVGhTdVEydUZWd1FfM3dENlVFYV9QeXRNX2NWSjN2cS1NRVZ6YjU0WGRqQmJKMkZGOEczeHBzenpSS3Z4aEdZUms1a0RhcWUyOGdKM0ZrUk43N0J1aXBRUi1neE1rcFFR?oc=5",
      "quando_utc": "2026-09-04T22:57:36+00:00",
-     "classe": "alta"
+     "classe": "alta",
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 1.0,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "bets",
+      "data",
+      "ends",
+      "fuels",
+      "hawkish",
+      "lower",
+      "solid",
+      "street"
+     ]
     },
     {
-     "titulo": "US. adds 162,000 jobs in August as hiring rebounds - Taunton Daily Gazette",
-     "fonte": "Taunton Daily Gazette",
-     "link": "https://news.google.com/rss/articles/CBMizwFBVV95cUxQWEF0SWNjRWVmWUgzV0RINmlJSEdVNVJncVhXNldIZkp6MXdJdDZqSTdpRnBxTXZRUWpMSGRVdHpzMWJTVEFVS1Y4U0s0b2VUWVMtZTdHRkw0elVHeDlpS240WWhwVTRvODBIZDZhVUJiY192ZVZ2MGtxbmxaTy1VaEJjWWI0cUVJc1J5bFI0aDkzeWFSU3NmVnVreTFjNmFucmcyXzBrVzJvWEtwVmMyam1wNVZIRHI5RGwzalBZR3VZVzdhWjFobWJaS3R4SEU?oc=5",
-     "quando_utc": "2026-09-04T22:42:58+00:00",
-     "classe": null
-    },
-    {
-     "titulo": "Robust Hiring Reinforces Strength of the U.S. Economy - The New York Times",
-     "fonte": "The New York Times",
-     "link": "https://news.google.com/rss/articles/CBMif0FVX3lxTE5mWDRscnZfaGhVVkF1bVAxQktJdVFyNWl3VEM2eFVfVk5Bdl9DLWFUeUxFemNSN21BYW4ySC1QSmRKQ3FFem5DeEZIcmM5YUNsdHNjZGZpNFlYU1EtdEFtVzdEX0E3cWg2dXFRY0dVQ0VzUWMyZXNSbWVEYzhIU2s?oc=5",
-     "quando_utc": "2026-09-04T22:41:51+00:00",
-     "classe": null
+     "titulo": "Citigroup delays Fed rate-cut forecast to 2027 after strong U.S. jobs report - Reuters",
+     "fonte": "Reuters",
+     "link": "https://news.google.com/rss/articles/CBMitwFBVV95cUxQQnlBSDN4T3YxTDREQ3A2YnFhZ1lUN2E2dm1tZmxjb0tLaHFLUlFSN3NOdERlUFM0ZjBXZUhYOU54T2tKeU5saXBLWjk3dDZxTHl0ZXIxem40LU80bVE1V1ZwYVdUalhtMmVtSGtpRVFCX3F5NVpuUWlOR3o3UDZjcVBVd3N1SFBoR2NIT040R3VGX2xzZm91cVZEQ1JndFFoT3JqdzZWWl9PR2s0OGp2RWVsUUJteGM?oc=5",
+     "quando_utc": "2026-09-04T22:49:54+00:00",
+     "classe": null,
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 1.0,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "2027",
+      "citigroup",
+      "cut",
+      "delays",
+      "forecast",
+      "jobs",
+      "rate",
+      "strong"
+     ]
     },
     {
      "titulo": "Strong job gains signal Fed hike as Trump levels new rate-cut demand - Reuters",
      "fonte": "Reuters",
      "link": "https://news.google.com/rss/articles/CBMimgFBVV95cUxOOF9yZEh3LUNwbXhOOE05b01rVHlLVld4OXkwYXdOczZxZF9DUTUxVU9Ta3pCTGRla0RfMXZTR1phZEx6aVU0VmRWcGVZZzlsd3dhZF9yYjc0UHFfaUZMNEoxaElSSE1YSzY5aEExTEMzNV9oOVpSSEc1SXlsZ0R5UkF4cFFMTWVxQi1SYk43cDlhU204aklNNzhB?oc=5",
      "quando_utc": "2026-09-04T22:26:00+00:00",
-     "classe": null
-    },
-    {
-     "titulo": "US. adds 162,000 jobs in August as hiring rebounds - Livingston Daily",
-     "fonte": "Livingston Daily",
-     "link": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxObHpvSWlKYVpWNzJ0Wm01ck5iRHlzZUVyeHBnbzNNQmVmSDN4SkV5QTZZSmhCamRhS1RBSjRnQnd5b2djbkN3TlA3UENwM2dkMi1yU185bTgtOUZNSVRqT0dOYUVRZzlVNDRvSTl1NXQ4aFpEeUp1V05URzJmTnNDdVlLZ1R1V0tyVDdXdkJhc3pKTTNZbWxhaElucVc3cnNCVE9UYXJPc0JxZVptRUExdnRtMlJuR1hvREd2Q0hkX2gxZW54Wk5BcVBpaW1LTVVx?oc=5",
-     "quando_utc": "2026-09-04T22:15:28+00:00",
-     "classe": null
-    },
-    {
-     "titulo": "Trump Says More Insane Things About the Federal Reserve - National Review",
-     "fonte": "National Review",
-     "link": "https://news.google.com/rss/articles/CBMimgFBVV95cUxOaGVmcENQOWtjblZJMmQtWi12cExlTDM5eDdQU2tNaEMyaFgxeHJXOWpNakpfVDEwa2MybnN0Y0k1b05mWVVEQU00LUplSGQtNnA3c0lGMXZDbnBYTUNfckYwQlhYZmlpcDd1UTZmdGxlYXpQQ1licmVzeDY0TU83dS1rYUNIbmQ5SmZpZFNVS1RsSlYzQjNRVjBB0gGfAUFVX3lxTE9TSkw2d1RDZDJtNWN0LXZDS1dXeEJtZkZabEEzNGNFWHB0cUJ5TjNLRW43ZThHa19WeERZM09NaEd4b25wb0xSOWZRd0NwbGFpVWU4ZmpDMEVyWTVXeU4yYUN0TzdJelFaRzRfZ1hkQ2Y0VnQ2cTZfcWdmOFJnY1BPZm96NWJYSW9mdDJfTWN1SngxMWpVWWJudFZidHBfdw?oc=5",
-     "quando_utc": "2026-09-04T22:06:45+00:00",
-     "classe": null
-    },
-    {
-     "titulo": "Trump threatens trade action over Fed interest rates - WWNY",
-     "fonte": "WWNY",
-     "link": "https://news.google.com/rss/articles/CBMikAFBVV95cUxOcGZtOFZzMEMzSW92Q09DZUFuQlh1NndIRDlSNWNCS0hlb3RtU1ZVbHE1UHFmMWlEeVB2QU1RUUtoVVZ0WkxORDdmemh0T0ZlcV9odXZGM3kwTzVYeW9zMVdmTlZKTzlyVnpjcWZzcUNVYlNOSUFDa051dU9oZEFhbHhreE02MnNDTkpGQVM4eTHSAaQBQVVfeXFMTV8yS3gtbmpOWk1mUDhMRm9zOUs1b3ZFVk5RejU2V1lmV2FBa3pDVXAtS0lnVFdPWnBOdXhOUVF2cmNJR0ZEVVFzVFBfaFktRHhFNGpENHRMaVBTMkVmaVlPcG9YeVFlb1NyTXFJVndTR3JDZ1doQWN2NVduaFlqM3I0eEVBTUJFcnhjOE1QaW5aaW8tbjB6THBhS0lFRzhzU0ZuMXQ?oc=5",
-     "quando_utc": "2026-09-04T21:55:00+00:00",
-     "classe": null
-    },
-    {
-     "titulo": "Economy added 162,000 jobs in August, beating expectations - thedailyrecord.com",
-     "fonte": "thedailyrecord.com",
-     "link": "https://news.google.com/rss/articles/CBMifkFVX3lxTFBzYmp1Y2RRNHRzUmJ5eUxNbkFSQlA5czRveU1XVG54eTdPT0RfZTZLNHpZS2pyazFmemxpZ2c0LTJod1QxMDBfSzN5WjFnLUdOMzJ1WHJTeVMwcGVqUWZJdWNMV2dyTWVocHlPTWhyeDEyNW1ydDc2VHhtbWNlQQ?oc=5",
-     "quando_utc": "2026-09-04T21:05:51+00:00",
-     "classe": null
+     "classe": null,
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 1.0,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "demand",
+      "gains",
+      "hike",
+      "levels",
+      "rate",
+      "signal",
+      "strong",
+      "trump"
+     ]
     }
    ],
-   "n_72h": 121,
+   "n_72h": 135,
+   "n_unicos": 113,
+   "duplicatas_removidas": 22,
    "contagem": {
     "alta": 17,
     "corte": 12,
     "mantem": 1
+   },
+   "contagem_nota": "CONTEXTO: conta todos os eventos unicos das 72 h. Nao e voto — manchete tem peso 0,0 na hierarquia de origem.",
+   "contagem_voto": {
+    "alta": 3,
+    "corte": 0,
+    "mantem": 0
+   },
+   "voto": {
+    "vota": true,
+    "peso": 0.4,
+    "origem": "imprensa_com_fala",
+    "direcao": "SOBE",
+    "n_falas": 5,
+    "oradores": [
+     "Waller"
+    ],
+    "fontes": [
+     "Barron's",
+     "CNBC",
+     "Reuters"
+    ],
+    "rotulo": "fala de dirigente reproduzida pela imprensa — peso 0,4"
+   },
+   "banco_bloqueia_automacao": false,
+   "rotulo_contexto": null,
+   "por_origem": {
+    "imprensa_com_fala": 5,
+    "manchete": 108
+   },
+   "n_cita_dirigente": 15,
+   "motivos_sem_voto": {
+    "sem dirigente nomeado": 98,
+    "dirigente citado, sem verbo de fala": 7,
+    "dirigente e verbo, veiculo abaixo do limiar": 3
    },
    "inclinacao_por_manchete": "alta"
   },
   "EUR": {
    "itens": [
     {
+     "titulo": "Nordea Sees Eurozone Inflation Above ECB Target Until 2027, Keeping Rate Rises in Focus - vtmarkets.com",
+     "fonte": "vtmarkets.com",
+     "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxOOXk2UjQ1THJxdzBSQUpxMDNzQnNlTFl1RERrcWp2VWlDcVhocG1ScktpeUl1bnp2SmtReHdEUHpsS0JTZjFQb2tWTUpzVHB1dW45N1lobDBPWDY2UzlfdkJZVHUwRnQ0QkViRGRNSXhGeGItZlRBMjc1eHltV1RjVEJEb1dlTjhjMWlBQzZwNGVMM3hJN0pjYVRHRkJFbVF5dE9DNUhoZ1gwcnV2ZjBXM19iLXBuRzNMeklBRS1EU0pPYWpH?oc=5",
+     "quando_utc": "2026-09-05T04:03:44+00:00",
+     "classe": "alta",
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 0.3,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "above",
+      "eurozone",
+      "focus",
+      "inflation",
+      "keeping",
+      "nordea",
+      "rises",
+      "target"
+     ]
+    },
+    {
      "titulo": "Week Ahead: ECB Rate Decision, US CPI, PPI and BOJ Could Drive Markets Next Week - equiti.com",
      "fonte": "equiti.com",
      "link": "https://news.google.com/rss/articles/CBMi_AFBVV95cUxQMldkZkVIbV9NTEtCSHVwdDd6TVMwX1pXTFNJQWdvTk10X1RpX2Q2UFZKVVZwb1JUbnozbXFVazR4bEVrYWpjTFh5UTJoRkprX2otWHFqcGhkaF9LMmdiWFFjSUQ3Q2loTHFDVDBvZFo4d0hOc0FJcWJfNjJNa212czVYelp0NnlPWTc5X1ZCRmNOLUZNc0J2SkJkbXROcEF0VFNKV21EQkd6LUQwNHVZOWRac1dpaUItSDFKbndXMlNOeGotdUswZ2l5MWZEczF3cWJQeWx1cVc3RENZU1BNNld0Wm14bFA1V0xpV1NOaXdlTGhLdjNockQyR0k?oc=5",
      "quando_utc": "2026-09-05T00:00:00+00:00",
-     "classe": null
-    },
-    {
-     "titulo": "Lessons of history as ECB and Fed decide interest rate moves - Forex Factory",
-     "fonte": "Forex Factory",
-     "link": "https://news.google.com/rss/articles/CBMiigFBVV95cUxNTHBQTlRMVjZBVW1zcTc2c19UeEZzUVJpV1hacWRMUDVYbWRNcWNkQjlUVnBPdjB6djFHeUpUdmVMQnEyZlcxSDZvR1NfQkM3VTk5UldCV1N5ZGNIRkl4VlBCaml0ZE9xaGJ3S0JHQzk1Znh0QnNUTWhYNnlwdWZUcGRZUWxpbThSSWfSAY8BQVVfeXFMT1c1T1pQZWx1dDMxSzVZTlpkeE5oMEVRd1hXY1R5cDBwRlFzZFBRTzNjdjF5bENrbWNudUg4WEc2aVZJN1NVRUZyTlppOXhYNTJFTjN2SjNZX2hlTmNpZG4yNDlxVzV0eTNHLWkycnRUa2RYcmZ6N19qT3pRWURYM20wNFZWVzBGQjNndjBHSk0?oc=5",
-     "quando_utc": "2026-09-04T19:38:00+00:00",
-     "classe": null
+     "classe": null,
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 0.3,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "ahead",
+      "boj",
+      "decision",
+      "drive",
+      "markets",
+      "next",
+      "rate",
+      "week"
+     ]
     },
     {
      "titulo": "Eurozone: Inflation above target into 2027 – Nordea - FXStreet",
      "fonte": "FXStreet",
      "link": "https://news.google.com/rss/articles/CBMilgFBVV95cUxOajhZcFNFZ2F6b0dTeW5HWEFYMHM0RGZrMG5hUzBUbGJVZHVTNXRnbkgwSDFqb1kyNWV0dEdnbHFONDRzRXRwVDVMZ0Z4MGFhZzV6UkdKbUFMNUI3ak5PdjZzSTktTlluckhNejZSY2xMT0pVaE14NUtmdzRpYVdkOTQ4cXNIZzRRbmVwcGtUQW41ajlhZHc?oc=5",
      "quando_utc": "2026-09-04T18:50:36+00:00",
-     "classe": null
+     "classe": null,
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 0.3,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "2027",
+      "above",
+      "eurozone",
+      "inflation",
+      "nordea",
+      "target"
+     ]
     },
     {
      "titulo": "Lessons of history as ECB and Fed decide interest rate moves - OMFIF",
      "fonte": "OMFIF",
      "link": "https://news.google.com/rss/articles/CBMilgFBVV95cUxPbHYteGxVRXFaeDJSZktOdzlyVXN5VGd2RnF5YkR0R09JcC0wYzhzbndjdTE2RFdTd1VXNmhxSG9oT1FZQUV2T3BPRS01cXFCc1NNRkNQLUNTbEstX2hOTUk4aExvZFl3VFVadWRwZ3FrS0YydWplMTEzTTEyUmEyX3RJYTlDWWltYWNSclRPYnhhNVRMWEE?oc=5",
      "quando_utc": "2026-09-04T18:37:32+00:00",
-     "classe": null
-    },
-    {
-     "titulo": "Euro zone yields dip but head for fourth weekly rise on inflation fears - Devdiscourse",
-     "fonte": "Devdiscourse",
-     "link": "https://news.google.com/rss/articles/CBMiygFBVV95cUxPSDhxQ3h4VnlfTENFTTJyNjNnTzduM1l1YWFxNnlTYXZIQnBVYWtJUm5xTi05WHFINDg2M3ZwMDVZQ2hwNHJTODJjSTh6SzVUakNWTV8yVUxkNUZvdEtpZkFnRzlrZlAxMV94U3BnY0JGUGhVeVlUSld4bUIyUW5ySEhqVFR0dkJySE1VckVaOU5qakJzdlRNc2NyWGY5d3N1eFdqRC1LcGVTTldzNlF2RHBURG1weWVULVNKVHViNzdVN2VPYjEwVURR0gHPAUFVX3lxTE1RVWJ4cHl6TE4tZWF5NlBCbTlDMU9NYVYtcm92VE9zVmNyRC0xMXhjMmFWRkY3OVJjdXNneS1hSFc5MS1YZlFHQWlhS3o4LVBTX3pVNTFaeVN5SFJvbDByb3RSdWVsa1FGWENDS3lvZTNIRVdTZ1IydWl6YTFRdVZhM1AzMjlvNl9Od1dKbEh0S1htNDQ5YlFjZy1BNEtlTnhlaTVBYXdpMFVlSWd4bTkxRjRkZkhBTXFZc3AyQjM5OURhZ1ZXZkNSc0JDbHVSTQ?oc=5",
-     "quando_utc": "2026-09-04T15:18:55+00:00",
-     "classe": null
+     "classe": null,
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 0.3,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "decide",
+      "ecb",
+      "fed",
+      "history",
+      "interest",
+      "lessons",
+      "moves",
+      "rate"
+     ]
     },
     {
      "titulo": "Euro zone yields dip but head for fourth weekly rise on inflation fears - TradingView",
      "fonte": "TradingView",
      "link": "https://news.google.com/rss/articles/CBMi2AFBVV95cUxOT2l3eklXdmlxcWhtUUE1Z3pHUFk0Y09qSW5JLTVUZkNac3RaM2NOSUl5N2lKaUVTeUpxTkxsaXRZUFNmX2NvcFdKWUFvdDlyeDRDY0JfeUdLVk03M0wyQ3hzSldGTGd1SGFyak1FMUNIcWU1Zl9TeEFOZW0wYTVnM0xFbVVnanFmSWVnWmtSNm9ZMTV4d1VOcDZyMnFfVUhvM3ZoUTVyWGlHdTNTd010SUhqU3MwZzdadF9WNFE2Umpib013NnRvZ0Jsa0dFdkhRU29ZWXBlMXU?oc=5",
      "quando_utc": "2026-09-04T15:18:16+00:00",
-     "classe": null
+     "classe": null,
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 0.3,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 2,
+     "duplicatas": [
+      {
+       "fonte": "Devdiscourse",
+       "titulo": "Euro zone yields dip but head for fourth weekly rise on inflation fears - Devdiscourse"
+      }
+     ],
+     "assinatura": [
+      "euro",
+      "fears",
+      "fourth",
+      "head",
+      "inflation",
+      "rise",
+      "weekly",
+      "yields"
+     ]
     },
     {
      "titulo": "Week Ahead for FX, Bonds: U.S. Inflation Data in Focus; ECB Expected to Raise Rates - WSJ",
      "fonte": "WSJ",
      "link": "https://news.google.com/rss/articles/CBMitwFBVV95cUxPYUg3NndUYW1HNGpfSzJxNUVyU3A1ZzFVbXhGMjBhVndjbFpZaHM4c0N4NTdsczFkS19XUkFEbHAyazFvbXA4T1RmY2thTUpYZHdMTXZGLTk5d1NuNmJGeGhZWnp4RFdGXzNtakUzWVpBVXhxUDZxOGFPamVmZFRQUkJ4el9ETUgxbTByc25JRGVwcGo4RlhtMTZBeUJfMGFjeC0yb212QXNPZk9wZEU3T0hZU0NSSWM?oc=5",
-     "quando_utc": "2026-09-04T15:09:00+00:00",
-     "classe": "alta"
+     "quando_utc": "2026-09-04T15:10:35+00:00",
+     "classe": "alta",
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 1.0,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "ahead",
+      "bonds",
+      "data",
+      "expected",
+      "focus",
+      "inflation",
+      "raise",
+      "rates"
+     ]
     },
     {
      "titulo": "EUR/USD Forecast: Market bets on Fed hikes as Chair Warsh faces Trump pressure - FXStreet",
      "fonte": "FXStreet",
      "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxNMjFiNFB3YXlWSmxGTHlTQlU3Vk5naDRrZGlXZHZTU2ZsYmMwLXdGZ2JJenVsQVdBcTVnOENhQVNXSzZpREp5dEtXT0RmUEtZdDFjMjhyQVVJdGZJYVpKdWd4cmdveFJGVkJYOVFIdmhOcHhCU2N0TU1WN1gzbmFITXRiMGpTUnNWejFoWW9GNlB6VHYtekxUbldVNktrQkptQU9wdUo3MjBvYW5vWW5JOEQ4T3hrU3RV?oc=5",
      "quando_utc": "2026-09-04T14:57:11+00:00",
-     "classe": null
+     "classe": null,
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 0.3,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "chair",
+      "faces",
+      "forecast",
+      "hikes",
+      "market",
+      "pressure",
+      "trump",
+      "warsh"
+     ]
     },
     {
      "titulo": "The Week Ahead: ECB rate decision, US CPI, Oracle earnings - CMC Markets",
      "fonte": "CMC Markets",
      "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxPU24xVlRqSng5YlRheG5aNHg3MkVWbkZpekMwMGw0aVVPbXVIZTRXZU1sU0UwMlVvdzlZaUY5M2xWTDdnd0FUSWE0a0JRWldOalVUZ2p1RXZEWXNYNi1pQ2Z6dTUwV1BjeXRyZWQwUm9VUUxrdXRvUk5CZk90a2Fob1lWaTBpOTdwdzdkSDVfamtXNzcwaWJNMkVxYTZ2d3BlQ1Q5VWVval83UQ?oc=5",
      "quando_utc": "2026-09-04T12:02:27+00:00",
-     "classe": null
+     "classe": null,
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 0.3,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "ahead",
+      "cpi",
+      "decision",
+      "earnings",
+      "ecb",
+      "oracle",
+      "rate",
+      "week"
+     ]
     },
     {
      "titulo": "ECB Rate Decision: What to Expect on Thursday - Morningstar",
      "fonte": "Morningstar",
      "link": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxOZ0hZN1VOWWJHbTRyMlIxWmlSRURSMlU0OE0wS3BjbnZSTDhnX1pucFZwaFBjelJMalFTcnFnTHhLaHBkSkdDVmZQSnNCRnl6Y0NESTlYRjAwTmlxblVqOGhaTl9zMHdUXzVBdVp0akJ0VURJd2xydnBFZ3pZdDNvX1RzdTBHYkxkMkxV?oc=5",
      "quando_utc": "2026-09-04T10:39:25+00:00",
-     "classe": null
+     "classe": null,
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 0.3,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "decision",
+      "ecb",
+      "expect",
+      "rate",
+      "thursday"
+     ]
     },
     {
      "titulo": "Soft Retail Sales Reveal Cracks in Eurozone Resilience to Energy Shock - WSJ",
      "fonte": "WSJ",
      "link": "https://news.google.com/rss/articles/CBMikwFBVV95cUxQOElKZUdoRXVyMWl4T3FpNzhaWEhOZkVUV0gwY2l1VHNyRzg1YWtPRjhSQl9KNjhycExyUzBLTFluZWZ5M2IxbGRaR1lwQ3A2emdUeTljTHY2VFZDWUNOWmN0cVRmR016SlVWSUNJNDQ1WVRtWTVtRS1tOFlfS1pRRUlpaU9JYmFDbjg2Ni1Oc2FHaVU?oc=5",
      "quando_utc": "2026-09-04T10:31:00+00:00",
-     "classe": null
-    },
-    {
-     "titulo": "The Bond Markets Are Pushing Up Rates. Will Central Banks Follow? - The New York Times",
-     "fonte": "The New York Times",
-     "link": "https://news.google.com/rss/articles/CBMihwFBVV95cUxQVVl1MHdpSGJrVmVLd1pJbkIyMmU4Uk5FcDlqZnF2d1lmMGpVbDBuLU5ROGZCeDM2d3hoXzg2cDZuVEk5N25qQnloeVVxYUpkNEhwYkViYTZCUS1FZW00dDhlNXRJQXlrcXFvdENWZElrZ290bzJQdmp4T1lkZktNMTZVLThNUlk?oc=5",
-     "quando_utc": "2026-09-04T09:03:39+00:00",
-     "classe": null
-    },
-    {
-     "titulo": "US Market: J.P. Morgan, BNP Paribas expect ECB rate hike in December as inflation risks persist - The Economic Times",
-     "fonte": "The Economic Times",
-     "link": "https://news.google.com/rss/articles/CBMijwJBVV95cUxPN3VJOE10aExkSXQtYVdqZ2V2UzM1dVVrTDRoSGMtODVFWU5HaGotbE0xQjd3QWdOaTIyU1hBaWZHd0tabDhXeXhIZEVDNXRDQlBiY25yZE5UeUU5RzlrMjhjaXlhSmFvWUw0bEgwX21ZMldOTEd6ZUZuZHNHZTFuMjZoRnUyVnJnNmpfOGgyVlZMNlVpWTB4cExjaURBcGEzVTlleFplNzV0eVVGRXoySEstMmlpcDl1N2Y1bmVkbE45cklyZ1NPR1Rqb2UzNmN0bzdvOHN0N2xQRXIyUE0wcFEyY3RMV2FndXBJR2dSYTJfNndsalViTGpEQXBJY3V2OTA4SWduWk1IUnkySkY00gGUAkFVX3lxTE1faHl2LVFMUEFEMWEyWGNSbXZpb0lEZVdYRzZybEV5V2FTcHU4TFIyandjRVJUX01zc1IwcTFwNGx1SVZFVDA0QWdOTUZJTk9iQWxXZlNULUVoTTM3RnZrQkxXX0ptQnAzckh1bjl0RS1nY0h4TnRjT21XeWJPbjJvZEROZ2JQVFotU3FBSVE4R2xfMVBWN3cycDFIUEVkTHB6TGJOWnkzOEFWa09kS2RqckhnSHhKQWh5S0x5LXlPWTJLcklqY3BkUDktNEJmTlFRTDZ5REY0RG10OHZoTzV6UmNheTdCNTcxMG5KdGdKdzF4Mi14ZldlYkthcU9zOTRUY2pEQU5lYTd2ZVVtbWlWam1QWA?oc=5",
-     "quando_utc": "2026-09-04T07:46:25+00:00",
-     "classe": "alta"
+     "classe": null,
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 1.0,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "cracks",
+      "energy",
+      "eurozone",
+      "resilience",
+      "retail",
+      "reveal",
+      "sales",
+      "shock"
+     ]
     },
     {
      "titulo": "J.P. Morgan, BNP Paribas forecast December ECB rate hike as energy risks linger - Reuters",
      "fonte": "Reuters",
      "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxOUEh1RmFhQk5Kci13U0RvVktiWEhUdDNpOTNtVDNNRTg3WlpoMzlZaHBZOGJMcXdMNFlpRnRUeThkaWNScVBpclJWT0RnRUFxQ2xDY1NTNTNTVzBHcWhTMG5wQklVUTVLSmF4OFdKZzRPZFhfdVRvV1N3VDQ2b1l4Sl95RWhVa05sdTBPS09qck1BQk5uOGpyNTdrWnJrV3RsOVdraXhUdTRXZUxVWmZXU3RObXhndlVkM1E?oc=5",
-     "quando_utc": "2026-09-04T06:31:26+00:00",
-     "classe": "alta"
+     "quando_utc": "2026-09-04T06:23:00+00:00",
+     "classe": "alta",
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 1.0,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "december",
+      "energy",
+      "forecast",
+      "hike",
+      "linger",
+      "morgan",
+      "paribas",
+      "risks"
+     ]
+    },
+    {
+     "titulo": "Eurozone Economy Maintains Solid Growth in August - Novinite.com",
+     "fonte": "Novinite.com",
+     "link": "https://news.google.com/rss/articles/CBMilAFBVV95cUxPcjlnanVGc05EUzhSVWVneDZkMExIMXJwQzEzVE9lc19wU08zOGVpZXJQLTRkVjl6eENFX2xfTDBpNzdzRHJWY0kxNE54UDliZ0hYQ1l1Tk1FWXdhQXl3aE1NcG5sOHVUVWt1SkJsWlR2UG5lTmItbVp3WnVDMS1CeHBQRV91aFlLV29hOXItWnM3eXhh?oc=5",
+     "quando_utc": "2026-09-04T06:06:07+00:00",
+     "classe": null,
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 0.3,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "august",
+      "economy",
+      "eurozone",
+      "growth",
+      "maintains",
+      "solid"
+     ]
+    },
+    {
+     "titulo": "Economists See Final ECB Hike Next Week in Split With Markets - Bloomberg.com",
+     "fonte": "Bloomberg.com",
+     "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxOZ0tQNUIyVmpMb1l2bi05YWVhSTlNTEctbFFueTZVRFNpaVJ3MjF3bk5oUjJvQXpvWGhRRGg2MkgtNWNtdEszOUJZRERDS2dTVFNCWm9ZcFpldTdyOU9fMmd5elcxNEFZbmdBbGc0SjEwanZXZERNV19GQWRRSmVKYlJsdkNud2U3QjdrcEZDWFZZQkstX1NJWUh6a0U2OEhQbEZMSWNfVzhWSWtFREI1NFRn?oc=5",
+     "quando_utc": "2026-09-04T04:15:00+00:00",
+     "classe": null,
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 1.0,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 2,
+     "duplicatas": [
+      {
+       "fonte": "Bloomberg.com",
+       "titulo": "Watch Economists See Final ECB Rate Hike Next Week - Bloomberg.com"
+      }
+     ],
+     "assinatura": [
+      "ecb",
+      "economists",
+      "final",
+      "hike",
+      "next",
+      "rate",
+      "see",
+      "week"
+     ]
+    },
+    {
+     "titulo": "Eurozone Economy Remains Resilient - seekingalpha.com",
+     "fonte": "seekingalpha.com",
+     "link": "https://news.google.com/rss/articles/CBMigAFBVV95cUxQRUZ1cTlUSVZYelpzMVRyUXVmSFNCZ2ZhaDhTekNSSjczVG9PbENndnA0V2lHZ2pvbm43TXc0c0o0bE5jMW9KeS1DMW10dndPRmh3RVBwWjRYcFhSQmtRelE3VUtwRW9EY1pHdWc4U3VmaFRSX2pKb0s2Vkp4NFFsUg?oc=5",
+     "quando_utc": "2026-09-03T14:46:00+00:00",
+     "classe": null,
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 0.3,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "economy",
+      "eurozone",
+      "remains",
+      "resilient"
+     ]
     }
    ],
-   "n_72h": 34,
+   "n_72h": 28,
+   "n_unicos": 26,
+   "duplicatas_removidas": 2,
    "contagem": {
-    "alta": 10,
+    "alta": 7,
     "corte": 0,
     "mantem": 0
+   },
+   "contagem_nota": "CONTEXTO: conta todos os eventos unicos das 72 h. Nao e voto — manchete tem peso 0,0 na hierarquia de origem.",
+   "contagem_voto": {
+    "alta": 0,
+    "corte": 0,
+    "mantem": 0
+   },
+   "voto": {
+    "vota": false,
+    "peso": 0.0,
+    "origem": "manchete",
+    "direcao": null,
+    "n_falas": 0,
+    "oradores": [],
+    "fontes": [],
+    "rotulo": "so manchete: contexto, nao voto"
+   },
+   "banco_bloqueia_automacao": false,
+   "rotulo_contexto": null,
+   "por_origem": {
+    "imprensa_com_fala": 0,
+    "manchete": 26
+   },
+   "n_cita_dirigente": 0,
+   "motivos_sem_voto": {
+    "sem dirigente nomeado": 26,
+    "dirigente citado, sem verbo de fala": 0,
+    "dirigente e verbo, veiculo abaixo do limiar": 0
    },
    "inclinacao_por_manchete": "alta"
   },
   "GBP": {
    "itens": [
     {
+     "titulo": "Bank of England's Pill says higher rates would help head off inflation pressure - Reuters",
+     "fonte": "Reuters",
+     "link": "https://news.google.com/rss/articles/CBMivAFBVV95cUxQaHhsbm1UN0g3N3lEd0Q3UWlmaHdTYTB1MXhMWkZ4V1Q3WVZsYlhkVWRFVDktZHJjamgybWVpWXdZWGtWMzNlamgyUlZvRk05MEFKQzg1eUtqbVB3aWJzdC16a1NsbEZ6Z24wVzk1ZTgyczZVVEt0dUNsZXpZby1vdEVUYVl5Q1FCcTdVeHVGR1Nvc0tuZlZETTdtRGo4OV9SRkJZTFVvQW1STlNRb2VMakUzS0hUdlZZMUdLNA?oc=5",
+     "quando_utc": "2026-09-03T15:11:44+00:00",
+     "classe": "alta",
+     "origem": "imprensa_com_fala",
+     "peso": 0.4,
+     "orador_identificado": "Pill",
+     "peso_fonte": 1.0,
+     "motivo_origem": null,
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "bank",
+      "england",
+      "head",
+      "help",
+      "higher",
+      "inflation",
+      "pressure",
+      "rates"
+     ]
+    },
+    {
+     "titulo": "Homophones – Remarks by Huw Pill - Bank of England",
+     "fonte": "Bank of England",
+     "link": "https://news.google.com/rss/articles/CBMinwFBVV95cUxPOXJJTUYxalBzQTZaZ0M4VTJqWHVMcWxqMlVXeGFySjhVM3d3aWk4V0lNRXEtR19fWFJFa1pwdGdZN3ZBbDdtemVlUUxCV0pnY1RsdzZuZkcyYlo2b0hWNEFOeGNRZzFaTk9XaVBhMzlBaHZoc1R1THdoX1lMTno0R2VObWw1S0UzNkl5LXdmOW9hVUswRWlDeExWUE1mREU?oc=5",
+     "quando_utc": "2026-09-03T15:00:25+00:00",
+     "classe": null,
+     "origem": "imprensa_com_fala",
+     "peso": 0.4,
+     "orador_identificado": "Huw Pill",
+     "peso_fonte": 1.0,
+     "motivo_origem": null,
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "homophones",
+      "huw",
+      "pill",
+      "remarks"
+     ]
+    },
+    {
      "titulo": "Week Ahead: ECB Rate Decision, US CPI, PPI and BOJ Could Drive Markets Next Week - equiti.com",
      "fonte": "equiti.com",
      "link": "https://news.google.com/rss/articles/CBMi_AFBVV95cUxQMldkZkVIbV9NTEtCSHVwdDd6TVMwX1pXTFNJQWdvTk10X1RpX2Q2UFZKVVZwb1JUbnozbXFVazR4bEVrYWpjTFh5UTJoRkprX2otWHFqcGhkaF9LMmdiWFFjSUQ3Q2loTHFDVDBvZFo4d0hOc0FJcWJfNjJNa212czVYelp0NnlPWTc5X1ZCRmNOLUZNc0J2SkJkbXROcEF0VFNKV21EQkd6LUQwNHVZOWRac1dpaUItSDFKbndXMlNOeGotdUswZ2l5MWZEczF3cWJQeWx1cVc3RENZU1BNNld0Wm14bFA1V0xpV1NOaXdlTGhLdjNockQyR0k?oc=5",
      "quando_utc": "2026-09-05T00:00:00+00:00",
-     "classe": null
+     "classe": null,
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 0.3,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "ahead",
+      "boj",
+      "decision",
+      "drive",
+      "markets",
+      "next",
+      "rate",
+      "week"
+     ]
     },
     {
      "titulo": "Hiring burst of 162,000 jobs in August puts the focus squarely back on inflation in the US - AP News",
      "fonte": "AP News",
      "link": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxPNGZaTEZzXzBNWGd1bHhIYTB6MW5SV09IRnJ5MXV3aEpVVjBJMWNZdElhZHBxWnFjMUpUbVRpallqRWpKYWxRUFdueEU4SDdGb3BqQlVhYUtNaExLSzRadWR3cFhFbktSWFRDNVpZX2J2ZjZkVDNmdnhRc1hyTFBhNG8tQkRKdmtqMlZUM2EtaEtydUtadUpOemJCaWNxQ2NiaEkycVdsTkk?oc=5",
      "quando_utc": "2026-09-04T17:15:00+00:00",
-     "classe": null
+     "classe": null,
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 0.8,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "august",
+      "back",
+      "burst",
+      "focus",
+      "hiring",
+      "inflation",
+      "jobs",
+      "squarely"
+     ]
     },
     {
      "titulo": "‘Captured by crypto’: Fears grow over Farage’s threat to Bank of England independence – and the economy - The Nerve",
      "fonte": "The Nerve",
      "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxPVVlwd2o1a2EyVzV2c3lJS2pVMGtuUVFra1BIeGMteU9UdEgzVlZJcGJtU2ljQ2dhVTh6cVZfcTBPUDNCYTFUeTkzbFZJRjFPVEM4NHJPX1dXd2Jzb0lQWlpkbC16Wk1qTWNiZTFxMzZKaHlrNmJfUi1MM2prWWVYdDJmNkpsN0VQZ0pxblJua0hXYmJmRFNRVjVwMGdEZ3c4V2tWOVZraHRNNGVXYWxZbFhR?oc=5",
      "quando_utc": "2026-09-04T16:59:00+00:00",
-     "classe": null
+     "classe": null,
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 0.3,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "captured",
+      "crypto",
+      "economy",
+      "england",
+      "farage",
+      "fears",
+      "independence",
+      "threat"
+     ]
     },
     {
      "titulo": "CEE & CCA week ahead: Central bank decisions and inflation data in focus - ING THINK Economic and financial analysis | ING THINK",
      "fonte": "ING THINK Economic and financial analysi",
      "link": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE9XbXhsTEtlRHlCUUpkX194SkY3aW42eTM4cnQ3TkNiYVhLRGk5d3Jtdjg1UC1mUXNMSHU3LWpKT0tCQUdXeG9ZM21Fa2UxVDg3aW8wTTVoM1hqakFjbFNmbXoyRWtpUnJT?oc=5",
      "quando_utc": "2026-09-04T16:03:36+00:00",
-     "classe": null
+     "classe": null,
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 0.3,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "ahead",
+      "bank",
+      "central",
+      "data",
+      "decisions",
+      "focus",
+      "inflation",
+      "week"
+     ]
     },
     {
      "titulo": "Week Ahead for FX, Bonds: U.S. Inflation Data in Focus; ECB Expected to Raise Rates - WSJ",
      "fonte": "WSJ",
      "link": "https://news.google.com/rss/articles/CBMitwFBVV95cUxPYUg3NndUYW1HNGpfSzJxNUVyU3A1ZzFVbXhGMjBhVndjbFpZaHM4c0N4NTdsczFkS19XUkFEbHAyazFvbXA4T1RmY2thTUpYZHdMTXZGLTk5d1NuNmJGeGhZWnp4RFdGXzNtakUzWVpBVXhxUDZxOGFPamVmZFRQUkJ4el9ETUgxbTByc25JRGVwcGo4RlhtMTZBeUJfMGFjeC0yb212QXNPZk9wZEU3T0hZU0NSSWM?oc=5",
-     "quando_utc": "2026-09-04T15:09:00+00:00",
-     "classe": "alta"
+     "quando_utc": "2026-09-04T15:10:35+00:00",
+     "classe": "alta",
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 1.0,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "ahead",
+      "bonds",
+      "data",
+      "expected",
+      "focus",
+      "inflation",
+      "raise",
+      "rates"
+     ]
     },
     {
      "titulo": "The key decision this September that could send mortgage costs soaring - The Independent",
      "fonte": "The Independent",
      "link": "https://news.google.com/rss/articles/CBMipgFBVV95cUxNamdTSGVpU0NmWW1qWENoZHpOUUVtSDlfc2RhMy1UdEx1UzZhbkt5Y1cxYnNfMnljSmsweGtkbVdodWhxNjRQNEdsQWRXbjJRSWRfc2M3ZVNZOHRkR0NOZ1NrOXA4VkV0ckxyN1ItOXdoYkZ4S1hDZHNwaVlBUDlTWTFmWXZJMkhmRnZUbDYwOE5NaTNwZUxIanZQcmM4alpMUTJHZTdR?oc=5",
      "quando_utc": "2026-09-04T14:59:00+00:00",
-     "classe": null
+     "classe": null,
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 0.6,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "costs",
+      "decision",
+      "key",
+      "mortgage",
+      "send",
+      "september",
+      "soaring"
+     ]
     },
     {
      "titulo": "Will UK interest rates fall in 2026? - Yahoo Finance",
      "fonte": "Yahoo Finance",
      "link": "https://news.google.com/rss/articles/CBMilwFBVV95cUxPeHJBRTRzc2daaDRpZXF1UHplbllBazFacm5IS291Q3c4V1UzNWd6S2NheG1Dd2lMVThscTRnYld0eXItR0RWRE9xVEk2cjRpWUc0bTFPMHRGYjhlbVlHOXF4aTVqb2lzZmo1RU53bC1mck5XUy02OEMzb1VKWE0xdVdQN3d6QVBVREpzd3FRMzVMZ2d5TzJn?oc=5",
      "quando_utc": "2026-09-04T14:17:38+00:00",
-     "classe": null
+     "classe": null,
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 0.3,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "2026",
+      "fall",
+      "interest",
+      "rates"
+     ]
     },
     {
      "titulo": "Populism poses serious challenge to independent central banks, Bailey says - AOL.co.uk",
      "fonte": "AOL.co.uk",
      "link": "https://news.google.com/rss/articles/CBMilAFBVV95cUxORVJrVllVWU5peThNQm5JaUhTbEp5bmxKUWxQVjAyM3BHQmEwVmxGMzBsREs1RFQtS0VCaXpkc0Z3QnpnSF9YY1NsSzl1UkVIUGJJOV9ySi1sUmdvVFVnZFJfUGNQR0Zwamhob1hQbTBleFk5aWZ2cmx1WXpqb3FObzdfbU84YlQteDZvTGt1NEU0ekV5?oc=5",
      "quando_utc": "2026-09-04T13:44:42+00:00",
-     "classe": null
+     "classe": null,
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 0.3,
+     "motivo_origem": "verbo de fala sem dirigente nomeado",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "bailey",
+      "banks",
+      "central",
+      "challenge",
+      "independent",
+      "populism",
+      "poses",
+      "serious"
+     ]
     },
     {
      "titulo": "Inflation expectations softer than predicted ahead of interest rate decision - City AM",
      "fonte": "City AM",
      "link": "https://news.google.com/rss/articles/CBMiogFBVV95cUxQRE9kRWRBbHlsWXJRTjV0cnRfR3JCV3dGV0t2NER1VDhsemRMcnZmSjhrekVDdElyd25hWGdmUXhWSDBLdmVtcFYzb0xkMl93WHN1SkpQbk5ObnlRaUVMV1FtREg1ZDRlUEZaZFdJbUNYbllZb2ZibGxpcGl4OHBzWEFzUndmc1VDbDdydDlSNGp5YTlvTlFlRUp2WDd0UFlIMkE?oc=5",
      "quando_utc": "2026-09-04T12:22:48+00:00",
-     "classe": null
+     "classe": null,
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 0.3,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "ahead",
+      "decision",
+      "expectations",
+      "inflation",
+      "interest",
+      "predicted",
+      "rate",
+      "softer"
+     ]
     },
     {
      "titulo": "The Bank of England faces an inflation test and Bailey keeps the door open for interest rates - المتداول العربي",
      "fonte": "المتداول العربي",
      "link": "https://news.google.com/rss/articles/CBMi5gFBVV95cUxPWVF5NkltejdWLXFzaXQwNGZISTJyZThJRE1lQjE0VE1rZXpiOGI5LW9qTlZtMWNSRVJkRkVLZTJ5UnhTM3lVQTAtRmw0bjczdGllZjVMb3lybDVVRzZhRjBhOUhrOGhqMjEwVE5fdGxsZEROTThQMTNNMmZBUF9TVjVlUUpGeE9TWnNUcElTb0hRVlhhb201Tk9McU93RUk0U1VvVW9qNU55dWxqXzdKeWFuYTFVakthai1aeHkwMkNNRUFoZEh0QnBsTW5ZbUd0RVc0aU5PTzV4MkV5RkJ1X0NwRkdxdw?oc=5",
      "quando_utc": "2026-09-04T11:45:28+00:00",
-     "classe": null
+     "classe": null,
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": "Bailey",
+     "peso_fonte": 0.3,
+     "motivo_origem": "dirigente citado (Bailey) sem verbo de fala no titulo ou resumo",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "bailey",
+      "bank",
+      "england",
+      "faces",
+      "inflation",
+      "interest",
+      "keeps",
+      "rates"
+     ]
     },
     {
      "titulo": "Hormuz Is Becoming an Inflation Problem Again - Investing.com UK",
      "fonte": "Investing.com UK",
      "link": "https://news.google.com/rss/articles/CBMikwFBVV95cUxQOGtBX2hfb19XT2tjR1c4SEhkQzJLbHo1YUpCUktFVUU1WmdaYmNFSmVsTGFrYmxLRjdNa0ItdjVqMEFXcUE4NDlndkJwd2xCRHlGNXVheFpqZllBQnhRbkhfZVROd0ZnbkpUVEtOZHJvcVQ5ZWFWNG81UmlxZVlvbzh4cnFLX1lSMHI2MXg1d3JGNFE?oc=5",
      "quando_utc": "2026-09-04T11:37:00+00:00",
-     "classe": null
+     "classe": null,
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 0.3,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "again",
+      "becoming",
+      "hormuz",
+      "inflation",
+      "problem"
+     ]
     },
     {
      "titulo": "BoE's Huw Pill: Wait-and-see approach on interest rates risks MPC falling ‘behind the curve’ - Investment Week",
      "fonte": "Investment Week",
      "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxQUGJLRE85a0ljYzFJY1p1eFZQR1d2Q3R6TjVUQnhYSmxROUNzM1ZOSDh6Zno4bGdmaENVTS1tVUN4VVk2V1VwNFN1aFI5bml1ZVJwYlkzNjdtZEx4RmFrRmg3RjRXSnBKaFdwU3hrOGhqZW9jQnFYR3lsMENlbmdWRkQxUUUycHB0M05ocnJsUng3NVI3SlB3aEZHVXZ0R2ZiVWowZGFHRWdkbkNYSlRFeDlB?oc=5",
      "quando_utc": "2026-09-04T10:45:51+00:00",
-     "classe": null
-    },
-    {
-     "titulo": "British Pound pulls back from session highs as BoE Bailey tames rate hike hopes - FXStreet",
-     "fonte": "FXStreet",
-     "link": "https://news.google.com/rss/articles/CBMivwFBVV95cUxOdVZRNkNVUDJGYll1UEE1U2xWYUwyVVZ5d2VwTkJSU1pQYnFtbzQ4b2FrcnhCOVRTSVMyblg4OEoxMGpscFBINlc1V0RLSk81RlROeW5YTEZQRU5aNDVCR0NRajhhektkMzVSdXJnaFVSXy1leWh1X1pXdlZTeVpCanEyd2VTSS0wOEttUUxjaERNbFhPTExSU2tROUZMSFJabTlleVVYMk05NUM2N2hDdXlsMy04LXpoQWNlRGZBUQ?oc=5",
-     "quando_utc": "2026-09-04T10:45:29+00:00",
-     "classe": "alta"
-    },
-    {
-     "titulo": "Bank of England’s Bailey sees long-term pressures driving up government debt - WTVB",
-     "fonte": "WTVB",
-     "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxQeFhlSWw2VmRJVUsxX2ltLXFQb2xzRjVfQnVXVHB2MHJmYnZ1ME9udzBJWHBCUDIxOXZJM0ZrWkJtN0VsSWNUdlIwY1dHWmNqa2Z1ZjNhT2Z3ZllHWlUxMWQyZzVWQjhFSGQ4YjA0NUM3RVFadkI2QTZIVWdCMVF0VFpFYnVCRVhaRHcwblcwR0Z2QW1KNmZhRnVPUjhJTTBITXlRZF9iSXl2dw?oc=5",
-     "quando_utc": "2026-09-04T10:43:50+00:00",
-     "classe": null
+     "classe": null,
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": "Huw Pill",
+     "peso_fonte": 0.3,
+     "motivo_origem": "dirigente citado (Huw Pill) sem verbo de fala no titulo ou resumo",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "approach",
+      "behind",
+      "curve",
+      "falling",
+      "interest",
+      "pill",
+      "rates",
+      "risks"
+     ]
     }
    ],
-   "n_72h": 61,
+   "n_72h": 62,
+   "n_unicos": 62,
+   "duplicatas_removidas": 0,
    "contagem": {
-    "alta": 15,
+    "alta": 16,
     "corte": 0,
     "mantem": 0
+   },
+   "contagem_nota": "CONTEXTO: conta todos os eventos unicos das 72 h. Nao e voto — manchete tem peso 0,0 na hierarquia de origem.",
+   "contagem_voto": {
+    "alta": 1,
+    "corte": 0,
+    "mantem": 0
+   },
+   "voto": {
+    "vota": true,
+    "peso": 0.4,
+    "origem": "imprensa_com_fala",
+    "direcao": "SOBE",
+    "n_falas": 2,
+    "oradores": [
+     "Huw Pill",
+     "Pill"
+    ],
+    "fontes": [
+     "Bank of England",
+     "Reuters"
+    ],
+    "rotulo": "fala de dirigente reproduzida pela imprensa — peso 0,4"
+   },
+   "banco_bloqueia_automacao": false,
+   "rotulo_contexto": null,
+   "por_origem": {
+    "imprensa_com_fala": 2,
+    "manchete": 60
+   },
+   "n_cita_dirigente": 11,
+   "motivos_sem_voto": {
+    "sem dirigente nomeado": 51,
+    "dirigente citado, sem verbo de fala": 7,
+    "dirigente e verbo, veiculo abaixo do limiar": 2
    },
    "inclinacao_por_manchete": "alta"
   },
@@ -338,432 +1244,1506 @@
      "fonte": "The Japan Times",
      "link": "https://news.google.com/rss/articles/CBMihgFBVV95cUxPblZ2cHEzQUJUTkxZUURuVmJtWHIwU0wwb3lCTXEycm1nS2tFWlY5cnlhZHlXcXFDNk1vRkpDVUpxX044TjU1RTI5emtJcndoLXFrSXBGeUV1b2VFMEZZWUluTHpWN0RVMG5RYlpoVWlVRU05eWJvdVBOT0hQZGZlMnhjaUxzZw?oc=5",
      "quando_utc": "2026-09-04T23:39:00+00:00",
-     "classe": null
+     "classe": null,
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 0.6,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "bets",
+      "dollar",
+      "jumps",
+      "loss",
+      "posts",
+      "rate",
+      "shifting",
+      "weekly"
+     ]
+    },
+    {
+     "titulo": "Kasumi Crab Sells for 300,000 Yen at Season's First Auction - News On Japan",
+     "fonte": "News On Japan",
+     "link": "https://news.google.com/rss/articles/CBMiVEFVX3lxTFBYN1ZxcjkwNDJ1cW9vUnQyNW4ySE5KcTJPOU1BVzhIQ0RqRkRqd2ljZ001YnBPN05XTkJrZEhxMEZ4cWZsNnk5NmdmSTJZamVuaHNWaQ?oc=5",
+     "quando_utc": "2026-09-04T23:04:04+00:00",
+     "classe": null,
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 0.3,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "000",
+      "300",
+      "auction",
+      "crab",
+      "first",
+      "kasumi",
+      "season",
+      "sells"
+     ]
     },
     {
      "titulo": "BOJ's hawks step up calls for rate hikes as they eye end of terms next year - Nikkei Asia",
      "fonte": "Nikkei Asia",
      "link": "https://news.google.com/rss/articles/CBMivgFBVV95cUxOdWd5QmNPcG1LaTZaT18wY2xFaGl6UldaVmVPdHdwbmtWUzhkWWxUR0lIOUd2Z3I5Wm5RZUtOdXdfZ0VIOWNLQkVnU2xsSXhNcGlIX2prZkl5N1VXbENOSmZMWkxLN19zNFJPV2t6dlhsOFh5MFY4dFBfbk9XZ1dwaGhqQ05BMFZadnotczFtYnBCMzB3YlFXQ0FWdkQ5ZnMyclNIWHJXa0FJY0hSVEZqYTI4aXJaUnN5a0o3eFF3?oc=5",
      "quando_utc": "2026-09-04T21:34:00+00:00",
-     "classe": "alta"
+     "classe": "alta",
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 0.8,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "calls",
+      "hawks",
+      "hikes",
+      "next",
+      "rate",
+      "step",
+      "terms",
+      "year"
+     ]
     },
     {
      "titulo": "Japan Has Not Done This Since 1990. If It Happens, the Cheap Money Propping Up US Stocks Gets Expensive - 24/7 Wall St.",
      "fonte": "24/7 Wall St.",
      "link": "https://news.google.com/rss/articles/CBMi3gFBVV95cUxNOXA2WkNFbXdGUHBodG5malNfem1IZGlfWTZveGlqenMtajYyVUtaejdVU0ZIUDZTWTIwemRaT21GaS1qVUFhRTFpbm5vVkt5MWhXaGlZY1VZczdibVBEMlItSUxSTXZmWDVtWXpXNGVxNHNOU1FIWE9JZS1FYkM3WEdXM2dqTWtPTDZwTlFPaF90VjR5YVcyRjVUbndxdkVCVUpWeHM3cEU3Z2diT0ZSZ1I5ZkpOSkhGeHhST0tGcGhiVXprbDJiTkl6S2UwLW1TUGhvcVZMbEFVQVVmY3c?oc=5",
      "quando_utc": "2026-09-04T19:18:00+00:00",
-     "classe": null
+     "classe": null,
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 0.3,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "cheap",
+      "expensive",
+      "happens",
+      "japan",
+      "money",
+      "propping",
+      "since",
+      "stocks"
+     ]
     },
     {
-     "titulo": "Dollar bounces on job gains, then pares ahead of CPI - Reuters",
-     "fonte": "Reuters",
-     "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxPSUNQZU5RWWN5TXNDaU9CQkIyc1NPTE95RzBLc0lSMGQyRGRnT19DVldpRXF2TEVzYXdKUzRjR1RyNC1KZ3Rka2Z2ZS1HZUhyUkFYLTBYWE1JRXhXSDJBYWV5Tmpkc3psRy1TWHNlZUN1T1hrZnE5TVpkVTlObkdrZWRVSnA5MU41cWVhSEZSNVU2TlBjdG5SbDBSb3BTYTE3SmNGZU5wR3dDVlVDRXFMZkN0SllDUWVh?oc=5",
-     "quando_utc": "2026-09-04T19:17:28+00:00",
-     "classe": null
-    },
-    {
-     "titulo": "Dollar-yen plunges to 155 range as BOJ rate-hike acceleration bets collide with U.S. CPI wait - finance.biggo.com",
-     "fonte": "finance.biggo.com",
-     "link": "https://news.google.com/rss/articles/CBMidkFVX3lxTE5zZzQtenRtcklGWDNrQ01YZUxicFh3M2JxQ2FYOGZIM2Myb09sT05WMHFxUDhNcjVzR1gwNmtfUHhlTm01WU5PNnozZ2ZVNWhkcEJZUFUzUUlDM2V5OEExZlVHUWVXajlibTVFQTR6cWY0bGN1N2c?oc=5",
-     "quando_utc": "2026-09-04T19:05:00+00:00",
-     "classe": null
-    },
-    {
-     "titulo": "Japanese yen surged this week. Why the rally may not last - cnbc.com",
-     "fonte": "cnbc.com",
+     "titulo": "Japanese yen surged this week. Why the rally may not last - CNBC",
+     "fonte": "CNBC",
      "link": "https://news.google.com/rss/articles/CBMimAFBVV95cUxOeXVpcl9mVXA5dDNzUTVQbWFucGJOcnJOdDRkVVNNYlgxdFU2eWd6Tm42Wk1zSzRDZHVEdW1xNzdOUVRLT3ZXM0NlUGt6Y28wLUNVaHZtQlJOS1NwOXE4ZWdMQ19hSnNCWWhZd19ITUlERlRqVVdxS3pTSDFQWHZnZDZ4UExiNlctX3RtTG01Rk9GaXc3ODJrdA?oc=5",
      "quando_utc": "2026-09-04T16:37:10+00:00",
-     "classe": null
+     "classe": null,
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 0.8,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "japanese",
+      "last",
+      "rally",
+      "surged",
+      "week",
+      "yen"
+     ]
     },
     {
      "titulo": "Yen's changing fortunes might finally be spooking the bears - Reuters",
      "fonte": "Reuters",
      "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxNYjNuenNBZEFnRFFvQk82SmxjeTV2Yk9DeUlRZzZFT05QdWZmSThJVTdtYkY4RFNQODhXcFdxMWxGV0xta0w4SEFzc3ZXVUtPNlRDcC02Zkdma2hDYXZqNHdmN3FEWHljaG1pdE5fRkZ5dmpXeDlRdmlLbkxIMlB4ZTFNWGhYeDRwSUtKc2tXbktob0JFaFVvU1JiSWlOaUZhVzhxZjF2YkpYTkpOYUE?oc=5",
      "quando_utc": "2026-09-04T15:38:40+00:00",
-     "classe": null
+     "classe": null,
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 1.0,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 2,
+     "duplicatas": [
+      {
+       "fonte": "The Japan Times",
+       "titulo": "Yen’s changing fortunes might finally be spooking the bears - The Japan Times"
+      }
+     ],
+     "assinatura": [
+      "bears",
+      "changing",
+      "finally",
+      "fortunes",
+      "might",
+      "spooking",
+      "yen"
+     ]
     },
     {
      "titulo": "Yen Surges as BOJ Rate-Hike Bets Intensify, Intervention Fears Return - Tekedia",
      "fonte": "Tekedia",
      "link": "https://news.google.com/rss/articles/CBMimAFBVV95cUxPR2sxVjFVRVd6ODQtbl9PSC1KNkxlSXJKSDJGVXBKMEFBRTQ5MW5GTWk0OFhIdXNyQmdQTXF3YVVDNVgzbU9JMVl2WG1jV3F6cGJKQXphR09tNzB1T0c4ZjJBa200RFo3VjNINjdhNFBoejZuU2NFMTB6cUFuaUVqeFlEWGxSTHBmbkJBdVdYbGNpcl9EX2VURA?oc=5",
      "quando_utc": "2026-09-04T14:27:52+00:00",
-     "classe": null
+     "classe": null,
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 0.3,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "bets",
+      "fears",
+      "hike",
+      "intensify",
+      "intervention",
+      "rate",
+      "return",
+      "surges"
+     ]
     },
     {
      "titulo": "Recent Yen Rally Puts These 3 ETFs in Focus - TradingView",
      "fonte": "TradingView",
      "link": "https://news.google.com/rss/articles/CBMioAFBVV95cUxOSVUxcmlCaHBkR2gyczdnVEU3U08xQ1N3VXdoMTdvQkczRXFrU0JyazFPeTVTd3Q1Z3pDY3RNRzJMTnJEbHpKVnJKMDIySXlYQldHcV9EMEYydU53NHRSVlRDeUhkTzVxbkowejFCWXFEYUZhOEZKLV9Fc1ZVSnIxRV9GVndTYlhzdnNqR1lFUDdOZl83eVQ0SkQwYlN6WEVf?oc=5",
      "quando_utc": "2026-09-04T14:14:00+00:00",
-     "classe": null
-    },
-    {
-     "titulo": "Recent Yen Rally Puts These 3 ETFs in Focus - Yahoo Finance",
-     "fonte": "Yahoo Finance",
-     "link": "https://news.google.com/rss/articles/CBMilwFBVV95cUxQOGtZMmFTMlN1SFNWZkZNeUl3MjNJVGhzUlNMdnJQTlh5b084RFJXTTlUUUlnbEtoeEUyeGxEbEZkZng1VlRTM0VoNW12UkxFVWYwYXJucGo5b2poQTBqcHJuc084cm5VSE1nQ1dNT3NoWlpCbXREbUx2MXNLTWQ1dV9uUnNsSmVHaElLel9YS200SVprM3hz?oc=5",
-     "quando_utc": "2026-09-04T14:14:00+00:00",
-     "classe": null
+     "classe": null,
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 0.3,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 2,
+     "duplicatas": [
+      {
+       "fonte": "Yahoo Finance",
+       "titulo": "Recent Yen Rally Puts These 3 ETFs in Focus - Yahoo Finance"
+      }
+     ],
+     "assinatura": [
+      "etfs",
+      "focus",
+      "puts",
+      "rally",
+      "recent",
+      "these",
+      "yen"
+     ]
     },
     {
      "titulo": "Japan FY 2027 budget requests hit record 143 tril. yen amid fiscal concerns - Japan Wire by Kyodo News",
      "fonte": "Japan Wire by Kyodo News",
      "link": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE4ydElLS255NnlrcVVsay0wdExYSlV1eGdkcldQTjNoV2JncTdpS1ZfNTZ0YVBGUlloMUoyRVFfUkRlTGFJRHVsVjZKSDdXRTBRcGlHZ3lSYVMwQQ?oc=5",
      "quando_utc": "2026-09-04T13:48:52+00:00",
-     "classe": null
-    },
-    {
-     "titulo": "Yen hits month-high vs. dollar on outlook for BOJ rate hike - nhk.or.jp",
-     "fonte": "nhk.or.jp",
-     "link": "https://news.google.com/rss/articles/CBMiYkFVX3lxTFBOTnhRRk5OLUloWWtveFRTajl2ZWJzc1FLREx4cEdEb003eTVIaWRiR3c0V2FkM2xIRFR5VXlDLVlOZnVmN2FrcHRnNVNiTVRNVHMwUE0yVzN6NnNtR3pqSEVR?oc=5",
-     "quando_utc": "2026-09-04T13:47:42+00:00",
-     "classe": "alta"
+     "classe": null,
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 0.6,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "143",
+      "2027",
+      "budget",
+      "concerns",
+      "fiscal",
+      "record",
+      "requests",
+      "tril"
+     ]
     },
     {
      "titulo": "Japanese Yen steadies as strong NFP fails to lift USD/JPY - FXStreet",
      "fonte": "FXStreet",
      "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxNRFRsbkxnVkU0ZTBuNVZUODVFcndObFlhTDNRNzg0alpKLXFhUlJzZkRlZF9UMlZETTA0MWpfZUUwN3lqRk53V3lJWkNSS3ZOVUZHS3BtRGY2V19ZZ0E5eW0xU1FRNnZkUHQydkRNcTNPbUJVNnh4TF9hNkYxWHhlcURfVGtTT1JjU2J6ZkZ5cnFJR0lFODVNQlVmNk1MVWRvZXMtQWFkdDRwdw?oc=5",
      "quando_utc": "2026-09-04T13:09:07+00:00",
-     "classe": null
+     "classe": null,
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 0.3,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "fails",
+      "japanese",
+      "jpy",
+      "lift",
+      "nfp",
+      "steadies",
+      "strong",
+      "usd"
+     ]
     },
     {
      "titulo": "Japanese Yen Outlook: Firmer CPI Fails to Lift JPY - stonex.com",
      "fonte": "stonex.com",
      "link": "https://news.google.com/rss/articles/CBMingFBVV95cUxNVUdDY3pwM3FVSGJpaGw4eTdTdlBnRFBCd18yZE4zVzd4S1loc2g3QlhIRTNtYW9iQ3NHQXlfOEVuYzFhNlFfeTNoRi1EQTQ3VHRVbGtiVDVOdVpsNWt6a25NcHdsZENFNHdTTVF5WVdTSVNKdlpJQjVSNFhadTctbzI3ZENiaDFjdWlXcTByRDJfX3pCYXJGUkpySVVEZw?oc=5",
      "quando_utc": "2026-09-04T13:08:16+00:00",
-     "classe": null
+     "classe": null,
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 0.3,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "cpi",
+      "fails",
+      "firmer",
+      "japanese",
+      "jpy",
+      "lift",
+      "outlook",
+      "yen"
+     ]
+    },
+    {
+     "titulo": "Japanese Yen: Sharp rebound and Fed repricing – MUFG - FXStreet",
+     "fonte": "FXStreet",
+     "link": "https://news.google.com/rss/articles/CBMilwFBVV95cUxOZUs3X2tpd3duS21hZ1I5RThpaHdrWlpuNnh5SVA2ekdheVdBNmk4TWJuVEFnc2YtaHVDVXBfemxWUTNDc1BYTmVvVnVBZTUxaUx3SDZ1YzhpdXcwSU1rNzllSnh2LThoOFdHNUZuRllxLXU0azBOSmNBYUJxU09PeTdrT2J0RDVQeU5kSWtFbWg2dDJhTUJF?oc=5",
+     "quando_utc": "2026-09-04T11:52:55+00:00",
+     "classe": null,
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 0.3,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "fed",
+      "japanese",
+      "mufg",
+      "rebound",
+      "repricing",
+      "sharp",
+      "yen"
+     ]
+    },
+    {
+     "titulo": "Pound Recovers as Japan Fiscal Concerns Weigh on Yen - TradingPedia",
+     "fonte": "TradingPedia",
+     "link": "https://news.google.com/rss/articles/CBMimAFBVV95cUxNZm42RWh2bElqc3AyVnVmazNLakJXZHZzZ19FNi1lT0ZneHZqb18xWDFicTNfOVJVMmJJYVJlYW1HSWdNTTZOQi1qRTVGdGJGb0g1OEczSC1VUlZjTXYwaTlNcTZFV2t3SGFKMGNiNGhfZ1VyQkFDc3BhXzZ3N2dBajJPcmNhM2hZNXE0eGRseTR0Z3hNSlQxdA?oc=5",
+     "quando_utc": "2026-09-04T10:44:11+00:00",
+     "classe": null,
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 0.3,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "concerns",
+      "fiscal",
+      "japan",
+      "pound",
+      "recovers",
+      "weigh",
+      "yen"
+     ]
+    },
+    {
+     "titulo": "Japanese Yen Rebounds as Rate Hike Bets and Capital Flows Challenge Bearish Traders - Межа. Новини України.",
+     "fonte": "Межа. Новини України.",
+     "link": "https://news.google.com/rss/articles/CBMiakFVX3lxTFAyUldWQUt3ZWR2cVlXVjlwYmQzX0FxVnlPZlpSa3JGWms4QUZ2XzZwZUNpSFd1SVEtNUplMWFXVU5rV3pyUVJ0eXFGNHQtbTV2SUgwSmpLbGJkT1NpekQ5S0xoZ3NRMzE5UGc?oc=5",
+     "quando_utc": "2026-09-04T09:57:54+00:00",
+     "classe": "alta",
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 0.3,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "bearish",
+      "bets",
+      "capital",
+      "challenge",
+      "flows",
+      "japanese",
+      "rebounds",
+      "traders"
+     ]
     }
    ],
-   "n_72h": 115,
+   "n_72h": 101,
+   "n_unicos": 94,
+   "duplicatas_removidas": 7,
    "contagem": {
-    "alta": 30,
+    "alta": 22,
     "corte": 0,
     "mantem": 0
+   },
+   "contagem_nota": "CONTEXTO: conta todos os eventos unicos das 72 h. Nao e voto — manchete tem peso 0,0 na hierarquia de origem.",
+   "contagem_voto": {
+    "alta": 0,
+    "corte": 0,
+    "mantem": 0
+   },
+   "voto": {
+    "vota": false,
+    "peso": 0.0,
+    "origem": "manchete",
+    "direcao": null,
+    "n_falas": 0,
+    "oradores": [],
+    "fontes": [],
+    "rotulo": "so manchete: contexto, nao voto"
+   },
+   "banco_bloqueia_automacao": false,
+   "rotulo_contexto": null,
+   "por_origem": {
+    "imprensa_com_fala": 0,
+    "manchete": 94
+   },
+   "n_cita_dirigente": 3,
+   "motivos_sem_voto": {
+    "sem dirigente nomeado": 91,
+    "dirigente citado, sem verbo de fala": 1,
+    "dirigente e verbo, veiculo abaixo do limiar": 2
    },
    "inclinacao_por_manchete": "alta"
   },
   "AUD": {
    "itens": [
     {
+     "titulo": "AUD/USD gains modestly after RBA leaves interest rates unchanged - equiti.com",
+     "fonte": "equiti.com",
+     "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxPS1NRa20zWGl5dWpGVW5mTXo5TlpuZHd3dHNmOHIxMzhwT0c5NHdQR1lQM20wbXRaN1IxRlAyQUF6NFNESmJjdjJUX0JvU3ZyRlBZbi1UdXpJMmpaNGZHUGZqMHpfNkZnd2hnNXVMTWdjSXJrd2VMVS1JZEIyZ1ljeDN2alNOVU16eVJfakhBUFVYWW1oQmRaMzQwaC1DeGtjU0VhbkVtZUlid2NjVmd5VjFQWQ?oc=5",
+     "quando_utc": "2026-09-04T22:12:45+00:00",
+     "classe": "mantem",
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 0.3,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "aud",
+      "gains",
+      "interest",
+      "leaves",
+      "modestly",
+      "rates",
+      "rba",
+      "unchanged"
+     ]
+    },
+    {
+     "titulo": "33 Punjab youths, promised jobs in Australia, stranded in Southeast Asian island country Timor-Leste - tribuneindia.com",
+     "fonte": "tribuneindia.com",
+     "link": "https://news.google.com/rss/articles/CBMi1wFBVV95cUxPMURTMGRRaHJvWmN1QkFJVS1wRUNLUVJBRUozOGZaaGl2aEozb0tjRl9QMFpLS3ZMaWxFdG01dEJmZHU0SnhFanoyMlI0M05IRDdDRnJHLW1YUThyZDlueC1NTGZpdWpVcUtZMHZpcXVvR3ZHMUlqa1pReVFvem05V0U5cm5ERkR2dnpIcGRvY1RMMGdBTk5oSVdiMmZDTmwtY0R5eks2aUtoblNneG44NWstb0pGYnBnQWttN2c4OXZkZlNwQ2g0V2x5WktveWhLQjNDejZ1d9IB2wFBVV95cUxPM1I5NktzQlFHTm9BcUNyMEdsVW5mbVJwQVprUzIxVnRMNTBlWElGZGRiYVd6VkttREg4bWZrV1dteFR5bWJwenctanJfSHZzY096bGpxdnB0ZjlhNGI4N1g3UWRDNGMyWmptM29LSDA5UGtzS0lpWUVEb29XU1BoNENfTjBfV2t5UGt4UVBKb25EX1dNbFcwSUctemdPb0JheHhlUXhCOFFlM1lUUTM5eURqOXFKSVJ0Y3RLcUpLVC1HbXh5RHRNUEVaZF9mandFSzg2SUpzdEh0UU0?oc=5",
+     "quando_utc": "2026-09-04T13:41:09+00:00",
+     "classe": null,
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 0.3,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "australia",
+      "country",
+      "island",
+      "promised",
+      "punjab",
+      "southeast",
+      "stranded",
+      "youths"
+     ]
+    },
+    {
      "titulo": "RBA’s view of inflation reflects conventional economic wisdom, not Australians’ lived experience - The New Daily",
      "fonte": "The New Daily",
      "link": "https://news.google.com/rss/articles/CBMingFBVV95cUxOQTJ2SWRJMWFKajNKbmgzaTljZ2QwcXBZTFRRZ1FkcVlDQ0FWUExEaVk0VldYZkhsQmJDdEZUSWw4Ym1nQlFCTEd6YWJYY3Z4b2pZeXZhOWxicDQwVHctTFZfWm5ubE5hdjZTYU4zRFI4WktwdTFLZmlFMnJsRVp1UDBZaGJ3UGVyVEdqcV81RFdvR2FyMjFRZVhtWGM3Zw?oc=5",
      "quando_utc": "2026-09-04T12:28:21+00:00",
-     "classe": null
+     "classe": null,
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 0.3,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "australians",
+      "conventional",
+      "economic",
+      "experience",
+      "inflation",
+      "lived",
+      "reflects",
+      "wisdom"
+     ]
     },
     {
-     "titulo": "The jobs report, Lululemon earnings, the NFL heads to Australia and more in Morning Squawk - cnbc.com",
-     "fonte": "cnbc.com",
+     "titulo": "The jobs report, Lululemon earnings, the NFL heads to Australia and more in Morning Squawk - CNBC",
+     "fonte": "CNBC",
      "link": "https://news.google.com/rss/articles/CBMijAFBVV95cUxQQVJtVWNzUldLbnY1N2plMnZTWGw4eC0wX2dQb2hXWkFza2UySnNqSWhOTVRpNWpPLW1Lb2hIM2dseHV2OVF6cEJXSDZBM3hrYzhsUE43QUhwUlotTk10SlFJUHYxd1I3TllKQlpxWVpwTjBzUGtrMUpiUkpadnVqZGJDd2dldy1wQ2VCWtIBkgFBVV95cUxQYmdIMjlrSHprdnZDcWxsM2c4V194Yk04MlVrNEdZQ3lCTmgyWkhGUzBsd1VlM1NhdmVMRG44TVJkelBWTC1ZdzF1T2RpV3lDN0FMZU9OSmFyZ3R5c3gwS2RWM3hfaTBxVktMR25XWVByc1poMU5CamplYzNmbHlUNElFamdiQno5NmdkWUtpQXd1Zw?oc=5",
      "quando_utc": "2026-09-04T12:08:20+00:00",
-     "classe": null
+     "classe": null,
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 0.8,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "australia",
+      "earnings",
+      "heads",
+      "jobs",
+      "lululemon",
+      "morning",
+      "nfl",
+      "squawk"
+     ]
     },
     {
      "titulo": "RBA warns rent prices are weighing on inflation as rate hike fears rise - realestate.com.au",
      "fonte": "realestate.com.au",
      "link": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxORlRtT0tEUVdBak9pQk91OUc4YzEyT0Vra1Y4d3gxTWNTSDJfdFNTaUw3NDJUdFJRamtMSnlKUnhBU0syd0NBczhib1NldXFJeEFoRzZMdXpOM291UmJEdDI4SVhOOGxGanI5V3MxYzlSajl6Zm9qRW14Q1JiRVBEWUFFM3otQlhMZ0hSeU43N1N4SDVGanRQaFR4cWdRUkxoQ0ZhaDRISFp2cFU?oc=5",
      "quando_utc": "2026-09-04T11:34:18+00:00",
-     "classe": "alta"
+     "classe": "alta",
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 0.3,
+     "motivo_origem": "verbo de fala sem dirigente nomeado",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "fears",
+      "hike",
+      "inflation",
+      "prices",
+      "rate",
+      "rent",
+      "warns",
+      "weighing"
+     ]
     },
     {
      "titulo": "VIDEO: ASX falls on higher chance of RBA interest rate hike - ABC News & Headlines – Australian Broadcasting Corporation",
      "fonte": "ABC News & Headlines – Australian Broadc",
      "link": "https://news.google.com/rss/articles/CBMiowFBVV95cUxPRTNBTFNNZWo3NU9pMWJTaU5jOFlvVmRuZ0FKN3g0OXY1RWZxVlhLdDFFcV9YRVdCaWQzOE5KYzZWdEhxZmhKZldHQXhUOHFCQ0Rvak0xdEIyV0tPR0k5LVZQdEstVHNybDR4dE12MDdwc0JKQ1JRRGV0Mzc3S1d5WG1iX0ZvV3NVZUsyQ0dkbmF3dFBwSGp2ZXBXeEJZVkVNeEVF?oc=5",
      "quando_utc": "2026-09-04T08:54:23+00:00",
-     "classe": "alta"
+     "classe": "alta",
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 0.6,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "asx",
+      "chance",
+      "falls",
+      "higher",
+      "hike",
+      "interest",
+      "rate",
+      "rba"
+     ]
     },
     {
      "titulo": "Australia’s AI data centre boom raises concerns over power, water and jobs - The Business Standard",
      "fonte": "The Business Standard",
      "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxOREhaeUxYbmcxVVE1OWNiWGJTSnlQTy1HeDY3dWNOSEN4NF94X2tFX1o2NVh6YnpNWWpjbGpPRjlXN2ZwQTV3M2dGOEZzUFBZeUxRMGhlUzdubDVBV2w1emNqSmFuNzRNM09NWTFVT1JVM0lkTlVzVmtVbjEtRG92SmRyTkphSFBpRDJURExZcmRST252dkZmdS1YSkU5R3hPeFhKRG5ZUTMxOTluWnfSAbMBQVVfeXFMTlpDMDVWQjBRYko5XzlGb2pKM3d0T1ZFbzdfckpJaGRWb1o4bkJfbGQwZElBQVVyeHJUWU1vdFJQWlFzcjNpVWcyTmN0VHpDQ0ptSWtaZUVobE9odl9aZE5VNS1PLVRKcHRsdVR0dEltT1BRd2M5em1LbDhQRGVYOWxaU2JQRXl0SmxtTldLM2VIOXZweU9VRnZhYVpvYmROTi1SQ0Nhd0xqWi1neUZGZEZTSkE?oc=5",
      "quando_utc": "2026-09-04T08:10:00+00:00",
-     "classe": null
+     "classe": null,
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 0.3,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "australia",
+      "boom",
+      "centre",
+      "concerns",
+      "data",
+      "power",
+      "raises",
+      "water"
+     ]
     },
     {
-     "titulo": "Fresh figures reveal growth toll of rate hikes - thenightly.com.au",
-     "fonte": "thenightly.com.au",
+     "titulo": "Fresh figures reveal growth toll of rate hikes - The Nightly",
+     "fonte": "The Nightly",
      "link": "https://news.google.com/rss/articles/CBMivgFBVV95cUxOV195SXNSNjVvMkc2MmEtUnpNN01oM21qTDUtUkJPaGZCUlhIQTBYeXlJcG1jbUUyQ2psQmluUG8tR1diMzJhc0Y4ZW5CR2pJU1k1MC1aWjFIcFI4ak5MYTF4THM3Y01vbXV4V2hzSzhLWGNNYS1vOWM3aHlWdTNZR2VxaGRiSGs1NzhMVXRVenJlUkZDcDE3NEU1TzNjdXA4OUxuZ3JhcGtnNDJtSDFLdFRhYi1sbHl0TlRPTVln?oc=5",
      "quando_utc": "2026-09-04T07:27:31+00:00",
-     "classe": "alta"
+     "classe": "alta",
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 0.3,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "figures",
+      "fresh",
+      "growth",
+      "hikes",
+      "rate",
+      "reveal",
+      "toll"
+     ]
     },
     {
      "titulo": "Australian Dollar edges higher above 0.7200 on rising RBA hike bets, eyes on US NFP data - FXStreet",
      "fonte": "FXStreet",
      "link": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxNUFBydkVYVjJpV2JjMURienpSc0ZtaGhBQm1LM1JMcW9rZzVRZUZoS1NxNWVjanVZYTJZN1JUbzZKcFlVZ0V5aXRWNXBhS3A4c2xZUDFpcm5DMUJfc3A3a3Q1blVXVFRJd3lERUJFN3gwckx3SkdtMDd1Z2JCSEc3UnpuY2RZb0pNYUxvRklKVk9HR2gxN1RIUWw3MU84ME1fTlc5MkhqR0Q2d3YyUG1DM2p6VkF2MTRycHBGZjBPanU0LTltaWhFSw?oc=5",
      "quando_utc": "2026-09-04T06:27:48+00:00",
-     "classe": null
+     "classe": null,
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 0.3,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "7200",
+      "above",
+      "australian",
+      "bets",
+      "dollar",
+      "edges",
+      "higher",
+      "rising"
+     ]
     },
     {
      "titulo": "UBS, Capital Economics tip RBA rate hike in September - Capital Brief",
      "fonte": "Capital Brief",
      "link": "https://news.google.com/rss/articles/CBMixwFBVV95cUxQdXZYNERuT1dMb2lOYnBVTEFTWDJsQUROeks1QXBHNkc1eEZ3eU42NnJQQXdqWC1oMkFER1lDbndNaXFQRFVDaUhPSmRjYU1rYU16SC1jd2tWNExTbDBVX0F6NDNTY0M5ZFpDNnJnNndQc1UybngzSlcyUERBY183cXdxcU1kOW0wSzVFRWtqSFpuTVU2Z25UWlltMVBoMVZUeTZNT21LMUdMYkxfUDRLc1FaNnZKSzVoSDN0U19LdEs2N1VNZ2I0?oc=5",
      "quando_utc": "2026-09-04T04:28:00+00:00",
-     "classe": "alta"
+     "classe": "alta",
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 0.3,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "economics",
+      "hike",
+      "rate",
+      "rba",
+      "september",
+      "tip",
+      "ubs"
+     ]
     },
     {
-     "titulo": "Australia's Filled Jobs Increase 0.7% in June Quarter 2026 | ABS Data - News and Statistics - IndexBox",
-     "fonte": "IndexBox",
+     "titulo": "Australia's Filled Jobs Increase 0.7% in June Quarter 2026 | ABS Data - News and Statistics - indexbox.io",
+     "fonte": "indexbox.io",
      "link": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxQUUV1LXFWQzV0cmk1RkxiVzhTMm81R29ZdVZLQ1JGRVh3WXdSeHRiODdUTjdCak9aNWdZVU80bjlrUWZDdlh2dkhjOTU4VkduRVFhQmtuV1JqV25hMUw3M3NXTEgzOTA0bEpEWE9SMGM2MlJXak10U0drdHV2OVhfMXFtWWZidlpC?oc=5",
      "quando_utc": "2026-09-04T04:10:00+00:00",
-     "classe": null
+     "classe": null,
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 0.3,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "2026",
+      "australia",
+      "data",
+      "filled",
+      "increase",
+      "jobs",
+      "quarter",
+      "statistics"
+     ]
     },
     {
      "titulo": "Australian Dollar strengthens on RBA hike odds - tmgm.com",
      "fonte": "tmgm.com",
      "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxOcTFYVFdhOHIwR1otVHUtT3BpX2xVcVQ4SUxiei11UGN0WlkyNnRWbDhITWZWbXZTTEpydHRuVFlYZlNpNUMyVGZmNTBkVjBKcTJXYWFmRGFScFFsQmpCeFdHbmV3czRjSE9oTUlWb2U4YzB2SkpnMHNjYlRsQnQwN1lNNGlENTVoRU9ZT2VUMVo4eFBwR3oyZ09SZmVRNGF1R2hpQ2VXN1QweXBnazExZkdR?oc=5",
      "quando_utc": "2026-09-04T02:40:30+00:00",
-     "classe": null
+     "classe": null,
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 0.3,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "australian",
+      "dollar",
+      "hike",
+      "odds",
+      "rba",
+      "strengthens"
+     ]
     },
     {
      "titulo": "Filled Jobs Rise 0.7% In June Quarter: Australia - The National Tribune",
      "fonte": "The National Tribune",
      "link": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxNMzN2dmhpQmt4XzByT0NBVk9tWmR3dVBNUFA2OGZFN3cyLXQ0TF9VYkp2YWtuTGtpRENUZExadnBiQWxMYnpKZ1l1dnZKMHY1U1d5enpkMHJPdFRJaDYwVHdfamptVktXRnVnTG16bFB2dXNQNEprWi1JdjhjaWhsUnd3Tjh4eTg0?oc=5",
      "quando_utc": "2026-09-04T01:36:17+00:00",
-     "classe": null
-    },
-    {
-     "titulo": "Filled Jobs Rise 0.7% In June Quarter: Australia - Mirage News",
-     "fonte": "Mirage News",
-     "link": "https://news.google.com/rss/articles/CBMiigFBVV95cUxQb19CRnNTTzVTUkVJcjZBZ2w0UnhJN2lvQzZVcmx6RzhyNS0tcGEtWHg1MnFIaDdYOEg2LWhOUkVJbHJnSS0weUFzTFNwMDdVdUpEQW1SNU05MDFRM2s2YWRRSEh4MEFoTi1BMWYzcjlmVkhOZXhJRmo0d0h1VFhibUd3SENYdGpZTlE?oc=5",
-     "quando_utc": "2026-09-04T01:35:00+00:00",
-     "classe": null
+     "classe": null,
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 0.6,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 2,
+     "duplicatas": [
+      {
+       "fonte": "Mirage News",
+       "titulo": "Filled Jobs Rise 0.7% In June Quarter: Australia - Mirage News"
+      }
+     ],
+     "assinatura": [
+      "australia",
+      "filled",
+      "jobs",
+      "june",
+      "quarter",
+      "rise"
+     ]
     },
     {
      "titulo": "Bathla and bonds just a preview of what’s coming for timid Australia - AFR",
      "fonte": "AFR",
      "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxPYm9UNnVmUmZ2LXdOVExtUkxORDItR05ZT3VrS0c1ZHlPOG52T3NOMUFCRUNKZFJNVEVOM0JaakVHWnhDM3VIeWU0eEVZcDJMNUhHc0ppSEFsM3ZpM0pYejNSLUJkeHNvOC02OGlNSGFYdnVkMmZDSkNJRzFxUEgxUE5sTGNoeWNkSUM1RGNLT3hLaUdWX0JIanN5aFYxTkliYURLVVdlTTY3WlZHQWRfcA?oc=5",
      "quando_utc": "2026-09-04T01:11:00+00:00",
-     "classe": null
-    },
-    {
-     "titulo": "Don’t blame the RBA for Labor’s political incompetence - theaustralian.com.au",
-     "fonte": "theaustralian.com.au",
-     "link": "https://news.google.com/rss/articles/CBMi1wFBVV95cUxPTlN3VXJNRXNkUjkzM2l4SWt1TWYzNXdoR1RwQzBpaDBZeEVTWmN0eGd0Y2owYlFWaU04X3hialBmOFNlWElEcjdCVnUxRnBfQnZYV1pNUFA5XzdQclNBMjF6MFAtN19DNjQtTi1HdnJIQUU0aEg0YTUxOXB0V25EVG5zZzg2NlhZc1lPNnhNQWoydzNZQkpSeXpIbzVpekZMMm1YRnBYZ1NxdlBXRWYyd1BSbDNhZHVKYmlGd0UyR3BJMnNIU21ZLXRhYU5rWFA1VHFERGdhNNIB3AFBVV95cUxQSVZPeDdrLU1FUTM5Q0ZadkhpNFlQcDJFS0NqV0pBalcwQm9pQk5oUHFfbkpBdmRpd0U1V1BITGc2RkhOd2gteUd5VHRpY1VKYXdyVlllNHFUc1UwVDR1Zzc0Vko5X1B2cDZkclRXX3oyRXloaEcwSWR2c0h5NDFXa3VodU0wRnNWRlU5Rm1JOUFTa2dGek05WnMwT0xrRXhkRTNBVVVIRHVBOXRkME4zRzJRY29DTEZFaXZ3dTJLMk9nRGhKRzRadVVuRFN2bWR1V0dXT25HcWJnLUZM?oc=5",
-     "quando_utc": "2026-09-03T19:00:00+00:00",
-     "classe": null
+     "classe": null,
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 0.8,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "australia",
+      "bathla",
+      "bonds",
+      "coming",
+      "just",
+      "preview",
+      "timid"
+     ]
     }
    ],
-   "n_72h": 38,
+   "n_72h": 31,
+   "n_unicos": 30,
+   "duplicatas_removidas": 1,
    "contagem": {
-    "alta": 9,
+    "alta": 7,
+    "corte": 0,
+    "mantem": 1
+   },
+   "contagem_nota": "CONTEXTO: conta todos os eventos unicos das 72 h. Nao e voto — manchete tem peso 0,0 na hierarquia de origem.",
+   "contagem_voto": {
+    "alta": 0,
     "corte": 0,
     "mantem": 0
+   },
+   "voto": {
+    "vota": false,
+    "peso": 0.0,
+    "origem": "manchete",
+    "direcao": null,
+    "n_falas": 0,
+    "oradores": [],
+    "fontes": [],
+    "rotulo": "sem fala oficial disponivel — o banco bloqueia automacao; a imprensa abaixo e contexto, nao voto"
+   },
+   "banco_bloqueia_automacao": true,
+   "rotulo_contexto": "sem fala oficial disponivel — o banco bloqueia automacao; a imprensa abaixo e contexto, nao voto",
+   "por_origem": {
+    "imprensa_com_fala": 0,
+    "manchete": 30
+   },
+   "n_cita_dirigente": 0,
+   "motivos_sem_voto": {
+    "sem dirigente nomeado": 30,
+    "dirigente citado, sem verbo de fala": 0,
+    "dirigente e verbo, veiculo abaixo do limiar": 0
    },
    "inclinacao_por_manchete": "alta"
   },
   "NZD": {
    "itens": [
     {
+     "titulo": "RBNZ More Likely To Wait Until December to Hike, Silk Says - Bloomberg.com",
+     "fonte": "Bloomberg.com",
+     "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxPbXRxdHdRRFF2THFsbV9iQXhVUmR1QXpVdWU0dFNBTmwxVVloNUpXNkkxYWNGUU5MdlZTb2l6V0tqTjRuV0cwaWdzamtPRlZPc1BaYlN3dm9JT1FSRWEySEgxT1lLQWVVMzFaZ2Zwd3FhdklZMVk2V1RXR1Q0YXloYzlrVXVYamc1TjFhQmNiT3F4R0Q5d3MwR3hyXzk2bTB6MWhLelNQdnRnWjU1?oc=5",
+     "quando_utc": "2026-09-04T01:21:00+00:00",
+     "classe": null,
+     "origem": "imprensa_com_fala",
+     "peso": 0.4,
+     "orador_identificado": "Silk",
+     "peso_fonte": 1.0,
+     "motivo_origem": null,
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "december",
+      "hike",
+      "likely",
+      "rbnz",
+      "silk",
+      "until",
+      "wait"
+     ]
+    },
+    {
      "titulo": "Reserve Bank of New Zealand Delivers Further Rate Increase - WSJ",
      "fonte": "WSJ",
      "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQUFFod0F3VUlsYjRsQVFBbkJxak9NeWdyQzJGYmRQczdyMThyUExZeHFFX0lVc0tJR1pGWVZ3QVRtM3NpVDU4dld1Q0o3QlRkUEZDQ0EwNTlReHZsWGdXaDgyQWQ4NFFKbkFqcWd5QVhFa0REaUstdWhHbXlNTldmMHFJWm56WXYtSGZoY2lDVmVmN1psSFJpZFBsSEhMRTROYi15WGRuZW1JbmJ3OGw3MA?oc=5",
      "quando_utc": "2026-09-04T14:47:25+00:00",
-     "classe": "alta"
+     "classe": "alta",
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 1.0,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "bank",
+      "delivers",
+      "further",
+      "increase",
+      "rate",
+      "reserve",
+      "zealand"
+     ]
     },
     {
      "titulo": "How have interest rate expectations changed after this week's events? - investingLive",
      "fonte": "investingLive",
      "link": "https://news.google.com/rss/articles/CBMipAFBVV95cUxPUnFRR092ZXhka1o0NjRDM3EtRE1LVGFnUWRRRWNMNFhaQ2lzRzRYOTNodHluekpSTl9YN0N2Zld5el9aVEwwMmdkZWVkNmtBWHVOSzZPNERleW9DdWZvV3JyQUpwXzh6aEgwMGlYNXVRSGwzeGZsekFlQnNYQVR1YldlVWE1c2lCN0V0Z3lUclJNZ201U2NONVVMSGtOYVJBTTBJWQ?oc=5",
      "quando_utc": "2026-09-04T11:23:42+00:00",
-     "classe": null
+     "classe": null,
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 0.3,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "changed",
+      "events",
+      "expectations",
+      "interest",
+      "rate",
+      "week"
+     ]
     },
     {
      "titulo": "New Zealand Dollar advances as US Dollar struggles on softening hawkish expectations - FXStreet",
      "fonte": "FXStreet",
      "link": "https://news.google.com/rss/articles/CBMixgFBVV95cUxNcVBOMTB0ZTFpSHZfeUVYajB2X29sRjZYRmdVUkxzbV9DZU1Md2ZYVjVRbmVibGZLUENadHI4Y01IbXlyTTQtUWp5S1VBTmdYQkFzRjBJLWtsOWJvTzJoazdjZi02cEdfYlpYZFp4dnJrRXRnUmhqNHRKazFma2F6TFBLX1pYNVZCZVpNVzVSZkZZLUQ5RFNNMmF5MEUzQ0Q4TUdUYXZIUlcwTkJXeHVuSjF1ZC1DbHZ1RkJCSzl2M18yZmtJZVE?oc=5",
      "quando_utc": "2026-09-04T06:47:14+00:00",
-     "classe": "alta"
+     "classe": "alta",
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 0.3,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "advances",
+      "dollar",
+      "expectations",
+      "hawkish",
+      "softening",
+      "struggles",
+      "zealand"
+     ]
     },
     {
-     "titulo": "New Zealand's international education export earnings surge past pre-COVID levels: minister - ET Education",
-     "fonte": "ET Education",
-     "link": "https://news.google.com/rss/articles/CBMi-AFBVV95cUxNV1lCVzVXNWhoTGxMUUNOdzFjU3BHZXM3bEdBU3FoOG5KczlRN1BQNWVUbXdua1dfdVlhUUJmOXhNcjBhZUlxdGdfMF80d0Y0Y0NWN1VRLXhpN3djeTI0eVpPQk40YWlvS2hpemlhcEROdGtKeTNRTXpUby1xZF9zelVSUGM0RU9QWVhDNlp0SmVjdFZ1RlVUelNFekFTLVpOTHhFcUtOTWdOOTNFUHl4Z0dlQ0pKcHBqbGlfMnctNlBQOHdUYURjS2hHdk1ES0ZMTVNISnVOZHJXaVFSNXRkMmZ5anVXUUhIUHRLXzBMdlZMMXB6aUxSZtIB_gFBVV95cUxOTDFZX0FuejRyWjVBVzFWTnhnbm8zU2M4M0trVG5SQ1RXX0p4T3dqZDZBTmo5U1Q2X3VlSVlNblJDTlJOcDJEVFpHay1QelJWMlRaLWNobURfb0F0eHJRemM4c28yWVo1Nncwc2tSM0JaYnJ1cHJCYmJpM2YxU0hUTkx2UFRBUkZfcFV0YlJBd09BQ1UydUpQUmlLTTQtTHc0S2ZLNnJnNldZUE1fMUZhR0Nod3B0NV9zOTUxQTRRQ2gzUDZtSXRRMXlJRUE0WDBFZTdldDNUQ0FDVUZTRmlyU3BLQXp3ME1PUExGbE5uOXFzQi16NTBIM0I3dmRwZw?oc=5",
-     "quando_utc": "2026-09-04T04:16:51+00:00",
-     "classe": null
-    },
-    {
-     "titulo": "New Zealand rate hike was clear consensus decision, central bank's Hansen says - The Star",
-     "fonte": "The Star",
-     "link": "https://news.google.com/rss/articles/CBMi1wFBVV95cUxQT2dHalFmSjE1RmZzSlBjZzNwbVk0SzY1UC13VGFnZXozWXg5dzktcGVCai15QmhGbUVqQUp4RlVRajZfZmxHbFIxekRYSHoyRXdaMXd6NXEyeUVLc3hfRThOVlpwS3haRTBDSElpbkNCYWdZZUNzNGlaNUxNeHZwQ2NMb2hZZnRZTEFfR3Z2Yjk0ZlVZU0hVTzQ0QWFIWGVZcmJMQzE3VjRfY1ZwVlFoc1phSHRZUUVzVVNHM2ZpbE5IY0Z3Y3daTlFuejhqU2ZlWGFfd1lzRQ?oc=5",
-     "quando_utc": "2026-09-04T03:40:00+00:00",
-     "classe": "alta"
-    },
-    {
-     "titulo": "New Zealand Dollar gains momentum to near 0.5900, US NFP data looms - tmgm.com",
-     "fonte": "tmgm.com",
-     "link": "https://news.google.com/rss/articles/CBMiywFBVV95cUxORzBiaXlrbmx3LWswa1RyUUJjYmNPQlBQTzRKcUhHRmJXd0tSMi1mRllaczlMS2xscjhOdUJNWXMzb3BMREt5dl9PVGJXQ09Ic19HcUVuTTdwOEthNE5tYXVYbGZhNldNb0VyQmZJcmhuWFRSczVqMlk3SExIdlJxOXQtZGtLTEhFNWV6MVZmUWtWRFZINDVxNUVNdnFvMExOZXI3RXowOUtFM1d3MV81VTZDeVRaQmpkOG5ENHFscVNYQ1M0cUtCZE8tbw?oc=5",
-     "quando_utc": "2026-09-04T03:00:50+00:00",
-     "classe": null
+     "titulo": "RBNZ signals December, not October, for its next rate hike - investingLive",
+     "fonte": "investingLive",
+     "link": "https://news.google.com/rss/articles/CBMingFBVV95cUxPQm5uVWVDTXprRjhvNEl3dk0wTlhDdURkUV9hSy1jeTFfWk1SRndLSmp6YUd5aFZQblRmd1VwVnpfc1pTbFU4dkxWeDM0VURMdTF6Mms0ZnRXLTVDdTNmeTJLSGNseTNZcTVjcXBnRmRKaDV4ejVwVWJjUS00WUpoVkF5QmNrRDZDQ2hUMlEycVB6V0F4cUQyMktDN284UQ?oc=5",
+     "quando_utc": "2026-09-04T03:39:07+00:00",
+     "classe": "alta",
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 0.3,
+     "motivo_origem": "verbo de fala sem dirigente nomeado",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "december",
+      "hike",
+      "next",
+      "october",
+      "rate",
+      "rbnz",
+      "signals"
+     ]
     },
     {
      "titulo": "New Zealand Dollar gains momentum to near 0.5900, US NFP data looms - FXStreet",
      "fonte": "FXStreet",
      "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxNMVJjWFZEbGVVZHVsQnJSNVk1Qm1DQ0h2b3k5OVBwVnItMWV5OXljc0R2YkFQWUp3T1VWLWhvMl9rZ3JZM19nN3hKZllvUjIxVVJCUk1nNS1mT1VGUGd4ZU1aWjVxdlFycUx5QXozeEYzeE9leXpDTjA4SWxFT0FhQ04yb3NjSmlzMGRkNEg2Nng3NWswZXBwSWpLZ0FpT0RubHFIOVRFOFFaQmVt?oc=5",
      "quando_utc": "2026-09-04T02:45:10+00:00",
-     "classe": null
+     "classe": null,
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 0.3,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 2,
+     "duplicatas": [
+      {
+       "fonte": "tmgm.com",
+       "titulo": "New Zealand Dollar gains momentum to near 0.5900, US NFP data looms - tmgm.com"
+      }
+     ],
+     "assinatura": [
+      "5900",
+      "data",
+      "dollar",
+      "gains",
+      "looms",
+      "momentum",
+      "near",
+      "zealand"
+     ]
     },
     {
      "titulo": "New Zealand's Kiwi gets most of Wednesday back without earning it - FXStreet",
      "fonte": "FXStreet",
      "link": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxOclowNllwMlZtYUdtcjBsU0JobmhvZVZIR0hYbTNUcVczWTkwN2VEMThBRlRxVEZGNTZ3WURQUWJZNnd2UW1NTThvVnM5SzhDVTRfYW94NlNrSFRBdXBOVUVTWU1WaFFjWm9sb01yVlZqX1Z0TjMtWHJnQzVvMV9GWFNiU1JyWE04azRGZ3R3ZDFDU0N6TkhNb05tOTZ5QWpxc190eHF2anZxcE0?oc=5",
      "quando_utc": "2026-09-03T22:23:48+00:00",
-     "classe": null
+     "classe": null,
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 0.3,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "back",
+      "earning",
+      "gets",
+      "kiwi",
+      "wednesday",
+      "without",
+      "zealand"
+     ]
     },
     {
      "titulo": "New Zealand RBNZ Interest Rate Decision için 2.75% görüşü dahilinde gerçekleşti - TradingView",
      "fonte": "TradingView",
      "link": "https://news.google.com/rss/articles/CBMiakFVX3lxTE9WckpUdXNLWU1pcEtrekMwVEhEUjJaVmFMSFJUVTlPSWwyX0NWSGN4azdsM0xHM2NleEZMNVZlS210QTZfcDg0TU9MdzhpYlJJYWFVWFpLV2M2aEVyQ2tvTkVKYUotMG9lRHc?oc=5",
      "quando_utc": "2026-09-03T22:23:22+00:00",
-     "classe": null
-    },
-    {
-     "titulo": "The one-sentence election demand from small biz owners: Pick a direction and stick to It - thepost.co.nz",
-     "fonte": "thepost.co.nz",
-     "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxQTlNfRjVUaVZWS2lzSDI1UzBPSHZfbHpvMkd0RlNhVHFYVEdCX0VuaS1WT3I3LXlwUW4xSnd6SGc2S0xlV1RpUXFIWU4xY0NVWWVhNWRubGx6VmxsQjluSFRpdmdiUEdONEh6SzNrY243eFozQTZYVWdqSTVYNDI2Mm41czhKblV0Q0J6Wm1wUVgxQUM5Nk51MlRUVWliRXd3MUlkeWx6SEpod0VQLU1QMHNJQ19ocmJ0cUE?oc=5",
-     "quando_utc": "2026-09-03T19:00:41+00:00",
-     "classe": null
-    },
-    {
-     "titulo": "India-New Zealand free-trade agreement likely to take effect next month - Business Standard",
-     "fonte": "Business Standard",
-     "link": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxPejgxMll1Q0k0cWZicmhyTC1tMUZEd1pQZmN6UnJvQ01Ob2tfaXlzczhIZWN4aWdaTTNsN3JOa19lSXVpVVZEX1FoU2ZoWUt6UHVCVldvY294QnNjNmY5ZlVWcEFyOHM2ZnFtaUx5T0tkZVEtZUlzTl9UZjREcThEdFFpWnJPVHBLR3F2RHZwdDFLbkRoakNvQnBmcjd6RkU2RHd6RFViRTUyRS1XVFZaNG93M3BtMHU1ZjkzQzNxYVFqeVBjTzV2WGxmWkxNNlhoMzd6c9IB2gFBVV95cUxOdkJvS0tqUzR1NS1XMjhZRG44R2swMTQ0Qnd4VlJrUVlDa0RRV3FBQVlSY0JxRUNobm9nalhZSXE0NS0xemJHZFJlVkt6MG51MzhXUGctYkpTUFBEZkU1NTVFbk55UlVOUzZnYnc1QkFqRnNkZ1U5QnNsb1dlVnNzX2J6LWNzbFdRbFFTTV9rM1ZaOUVJSm5wd0pMaWV4NVI2Q0YxbU1uclpiNW45RVFEUzE5a0dXcTdPQS1jRTl6ZW5oUVFrNzVtYV9iTVluSUIxQVA3cnQtaDkxdw?oc=5",
-     "quando_utc": "2026-09-03T18:26:00+00:00",
-     "classe": null
-    },
-    {
-     "titulo": "India-New Zealand FTA likely to come into force in October 2026: Sources - CNBC TV18",
-     "fonte": "CNBC TV18",
-     "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxPNU1RREVUT0hyOEo5Q0pOU0o2NXVOYUJRSERqOEZFbl9TN3NxLUpkR3JqMWlzU1BCVW1OWHo5dlhiUGU5T082YTJYOTlreTliWU45ODdxNFZPdF9kTzFFRGN5d1hFRjRJdkxWMklpV2NYNThlaF9VZlhuaWhhME8xT1VBVmhwTGlpTTMwc2Y2M2NxeHhXNVJFUnA0Y3VfYXNjTlR1ejdieGotQXhQMUt4Z2RoVndLV1Fw0gG-AUFVX3lxTE9TYWFZVGNra3Q1VHplTVVXeGstN3RxVEJkUEpZeXNyRXhDWGZKU2RKdTRDOHVPaW52NmxIWVhfcmVLelFEY1U3djJSdVZGQ0o4RElTWDlUVmpKUmIzVHhmQ0kwWXhHSzBxTmFoMnRlTnpBR2l4ZVpnaW5IM1hWUVpXN2thUTlCTDRuejhHYkpaOVRySy1MTHllcmRCbndnWjlnc2R5LURzbDEtcGwtR09FbHFJSzVGX1M1dFROd0E?oc=5",
-     "quando_utc": "2026-09-03T09:57:48+00:00",
-     "classe": null
-    },
-    {
-     "titulo": "India-New Zealand trade pact to come into force from next month: Official - BusinessLine",
-     "fonte": "BusinessLine",
-     "link": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxNTkVTd2tRWmNxWHpWcFc0TUMweGE1VHp0dW9FMmhsd1ljQ2RFX2lEeVVCYnBzazRBSEpoeTUxdl9BczZUWlVmdFgzbE1nRHBTTzBqbzF2M1ZTTjh3Z1Y4QjVwS3J0RjRPNlZDcFNkMDRmUkppRm1ydEM2MXYxWGczbmk0Nmw0Q1VudjJpcHhLNDhsR21EZmF5OW51RDNPRjdnZGFMY0RxQXhFVzVtOWlzejJJQWZFczdRcUN3SGlNU3NrYXk4QlVIMndTanAwTk5hV1dB0gHaAUFVX3lxTE1SZTZ4V2ZNR0NfX3czR3ZzQThDMndvelZJbG8yTXFRRUxZaHlHWHRQVm1lejlPNDdqeWxERDZoM1ItTEJnTk5kRkFLV2lRNVZrN0YwVDZ3YjZncVliRGVZcFBmeldzb2syNnhzQWdOeVRWNzd4d3dJQWo1RURvbTNTUlN4RU5PbFZxNG5vcFNUS3djam5EVmV1bldicEl4RERkWjgtWlBlSHppX1NCSFRZY3U3U25lcVVoR0lzYmN0WHdUM3k2VVpPWDRkcXRPMDFsWnh5eVp6X1FR?oc=5",
-     "quando_utc": "2026-09-03T09:47:07+00:00",
-     "classe": null
+     "classe": null,
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 0.3,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "dahilinde",
+      "decision",
+      "gerceklesti",
+      "gorusu",
+      "icin",
+      "interest",
+      "rate",
+      "zealand"
+     ]
     },
     {
      "titulo": "RBNZ hike cash rate by 25bp, as expected - investingLive",
      "fonte": "investingLive",
      "link": "https://news.google.com/rss/articles/CBMihwFBVV95cUxQVHZNYXIyRTF4Q2lFc2JiOHpSYlhyWTAwZjdtZ2xNRWhUZEpWelFHXy1STkY2QmRTdEFONllPekpYQjV3U1N6eWdqclFpN0R3QjQwWDBFbmVnN1RmLTRpek1VbmVLZE55aEh4NDBFaHZyLW9NZ1hOUEx6TFg3b0lZT19wRThvUnc?oc=5",
      "quando_utc": "2026-09-03T08:22:26+00:00",
-     "classe": null
+     "classe": null,
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 0.3,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "25bp",
+      "cash",
+      "expected",
+      "hike",
+      "rate",
+      "rbnz"
+     ]
+    },
+    {
+     "titulo": "China's slowdown pushes New Zealand exporters to new markets - CNBC",
+     "fonte": "CNBC",
+     "link": "https://news.google.com/rss/articles/CBMimgFBVV95cUxQeWFmYWxnZTVGRU96cDNUVUlMbFVIMkVyaGNVeTJLX1lMeVZYdDhqM1M5MWVxUjRwbmZtNmp2cThsRHRRYW1CN0t1Z3NRT1R4a1ZjTEVyWVNyalhaZFNBQ1lXSWhpTzA3RXg4ZmpiVVVJR1VkVmlyZzR5UjlHQ1NjUUkzeHJTdm42VHFyRjVqR3FoTTNSd3dJVTZB?oc=5",
+     "quando_utc": "2026-09-03T04:44:31+00:00",
+     "classe": null,
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 0.8,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "china",
+      "exporters",
+      "markets",
+      "pushes",
+      "slowdown",
+      "zealand"
+     ]
+    },
+    {
+     "titulo": "New Zealand Dollar rebounds above 0.5850 on stronger Chinese services PMI - FXStreet",
+     "fonte": "FXStreet",
+     "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxQbkpzMGNjSWd4RElTUV94MF9MeC1lTXJYSUVLaWRDcjBldVBXWlRwSXBFZHFhMlR3b3NvUm16ekM3T2h5UkZiWlJ0WkpOZXB4czNSdVdiUlI3X0VRcnROeUtWT292aDRlRDJYLXNzdHR5QlM2N19iY3U0ODJ1WkpFclJEQXp5bEM1aGtScjg1SUFfM0V3WU9lUUxXdWNfYnJzc3FFanZ5NEdvbjNy?oc=5",
+     "quando_utc": "2026-09-03T02:14:17+00:00",
+     "classe": null,
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 0.3,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "5850",
+      "above",
+      "chinese",
+      "dollar",
+      "rebounds",
+      "services",
+      "stronger",
+      "zealand"
+     ]
+    },
+    {
+     "titulo": "RBNZ 'can probably take some time to assess' and see how 2 OCR hikes have affected the economy - Interest.co.nz",
+     "fonte": "Interest.co.nz",
+     "link": "https://news.google.com/rss/articles/CBMivAFBVV95cUxOT3VfQ3NkakJhWjNIa08wdjg0bmhrY2JhX2JyZllJdDFjb1VKNXZxMDR0OGxQdkFuSGM5ZFhDN05iQWxiZkUtand6VVJLRnY5M0xHN2xQWHBZVUlVejBTdVQyWnFDWllrUzNwQzE1dHdwZGhYSXl2S2dVRkwxczEyZkN1eGxRU09IT1Q3U2J4Y0ZsLW9xRGdmTTdUN3ZNZGgxMHc5TVZCQnktelFRVDZ3MUNodU5fdC15dGxwZw?oc=5",
+     "quando_utc": "2026-09-03T01:04:00+00:00",
+     "classe": null,
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 0.3,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "affected",
+      "assess",
+      "economy",
+      "hikes",
+      "probably",
+      "rbnz",
+      "some",
+      "take"
+     ]
+    },
+    {
+     "titulo": "Is the OCR now on ice until after the election? RBNZ's signalling divides bank economists - Forex Factory",
+     "fonte": "Forex Factory",
+     "link": "https://news.google.com/rss/articles/CBMihgFBVV95cUxPbFFkTFJYZ3Y3OVIwVm5YaDFiaVBiT0lJc21CNHFNT3BsR1RQRWJ2VW1ScXc0Y182emx2cTA4MC1CWWEzbi1PeGhWTmhhS3EwZV9KWUJYZzVwZ3Y3YlhXeHJ1WVlPLWlFaTM4TEtFUVNiZzE3VHJOR2tSbnNWdUdXakhsamJJZ9IBhgFBVV95cUxPbFFkTFJYZ3Y3OVIwVm5YaDFiaVBiT0lJc21CNHFNT3BsR1RQRWJ2VW1ScXc0Y182emx2cTA4MC1CWWEzbi1PeGhWTmhhS3EwZV9KWUJYZzVwZ3Y3YlhXeHJ1WVlPLWlFaTM4TEtFUVNiZzE3VHJOR2tSbnNWdUdXakhsamJJZw?oc=5",
+     "quando_utc": "2026-09-03T01:01:27+00:00",
+     "classe": null,
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 0.3,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "bank",
+      "divides",
+      "economists",
+      "election",
+      "ice",
+      "rbnz",
+      "signalling",
+      "until"
+     ]
+    },
+    {
+     "titulo": "The Reserve Bank of New Zealand's rate hike is already priced in, but the interest rate path remains \"too dovish.\" Can the New Zealand dollar still hold above i",
+     "fonte": "Moomoo",
+     "link": "https://news.google.com/rss/articles/CBMikgFBVV95cUxON2l3RzBHcGxOTW5jSkJ2T1VCN040VE5ORjZNWGI1M3U3R0RBb2NISzg2SGhMRkt0OVFDQXN3ZTVuTjBFeElSUUEwVXBfcWpGQnNZcU1qVm1VRjJLajZrRHEtQmNqQzJ6c1FhTFdQQkFxOHdOQU44dU1NR3F3UGhOVFZWRG5tQmQ5RTU0cWFJQ1Zzdw?oc=5",
+     "quando_utc": "2026-09-03T00:06:04+00:00",
+     "classe": "alta",
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 0.3,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "already",
+      "average",
+      "dollar",
+      "dovish",
+      "interest",
+      "remains",
+      "reserve",
+      "zealand"
+     ]
     }
    ],
-   "n_72h": 67,
+   "n_72h": 40,
+   "n_unicos": 37,
+   "duplicatas_removidas": 3,
    "contagem": {
-    "alta": 21,
+    "alta": 12,
     "corte": 0,
     "mantem": 0
+   },
+   "contagem_nota": "CONTEXTO: conta todos os eventos unicos das 72 h. Nao e voto — manchete tem peso 0,0 na hierarquia de origem.",
+   "contagem_voto": {
+    "alta": 0,
+    "corte": 0,
+    "mantem": 0
+   },
+   "voto": {
+    "vota": false,
+    "peso": 0.4,
+    "origem": "imprensa_com_fala",
+    "direcao": null,
+    "n_falas": 1,
+    "oradores": [
+     "Silk"
+    ],
+    "fontes": [
+     "Bloomberg.com"
+    ],
+    "rotulo": "fala de dirigente reproduzida pela imprensa — peso 0,4"
+   },
+   "banco_bloqueia_automacao": true,
+   "rotulo_contexto": "sem fala oficial disponivel — o banco bloqueia automacao; a imprensa abaixo e contexto, nao voto",
+   "por_origem": {
+    "imprensa_com_fala": 1,
+    "manchete": 36
+   },
+   "n_cita_dirigente": 1,
+   "motivos_sem_voto": {
+    "sem dirigente nomeado": 36,
+    "dirigente citado, sem verbo de fala": 0,
+    "dirigente e verbo, veiculo abaixo do limiar": 0
    },
    "inclinacao_por_manchete": "alta"
   },
   "CAD": {
    "itens": [
     {
-     "titulo": "Canada's job market shrinks while U.S. adds jobs in August - CityNews Toronto",
-     "fonte": "CityNews Toronto",
-     "link": "https://news.google.com/rss/articles/CBMipAFBVV95cUxNYTJYVzhaek9uU18ycWh0bF9YSTNHbWlwdVdSZWIxbl9rSG13bGJEbkxUcTFMNmo3WTUxTExWUmViNW45RE5veWtzb21ianloVlNDb1NSbDROS3JYcGxMMV9GVWcxZmxNMTRROXp1dl82UUw5WmpoUW5hMDVzSGY4NGI4aUNpeWs3cmVrb2tUN0s0cDJBdlZZOXBDaTlYUms5NmlPZg?oc=5",
-     "quando_utc": "2026-09-04T22:09:00+00:00",
-     "classe": null
+     "titulo": "Canada’s unemployment rate holds steady despite job losses - CBC",
+     "fonte": "CBC",
+     "link": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE9TWmZESmp4SHdBbFdqTjNBZXZIM3NhcUdabEF2TlM5aFdBeHgwSzM5dW9QbHgxa2UtTlBRcGZWcnZYWi10X1ZzM0tmQmJKUzV2eEI2MHE5SmJ4QQ?oc=5",
+     "quando_utc": "2026-09-05T02:05:16+00:00",
+     "classe": null,
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 0.6,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "canada",
+      "despite",
+      "holds",
+      "job",
+      "losses",
+      "rate",
+      "steady",
+      "unemployment"
+     ]
     },
     {
-     "titulo": "Canada sheds 42,000 jobs in August while U.S. sees burst of hiring - theglobeandmail.com",
-     "fonte": "theglobeandmail.com",
+     "titulo": "Canada sheds 42,000 jobs in August while U.S. sees burst of hiring - The Globe and Mail",
+     "fonte": "The Globe and Mail",
      "link": "https://news.google.com/rss/articles/CBMilAFBVV95cUxPcmR6aU9reDY2aHczTHk1Ym9aZVZRbUgxc193ckZrWGNOTTJZeWF4UVZzWDB4OF9ERUNBQkxWTzFKei10QldDczM1aEtkY19NbDVwMmViTEJWYzN5NGFwZmxtY2VTckpRYTJySXRMNnlWODhPT3RhMjJBN3V0TzJLSjZISllIZmZvOWhmbjMtaUh0VFFT?oc=5",
      "quando_utc": "2026-09-04T22:06:10+00:00",
-     "classe": null
+     "classe": null,
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 0.6,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "august",
+      "burst",
+      "canada",
+      "hiring",
+      "jobs",
+      "sees",
+      "sheds",
+      "while"
+     ]
     },
     {
-     "titulo": "Canada loses 42,000 jobs in August as trade tensions raise economic concerns - cp24.com",
-     "fonte": "cp24.com",
+     "titulo": "Canada loses 42,000 jobs in August as trade tensions raise economic concerns - CP24",
+     "fonte": "CP24",
      "link": "https://news.google.com/rss/articles/CBMivAFBVV95cUxNV2psTUMwZ1FlV0NTUjI3YzE2dEJSenRmbVYzaklycW5Bd095bzBjaElKMkQwdUdvRm92Yjk3RG0yNWVzQkFVNnJmdjJpWTRiSGMxdUpxSFFPNzZfXzFQYnJJX2dORUJ2YU9lako0TDMzQjJQelF3TmtPRHQxdmFiUmpPWUktRkFjeF8yWlNucnVDR2pLNW5mV2lRdldyVEU4cUgwYmtELUt6eXJHa2FOaXY2QlRHYWZlR0E2Qg?oc=5",
      "quando_utc": "2026-09-04T21:48:14+00:00",
-     "classe": null
+     "classe": null,
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 0.3,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 3,
+     "duplicatas": [
+      {
+       "fonte": "CTV News",
+       "titulo": "Canada loses 42,000 jobs in August as trade tensions raise economic concerns - CTV News"
+      },
+      {
+       "fonte": "CTV News",
+       "titulo": "Canada loses 42,000 jobs in August as trade tensions raise economic concerns - CTV News"
+      }
+     ],
+     "assinatura": [
+      "august",
+      "canada",
+      "concerns",
+      "economic",
+      "loses",
+      "raise",
+      "tensions",
+      "trade"
+     ]
     },
     {
-     "titulo": "Stock markets slide amid the release of labour data in Canada and the U.S. - bnnbloomberg.ca",
-     "fonte": "bnnbloomberg.ca",
+     "titulo": "Stock markets slide amid the release of labour data in Canada and the U.S. - BNN Bloomberg",
+     "fonte": "BNN Bloomberg",
      "link": "https://news.google.com/rss/articles/CBMitwFBVV95cUxQUkc1NHFIOEVfOHo4WWJkaUYyeHN1ZWZneXpoR2hmUGFnRWhqVUxvdGtYOXNoUFZhVlpLRXlHZDZTczE0bmZib08zckl4V3FIcVpnXzlfT0kxRUJrZTFRcENyeTVZaVdMRmlXSVYtR1lPR1NxX0dwQUU2TGV2b250ZzlJdkNwWTRDdFhqV0VPczBjMXNRZGgzR3NwbmQ5LTRReWdkWHEtMm1uYzhIMUFqU095T3BlMjQ?oc=5",
      "quando_utc": "2026-09-04T21:43:36+00:00",
-     "classe": null
+     "classe": null,
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 1.0,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "canada",
+      "data",
+      "labour",
+      "markets",
+      "release",
+      "slide",
+      "stock"
+     ]
+    },
+    {
+     "titulo": "Canada's job market shrinks while U.S. adds jobs in August - CityNews Winnipeg",
+     "fonte": "CityNews Winnipeg",
+     "link": "https://news.google.com/rss/articles/CBMipgFBVV95cUxQRnRlUE1ETGRLTVp6bElaMnBZZkZnUmpBS3VzaWYxTTJPcFNiaVE5cFdIQ09fYzh6dUN4cDh6b2diLTFMTUJsREdqMEJQeHRHTWdyM2VyNXlONm5vdjRrUUdtcThDampva1BjUVE4czg3eFFvN2k4eTdZdGpSSHdTa0N0UUNSLVJMSHBQeG5LWHpnTkRtN3dDSUdULWVSRUVNODViUEhR?oc=5",
+     "quando_utc": "2026-09-04T21:33:39+00:00",
+     "classe": null,
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 0.3,
+     "motivo_origem": "verbo de fala sem dirigente nomeado",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "adds",
+      "august",
+      "canada",
+      "job",
+      "jobs",
+      "market",
+      "shrinks",
+      "while"
+     ]
     },
     {
      "titulo": "Canada jobs fall sharply in August as labour market loses summer momentum - Investing.com Nigeria",
      "fonte": "Investing.com Nigeria",
      "link": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxPNjMtWl9vY0hfbWpfRWFobVdqM2VGSkdUeGMzTjMtWHk1M2tNdzBuMlJBRGYwRWNPV09xNzFqbGJoZ3FtV0JzV1BReEpkdUhyTm9RRFIxTW1mT1J2aGxab3dxbUhmS0ozWklickhWdGM5dUo0OE1nYmUyb2plU1ZIeUdNNmgtS25jWFhQcFptS3hFNkZwbVBBeHhhUFdDWEEwRmhSZGFfelc3UjY2T0VzZnFiTTdsRHZlV0kweGM1RXVVdw?oc=5",
      "quando_utc": "2026-09-04T21:23:39+00:00",
-     "classe": null
+     "classe": null,
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 0.3,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "august",
+      "canada",
+      "labour",
+      "loses",
+      "market",
+      "momentum",
+      "sharply",
+      "summer"
+     ]
+    },
+    {
+     "titulo": "Strong US Jobs Lift The Dollar Against The Loonie - Finimize",
+     "fonte": "Finimize",
+     "link": "https://news.google.com/rss/articles/CBMihAFBVV95cUxNT2RHYzFOWEVkQmRDdFBuTE92aHNueGJrREVCazdVVEU0VzVPUmtMb255Mm42LXd5a2drX3pVdDZocGhDQzhKNFFoNVlubXF4QUtNSEFSSS1QTU5JMVdidUtFOXhhNnR0d0pyWEVYbG96YlRwZlcyWXQtRkFXUVRWRVB1Q18?oc=5",
+     "quando_utc": "2026-09-04T21:22:30+00:00",
+     "classe": null,
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 0.3,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "against",
+      "dollar",
+      "jobs",
+      "lift",
+      "loonie",
+      "strong"
+     ]
     },
     {
      "titulo": "TSX declines after US jobs data fuels rate-hike bets - Reuters",
      "fonte": "Reuters",
      "link": "https://news.google.com/rss/articles/CBMioAFBVV95cUxQb2lqMGN2QVdTSk00Tnh1ZDU5QTBLSlR1TWZPcHBXVl8tNFB5UVdTanZ3VVNBbHQtd3d5aUdtbXEwY0RqOXVPSk5yZUJ6MHFKSEx4N1l0TUxoU2tIeWVRRHF3RVFxMUFGYTY3bjBVZUppV1cxdW5iTTBlT2lCZjlhWERCQ0ltRzRYdHNkZzF0N0xlNXl5X3dwdWc3UnhOVmdF?oc=5",
      "quando_utc": "2026-09-04T20:53:40+00:00",
-     "classe": null
+     "classe": null,
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 1.0,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "bets",
+      "data",
+      "declines",
+      "fuels",
+      "hike",
+      "jobs",
+      "rate",
+      "tsx"
+     ]
     },
     {
      "titulo": "Canada Jobs Report: Employment Falls 42,000, Loonie Drops 0.5% - TechStock²",
      "fonte": "TechStock²",
      "link": "https://news.google.com/rss/articles/CBMihgFBVV95cUxNY0V3cGFCQ25NUHRKTmgtODZHbHpSVV9iVjVzdHFPdmlSb0VsNXhqLW8xVV9vVVNmd2w2YlJ0bFVnX1ZNdmVWN3dDTExXckU0c1RvSXZnY2E4SlAyUThIN0xuZS15NnpoSW5nLV93S3B0TExqamdhaml6X2dSWTB0a01QUE1JZw?oc=5",
      "quando_utc": "2026-09-04T20:53:28+00:00",
-     "classe": null
+     "classe": null,
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 0.3,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "000",
+      "canada",
+      "drops",
+      "employment",
+      "falls",
+      "jobs",
+      "loonie"
+     ]
     },
     {
      "titulo": "CBC speaks with Claire Fan about Canada losing 42,000 jobs in August - CBC",
      "fonte": "CBC",
      "link": "https://news.google.com/rss/articles/CBMiWkFVX3lxTFBNNEZ4OC1hUlRnOUdOZ2N6a1Q0RHF1WUdIRWV3VGZXQ0lZY2tHQVd2OXNWRTM4N1pxaXN4RkJzcVExM3hUaGl5Nkl5WGFVRU5uXzN2ZFA5eWNOdw?oc=5",
      "quando_utc": "2026-09-04T20:17:49+00:00",
-     "classe": null
+     "classe": null,
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 0.6,
+     "motivo_origem": "verbo de fala sem dirigente nomeado",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "000",
+      "august",
+      "canada",
+      "claire",
+      "fan",
+      "jobs",
+      "losing",
+      "speaks"
+     ]
     },
     {
      "titulo": "How worried should variable-rate borrowers be about Bank of Canada rate hikes? - financialpost.com",
      "fonte": "financialpost.com",
      "link": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxPV2lxUnBkSVhuc2M5Wjhkd2hyYmVVeTRKQ1lHaUM4dGVjX1d6UHJFWGUzZG5qOE9kSXhkODlsTTNQbmpVZ21oWnlvb2JjZER3aTgzWF9ZTHF6OFVkeWVRN0wyRlJPMlBteWdheTE2TkpNNmRiUjM1amVrRVBWNEQ3WGtxNkpFczVsbEwxeTFfd0VNbjRaYlJlYlVNQUhYa3RrNDI0cm10Z3BmRmRQaG5nRkVhbjk1b0JzazVz?oc=5",
      "quando_utc": "2026-09-04T19:05:20+00:00",
-     "classe": "alta"
+     "classe": "alta",
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 0.3,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "bank",
+      "borrowers",
+      "canada",
+      "hikes",
+      "rate",
+      "variable",
+      "worried"
+     ]
     },
     {
      "titulo": "B.C. sheds 5,500 jobs in August amid nationwide losses - Surrey Now-Leader",
      "fonte": "Surrey Now-Leader",
      "link": "https://news.google.com/rss/articles/CBMilwFBVV95cUxNV1NLY2VSOEkwRjVmMHRSaFpiaHpDeXF0NWFMdnkwMVlLcTlvZEVqd0VfR3RMWnFaSlh4NUJ3VUs4R2xvdUVjdGZVNlNXYnptdlI0cURxTS0ySG1EZ3BFM1RVcU42a3JSTzBDVGgyRmx0X3k1dGF6RGdDdTcxeDFldGZnS0Z5dnpyaWtxcWlJbXBIOVQ4WUdj?oc=5",
      "quando_utc": "2026-09-04T18:53:43+00:00",
-     "classe": null
+     "classe": null,
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 0.3,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "500",
+      "august",
+      "jobs",
+      "losses",
+      "nationwide",
+      "sheds"
+     ]
     },
     {
      "titulo": "What the Weak August Jobs Report Means for the Bank of Canada Rate Outlook - Morningstar",
      "fonte": "Morningstar",
      "link": "https://news.google.com/rss/articles/CBMipwFBVV95cUxOdEFRcnhDTnVsS0lMRlhtOWhNT1Zaa0pkMkxRVFpsU2tlS21mREpHWUk1aHpETmtmODZjMXZKX1hsSUl4UXliVVUxZENWX0ZTUEZhUFg3bk1aUFpiUl92TWZ4Um84MXZvcmlyNmNkc0hlVzdhTGVZLWFDN3F0WmdxSEVBeldUaGlyRVB5Zk9OakptOFB4NlVQMUV3cmNBRlZkcTA1dTRqcw?oc=5",
      "quando_utc": "2026-09-04T18:51:47+00:00",
-     "classe": null
-    },
-    {
-     "titulo": "Strong US Jobs Lift The Dollar Against The Loonie - Finimize",
-     "fonte": "Finimize",
-     "link": "https://news.google.com/rss/articles/CBMihAFBVV95cUxNT2RHYzFOWEVkQmRDdFBuTE92aHNueGJrREVCazdVVEU0VzVPUmtMb255Mm42LXd5a2drX3pVdDZocGhDQzhKNFFoNVlubXF4QUtNSEFSSS1QTU5JMVdidUtFOXhhNnR0d0pyWEVYbG96YlRwZlcyWXQtRkFXUVRWRVB1Q18?oc=5",
-     "quando_utc": "2026-09-04T18:27:58+00:00",
-     "classe": null
+     "classe": null,
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 0.3,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "august",
+      "bank",
+      "canada",
+      "jobs",
+      "means",
+      "outlook",
+      "rate",
+      "weak"
+     ]
     },
     {
      "titulo": "Ontario loses 18,000 jobs in August. Why businesses are pulling back on spending and hiring - Inside Halton",
      "fonte": "Inside Halton",
      "link": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxON2ZYVTA1WFRmQmNfeW5iUmtjbjViZTF2OWgzajdzZGx2UzF2aC1TOG5KeEpzZ2NrS1BCZ3RZSHhvN25KWGtzZWx3RWZLeGlzd2g4WTVoRi1ZSkV0Zl9Ua242T21kX1FmcTJwU0JUOUNuRGVqbldpU05nc3pUYTlhYkZoaV84Z1R2MHMweE9KMmtDMGFsVlhJWVRzcHRJbVhYTmtDZnF0Q0hlTkdfNW95Z2pMajRObWVONm1zZ1IwMnhwVlVPM0NlXw?oc=5",
      "quando_utc": "2026-09-04T18:22:00+00:00",
-     "classe": null
-    },
-    {
-     "titulo": "Economy sheds 42,000 jobs, unemployment rate steady in August: StatCan - Castanet",
-     "fonte": "Castanet",
-     "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxQQkZnMlFlZW56b0Nfbkc1cmFLVGgtV0tIVDBjTS13X1F5Q0hQSDRiNDQ5a3J5QXl6azItZUdzQURLbkFWa2lIaFZfZDNoXzROZmNrUGxDS3UtQWJSUi1iYlhqV3E2LVhiUGt1d1BFLTVFZjNzTE5nMlFCNTY5UEgzVnA4TkdNVWRnYUc1TFhxZ2JXTVZkdVRfbGVxV1ZoV2todGlRVTdoNG41NDZvdVNSaU1n?oc=5",
-     "quando_utc": "2026-09-04T18:18:00+00:00",
-     "classe": null
+     "classe": null,
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 0.3,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "august",
+      "back",
+      "businesses",
+      "hiring",
+      "loses",
+      "ontario",
+      "pulling",
+      "spending"
+     ]
     }
    ],
-   "n_72h": 146,
+   "n_72h": 152,
+   "n_unicos": 126,
+   "duplicatas_removidas": 26,
    "contagem": {
-    "alta": 5,
+    "alta": 6,
     "corte": 0,
-    "mantem": 37
+    "mantem": 32
+   },
+   "contagem_nota": "CONTEXTO: conta todos os eventos unicos das 72 h. Nao e voto — manchete tem peso 0,0 na hierarquia de origem.",
+   "contagem_voto": {
+    "alta": 0,
+    "corte": 0,
+    "mantem": 0
+   },
+   "voto": {
+    "vota": false,
+    "peso": 0.0,
+    "origem": "manchete",
+    "direcao": null,
+    "n_falas": 0,
+    "oradores": [],
+    "fontes": [],
+    "rotulo": "so manchete: contexto, nao voto"
+   },
+   "banco_bloqueia_automacao": false,
+   "rotulo_contexto": null,
+   "por_origem": {
+    "imprensa_com_fala": 0,
+    "manchete": 126
+   },
+   "n_cita_dirigente": 2,
+   "motivos_sem_voto": {
+    "sem dirigente nomeado": 124,
+    "dirigente citado, sem verbo de fala": 2,
+    "dirigente e verbo, veiculo abaixo do limiar": 0
    },
    "inclinacao_por_manchete": "alta"
   },
@@ -774,86 +2754,272 @@
      "fonte": "FXStreet",
      "link": "https://news.google.com/rss/articles/CBMimgFBVV95cUxNMThqRzRXTWZ1ZEY2aVhScUwwRmhVenNibXRmVndmb3EteHU5cU96bVBkelhOaWhhX2lYdXhaNzV3N0lWV1p1VXZCMU5CZ1lCcXNIQW5pSTlIU0FFSlFGcVdFQ0Y5Z2ZiRWlnWVlEbzg2WGx1M1poN05wRnNOcUJ1OHBKNmpTN2Znd1BVSC1ldDRUTEs0Mk5sSVJR?oc=5",
      "quando_utc": "2026-09-04T04:50:49+00:00",
-     "classe": null
+     "classe": null,
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 0.3,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "ahead",
+      "data",
+      "franc",
+      "rate",
+      "swiss",
+      "unemployment",
+      "weakens"
+     ]
     },
     {
      "titulo": "Swiss inflation at fastest in almost 2 years after growth jump - The Straits Times",
      "fonte": "The Straits Times",
      "link": "https://news.google.com/rss/articles/CBMiogFBVV95cUxNWUppMTFBQ3V2d1dxV0Rid0NreFB4SXAxS0NSU1VNdUw2Z0hfbEpqNFBvelQ1dFF2a2M0NE9HUGVsdlpLX19sNzl5U01CRTVCc0t6NEtRZnZzVUtmNXdvNmxNMFAzNEZBcVJyYk9XNFVrZ2Q5aFlDdk5ERVh1Ukk0djZ0X1R2QkhqbWdDSDllWnpNTGtYZ3FiZU4yU0J3VC1IaFE?oc=5",
      "quando_utc": "2026-09-03T23:50:00+00:00",
-     "classe": null
+     "classe": null,
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 0.3,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "almost",
+      "fastest",
+      "growth",
+      "inflation",
+      "jump",
+      "swiss",
+      "years"
+     ]
     },
     {
-     "titulo": "SGS stock holds firm as Switzerland turns to inflation data - AD HOC NEWS",
-     "fonte": "AD HOC NEWS",
+     "titulo": "SGS stock holds firm as Switzerland turns to inflation data - ad-hoc-news.de",
+     "fonte": "ad-hoc-news.de",
      "link": "https://news.google.com/rss/articles/CBMivwFBVV95cUxPcnRpd1hxLXRMbmQweUVqNnVhWnRXUThya3JZbzFGay1BbFhNSE1zZG1XSkhkeThZekt6SlROc09fZ2l4MUl4WEVodjc1TENBa1d0djhsSjhGSktSOEpKT05LR3VfSnY2NUxyZ0dqTTJHYUJvVFQyOGFoY01rTWNaaHN5T3hjLXdzbVdmSEFJRm1LRmVzMV9tZnpQX1BkY2NrS0xEOHYwaVEtYk1saDltSGQ4d1pYWWQ2R3kxTWEzdw?oc=5",
      "quando_utc": "2026-09-03T20:51:31+00:00",
-     "classe": null
+     "classe": null,
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 0.3,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "data",
+      "firm",
+      "holds",
+      "inflation",
+      "sgs",
+      "stock",
+      "switzerland",
+      "turns"
+     ]
     },
     {
      "titulo": "Swiss Franc Rises After Hot Swiss CPI Data - RTTNews",
      "fonte": "RTTNews",
      "link": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxNWU85dklKQ2NHQ1A0QVh2MnN3QmQ3TWNnV2Vya2FuSjB0NHNsckpqY0s1NmZraWxpR3E3STY0Rk5tUnVILUhKQmpkdkZoUVFZb0dwN0RqSzdWYU9waml2QW9mRUJpMXV5ZDkxR2ttZXB6QUV0SVRfY3lwalNnbk0tVlNBeUQzc0hRN09V?oc=5",
      "quando_utc": "2026-09-03T11:02:00+00:00",
-     "classe": null
+     "classe": null,
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 0.3,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "cpi",
+      "data",
+      "franc",
+      "hot",
+      "rises",
+      "swiss"
+     ]
     },
     {
      "titulo": "Swiss Franc Gains as GDP, Inflation Data Pressure USD/CHF - TradingPedia",
      "fonte": "TradingPedia",
      "link": "https://news.google.com/rss/articles/CBMingFBVV95cUxQTEpJT3ZXTkU1ZVg4N2lOdVgwVHd0UTg5aFZxNDByalFGZHFobUpDQzFfUlNpdHZXa2tjdW4xb0FBWkF0YnNIWVFiQTF3VmdSMkxwWXZLczBTc3AzT1hoVVpNTTBuNlhJQkcwY2g4elBtaU5VaG1CSHRPaDU5cjN2Ql9PM29MNEFyUElsZmdLWm5VNW1Ma0NIdkZNY3lwUQ?oc=5",
      "quando_utc": "2026-09-03T09:12:39+00:00",
-     "classe": null
+     "classe": null,
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 0.3,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "chf",
+      "data",
+      "franc",
+      "gains",
+      "gdp",
+      "inflation",
+      "pressure",
+      "swiss"
+     ]
     },
     {
      "titulo": "Swiss Inflation Jumps on Higher Energy Prices - WSJ",
      "fonte": "WSJ",
      "link": "https://news.google.com/rss/articles/CBMikwFBVV95cUxNaWQyNlZaMVVqMFVkMUktSWUxc1lBSk1DZWxBVVB5QzBxZ3VBaGlmakxoRlNkbEx0Tmd6bHJHNXNYRVFVTVh1bkFtRGo3OXJBMmdiUG54TnE4S0NRYmdyeTRjanZqY0ZXSzFMUmhYOEVWZXZUMTdSRUdXejhVenB4SFR3RTVUQ05OclV0MkRzSmw2a1U?oc=5",
      "quando_utc": "2026-09-03T08:38:00+00:00",
-     "classe": null
+     "classe": null,
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 1.0,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "energy",
+      "higher",
+      "inflation",
+      "jumps",
+      "prices",
+      "swiss"
+     ]
     },
     {
      "titulo": "Swiss economy grows at fastest rate in nearly five years - Global Banking & Finance Review",
      "fonte": "Global Banking & Finance Review",
      "link": "https://news.google.com/rss/articles/CBMilgFBVV95cUxPWmhMQlc1MnE2MmVPUWNsdGdNWUdsVW12TVp3TUtaWHdLSGREUUIxb2VLWmJsQUdWZXdad2tTbm5oVHN5U2ZWaUh4bThlYlhpWnRZZmVXc0s5c3N0RnJsQW5fNnA5YUw5U050QU5SLTJTLVpsbGNHSDMySXphdjAyWHgydGtTQzF6RDNyU1h4c3NrX19DRlE?oc=5",
      "quando_utc": "2026-09-03T08:28:13+00:00",
-     "classe": null
+     "classe": null,
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 0.3,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "economy",
+      "fastest",
+      "five",
+      "grows",
+      "nearly",
+      "rate",
+      "swiss",
+      "years"
+     ]
     },
     {
      "titulo": "Swiss Franc bounces up from monthly lows as GDP, inflation data beat expectations - tmgm.com",
      "fonte": "tmgm.com",
      "link": "https://news.google.com/rss/articles/CBMi3wFBVV95cUxObzVXTGZIOC1xV19DYlRHdGFZM05IUmhyWl9URHQ4SndJdzRUaHkyTTZVbzdoYW5pSThRNmgzYk8yVnBPN0tsOEY2cXFoTnNFaVZKYmtrQ01VbHhQLTR0WHBtOVR6SnhhTExYWEFUekEwMWd4OG9EaWpWMFJKTUtsVUk5R1R4alVfX1RoZDhFNWtiQWozbjFYbVBtWlRMbGZ5ckhnWmlpRVcxR3c0ajlNMFotbkpZbXJ1VFV1S3pMbktua0Nuc01renV5ell5ejlGcGZyOHBaTU5XbHdiOGow?oc=5",
      "quando_utc": "2026-09-03T08:00:52+00:00",
-     "classe": null
+     "classe": null,
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 0.3,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "beat",
+      "bounces",
+      "data",
+      "expectations",
+      "franc",
+      "inflation",
+      "monthly",
+      "swiss"
+     ]
     },
     {
      "titulo": "Swiss inflation rate doubles in August as fuel prices surge - The Edge Malaysia",
      "fonte": "The Edge Malaysia",
      "link": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE5VOW4ycWNwNmVYZmlENk9OQ2Y5QXBZMTJWVmNwNGRsRF9sT1d6QjBrLUJaU19fUG82Rm9xNTkwaV9SMHBiZG1UeDhrYzRJazFi?oc=5",
      "quando_utc": "2026-09-03T07:30:27+00:00",
-     "classe": null
+     "classe": null,
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 0.3,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "august",
+      "doubles",
+      "fuel",
+      "inflation",
+      "prices",
+      "rate",
+      "surge",
+      "swiss"
+     ]
     },
     {
      "titulo": "Swiss inflation nudges up in August amid higher energy prices - investingLive",
      "fonte": "investingLive",
      "link": "https://news.google.com/rss/articles/CBMimAFBVV95cUxOczZiUzlydUMzQWFtanItS0VIQTJYY3pXdjRlbzJXeHBYX1hPekFFOU5wRzdzejVBOXcxMkJ2c1JkY0hDSE9oYU1LbGEzZ1hWY1JsVnlzeUM4NzVCSktJd3QtYnk3QkdNTUw1SnFOWnVQVmxSNkFVaWljeGRZUTdkNHlqMmNidWhuRHFVVFBYbWl5U2V1LTNacQ?oc=5",
      "quando_utc": "2026-09-03T06:49:55+00:00",
-     "classe": null
-    },
-    {
-     "titulo": "Swiss Franc weakens as Fed rate hike fears lift US Dollar - FXStreet",
-     "fonte": "FXStreet",
-     "link": "https://news.google.com/rss/articles/CBMiogFBVV95cUxQMk9vOEhIcmExVFc0cTA3VUFIVlN4dkk5VXBKT1BUQ1kzOG9LSFFHVzQ2MWt6MnJ6V2lpYUFGaHI4Q281d0ZTWEdtMnI5cXBoYzdISTBQVXdXS2lCaVJfdy16bUNpZ2J3dkkxaEN5dE1IWmI2bTFETWd3N0V0azZJZTNmSWg3N3ZXVjl4U0ljRDVURXk2SDBOVXpjLVZtd3ppMHc?oc=5",
-     "quando_utc": "2026-09-02T05:16:48+00:00",
-     "classe": "alta"
+     "classe": null,
+     "origem": "manchete",
+     "peso": 0.0,
+     "orador_identificado": null,
+     "peso_fonte": 0.3,
+     "motivo_origem": "sem dirigente nomeado e sem verbo de fala",
+     "n_no_grupo": 1,
+     "duplicatas": [],
+     "assinatura": [
+      "august",
+      "energy",
+      "higher",
+      "inflation",
+      "nudges",
+      "prices",
+      "swiss"
+     ]
     }
    ],
-   "n_72h": 11,
+   "n_72h": 10,
+   "n_unicos": 10,
+   "duplicatas_removidas": 0,
    "contagem": {
-    "alta": 1,
+    "alta": 0,
     "corte": 0,
     "mantem": 0
    },
-   "inclinacao_por_manchete": "alta"
+   "contagem_nota": "CONTEXTO: conta todos os eventos unicos das 72 h. Nao e voto — manchete tem peso 0,0 na hierarquia de origem.",
+   "contagem_voto": {
+    "alta": 0,
+    "corte": 0,
+    "mantem": 0
+   },
+   "voto": {
+    "vota": false,
+    "peso": 0.0,
+    "origem": "manchete",
+    "direcao": null,
+    "n_falas": 0,
+    "oradores": [],
+    "fontes": [],
+    "rotulo": "sem fala oficial disponivel — o banco bloqueia automacao; a imprensa abaixo e contexto, nao voto"
+   },
+   "banco_bloqueia_automacao": true,
+   "rotulo_contexto": "sem fala oficial disponivel — o banco bloqueia automacao; a imprensa abaixo e contexto, nao voto",
+   "por_origem": {
+    "imprensa_com_fala": 0,
+    "manchete": 10
+   },
+   "n_cita_dirigente": 0,
+   "motivos_sem_voto": {
+    "sem dirigente nomeado": 10,
+    "dirigente citado, sem verbo de fala": 0,
+    "dirigente e verbo, veiculo abaixo do limiar": 0
+   },
+   "inclinacao_por_manchete": "none"
   }
  },
  "erros": []

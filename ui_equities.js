@@ -3,6 +3,7 @@
 (function () {
   "use strict";
   const F = (v, d) => (v === null || v === undefined || Number.isNaN(v) ? "—" : Number(v).toFixed(d === undefined ? 2 : d));
+  const numero = (v) => (v === null || v === undefined || v === "") ? null : (Number.isFinite(Number(v)) ? Number(v) : null);
 
   function leitura(pos) {
     if (!pos) return '<span class="spr-pill spr-dim">no read</span>';
@@ -110,14 +111,32 @@
 
   const esc = (t) => String(t == null ? "" : t).replace(/[&<>]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]));
 
-  function card(n, bom) {
+  function motivoPadrao(n, bom, tipo) {
+    if (bom) return n.porque;
+    if (tipo === "fornecedores") {
+      const r = numero(n.retorno_hoje);
+      if (r === null) return "Variação diária indisponível; sem setup até a próxima leitura válida.";
+      if (r < 0) return `Queda de ${Math.abs(r).toFixed(1)}%, abaixo do gatilho de 3%.`;
+      return `Alta de ${r.toFixed(1)}%; não houve queda para acionar o gatilho.`;
+    }
+    if (tipo === "deep-value" && Array.isArray(n.reprovacoes) && n.reprovacoes.length) {
+      return `Reprovada por ${n.reprovacoes.join(", ")}.`;
+    }
+    if (tipo === "deep-value" && /NET CASH|balan[cç]o ok/i.test(n.porque_nao || "")) {
+      return "Reprovada pela peneira anti-armadilha; revise lucro, fluxo de caixa e endividamento.";
+    }
+    return n.porque_nao || n.porque;
+  }
+
+  function card(n, bom, tipo) {
     const met = n.metricas ? Object.entries(n.metricas)
       .filter(([, v]) => v !== null && v !== undefined && v !== false)
       .map(([k, v]) => `<span class="eq-met"><b>${esc(k)}</b> ${esc(v === true ? "sim" : v)}</span>`).join("") : "";
-    const mov = n.retorno_hoje !== undefined
-      ? `<span class="eq-met"><b>hoje</b> ${n.retorno_hoje > 0 ? "+" : ""}${n.retorno_hoje}%</span>
-         <span class="eq-met"><b>vs maxima 12m</b> ${n.vs_maxima_12m}%</span>` : "";
-    const motivo = bom ? n.porque : (n.porque_nao || n.porque);
+    const ret = numero(n.retorno_hoje), maxima = numero(n.vs_maxima_12m);
+    const mov = (ret !== null || maxima !== null)
+      ? `${ret === null ? "" : `<span class="eq-met"><b>hoje</b> ${ret > 0 ? "+" : ""}${ret.toFixed(1)}%</span>`}
+         ${maxima === null ? "" : `<span class="eq-met"><b>vs máxima 12m</b> ${maxima > 0 ? "+" : ""}${maxima.toFixed(0)}%</span>`}` : "";
+    const motivo = motivoPadrao(n, bom, tipo);
     return `<article class="eq-card ${bom ? "eq-ok" : "eq-no"}">
       <header><strong>${esc(n.ticker)}</strong>
         <span class="eq-nota">${esc(n.nota)}</span>
@@ -126,14 +145,15 @@
       ${motivo ? `<p class="eq-porque"><b>${bom ? "Why" : "Why not"}:</b> ${esc(motivo)}</p>` : ""}
       ${n.tipo_queda ? `<p class="eq-linha"><b>Drop:</b> ${esc(n.tipo_queda)}${n.profundidade ? " · " + esc(n.profundidade) : ""}</p>` : ""}
       ${n.risco ? `<p class="eq-linha eq-risco"><b>Risk:</b> ${esc(n.risco)}</p>` : ""}
-      ${n.confianca ? `<p class="eq-linha"><b>Confidence:</b> ${esc(n.confianca)}</p>` : ""}
+      ${n.confianca_status ? `<p class="eq-linha"><b>Convicção:</b> ${esc(n.confianca_status)}</p>`
+        : n.confianca ? `<p class="eq-linha"><b>Convicção:</b> ${esc(n.confianca)}</p>` : ""}
       ${n.plano ? `<p class="eq-linha"><b>Plan:</b> ${esc(n.plano)}</p>` : ""}
       ${n.voce_assina ? `<p class="eq-assina">You sign off: ${esc(n.voce_assina)}</p>` : ""}
       ${fichaHTML(n.ticker)}
     </article>`;
   }
 
-  async function bloco(arq, titulo, subtitulo) {
+  async function bloco(arq, titulo, subtitulo, tipo, rotulos) {
     let doc;
     try {
       const r = await fetch(`data/${arq}?t=${Date.now()}`, { cache: "no-store" });
@@ -145,13 +165,13 @@
     const bons = ns.filter((n) => n.aprovado), maus = ns.filter((n) => !n.aprovado);
     const grade = (lista, bom, rot) => lista.length
       ? `<h4 class="eq-sub ${bom ? "eq-sub-ok" : "eq-sub-no"}">${rot} <span>${lista.length}</span></h4>
-         <div class="eq-grade">${lista.map((n) => card(n, bom)).join("")}</div>` : "";
+         <div class="eq-grade">${lista.map((n) => card(n, bom, tipo)).join("")}</div>` : "";
     return `<div class="section-title" style="margin-top:30px">
         <div><h2>${titulo}</h2></div><p>${subtitulo}</p>
       </div>
       <p class="method-note">${esc(doc.metodo || "")}<br><em>${esc(doc.limite || "")}</em></p>
-      ${grade(bons, true, "Candidates to buy")}
-      ${grade(maus, false, "Avoid")}`;
+      ${grade(bons, true, rotulos[0])}
+      ${grade(maus, false, rotulos[1])}`;
   }
 
   /* Revisao de estimativas — o unico sinal fundamental que sobreviveu aos testes de
@@ -199,11 +219,14 @@
     await fichas();                       // sem isto os cards saem sem fonte
     // Fornecedores voltou: sumiu quando o despejo de texto saiu, porque so existia como <pre>.
     const forn = await bloco("fornecedores.json", "Strategic suppliers",
-      "Suppliers to the giants — semis, datacenter, energy, water, health, defence. Drops in names with a registered thesis.");
+      "Suppliers to the giants — semis, datacenter, energy, water, health, defence. Drops in names with a registered thesis.",
+      "fornecedores", ["Com gatilho", "Sem setup"]);
     const dv = await bloco("deep_value_scan.json", "Deep Value",
-      "Genuinely cheap, screened against the value trap.");
+      "Genuinely cheap, screened against the value trap.",
+      "deep-value", ["Candidatos para análise", "Reprovados pela peneira"]);
     const btd = await bloco("btd_scan.json", "BTD + HOLD",
-      "Today’s drop in a quality name — separating market fear from a company problem.");
+      "Today’s drop in a quality name — separating market fear from a company problem.",
+      "btd", ["Com gatilho", "Sem setup"]);
     const rev = await blocoRevisoes();
     const html = forn + dv + btd + rev;
     if (html) alvo.insertAdjacentHTML("beforeend", html);

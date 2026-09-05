@@ -24,6 +24,22 @@ from zoneinfo import ZoneInfo
 sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 AQUI = os.path.dirname(os.path.abspath(__file__))
 SAIDA = os.path.join(AQUI, "data", "bancos_centrais.json")
+CALENDARIO = os.path.join(AQUI, "data", "calendario_resultado.json")
+
+# O cadastro abaixo continua sendo a fonte das reunioes, horarios e convencoes de cada banco.
+# A taxa corrente, porem, nao pode ficar congelada nele depois que uma decisao ja foi publicada.
+# A reconciliacao usa o mesmo resultado de decisao que alimenta o Calendario do site, mantendo
+# todas as telas no mesmo estado ate a conferencia seguinte contra a fonte oficial.
+TITULOS_DECISAO = {
+    "USD": ("fed interest rate decision", "fomc interest rate decision"),
+    "EUR": ("ecb rate on deposit facility", "ecb deposit facility rate"),
+    "GBP": ("boe interest rate decision", "official bank rate"),
+    "JPY": ("boj interest rate decision",),
+    "AUD": ("rba interest rate decision", "cash rate target"),
+    "NZD": ("rbnz interest rate decision", "official cash rate"),
+    "CAD": ("boc interest rate decision", "overnight rate"),
+    "CHF": ("snb interest rate decision", "snb policy rate"),
+}
 
 BANCOS = {
     "USD": {
@@ -130,8 +146,92 @@ def em_utc(data, hora, fuso):
                        tzinfo=ZoneInfo(fuso)).astimezone(dt.timezone.utc).isoformat()
 
 
+def _numero(valor):
+    try:
+        return float(valor)
+    except (TypeError, ValueError):
+        return None
+
+
+def _quando(valor):
+    try:
+        x = dt.datetime.fromisoformat(str(valor).replace("Z", "+00:00"))
+        return x.replace(tzinfo=dt.timezone.utc) if x.tzinfo is None else x
+    except (TypeError, ValueError):
+        return None
+
+
+def decisoes_publicadas(agora=None, caminho=CALENDARIO):
+    """Ultima decisao ja publicada por moeda no mesmo calendario exibido pelo site."""
+    agora = agora or dt.datetime.now(dt.timezone.utc)
+    try:
+        with io.open(caminho, encoding="utf-8") as arquivo:
+            doc = json.load(arquivo)
+    except Exception:
+        return {}
+    out = {}
+    for evento in doc.get("eventos", []):
+        moeda = evento.get("moeda")
+        titulo = str(evento.get("titulo") or "").strip().lower()
+        if moeda not in TITULOS_DECISAO or not any(x in titulo for x in TITULOS_DECISAO[moeda]):
+            continue
+        quando = _quando(evento.get("quando_utc"))
+        taxa = _numero(evento.get("divulgado"))
+        if quando is None or quando > agora or taxa is None:
+            continue
+        atual = out.get(moeda)
+        if atual is None or quando > atual["_quando"]:
+            out[moeda] = dict(evento, _quando=quando)
+    return out
+
+
+def _taxa_texto(moeda, taxa):
+    def pt(v):
+        return ("%.2f" % v).replace(".", ",")
+    if moeda == "USD":
+        return "%s–%s%%" % (pt(taxa - 0.25), pt(taxa))
+    if moeda == "CAD":
+        return "%s%%  (Bank Rate %s · deposito %s)" % (pt(taxa), pt(taxa + 0.25), pt(taxa - 0.05))
+    if moeda == "JPY":
+        return "cerca de %s%%" % pt(taxa)
+    return "%s%%" % pt(taxa)
+
+
+def reconcilia_taxa(moeda, banco, evento):
+    """Aplica a ultima decisao conhecida sem alterar o cadastro-base global."""
+    out = dict(banco)
+    if not evento:
+        out["taxa_origem"] = "cadastro conferido"
+        out["taxa_reconciliada"] = False
+        return out
+
+    publicada = _numero(evento.get("divulgado"))
+    anterior = _numero(evento.get("anterior"))
+    quando = evento["_quando"]
+    data_local = quando.astimezone(ZoneInfo(banco["fuso"])).date().isoformat()
+    taxa_interna = publicada - 0.125 if moeda == "USD" else publicada
+    out["taxa"] = round(taxa_interna, 4)
+    out["taxa_texto"] = _taxa_texto(moeda, publicada)
+    out["ultima_decisao"] = data_local
+    out["ultima_decisao_resultado"] = (
+        "alta" if anterior is not None and publicada > anterior else
+        "corte" if anterior is not None and publicada < anterior else "manutencao"
+    )
+    out["taxa_origem"] = "calendario:%s" % (evento.get("fonte") or "resultado publicado")
+    out["taxa_confirmada_em"] = quando.isoformat()
+    out["taxa_reconciliada"] = True
+    if anterior is not None and abs(publicada - anterior) >= 0.001:
+        if data_local >= str(out.get("ultima_mudanca") or ""):
+            out["ultima_mudanca"] = data_local
+            out["ultima_mudanca_bp"] = int(round((publicada - anterior) * 100))
+            out["nota_vigencia"] = "reconciliado com o resultado publicado no calendario"
+    return out
+
+
 def main():
-    hoje = dt.date.today()
+    agora = dt.datetime.now(dt.timezone.utc)
+    hoje = agora.date()
+    decisoes = decisoes_publicadas(agora)
     out = {}
     for m, b in BANCOS.items():
         futuras = [r for r in b["reunioes"] if dt.date.fromisoformat(r) >= hoje]
@@ -145,16 +245,20 @@ def main():
                 print("  !! %s: a lista de reunioes acaba em %s (%d dias) — ESTENDER para 2027"
                       % (m, fim, (fim - hoje).days))
         prox = futuras[0] if futuras else None
-        out[m] = dict(b)
+        out[m] = reconcilia_taxa(m, b, decisoes.get(m))
         out[m]["proxima"] = prox
         out[m]["dias_ate"] = (dt.date.fromisoformat(prox) - hoje).days if prox else None
         out[m]["proxima_utc"] = em_utc(prox, b["hora_local"], b["fuso"]) if prox else None
         out[m]["coletiva_utc"] = em_utc(prox, b["coletiva_local"], b["fuso"]) if prox else None
 
     rel = {
-        "gerado_em": dt.datetime.now(dt.timezone.utc).isoformat(),
-        "fonte": "levantamento de 01/set/2026 contra fontes oficiais, com conferente",
+        "gerado_em": agora.isoformat(),
+        "fonte": "cadastro oficial conferido + reconciliacao com decisoes publicadas no calendario",
         "convencao": "ultima_mudanca = data do ANUNCIO; hora sempre LOCAL + fuso IANA",
+        "integridade": {
+            "decisoes_reconciliadas": sorted(decisoes),
+            "regra": "uma decisao divulgada no Calendario atualiza a taxa usada em todas as abas",
+        },
         "bancos": out,
     }
     os.makedirs(os.path.dirname(SAIDA), exist_ok=True)
