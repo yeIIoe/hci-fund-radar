@@ -1,15 +1,15 @@
 {
- "gerado_em": "2026-09-06T20:02:45.310827+00:00",
- "gerado_em_brt": "06/09/2026 17:02 (BRT)",
+ "gerado_em": "2026-09-06T20:28:03.387478+00:00",
+ "gerado_em_brt": "06/09/2026 17:28 (BRT)",
  "origem_eventos": "fxstreet 42 dias atrás + 30 à frente",
  "frescor": {
-  "atraso_min": 8,
-  "atraso_texto": "8 min",
+  "atraso_min": 9,
+  "atraso_texto": "9 min",
   "estado": "ok",
-  "ultima_sincronizacao_ok_utc": "2026-09-06T19:54:54.745473+00:00",
-  "ultima_sincronizacao_ok_brt": "06/09/2026 16:54 (BRT)",
+  "ultima_sincronizacao_ok_utc": "2026-09-06T20:18:52.709740+00:00",
+  "ultima_sincronizacao_ok_brt": "06/09/2026 17:18 (BRT)",
   "bloqueia_leitura": false,
-  "texto": "Dados sincronizados há 8 min (06/09 16:54, BRT). Leituras válidas.",
+  "texto": "Dados sincronizados há 9 min (06/09 17:18, BRT). Leituras válidas.",
   "limiares_provisorios": {
    "atrasado_min": 45,
    "muito_atrasado_min": 120
@@ -21,7 +21,7 @@
     "arquivo": "FXStreet ao vivo",
     "alimenta": "dimensão de dados (VOTA)",
     "vota": true,
-    "sincronizado_em": "2026-09-06T20:02:45.310827+00:00",
+    "sincronizado_em": "2026-09-06T20:28:03.387478+00:00",
     "atraso_min": 0,
     "ao_vivo": true,
     "atraso_texto": "0 min"
@@ -31,36 +31,36 @@
     "arquivo": "bancos_centrais.json",
     "alimenta": "dimensão de ciclo (VOTA)",
     "vota": true,
-    "sincronizado_em": "2026-09-06T19:54:54.745473+00:00",
-    "atraso_min": 8,
-    "atraso_texto": "8 min"
+    "sincronizado_em": "2026-09-06T20:18:52.709740+00:00",
+    "atraso_min": 9,
+    "atraso_texto": "9 min"
    },
    {
     "fonte": "discursos dos bancos centrais",
     "arquivo": "bc_discursos.json",
     "alimenta": "dimensão de fala (contexto, NÃO vota)",
     "vota": false,
-    "sincronizado_em": "2026-09-06T19:50:35.234546+00:00",
-    "atraso_min": 12,
-    "atraso_texto": "12 min"
+    "sincronizado_em": "2026-09-06T20:15:05.537174+00:00",
+    "atraso_min": 13,
+    "atraso_texto": "13 min"
    },
    {
     "fonte": "imprensa",
     "arquivo": "noticias.json",
     "alimenta": "contexto de fala (NÃO vota)",
     "vota": false,
-    "sincronizado_em": "2026-09-06T20:02:00.906138+00:00",
-    "atraso_min": 1,
-    "atraso_texto": "1 min"
+    "sincronizado_em": "2026-09-06T20:19:18.631851+00:00",
+    "atraso_min": 9,
+    "atraso_texto": "9 min"
    },
    {
     "fonte": "geopolítica (GDELT)",
     "arquivo": "geopolitica.json",
     "alimenta": "dimensão experimental (NÃO vota)",
     "vota": false,
-    "sincronizado_em": "2026-09-06T15:48:26.472371+00:00",
-    "atraso_min": 254,
-    "atraso_texto": "4h 14min"
+    "sincronizado_em": "2026-09-06T20:19:58.453277+00:00",
+    "atraso_min": 8,
+    "atraso_texto": "8 min"
    }
   ],
   "o_que_conta": "só as fontes que alimentam dimensão QUE VOTA entram no atraso (calendário e bancos centrais). Discurso, imprensa e geopolítica são contexto: a idade deles fica gravada, rotulada, e não muda o estado.",
@@ -394,7 +394,7 @@
      "vota": true,
      "por_que_nao_vota": null,
      "soma": -9.22,
-     "soma_antes_do_teto": -1.21,
+     "soma_antes_do_teto": -1.22,
      "n": 84,
      "n_alto": 25,
      "desde": "2026-07-29T18:00:00+00:00",
@@ -406,9 +406,9 @@
       "texto": null
      },
      "deslocamento_pelo_teto": {
-      "valor": -8.01,
+      "valor": -8.0,
       "direcao_mudou": true,
-      "texto": "cortar os itens moveu a soma em -8.01 (de -1.21 para -9.22); a DIREÇÃO mudou de MANTEM para CORTA — winsorizar termos de uma SOMA desloca o total para o lado contrário ao do item cortado, não amortece"
+      "texto": "cortar os itens moveu a soma em -8.00 (de -1.22 para -9.22); a DIREÇÃO mudou de MANTEM para CORTA — winsorizar termos de uma SOMA desloca o total para o lado contrário ao do item cortado, não amortece"
      },
      "winsor": {
       "teto_por_item": 4.0,
@@ -496,7 +496,7 @@
        "impacto": "HIGH",
        "divulgado": 3.1,
        "consenso": 3.0,
-       "contribuicao_bruta": 8.34,
+       "contribuicao_bruta": 8.33,
        "contribuicao": 4.0,
        "idade_dias": 2.3,
        "winsorizado": true
@@ -777,8 +777,8 @@
      "direcao_antes_do_teto": "SOBE",
      "vota": true,
      "por_que_nao_vota": null,
-     "soma": 18.78,
-     "soma_antes_do_teto": 12.75,
+     "soma": 18.75,
+     "soma_antes_do_teto": 12.72,
      "n": 157,
      "n_alto": 17,
      "desde": "2026-07-26",
@@ -792,11 +792,11 @@
      "deslocamento_pelo_teto": {
       "valor": 6.03,
       "direcao_mudou": false,
-      "texto": "cortar os itens moveu a soma em +6.03 (de +12.75 para +18.78) — winsorizar termos de uma SOMA desloca o total para o lado contrário ao do item cortado, não amortece"
+      "texto": "cortar os itens moveu a soma em +6.03 (de +12.72 para +18.75) — winsorizar termos de uma SOMA desloca o total para o lado contrário ao do item cortado, não amortece"
      },
      "winsor": {
       "teto_por_item": 4.0,
-      "mediana_absoluta": 0.88,
+      "mediana_absoluta": 0.87,
       "mediana_manda_no_teto": false,
       "itens_cortados": 2,
       "regra": "cada divulgacao entra com no maximo 4,0 em modulo, que e 0,8 do limiar de 5,0 da dimensao. Como 4,0 < 5,0, NENHUMA divulgacao sozinha atinge o limiar: sao precisas pelo menos duas. Numero PROVISORIO, escolhido por ordem de grandeza (e a menor folga que ainda deixa duas divulgacoes grandes virarem a leitura), nao por calibracao — vai ao backtest junto com o limiar.",
@@ -840,7 +840,7 @@
        "consenso": 3.1,
        "contribuicao_bruta": -5.68,
        "contribuicao": -4.0,
-       "idade_dias": 6.3,
+       "idade_dias": 6.4,
        "winsorizado": true
       },
       {
@@ -1166,8 +1166,8 @@
      "direcao_antes_do_teto": "MANTEM",
      "vota": true,
      "por_que_nao_vota": null,
-     "soma": -2.89,
-     "soma_antes_do_teto": -1.67,
+     "soma": -2.88,
+     "soma_antes_do_teto": -1.66,
      "n": 34,
      "n_alto": 7,
      "desde": "2026-07-30T11:00:00+00:00",
@@ -1181,7 +1181,7 @@
      "deslocamento_pelo_teto": {
       "valor": -1.22,
       "direcao_mudou": false,
-      "texto": "cortar os itens moveu a soma em -1.22 (de -1.67 para -2.89) — winsorizar termos de uma SOMA desloca o total para o lado contrário ao do item cortado, não amortece"
+      "texto": "cortar os itens moveu a soma em -1.22 (de -1.66 para -2.88) — winsorizar termos de uma SOMA desloca o total para o lado contrário ao do item cortado, não amortece"
      },
      "winsor": {
       "teto_por_item": 4.0,
@@ -1267,8 +1267,8 @@
        "impacto": "MEDIUM",
        "divulgado": 3.1,
        "consenso": 3.2,
-       "contribuicao_bruta": -1.9,
-       "contribuicao": -1.9,
+       "contribuicao_bruta": -1.89,
+       "contribuicao": -1.89,
        "idade_dias": 18.6,
        "winsorizado": false
       },
@@ -1597,9 +1597,9 @@
        "impacto": "HIGH",
        "divulgado": 0.3,
        "consenso": 0.5,
-       "contribuicao_bruta": -3.02,
-       "contribuicao": -3.02,
-       "idade_dias": 20.8,
+       "contribuicao_bruta": -3.01,
+       "contribuicao": -3.01,
+       "idade_dias": 20.9,
        "winsorizado": false
       },
       {
@@ -1638,7 +1638,7 @@
        "consenso": 2.4,
        "contribuicao_bruta": 1.76,
        "contribuicao": 1.76,
-       "idade_dias": 20.8,
+       "idade_dias": 20.9,
        "winsorizado": false
       },
       {
@@ -1649,9 +1649,9 @@
        "impacto": "MEDIUM",
        "divulgado": 4.0,
        "consenso": 3.0,
-       "contribuicao_bruta": 1.6,
-       "contribuicao": 1.6,
-       "idade_dias": 6.8,
+       "contribuicao_bruta": 1.59,
+       "contribuicao": 1.59,
+       "idade_dias": 6.9,
        "winsorizado": false
       },
       {
@@ -1664,7 +1664,7 @@
        "consenso": 2.0,
        "contribuicao_bruta": -1.51,
        "contribuicao": -1.51,
-       "idade_dias": 20.8,
+       "idade_dias": 20.9,
        "winsorizado": false
       }
      ]
@@ -1895,8 +1895,8 @@
      "direcao_antes_do_teto": "SOBE",
      "vota": true,
      "por_que_nao_vota": null,
-     "soma": 18.09,
-     "soma_antes_do_teto": 22.3,
+     "soma": 18.08,
+     "soma_antes_do_teto": 22.27,
      "n": 16,
      "n_alto": 6,
      "desde": "2026-08-11T04:30:00+00:00",
@@ -1908,9 +1908,9 @@
       "texto": null
      },
      "deslocamento_pelo_teto": {
-      "valor": -4.21,
+      "valor": -4.19,
       "direcao_mudou": false,
-      "texto": "cortar os itens moveu a soma em -4.21 (de +22.30 para +18.09) — winsorizar termos de uma SOMA desloca o total para o lado contrário ao do item cortado, não amortece"
+      "texto": "cortar os itens moveu a soma em -4.19 (de +22.27 para +18.08) — winsorizar termos de uma SOMA desloca o total para o lado contrário ao do item cortado, não amortece"
      },
      "winsor": {
       "teto_por_item": 4.0,
@@ -1969,7 +1969,7 @@
        "impacto": "HIGH",
        "divulgado": 3.5,
        "consenso": 3.2,
-       "contribuicao_bruta": 4.75,
+       "contribuicao_bruta": 4.74,
        "contribuicao": 4.0,
        "idade_dias": 11.8,
        "winsorizado": true
@@ -1995,7 +1995,7 @@
        "impacto": "HIGH",
        "divulgado": 0.4,
        "consenso": 0.3,
-       "contribuicao_bruta": 5.13,
+       "contribuicao_bruta": 5.12,
        "contribuicao": 4.0,
        "idade_dias": 4.8,
        "winsorizado": true
@@ -2050,8 +2050,8 @@
      },
      "oradores": [
       "SMH.com.au",
-      "Yahoo Finance Australia",
-      "The Nightly",
+      "au.finance.yahoo.com",
+      "thenightly.com.au",
       "realestate.com.au"
      ],
      "datas": [
@@ -2102,18 +2102,18 @@
     },
     "geo": {
      "z_energia": null,
-     "z_conflito": -0.24,
+     "z_conflito": null,
      "tom": null,
      "corte_z": 1.5,
      "manchete": null,
      "vota": false,
      "selo": "experimental",
-     "conectada": true,
-     "nota": "regra declarada sobre intensidade de notícia (GDELT). Contava desde 04/set; em 05/set o dono retirou o voto: regra nunca medida, e estava mexendo em leitura de verdade. Fica visível, fora da leitura contínua e fora do teto.",
+     "conectada": false,
      "direcao": null,
-     "estado": "quieta",
+     "estado": "não conectada",
      "leitura_se_votasse": null,
-     "motivo": "sem pico de notícia nesta semana"
+     "motivo": "a coleta do GDELT não trouxe esta moeda nesta rodada — buraco declarado, não é ausência de notícia",
+     "nota": "dimensão sem fonte nesta rodada. Não vota (nunca votou desde 05/set) e não entra no teto: o que falta aqui é o DADO, não o voto."
     }
    },
    "qualidade_evidencia": {
@@ -2320,9 +2320,9 @@
      "conectada": true,
      "hawkish": 1,
      "dovish": 0,
-     "n": 9,
+     "n": 7,
      "n_falas": 1,
-     "n_contexto": 9,
+     "n_contexto": 7,
      "contagem_contexto": {
       "alta": 1,
       "corte": 0
@@ -2346,7 +2346,7 @@
      "peso_aplicado": 0.0,
      "peso_da_fonte": 0.4,
      "peso_se_votasse": 0.4,
-     "itens_unicos": 9,
+     "itens_unicos": 7,
      "duplicatas_removidas": 0,
      "rotulo_contexto": "sem fala oficial disponivel — o banco bloqueia automacao; a imprensa abaixo e contexto, nao voto",
      "veredito_por_orador": [],
@@ -2381,8 +2381,8 @@
      "nota": "último movimento +25 pb há 4 dias, 0 reunião(ões) de manutenção depois; vale 98% do peso cheio"
     },
     "geo": {
-     "z_energia": null,
-     "z_conflito": -2.06,
+     "z_energia": -0.4,
+     "z_conflito": null,
      "tom": null,
      "corte_z": 1.5,
      "manchete": null,
@@ -2409,8 +2409,8 @@
     "partes_sem_dado": [
      "confiabilidade"
     ],
-    "contexto_nao_contado": 9,
-    "explicacao": "qualidade 40/100 do NZD (média de 3 parte(s) com dado; sem dado em confiabilidade) — 1 divulgações e 0 fala(s) que votam na janela; 9 item(ns) de imprensa que NÃO votam ficaram de fora da conta; 1 de 4 famílias independentes (atividade); o item que mais pesa tem 4 dia(s); fonte da fala: imprensa com fala de dirigente nomeado — mas a fala NÃO VOTA desde 05/set, então a parte confiabilidade sai SEM DADO em vez de valer 40/100.",
+    "contexto_nao_contado": 7,
+    "explicacao": "qualidade 40/100 do NZD (média de 3 parte(s) com dado; sem dado em confiabilidade) — 1 divulgações e 0 fala(s) que votam na janela; 7 item(ns) de imprensa que NÃO votam ficaram de fora da conta; 1 de 4 famílias independentes (atividade); o item que mais pesa tem 4 dia(s); fonte da fala: imprensa com fala de dirigente nomeado — mas a fala NÃO VOTA desde 05/set, então a parte confiabilidade sai SEM DADO em vez de valer 40/100.",
     "provisorio": true,
     "regua": {
      "satura_em_itens": 12,
@@ -2681,7 +2681,7 @@
     },
     "geo": {
      "z_energia": null,
-     "z_conflito": -1.63,
+     "z_conflito": -1.49,
      "tom": null,
      "corte_z": 1.5,
      "manchete": null,
@@ -2834,7 +2834,7 @@
      "vota": true,
      "por_que_nao_vota": null,
      "soma": 12.7,
-     "soma_antes_do_teto": 16.26,
+     "soma_antes_do_teto": 16.25,
      "n": 8,
      "n_alto": 2,
      "desde": "2026-07-26",
@@ -2846,9 +2846,9 @@
       "texto": null
      },
      "deslocamento_pelo_teto": {
-      "valor": -3.56,
+      "valor": -3.55,
       "direcao_mudou": false,
-      "texto": "cortar os itens moveu a soma em -3.56 (de +16.26 para +12.70) — winsorizar termos de uma SOMA desloca o total para o lado contrário ao do item cortado, não amortece"
+      "texto": "cortar os itens moveu a soma em -3.55 (de +16.25 para +12.70) — winsorizar termos de uma SOMA desloca o total para o lado contrário ao do item cortado, não amortece"
      },
      "winsor": {
       "teto_por_item": 4.0,
@@ -2904,9 +2904,9 @@
        "impacto": "HIGH",
        "divulgado": 1.9,
        "consenso": 1.6,
-       "contribuicao_bruta": 5.34,
+       "contribuicao_bruta": 5.33,
        "contribuicao": 4.0,
-       "idade_dias": 3.5,
+       "idade_dias": 3.6,
        "winsorizado": true
       },
       {
@@ -3018,8 +3018,8 @@
      "nota": "último movimento -25 pb há 444 dias; decaimento 0.08 abaixo do piso 0.25 — lê como manutenção"
     },
     "geo": {
-     "z_energia": -0.03,
-     "z_conflito": null,
+     "z_energia": null,
+     "z_conflito": -0.13,
      "tom": null,
      "corte_z": 1.5,
      "manchete": null,
@@ -6325,7 +6325,7 @@
      "impacto": "HIGH",
      "divulgado": 3.1,
      "consenso": 3.0,
-     "contribuicao_bruta": 8.34,
+     "contribuicao_bruta": 8.33,
      "contribuicao": 4.0,
      "idade_dias": 2.3,
      "winsorizado": true
@@ -6492,7 +6492,7 @@
      "impacto": "HIGH",
      "divulgado": 3.1,
      "consenso": 3.0,
-     "contribuicao_bruta": 8.34,
+     "contribuicao_bruta": 8.33,
      "contribuicao": 4.0,
      "idade_dias": 2.3,
      "winsorizado": true
@@ -6659,7 +6659,7 @@
      "impacto": "HIGH",
      "divulgado": 3.1,
      "consenso": 3.0,
-     "contribuicao_bruta": 8.34,
+     "contribuicao_bruta": 8.33,
      "contribuicao": 4.0,
      "idade_dias": 2.3,
      "winsorizado": true

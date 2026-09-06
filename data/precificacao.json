@@ -1,5 +1,5 @@
 {
- "gerado_em": "2026-09-06T19:21:15Z",
+ "gerado_em": "2026-09-06T20:18:53Z",
  "lei": "A precificacao NUNCA entra no sentimento. E a coluna de comparacao contra a leitura do HCI; a divergencia entre as duas e o produto.",
  "regua": {
   "passo_bp": 25.0,
@@ -32,17 +32,17 @@
    "proxima": "2026-09-16",
    "taxa_atual": 3.625,
    "nome_taxa": "Federal funds target range",
-   "implicito_bp": 14.57,
-   "p_alta": 0.5829,
+   "implicito_bp": 14.46,
+   "p_alta": 0.5786,
    "p_corte": 0.0,
-   "p_manutencao": 0.4171,
+   "p_manutencao": 0.4214,
    "direcao_mercado": "alta",
    "fonte": "futuros de fed funds 30d (ZQ, CME) via API de grafico do Yahoo + EFFR do NY Fed",
    "metodo": "futuros",
    "qualidade": "alta",
-   "coletado_em": "2026-09-06T19:21:16Z",
+   "coletado_em": "2026-09-06T20:18:53Z",
    "detalhe": {
-    "taxa_pos": 3.7757,
+    "taxa_pos": 3.7746,
     "regra": "inversao no mes da reuniao",
     "contrato_usado": "ZQU26.CBT",
     "contrato_mes_reuniao": "ZQU26.CBT",
@@ -50,7 +50,7 @@
     "dias_antes": 16,
     "dias_depois": 14,
     "dias_do_mes": 30,
-    "conta": "base = EFFR 3.6300% de 2026-09-03 (NY Fed). regra 2 (mes seguinte tem reuniao em 2026-10-28 (contrato contaminado)): ZQU26.CBT = 96.3020 -> taxa media do mes = 100 - 96.3020 = 3.6980. O mes tem 30 dias: 16 antes do anuncio (dia 16, taxa nova so no dia seguinte) a 3.6300, e 14 depois a taxa_pos. Invertendo: taxa_pos = (3.6980*30 - 3.6300*16)/14 = 3.7757. delta = 3.7757 - 3.6300 = +14.57 bp. Passo 25 bp: p_alta = 0.5829, p_corte = 0.0000, p_manutencao = 0.4171.",
+    "conta": "base = EFFR 3.6300% de 2026-09-03 (NY Fed). regra 2 (mes seguinte tem reuniao em 2026-10-28 (contrato contaminado)): ZQU26.CBT = 96.3025 -> taxa media do mes = 100 - 96.3025 = 3.6975. O mes tem 30 dias: 16 antes do anuncio (dia 16, taxa nova so no dia seguinte) a 3.6300, e 14 depois a taxa_pos. Invertendo: taxa_pos = (3.6975*30 - 3.6300*16)/14 = 3.7746. delta = 3.7746 - 3.6300 = +14.46 bp. Passo 25 bp: p_alta = 0.5786, p_corte = 0.0000, p_manutencao = 0.4214.",
     "base_taxa": 3.63,
     "base_origem": "EFFR do NY Fed (2026-09-03)"
    }
@@ -70,7 +70,7 @@
    "fonte": null,
    "metodo": null,
    "qualidade": "sem fonte",
-   "coletado_em": "2026-09-06T19:21:16Z",
+   "coletado_em": "2026-09-06T20:18:53Z",
    "detalhe": {
     "motivo": "manchete: nenhum item de Reuters/Bloomberg/FT/WSJ com ate 7 dias entre os 121 resultados lidos"
    }
@@ -90,9 +90,9 @@
    "fonte": null,
    "metodo": null,
    "qualidade": "sem fonte",
-   "coletado_em": "2026-09-06T19:21:19Z",
+   "coletado_em": "2026-09-06T20:18:57Z",
    "detalhe": {
-    "motivo": "manchete: nenhum item de Reuters/Bloomberg/FT/WSJ com ate 7 dias entre os 119 resultados lidos"
+    "motivo": "manchete: nenhum item de Reuters/Bloomberg/FT/WSJ com ate 7 dias entre os 117 resultados lidos"
    }
   },
   "JPY": {
@@ -110,7 +110,7 @@
    "fonte": null,
    "metodo": null,
    "qualidade": "sem fonte",
-   "coletado_em": "2026-09-06T19:21:22Z",
+   "coletado_em": "2026-09-06T20:19:01Z",
    "detalhe": {
     "motivo": "manchete: 2 manchete(s) de veiculo aceito na janela, nenhuma passou na regua da proxima reuniao: Bond yields fall, stocks rally as Fed's Waller comments curb (sem numero); Yen jumps on BOJ hike bets, dollar slips on Waller comments  (sem numero)"
    }
@@ -130,7 +130,7 @@
    "fonte": "futuros IB (30 Day Interbank Cash Rate, ASX) via asx.api.markitdigital.com — a API do ASX RBA Rate Tracker",
    "metodo": "futuros",
    "qualidade": "alta",
-   "coletado_em": "2026-09-06T19:21:27Z",
+   "coletado_em": "2026-09-06T20:19:05Z",
    "detalhe": {
     "taxa_pos": 4.505,
     "regra": "mes seguinte limpo",
@@ -199,7 +199,7 @@
    "fonte": "futuros BB (New Zealand 90 Day Bank Bill, ASX) via asx.api.markitdigital.com",
    "metodo": "futuros",
    "qualidade": "baixa",
-   "coletado_em": "2026-09-06T19:21:31Z",
+   "coletado_em": "2026-09-06T20:19:10Z",
    "detalhe": {
     "metodo": "futuros",
     "qualidade": "baixa",
@@ -238,7 +238,7 @@
       "volume": 1251
      }
     ],
-    "manchete_tentada": "nenhum item de Reuters/Bloomberg/FT/WSJ com ate 7 dias entre os 93 resultados lidos"
+    "manchete_tentada": "nenhum item de Reuters/Bloomberg/FT/WSJ com ate 7 dias entre os 91 resultados lidos"
    }
   },
   "CAD": {
@@ -256,7 +256,7 @@
    "fonte": null,
    "metodo": null,
    "qualidade": "sem fonte",
-   "coletado_em": "2026-09-06T19:21:31Z",
+   "coletado_em": "2026-09-06T20:19:10Z",
    "detalhe": {
     "motivo": "futuros: Bolsa de Montreal (COA, One-Month CORRA Futures) serve preco por widget QuoteMedia com sessao presa ao dominio: getFuturesChain.json -> Invalid product.; getEnhancedQuotes.json -> HTTP 403 | manchete: 1 manchete(s) de veiculo aceito na janela, nenhuma passou na regua da proxima reuniao: Bank of Canada holds key rate, says multiple hikes might be  (sem numero)"
    }
@@ -276,9 +276,9 @@
    "fonte": null,
    "metodo": null,
    "qualidade": "sem fonte",
-   "coletado_em": "2026-09-06T19:21:35Z",
+   "coletado_em": "2026-09-06T20:19:14Z",
    "detalhe": {
-    "motivo": "manchete: nenhum item de Reuters/Bloomberg/FT/WSJ com ate 7 dias entre os 93 resultados lidos"
+    "motivo": "manchete: nenhum item de Reuters/Bloomberg/FT/WSJ com ate 7 dias entre os 92 resultados lidos"
    }
   }
  }
