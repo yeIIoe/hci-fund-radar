@@ -1,5 +1,5 @@
 {
- "gerado_em": "2026-09-06T04:38:21.322271+00:00",
+ "gerado_em": "2026-09-06T08:57:15.816794+00:00",
  "fonte": "GDELT DOC 2.0 API (gratuita, sem chave, atualização de 15 min); fontes em inglês",
  "metodo": "volume de artigos dos últimos 3 dias contra a média diária da janela de 14 dias (razão e z); manchetes por relevância híbrida, agrupadas por evento antes de aparecer",
  "aviso": "Camada de CONTEXTO. A implicação é uma regra declarada (aversão a risco -> moedas de refúgio; choque de energia -> empurrão de inflação), não é medição, e NÃO entra na convicção. Hipótese a medir: um pico de conflito z>=2 muda o retorno de 20 dias das moedas de risco?",
@@ -132,15 +132,15 @@
   }
  },
  "moedas": {
-  "NZD": {
+  "EUR": {
    "temas": {
     "conflito": {
      "volume": {
       "n": 14,
-      "recente_3d": 0.0137,
-      "base_14d": 0.053,
-      "razao": 0.26,
-      "z": -2.06
+      "recente_3d": 0.3974,
+      "base_14d": 0.3652,
+      "razao": 1.09,
+      "z": 0.44
      },
      "manchetes": [],
      "manchetes_unicas": [],
@@ -149,7 +149,14 @@
      "selo": "experimental — contexto, não vota"
     },
     "energia": {
-     "erro": "HTTP Error 429: Too Many Requests",
+     "volume": {
+      "n": 14,
+      "recente_3d": 0.1462,
+      "base_14d": 0.1259,
+      "razao": 1.16,
+      "z": 0.56
+     },
+     "manchetes": [],
      "manchetes_unicas": [],
      "duplicatas_removidas": 0,
      "vota": false,
@@ -162,83 +169,7 @@
     "fx": null,
     "juro": null
    },
-   "coletado_em": "2026-09-06T04:38:21.322271+00:00",
-   "vota": false,
-   "experimental": true,
-   "selo": "experimental — contexto, não vota",
-   "selo_motivo": "Camada de contexto. A implicação é regra declarada, nunca medida, e não entra na convicção nem no teto do sentimento. A interface pode recolher esta seção por padrão: a informação continua inteira no arquivo.",
-   "recolher_por_padrao": true,
-   "peso_no_sentimento": 0.0
-  },
-  "CAD": {
-   "temas": {
-    "conflito": {
-     "volume": {
-      "n": 14,
-      "recente_3d": 0.1895,
-      "base_14d": 0.4352,
-      "razao": 0.44,
-      "z": -1.63
-     },
-     "manchetes": [],
-     "manchetes_unicas": [],
-     "duplicatas_removidas": 0,
-     "vota": false,
-     "selo": "experimental — contexto, não vota"
-    },
-    "energia": {
-     "erro": "HTTP Error 429: Too Many Requests",
-     "manchetes_unicas": [],
-     "duplicatas_removidas": 0,
-     "vota": false,
-     "selo": "experimental — contexto, não vota"
-    }
-   },
-   "tom": null,
-   "implicacao": {
-    "regra": "regra declarada, não medida — está aqui para o julgamento, não entra na convicção",
-    "fx": null,
-    "juro": null
-   },
-   "coletado_em": "2026-09-06T04:38:21.322271+00:00",
-   "vota": false,
-   "experimental": true,
-   "selo": "experimental — contexto, não vota",
-   "selo_motivo": "Camada de contexto. A implicação é regra declarada, nunca medida, e não entra na convicção nem no teto do sentimento. A interface pode recolher esta seção por padrão: a informação continua inteira no arquivo.",
-   "recolher_por_padrao": true,
-   "peso_no_sentimento": 0.0
-  },
-  "CHF": {
-   "temas": {
-    "conflito": {
-     "volume": {
-      "n": 14,
-      "recente_3d": 0.0412,
-      "base_14d": 0.0398,
-      "razao": 1.03,
-      "z": 0.05
-     },
-     "manchetes": [],
-     "manchetes_unicas": [],
-     "duplicatas_removidas": 0,
-     "vota": false,
-     "selo": "experimental — contexto, não vota"
-    },
-    "energia": {
-     "erro": "HTTP Error 429: Too Many Requests",
-     "manchetes_unicas": [],
-     "duplicatas_removidas": 0,
-     "vota": false,
-     "selo": "experimental — contexto, não vota"
-    }
-   },
-   "tom": null,
-   "implicacao": {
-    "regra": "regra declarada, não medida — está aqui para o julgamento, não entra na convicção",
-    "fx": null,
-    "juro": null
-   },
-   "coletado_em": "2026-09-06T04:38:21.322271+00:00",
+   "coletado_em": "2026-09-06T08:57:15.816794+00:00",
    "vota": false,
    "experimental": true,
    "selo": "experimental — contexto, não vota",
@@ -249,21 +180,21 @@
   "GBP": {
    "temas": {
     "conflito": {
-     "erro": "HTTP Error 429: Too Many Requests",
+     "volume": {
+      "n": 14,
+      "recente_3d": 0.5939,
+      "base_14d": 0.4497,
+      "razao": 1.32,
+      "z": 1.88
+     },
+     "manchetes": [],
      "manchetes_unicas": [],
      "duplicatas_removidas": 0,
      "vota": false,
      "selo": "experimental — contexto, não vota"
     },
     "energia": {
-     "volume": {
-      "n": 14,
-      "recente_3d": 0.15,
-      "base_14d": 0.1557,
-      "razao": 0.96,
-      "z": -0.1
-     },
-     "manchetes": [],
+     "erro": "HTTP Error 429: Too Many Requests",
      "manchetes_unicas": [],
      "duplicatas_removidas": 0,
      "vota": false,
@@ -273,17 +204,16 @@
    "tom": null,
    "implicacao": {
     "regra": "regra declarada, não medida — está aqui para o julgamento, não entra na convicção",
-    "fx": null,
+    "fx": "aversão a risco: efeito misto para o GBP (regra)",
     "juro": null
    },
-   "coletado_em": "2026-09-05T16:17:08.596133+00:00",
+   "coletado_em": "2026-09-06T08:57:15.816794+00:00",
    "vota": false,
    "experimental": true,
    "selo": "experimental — contexto, não vota",
    "selo_motivo": "Camada de contexto. A implicação é regra declarada, nunca medida, e não entra na convicção nem no teto do sentimento. A interface pode recolher esta seção por padrão: a informação continua inteira no arquivo.",
    "recolher_por_padrao": true,
-   "peso_no_sentimento": 0.0,
-   "reaproveitado_de": "2026-09-05T16:17:08.596133+00:00"
+   "peso_no_sentimento": 0.0
   },
   "JPY": {
    "temas": {
@@ -296,11 +226,11 @@
     },
     "energia": {
      "volume": {
-      "n": 13,
-      "recente_3d": 0.102,
-      "base_14d": 0.0887,
-      "razao": 1.15,
-      "z": 0.28
+      "n": 14,
+      "recente_3d": 0.0688,
+      "base_14d": 0.0914,
+      "razao": 0.75,
+      "z": -0.5
      },
      "manchetes": [],
      "manchetes_unicas": [],
@@ -315,14 +245,13 @@
     "fx": null,
     "juro": null
    },
-   "coletado_em": "2026-09-06T00:06:53.540813+00:00",
+   "coletado_em": "2026-09-06T08:57:15.816794+00:00",
    "vota": false,
    "experimental": true,
    "selo": "experimental — contexto, não vota",
    "selo_motivo": "Camada de contexto. A implicação é regra declarada, nunca medida, e não entra na convicção nem no teto do sentimento. A interface pode recolher esta seção por padrão: a informação continua inteira no arquivo.",
    "recolher_por_padrao": true,
-   "peso_no_sentimento": 0.0,
-   "reaproveitado_de": "2026-09-06T00:06:53.540813+00:00"
+   "peso_no_sentimento": 0.0
   },
   "AUD": {
    "temas": {
@@ -362,18 +291,131 @@
    "recolher_por_padrao": true,
    "peso_no_sentimento": 0.0,
    "reaproveitado_de": "2026-09-05T16:17:08.596133+00:00"
+  },
+  "NZD": {
+   "temas": {
+    "conflito": {
+     "volume": {
+      "n": 14,
+      "recente_3d": 0.0137,
+      "base_14d": 0.053,
+      "razao": 0.26,
+      "z": -2.06
+     },
+     "manchetes": [],
+     "manchetes_unicas": [],
+     "duplicatas_removidas": 0,
+     "vota": false,
+     "selo": "experimental — contexto, não vota"
+    },
+    "energia": {
+     "erro": "HTTP Error 429: Too Many Requests",
+     "manchetes_unicas": [],
+     "duplicatas_removidas": 0,
+     "vota": false,
+     "selo": "experimental — contexto, não vota"
+    }
+   },
+   "tom": null,
+   "implicacao": {
+    "regra": "regra declarada, não medida — está aqui para o julgamento, não entra na convicção",
+    "fx": null,
+    "juro": null
+   },
+   "coletado_em": "2026-09-06T04:38:21.322271+00:00",
+   "vota": false,
+   "experimental": true,
+   "selo": "experimental — contexto, não vota",
+   "selo_motivo": "Camada de contexto. A implicação é regra declarada, nunca medida, e não entra na convicção nem no teto do sentimento. A interface pode recolher esta seção por padrão: a informação continua inteira no arquivo.",
+   "recolher_por_padrao": true,
+   "peso_no_sentimento": 0.0,
+   "reaproveitado_de": "2026-09-06T04:38:21.322271+00:00"
+  },
+  "CAD": {
+   "temas": {
+    "conflito": {
+     "volume": {
+      "n": 14,
+      "recente_3d": 0.1895,
+      "base_14d": 0.4352,
+      "razao": 0.44,
+      "z": -1.63
+     },
+     "manchetes": [],
+     "manchetes_unicas": [],
+     "duplicatas_removidas": 0,
+     "vota": false,
+     "selo": "experimental — contexto, não vota"
+    },
+    "energia": {
+     "erro": "HTTP Error 429: Too Many Requests",
+     "manchetes_unicas": [],
+     "duplicatas_removidas": 0,
+     "vota": false,
+     "selo": "experimental — contexto, não vota"
+    }
+   },
+   "tom": null,
+   "implicacao": {
+    "regra": "regra declarada, não medida — está aqui para o julgamento, não entra na convicção",
+    "fx": null,
+    "juro": null
+   },
+   "coletado_em": "2026-09-06T04:38:21.322271+00:00",
+   "vota": false,
+   "experimental": true,
+   "selo": "experimental — contexto, não vota",
+   "selo_motivo": "Camada de contexto. A implicação é regra declarada, nunca medida, e não entra na convicção nem no teto do sentimento. A interface pode recolher esta seção por padrão: a informação continua inteira no arquivo.",
+   "recolher_por_padrao": true,
+   "peso_no_sentimento": 0.0,
+   "reaproveitado_de": "2026-09-06T04:38:21.322271+00:00"
+  },
+  "CHF": {
+   "temas": {
+    "conflito": {
+     "volume": {
+      "n": 14,
+      "recente_3d": 0.0412,
+      "base_14d": 0.0398,
+      "razao": 1.03,
+      "z": 0.05
+     },
+     "manchetes": [],
+     "manchetes_unicas": [],
+     "duplicatas_removidas": 0,
+     "vota": false,
+     "selo": "experimental — contexto, não vota"
+    },
+    "energia": {
+     "erro": "HTTP Error 429: Too Many Requests",
+     "manchetes_unicas": [],
+     "duplicatas_removidas": 0,
+     "vota": false,
+     "selo": "experimental — contexto, não vota"
+    }
+   },
+   "tom": null,
+   "implicacao": {
+    "regra": "regra declarada, não medida — está aqui para o julgamento, não entra na convicção",
+    "fx": null,
+    "juro": null
+   },
+   "coletado_em": "2026-09-06T04:38:21.322271+00:00",
+   "vota": false,
+   "experimental": true,
+   "selo": "experimental — contexto, não vota",
+   "selo_motivo": "Camada de contexto. A implicação é regra declarada, nunca medida, e não entra na convicção nem no teto do sentimento. A interface pode recolher esta seção por padrão: a informação continua inteira no arquivo.",
+   "recolher_por_padrao": true,
+   "peso_no_sentimento": 0.0,
+   "reaproveitado_de": "2026-09-06T04:38:21.322271+00:00"
   }
  },
  "erros": [
   "mundo/conflito: HTTP Error 429: Too Many Requests",
   "mundo/energia: HTTP Error 429: Too Many Requests",
-  "AUD/conflito: HTTP Error 429: Too Many Requests",
-  "AUD/energia: HTTP Error 429: Too Many Requests",
-  "NZD/energia: HTTP Error 429: Too Many Requests",
-  "CAD/energia: HTTP Error 429: Too Many Requests",
-  "CHF/energia: HTTP Error 429: Too Many Requests",
-  "USD/energia: HTTP Error 429: Too Many Requests",
-  "orcamento de 480 s estourado antes de EUR — o resto fica para a proxima rodada"
+  "GBP/energia: HTTP Error 429: Too Many Requests",
+  "JPY/conflito: HTTP Error 429: Too Many Requests",
+  "orcamento de 480 s estourado antes de AUD — o resto fica para a proxima rodada"
  ],
  "vota": false,
  "experimental": true,
