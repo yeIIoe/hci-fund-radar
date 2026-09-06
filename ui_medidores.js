@@ -282,7 +282,13 @@
           '<span class="med-barra med-barra-' + lado + (declarada ? '' : ' med-barra-oca') +
             '" style="width:' + larg.toFixed(1) + '%"></span>' +
         '</div>' +
-        '<div class="med-escala-vl' + classeVl + ' med-num">' + escapar(fmtSinal(m.score, 3)) + '</div>' +
+        // ⚠️ LEI (b) DO DONO — 06/set. Aqui saía escapar(fmtSinal(m.score, 3)): o NÚMERO da
+        // leitura contínua, em três casas, colorido, dentro de um <div> de tela. Hoje o
+        // módulo está carregado pelo index.html e nenhuma função dele é chamada, então isso
+        // não aparecia — mas a fiação estava montada e faltava só o call site. Agora sai a
+        // INTENSIDADE em porcento do teto, que é o que a interface principal já mostra.
+        '<div class="med-escala-vl' + classeVl + ' med-num">' +
+          escapar(Math.round(larg * 2) + '%') + '</div>' +
       '</div>';
     }).join('');
 
@@ -535,7 +541,7 @@
           ? 'esta fonte <b>vota</b> (' + escapar(f.alimenta || 'dimensão que vota') + '): toda leitura que ' +
             'depende dela está lendo dado de ' + escapar(f.atraso_texto || fmt(f.atraso_min, 0) + ' min') +
             ' atrás, e uma divulgação ocorrida nesse intervalo ainda não entrou em nenhuma moeda.'
-          : 'esta fonte <b>não vota</b> (' + escapar(f.alimenta || 'contexto') + '), então o score não muda; ' +
+          : 'esta fonte <b>não vota</b> (' + escapar(f.alimenta || 'contexto') + '), então a leitura não muda; ' +
             'o que está velho é o contexto mostrado na tela — quem ler o bloco dela está lendo o mundo de ' +
             escapar(f.atraso_texto || fmt(f.atraso_min, 0) + ' min') + ' atrás.'
       };
