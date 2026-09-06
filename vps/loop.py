@@ -88,6 +88,9 @@ CADEIA_COMPLETA = [
     ("noticias.py", 300),
     ("geopolitica.py", 660),
     ("sentimento.py", 180),
+    # 06/set: o workflow ganhou este passo e o loop nao tinha. Sem ele a serie de snapshots
+    # (a base do backtest da conviccao historica) parava no dia em que o Actions fosse desligado.
+    ("snapshot.py", 120),
 ]
 # Na fast lane so o calendario. O sentimento.py baixa 42 dias da FXStreet por conta propria:
 # roda-lo a cada 5 s dobraria as batidas na fonte sem informacao nova. Ele roda UMA vez, quando
@@ -97,6 +100,9 @@ CADEIA_FAST = [
     ("macro_eventos.py", 90),
 ]
 SENTIMENTO_FAST = ("sentimento.py", 120)
+# O snapshot grava a leitura do instante em que o numero saiu — que e exatamente o momento
+# que interessa ao backtest. Roda logo depois do sentimento, na mesma passada.
+SNAPSHOT_FAST = ("snapshot.py", 120)
 
 # Exatamente os arquivos do passo "commita se mudou" do workflow. Nada fora de data/.
 JSONS_COMMIT = [
@@ -110,6 +116,9 @@ JSONS_COMMIT = [
     "data/geopolitica.json",
     "data/noticias.json",
     "data/raw/ff_calendar_thisweek.json",
+    # diretorio, nao arquivo: o git add e o git status aceitam caminho de pasta, e o
+    # snapshot.py grava um .jsonl por dia (append-only).
+    "data/snapshots",
 ]
 assert all(p.startswith("data/") for p in JSONS_COMMIT), "so data/ pode ser commitado"
 
@@ -480,6 +489,7 @@ def passada_seca() -> int:
     for nome, t in CADEIA_FAST:
         log.info("   %-24s timeout %4ds", nome, t)
     log.info("   %-24s timeout %4ds  (so quando o resultado chega)", *SENTIMENTO_FAST)
+    log.info("   %-24s timeout %4ds  (so quando o resultado chega)", *SNAPSHOT_FAST)
     ev = le_eventos()
     ref = agora()
     log.info("macro_eventos.json: %d eventos lidos", len(ev))
@@ -555,6 +565,7 @@ def loop_para_sempre() -> None:
                     for e in chegaram:
                         log.info("RESULTADO chegou: %s = %s", rotulo(e), depois[chave(e)])
                     roda_script(*SENTIMENTO_FAST)
+                    roda_script(*SNAPSHOT_FAST)
                     publica("fast lane: " + "; ".join(rotulo(e) for e in chegaram)[:120])
                 grava_estado(ultima_fast=agora().isoformat(),
                              fast_eventos=[rotulo(e) for e in ativos])
