@@ -10,6 +10,12 @@
   <link rel="icon" type="image/png" href="assets/hci_logo.png">
   <link rel="stylesheet" href="styles.css?v=20260905-rev1">
   <link rel="stylesheet" href="theme.css?v=20260905-rev1">
+  <!-- Direcao visual C ("sala de controle"), escolhida por contraste MEDIDO em 05/set.
+       Tem de vir POR ULTIMO: e aditiva sobre styles.css e theme.css, e ganha deles por
+       ordem e por prefixo html nos seletores. As tres familias vem no @import dela. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="estilo_hci.css?v=20260906-vis1">
 </head>
 <body>
   <header class="site-header">
@@ -454,10 +460,13 @@
   <script src="ui_fund_ficha.js?v=20260905-rev1"></script>
   <script src="ui_juros_cambio.js?v=20260905-rev1"></script>
   <script src="ui_nav.js?v=20260905-rev1"></script>
-  <script src="ui_macro.js?v=20260905-rev1"></script>
+  <!-- ANTES do ui_macro.js: ele desenha assim que o dado chega e precisa do
+       window.HCI_MEDIDORES existindo nesse instante. Sem fetch, sem evento. -->
+  <script src="ui_medidores.js?v=20260906-vis1"></script>
+  <script src="ui_macro.js?v=20260906-rev2"></script>
   <!-- Depois do ui_macro.js de proposito: ele repinta os paineis a cada 900 ms e precisa
        ter desenhado antes de a auditoria esconder as manchetes posteriores ao corte. -->
   <script src="ui_corte_auditoria.js?v=20260905-rev1"></script>
-  <script src="ui_lang.js?v=20260905-rev1"></script>
+  <script src="ui_lang.js?v=20260906-rev1"></script>
 </body>
 </html>

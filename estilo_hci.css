@@ -11,9 +11,12 @@
    folha. Por isso, contra as classes .mac-* nao basta vir por ultimo — e
    preciso ganhar por especificidade. A tatica desta folha:
      (a) prefixo `html` nos seletores .mac-*  →  0,0,1,1 contra 0,0,1,0;
-     (b) `!important` apenas nos tres varredores estruturais (elevacao,
-         gradiente e opacidade sobre texto), que a especificacao exige que
-         sejam apagados sem excecao.
+     (b) `!important` nos tres varredores estruturais (elevacao, gradiente e
+         opacidade sobre texto), que a especificacao exige que sejam apagados
+         sem excecao, e nos poucos lugares que precisam VOLTAR depois de um
+         varredor (o fio inset da selecao, a hachura de "sem dado", as barras
+         chapadas) ou vencer uma cor herdada que a regua proibe (a variacao de
+         nivel do BLS). A conta esta no fim do arquivo, no item 9.
    Nada aqui edita ui_macro.js, ui_lang.js, index.html nem arquivo .py.
    A ligacao (a tag <link>) e do orquestrador.
    ============================================================================ */
@@ -147,8 +150,11 @@ html body{
 html [class],
 html [class]::before,
 html [class]::after,
-html small, html em, html i, html b, html strong, html summary,
-html p, html span, html div, html li, html td, html th{ opacity:1 !important; }
+html small, html em, html i, html b, html strong, html summary, html sup, html sub,
+html p, html span, html div, html li, html td, html th, html tr, html a, html button,
+html label, html section, html header, html footer, html aside, html main, html nav,
+html h1, html h2, html h3, html h4, html h5, html h6,
+html ul, html ol, html dl, html dt, html dd, html details, html figcaption{ opacity:1 !important; }
 
 /* (d) sem desfoque de fundo: o backdrop-filter do cabecalho criava bloco de
        contencao e prendia o position:fixed da gaveta lateral (esta anotado no
@@ -158,6 +164,51 @@ html .site-header{ backdrop-filter:none !important; -webkit-backdrop-filter:none
 
 /* (e) nada de animacao de entrada de aba: a tabela nao deve piscar. */
 html .tab-panel.is-active{ animation:none !important; }
+
+/* ============================================================================
+   §1.3-bis · A TINTA SOBE ONDE A SUPERFICIE CLAREIA  (item 5 da §8)
+   ----------------------------------------------------------------------------
+   CONFERENCIA DE 06/set. O item 5 da lista manda recalcular sempre que o texto
+   assenta em superficie mais clara que a zebra #0F241F. Os preenchimentos
+   fracos (--*-fraca, 12-14% de alfa) CLAREIAM sim, e o suficiente para
+   reprovar: medido com a formula da luminancia relativa,
+
+     --tinta-3 sobre --alta-fraca  na zebra  (#183C2F) = 3,89:1   REPROVA
+     --tinta-3 sobre --marca-fraca na zebra  (#153A34) = 3,98:1   REPROVA
+     --tinta-3 sobre --aviso-fraca na zebra  (#2C3626) = 4,02:1   REPROVA
+     --tinta-3 sobre --corte-fraca na zebra  (#313029) = 4,23:1   REPROVA
+     --tinta-3 sobre --aviso-fraca no painel (#2A3020) = 4,35:1   REPROVA
+
+   Isso alcanca coisas reais desta folha: o rotulo `.rot` dentro do bloco de
+   alarme, o `.mac-prov-mini` dentro do chip de leitura, o `small` do
+   `.mac-lean-pill`, a nota `.sub` da linha selecionada, o `.mac-item-dias` do
+   item selecionado. A correcao e SUBIR A TINTA, nunca baixar o piso: dentro de
+   toda superficie clareada, --tinta-3 passa a valer --tinta-2. Como e uma
+   redefinicao de VARIAVEL, ela nao pisa em nenhuma cor semantica — o ambar do
+   `em`, o verde do chip e o vermelho do risco continuam exatamente como estao.
+   Pior caso depois da correcao: --tinta-2 sobre --alta-fraca na zebra = 5,66:1.
+   ============================================================================ */
+html .alarme-bloco, html .alarme, html .med-alarme,
+html .mac-tarja, html .mac-tarja-atraso, html .aviso-reprovado,
+html .mac-resumo.e-obs,
+html tbody tr.selecionada, html tbody tr.mac-sel, html .mac-tabela tr.mac-urgente,
+html .mac-item-sel, html .mac-dia-cel.mac-sel,
+html body > nav#tabBar.tabs .tab.is-active,
+html .chip-alta, html .chip-corte, html .chip-aviso, html .chip-marca,
+html .mac-dim.d-alta, html .mac-dim.d-corte, html .mac-dim.off, html .mac-dim.exp,
+html .mac-lean-dovish, html .mac-lean-hawkish, html .mac-lean-mixed,
+html .mac-news-tag.c-alta, html .mac-news-tag.c-corte,
+html .mac-surp.positive, html .mac-surp.negative,
+html .mac-lean-pill.positive, html .mac-lean-pill.negative,
+html .mac-conf.c-alta, html .mac-conf.c-baixa, html .mac-conf.c-media,
+html .mac-atraso, html .mac-atraso-lento,
+html .mac-geo-pill.alto, html .mac-geo-pill.medio,
+html .mac-chip.on, html .mac-tag-div, html .mac-dot,
+html .mac-det-leitura.e-div, html .mac-det-leitura.e-forte,
+html .mac-det-leitura.e-mod, html .mac-det-leitura.v-bull,
+html .med-chip-aviso, html .med-chip-corte, html .hachura{
+  --tinta-3: var(--tinta-2);
+}
 
 /* ============================================================================
    §3 · TIPOGRAFIA
@@ -259,6 +310,18 @@ html .section-title{ margin-bottom:var(--e6); }
 html p, html li, html td, html th, html span, html div, html label{ letter-spacing:0; }
 html small, html .muted{ color:var(--tinta-3); }
 
+/* CONTROLE DE FORMULARIO NAO HERDA FAMILIA. Sem esta regra, todo <button> e
+   <input> que a folha nao nomeia um a um cai na fonte de interface do sistema
+   operacional — na conferencia de 06/set eram o `.mac-item` (o item da lista de
+   pares) e o `.mac-dia-cel` (a celula do calendario), os dois <button>, os dois
+   escapando do Archivo. Nenhum texto pode cair em fonte de sistema por engano. */
+html button, html input, html select, html textarea, html optgroup{
+  font-family:inherit;
+}
+html .mac-item, html .mac-dia-cel, html .nav-toggle{ font-family:var(--sans); }
+html .mac-item .mac-item-par, html .mac-item .mac-item-dias,
+html .mac-item .mac-item-tag, html .mac-dia-cel .mac-num{ font-family:var(--mono); }
+
 /* --- §3.3 REGRA DOS TRES DEGRAUS ---------------------------------------------
    A nota que acompanha um numero heroi fica pelo menos tres degraus abaixo dele.
    21 (xl) → 9,5 (micro) sao cinco degraus; 21 com 14 ao lado EMPATAM e por isso
@@ -305,6 +368,13 @@ html .mac-taxa{ font-family:var(--mono); font-size:var(--t-xl); font-weight:600;
   line-height:1; letter-spacing:-.02em; color:var(--tinta); }
 html .mac-resumo-item strong{ font-family:var(--mono); font-size:var(--t-xl);
   font-weight:600; line-height:1.05; letter-spacing:-.01em; color:var(--tinta); display:block; }
+/* UM HEROI POR CARTAO. O .mac-resumo e um cartao so e trazia TRES numeros em 21
+   disputando (divergencia, qualidade e conviccao). O heroi e a DIVERGENCIA, que
+   e a pergunta do cartao; os outros dois descem para 14, como manda a §3.3
+   ("se dois numeros disputam, um dos dois desce"). (conferencia de 06/set) */
+html .mac-resumo-grid > .mac-resumo-item + .mac-resumo-item strong{
+  font-size:var(--t-md); line-height:1.2;
+}
 html .mac-geo-sum{ font-size:var(--t-md); font-weight:600; letter-spacing:0; color:var(--tinta); }
 html .mac-perna-nome{ font-size:var(--t-md); font-weight:600; color:var(--tinta);
   display:block; margin-bottom:var(--e1); }
@@ -440,6 +510,12 @@ html .faixa-seg b, html .faixa-seg strong{ color:var(--tinta); font-weight:600; 
 html .faixa-seg span{ color:var(--tinta-2); }
 html .faixa-seg--fim{ margin-left:auto; border-right:0;
   border-left:1px solid var(--regua-fraca); }
+
+/* DOIS GRUDADOS NO MESMO TOPO SE SOBREPOEM. A faixa de estado e o cabecalho sao
+   os dois `position:sticky; top:0`. Quando a faixa existe, o cabecalho desce os
+   30px dela — assim a faixa nunca sai da tela (§6.1) e nao cobre o cabecalho. */
+html body:has(> .faixa-estado) .site-header,
+html body:has(> .med-faixa) .site-header{ top:30px; }
 
 /* as quatro cores de LED (§6.1). Sao pontos de 6px, nao texto: sem exigencia de
    contraste de leitura, mas todo LED vem acompanhado da palavra ao lado. */
@@ -971,32 +1047,77 @@ html td .mac-brt{ display:block; font-weight:700; font-size:var(--t-md);
    -------------------------------------------------------------------------- */
 
 /* BANCOS CENTRAIS — min-width 1040
-   1 Moeda 58e · 2 Banco/instrumento min 180 elastica · 3 Taxa 158d
-   4 Ultima mudanca 172d · 5 Proxima reuniao 192e · 6 Hora local 128d */
-html .table-wrap > table.mac-tabela th:nth-child(1),
-html .table-wrap > table.mac-tabela td:nth-child(1),
+   A ESPECIFICACAO (§5.5) desenha SEIS colunas nesta ordem:
+     1 Moeda 58e · 2 Banco/instrumento min 180 elastica · 3 Taxa vigente 158d
+     4 Ultima mudanca 172d · 5 Proxima reuniao 192e · 6 Hora local 128d
+   e essas medidas valem para a classe `.tabela-bancos`.
+
+   [CONFERENTE 06/set] A tabela QUE EXISTE HOJE tem seis colunas em OUTRA ordem
+   — Moeda · Taxa · Regime · Proximo evento relevante · Proxima decisao ·
+   Leitura — e a versao anterior desta folha aplicava as medidas de cima nela
+   por `.table-wrap > table.mac-tabela`. O resultado era o contrario da §5.4: a
+   TAXA (numero) ficava larga e a esquerda, e o REGIME e a LEITURA (texto)
+   ficavam alinhados a direita. As medidas da especificacao passam a exigir a
+   classe; a tabela de hoje ganha o seu proprio conjunto, com numero a direita e
+   texto a esquerda. Quando o orquestrador reordenar as colunas para a ordem da
+   §5.5, basta por `tabela-bancos` na <table> — ver LIGAR_VISUAL.md. */
 html .tabela-bancos th:nth-child(1), html .tabela-bancos td:nth-child(1){
   width:58px; text-align:left; }
-html .table-wrap > table.mac-tabela th:nth-child(2),
-html .table-wrap > table.mac-tabela td:nth-child(2),
 html .tabela-bancos th:nth-child(2), html .tabela-bancos td:nth-child(2){
   min-width:180px; width:auto; text-align:left; }
-html .table-wrap > table.mac-tabela th:nth-child(3),
-html .table-wrap > table.mac-tabela td:nth-child(3),
 html .tabela-bancos th:nth-child(3), html .tabela-bancos td:nth-child(3){
   width:158px; text-align:right; }
-html .table-wrap > table.mac-tabela th:nth-child(4),
-html .table-wrap > table.mac-tabela td:nth-child(4),
 html .tabela-bancos th:nth-child(4), html .tabela-bancos td:nth-child(4){
   width:172px; text-align:right; }
-html .table-wrap > table.mac-tabela th:nth-child(5),
-html .table-wrap > table.mac-tabela td:nth-child(5),
 html .tabela-bancos th:nth-child(5), html .tabela-bancos td:nth-child(5){
   width:192px; text-align:left; }
-html .table-wrap > table.mac-tabela th:nth-child(6),
-html .table-wrap > table.mac-tabela td:nth-child(6),
 html .tabela-bancos th:nth-child(6), html .tabela-bancos td:nth-child(6){
   width:128px; text-align:right; }
+
+/* a tabela dos bancos COMO ELA E HOJE (ordem propria, sem a classe) */
+html .table-wrap > table.mac-tabela:not(.tabela-bancos) th:nth-child(1),
+html .table-wrap > table.mac-tabela:not(.tabela-bancos) td:nth-child(1){
+  width:96px;  text-align:left; }          /* Moeda: bandeira + codigo + sigla */
+html .table-wrap > table.mac-tabela:not(.tabela-bancos) th:nth-child(2),
+html .table-wrap > table.mac-tabela:not(.tabela-bancos) td:nth-child(2){
+  width:116px; text-align:right; }         /* Taxa: e numero, entao a direita   */
+html .table-wrap > table.mac-tabela:not(.tabela-bancos) th:nth-child(3),
+html .table-wrap > table.mac-tabela:not(.tabela-bancos) td:nth-child(3){
+  min-width:180px; width:auto; text-align:left; }   /* Regime + ultimo movimento */
+html .table-wrap > table.mac-tabela:not(.tabela-bancos) th:nth-child(4),
+html .table-wrap > table.mac-tabela:not(.tabela-bancos) td:nth-child(4){
+  min-width:210px; width:auto; text-align:left; }   /* Proximo evento relevante  */
+html .table-wrap > table.mac-tabela:not(.tabela-bancos) th:nth-child(5),
+html .table-wrap > table.mac-tabela:not(.tabela-bancos) td:nth-child(5){
+  width:200px; text-align:left; }          /* Proxima decisao + hora local      */
+html .table-wrap > table.mac-tabela:not(.tabela-bancos) th:nth-child(6),
+html .table-wrap > table.mac-tabela:not(.tabela-bancos) td:nth-child(6){
+  width:264px; text-align:left; }          /* Leitura                           */
+
+/* [06/set, medido no navegador] A LEITURA tinha 150px declarados e renderizava a
+   84px: as tres linhas do bloco ("EUR - inclinado a alta", "1 de 2 dimensoes
+   concordam", "Evidencia: forte") quebravam em quatro cada uma e esticavam a
+   linha da tabela para 195px, contra os 64px da especificacao. A coluna passa a
+   264px e o min-width da tabela sobe junto, senao a folga sai das outras. */
+html .table-wrap > table.mac-tabela:not(.tabela-bancos){ min-width:1160px; }
+
+/* O bloco da leitura fica compacto: a linha 1 e a heroina, as duas de baixo caem
+   um degrau e nao quebram por causa de espaco entre palavras. */
+html .mac-bloco-moeda{ line-height:1.28; }
+html .mac-bm-linha1{ font-size:12.5px; line-height:1.25; text-wrap:balance; }
+html .mac-bm-linha2,
+html .mac-bm-linha3{ font-size:11.5px; line-height:1.3; color:var(--tinta-3); margin-top:2px; }
+html .mac-bm-linha3 b{ color:var(--tinta-2); font-weight:600; }
+html .mac-prov-mini{ white-space:nowrap; }
+
+/* [06/set, medido] O motivo do "sem leitura" e um paragrafo inteiro (3 frases) e
+   sozinho levava a celula a 113px, esticando a linha para 195px. Numa tabela o
+   motivo e uma NOTA, nao um texto corrido: fica em duas linhas e o resto abre no
+   title (o texto completo continua no DOM, so nao ocupa a tela). */
+html .mac-bm-motivo{
+  font-size:11px; line-height:1.35; color:var(--tinta-3); margin-top:3px;
+  display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:2;
+  overflow:hidden; cursor:help; }
 
 /* ESTADOS UNIDOS — min-width 960
    1 Quando(UTC) 116e · 2 Impacto 44e · 3 Indicador min 210 elastica
@@ -1129,11 +1250,15 @@ html .alarme-bloco, html .mac-tarja-atraso, html .mac-tarja, html .aviso-reprova
   overflow:hidden;
   padding:0;
 }
+/* A cabeca NAO repinta --aviso-fraca por cima do bloco que ja e --aviso-fraca.
+   Duas camadas de 13% empilhadas dao #434127, e ali --tinta-3 cai para 3,31:1 e
+   ate o --corte cai para 4,10:1 — as duas reprovam. Uma camada so, e o fio de
+   baixo separa. (conferencia de 06/set, item 5 da §8) */
 html .alarme-cab, html .mac-tarja-atraso > strong:first-child{
   display:flex; align-items:center; gap:var(--e4); flex-wrap:wrap;
   min-height:26px; padding:var(--e3) var(--e5);
-  border-bottom:1px solid rgba(240,178,82,.24);
-  background:var(--aviso-fraca);
+  border-bottom:1px solid var(--aviso-fio);
+  background:transparent;
 }
 html .alarme-cab .rot{ color:var(--aviso); }
 html .alarme-cab .verificacao{
@@ -1423,6 +1548,343 @@ html .site-footer{ border-top:1px solid var(--regua); background:var(--fundo-ban
 html :focus-visible{ outline:1px solid var(--marca); outline-offset:1px; }
 
 /* ============================================================================
+   §M · OS MEDIDORES  —  contrato de CSS do ui_medidores.js
+   ----------------------------------------------------------------------------
+   CONFERENCIA DE 06/set: o ui_medidores.js declara no cabecalho um contrato de
+   classes .med-* e ESTA FOLHA NAO DEFINIA NENHUMA. As sete funcoes do modulo
+   sairiam na tela sem desenho nenhum — texto cru, sem trilho, sem agulha, sem
+   grade de alarme. O contrato entra aqui, inteiro, com tres correcoes sobre a
+   copia que estava no comentario do modulo:
+     · o brilho turquesa da agulha e o halo do LED SAIRAM (§4.1: elevacao zero);
+     · a cor crua #2C4A42 do LED cinza virou var(--led-mudo);
+     · a serifa das notas virou var(--serifa), com a pilha de reserva inteira.
+   A hachura leva !important porque o varredor (b) da §4.1 apaga toda imagem de
+   fundo, e ela e a UNICA trama permitida (§6.4).
+   ============================================================================ */
+
+html .med-num{
+  font-family:var(--mono);
+  font-variant-numeric:tabular-nums lining-nums;
+  font-feature-settings:"tnum" 1,"lnum" 1;
+  letter-spacing:-.01em;
+}
+html .med-oculto{
+  position:absolute; width:1px; height:1px; overflow:hidden;
+  clip:rect(0 0 0 0); white-space:nowrap;
+}
+
+/* --- §6.1 faixa de estado ------------------------------------------------ */
+html .med-faixa{
+  position:sticky; top:0; z-index:60;
+  display:flex; align-items:stretch;
+  height:30px; min-height:30px;
+  background:var(--fundo-band);
+  border-bottom:1px solid var(--regua);
+  font-family:var(--mono); font-size:var(--t-nano);
+  color:var(--tinta-2);
+  overflow-x:auto; scrollbar-width:thin; white-space:nowrap;
+}
+html .med-faixa-seg{
+  display:flex; align-items:center; gap:var(--e3);
+  padding:0 var(--e5); white-space:nowrap; flex:none;
+  border-right:1px solid var(--regua-fraca);
+}
+html .med-faixa-seg:last-child{ border-right:0; }
+html .med-faixa-seg.med-faixa-fim{
+  margin-left:auto; border-right:0; border-left:1px solid var(--regua-fraca);
+}
+html .med-faixa-chave{ color:var(--tinta-3); letter-spacing:.14em; }
+html .med-faixa-valor{ color:var(--tinta); font-weight:600; }
+html .med-faixa-nota{ color:var(--tinta-2); }
+html .med-led{
+  width:6px; height:6px; border-radius:50%; flex:none; display:inline-block;
+  background:var(--led-mudo);
+}
+html .med-led-ok{   background:var(--alta);  }
+html .med-led-av{   background:var(--aviso); }
+html .med-led-off{  background:var(--corte); }
+html .med-led-mudo{ background:var(--led-mudo); }
+
+/* --- §6.4 · 1 · escala divergente no zero -------------------------------- */
+html .med-escala{ display:flex; flex-direction:column; min-width:0; }
+html .med-escala-eixo{
+  display:grid; grid-template-columns:52px minmax(0,1fr) 60px;
+  gap:var(--e4); align-items:center; padding-bottom:var(--e3);
+  font-family:var(--mono); font-size:var(--t-micro);
+}
+html .med-escala-eixo .e-neg{ color:var(--corte); }
+html .med-escala-eixo .e-zero{ color:var(--tinta-3); text-align:center; }
+html .med-escala-eixo .e-pos{ color:var(--alta); text-align:right; }
+html .med-escala-linha{
+  display:grid; grid-template-columns:52px minmax(0,1fr) 60px;
+  gap:var(--e4); align-items:center;
+  padding:3.5px 0; border-top:1px solid var(--regua-fraca);
+}
+html .med-escala-linha:first-of-type{ border-top:0; }
+html .med-escala-cod{
+  font-family:var(--mono); font-size:var(--t-min); font-weight:600; color:var(--tinta);
+}
+html .med-escala-cod sup{
+  font-family:var(--mono); font-size:var(--t-micro); font-weight:400;
+  color:var(--tinta-3); margin-left:var(--e1); vertical-align:super; line-height:0;
+}
+html .med-trilho{
+  position:relative; height:15px;
+  background:var(--fundo-band);
+  border:1px solid var(--regua-fraca);
+  border-radius:var(--raio-chip);
+  overflow:hidden;
+}
+html .med-trilho-zero{
+  position:absolute; left:50%; top:0; bottom:0; width:1px; background:var(--regua-forte);
+}
+html .med-barra{ position:absolute; top:3px; bottom:3px; border-radius:1px; }
+html .med-barra-pos{ left:50%;  background:var(--alta);  }
+html .med-barra-neg{ right:50%; background:var(--corte); }
+/* vazado = MANTEM. Solido vs. vazado substitui uma quinta cor (§2, regra 4). */
+html .med-barra-oca{ background:transparent; border:1px solid; }
+html .med-barra-oca.med-barra-pos{ border-color:var(--alta);  background:transparent; }
+html .med-barra-oca.med-barra-neg{ border-color:var(--corte); background:transparent; }
+html .med-escala-vl{
+  font-family:var(--mono); font-size:var(--t-min);
+  font-variant-numeric:tabular-nums lining-nums;
+  text-align:right; color:var(--tinta);
+}
+html .med-escala-vl.alta{  color:var(--alta);  }
+html .med-escala-vl.corte{ color:var(--corte); }
+html .med-legenda{
+  display:flex; flex-wrap:wrap; gap:var(--e5);
+  margin-top:var(--e4); padding-top:var(--e4);
+  border-top:1px solid var(--regua);
+  font-family:var(--mono); font-size:var(--t-micro);
+  line-height:1.5; color:var(--tinta-3);
+}
+html .med-legenda b{ color:var(--tinta-2); font-weight:500; }
+html .med-legenda i{
+  display:inline-block; width:14px; height:6px; border-radius:1px;
+  transform:translateY(-1px); font-style:normal;
+}
+html .med-legenda i.cheia{ background:var(--alta); }
+html .med-legenda i.oca{ border:1px solid var(--alta); }
+
+/* --- §6.4 · 2 · faixa com agulha ----------------------------------------- */
+html .med-faixa-agulha{ margin-top:var(--e1); }
+html .med-bandas{
+  position:relative; height:22px; display:flex;
+  border:1px solid var(--regua-forte);
+  border-radius:var(--raio-chip);
+  background:var(--fundo-band);
+}
+html .med-banda{ position:relative; height:100%; }
+html .med-banda + .med-banda{ border-left:1px solid var(--regua-forte); }
+/* AS QUATRO BANDAS SAO UMA RAMPA NEUTRA, NAO VERDE. A maquete pintava as bandas
+   2, 3 e 4 com o verde de --alta; ali o verde estaria afirmando "divergencia
+   forte", e verde so pode afirmar ALTA DE JURO (§2, regra 1 e regra 7). Como
+   nao da para dizer numa frase o que aquele verde afirma, ele sai: a intensidade
+   vira degrau de cinza, que e o padrao da casa, e quem marca a leitura e a
+   agulha turquesa mais o rotulo escrito embaixo. (conferencia de 06/set) */
+html .med-banda-1{ background:rgba(159,182,175,.04); }
+html .med-banda-2{ background:rgba(159,182,175,.07); }
+html .med-banda-3{ background:rgba(159,182,175,.10); }
+html .med-banda-4{ background:rgba(159,182,175,.14); }
+/* a agulha e um FIO de 2px, sem brilho: a maquete tinha um halo turquesa e ele
+   e sombra colorida, proibida pela §4.1. */
+html .med-agulha{
+  position:absolute; top:-4px; bottom:-4px; width:2px;
+  background:var(--marca); z-index:3;
+}
+html .med-agulha::before{
+  content:""; position:absolute; top:-1px; left:-3px;
+  border-left:4px solid transparent; border-right:4px solid transparent;
+  border-top:5px solid var(--marca);
+}
+html .med-bandas-rot{
+  display:flex; margin-top:var(--e2);
+  font-family:var(--mono); font-size:var(--t-micro); color:var(--tinta-3);
+}
+html .med-bandas-rot span{ border-left:1px solid var(--regua-fraca); padding-left:var(--e2); }
+html .med-bandas-rot span:first-child{ border-left:0; padding-left:0; }
+html .med-agulha-num{
+  margin-top:var(--e3); font-family:var(--mono); font-size:var(--t-micro);
+  line-height:1.5; color:var(--tinta-2);
+}
+html .med-agulha-num b{ color:var(--tinta); font-weight:600; }
+
+/* --- §6.4 · 3 · quatro barras de qualidade da evidencia ------------------ */
+html .med-qualidade{ margin-top:var(--e2); }
+html .med-qual{
+  display:grid; grid-template-columns:70px minmax(0,1fr) 44px;
+  gap:var(--e4); align-items:center; padding:2.5px 0;
+}
+html .med-qual-nm{
+  font-family:var(--mono); font-size:var(--t-micro); color:var(--tinta-3);
+  text-transform:uppercase; letter-spacing:.05em;
+}
+html .med-qual-trilho{
+  position:relative; height:6px;
+  background:var(--fundo-band);
+  border:1px solid var(--regua-fraca);
+  border-radius:1px; overflow:hidden;
+}
+html .med-qual-fl{ position:absolute; inset:0 auto 0 0; background:var(--tinta-2); }
+html .med-qual-fl.av{ background:var(--aviso); }
+/* HACHURA: a unica trama do sistema, e significa "nao existe dado aqui" (§6.4).
+   Precisa de !important para voltar depois do varredor (b) da §4.1. */
+html .med-qual-trilho.med-vazio{
+  border:1px dashed var(--aviso-borda);
+  background-image:repeating-linear-gradient(45deg,
+    transparent 0 3px, var(--aviso-fraca) 3px 6px) !important;
+}
+html .med-qual-vv{
+  font-family:var(--mono); font-size:var(--t-nano);
+  font-variant-numeric:tabular-nums lining-nums;
+  text-align:right; color:var(--tinta-2);
+}
+html .med-qual-vv.av{ color:var(--aviso); }
+
+/* --- §6.4 · 4 · regua de dias ate o evento ------------------------------- */
+html .med-dias{ display:flex; align-items:center; gap:var(--e4); flex-wrap:wrap; }
+html .med-dias-num{
+  font-family:var(--mono); font-size:var(--t-md); font-weight:600;
+  font-variant-numeric:tabular-nums lining-nums;
+  color:var(--tinta); flex:none;
+}
+html .med-dias-num.av{ color:var(--aviso); }
+html .med-dias-rot{ font-family:var(--mono); font-size:var(--t-micro); color:var(--tinta-3); }
+html .med-dias-regua{ display:flex; align-items:flex-end; gap:1.5px; height:13px; }
+html .med-dias-regua i{
+  width:2px; height:5px; display:block; border-radius:.5px;
+  background:var(--regua-forte); font-style:normal;
+}
+html .med-dias-regua i.alto{ height:9px; }
+html .med-dias-regua i.on{ background:var(--marca); }
+html .med-dias-regua i.av{ background:var(--aviso); }
+html .med-dias-regua i.fim{ width:3px; height:13px; background:var(--tinta-2); }
+html .med-dias-regua i.fim.av{ background:var(--aviso); }
+
+/* --- §6.6 · bloco de alarme --------------------------------------------- */
+html .med-alarme{
+  margin:0 0 var(--e6);
+  border:1px solid var(--aviso-fio);
+  border-radius:var(--raio-cartao);
+  background:var(--aviso-fraca);
+  color:var(--tinta-2);
+  overflow:hidden;
+}
+html .med-alarme-cab{
+  display:flex; align-items:center; gap:var(--e4); flex-wrap:wrap;
+  min-height:26px; padding:var(--e3) var(--e5);
+  border-bottom:1px solid var(--aviso-fio);
+  background:transparent;              /* uma camada de ambar so — ver §1.3-bis */
+  color:var(--aviso);
+}
+html .med-alarme-cab .rot{ color:var(--aviso); }
+html .med-alarme-verif{
+  margin-left:auto; font-family:var(--mono); font-size:var(--t-micro);
+  color:var(--aviso); letter-spacing:.02em;
+}
+html .med-alarme-escopo{
+  padding:var(--e4) var(--e5);
+  border-bottom:1px solid var(--aviso-fio-2);
+  font-family:var(--serifa); font-size:var(--t-base);
+  line-height:1.62; color:var(--tinta-2);
+}
+html .med-alarme-escopo em{ font-style:italic; color:var(--tinta-2); }
+html .med-alarme-linha{
+  display:grid; grid-template-columns:96px 190px minmax(0,1fr) minmax(0,1fr);
+  border-top:1px solid var(--aviso-fio-2); align-items:stretch;
+}
+html .med-alarme-linha:first-of-type{ border-top:0; }
+html .med-alarme-linha > div{
+  padding:var(--e4) var(--e5);
+  border-left:1px solid var(--aviso-fio-2);
+  min-width:0;
+}
+html .med-alarme-linha > div:first-child{
+  border-left:0; display:flex; align-items:center; gap:var(--e3); flex-wrap:wrap;
+}
+html .med-alarme-id{
+  font-family:var(--mono); font-size:var(--t-nano);
+  color:var(--aviso); letter-spacing:.06em;
+}
+html .med-alarme-assunto{
+  font-family:var(--mono); font-size:var(--t-base); font-weight:600;
+  color:var(--tinta); overflow-wrap:anywhere;
+}
+html .med-alarme-k{ display:block; margin-bottom:var(--e1); }
+html .med-alarme-v{ font-size:var(--t-min); line-height:1.5; color:var(--tinta-2); }
+html .med-alarme-v .med-num{ color:var(--tinta); }
+html .med-alarme-v b{ color:var(--tinta); font-weight:600; }
+html .med-alarme-v em{ font-style:normal; color:var(--aviso); }
+/* §7: quatro colunas viram uma abaixo de 900px */
+@media (max-width:900px){
+  html .med-alarme-linha{ grid-template-columns:minmax(0,1fr); }
+  html .med-alarme-linha > div{ border-left:0; border-top:1px solid var(--aviso-fio-2); }
+}
+
+/* --- chips do modulo ----------------------------------------------------- */
+html .med-chip{
+  display:inline-flex; align-items:center; height:18px; box-sizing:border-box;
+  padding:0 var(--e3); border:1px solid var(--regua-forte);
+  border-radius:var(--raio-chip);
+  background:var(--painel-alto); color:var(--tinta-3);
+  font-family:var(--mono); font-size:var(--t-micro); font-weight:500;
+  letter-spacing:.05em; white-space:nowrap; line-height:1;
+}
+html .med-chip-aviso{ color:var(--aviso); border-color:var(--aviso-borda); background:var(--aviso-fraca); }
+html .med-chip-corte{ color:var(--corte); border-color:var(--corte-borda); background:var(--corte-fraca); }
+html .med-chip-mudo{  color:var(--tinta-3); border-color:var(--regua-forte); background:var(--painel-alto); }
+
+/* CHIP DENTRO DE BLOCO JA PINTADO NAO EMPILHA UMA SEGUNDA CAMADA. Ambar de 13%
+   sobre ambar de 13% da #434127, e ali o proprio --aviso cai para 4,10:1 e o
+   --corte para 4,31:1 — reprovam. Dentro do alarme o chip fica so com a borda e
+   a cor da letra, assentado na unica camada do bloco (--aviso sobe para 6,95:1).
+   (conferencia de 06/set, item 5 da §8) */
+html .med-alarme .med-chip,
+html .med-alarme .chip,
+html .alarme-bloco .chip, html .alarme-bloco .med-chip,
+html .mac-tarja .chip, html .mac-tarja-atraso .chip, html .aviso-reprovado .chip,
+html .mac-tarja .mac-atraso, html .mac-tarja-atraso .mac-atraso{
+  background:transparent;
+}
+
+/* --- §6.7 · notas numeradas --------------------------------------------- */
+html .med-nota-marca{
+  font-family:var(--mono); font-size:var(--t-micro); font-weight:400;
+  color:var(--tinta-3); margin-left:1px; vertical-align:super; line-height:0;
+}
+html .med-nota-marca a{ color:inherit; text-decoration:none;
+  border-bottom:1px dotted var(--regua-forte); }
+html .med-nota-marca a:hover{ color:var(--marca); border-bottom-color:var(--marca-borda); }
+html .med-notas{
+  margin-top:var(--e6); padding:var(--e5);
+  background:var(--painel-fundo);
+  border:1px solid var(--regua);
+  border-radius:var(--raio-cartao);
+}
+html .med-notas-cab{ display:block; margin-bottom:var(--e4); }
+html .med-notas-lista{ list-style:none; margin:0; padding:0; }
+html .med-notas-item{
+  display:grid; grid-template-columns:22px minmax(0,1fr); gap:var(--e3);
+  padding:var(--e3) 0; border-top:1px solid var(--regua-fraca);
+}
+html .med-notas-item:first-child{ border-top:0; }
+html .med-notas-n{
+  font-family:var(--mono); font-size:var(--t-micro);
+  color:var(--tinta-3); text-align:right;
+}
+html .med-notas-termo{
+  display:block; margin-bottom:var(--e1);
+  font-family:var(--mono); font-size:var(--t-micro);
+  color:var(--tinta-3); text-transform:uppercase; letter-spacing:.06em;
+}
+/* a nota e ARGUMENTO: serifa, 12,5/1,62, --tinta-2, 62ch. Nunca --tinta-3. */
+html .med-notas-txt{
+  font-family:var(--serifa); font-size:var(--t-base);
+  line-height:1.62; color:var(--tinta-2); max-width:62ch;
+}
+
+/* ============================================================================
    FIM DAS REGRAS
    ============================================================================ */
 
@@ -1483,8 +1945,33 @@ html :focus-visible{ outline:1px solid var(--marca); outline-offset:1px; }
    --aviso   F0B252  10,09:1   10,32:1    9,29:1    8,66:1    9,71:1   passa
    --marca   45DCCB  11,13:1   11,38:1   10,25:1    9,56:1   10,71:1   passa
 
-   PIOR CASO DO SISTEMA: --tinta-3 sobre a zebra --painel-alto = 5,20:1.
-   Sobra de 0,70 sobre o piso de 4,5:1. Nada abaixo disso entra.
+   AS SUPERFICIES DE ALFA — a parte que faltava, medida em 06/set
+   Os preenchimentos fracos (12-14% de alfa) CLAREIAM a superficie, e a versao
+   anterior deste comentario dizia que nao. Composto sobre a zebra e sobre o
+   painel, cada preenchimento vira:
+
+                                 hex efetivo   tinta-3 #7E9791   tinta-2 #9FB6AF
+   --alta-fraca  sobre a ZEBRA     #183C2F         3,89:1  X         5,67:1
+   --corte-fraca sobre a ZEBRA     #313029         4,23:1  X         6,16:1
+   --aviso-fraca sobre a ZEBRA     #2C3626         4,02:1  X         5,85:1
+   --marca-fraca sobre a ZEBRA     #153A34         3,98:1  X         5,79:1
+   --aviso-fraca sobre o painel    #2A3020         4,35:1  X         6,32:1
+   ambar DUPLO (cab. do alarme)    #434127         3,31:1  X         4,82:1
+     · e no ambar duplo ate o --corte reprovava, com 4,10:1.
+
+   Por isso a §1.3-bis: dentro de toda superficie clareada, --tinta-3 passa a
+   valer --tinta-2 (redefinicao da variavel, que nao pisa em cor semantica
+   nenhuma), e a cabeca do alarme e o chip dentro dele deixaram de pintar a
+   segunda camada de ambar. O ambar duplo nao existe mais na folha.
+
+   PIOR CASO DO SISTEMA, depois da correcao: --corte sobre --alta-fraca na zebra
+   (#183C2F) = 4,83:1 — um chip vermelho dentro de uma faixa verde. Em seguida
+   vem --corte sobre --marca-fraca na zebra, 4,94:1, e --tinta-3 sobre a zebra
+   crua, 5,20:1. Nada abaixo do piso entra.
+   Os dois numeros acima nao sao lembranca: saem de
+     node tests/teste_contraste.js         (toda tinta x toda superficie)
+     node tests/teste_contraste_pares.js   (so os pares que a folha escreve)
+   e os dois leem ESTE arquivo. Mexeu na paleta, roda os dois.
 
    Nao e texto e nao entra na tabela: --led-mudo #2C4A42 (1,68:1 na zebra) e um
    ponto de 6px na faixa de estado, e todo LED vem com a palavra escrita ao lado.
@@ -1499,6 +1986,8 @@ html :focus-visible{ outline:1px solid var(--marca); outline-offset:1px; }
    ============================================================================
 
    LISTA DE VERIFICACAO DA §8 — resultado item a item
+   (2a passada, conferencia de 06/set. O que mudou nesta passada esta marcado
+    com [CONFERENTE]. Roda sozinha:  node tests/teste_lista_secao8.js)
 
    1. Todo numero esta em Spline Sans Mono, tabular, a direita?
       SIM, para o que esta folha alcanca. A pilha mono cobre .num, .mono,
@@ -1519,6 +2008,12 @@ html :focus-visible{ outline:1px solid var(--marca); outline-offset:1px; }
       Toda nota colada a um heroi (.mac-eua-dias small, .mac-perna-nome small,
       .mac-placar strong small, .mac-resumo-item small, .taxa-nota) foi levada a
       9,5px — cinco degraus abaixo de 21, nunca 14 ao lado.
+      [CONFERENTE] Faltava um: o .mac-resumo e UM cartao e trazia TRES numeros em
+      21 lado a lado (divergencia, qualidade da evidencia e conviccao), os tres
+      disputando. A pergunta do cartao e a DIVERGENCIA, entao ela fica em 21 e os
+      outros dois descem para 14, pela regra "se dois numeros disputam, um dos
+      dois desce" (§3.3). Regra nova, sem tocar na marcacao:
+      `.mac-resumo-grid > .mac-resumo-item + .mac-resumo-item strong`.
 
    3. Alguma cor afirma algo que nao seja alta, corte, degradacao ou selecao?
       NAO. As paletas antigas foram remapeadas: #52d98a e #5fe0a0 → --alta;
@@ -1527,22 +2022,44 @@ html :focus-visible{ outline:1px solid var(--marca); outline-offset:1px; }
       roxo do produto antigo (que nao afirmavam nada) sairam da tela. A variacao
       de nivel do BLS foi forcada a --tinta-2 com !important, porque nivel nao
       tem direcao de politica.
+      [CONFERENTE] Uma cor decorativa tinha sobrado, vinda da maquete: as quatro
+      bandas do medidor de agulha (§6.4 item 2) subiam em VERDE, do 5% ao 12%.
+      Ali o verde afirmava "divergencia forte", e verde so pode afirmar alta de
+      juro. As bandas viraram rampa neutra de --tinta-2 (4/7/10/14%); quem marca
+      a leitura e a agulha turquesa e o rotulo escrito embaixo.
+      Fora dos tokens, a folha inteira tem hoje 5 cores cruas, todas justificadas:
+      o escurecedor da gaveta (`rgba(4,16,13,.72)`, que e --fundo-band a 72%) e
+      os quatro degraus neutros das bandas. Zero #hex fora do :root.
 
    4. Existe algum `opacity` sobre texto? (deve ser zero)
       ZERO. Varredor (c) da §4.1: `opacity:1 !important` sobre [class],
-      ::before, ::after e sobre small/em/i/b/strong/summary/p/span/div/li/td/th.
+      ::before, ::after e sobre a lista de tags.
+      [CONFERENTE] A lista de tags estava curta: pegava small/em/i/b/strong/
+      summary/p/span/div/li/td/th e deixava de fora justamente <a>, <button>,
+      <sup>, <section>, <h1>..<h6>, <ul>, <ol>, <dl>, <details> — elementos sem
+      classe que o styles.css apaga com opacity. Todos entraram.
       Como nenhuma das mais de oitenta declaracoes de opacity do styles.css, do
       theme.css e do <style> do ui_macro.js e `!important`, todas perdem. Esta
-      folha nao escreve NENHUMA declaracao de opacity.
+      folha nao escreve NENHUMA declaracao de opacity abaixo de 1.
 
    5. --tinta-3 esta sobre --painel-alto em algum lugar? Sobre algo mais claro?
-      SIM sobre a zebra --painel-alto, e e o pior caso do sistema: 5,20:1, passa.
-      Sobre nada mais claro que isso. A superficie mais clara desta folha e
-      justamente #0F241F; nao existe nenhuma superficie acima dela, porque a
-      elevacao e zero e nao ha camada de "branco a 4%" empilhando clareza. Os
-      preenchimentos fracos (--*-fraca, 12-14% de alfa) tambem assentam sobre
-      --painel ou --painel-alto e nao clareiam alem de #0F241F de forma
-      perceptivel.
+      [CONFERENTE] REPROVAVA. A versao anterior deste comentario afirmava que os
+      preenchimentos fracos "nao clareiam alem de #0F241F de forma perceptivel".
+      Medido, clareiam: --alta-fraca sobre a zebra da #183C2F e ali --tinta-3
+      cai para 3,89:1. Eram dez pares abaixo do piso, listados na tabela acima —
+      e um deles nem era terciario: --corte no ambar duplo, 4,10:1.
+      CORRIGIDO em tres movimentos, todos de subir a tinta, nenhum de baixar o
+      requisito:
+        (a) §1.3-bis: dentro de toda superficie clareada, `--tinta-3` passa a
+            valer `--tinta-2`. E redefinicao de variavel, entao a cor semantica
+            de dentro (o ambar do `em`, o verde do chip) continua intacta;
+        (b) a cabeca do alarme deixou de repintar --aviso-fraca por cima do
+            bloco que ja era --aviso-fraca — o ambar duplo #434127 nao existe;
+        (c) chip dentro do bloco de alarme fica so com borda e letra, sem o
+            proprio preenchimento, pelo mesmo motivo.
+      Sobre a zebra crua, --tinta-3 continua nos 5,20:1 declarados na §1.3.
+      O pior caso do sistema agora e 4,83:1 (--corte sobre --alta-fraca na
+      zebra), e quem confere sao os dois scripts citados na tabela acima.
 
    6. Todo aviso tem coluna de consequencia escrita em frase inteira?
       A ESTRUTURA ESTA PRONTA E OBRIGA: `.alarme` e uma grade de quatro colunas
@@ -1574,14 +2091,17 @@ html :focus-visible{ outline:1px solid var(--marca); outline-offset:1px; }
       ZERO, com uma excecao declarada em cada caso.
       SOMBRA: varredor (a) da §4.1, `box-shadow:none !important` em html *,
       ::before e ::after. A unica sombra que volta e o FIO
-      `inset 2px 0 0 var(--marca)`, em quatro lugares (hover de linha, linha
-      selecionada, hover de .mac-item e .mac-item-sel, hover de .mac-news-item).
-      Fio, nao sombra: sem desfoque, sem deslocamento, sem cor de sombra.
+      `inset 2px 0 0 var(--marca)`, em CINCO lugares (hover de linha de tabela,
+      linha selecionada, hover de .mac-item, .mac-item-sel e hover de
+      .mac-news-item). Fio, nao sombra: sem desfoque, sem deslocamento, sem cor.
+      [CONFERENTE] Conferido de novo depois da §M: o brilho turquesa da agulha e
+      o halo do LED que vinham na maquete NAO entraram; a agulha e um retangulo
+      de 2px chapado.
       GRADIENTE: varredor (b), `background-image:none !important`. O que volta e
       a HACHURA `repeating-linear-gradient(45deg, ...)` em .mac-dim.off,
-      .mac-dim.exp e .hachura — a trama permitida da §6.4, que significa "nao
-      existe dado aqui". Nenhum gradiente de cor, nenhum radial, nenhum
-      degrade de cabecalho.
+      .mac-dim.exp, .hachura e .med-qual-trilho.med-vazio — a trama permitida da
+      §6.4, que significa "nao existe dado aqui". Nenhum gradiente de cor,
+      nenhum radial, nenhum degrade de cabecalho.
 
   10. A palavra "sinal" aparece sem a negacao ao lado?
       NAO NESTA FOLHA — e este arquivo nao escreve conteudo, so o desenha. O que
@@ -1592,6 +2112,31 @@ html :focus-visible{ outline:1px solid var(--marca); outline-offset:1px; }
       primeiro bloco da pagina, com destaque de marca. O bloco de metodo repete a
       negacao e esta folha o poe em Spectral --tinta-2, legivel, nunca em
       --tinta-3. RESSALVA: garantir a frase e do gerador de HTML, nao do CSS.
+
+   ============================================================================
+
+   [CONFERENTE] MAIS DUAS COISAS QUE NAO ESTAO NA LISTA DA §8 E ESTAVAM ERRADAS
+
+   A. O CONTRATO DOS MEDIDORES NAO TINHA O OUTRO LADO.
+      O ui_medidores.js emite 67 classes .med-* e esta folha nao definia
+      NENHUMA — as sete pecas sairiam cruas na tela: a escala das 8 moedas sem
+      trilho, a faixa de divergencia sem agulha, o alarme sem as quatro colunas.
+      Entrou a §M inteira, com tres correcoes sobre a copia que estava no
+      comentario do modulo: sem o brilho da agulha e sem o halo do LED (§4.1),
+      a cor crua #2C4A42 virou var(--led-mudo), e a serifa das notas passou a
+      var(--serifa), com a pilha de reserva completa da §3.1.
+
+   B. DOIS <button> CAIAM NA FONTE DO SISTEMA.
+      Controle de formulario nao herda font-family. A folha nomeava um a um os
+      controles do cabecalho, mas o `.mac-item` (cada item da lista de pares) e
+      o `.mac-dia-cel` (cada celula do calendario) sao <button> e nao estavam na
+      lista: os dois desenhavam em Segoe UI, no meio de uma pagina em Archivo.
+      Regra nova na §3: `button, input, select, textarea, optgroup` herdam a
+      familia, e os dois recebem var(--sans) por nome. As tres familias do
+      Google Fonts continuam declaradas com reserva inteira no @import e nos
+      tokens --sans / --mono / --serifa; a folha nao escreve nenhuma outra
+      familia (63 usos de var(--mono), 13 de var(--sans), 8 de var(--serifa),
+      1 `inherit` — e mais nada).
 
    ============================================================================
    Fim de estilo_hci.css

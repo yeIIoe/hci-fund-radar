@@ -101,8 +101,13 @@ addTrans('--corte-fraca', 'var(--corte-fraca)');
 addTrans('--aviso-fraca', 'var(--aviso-fraca)');
 addTrans('--marca-fraca', 'var(--marca-fraca)');
 
-/* cabeca do alarme: --aviso-fraca EM CIMA de --aviso-fraca (pior empilhamento) */
-(function () {
+/* cabeca do alarme: --aviso-fraca EM CIMA de --aviso-fraca (pior empilhamento).
+   CONFERENCIA DE 06/set: este empilhamento SAIU da folha — a cabeca do alarme e
+   o chip dentro dele passaram a `background:transparent`, e por isso a segunda
+   camada nao existe mais. A composicao dupla so entra na conta se a folha ainda
+   pintar duas vezes; o teste LE isso do CSS, nunca acredita no comentario. */
+var EMPILHA_AMBAR = /\.alarme-cab[^{]*\{[^}]*background:\s*var\(--aviso-fraca\)/.test(CSS);
+if (EMPILHA_AMBAR) (function () {
   var f = parseCor(resolve('var(--aviso-fraca)'));
   ['--fundo', '--painel'].forEach(function (b) {
     var um = compor(f, cor('var(' + b + ')'));
@@ -115,10 +120,11 @@ addTrans('--marca-fraca', 'var(--marca-fraca)');
 })();
 
 /* bandas do medidor de agulha (contrato .med-banda-*), sobre --fundo-band */
+/* rampa NEUTRA: o verde saiu das bandas em 06/set — verde so afirma alta de juro */
 [['rgba(159,182,175,.04)', 'banda 1 (agulha)'],
- ['rgba(79,208,142,.05)',  'banda 2 (agulha)'],
- ['rgba(79,208,142,.08)',  'banda 3 (agulha)'],
- ['rgba(79,208,142,.12)',  'banda 4 (agulha)']].forEach(function (p) {
+ ['rgba(159,182,175,.07)', 'banda 2 (agulha)'],
+ ['rgba(159,182,175,.10)', 'banda 3 (agulha)'],
+ ['rgba(159,182,175,.14)', 'banda 4 (agulha)']].forEach(function (p) {
   TRANSLUCIDAS.push({
     nome: p[1] + ' s/ --fundo-band',
     rgb: compor(parseCor(p[0]), cor('var(--fundo-band)')),
@@ -127,6 +133,15 @@ addTrans('--marca-fraca', 'var(--marca-fraca)');
 });
 
 var SUPERFICIES = OPACAS.concat(TRANSLUCIDAS);
+
+/* A TINTA TERCIARIA SOBE NAS SUPERFICIES CLAREADAS (§1.3-bis do estilo_hci.css).
+   Nenhum preenchimento fraco aguenta --tinta-3 #7E9791: a folha redefine
+   `--tinta-3: var(--tinta-2)` dentro de cada contexto pintado. O teste confere
+   que a redefinicao EXISTE no CSS e so entao troca a tinta na linha translucida;
+   se alguem apagar a correcao, a linha volta a ser medida com #7E9791 e reprova.
+   (conferencia de 06/set) */
+var SOBE_TINTA3 = /--tinta-3:\s*var\(--tinta-2\)/.test(CSS);
+var TINTA3_EM_ALFA = SOBE_TINTA3 ? cor('var(--tinta-2)') : cor('var(--tinta-3)');
 
 /* --------------------------------------------------- as tintas e as quatro */
 var TINTAS = [
@@ -160,10 +175,17 @@ TINTAS.forEach(function (t) { cab += padE(t.nome.replace('--', ''), 9); });
 console.log(cab);
 console.log(new Array(cab.length + 1).join('-'));
 
+// numa superficie de alfa, a tinta terciaria e a SUBIDA (§1.3-bis)
+function tintaEm(t, s) {
+  if (t.nome === '--tinta-3' && s.onde && s.onde.indexOf('--') === 0) return TINTA3_EM_ALFA;
+  if (t.nome === '--tinta-3' && s.onde === 'alarme-cab') return TINTA3_EM_ALFA;
+  return t.rgb;
+}
+
 SUPERFICIES.forEach(function (s) {
   var linha = pad(s.nome, larg) + pad(hexOf(s.rgb), 13);
   TINTAS.forEach(function (t) {
-    var r = contraste(t.rgb, s.rgb);
+    var r = contraste(tintaEm(t, s), s.rgb);
     linha += padE(f2(r) + (r < PISO ? '*' : ''), 9);
     if (r < PISO) reprovados.push({ tinta: t.nome, sup: s.nome, hex: hexOf(s.rgb), r: r });
   });
@@ -185,7 +207,7 @@ if (!reprovados.length) {
 var pior = null;
 SUPERFICIES.forEach(function (s) {
   TINTAS.forEach(function (t) {
-    var r = contraste(t.rgb, s.rgb);
+    var r = contraste(tintaEm(t, s), s.rgb);
     if (r >= PISO && (!pior || r < pior.r)) pior = { r: r, tinta: t.nome, sup: s.nome, hex: hexOf(s.rgb) };
   });
 });

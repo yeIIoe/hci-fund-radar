@@ -190,6 +190,10 @@
     Object.keys(MES_EN_PT).forEach((en) => {
       t = t.replace(new RegExp("\\b" + en + "\\b", "g"), MES_EN_PT[en]);
     });
+    // Depois da troca sobra a ORDEM inglesa: "setembro 15-16*". Em português o dia vem antes
+    // do mês. Era o único lugar da tela com a ordem invertida (o rótulo do FOMC).
+    t = t.replace(/\b(janeiro|fevereiro|março|abril|maio|junho|julho|agosto|setembro|outubro|novembro|dezembro)\s+(\d{1,2}(?:\s*[-–]\s*\d{1,2})?)(\*?)/g,
+                  (m, mes, dia, ast) => dia + " de " + mes + ast);
     return t;
   }
 
@@ -306,6 +310,118 @@
   const quandoTexto = (dias) => dias === null || dias === undefined ? "sem data publicada"
     : dias < 0 ? "já passou" : dias === 0 ? "hoje" : dias === 1 ? "amanhã" : "em " + dias + " dias";
 
+  /* VARREDURA DE INGLÊS, NA FONTE.
+   *
+   * O ui_lang.js troca NÓS DE TEXTO depois que a página desenha — o que funciona para frase
+   * inteira, mas não alcança atributo (title, aria-label) e chega sempre um tique atrasado.
+   * Duas coisas continuavam saindo em inglês por virem do dado, não do template:
+   *   impacto  "High" / "Medium" / "Low", do calendário da FXStreet;
+   *   título   "Nonfarm Payrolls", "Consumer Price Index (YoY)", idem.
+   * Ambos passam a ser traduzidos AQUI, antes de virarem HTML. O título reaproveita o
+   * dicionário do ui_lang.js quando ele já carregou (window.__macIdioma.tituloEvento) — e
+   * quando não carregou, devolve o original em vez de quebrar. */
+  const ROT_IMPACTO = { high: "alto", medium: "médio", low: "baixo" };
+
+  // "2026-09-10" -> "10/09/2026"; "2026-08" -> "agosto/2026"; "09-04" -> "04/09".
+  // Data em ISO na tela e leitura de banco de dados, nao de painel em portugues.
+  const MES_NUM_PT = ["janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho",
+                      "agosto", "setembro", "outubro", "novembro", "dezembro"];
+  function dataBr(iso) {
+    const s = String(iso == null ? "" : iso).trim();
+    const d = /^(\d{4})-(\d{2})-(\d{2})/.exec(s);
+    if (d) return `${d[3]}/${d[2]}/${d[1]}`;
+    const m = /^(\d{4})-(\d{2})$/.exec(s);
+    if (m) return `${MES_NUM_PT[+m[2] - 1] || m[2]}/${m[1]}`;
+    return s;
+  }
+  // o dia e o mes de um carimbo ISO, para as listas curtas: "2026-09-04" -> "04/09"
+  function diaMesBr(iso) {
+    const m = /^\d{4}-(\d{2})-(\d{2})/.exec(String(iso == null ? "" : iso));
+    return m ? `${m[2]}/${m[1]}` : "";
+  }
+
+  // Cidade do fuso IANA, em portugues. O nome do fuso e tecnico ("Europe/Berlin"); o que
+  // aparece na tela nao pode ser.
+  const CIDADE_PT = { Berlin: "Berlim", London: "Londres", Zurich: "Zurique",
+                      "New York": "Nova York", Tokyo: "Tóquio", Rome: "Roma",
+                      Brussels: "Bruxelas", Frankfurt: "Frankfurt" };
+  function cidadePt(nome) {
+    const n = String(nome || "").replace(/_/g, " ");
+    return CIDADE_PT[n] || n;
+  }
+  function impactoPt(x) {
+    if (!x) return "";
+    return ROT_IMPACTO[String(x).toLowerCase()] || String(x);
+  }
+
+  /* O texto da taxa vem do bancos_centrais.py com dois restos que o dono nunca deveria ver:
+   * o nome oficial em INGLES ("Bank Rate", do BoC) e "deposito" sem acento. O ui_lang.js tem
+   * regra para os dois, mas ele so alcanca o DOM um tique depois e depende de estar carregado
+   * — e a lei da casa e nascer em portugues NA FONTE. Medido na tela em 06/set:
+   * "2,25% (Bank Rate 2,50 · deposito 2,20)". */
+  function taxaTexto(t) {
+    return String(t == null ? "" : t)
+      .replace(/\bBank Rate\b/g, "taxa básica")
+      .replace(/\bdeposito\b/g, "depósito");
+  }
+
+  /* ------------------------------------------------------------- FEED DO FED, EM PORTUGUES
+   * Medido na tela em 06/set, na lista "Últimas publicações do Fed":
+   *   "Tue, 25 Aug 2026   Minutes of the Board&#39;s discount rate meetings on July 20 and…"
+   * Duas coisas erradas na mesma linha: a data no formato RFC-822 EM INGLES, e a entidade
+   * HTML crua (&#39;) aparecendo como texto, porque o titulo ja vem escapado do feed e o
+   * esc() daqui escapava o "&" de novo. Nada disso pode depender do ui_lang.js: a lei da
+   * casa e nascer em portugues NA FONTE. */
+  const MES_ABREV_EN = { Jan: 1, Feb: 2, Mar: 3, Apr: 4, May: 5, Jun: 6,
+                         Jul: 7, Aug: 8, Sep: 9, Oct: 10, Nov: 11, Dec: 12 };
+  function dataFeedBr(txt) {
+    const s = String(txt == null ? "" : txt).trim();
+    if (!s) return "";
+    const m = /(\d{1,2})\s+([A-Z][a-z]{2})\s+(\d{4})/.exec(s);
+    if (!m || !MES_ABREV_EN[m[2]]) return dataBr(s.slice(0, 10));
+    const p = (n) => String(n).padStart(2, "0");
+    return `${p(+m[1])}/${p(MES_ABREV_EN[m[2]])}/${m[3]}`;
+  }
+  // entidades que o feed do Fed manda cruas dentro do titulo
+  const ENTIDADES = { "&#39;": "’", "&#8217;": "’", "&quot;": '"', "&#8211;": "–",
+                      "&#8212;": "—", "&amp;": "&", "&nbsp;": " " };
+  const semEntidade = (t) => String(t == null ? "" : t)
+    .replace(/&(?:#\d+|amp|quot|nbsp);/g, (e) => ENTIDADES[e] !== undefined ? ENTIDADES[e] : e);
+  // as tres formas fixas do feed oficial; o que sobrar passa por mesPt e pelo "and"
+  const FORMAS_FED = [
+    [/^Federal Reserve issues FOMC statement$/, "Fed divulga o comunicado do FOMC"],
+    [/^Minutes of the Federal Open Market Committee, (.+)$/,
+      "Ata do Comitê Federal de Mercado Aberto (FOMC), $1"],
+    [/^Minutes of the Board(?:’|')s discount rate meetings on (.+)$/,
+      "Ata das reuniões da Diretoria sobre a taxa de redesconto em $1"],
+    [/^Federal Reserve Board announces (.+)$/, "A Diretoria do Fed anuncia $1"],
+  ];
+  function tituloFed(t) {
+    let s = semEntidade(t);
+    for (const [re, sub] of FORMAS_FED) {
+      if (re.test(s)) { s = s.replace(re, sub); break; }
+    }
+    return mesPt(s).replace(/\s+and\s+/g, " e ").replace(/,\s*(\d{4})\s*$/, " de $1");
+  }
+
+  /* Separador decimal em portugues, para texto que vem PRONTO do nucleo e cai numa dica de
+   * tela ou numa linha de contexto: "decaimento 0.22 abaixo do piso 0.25" e "z +1.9" saiam
+   * com ponto no meio de uma frase em portugues (varredura de 06/set). Só troca o ponto que
+   * está ENTRE dois dígitos — data, versão e domínio não são tocados. */
+  function virgulaDecimal(t) {
+    return String(t == null ? "" : t).replace(/(\d)\.(\d)/g, "$1,$2");
+  }
+  function tituloPt(t) {
+    const s = String(t == null ? "" : t);
+    try {
+      const L = window.__macIdioma;
+      if (L && L.idioma === "pt" && typeof L.tituloEvento === "function") {
+        return L.tituloEvento(s) || s;
+      }
+    } catch (e) { /* dicionário ausente: fica o original, legível */ }
+    return s;
+  }
+
   function painelBancos() {
     if (!M.bancos) return "";
     const bs = M.bancos.bancos;
@@ -322,27 +438,26 @@
       // HORÁRIO BRT PRIMEIRO, em destaque; o local vem depois, menor e secundário.
       // Estava ao contrário — foi o pedido explícito do dono em 05/set.
       const hora = b.hora_local
-        ? `${b.hora_local} ${b.fuso.split("/")[1].replace("_", " ")}`
+        ? `${b.hora_local} ${cidadePt(b.fuso.split("/")[1])}`
         : "sem hora fixa de divulgação";
       const emBrt = b.proxima_utc ? brt(b.proxima_utc) : null;
       const reg = regimeDe(m);
       const ev = eventoRelevante(m);
       return `<tr class="${urgente ? "mac-urgente" : ""}${clsAtraso()}">
         <td class="mac-moeda">${FLAG[m] || ""} <strong>${m}</strong> <small>${esc(b.sigla)}</small></td>
-        <td class="mac-taxa">${esc(b.taxa_texto)}</td>
+        <td class="mac-taxa">${esc(taxaTexto(b.taxa_texto))}</td>
         <td><span class="mac-regime ${reg ? CLS_REGIME[reg] : "muted"}">${
             reg ? esc(ROT_REGIME[reg]) : "—"}</span>
-          <small class="muted"> · último movimento ${esc(b.ultima_mudanca || "—")}${
+          <small class="muted"> · último movimento ${esc(dataBr(b.ultima_mudanca) || "—")}${
             b.ultima_mudanca_bp ? ` (${b.ultima_mudanca_bp > 0 ? "+" : ""}${b.ultima_mudanca_bp} pb)` : ""}</small></td>
         <td>${ev
-          ? `<strong>${esc(ev.titulo)}</strong>
+          ? `<strong>${esc(tituloPt(ev.titulo))}</strong>
              <small class="mac-brt">${esc(ev.brt || "—")} BRT</small>
              <small class="muted"> · ${esc(quandoTexto(ev.dias))}${
-               ev.impacto ? " · impacto " + esc(String(ev.impacto).toLowerCase() === "high" ? "alto"
-                 : String(ev.impacto).toLowerCase() === "medium" ? "médio" : "baixo") : ""}</small>`
+               ev.impacto ? " · impacto " + esc(impactoPt(ev.impacto)) : ""}</small>`
           : `<small class="muted">nenhum evento de alto impacto agendado na janela</small>`}</td>
-        <td><strong class="mac-brt">${emBrt ? esc(emBrt) + " BRT" : esc(b.proxima || "—")}</strong>
-          <small class="muted"> · ${esc(quando)}${b.proxima && emBrt ? " · " + esc(b.proxima) : ""}</small>
+        <td><strong class="mac-brt">${emBrt ? esc(emBrt) + " BRT" : esc(dataBr(b.proxima) || "—")}</strong>
+          <small class="muted"> · ${esc(quando)}${b.proxima && emBrt ? " · " + esc(dataBr(b.proxima)) : ""}</small>
           <small class="mac-hora-local">${b.hora_local ? "horário local " + esc(hora) : esc(hora)}</small></td>
         <td>${leanCel(m)}</td>
       </tr>`;
@@ -430,6 +545,7 @@
     imprensa_com_fala: "imprensa com fala de dirigente",
     manchete: "manchete (contexto, não vota)",
     headlines: "manchete (contexto, não vota)",   // rotulo legado do JSON de hoje
+    sem_fonte: "sem fonte de texto disponível",   // SNB: não há feed nem manchete classificada
   };
   const ehManchete = (v) => !!(v && (v.origem === "manchete" || v.origem === "headlines"));
   function origemTexto(v) {
@@ -444,10 +560,16 @@
     imprensa_com_fala: "imprensa com fala",
     manchete: "manchetes (contexto)",
     headlines: "manchetes (contexto)",
+    sem_fonte: "sem fonte de texto",
   };
+  /* A REGRA DURA (item 3 da revisão): "discursos" SÓ quando a origem é discurso oficial ou
+   * comunicado/ata. Origem desconhecida NÃO pode cair em "discursos" — era o que acontecia
+   * com o CHF, que hoje chega com origem "sem_fonte" e saía rotulado como discurso do SNB,
+   * um feed que não existe. Sem origem legível, o rótulo honesto é "texto (contexto)". */
   function rotuloTexto(v) {
     if (ehManchete(v)) return "manchetes (contexto)";
-    return (v && NOME_TEXTO[v.origem]) || "discursos";
+    if (v && NOME_TEXTO[v.origem]) return NOME_TEXTO[v.origem];
+    return "texto (contexto)";
   }
 
   // (h) Uma unica divulgacao dominando a leitura da moeda.
@@ -460,8 +582,17 @@
     return `uma única divulgação responde por ${q} da leitura do ${m}` +
            (D.item ? ` (${D.item})` : "");
   }
+  /* O núcleo escreve o alerta em português mas cita a divulgação pelo NOME CRU da FXStreet:
+   * "uma única divulgação responde por 100% da leitura do CAD (Net Change in Employment)".
+   * A frase inteira é longa demais para o tradutor de título, mas o que está entre parênteses
+   * é exatamente um título de evento — e esse passa. Quando não passa, fica o original: o
+   * tradutor devolve o texto igual em vez de meia-tradução (varredura de 06/set). */
+  function alertaPt(txt) {
+    return String(txt == null ? "" : txt)
+      .replace(/\(([^()]{3,70})\)/g, (m, dentro) => "(" + tituloPt(dentro) + ")");
+  }
   function tarjaAlerta(txt, classe) {
-    return txt ? `<div class="mac-tarja${classe ? " " + classe : ""}">⚠ ${esc(txt)}</div>` : "";
+    return txt ? `<div class="mac-tarja${classe ? " " + classe : ""}">⚠ ${esc(alertaPt(txt))}</div>` : "";
   }
 
   // Familias independentes que sustentam o sinal (inflacao, emprego, atividade, comunicacao).
@@ -482,7 +613,10 @@
                  : k === "texto" ? rotuloTexto(v)
                  : k === "ciclo" ? "ciclo" : "geopolítica";
       const vota = dimVota(k, v);
-      const selo = vota ? "" : ` <small class="mac-selo">${k === "geo" ? SELO_GEO : "não vota"}</small>`;
+      // o selo sai do núcleo quando ele grava ("experimental — contexto, não vota"); sem o
+      // campo, a geopolítica leva o selo da casa e o resto sai como "não vota"
+      const seloTxt = k === "geo" ? SELO_GEO : ((v && v.selo) || "não vota");
+      const selo = vota ? "" : ` <small class="mac-selo">${esc(seloTxt)}</small>`;
       if (!v) return `<span class="mac-dim off" title="não conectada">${nome} —${selo}</span>`;
       // geopolitica ligada mas sem pico: nao vota, e diz por que
       // title vazio nao ajuda ninguem: quando a dimensao esta quieta e nao trouxe motivo,
@@ -496,13 +630,16 @@
       // No lugar entra o veredito por orador, quando o classificador ja gravou.
       const vs = (k === "texto") ? (Array.isArray(v.veredito_por_orador) && v.veredito_por_orador.length
         ? v.veredito_por_orador : null) : null;
-      const det = k === "dados" ? `${v.n} divulgações desde ${v.desde}, ponderadas por família e impacto`
+      // ⚠️ 06/set: a dica saía "desde 2026-09-02T02:00:00+00:00" — carimbo de banco de dados
+      // numa dica em português. E as notas de ciclo e de geopolítica vêm do núcleo com PONTO
+      // decimal ("decaimento 0.22", "z +1.9") no meio de uma frase em português.
+      const det = k === "dados" ? `${v.n} divulgações desde ${dataBr(String(v.desde || "").slice(0, 10))}, ponderadas por família e impacto`
                 : k === "texto" ? (vs
                     ? vs.slice(0, 4).map((x) => `${x.orador || "?"} — ${ROT_VEREDITO[x.veredito] || x.veredito || "indeterminado"}`).join(" · ")
                     : `${v.n} ${ehManchete(v) ? "manchete(s)" : "item(ns) de fala"} na janela, sem veredito classificado`) +
                                   (origemTexto(v) ? ` · origem: ${origemTexto(v)}` : "")
-                : k === "ciclo" ? (v.nota || "")
-                : (v.motivo || "");
+                : k === "ciclo" ? virgulaDecimal(v.nota || "")
+                : virgulaDecimal(v.motivo || "");
       // COR SEMANTICA (lei do dono): verde SO para alta de juro, vermelho SO para corte.
       // Antes a cor era a CONCORDANCIA, e por isso a tela pintava de vermelho um chip escrito
       // "alta" (discursos do GBP, dados do CHF) e de verde um chip escrito "manutenção"
@@ -601,7 +738,7 @@
     if (L.chave === "sem_leitura") {
       return `<div class="mac-bloco-moeda${tam === "big" ? " big" : ""}${clsAtraso()}">
         <div class="mac-bm-linha1 muted"><strong>${esc(m)}</strong> &mdash; sem leitura</div>
-        ${L.motivo ? `<div class="mac-bm-motivo">${esc(L.motivo)}</div>` : ""}
+        ${L.motivo ? `<div class="mac-bm-motivo" title="${esc(L.motivo)}">${esc(L.motivo)}</div>` : ""}
         <div class="mac-bm-linha2">${esc(L.conc)}</div>
         ${L.evid ? `<div class="mac-bm-linha3">Evidência: <b>${esc(L.evid)}</b>
           <small class="mac-prov-mini">· faixa provisória</small></div>` : ""}
@@ -629,23 +766,28 @@
     const top = ((D.dados || {}).principais || []).slice(0, 3);
     const ROT = { MUITO_ACIMA: "muito acima", MUITO_ABAIXO: "muito abaixo", EM_LINHA: "em linha" };
     const li = top.map((x) =>
-      `<li><span class="muted mac-ref-td">${esc((x.quando_utc || "").slice(5, 10))}</span>
-         ${esc(x.titulo)} <b class="${x.contribuicao > 0 ? "positive" : "negative"}">${esc(ROT[x.classe] || x.classe || "")}</b>
+      `<li><span class="muted mac-ref-td">${esc(diaMesBr(x.quando_utc))}</span>
+         ${esc(tituloPt(x.titulo))} <b class="${x.contribuicao > 0 ? "positive" : "negative"}">${esc(ROT[x.classe] || x.classe || "")}</b>
          <small class="muted">${x.contribuicao > 0 ? "+" : x.contribuicao < 0 ? "−" : ""}${
            Math.abs(Number(x.contribuicao) || 0).toFixed(2).replace(".", ",")}</small></li>`);
     // a fala mais recente desta moeda, se o feed dela estiver ligado
     const falas = (M.discursos && Array.isArray(M.discursos.itens)) ? M.discursos.itens : [];
     const fala = falas.find((f) => (f.moeda || "USD") === m && f.frases && f.frases.length);
+    /* CITAÇÃO NÃO SE TRADUZ, NEM PELA METADE. O <em> abaixo carrega o trecho ORIGINAL do
+     * dirigente e o título ORIGINAL da manchete. Sem marca, o ui_lang.js varre esse nó como
+     * qualquer outro e faz meia-tradução: em 06/set a frase do Pill saía na tela como
+     * "prospective taxa básica hikes" — a regra de "Bank Rate" acertando dentro da citação.
+     * A classe mac-fala-frase e o translate="no" já são a zona que o ui_lang.js recusa. */
     if (fala) {
-      li.push(`<li><span class="muted mac-ref-td">${esc((fala.data || "").slice(5, 10))}</span>
-        <b>${esc(fala.orador)}</b>: <em>“${esc(fala.frases[0].frase.slice(0, 150))}${fala.frases[0].frase.length > 150 ? "…" : ""}”</em></li>`);
+      li.push(`<li><span class="muted mac-ref-td">${esc(diaMesBr(fala.data))}</span>
+        <b>${esc(fala.orador)}</b>: <em class="mac-fala-frase" translate="no">“${esc(fala.frases[0].frase.slice(0, 150))}${fala.frases[0].frase.length > 150 ? "…" : ""}”</em></li>`);
     } else {
       // sem discurso proprio (RBA, RBNZ, SNB): a manchete classificada mais recente
       const Nm = M.noticias && M.noticias.moedas && M.noticias.moedas[m];
       const man = Nm && (Nm.itens || []).find((x) => x.classe);
       if (man) {
-        li.push(`<li><span class="muted mac-ref-td">${esc((man.quando_utc || "").slice(5, 10))}</span>
-          <b>${esc(man.fonte || "imprensa")}</b>: <em>“${esc(man.titulo.slice(0, 140))}”</em>
+        li.push(`<li><span class="muted mac-ref-td">${esc(diaMesBr(man.quando_utc))}</span>
+          <b>${esc(man.fonte || "imprensa")}</b>: <em class="mac-fala-frase" translate="no">“${esc(man.titulo.slice(0, 140))}”</em>
           <small class="muted">manchete (contexto)</small></li>`);
       }
     }
@@ -858,18 +1000,18 @@
     const quando = dias === null ? "sem data publicada" : dias === 0 ? "hoje"
                  : dias === 1 ? "amanhã" : "em " + dias + " dias";
     const hora = b.hora_local
-      ? esc(b.hora_local + " " + b.fuso.split("/")[1].replace("_", " "))
+      ? esc(b.hora_local + " " + cidadePt(b.fuso.split("/")[1]))
       : "sem hora fixa";
     return `<div class="mac-perna">
       <span class="mac-perna-papel">${papel}</span>
       <strong class="mac-perna-nome">${FLAG[m] || ""} ${m} <small>${esc(b.sigla)}</small></strong>
-      <div class="mac-perna-taxa">${esc(b.taxa_texto)}</div>
+      <div class="mac-perna-taxa">${esc(taxaTexto(b.taxa_texto))}</div>
       ${leanPerna(m)}
       <div class="mac-perna-linha ${ciclo > 0 ? "positive" : ciclo < 0 ? "negative" : "muted"}">
         ${ciclo > 0 ? "&#9650;" : ciclo < 0 ? "&#9660;" : "&mdash;"} ${ROT_CICLO[String(ciclo)]}
-        <small class="muted">&middot; ${esc(b.ultima_mudanca)}</small></div>
+        <small class="muted">&middot; ${esc(dataBr(b.ultima_mudanca))}</small></div>
       <div class="mac-perna-linha muted">próxima decisão <strong>${quando}</strong>
-        <small>&middot; ${esc(b.proxima || "—")}</small></div>
+        <small>&middot; ${esc(dataBr(b.proxima) || "—")}</small></div>
       <div class="mac-perna-linha muted"><small>${hora}</small></div>
       ${ultimosPrintsEUA(m)}
       ${geoPerna(m)}
@@ -1049,13 +1191,21 @@
   // As correlacoes MEDIDAS entre o juro americano e o instrumento, quando sentimento.py as
   // traz (correlacao_juros.py). Contemporanea e preditiva lado a lado, com n — porque a
   // diferenca entre as duas e a licao inteira: o juro descreve o mes, nao antecipa a vela.
+  // Os rótulos vinham em inglês do correlacao_juros.py ("US 10-year real (TIPS)") e o
+  // ui_lang.js só os alcançava depois do desenho. Traduzidos na fonte — lei da casa.
+  const ROT_CORR = { nominal2y: "EUA 2 anos, nominal", nominal10y: "EUA 10 anos, nominal",
+                     real10y: "EUA 10 anos, real (TIPS)" };
+  const NOTA_CORR_PT = "As colunas contemporâneas descrevem a mesma janela; as preditivas são " +
+    "o que uma entrada precisaria — e elas ficam dentro do ruído. O juro descreve o mês, não a vela.";
+  const pareceIngles = (t) => /\b(the|and|with|from|columns|predictive|inside|noise|month|candle)\b/i.test(String(t || ""));
+
   function correlacoesInstr(I) {
     const C = I.correlacoes;
     if (!C || !C.series) return "";
     const f = (x) => (x === null || x === undefined) ? "—" : (x > 0 ? "+" : "") + Number(x).toFixed(2);
     const linhas = Object.keys(C.series).map((k) => {
       const s = C.series[k];
-      return `<tr><td>${esc(s.rotulo || k)}</td>
+      return `<tr><td>${esc(ROT_CORR[k] || s.rotulo || k)}</td>
         <td class="mac-num-td">${f(s.contemp_1d)}</td>
         <td class="mac-num-td">${f(s.contemp_20d)} <small class="muted">n=${s.n_20d || "?"}</small></td>
         <td class="mac-num-td"><b>${f(s.contemp_60d)}</b> <small class="muted">n=${s.n_60d || "?"}</small></td>
@@ -1068,7 +1218,7 @@
           <th class="mac-num-th">mesmos 60 d</th>
           <th class="mac-num-th">dia seguinte</th><th class="mac-num-th">5 dias seguintes</th></tr></thead>
         <tbody>${linhas}</tbody></table></div>
-      <small class="muted">${esc(C.nota || "")}</small>`;
+      <small class="muted">${esc(pareceIngles(C.nota) || !C.nota ? NOTA_CORR_PT : C.nota)}</small>`;
   }
 
   // O detalhe de XAUUSD / NQ / ES: uma perna so, o canal, e o que esta medido em casa.
@@ -1179,7 +1329,7 @@
     }).filter((r) => r.dias !== null).sort((a, b) => a.dias - b.dias);
     const decisao = decisoes[0] || null;
     const invalTxt = !inval ? "sem evento de alto impacto agendado"
-      : `${esc(inval.moeda ? inval.moeda + " · " : "")}${esc(inval.evento)} ${esc(quandoTexto(inval.dias))}`;
+      : `${esc(inval.moeda ? inval.moeda + " · " : "")}${esc(tituloPt(inval.evento))} ${esc(quandoTexto(inval.dias))}`;
 
     // (g) familias independentes que sustentam o sinal, na perna que manda
     const fam = forte ? familiasDe(forte) : null;
@@ -1239,12 +1389,12 @@
       <div class="mac-resumo-linhas">
         <div><span class="mac-resumo-rot">Próximo evento relevante</span> <b>${invalTxt}</b>
           ${inval && inval.brt ? `<small class="muted">· ${esc(inval.brt)} BRT</small>` : ""}
-          ${inval && inval.data ? `<small class="muted">· ${esc(inval.data)}</small>` : ""}
+          ${inval && inval.data ? `<small class="muted">· ${esc(dataBr(inval.data))}</small>` : ""}
           <small class="muted">— até aqui a ZOI e entradas novas seguem válidas</small></div>
         <div><span class="mac-resumo-rot">Próxima decisão</span>
           <b>${decisao ? esc(decisao.moeda + " · " + decisao.evento + " " + quandoTexto(decisao.dias))
                        : "sem data publicada"}</b>
-          ${decisao && decisao.data ? `<small class="muted">· ${esc(decisao.data)}</small>` : ""}
+          ${decisao && decisao.data ? `<small class="muted">· ${esc(dataBr(decisao.data))}</small>` : ""}
           <small class="muted">— o limite final do ciclo</small></div>
         <div><span class="mac-resumo-rot">Famílias independentes</span>
           <b>${fam ? fam.n : "—"}</b>
@@ -1388,6 +1538,20 @@
     return (r.valor === null || r.valor === undefined) ? null : Number(r.valor);
   }
 
+  // "k" é abreviação inglesa de milhar. A tela escreve "mil" — lei da casa.
+  const milPt = (t) => String(t == null ? "" : t).replace(/(\d)\s*[kK]\b/g, "$1 mil");
+
+  /* O núcleo já grava cada célula formatada e na unidade certa (atual_texto, esperado_texto,
+   * anterior_texto, surpresa_texto, media_3m_texto) — inclusive o "pp" da surpresa de uma
+   * TAXA, que o nosso formatador escrevia como "%". Preferimos o texto do núcleo e só caímos
+   * no formatador local quando o campo não existe ou vem vazio. */
+  function euaTxt(r, campoTexto, valor) {
+    const t = r[campoTexto];
+    const s = (t === null || t === undefined) ? "" : String(t).trim();
+    if (s && s !== "—") return milPt(s);
+    return euaFmt(r, valor);
+  }
+
   // formata um valor NA MESMA unidade do "Atual" — serve para esperado, anterior e média 3m
   function euaFmt(r, v) {
     if (v === null || v === undefined || isNaN(Number(v))) return "—";
@@ -1429,8 +1593,7 @@
       const r = I[k];
       const at = euaAtual(r);
       // o núcleo grava "+162k"; a tela é em português e o dono pediu "+162 mil"
-      const atTxt = (r.atual_texto ? String(r.atual_texto).replace(/(\d)\s*[kK]\b/g, "$1 mil")
-                                   : euaFmt(r, at));
+      const atTxt = euaTxt(r, "atual_texto", at);
       const nv = euaNivel(r);
       const semCons = !!r.sem_consenso || (r.esperado === null || r.esperado === undefined);
       const surp = (r.surpresa === null || r.surpresa === undefined) ? null : Number(r.surpresa);
@@ -1438,20 +1601,21 @@
       return `<tr>
         <td>${esc(r.nome_pt || r.nome)}${r.preliminar
           ? ' <span class="mac-prelim" title="o BLS ainda revisa os dois dados seguintes">preliminar</span>' : ""}
-          <small class="muted mac-ref-td">${esc(r.referencia || "")}</small>
+          <small class="muted mac-ref-td">${esc(dataBr(r.referencia || ""))}</small>
           ${r.casado_com && r.casado_com.titulo
-            ? `<small class="muted mac-eua-casado">casado com ${esc(r.casado_com.titulo)}</small>` : ""}</td>
+            ? `<small class="muted mac-eua-casado">casado com ${esc(tituloPt(r.casado_com.titulo))}</small>` : ""}</td>
         <td class="mac-num-td"><b>${esc(atTxt)}</b>${
           nv ? `<small class="muted mac-eua-nivel">${esc(nv)}</small>` : ""}</td>
         <td class="mac-num-td">${semCons
           ? `<small class="muted">sem consenso</small>`
-          : esc(euaFmt(r, r.esperado))}</td>
-        <td class="mac-num-td">${esc(euaFmt(r, r.anterior))}</td>
+          : esc(euaTxt(r, "esperado_texto", r.esperado))}</td>
+        <td class="mac-num-td">${esc(euaTxt(r, "anterior_texto", r.anterior))}${
+          r.anterior_e_revisado ? `<small class="muted mac-eua-nivel">revisado</small>` : ""}</td>
         <td class="mac-num-td">${(semCons || surp === null)
           ? `<small class="muted">sem consenso</small>`
           : `<span class="mac-surp ${rot ? (CLS_SURPRESA[rot] || "muted") : "muted"}">${
-              esc(euaFmt(r, surp))}${rot ? " · " + esc(ROT_SURPRESA[rot] || rot) : ""}</span>`}</td>
-        <td class="mac-num-td muted">${esc(euaFmt(r, r.media_3m))}</td></tr>`;
+              esc(euaTxt(r, "surpresa_texto", surp))}${rot ? " · " + esc(ROT_SURPRESA[rot] || rot) : ""}</span>`}</td>
+        <td class="mac-num-td muted">${esc(euaTxt(r, "media_3m_texto", r.media_3m))}</td></tr>`;
     }).join("");
 
     const f = U.fomc && U.fomc.proxima;
@@ -1463,10 +1627,10 @@
         <span class="mac-perna-papel">Próxima decisão do FOMC</span>
         <div class="mac-eua-dias">${dias <= 0 ? "hoje" : dias} <small>${
           dias <= 0 ? "" : dias === 1 ? "dia" : "dias"}</small></div>
-        <div class="mac-perna-linha">${esc(mesPt(f.rotulo))} &middot; ${esc(f.data)}</div>
+        <div class="mac-perna-linha">${esc(mesPt(f.rotulo))} &middot; ${esc(dataBr(f.data))}</div>
         ${f.com_projecoes ? '<span class="mac-dot" title="a reunião que publica o caminho de juro do próprio comitê — a que mais move o preço">com projeções · mapa de pontos</span>' : ""}
-        ${b ? `<div class="mac-perna-linha muted mac-eua-taxa">Juro do Fed <b>${esc(b.taxa_texto)}</b>
-          <small>&middot; último movimento ${esc(b.ultima_mudanca || "")}${b.ultima_mudanca_bp ? " (" + (b.ultima_mudanca_bp > 0 ? "+" : "") + b.ultima_mudanca_bp + " pb)" : ""}</small></div>` : ""}
+        ${b ? `<div class="mac-perna-linha muted mac-eua-taxa">Juro do Fed <b>${esc(taxaTexto(b.taxa_texto))}</b>
+          <small>&middot; último movimento ${esc(dataBr(b.ultima_mudanca) || "")}${b.ultima_mudanca_bp ? " (" + (b.ultima_mudanca_bp > 0 ? "+" : "") + b.ultima_mudanca_bp + " pb)" : ""}</small></div>` : ""}
       </div>`;
     }
 
@@ -1480,10 +1644,12 @@
          ainda não cronometrado, depende da chave registrada`
       : "ainda não medida";
 
-    const fed = ((U.fed && U.fed.ultimos) || []).slice(0, 3).map((x) =>
-      `<li><span class="muted">${esc((x.publicado || "").slice(0, 16))}</span> ${
-        x.link ? `<a href="${esc(x.link)}" target="_blank" rel="noopener">${esc(x.titulo || "")}</a>`
-               : esc(x.titulo || "")}</li>`).join("");
+    const fed = ((U.fed && U.fed.ultimos) || []).slice(0, 3).map((x) => {
+      const t = tituloFed(x.titulo);
+      return `<li><span class="muted">${esc(dataFeedBr(x.publicado))}</span> ${
+        x.link ? `<a href="${esc(x.link)}" target="_blank" rel="noopener">${esc(t)}</a>`
+               : esc(t)}</li>`;
+    }).join("");
 
     return `<section class="content-section mac-bloco mac-eua">
       <div class="section-title"><div><h2>Estados Unidos</h2></div>
@@ -1501,7 +1667,7 @@
           </table>
         </div>
       </div>
-      <p class="mac-eua-nota">${ref ? `Os dados mais recentes descrevem <b>${esc(ref)}</b>${
+      <p class="mac-eua-nota">${ref ? `Os dados mais recentes descrevem <b>${esc(dataBr(ref))}</b>${
           atrasoRef != null ? ` — ${atrasoRef} ${atrasoRef === 1 ? "mês" : "meses"} atrás` : ""}. Esse é o mês que
         terminou, não um atraso de entrega; todo terminal carrega a mesma defasagem.` : ""}
         Entrega (da divulgação até aqui): <b>${entrega}</b>.
@@ -1550,7 +1716,7 @@
     if (v && (v.origem === "discurso_oficial" || v.origem === "comunicado_ata")) {
       return v.origem === "comunicado_ata" ? "comunicados e atas" : "discursos";
     }
-    if (v && v.origem) return "manchetes (contexto)";
+    if (v && v.origem) return rotuloTexto(v);
     // sem o campo: decide pelo feed de discursos que estiver em casa
     const itens = (M.discursos && Array.isArray(M.discursos.itens)) ? M.discursos.itens : [];
     const tem = itens.some((x) => (x.moeda || "USD") === m &&
@@ -1572,7 +1738,7 @@
     const trecho = x.trecho || x.frase || null;
     return `<li class="mac-fala">
       <div class="mac-fala-topo">
-        ${x.data ? `<span class="muted mac-ref-td">${esc(String(x.data).slice(0, 10))}</span>` : ""}
+        ${x.data ? `<span class="muted mac-ref-td">${esc(dataBr(String(x.data).slice(0, 10)))}</span>` : ""}
         <strong>${esc(x.orador || "orador não identificado")}</strong>
         <span class="mac-veredito ${cls}">&mdash; ${esc(ver)}</span>
         ${x.link ? `<a class="mac-fala-link" href="${esc(x.link)}" target="_blank" rel="noopener">abrir a fonte</a>` : ""}
@@ -1593,7 +1759,7 @@
     return itens.map((x) => {
       const f = (x.frases && x.frases[0] && x.frases[0].frase) || "";
       return `<li class="mac-fala">
-        <div class="mac-fala-topo"><span class="muted mac-ref-td">${esc(x.data || "")}</span>
+        <div class="mac-fala-topo"><span class="muted mac-ref-td">${esc(dataBr(x.data || ""))}</span>
           <strong>${esc(x.orador || "orador não identificado")}</strong>
           <span class="mac-veredito v-indet">&mdash; veredito ainda não classificado</span>
           ${x.link ? `<a class="mac-fala-link" href="${esc(x.link)}" target="_blank" rel="noopener">${
@@ -1630,10 +1796,19 @@
   // A camada de CONTEXTO: intensidade do noticiario por moeda (GDELT), com a implicacao por
   // REGRA DECLARADA ao lado. Nao entra na conviccao — filtro novo passa por medicao antes de
   // pontuar (lei da casa; o DXY foi reprovado nas 88 operacoes por ter sido assumido).
+  // separador decimal em português, para os números do GDELT (z e razão)
+  const vg = (x) => (x === null || x === undefined) ? "?" : String(x).replace(".", ",");
   function zPill(v, rotulo) {
     if (!v || v.z === null || v.z === undefined) return `<span class="mac-geo-pill off">${esc(rotulo)} —</span>`;
     const cls = v.z >= 2 ? "alto" : v.z >= 1 ? "medio" : v.z <= -1 ? "baixo" : "";
-    return `<span class="mac-geo-pill ${cls}" title="volume de artigos de 3 dias contra a média diária de 14 dias: razão ${v.razao ?? "?"}×, z ${v.z}">${rotulo} <b>z ${v.z > 0 ? "+" : ""}${v.z}</b> <small>${v.razao ?? "?"}×</small></span>`;
+    return `<span class="mac-geo-pill ${cls}" title="volume de artigos de 3 dias contra a média diária de 14 dias: razão ${vg(v.razao)}×, z ${vg(v.z)}">${rotulo} <b>z ${v.z > 0 ? "+" : ""}${vg(v.z)}</b> <small>${vg(v.razao)}×</small></span>`;
+  }
+
+  // carimbo do GDELT: "20260906T124500Z" -> "06/09 12:45". Cru, ele parecia um número solto.
+  function gdeltBr(q) {
+    const m = /^(\d{4})(\d{2})(\d{2})(?:T(\d{2})(\d{2}))?/.exec(String(q == null ? "" : q));
+    if (!m) return String(q == null ? "" : q).slice(0, 10);
+    return `${m[3]}/${m[2]}` + (m[4] ? ` ${m[4]}:${m[5]}` : "");
   }
 
   /* (6) MANCHETES DEDUPLICADAS, COM FONTE E CONFIABILIDADE.
@@ -1643,6 +1818,16 @@
    * Sem o campo novo, cai na lista antiga — sem inventar confiabilidade que ninguém mediu. */
   const ROT_CONF = { alta: "confiabilidade alta", media: "confiabilidade média",
                      baixa: "confiabilidade baixa" };
+
+  /* O núcleo às vezes grava um campo como TEXTO e às vezes como objeto com o detalhamento
+   * (regra_deduplicacao, confiabilidade_fonte). Concatenar o objeto às cegas imprimia
+   * "[object Object]" na tela. Esta função aceita os dois formatos e nunca quebra. */
+  function textoDe(v, chave) {
+    if (!v) return "";
+    if (typeof v === "string") return v;
+    if (typeof v === "object" && chave && typeof v[chave] === "string") return v[chave];
+    return "";
+  }
   const CLS_CONF = { alta: "c-alta", media: "c-media", baixa: "c-baixa" };
 
   function manchetesHtml(bloco, n) {
@@ -1654,10 +1839,12 @@
       const fontes = Array.isArray(m.fontes) ? m.fontes : (m.fonte ? [m.fonte] : []);
       const rep = (m.n_republicacoes != null) ? Number(m.n_republicacoes) : null;
       const conf = m.confiabilidade || null;
-      return `<li><a href="${esc(m.url || m.link || "#")}" target="_blank" rel="noopener">${
+      // manchete e texto ORIGINAL do veiculo: fica fora da varredura de traducao (o ui_lang.js
+      // recusa translate="no"), senao sai meia-traduzida — o erro do "prospective taxa basica"
+      return `<li><a href="${esc(m.url || m.link || "#")}" target="_blank" rel="noopener" translate="no">${
           esc(m.titulo || "")}</a>
         <small class="muted">${esc(fontes.join(", ") || "fonte não identificada")}${
-          m.quando ? " · " + esc(String(m.quando).slice(0, 8)) : ""}</small>
+          m.quando ? " · " + esc(gdeltBr(m.quando)) : ""}</small>
         ${conf ? `<small class="mac-conf ${CLS_CONF[conf] || ""}">${esc(ROT_CONF[conf] || conf)}</small>` : ""}
         ${rep && rep > 1 ? `<small class="muted">republicada em ${rep} sites</small>` : ""}</li>`;
     }).join("");
@@ -1681,7 +1868,7 @@
         <div class="mac-geo-topo"><strong>${FLAG[m] || ""} ${m}</strong>
           ${zPill(conf.volume, "conflito")} ${zPill(ener.volume, "energia")}
           ${b.tom !== null && b.tom !== undefined ? `<small class="muted" title="tom médio do GDELT em 7 dias">tom ${b.tom > 0 ? "+" : ""}${b.tom}</small>` : ""}</div>
-        ${imp.fx || imp.juro ? `<div class="mac-geo-imp">${imp.fx ? `<span>${esc(imp.fx)}</span>` : ""}${imp.juro ? `<span>${esc(imp.juro)}</span>` : ""}</div>` : ""}
+        ${imp.fx || imp.juro ? `<div class="mac-geo-imp">${imp.fx ? `<span>${esc(virgulaDecimal(imp.fx))}</span>` : ""}${imp.juro ? `<span>${esc(virgulaDecimal(imp.juro))}</span>` : ""}</div>` : ""}
         <ul class="mac-geo-lista">${manchetesHtml(conf, 2)}${manchetesHtml(ener, 1)}</ul>
       </div>`;
     }).join("");
@@ -1703,7 +1890,15 @@
         <p class="mac-eua-nota">Regra, não medição: um pico de conflito tende a mandar fluxo para USD,
           CHF e JPY e a tirar de AUD, NZD e CAD; um pico de energia é empurrão de inflação para quem
           importa. A hipótese a testar antes que isto entre na leitura: um z de conflito ≥ 2 muda o
-          retorno de 20 dias das moedas de risco?</p>
+          retorno de 20 dias das moedas de risco?
+          ${G.duplicatas_removidas_total
+            ? `<br><b>${G.duplicatas_removidas_total}</b> ${G.duplicatas_removidas_total === 1
+                ? "matéria repetida foi removida" : "matérias repetidas foram removidas"} desta rodada${
+                textoDe(G.regra_deduplicacao, "metodo") ? " — " + esc(textoDe(G.regra_deduplicacao, "metodo")) : ""}.` : ""}
+          ${G.confiabilidade_fonte
+            ? `<br>A confiabilidade ao lado de cada manchete vem do veículo${
+                textoDe(G.confiabilidade_fonte, "casamento") ? " (" + esc(textoDe(G.confiabilidade_fonte, "casamento")) + ")" : ""}
+               — regra declarada e <b>provisória</b>, ainda não medida contra desfecho.` : ""}</p>
       </details>
     </section>`;
   }
@@ -1719,7 +1914,7 @@
     return `<div class="mac-perna-linha mac-perna-geo"><span class="mac-perna-papel">geopolítica
         <small class="mac-selo">${SELO_GEO}</small></span>
       ${zPill(conf, "conflito")} ${zPill(ener, "energia")}
-      ${imp.fx || imp.juro ? `<small class="muted">${esc(imp.fx || imp.juro)}</small>` : `<small class="muted">sem pico nesta semana</small>`}</div>`;
+      ${imp.fx || imp.juro ? `<small class="muted">${esc(virgulaDecimal(imp.fx || imp.juro))}</small>` : `<small class="muted">sem pico nesta semana</small>`}</div>`;
   }
 
   /* ---------------------------------------------------------------- NOTICIAS */
@@ -1739,7 +1934,7 @@
     const c = B.contagem || {};
     const lista = (B.itens || []).map((it) => `<li class="mac-news-item${it.classe ? " c-" + it.classe : ""}">
         <span class="muted mac-ref-td">${esc(brt(it.quando_utc) || "")}</span>
-        <a href="${esc(it.link || "#")}" target="_blank" rel="noopener">${esc(it.titulo)}</a>
+        <a href="${esc(it.link || "#")}" target="_blank" rel="noopener" translate="no">${esc(it.titulo)}</a>
         <small class="muted">${esc(it.fonte || "")}</small>
         ${it.classe ? `<span class="mac-news-tag c-${it.classe}">${{ alta: "alta", corte: "corte", mantem: "manutenção" }[it.classe]}</span>` : ""}
       </li>`).join("");
@@ -1797,7 +1992,7 @@
     return `<div class="mac-cel">
       ${decisao ? `<span class="mac-decisao">${FLAG[decisao.moeda] || ""} ${esc(decisao.moeda)} decide</span>` : ""}
       ${top.map((e) => `<span class="mac-ev ${String(e.impacto).toLowerCase() === "high" ? "alto" : ""}">
-          ${FLAG[e.moeda] || ""} ${esc(e.titulo || "")}</span>`).join("")}
+          ${FLAG[e.moeda] || ""} ${esc(tituloPt(e.titulo || ""))}</span>`).join("")}
       ${ev.length > 3 ? `<span class="mac-mais">+${ev.length - 3}</span>` : ""}
     </div>`;
   }
@@ -1808,7 +2003,7 @@
     if (isNaN(n)) return "";
     if (n < 120) return Math.round(n) + " s";
     if (n < 7200) return Math.round(n / 60) + " min";
-    return (Math.round(n / 360) / 10) + " h";
+    return String(Math.round(n / 360) / 10).replace(".", ",") + " h";
   }
 
   // Numero com a unidade da fonte. Nulo continua "—": 0.0 e um resultado, nao uma ausencia.
@@ -1816,8 +2011,10 @@
     if (v === null || v === undefined || v === "") return "—";
     const n = Number(v);
     if (isNaN(n)) return esc(v);
-    const s = Math.abs(n) >= 1000 ? n.toLocaleString("en-US", { maximumFractionDigits: 1 })
-            : String(Math.round(n * 1000) / 1000);
+    // separador DECIMAL em portugues e virgula. Estava saindo "2.9%" e "4.6 h" na ficha
+    // do evento e no aviso de entrega — ingles disfarcado de numero.
+    const s = Math.abs(n) >= 1000 ? n.toLocaleString("pt-BR", { maximumFractionDigits: 1 })
+            : String(Math.round(n * 1000) / 1000).replace(".", ",");
     if (!un) return s;
     return /^(%|K|M|B|pp)$/.test(un) ? s + esc(un) : s + " " + esc(un);
   }
@@ -1878,8 +2075,8 @@
 
     return `<article class="mac-ficha">
       <header><span class="mac-hora">${brt(e.quando_utc) || ""} BRT</span>
-        <strong>${FLAG[e.moeda] || ""} ${esc(e.titulo)}</strong>
-        <span class="tag">${esc(e.impacto)}</span>${
+        <strong>${FLAG[e.moeda] || ""} ${esc(tituloPt(e.titulo))}</strong>
+        <span class="tag">${esc(impactoPt(e.impacto))}</span>${
           avisos ? `<small class="muted mac-aviso">${esc(avisos)}</small>` : ""}</header>
       ${barra}${leitura}
       ${e.porque ? `<p class="mac-porque">${esc(e.porque)}</p>` : ""}
@@ -2035,7 +2232,7 @@
         ${dec ? `<span class="mac-decisao">${FLAG[dec.moeda] || ""} ${esc(dec.moeda)} decide</span>` : ""}
         ${ev.slice(0, 3).map((e) => `<span class="mac-ev${
             String(e.impacto).toLowerCase() === "high" ? " alto" : ""}">${
-            FLAG[e.moeda] || ""} ${esc(e.titulo || "")}</span>`).join("")}
+            FLAG[e.moeda] || ""} ${esc(tituloPt(e.titulo || ""))}</span>`).join("")}
         ${ev.length > 3 ? `<span class="mac-mais">+${ev.length - 3}</span>` : ""}
       </button>`;
     }

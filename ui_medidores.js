@@ -15,127 +15,33 @@
    5. reforço gráfico leva aria-hidden="true" e o número fica em texto ao lado.
 
    ---------------------------------------------------------------------------
-   CONTRATO DE CSS — o estilo_hci.css precisa definir estas classes .med-*.
-   Cópia pronta para colar (usa os tokens da §1 da especificação):
-
-   .med-num{font-family:var(--mono);font-variant-numeric:tabular-nums lining-nums;letter-spacing:-.01em}
-   .med-oculto{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
-
-   .med-faixa{position:sticky;top:0;z-index:40;display:flex;align-items:stretch;height:30px;
-     background:var(--fundo-band);border-bottom:1px solid var(--regua);
-     font-family:var(--mono);font-size:10.5px;color:var(--tinta-2);overflow-x:auto;scrollbar-width:thin}
-   .med-faixa-seg{display:flex;align-items:center;gap:6px;padding:0 12px;white-space:nowrap;
-     border-right:1px solid var(--regua-fraca)}
-   .med-faixa-seg.med-faixa-fim{border-right:0;border-left:1px solid var(--regua-fraca);margin-left:auto}
-   .med-faixa-chave{color:var(--tinta-3)}
-   .med-faixa-valor{color:var(--tinta);font-weight:600}
-   .med-faixa-nota{color:var(--tinta-3)}
-   .med-led{width:6px;height:6px;border-radius:50%;flex:none}
-   .med-led-ok{background:var(--alta)} .med-led-av{background:var(--aviso)}
-   .med-led-off{background:var(--corte)} .med-led-mudo{background:#2C4A42}
-
-   .med-escala-eixo{display:grid;grid-template-columns:52px 1fr 60px;gap:8px;align-items:center;padding-bottom:6px}
-   .med-escala-eixo .e-neg{color:var(--corte);font-family:var(--mono);font-size:9.5px}
-   .med-escala-eixo .e-zero{color:var(--tinta-3);font-family:var(--mono);font-size:9.5px;text-align:center}
-   .med-escala-eixo .e-pos{color:var(--alta);font-family:var(--mono);font-size:9.5px;text-align:right}
-   .med-escala-linha{display:grid;grid-template-columns:52px 1fr 60px;gap:8px;align-items:center;
-     padding:3.5px 0;border-top:1px solid var(--regua-fraca)}
-   .med-escala-linha:first-of-type{border-top:0}
-   .med-escala-cod{font-family:var(--mono);font-size:11.5px;font-weight:600;color:var(--tinta)}
-   .med-escala-cod sup{font-size:8px;color:var(--tinta-3);font-weight:400;margin-left:2px}
-   .med-trilho{position:relative;height:15px;background:var(--fundo-band);
-     border:1px solid var(--regua-fraca);border-radius:2px;overflow:hidden}
-   .med-trilho-zero{position:absolute;left:50%;top:0;bottom:0;width:1px;background:var(--regua-forte)}
-   .med-barra{position:absolute;top:3px;bottom:3px;border-radius:1px}
-   .med-barra-pos{left:50%;background:var(--alta)} .med-barra-neg{right:50%;background:var(--corte)}
-   .med-barra-oca{background:transparent;border:1px solid}
-   .med-barra-oca.med-barra-pos{border-color:var(--alta)} .med-barra-oca.med-barra-neg{border-color:var(--corte)}
-   .med-escala-vl{font-family:var(--mono);font-size:11.5px;text-align:right;color:var(--tinta)}
-   .med-escala-vl.alta{color:var(--alta)} .med-escala-vl.corte{color:var(--corte)}
-   .med-legenda{display:flex;flex-wrap:wrap;gap:12px;margin-top:8px;padding-top:8px;
-     border-top:1px solid var(--regua);font-family:var(--mono);font-size:9.5px;color:var(--tinta-3)}
-   .med-legenda b{color:var(--tinta-2);font-weight:500}
-   .med-legenda i{display:inline-block;width:14px;height:6px;border-radius:1px;transform:translateY(-1px)}
-   .med-legenda i.cheia{background:var(--alta)} .med-legenda i.oca{border:1px solid var(--alta)}
-
-   .med-faixa-agulha{margin-top:2px}
-   .med-bandas{position:relative;height:22px;display:flex;border:1px solid var(--regua-forte);
-     border-radius:2px;background:var(--fundo-band)}
-   .med-banda{position:relative;height:100%}
-   .med-banda+.med-banda{border-left:1px solid var(--regua-forte)}
-   .med-banda-1{background:rgba(159,182,175,.04)} .med-banda-2{background:rgba(79,208,142,.05)}
-   .med-banda-3{background:rgba(79,208,142,.08)}  .med-banda-4{background:rgba(79,208,142,.12)}
-   .med-agulha{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--marca);z-index:3}
-   .med-agulha::before{content:"";position:absolute;top:-1px;left:-3px;border-left:4px solid transparent;
-     border-right:4px solid transparent;border-top:5px solid var(--marca)}
-   .med-bandas-rot{display:flex;margin-top:4px;font-family:var(--mono);font-size:9.5px;color:var(--tinta-3)}
-   .med-bandas-rot span{border-left:1px solid var(--regua-fraca);padding-left:4px}
-   .med-bandas-rot span:first-child{border-left:0;padding-left:0}
-   .med-agulha-num{margin-top:6px;font-family:var(--mono);font-size:9.5px;color:var(--tinta-2)}
-   .med-agulha-num b{color:var(--tinta);font-weight:600}
-
-   .med-qual{display:grid;grid-template-columns:70px 1fr 44px;gap:8px;align-items:center;padding:2.5px 0}
-   .med-qual-nm{font-family:var(--mono);font-size:9.5px;color:var(--tinta-3);text-transform:uppercase;letter-spacing:.05em}
-   .med-qual-trilho{position:relative;height:6px;background:var(--fundo-band);border:1px solid var(--regua-fraca);
-     border-radius:1px;overflow:hidden}
-   .med-qual-fl{position:absolute;inset:0 auto 0 0;background:var(--tinta-2)}
-   .med-qual-fl.av{background:var(--aviso)}
-   .med-qual-trilho.med-vazio{background:repeating-linear-gradient(45deg,var(--fundo-band) 0 3px,rgba(240,178,82,.13) 3px 6px);
-     border:1px dashed rgba(240,178,82,.55)}
-   .med-qual-vv{font-family:var(--mono);font-size:10.5px;text-align:right;color:var(--tinta-2)}
-   .med-qual-vv.av{color:var(--aviso)}
-
-   .med-dias{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-   .med-dias-num{font-family:var(--mono);font-size:14px;font-weight:600;color:var(--tinta);flex:none}
-   .med-dias-num.av{color:var(--aviso)}
-   .med-dias-rot{font-family:var(--mono);font-size:9.5px;color:var(--tinta-3)}
-   .med-dias-regua{display:flex;align-items:flex-end;gap:1.5px;height:13px}
-   .med-dias-regua i{width:2px;height:5px;display:block;border-radius:.5px;background:var(--regua-forte)}
-   .med-dias-regua i.alto{height:9px}
-   .med-dias-regua i.on{background:var(--marca)}
-   .med-dias-regua i.av{background:var(--aviso)}
-   .med-dias-regua i.fim{width:3px;height:13px;background:var(--tinta-2)}
-   .med-dias-regua i.fim.av{background:var(--aviso)}
-
-   .med-alarme{border:1px solid rgba(240,178,82,.38);background:var(--aviso-fraca);border-radius:3px;overflow:hidden}
-   .med-alarme-cab{display:flex;align-items:center;gap:8px;padding:5px 12px;
-     border-bottom:1px solid rgba(240,178,82,.24)}
-   .med-alarme-cab .rot{color:var(--aviso)}
-   .med-alarme-verif{margin-left:auto;font-family:var(--mono);font-size:10.5px;color:var(--aviso)}
-   .med-alarme-escopo{padding:7px 12px;border-bottom:1px solid rgba(240,178,82,.16);
-     font-size:11.5px;line-height:1.5;color:var(--tinta-2)}
-   .med-alarme-linha{display:grid;grid-template-columns:96px 190px 1fr 1fr;
-     border-top:1px solid rgba(240,178,82,.16);align-items:stretch}
-   .med-alarme-linha:first-of-type{border-top:0}
-   .med-alarme-linha>div{padding:8px 12px;border-left:1px solid rgba(240,178,82,.16);min-width:0}
-   .med-alarme-linha>div:first-child{border-left:0;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
-   .med-alarme-id{font-family:var(--mono);font-size:10.5px;color:var(--aviso);letter-spacing:.06em}
-   .med-alarme-assunto{font-family:var(--mono);font-size:12.5px;color:var(--tinta);font-weight:600;
-     overflow-wrap:anywhere}
-   .med-alarme-k{display:block;margin-bottom:2px}
-   .med-alarme-v{font-size:11.5px;line-height:1.5;color:var(--tinta-2)}
-   .med-alarme-v .med-num{color:var(--tinta)}
-   .med-alarme-v em{font-style:normal;color:var(--aviso)}
-   .med-alarme-v b{color:var(--tinta);font-weight:600}
-   @media(max-width:900px){.med-alarme-linha{grid-template-columns:1fr}
-     .med-alarme-linha>div{border-left:0;border-top:1px solid rgba(240,178,82,.12)}}
-
-   .med-chip{display:inline-flex;align-items:center;height:18px;padding:0 6px;border-radius:2px;
-     border:1px solid;font-family:var(--mono);font-size:9.5px;letter-spacing:.05em;white-space:nowrap}
-   .med-chip-aviso{color:var(--aviso);border-color:rgba(240,178,82,.42);background:var(--aviso-fraca)}
-   .med-chip-corte{color:var(--corte);border-color:rgba(255,124,104,.42);background:var(--corte-fraca)}
-   .med-chip-mudo{color:var(--tinta-3);border-color:var(--regua-forte);background:var(--painel-alto)}
-
-   .med-nota-marca{font-family:var(--mono);font-size:9.5px;color:var(--tinta-3);margin-left:2px}
-   .med-notas{border-top:1px solid var(--regua);padding-top:8px}
-   .med-notas-lista{list-style:none;margin:0;padding:0}
-   .med-notas-item{display:grid;grid-template-columns:22px 1fr;gap:6px;padding:6px 0;
-     border-top:1px solid var(--regua-fraca)}
-   .med-notas-item:first-child{border-top:0}
-   .med-notas-n{font-family:var(--mono);font-size:9.5px;color:var(--tinta-3);text-align:right}
-   .med-notas-txt{font-family:"Spectral",Georgia,serif;font-size:12.5px;line-height:1.62;color:var(--tinta-2)}
-   .med-notas-termo{font-family:var(--mono);font-size:9.5px;color:var(--tinta-3);
-     text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:2px}
+   CONTRATO DE CSS — as classes .med-* deste modulo sao desenhadas na §M do
+   estilo_hci.css, que e a FONTE UNICA do desenho. A copia que morava aqui foi
+   retirada na conferencia de 06/set por tres motivos medidos:
+     · o estilo_hci.css nao definia nenhuma classe .med-*, e os medidores sairiam
+       crus na tela — o contrato existia so como comentario, sem par do outro lado;
+     · a copia trazia a cor crua #2C4A42 no LED e a serifa "Spectral",Georgia
+       sem a pilha de reserva inteira da §3.1;
+     · duas fontes de verdade para a mesma classe divergem no primeiro conserto.
+   Se faltar desenho, e a §M do estilo_hci.css que precisa crescer, nunca este
+   comentario. As classes que o modulo emite, para conferencia rapida:
+     .med-num · .med-oculto
+     .med-faixa .med-faixa-seg .med-faixa-fim .med-faixa-chave .med-faixa-valor
+       .med-faixa-nota .med-led .med-led-ok .med-led-av .med-led-off .med-led-mudo
+     .med-escala .med-escala-eixo .med-escala-linha .med-escala-cod .med-escala-vl
+       .med-trilho .med-trilho-zero .med-barra .med-barra-pos .med-barra-neg
+       .med-barra-oca .med-legenda
+     .med-faixa-agulha .med-bandas .med-banda .med-banda-1..4 .med-agulha
+       .med-bandas-rot .med-agulha-num
+     .med-qualidade .med-qual .med-qual-nm .med-qual-trilho .med-vazio .med-qual-fl
+       .med-qual-vv
+     .med-dias .med-dias-num .med-dias-regua .med-dias-rot
+     .med-alarme .med-alarme-cab .med-alarme-verif .med-alarme-escopo
+       .med-alarme-linha .med-alarme-id .med-alarme-assunto .med-alarme-k .med-alarme-v
+     .med-chip .med-chip-aviso .med-chip-corte .med-chip-mudo
+     .med-nota-marca .med-notas .med-notas-cab .med-notas-lista .med-notas-item
+       .med-notas-n .med-notas-termo .med-notas-txt
+   e mais a .rot da casa, usada na chave da faixa e no rotulo do alarme.
    ---------------------------------------------------------------------------
 ============================================================================ */
 
