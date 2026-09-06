@@ -1,7 +1,7 @@
 {
- "gerado_em": "2026-09-05T05:31:16.902963+00:00",
- "recalculado_em": "2026-09-05T05:52:20.023142+00:00",
- "reaproveitado_do_cache": true,
+ "gerado_em": "2026-09-06T19:52:03.068900+00:00",
+ "recalculado_em": "2026-09-06T19:52:03.068900+00:00",
+ "reaproveitado_do_cache": false,
  "fonte_dado": "BLS public API v2 (sem chave; o SITE do BLS devolve 403, a API nao)",
  "fonte_consenso": "FXStreet, via data/calendario_resultado.json e data/macro_eventos.json",
  "fonte_comunicado": "https://www.federalreserve.gov/feeds/press_monetary.xml",
@@ -29,7 +29,7 @@
   "conferencia_do_valor_minimo": 0.15,
   "nota": "PROVISORIAS. A folga do valor existe so por ARREDONDAMENTO (a FXStreet publica 3,1% onde o BLS calcula 3,086%), nunca para forcar um casamento duvidoso."
  },
- "eventos_do_calendario_lidos": 83,
+ "eventos_do_calendario_lidos": 651,
  "aviso": "leitura MECANICA: numero, variacao e surpresa contra consenso publicado. O texto do comunicado nao e interpretado aqui - essa camada entra depois e nasce marcada como interpretacao.",
  "serve_tambem": [
   "GC",
@@ -54,38 +54,47 @@
    "destaque_texto": "variação anual",
    "atual": 3.304,
    "atual_texto": "+3,30%",
-   "esperado": null,
-   "esperado_texto": "—",
-   "anterior": null,
-   "anterior_texto": "—",
-   "anterior_publicado": null,
+   "esperado": 3.4,
+   "esperado_texto": "+3,40%",
+   "anterior": 3.5,
+   "anterior_texto": "+3,50%",
+   "anterior_publicado": 3.5,
    "anterior_e_revisado": false,
-   "surpresa": null,
-   "surpresa_texto": "—",
-   "surpresa_rotulo": null,
-   "surpresa_classe": null,
-   "surpresa_corte_provisorio": null,
-   "surpresa_da_fonte": null,
+   "surpresa": -0.096,
+   "surpresa_texto": "-0,10%",
+   "surpresa_rotulo": "neutra",
+   "surpresa_classe": "EM_LINHA",
+   "surpresa_corte_provisorio": 0.1,
+   "surpresa_da_fonte": 0.0,
    "media_3m": 3.645,
    "media_3m_texto": "+3,64%",
    "media_3m_n": 3,
    "media_3m_motivo": null,
    "nivel": 332.813,
    "nivel_texto": "332,813",
-   "casado_com": null,
+   "casado_com": {
+    "titulo": "Consumer Price Index (YoY)",
+    "quando_utc": "2026-08-12T12:30:00+00:00",
+    "impacto": "HIGH",
+    "arquivo": "FXStreet ao vivo (60 dias atrás)",
+    "divulgado_na_fonte": 3.4,
+    "anterior_publicado": 3.5,
+    "revisado": null,
+    "criterio": "familia + referencia + conferencia do valor"
+   },
    "proximo_evento_do_indicador": {
     "titulo": "Consumer Price Index (YoY)",
     "quando_utc": "2026-09-11T12:30:00+00:00",
     "quando_brt": "11/09 09:30",
     "impacto": "HIGH",
-    "consenso": null,
+    "consenso": 3.4,
     "anterior": 3.4,
-    "dias": 6,
-    "horas": 150
+    "dias": 4,
+    "horas": 112
    },
-   "sem_consenso": true,
-   "sem_consenso_motivo": "nenhum evento divulgado da mesma família descreve 2026-07 — a janela do calendário carregado vai de 2026-09-03 a 2026-09-11",
-   "resumo_texto": "CPI — Atual +3,30% · Esperado não publicado · Anterior — · Surpresa: sem consenso para medir · Média de 3 meses: +3,64%"
+   "sem_consenso": false,
+   "sem_consenso_motivo": null,
+   "resumo_texto": "CPI — Atual +3,30% · Esperado +3,40% · Anterior +3,50% · Surpresa: neutra · Média de 3 meses: +3,64%"
   },
   "CUSR0000SA0L1E": {
    "referencia": "2026-07",
@@ -102,38 +111,47 @@
    "destaque_texto": "variação anual",
    "atual": 2.467,
    "atual_texto": "+2,47%",
-   "esperado": null,
-   "esperado_texto": "—",
-   "anterior": null,
-   "anterior_texto": "—",
-   "anterior_publicado": null,
+   "esperado": 2.5,
+   "esperado_texto": "+2,50%",
+   "anterior": 2.6,
+   "anterior_texto": "+2,60%",
+   "anterior_publicado": 2.6,
    "anterior_e_revisado": false,
-   "surpresa": null,
-   "surpresa_texto": "—",
-   "surpresa_rotulo": null,
-   "surpresa_classe": null,
-   "surpresa_corte_provisorio": null,
-   "surpresa_da_fonte": null,
+   "surpresa": -0.033,
+   "surpresa_texto": "-0,03%",
+   "surpresa_rotulo": "neutra",
+   "surpresa_classe": "EM_LINHA",
+   "surpresa_corte_provisorio": 0.1,
+   "surpresa_da_fonte": 0.0,
    "media_3m": 2.618,
    "media_3m_texto": "+2,62%",
    "media_3m_n": 3,
    "media_3m_motivo": null,
    "nivel": 336.789,
    "nivel_texto": "336,789",
-   "casado_com": null,
+   "casado_com": {
+    "titulo": "Consumer Price Index ex Food & Energy (YoY)",
+    "quando_utc": "2026-08-12T12:30:00+00:00",
+    "impacto": "HIGH",
+    "arquivo": "FXStreet ao vivo (60 dias atrás)",
+    "divulgado_na_fonte": 2.5,
+    "anterior_publicado": 2.6,
+    "revisado": null,
+    "criterio": "familia + referencia + conferencia do valor"
+   },
    "proximo_evento_do_indicador": {
     "titulo": "Consumer Price Index ex Food & Energy (YoY)",
     "quando_utc": "2026-09-11T12:30:00+00:00",
     "quando_brt": "11/09 09:30",
     "impacto": "HIGH",
-    "consenso": null,
+    "consenso": 2.4,
     "anterior": 2.5,
-    "dias": 6,
-    "horas": 150
+    "dias": 4,
+    "horas": 112
    },
-   "sem_consenso": true,
-   "sem_consenso_motivo": "a família está no calendário (janela 2026-09-10 a 2026-09-11) mas nenhum evento dela já foi divulgado — o release de 2026-07 está fora da janela carregada",
-   "resumo_texto": "CPI núcleo — Atual +2,47% · Esperado não publicado · Anterior — · Surpresa: sem consenso para medir · Média de 3 meses: +2,62%"
+   "sem_consenso": false,
+   "sem_consenso_motivo": null,
+   "resumo_texto": "CPI núcleo — Atual +2,47% · Esperado +2,50% · Anterior +2,60% · Surpresa: neutra · Média de 3 meses: +2,62%"
   },
   "CES0000000001": {
    "referencia": "2026-08",
@@ -178,7 +196,16 @@
     "revisado": 21.0,
     "criterio": "familia + referencia + conferencia do valor"
    },
-   "proximo_evento_do_indicador": null,
+   "proximo_evento_do_indicador": {
+    "titulo": "Nonfarm Payrolls",
+    "quando_utc": "2026-10-02T12:30:00+00:00",
+    "quando_brt": "02/10 09:30",
+    "impacto": "HIGH",
+    "consenso": null,
+    "anterior": 162.0,
+    "dias": 25,
+    "horas": 616
+   },
    "sem_consenso": false,
    "sem_consenso_motivo": null,
    "resumo_texto": "NFP — Atual +162k · Esperado +56k · Anterior +21k · Surpresa: hawkish · Média de 3 meses: +71k"
@@ -208,7 +235,7 @@
    "surpresa_texto": "+0,00 pp",
    "surpresa_rotulo": "neutra",
    "surpresa_classe": "EM_LINHA",
-   "surpresa_corte_provisorio": 1.435,
+   "surpresa_corte_provisorio": 0.1,
    "surpresa_da_fonte": 0.0,
    "media_3m": 4.133,
    "media_3m_texto": "4,1%",
@@ -226,7 +253,16 @@
     "revisado": null,
     "criterio": "familia + referencia + conferencia do valor"
    },
-   "proximo_evento_do_indicador": null,
+   "proximo_evento_do_indicador": {
+    "titulo": "Unemployment Rate",
+    "quando_utc": "2026-10-02T12:30:00+00:00",
+    "quando_brt": "02/10 09:30",
+    "impacto": "MEDIUM",
+    "consenso": null,
+    "anterior": 4.1,
+    "dias": 25,
+    "horas": 616
+   },
    "sem_consenso": false,
    "sem_consenso_motivo": null,
    "resumo_texto": "Desemprego — Atual 4,1% · Esperado 4,1% · Anterior 4,1% · Surpresa: neutra · Média de 3 meses: 4,1%"
@@ -256,7 +292,7 @@
    "surpresa_texto": "+0,09%",
    "surpresa_rotulo": "neutra",
    "surpresa_classe": "EM_LINHA",
-   "surpresa_corte_provisorio": 1.05,
+   "surpresa_corte_provisorio": 0.1,
    "surpresa_da_fonte": 0.1,
    "media_3m": 3.235,
    "media_3m_texto": "+3,23%",
@@ -274,7 +310,16 @@
     "revisado": null,
     "criterio": "familia + referencia + conferencia do valor"
    },
-   "proximo_evento_do_indicador": null,
+   "proximo_evento_do_indicador": {
+    "titulo": "Average Hourly Earnings (YoY)",
+    "quando_utc": "2026-10-02T12:30:00+00:00",
+    "quando_brt": "02/10 09:30",
+    "impacto": "HIGH",
+    "consenso": null,
+    "anterior": 3.1,
+    "dias": 25,
+    "horas": 616
+   },
    "sem_consenso": false,
    "sem_consenso_motivo": null,
    "resumo_texto": "Salários — Atual +3,09% · Esperado +3,00% · Anterior +3,20% · Surpresa: neutra · Média de 3 meses: +3,23%"
@@ -322,7 +367,16 @@
     "revisado": null,
     "criterio": "titulo âncora + referência + conferência do valor"
    },
-   "proximo_evento_do_indicador": null,
+   "proximo_evento_do_indicador": {
+    "titulo": "Labor Force Participation Rate",
+    "quando_utc": "2026-10-02T12:30:00+00:00",
+    "quando_brt": "02/10 09:30",
+    "impacto": "MEDIUM",
+    "consenso": null,
+    "anterior": 61.6,
+    "dias": 25,
+    "horas": 616
+   },
    "sem_consenso": true,
    "sem_consenso_motivo": "o evento casou, mas a FXStreet não publicou consenso para ele",
    "resumo_texto": "Participação — Atual 61,6% · Esperado não publicado · Anterior 61,4% · Surpresa: sem consenso para medir · Média de 3 meses: 61,5%"
@@ -373,8 +427,7 @@
    "rotulo": "September 15-16*",
    "com_projecoes": true,
    "voto_por_notacao": false
-  },
-  "reaproveitado": true
+  }
  },
  "fed": {
   "ultimos": [
@@ -420,7 +473,6 @@
    }
   ],
   "last_modified_do_servidor": "Tue, 25 Aug 2026 18:00:13 GMT",
-  "total_no_feed": 15,
-  "reaproveitado": true
+  "total_no_feed": 15
  }
 }

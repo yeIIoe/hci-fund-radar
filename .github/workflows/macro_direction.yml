@@ -110,10 +110,33 @@ jobs:
         continue-on-error: true
         run: python bc_discursos.py
 
+      # RBA e RBNZ devolvem 403 a robo e o SNB nao tem feed. O arquivo do BIS agrega os
+      # discursos de todos os bancos e nao bloqueia. Medido em 06/set: 1.319 falas de 2009 a
+      # 2026 (AUD 440, CHF 223, NZD 137) — mas o BIS publica com defasagem, entao na janela
+      # de 42 dias ele quase nao ajuda. Serve para HISTORICO, que e o que valida o
+      # classificador de falas.
+      - name: discursos pelo arquivo do BIS (historico dos bancos que bloqueiam)
+        continue-on-error: true
+        run: python bis_discursos.py
+
       - name: gera o leitor
         run: |
           python bancos_centrais.py
           python macro_eventos.py
+
+      # O calendario da FXStreet e uma janela ROLANTE de +-42 dias: o consenso de hoje
+      # desaparece em dois meses e ninguem vende esse historico. Este passo grava a nossa
+      # propria serie point-in-time, append-only, so quando um valor muda.
+      - name: arquivo point-in-time do calendario (consenso com carimbo de data)
+        continue-on-error: true
+        run: python calendario_arquivo.py
+
+      # O que o mercado precifica para a proxima decisao — a coluna de comparacao contra a
+      # leitura do HCI. NUNCA entra no sentimento. Medido em 06/set: USD e AUD com futuros
+      # (qualidade alta), NZD parcial, e cinco bancos sem fonte gratuita.
+      - name: precificacao de mercado (futuros e manchetes)
+        continue-on-error: true
+        run: python precificacao.py
 
       # A leitura PARA FRENTE: por moeda (4 dimensoes, 25% cada) e por par (a regra do
       # Eduardo). Busca 42 dias da FXStreet por conta propria; se ela falhar, usa o arquivo
@@ -166,7 +189,10 @@ jobs:
                   data/bc_discursos.json data/sentimento.json \
                   data/correlacao_juros.json data/geopolitica.json data/noticias.json \
                   data/raw/ff_calendar_thisweek.json \
-                  data/snapshots/
+                  data/snapshots/ \
+                  data/bis_discursos.json data/bis_discursos_historico.jsonl \
+                  data/precificacao.json data/precificacao_hist.jsonl \
+                  data/calendario_arquivo/
           if git diff --cached --quiet; then
             echo "nada mudou — sem commit"
           else

@@ -198,87 +198,87 @@
 
     var lista = "";
 
-    lista += item("limpo", "O valor usado e o ORIGINALMENTE DIVULGADO, nao o revisado",
-      "O calendario grava <code>divulgado</code> e <code>revisado</code> em campos separados " +
-      "(<code>fxstreet_calendario.py</code>, funcao <code>normaliza</code>) e o sentimento nunca " +
-      "le o revisado: <code>dimensao_dados</code> classifica <code>divulgado</code> contra " +
-      "<code>consenso</code>, e a palavra &ldquo;revisado&rdquo; nao aparece uma unica vez em " +
-      "<code>sentimento.py</code>. Medido, nao suposto — e com o <b>n honesto</b>, corrigido em " +
-      "05/09/2026: comparando o valor divulgado por id de evento entre o calendario de hoje e as " +
-      "versoes de 30/08 e 03/09, sao 184 e 225 ids em comum, mas so <b>15 e 66</b> tem valor " +
-      "divulgado nos DOIS lados — esse e o n da comparacao, e nele <b>nenhum valor mudou</b>. " +
-      "(A versao anterior deste aviso citava &ldquo;254 e 295&rdquo;, que era a interseccao das " +
-      "listas de evento, nao o n comparado. O calendario e uma janela rolante de &plusmn;42 dias: " +
-      "esse n encolhe todo dia, entao ele so vale com a data ao lado.) A FXStreet publica a " +
-      "revisao do periodo anterior como campo novo na divulgacao seguinte; ela nao reescreve o " +
+    lista += item("limpo", "O valor usado é o ORIGINALMENTE DIVULGADO, não o revisado",
+      "O calendário grava <code>divulgado</code> e <code>revisado</code> em campos separados " +
+      "(<code>fxstreet_calendario.py</code>, função <code>normaliza</code>) e o sentimento nunca " +
+      "lê o revisado: <code>dimensao_dados</code> classifica <code>divulgado</code> contra " +
+      "<code>consenso</code>, e a palavra &ldquo;revisado&rdquo; não aparece uma única vez em " +
+      "<code>sentimento.py</code>. Medido, não suposto — e com o <b>n honesto</b>, corrigido em " +
+      "05/09/2026: comparando o valor divulgado por id de evento entre o calendário de hoje e as " +
+      "versões de 30/08 e 03/09, são 184 e 225 ids em comum, mas só <b>15 e 66</b> têm valor " +
+      "divulgado nos DOIS lados — esse é o n da comparação, e nele <b>nenhum valor mudou</b>. " +
+      "(A versão anterior deste aviso citava &ldquo;254 e 295&rdquo;, que era a intersecção das " +
+      "listas de evento, não o n comparado. O calendário é uma janela rolante de &plusmn;42 dias: " +
+      "esse n encolhe todo dia, então ele só vale com a data ao lado.) A FXStreet publica a " +
+      "revisão do período anterior como campo novo na divulgação seguinte; ela não reescreve o " +
       "print original.");
 
     lista += item("parcial", "Manchetes publicadas depois de " + dataBr(corte),
-      "<b>" + mn.depois + " de " + mn.guardadas + "</b> manchetes guardadas no arquivo sao " +
+      "<b>" + mn.depois + " de " + mn.guardadas + "</b> manchetes guardadas no arquivo são " +
       "posteriores ao corte; " + (n.escondidas > 0
-        ? "<b>" + n.escondidas + "</b> foram escondidas da lista da aba Noticias agora."
-        : "nenhuma esta visivel na lista neste momento.") +
-      " <b>O que NAO da para desfazer:</b> essas manchetes ja entraram na contagem que virou a " +
-      "dimensao de texto do sentimento — <code>dimensao_texto_manchetes</code> recebe o instante " +
-      "atual como parametro e <b>nunca o usa</b>, le a contagem inteira sem filtro de data — e o " +
-      "arquivo conta <b>" + mn.contadas + "</b> manchetes guardando so " + mn.guardadas +
-      " (<code>noticias.py</code> guarda <code>itens[:MAX]</code> e conta todas) — nem recontar da. " +
-      "A janela e de 72 h e nao ha arquivo do Google News: para um corte com mais de 3 dias, " +
-      "<b>100% das manchetes que pesaram sao posteriores ao corte</b>.");
+        ? "<b>" + n.escondidas + "</b> foram escondidas da lista da aba Notícias agora."
+        : "nenhuma está visível na lista neste momento.") +
+      " <b>O que NÃO dá para desfazer:</b> essas manchetes já entraram na contagem que virou a " +
+      "dimensão de texto do sentimento — <code>dimensao_texto_manchetes</code> recebe o instante " +
+      "atual como parâmetro e <b>nunca o usa</b>, lê a contagem inteira sem filtro de data — e o " +
+      "arquivo conta <b>" + mn.contadas + "</b> manchetes guardando só " + mn.guardadas +
+      " (<code>noticias.py</code> guarda <code>itens[:MAX]</code> e conta todas) — nem recontar dá. " +
+      "A janela é de 72 h e não há arquivo do Google News: para um corte com mais de 3 dias, " +
+      "<b>100% das manchetes que pesaram são posteriores ao corte</b>.");
 
-    lista += item("contamina", "Os pesos e limiares aplicados sao os de HOJE",
-      "Nao existe recomputacao com a regua da epoca. Janela de 42 dias, meia-vida de 21 dias, " +
-      "limiar de dados 5,0, 25% por dimensao, corte z de 1,5 e as reguas novas de 05/set " +
-      "(faixas provisorias, winsorizacao por item, decaimento do ciclo, pesos de fala) sao todas " +
-      "<b>constantes de codigo</b> em <code>sentimento.py</code>, e os pesos de cada dimensao sao " +
-      "codigo tambem. O arquivo e um unico retrato do agora" +
+    lista += item("contamina", "Os pesos e limiares aplicados são os de HOJE",
+      "Não existe recomputação com a régua da época. Janela de 42 dias, meia-vida de 21 dias, " +
+      "limiar de dados 5,0, 25% por dimensão, corte z de 1,5 e as réguas novas de 05/set " +
+      "(faixas provisórias, winsorização por item, decaimento do ciclo, pesos de fala) são todas " +
+      "<b>constantes de código</b> em <code>sentimento.py</code>, e os pesos de cada dimensão são " +
+      "código também. O arquivo é um único retrato do agora" +
       (geradoEm ? ", gerado em <b>" + dataBr(geradoEm) + "</b>" : "") +
-      ". Cada regua nova que entra piora este item: mudar um limiar amanha muda retroativamente " +
+      ". Cada régua nova que entra piora este item: mudar um limiar amanhã muda retroativamente " +
       "tudo o que a tela diz sobre ontem. " +
-      "<b>O unico remedio e para frente:</b> o <code>snapshot.py</code> congela a leitura de cada " +
+      "<b>O único remédio é para frente:</b> o <code>snapshot.py</code> congela a leitura de cada " +
       "dia em <code>data/snapshots/</code>, append-only, para o backtest ler o registro em vez de " +
       "recalcular.");
 
     var txtBc = "";
     if (bc.decisaoFutura.length) {
-      txtBc += "<b>A ultima decisao de juro no ar e POSTERIOR ao corte em: " +
-        esc(bc.decisaoFutura.join("; ")) + ".</b> Essas decisoes ainda nao tinham acontecido em " +
-        dataBr(corte) + " e mesmo assim movem 25% do peso da moeda, pela dimensao ciclo. ";
+      txtBc += "<b>A última decisão de juro no ar é POSTERIOR ao corte em: " +
+        esc(bc.decisaoFutura.join("; ")) + ".</b> Essas decisões ainda não tinham acontecido em " +
+        dataBr(corte) + " e mesmo assim movem 25% do peso da moeda, pela dimensão ciclo. ";
     } else {
-      txtBc += "Nenhum banco tem ultima decisao posterior a " + dataBr(corte) +
-        " — mas isso e sorte da data escolhida, nao protecao do sistema. ";
+      txtBc += "Nenhum banco tem última decisão posterior a " + dataBr(corte) +
+        " — mas isso é sorte da data escolhida, não proteção do sistema. ";
     }
     if (bc.reuniaoPassada.length) {
-      txtBc += "Reunioes que aconteceram entre o corte e hoje e que a tela ja conhece: " +
+      txtBc += "Reuniões que aconteceram entre o corte e hoje e que a tela já conhece: " +
         esc(bc.reuniaoPassada.join(", ")) + ". ";
     }
-    txtBc += "A taxa vigente, a proxima reuniao e a contagem de dias sao sempre as de hoje: a " +
-      "tabela do <code>bancos_centrais.py</code> guarda so os valores ATUAIS e calcula " +
+    txtBc += "A taxa vigente, a próxima reunião e a contagem de dias são sempre as de hoje: a " +
+      "tabela do <code>bancos_centrais.py</code> guarda só os valores ATUAIS e calcula " +
       "<code>proxima</code> e <code>dias_ate</code> a partir de <code>date.today()</code>. E a " +
-      "<code>dimensao_ciclo</code> mede a idade do ultimo movimento contra hoje — inclusive o " +
-      "decaimento novo por reunioes de manutencao, que conta reunioes que so aconteceram depois " +
+      "<code>dimensao_ciclo</code> mede a idade do último movimento contra hoje — inclusive o " +
+      "decaimento novo por reuniões de manutenção, que conta reuniões que só aconteceram depois " +
       "do corte.";
-    lista += item("contamina", "Decisoes e reunioes dos bancos centrais", txtBc);
+    lista += item("contamina", "Decisões e reuniões dos bancos centrais", txtBc);
 
-    lista += item("contamina", "Estes quatro paineis nao obedecem ao corte",
-      "Visao geral, Noticias, Pares e Calendario sao repintados a cada 900 ms pela funcao " +
-      "<code>aplica</code> do <code>ui_macro.js</code>, que <b>nao tem uma unica referencia ao " +
-      "corte de tempo</b> (zero ocorrencias de <code>timeCut</code> no arquivo inteiro). Pior: a " +
-      "funcao <code>recolheLegado</code> do mesmo arquivo move para um conteiner oculto " +
+    lista += item("contamina", "Estes quatro painéis não obedecem ao corte",
+      "Visão geral, Notícias, Pares e Calendário são repintados a cada 900 ms pela função " +
+      "<code>aplica</code> do <code>ui_macro.js</code>, que <b>não tem uma única referência ao " +
+      "corte de tempo</b> (zero ocorrências de <code>timeCut</code> no arquivo inteiro). Pior: a " +
+      "função <code>recolheLegado</code> do mesmo arquivo move para um contêiner oculto " +
       "(<code>#macSink</code>) justamente os elementos que o <code>ui_cut_global.js</code> " +
-      "reescreve quando o corte liga — o comentario do proprio codigo diz que isso &ldquo;deixa o " +
-      "app.js escrever onde ninguem ve&rdquo;. <b>Nesses paineis o corte desenha no escondido, e o " +
-      "que esta na tela e a leitura de " + dataBr(hoje) + ".</b> Consertar e reescrever a camada " +
-      "de desenho, e nao foi feito aqui.");
+      "reescreve quando o corte liga — o comentário do próprio código diz que isso &ldquo;deixa o " +
+      "app.js escrever onde ninguem ve&rdquo;. <b>Nesses painéis o corte desenha no escondido, e o " +
+      "que está na tela é a leitura de " + dataBr(hoje) + ".</b> Consertar é reescrever a camada " +
+      "de desenho, e não foi feito aqui.");
 
     caixa.innerHTML =
       '<div class="cta-topo"><strong>AUDITORIA DO CORTE DE TEMPO</strong>' +
-      "<span>Corte em <b>" + dataBr(corte) + "</b>. Esta tela <b>nao</b> esta limpa de " +
+      "<span>Corte em <b>" + dataBr(corte) + "</b>. Esta tela <b>não</b> está limpa de " +
       "look-ahead. O que ainda contamina, item por item:</span></div>" +
       '<ul class="cta-lista">' + lista + "</ul>" +
-      '<p class="cta-rodape">Auditoria de 05/set/2026. Enquanto os quatro itens acima nao forem ' +
-      "resolvidos, nenhum numero desta tela sob o corte serve como amostra de backtest — a amostra " +
-      "valida e o registro gravado no instante, em <code>data/snapshots/</code>.</p>";
+      '<p class="cta-rodape">Auditoria de 05/set/2026. Enquanto os quatro itens acima não forem ' +
+      "resolvidos, nenhum número desta tela sob o corte serve como amostra de backtest — a amostra " +
+      "válida é o registro gravado no instante, em <code>data/snapshots/</code>.</p>";
   }
 
   var estilo = document.createElement("style");

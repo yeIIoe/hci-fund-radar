@@ -203,6 +203,20 @@ MARCADORES_MANUTENCAO = [
     (r"\bat its current setting\b", "no patamar atual"),
     (r"\bcurrent setting\b", "patamar atual"),
     (r"maintain (?:the )?current (?:policy|stance|setting|rate)", "manter o patamar atual"),
+    # ⚠️ CONSERTO 06/set — flexao verbal. A tabela conhecia "hold/holding the target" e
+    # "maintain the current rate", mas nao o PASSADO e o PRESENTE do INDICATIVO, que e como
+    # todo comunicado de decisao escreve: "the Bank today HELD its target", "Bank of Canada
+    # MAINTAINS the policy rate", "we decided to MAINTAIN the policy interest rate". Medido em
+    # 06/set nas duas falas do BoC de 02/set: nenhum marcador era encontrado e o motivo saia
+    # "trata de politica de juros, mas nao indica alta, corte nem manutencao" — sobre o proprio
+    # anuncio em que o banco diz que manteve.
+    (r"(?:held|holds) (?:the |its )?(?:target|policy rate|bank rate|cash rate|rates?)",
+     "manteve os juros"),
+    (r"maintain(?:s|ed|ing)? (?:the |its )?(?:policy |bank |cash |target |overnight )*"
+     r"(?:interest )?rate", "manter os juros"),
+    (r"(?:kept|keeps) (?:the |its )?(?:policy |bank |cash )?rates?", "manteve os juros"),
+    (r"(?:left|leaves) (?:the |its )?(?:policy |bank |cash )?rates? unchanged",
+     "deixou os juros inalterados"),
     (r"\bno (?:rush|hurry)\b", "sem pressa"),
     (r"\bnot in a (?:rush|hurry)\b", "sem pressa"),
     (r"\bbe patient\b", "ter paciência"),
@@ -234,6 +248,26 @@ CUES_PASSADO = [
     r"\bja (?:subimos|cortamos|elevamos|reduzimos|mantivemos)\b", r"\bno ano passado\b",
 ]
 
+# ⚠️ CONSERTO 06/set — A DECISAO ANUNCIADA NAO E "PASSADO".
+# O veto de tempo verbal foi desenhado para DISCURSO ("we raised the policy rate by 425bp in
+# 2022" nao diz nada sobre o proximo passo). Mas o nivel de maior peso da hierarquia — o
+# COMUNICADO — e sempre escrito no passado, porque ele ANUNCIA o que acabou de ser decidido:
+#     "we decided to maintain the policy interest rate at 2.25%"
+#     "we decided to leave the policy rate unchanged"
+# Essas frases descrevem a postura EM VIGOR, nao um movimento superado. O veto calava
+# justamente a fonte de peso 1,0 e devolvia "nenhuma frase de postura foi extraida do texto",
+# uma afirmacao falsa sobre o anuncio de decisao do proprio banco.
+# A distincao e semantica, nao um remendo: "decidimos MANTER/DEIXAR INALTERADO" tem efeito que
+# continua valendo; "subimos 425 pb em 2022" ja foi substituido pelas decisoes seguintes. Por
+# isso a excecao vale SO para o verbo de decisao seguido de manutencao — nunca para alta ou
+# corte, onde "subimos" continua sendo passado.
+DECISAO_EM_VIGOR = [
+    r"\b(?:we|i|the committee|the council|the board|the mpc) (?:unanimously )?"
+    r"(?:decided|voted|agreed) to (?:maintain|keep|leave|hold)\b",
+    r"\btoday (?:held|maintained|kept|left)\b",
+    r"\bdecidimos (?:manter|deixar)\b",
+]
+
 CUES_NEGACAO = [
     r"\bnot\b", r"n't\b", r"\bcannot\b", r"\bno need\b", r"\bno reason\b", r"\bno urgency\b",
     r"\bno case for\b", r"\bnever\b", r"\bwithout\b", r"\brather than\b", r"\binstead of\b",
@@ -250,6 +284,24 @@ CUES_ORADOR = [r"\bi\b", r"\bwe\b", r"\bmy\b", r"\bour\b", r"\bthe mpc\b", r"\bt
                r"\bthe fomc\b", r"\bthe council\b", r"\bgoverning council\b", r"\bthe bank\b",
                r"\bthe fed\b", r"\bpolicymakers\b", r"\bthe board\b", r"\bthe rba\b",
                r"\bthe boj\b", r"\beu\b", r"\bnos\b", r"\bo comite\b", r"\bo banco\b"]
+
+# ⚠️ CONSERTO 06/set — SO A PRIMEIRA PESSOA RESGATA UMA FRASE DE TERCEIROS.
+# A regra antiga era "descarta se ha terceiros E NAO ha orador", e CUES_ORADOR inclui o NOME
+# DA INSTITUICAO ("the fed", "the mpc", "the bank"). Isso derrotava o filtro na forma mais
+# comum do genero — "o mercado espera que o banco X faca Y" — porque o nome do banco ligava o
+# resgate. Medido chamando o classificador direto:
+#     "Market participants expect a rate cut in December."            -> indeterminado  (certo)
+#     "Market participants expect the MPC to keep rates on hold."     -> MANUTENCAO     (errado)
+#     "The market expects the Fed to cut rates in December."          -> CORTE          (errado)
+# E estava ao vivo no painel: o unico veredito do GBP saia "manutencao" justificado pelo
+# trecho "it is natural for MARKET PARTICIPANTS to interpret this set of scenarios as
+# suggesting the MPC is seeking to keep rates on hold".
+# O conserto: nomear a instituicao NAO diz quem esta falando — "o mercado espera que o Fed
+# corte" nomeia o Fed e continua sendo expectativa do mercado. So a primeira pessoa ("I",
+# "we", "eu", "nos") identifica o orador como a FONTE da postura. Erra para o lado do
+# silencio, que e a lei da casa.
+CUES_PRIMEIRA_PESSOA = [r"\bi\b", r"\bwe\b", r"\bmy\b", r"\bour\b", r"\bme\b",
+                        r"\beu\b", r"\bnos\b", r"\bnosso", r"\bminha\b", r"\bmeu\b"]
 
 CUES_EXPECTATIVA = [r"\bexpected\b", r"\bprospective\b", r"\banticipated\b", r"\bpriced\b",
                     r"\bpricing\b", r"\bexpectations?\b", r"\bforecast of\b", r"\bimplied\b",
@@ -355,24 +407,46 @@ def classifica_frase(frase: str) -> dict:
     condicao = _tem(CUES_CONDICAO, fn)
     firmes, condicionais, negados, descartados = [], [], [], []
 
+    # ATRIBUICAO A TERCEIROS — medida na FRASE INTEIRA, nao so na oracao.
+    # "it is natural for market participants to interpret ... as suggesting the MPC is seeking
+    # to keep rates on hold BUT would raise rates aggressively if ..." — o "but" abre uma
+    # oracao nova, sem a palavra "mercado" dentro, e a segunda metade escapava do filtro. Mas
+    # o sujeito da frase inteira continua sendo o mercado: as duas metades sao a interpretacao
+    # DELE. Por isso a posicao do terceiro e comparada com a posicao ABSOLUTA do marcador.
+    _t = re.search("|".join(CUES_TERCEIROS), fn)
+    terceiros_pos, terceiros_prova = (_t.start(), _t.group(0)) if _t else (None, None)
+    primeira_pessoa = _tem(CUES_PRIMEIRA_PESSOA, fn)
+
+    cursor = 0
     for oracao in _oracoes(fn):
+        base_pos = fn.find(oracao, cursor)
+        if base_pos < 0:
+            base_pos = cursor
+        cursor = base_pos + len(oracao)
         passado = _tem(CUES_PASSADO, oracao) or _tem_ano_passado(oracao)
-        terceiros = _tem(CUES_TERCEIROS, oracao)
-        orador = _tem(CUES_ORADOR, oracao)
+        # a DECISAO ANUNCIADA nao e passado: ver o comentario em DECISAO_EM_VIGOR
+        em_vigor = _tem(DECISAO_EM_VIGOR, oracao)
         for mk in _marcadores_da_oracao(oracao):
             antes = oracao[:mk["ini"]]
             janela = antes[-JANELA_EXPECTATIVA:]
             registro = {"direcao": mk["direcao"], "expressao": mk["expressao"],
                         "legivel": mk["legivel"]}
-            if passado:
+            # a manutencao anunciada continua valendo; alta e corte no passado nao
+            passado_aqui = None if (passado and em_vigor and mk["direcao"] == "manutenção") \
+                else passado
+            if passado_aqui:
                 descartados.append(dict(registro, descarte="passado", prova=passado))
                 continue
             if _tem(CUES_EXPECTATIVA, janela):
                 descartados.append(dict(registro, descarte="expectativa de mercado",
                                         prova=_tem(CUES_EXPECTATIVA, janela)))
                 continue
-            if terceiros and not orador:
-                descartados.append(dict(registro, descarte="fala de terceiros", prova=terceiros))
+            # a atribuicao a terceiros so vale se o terceiro vem ANTES do marcador na frase:
+            # "vamos subir os juros, e o mercado sabe disso" nao e fala do mercado.
+            if (terceiros_pos is not None and not primeira_pessoa
+                    and base_pos + mk["ini"] > terceiros_pos):
+                descartados.append(dict(registro, descarte="fala de terceiros",
+                                        prova=terceiros_prova))
                 continue
             neg = _tem(CUES_NEGACAO, antes)
             if neg:

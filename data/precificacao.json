@@ -1,0 +1,285 @@
+{
+ "gerado_em": "2026-09-06T19:21:15Z",
+ "lei": "A precificacao NUNCA entra no sentimento. E a coluna de comparacao contra a leitura do HCI; a divergencia entre as duas e o produto.",
+ "regua": {
+  "passo_bp": 25.0,
+  "min_dias_depois": 7,
+  "banda_morta_bp": 3.0,
+  "janela_manchete_dias": 7,
+  "jaccard_dedup": 0.7,
+  "veiculos_manchete": [
+   "reuters",
+   "bloomberg",
+   "financial times",
+   "ft.com",
+   "wall street journal",
+   "wsj",
+   "dow jones"
+  ],
+  "provisorio": "min_dias_depois, banda_morta_bp e a escada de qualidade sao PROVISORIOS — sem backtest que os calibre.",
+  "qualidade": {
+   "alta": "probabilidade tirada de futuro de taxa MEDIA MENSAL da propria taxa de politica (ZQ, IB, COA)",
+   "media": "manchete de Reuters/Bloomberg/FT/WSJ com numero amarrado a PROXIMA reuniao",
+   "baixa": "so direcao, de futuro de taxa a TERMO de 3 meses (BB)",
+   "sem fonte": "None com o motivo escrito"
+  }
+ },
+ "moedas": {
+  "USD": {
+   "moeda": "USD",
+   "banco": "Federal Reserve",
+   "sigla": "Fed",
+   "proxima": "2026-09-16",
+   "taxa_atual": 3.625,
+   "nome_taxa": "Federal funds target range",
+   "implicito_bp": 14.57,
+   "p_alta": 0.5829,
+   "p_corte": 0.0,
+   "p_manutencao": 0.4171,
+   "direcao_mercado": "alta",
+   "fonte": "futuros de fed funds 30d (ZQ, CME) via API de grafico do Yahoo + EFFR do NY Fed",
+   "metodo": "futuros",
+   "qualidade": "alta",
+   "coletado_em": "2026-09-06T19:21:16Z",
+   "detalhe": {
+    "taxa_pos": 3.7757,
+    "regra": "inversao no mes da reuniao",
+    "contrato_usado": "ZQU26.CBT",
+    "contrato_mes_reuniao": "ZQU26.CBT",
+    "taxa_pos_conferencia": null,
+    "dias_antes": 16,
+    "dias_depois": 14,
+    "dias_do_mes": 30,
+    "conta": "base = EFFR 3.6300% de 2026-09-03 (NY Fed). regra 2 (mes seguinte tem reuniao em 2026-10-28 (contrato contaminado)): ZQU26.CBT = 96.3020 -> taxa media do mes = 100 - 96.3020 = 3.6980. O mes tem 30 dias: 16 antes do anuncio (dia 16, taxa nova so no dia seguinte) a 3.6300, e 14 depois a taxa_pos. Invertendo: taxa_pos = (3.6980*30 - 3.6300*16)/14 = 3.7757. delta = 3.7757 - 3.6300 = +14.57 bp. Passo 25 bp: p_alta = 0.5829, p_corte = 0.0000, p_manutencao = 0.4171.",
+    "base_taxa": 3.63,
+    "base_origem": "EFFR do NY Fed (2026-09-03)"
+   }
+  },
+  "EUR": {
+   "moeda": "EUR",
+   "banco": "Banco Central Europeu",
+   "sigla": "BCE",
+   "proxima": "2026-09-10",
+   "taxa_atual": 2.25,
+   "nome_taxa": "Deposit facility rate",
+   "implicito_bp": null,
+   "p_alta": null,
+   "p_corte": null,
+   "p_manutencao": null,
+   "direcao_mercado": null,
+   "fonte": null,
+   "metodo": null,
+   "qualidade": "sem fonte",
+   "coletado_em": "2026-09-06T19:21:16Z",
+   "detalhe": {
+    "motivo": "manchete: nenhum item de Reuters/Bloomberg/FT/WSJ com ate 7 dias entre os 121 resultados lidos"
+   }
+  },
+  "GBP": {
+   "moeda": "GBP",
+   "banco": "Bank of England",
+   "sigla": "BoE",
+   "proxima": "2026-09-17",
+   "taxa_atual": 3.75,
+   "nome_taxa": "Official Bank Rate",
+   "implicito_bp": null,
+   "p_alta": null,
+   "p_corte": null,
+   "p_manutencao": null,
+   "direcao_mercado": null,
+   "fonte": null,
+   "metodo": null,
+   "qualidade": "sem fonte",
+   "coletado_em": "2026-09-06T19:21:19Z",
+   "detalhe": {
+    "motivo": "manchete: nenhum item de Reuters/Bloomberg/FT/WSJ com ate 7 dias entre os 119 resultados lidos"
+   }
+  },
+  "JPY": {
+   "moeda": "JPY",
+   "banco": "Bank of Japan",
+   "sigla": "BoJ",
+   "proxima": "2026-09-18",
+   "taxa_atual": 1.0,
+   "nome_taxa": "Call rate overnight (guideline)",
+   "implicito_bp": null,
+   "p_alta": null,
+   "p_corte": null,
+   "p_manutencao": null,
+   "direcao_mercado": null,
+   "fonte": null,
+   "metodo": null,
+   "qualidade": "sem fonte",
+   "coletado_em": "2026-09-06T19:21:22Z",
+   "detalhe": {
+    "motivo": "manchete: 2 manchete(s) de veiculo aceito na janela, nenhuma passou na regua da proxima reuniao: Bond yields fall, stocks rally as Fed's Waller comments curb (sem numero); Yen jumps on BOJ hike bets, dollar slips on Waller comments  (sem numero)"
+   }
+  },
+  "AUD": {
+   "moeda": "AUD",
+   "banco": "Reserve Bank of Australia",
+   "sigla": "RBA",
+   "proxima": "2026-09-29",
+   "taxa_atual": 4.35,
+   "nome_taxa": "Cash Rate Target",
+   "implicito_bp": 15.5,
+   "p_alta": 0.62,
+   "p_corte": 0.0,
+   "p_manutencao": 0.38,
+   "direcao_mercado": "alta",
+   "fonte": "futuros IB (30 Day Interbank Cash Rate, ASX) via asx.api.markitdigital.com — a API do ASX RBA Rate Tracker",
+   "metodo": "futuros",
+   "qualidade": "alta",
+   "coletado_em": "2026-09-06T19:21:27Z",
+   "detalhe": {
+    "taxa_pos": 4.505,
+    "regra": "mes seguinte limpo",
+    "contrato_usado": "IBV2026",
+    "contrato_mes_reuniao": "IBU2026",
+    "taxa_pos_conferencia": null,
+    "dias_antes": 29,
+    "dias_depois": 1,
+    "dias_do_mes": 30,
+    "conta": "base = alvo vigente do RBA 4.3500% (data/bancos_centrais.json). regra 1 (preferida): october nao tem reuniao deste banco, entao IBV2026 = 95.4950 e a taxa pos-decisao inteira -> taxa_pos = 100 - 95.4950 = 4.5050. conferencia pelo mes da reuniao: IBU2026 = 95.6500 -> media do mes 4.3500; 29 dias a 4.3500 + 1 dias a taxa_pos => taxa_pos = (4.3500*30 - 4.3500*29)/1 = 4.3500. ATENCAO: so 1 dia(s) depois da reuniao neste mes, entao esta conta amplifica o ruido do preco em 30x e NAO vale como segunda medida — o que ela mostra e que o mercado nao espera mudanca ANTES do dia 29. delta = 4.5050 - 4.3500 = +15.50 bp. Passo 25 bp: p_alta = 0.6200, p_corte = 0.0000, p_manutencao = 0.3800.",
+    "base_taxa": 4.35,
+    "base_origem": "alvo vigente no cadastro do radar",
+    "conferencia_base": "IBU2026 implica media de 4.3500% no mes; com a reuniao no dia 29 sobram 1 dia(s) de taxa nova, entao os outros 29 dias correm na base — a base do cadastro (4.3500%) fecha com o mercado dentro de 0.0 bp.",
+    "cadeia": [
+     {
+      "sym": "IBU2026",
+      "preco": 95.65,
+      "vencimento": "2026-09-28",
+      "volume": 19
+     },
+     {
+      "sym": "IBV2026",
+      "preco": 95.495,
+      "vencimento": "2026-10-28",
+      "volume": 360
+     },
+     {
+      "sym": "IBX2026",
+      "preco": 95.395,
+      "vencimento": "2026-11-28",
+      "volume": 5
+     },
+     {
+      "sym": "IBZ2026",
+      "preco": 95.37,
+      "vencimento": "2026-12-29",
+      "volume": 0
+     },
+     {
+      "sym": "IBF2027",
+      "preco": 95.36,
+      "vencimento": "2027-01-27",
+      "volume": 0
+     },
+     {
+      "sym": "IBG2027",
+      "preco": 95.325,
+      "vencimento": "2027-02-24",
+      "volume": 0
+     }
+    ]
+   }
+  },
+  "NZD": {
+   "moeda": "NZD",
+   "banco": "Reserve Bank of New Zealand",
+   "sigla": "RBNZ",
+   "proxima": "2026-10-28",
+   "taxa_atual": 2.75,
+   "nome_taxa": "Official Cash Rate",
+   "implicito_bp": null,
+   "p_alta": null,
+   "p_corte": null,
+   "p_manutencao": null,
+   "direcao_mercado": "alta",
+   "fonte": "futuros BB (New Zealand 90 Day Bank Bill, ASX) via asx.api.markitdigital.com",
+   "metodo": "futuros",
+   "qualidade": "baixa",
+   "coletado_em": "2026-09-06T19:21:31Z",
+   "detalhe": {
+    "metodo": "futuros",
+    "qualidade": "baixa",
+    "fonte": "futuros BB (New Zealand 90 Day Bank Bill, ASX) via asx.api.markitdigital.com",
+    "implicito_bp": null,
+    "p_alta": null,
+    "p_corte": null,
+    "p_manutencao": null,
+    "direcao_mercado": "alta",
+    "inclinacao_bp": 28.0,
+    "motivo_sem_probabilidade": "BB e taxa a TERMO de 90 dias, nao media mensal da OCR: carrega premio de prazo e de credito e cobre uma janela que atravessa mais de uma reuniao. Converter em probabilidade da proxima reuniao exigiria arbitrar o spread bank bill x OCR, que seria estimativa sem fonte. Fica so a direcao.",
+    "conta": "BBU2026 (vence 2026-09-14) = 96.9300 -> taxa 90d implicita 3.0700%; BBZ2026 (vence 2026-12-14) = 96.6500 -> 3.3500%. Inclinacao = +28.00 bp entre as duas janelas de 90 dias. Como o spread bank bill x OCR entra igual nas duas, ele se cancela na subtracao e o sinal da inclinacao e a direcao esperada da politica. O NIVEL nao sobrevive a essa conta.",
+    "cadeia": [
+     {
+      "sym": "BBU2026",
+      "preco": 96.93,
+      "vencimento": "2026-09-14",
+      "volume": 989
+     },
+     {
+      "sym": "BBZ2026",
+      "preco": 96.65,
+      "vencimento": "2026-12-14",
+      "volume": 497
+     },
+     {
+      "sym": "BBH2027",
+      "preco": 96.42,
+      "vencimento": "2027-03-08",
+      "volume": 257
+     },
+     {
+      "sym": "BBM2027",
+      "preco": 96.22,
+      "vencimento": "2027-06-14",
+      "volume": 1251
+     }
+    ],
+    "manchete_tentada": "nenhum item de Reuters/Bloomberg/FT/WSJ com ate 7 dias entre os 93 resultados lidos"
+   }
+  },
+  "CAD": {
+   "moeda": "CAD",
+   "banco": "Bank of Canada",
+   "sigla": "BoC",
+   "proxima": "2026-10-28",
+   "taxa_atual": 2.25,
+   "nome_taxa": "Target for the overnight rate",
+   "implicito_bp": null,
+   "p_alta": null,
+   "p_corte": null,
+   "p_manutencao": null,
+   "direcao_mercado": null,
+   "fonte": null,
+   "metodo": null,
+   "qualidade": "sem fonte",
+   "coletado_em": "2026-09-06T19:21:31Z",
+   "detalhe": {
+    "motivo": "futuros: Bolsa de Montreal (COA, One-Month CORRA Futures) serve preco por widget QuoteMedia com sessao presa ao dominio: getFuturesChain.json -> Invalid product.; getEnhancedQuotes.json -> HTTP 403 | manchete: 1 manchete(s) de veiculo aceito na janela, nenhuma passou na regua da proxima reuniao: Bank of Canada holds key rate, says multiple hikes might be  (sem numero)"
+   }
+  },
+  "CHF": {
+   "moeda": "CHF",
+   "banco": "Swiss National Bank",
+   "sigla": "SNB",
+   "proxima": "2026-09-24",
+   "taxa_atual": 0.0,
+   "nome_taxa": "SNB policy rate",
+   "implicito_bp": null,
+   "p_alta": null,
+   "p_corte": null,
+   "p_manutencao": null,
+   "direcao_mercado": null,
+   "fonte": null,
+   "metodo": null,
+   "qualidade": "sem fonte",
+   "coletado_em": "2026-09-06T19:21:35Z",
+   "detalhe": {
+    "motivo": "manchete: nenhum item de Reuters/Bloomberg/FT/WSJ com ate 7 dias entre os 93 resultados lidos"
+   }
+  }
+ }
+}

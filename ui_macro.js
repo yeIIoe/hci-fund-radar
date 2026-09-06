@@ -206,15 +206,51 @@
     return h + "h";
   }
 
+  /* (2b) O SEGUNDO RELÓGIO — a idade da PUBLICAÇÃO, medida no navegador de quem lê.
+   *
+   * O `atraso_min` que o núcleo grava é a idade da FONTE no instante em que a rodada foi
+   * gerada — na prática, o tempo entre dois passos da mesma cadeia (1 a 18 min). Medido no
+   * histórico: nas 13 versões do arquivo que já traziam o bloco de frescor, o estado saiu
+   * "ok" em 13 de 13. A tarja nunca acendeu, e o campo do arquivo envelhece junto com o
+   * arquivo — ler o número congelado é ler o relógio parado.
+   *
+   * Aqui a idade é recalculada contra Date.now(). Os limiares são OUTROS de propósito (180 e
+   * 360 min, provisórios, vindos do ritmo medido de publicação: mediana de 157 min entre
+   * rodadas): com 45/120 a tarja ficaria acesa em 100% das rodadas normais. E esta idade
+   * NUNCA liga a suspensão da leitura — quem suspende é o estado das fontes que votam. */
+  const LIM_PUB = { atrasado_min: 180, muito_atrasado_min: 360 };
+  function idadePublicacao() {
+    const F = (M.sent && M.sent.frescor) || {};
+    const lim = (F.idade_da_publicacao && F.idade_da_publicacao.limiares_provisorios_min)
+      || LIM_PUB;
+    const g = (M.sent && M.sent.gerado_em) || null;
+    if (!g) return { min: null, estado: "ok", lim };
+    const t = new Date(g).getTime();
+    if (!isFinite(t)) return { min: null, estado: "ok", lim };
+    const min = Math.round((Date.now() - t) / 60000);
+    if (min < 0) return { min: 0, estado: "ok", lim };
+    const estado = min >= lim.muito_atrasado_min ? "muito_atrasado"
+      : min >= lim.atrasado_min ? "atrasado" : "ok";
+    return { min, estado, lim };
+  }
+  const PIOR_ESTADO = { ok: 0, atrasado: 1, muito_atrasado: 2 };
+
   function frescorDados() {
     const F = (M.sent && M.sent.frescor) || null;
     if (F && F.estado) {
       const lim = F.limiares_provisorios || LIM_PROV;
+      const P = idadePublicacao();
+      // o estado mostrado é o PIOR dos dois relógios; a suspensão continua vindo só do núcleo
+      const estado = PIOR_ESTADO[P.estado] > PIOR_ESTADO[F.estado] ? P.estado : F.estado;
       // o núcleo às vezes já escreve o fuso dentro do texto ("02:18 (BRT)"); duplicar
       // vira "02:18 (BRT) BRT" — visto na tela em 05/set
       return {
         atraso_min: F.atraso_min == null ? null : Math.round(Number(F.atraso_min)),
-        estado: F.estado,
+        estado,
+        estado_fontes: F.estado,
+        pub_min: P.min,
+        pub_estado: P.estado,
+        pub_lim: P.lim,
         bloqueia: !!F.bloqueia_leitura,
         sinc_brt: F.ultima_sincronizacao_ok_brt || brt(F.ultima_sincronizacao_ok_utc) || null,
         texto: F.texto || null,
@@ -251,11 +287,21 @@
   function tarjaAtraso() {
     const F = frescorDados();
     if (F.estado === "ok") return "";
-    const l1 = `⚠ Dados atrasados em ${atrasoCurto(F.atraso_min)}`;
+    // qual dos dois relógios acendeu a tarja — a frase muda, porque o problema é outro
+    const porPublicacao = F.pub_estado && F.pub_estado !== "ok"
+      && (!F.estado_fontes || F.estado_fontes === "ok");
+    const l1 = porPublicacao
+      ? `⚠ Esta leitura foi publicada há ${atrasoCurto(F.pub_min)}`
+      : `⚠ Dados atrasados em ${atrasoCurto(F.atraso_min)}`;
+    const linhaPub = F.pub_min == null ? "" :
+      `<span>Publicada há ${esc(atrasoCurto(F.pub_min))} · a cadeia publica a cada 2 a 3 horas,
+        não em tempo real (limiares provisórios: ${F.pub_lim.atrasado_min} min atrasada,
+        ${F.pub_lim.muito_atrasado_min} min muito atrasada)</span>`;
     return `<div class="mac-tarja-atraso${F.estado === "muito_atrasado" ? " grave" : ""}" role="status">
       <strong>${esc(l1)}</strong>
       <span>Leituras potencialmente desatualizadas</span>
       <span>Não utilizar como nova tese até a sincronização</span>
+      ${linhaPub}
       <small>${F.sinc_brt
         ? `Última vez <b>sincronizado</b> com sucesso: ${esc(comBrt(F.sinc_brt))}`
         : "Sem carimbo de sincronização bem-sucedida no arquivo"}${
@@ -410,6 +456,17 @@
    * está ENTRE dois dígitos — data, versão e domínio não são tocados. */
   function virgulaDecimal(t) {
     return String(t == null ? "" : t).replace(/(\d)\.(\d)/g, "$1,$2");
+  }
+
+  /* Texto corrido que vem PRONTO do núcleo e vai inteiro para a tela (canal, medido, aviso
+   * dos instrumentos). Duas coisas foram medidas nele em 06/set: as palavras "hawkish" e
+   * "dovish" no cartão do ouro — inglês puro na tela — e o ponto decimal em toda a linha do
+   * "medido" ("-0.274 no mesmo dia", "acompanha o grande em 0.9986"). Traduzido para o mesmo
+   * vocabulário que a interface já usa nas moedas: inclinada à alta / inclinada ao corte. */
+  function textoNucleoPt(t) {
+    return virgulaDecimal(String(t == null ? "" : t)
+      .replace(/\bhawkish\b/gi, "inclinada à alta")
+      .replace(/\bdovish\b/gi, "inclinada ao corte"));
   }
   function tituloPt(t) {
     const s = String(t == null ? "" : t);
@@ -587,9 +644,11 @@
    * A frase inteira é longa demais para o tradutor de título, mas o que está entre parênteses
    * é exatamente um título de evento — e esse passa. Quando não passa, fica o original: o
    * tradutor devolve o texto igual em vez de meia-tradução (varredura de 06/set). */
+  // O mesmo alerta também traz o teto com ponto decimal ("teto 1.00 no par", "0.75 de 1.00"):
+  // vírgula, como no resto do painel.
   function alertaPt(txt) {
-    return String(txt == null ? "" : txt)
-      .replace(/\(([^()]{3,70})\)/g, (m, dentro) => "(" + tituloPt(dentro) + ")");
+    return virgulaDecimal(String(txt == null ? "" : txt)
+      .replace(/\(([^()]{3,70})\)/g, (m, dentro) => "(" + tituloPt(dentro) + ")"));
   }
   function tarjaAlerta(txt, classe) {
     return txt ? `<div class="mac-tarja${classe ? " " + classe : ""}">⚠ ${esc(alertaPt(txt))}</div>` : "";
@@ -1024,7 +1083,10 @@
     if (m !== "USD" || !M.eua || !M.eua.indicadores) return "";
     const I = M.eua.indicadores;
     const cpi = I.CUSR0000SA0, core = I.CUSR0000SA0L1E, nfp = I.CES0000000001, u = I.LNS14000000;
-    const p = (x, d = 2) => (x === null || x === undefined) ? "—" : (x > 0 ? "+" : "") + x.toFixed(d);
+    // ⚠️ 06/set: esta linha saía "CPI +3.30% a/a · desemprego 4.1%" — ponto decimal em inglês
+    // no cartão da perna do dólar — e a referência saía em ISO, "(2026-07)".
+    const p = (x, d = 2) => (x === null || x === undefined) ? "—"
+      : (x > 0 ? "+" : "") + x.toFixed(d).replace(".", ",");
     const partes = [];
     // Rotulos em PORTUGUES na fonte: este cartao e todo em portugues e o ui_lang.js so troca
     // NOS DE TEXTO inteiros — "m/m · unemployment" caia num no unico que nenhuma chave casava,
@@ -1032,9 +1094,9 @@
     if (cpi && cpi.aa != null) partes.push(`CPI <b>${p(cpi.aa)}%</b> a/a`);
     if (core && core.aa != null) partes.push(`núcleo <b>${p(core.aa)}%</b>`);
     if (nfp && nfp.mm != null) partes.push(`NFP <b>${p(nfp.mm, 0)}k</b> m/m`);
-    if (u && u.valor != null) partes.push(`desemprego <b>${u.valor.toFixed(1)}%</b>`);
+    if (u && u.valor != null) partes.push(`desemprego <b>${u.valor.toFixed(1).replace(".", ",")}%</b>`);
     if (!partes.length) return "";
-    const ref = cpi && cpi.referencia ? cpi.referencia : "";
+    const ref = cpi && cpi.referencia ? dataBr(cpi.referencia) : "";
     return `<div class="mac-perna-linha mac-perna-eua">últimos dados <small class="muted">(${esc(ref)})</small><br>${partes.join(" &middot; ")}</div>`;
   }
 
@@ -1202,7 +1264,10 @@
   function correlacoesInstr(I) {
     const C = I.correlacoes;
     if (!C || !C.series) return "";
-    const f = (x) => (x === null || x === undefined) ? "—" : (x > 0 ? "+" : "") + Number(x).toFixed(2);
+    // ⚠️ 06/set: esta tabela saía com PONTO decimal ("-0.42", "0.00") no meio de um painel
+    // todo em português — foi o último lugar da tela com separador em inglês.
+    const f = (x) => (x === null || x === undefined) ? "—"
+      : (x > 0 ? "+" : "") + Number(x).toFixed(2).replace(".", ",");
     const linhas = Object.keys(C.series).map((k) => {
       const s = C.series[k];
       return `<tr><td>${esc(ROT_CORR[k] || s.rotulo || k)}</td>
@@ -1263,19 +1328,19 @@
       </div>
       <p class="mac-det-nota">${esc(I.nome)} é lido por <b>duas pernas</b>: a leitura de juro do dólar,
         invertida (USD ${esc((leituraDe("USD") || {}).texto || ROT_DIR_PT[u.direcao] || "sem leitura")}), mais a <b>geopolítica</b>
-        (${esc((I.geo || {}).estado || "não conectada")}) — marcada como <b>${SELO_GEO}</b>.
+        (${esc(virgulaDecimal((I.geo || {}).estado || "não conectada"))}) — marcada como <b>${SELO_GEO}</b>.
         ${I.sinal === "SEM_TESE" ? "Hoje as duas pernas se cancelam exatamente." : ""}</p>
       <div class="mac-pernas">
         ${pernaCard("USD", cicloDe("USD"), "a perna que manda")}
         <div class="mac-perna">
           <span class="mac-perna-papel">canal</span>
-          <div class="mac-perna-linha">${esc(I.canal)}</div>
+          <div class="mac-perna-linha">${esc(textoNucleoPt(I.canal))}</div>
           <span class="mac-perna-papel" style="margin-top:12px">medido em casa</span>
-          <div class="mac-perna-linha ${/NOT measured|nao medido|não medido/i.test(I.medido) ? "muted" : ""}">${esc(I.medido)}</div>
+          <div class="mac-perna-linha ${/NOT measured|nao medido|não medido/i.test(I.medido) ? "muted" : ""}">${esc(textoNucleoPt(I.medido))}</div>
           ${correlacoesInstr(I)}
         </div>
       </div>
-      <p class="mac-eua-nota">${esc(I.aviso)}</p>`;
+      <p class="mac-eua-nota">${esc(textoNucleoPt(I.aviso))}</p>`;
   }
 
   /* O CARD DO PAR — (g) TRES NUMEROS SEPARADOS, NUNCA SOMADOS.
@@ -2177,7 +2242,12 @@
         let t = el.textContent;
         if (!t || !/FUND/i.test(t)) return;
         TROCA.forEach(([re, novo]) => { t = t.replace(re, novo); });
-        t = t.replace(/FUND/g, "macro");
+        // ⚠️ 06/set: esta linha estava MORTA. O que havia no arquivo não era \b de limite de
+        // palavra e sim o caractere BACKSPACE (0x08) literal dentro da regex — ela procurava
+        // um BACKSPACE, depois FUND, depois outro BACKSPACE — coisa que não existe em texto
+        // nenhum. Resultado: a última rede contra a palavra FUND sobrando na tela nunca
+        // disparava. Achado com uma varredura de caracteres de controle nos três arquivos.
+        t = t.replace(/\bFUND\b/g, "macro");
         if (t !== el.textContent) el.textContent = t;
       });
 

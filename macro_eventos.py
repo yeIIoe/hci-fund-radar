@@ -77,9 +77,19 @@ def familia_de(titulo: str):
     # nucleo antes de cheia, senao "core cpi" cai em "cpi"
     # desemprego antes de emprego_criacao: "Unemployment Change" tem que ser desemprego
     # coletiva ANTES de decisao: "RBNZ Press Conference" tem que virar coletiva, nao decisao
+    #
+    # ⚠️ CONSERTO 06/set — MORADIA e BALANCA antes de INFLACAO_CHEIA. O padrao generico
+    # "price index" da inflacao_cheia (peso 7) engolia preco de IMOVEL e leilao de leite:
+    # "Rightmove House Price Index", "New Housing Price Index" (CAD), "Housing Price Index"
+    # (USD), "GDT Price Index" (leilao de lacteos da Nova Zelandia). Preco de casa e preco
+    # de commodity nao sao inflacao ao consumidor, e entravam com o peso da inflacao. Na
+    # janela de 42 dias eram 27 de 223 eventos de inflacao (12%) — e o Housing Price Index
+    # chegou a ser o 5o maior contribuinte da dimensao de dados do USD. Como moradia e
+    # balanca tem padroes ESPECIFICOS, adianta-los nao rouba nada de ninguem.
     ordem = ["inflacao_nucleo", "expectativa_inflacao", "salarios", "desemprego",
-             "auxilio_desemprego", "emprego_criacao", "inflacao_cheia", "coletiva", "decisao",
-             "pmi", "pib", "varejo", "producao", "moradia", "confianca", "balanca"]
+             "auxilio_desemprego", "emprego_criacao", "moradia", "balanca",
+             "inflacao_cheia", "coletiva", "decisao",
+             "pmi", "pib", "varejo", "producao", "confianca"]
     for nome in ordem:
         for pad in FAMILIAS[nome]["padroes"]:
             if _casa(pad, t):
@@ -116,14 +126,43 @@ def num(x):
 CORTE_DECISAO_ABS = 0.10
 
 
-def classifica(actual, forecast, corte_abs=None):
-    """Tres faixas: MUITO_ABAIXO / EM_LINHA / MUITO_ACIMA."""
+def corte_da_surpresa(forecast, familia=None):
+    """O tamanho da faixa "veio como esperado" — UMA regua para os TRES leitores.
+
+    Esta funcao existe para que macro_eventos.py, sentimento.py e eua_leitor.py nao possam
+    divergir: se cada um calculasse o proprio corte, o MESMO dado sairia "em linha" numa tela
+    e "hawkish" na outra. Ordem de precedencia, do mais especifico para o menos:
+
+      1. a DECISAO de juro tem corte proprio (0,10 pp — menos de meio quantum de 25 bp);
+      2. a familia tem corte ABSOLUTO medido (leitor_regras.CORTES_ABS_PROVISORIOS);
+      3. o resto cai na regua relativa antiga, 35% do NIVEL do consenso, com piso de 0,10.
+
+    O passo 2 e o conserto de 06/set: a regua relativa apagava 76% das divulgacoes, e
+    apagava 100% de PMI, confianca e auxilio-desemprego. O bloco de comentario em
+    leitor_regras.py tem a medicao inteira.
+    """
+    if familia == "decisao":
+        return CORTE_DECISAO_ABS
+    meta = FAMILIAS.get(familia) if familia else None
+    if meta and meta.get("corte_abs") is not None:
+        return float(meta["corte_abs"])
+    f = num(forecast)
+    if f is None:
+        return float(CORTE_PADRAO["minimo_abs"])
+    return max(abs(f) * CORTE_PADRAO["fracao"], CORTE_PADRAO["minimo_abs"])
+
+
+def classifica(actual, forecast, corte_abs=None, familia=None):
+    """Tres faixas: MUITO_ABAIXO / EM_LINHA / MUITO_ACIMA.
+
+    `familia` e o NOME da familia (string), nao o dicionario — e o que escolhe o corte.
+    `corte_abs` continua existindo para quem quiser mandar o corte na mao; ele vence tudo.
+    """
     a, f = num(actual), num(forecast)
     if a is None or f is None:
         return None, None
     d = a - f
-    corte = corte_abs if corte_abs is not None else \
-        max(abs(f) * CORTE_PADRAO["fracao"], CORTE_PADRAO["minimo_abs"])
+    corte = corte_abs if corte_abs is not None else corte_da_surpresa(forecast, familia)
     if d > corte:
         return "MUITO_ACIMA", d
     if d < -corte:
@@ -259,8 +298,9 @@ def main():
         mod = MODULADORES.get("impacto_" + {"high": "alto", "medium": "medio"}.get(imp, "baixo"), 0.2)
 
         actual = e["actual"]
-        classe, dif = classifica(actual, e["forecast"],
-                                 CORTE_DECISAO_ABS if nome_fam == "decisao" else None)
+        # a regua unica resolve tudo: decisao (corte proprio), familia com corte absoluto
+        # medido, e o resto na regua relativa. Ver macro_eventos.corte_da_surpresa().
+        classe, dif = classifica(actual, e["forecast"], familia=nome_fam)
         forca, texto = empurrao(classe, fam)
 
         # 🔴 `is None`, nunca `or`: 0.0 e um resultado, nao uma ausencia.

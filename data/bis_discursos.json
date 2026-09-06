@@ -1,0 +1,853 @@
+{
+ "gerado_em": "2026-09-06T19:39:11.851419+00:00",
+ "fonte": {
+  "agregador": "BIS",
+  "arquivo": "Central bankers' speeches",
+  "rss": "https://www.bis.org/doclist/cbspeeches.rss",
+  "busca": "https://www.bis.org/speeches/central-bank",
+  "filtros": "https://www.bis.org/cbspeeches/index.htm",
+  "por_que": "RBA e RBNZ devolvem 403 a automacao e o SNB nao tem feed nas rotas conhecidas (404). O BIS agrega os discursos de todos os bancos centrais, inclusive os tres, e responde 200.",
+  "como_filtra": "o BIS NAO tem filtro por instituicao. person[]=id gera os candidatos e a instituicao e conferida na DESCRICAO de cada item — quem manda e a descricao, nunca o id."
+ },
+ "status_fontes": {
+  "_rss": "ok (50 itens)",
+  "_ids_oradores": "ok (747 oradores)",
+  "AUD": "ok via BIS (440 itens, 2009-02-10 a 2026-08-13; 2 na janela de 42 dias)",
+  "NZD": "historico ok via BIS (137 itens ate 2026-03-24) — SEM fala na janela de 42 dias",
+  "CHF": "historico ok via BIS (223 itens ate 2026-06-24) — SEM fala na janela de 42 dias",
+  "USD": "ok via BIS (173 itens, 2012-02-10 a 2026-08-05; 1 na janela de 42 dias)",
+  "EUR": "historico ok via BIS (119 itens ate 2026-07-17) — SEM fala na janela de 42 dias",
+  "GBP": "historico ok via BIS (99 itens ate 2026-07-14) — SEM fala na janela de 42 dias",
+  "JPY": "historico ok via BIS (82 itens ate 2026-06-25) — SEM fala na janela de 42 dias",
+  "CAD": "historico ok via BIS (46 itens ate 2026-07-15) — SEM fala na janela de 42 dias"
+ },
+ "status_fontes_texto": {
+  "AUD": "conectado pelo arquivo do BIS: 440 falas de 2009-02-10 a 2026-08-13, sendo 2 dentro da janela de 42 dias. O site do RBA segue fechado a automacao (o BIS e o unico caminho).",
+  "NZD": "historico conectado pelo arquivo do BIS (137 falas de 2010-01-29 a 2026-03-24), mas NENHUMA dentro da janela de 42 dias: nao ha o que somar no sentimento hoje. O site do RBNZ segue fechado a automacao (o BIS e o unico caminho).",
+  "CHF": "historico conectado pelo arquivo do BIS (223 falas de 2009-03-02 a 2026-06-24), mas NENHUMA dentro da janela de 42 dias: nao ha o que somar no sentimento hoje. O site do SNB segue fechado a automacao (o BIS e o unico caminho).",
+  "USD": "conectado pelo arquivo do BIS: 173 falas de 2012-02-10 a 2026-08-05, sendo 1 dentro da janela de 42 dias.",
+  "EUR": "historico conectado pelo arquivo do BIS (119 falas de 2023-11-02 a 2026-07-17), mas NENHUMA dentro da janela de 42 dias: nao ha o que somar no sentimento hoje.",
+  "GBP": "historico conectado pelo arquivo do BIS (99 falas de 2016-02-11 a 2026-07-14), mas NENHUMA dentro da janela de 42 dias: nao ha o que somar no sentimento hoje.",
+  "JPY": "historico conectado pelo arquivo do BIS (82 falas de 2020-11-12 a 2026-06-25), mas NENHUMA dentro da janela de 42 dias: nao ha o que somar no sentimento hoje.",
+  "CAD": "historico conectado pelo arquivo do BIS (46 falas de 2020-06-04 a 2026-07-15), mas NENHUMA dentro da janela de 42 dias: nao ha o que somar no sentimento hoje."
+ },
+ "historico_arquivo": "data/bis_discursos_historico.jsonl",
+ "aviso": "Falas recolhidas do ARQUIVO DO BIS, nao do site de cada banco. O BIS publica com defasagem (medida nesta execucao em 'defasagem_bis'): SERVE PARA HISTORICO E CONTEXTO, NAO PARA REACAO NO MINUTO. A contagem de marcadores hawkish/dovish e EXTRACAO mecanica, indice grosseiro para apontar QUAL texto ler — nao e interpretacao. O veredito por orador do leitor_falas e CONTEXTO e NAO VOTA.",
+ "defasagem_bis": {
+  "medida_em": "2026-09-06",
+  "n_itens": 1214,
+  "mediana_dias": 3.0,
+  "minimo_dias": 0,
+  "maximo_dias": 103,
+  "p75_dias": 7,
+  "mediana_ultimos_365_dias": 7,
+  "n_ultimos_365_dias": 219,
+  "como_foi_medida": "diferenca, item a item desta execucao, entre a data de publicacao do BIS e a data do discurso escrita na propria descricao",
+  "limite": "o BIS publica com atraso. SERVE PARA HISTORICO E CONTEXTO, NAO PARA REACAO NO MINUTO. Fala no minuto so no site do proprio banco — e para RBA, RBNZ e SNB esse caminho segue fechado (403, 403 e 404)."
+ },
+ "janela_dias": 42,
+ "janela_nota": "'itens' traz so a janela do sentimento (42 dias), ja classificada com o corpo integral do PDF. O historico completo, com metadados, esta em data/bis_discursos_historico.jsonl.",
+ "falas_na_janela": {
+  "AUD": {
+   "banco": "RBA",
+   "bloqueado_no_site_do_banco": true,
+   "falas_na_janela_pela_data_do_discurso": 2,
+   "falas_na_janela_pela_data_de_publicacao_bis": 4,
+   "discurso_oficial": 2,
+   "comunicado_ata": 0,
+   "descartados": 3,
+   "com_corpo_integral": 2
+  },
+  "NZD": {
+   "banco": "RBNZ",
+   "bloqueado_no_site_do_banco": true,
+   "falas_na_janela_pela_data_do_discurso": 0,
+   "falas_na_janela_pela_data_de_publicacao_bis": 0,
+   "discurso_oficial": 0,
+   "comunicado_ata": 0,
+   "descartados": 1,
+   "com_corpo_integral": 0
+  },
+  "CHF": {
+   "banco": "SNB",
+   "bloqueado_no_site_do_banco": true,
+   "falas_na_janela_pela_data_do_discurso": 0,
+   "falas_na_janela_pela_data_de_publicacao_bis": 0,
+   "discurso_oficial": 0,
+   "comunicado_ata": 0,
+   "descartados": 4,
+   "com_corpo_integral": 0
+  },
+  "USD": {
+   "banco": "Fed",
+   "bloqueado_no_site_do_banco": false,
+   "falas_na_janela_pela_data_do_discurso": 1,
+   "falas_na_janela_pela_data_de_publicacao_bis": 10,
+   "discurso_oficial": 1,
+   "comunicado_ata": 0,
+   "descartados": 0,
+   "com_corpo_integral": 1
+  },
+  "EUR": {
+   "banco": "ECB",
+   "bloqueado_no_site_do_banco": false,
+   "falas_na_janela_pela_data_do_discurso": 0,
+   "falas_na_janela_pela_data_de_publicacao_bis": 4,
+   "discurso_oficial": 0,
+   "comunicado_ata": 0,
+   "descartados": 1,
+   "com_corpo_integral": 0
+  },
+  "GBP": {
+   "banco": "BoE",
+   "bloqueado_no_site_do_banco": false,
+   "falas_na_janela_pela_data_do_discurso": 0,
+   "falas_na_janela_pela_data_de_publicacao_bis": 2,
+   "discurso_oficial": 0,
+   "comunicado_ata": 0,
+   "descartados": 0,
+   "com_corpo_integral": 0
+  },
+  "JPY": {
+   "banco": "BoJ",
+   "bloqueado_no_site_do_banco": false,
+   "falas_na_janela_pela_data_do_discurso": 0,
+   "falas_na_janela_pela_data_de_publicacao_bis": 0,
+   "discurso_oficial": 0,
+   "comunicado_ata": 0,
+   "descartados": 0,
+   "com_corpo_integral": 0
+  },
+  "CAD": {
+   "banco": "BoC",
+   "bloqueado_no_site_do_banco": false,
+   "falas_na_janela_pela_data_do_discurso": 0,
+   "falas_na_janela_pela_data_de_publicacao_bis": 1,
+   "discurso_oficial": 0,
+   "comunicado_ata": 0,
+   "descartados": 0,
+   "com_corpo_integral": 0
+  }
+ },
+ "cobertura_historico": {
+  "AUD": {
+   "banco": "RBA",
+   "itens": 440,
+   "primeiro": "2009-02-10",
+   "ultimo": "2026-08-13",
+   "oradores": 14,
+   "paginas_por_orador": 10
+  },
+  "NZD": {
+   "banco": "RBNZ",
+   "itens": 137,
+   "primeiro": "2010-01-29",
+   "ultimo": "2026-03-24",
+   "oradores": 10,
+   "paginas_por_orador": 10
+  },
+  "CHF": {
+   "banco": "SNB",
+   "itens": 223,
+   "primeiro": "2009-03-02",
+   "ultimo": "2026-06-24",
+   "oradores": 12,
+   "paginas_por_orador": 10
+  },
+  "USD": {
+   "banco": "Fed",
+   "itens": 173,
+   "primeiro": "2012-02-10",
+   "ultimo": "2026-08-05",
+   "oradores": 12,
+   "paginas_por_orador": 2
+  },
+  "EUR": {
+   "banco": "ECB",
+   "itens": 119,
+   "primeiro": "2023-11-02",
+   "ultimo": "2026-07-17",
+   "oradores": 8,
+   "paginas_por_orador": 2
+  },
+  "GBP": {
+   "banco": "BoE",
+   "itens": 99,
+   "primeiro": "2016-02-11",
+   "ultimo": "2026-07-14",
+   "oradores": 6,
+   "paginas_por_orador": 2
+  },
+  "JPY": {
+   "banco": "BoJ",
+   "itens": 82,
+   "primeiro": "2020-11-12",
+   "ultimo": "2026-06-25",
+   "oradores": 10,
+   "paginas_por_orador": 2
+  },
+  "CAD": {
+   "banco": "BoC",
+   "itens": 46,
+   "primeiro": "2020-06-04",
+   "ultimo": "2026-07-15",
+   "oradores": 6,
+   "paginas_por_orador": 2
+  }
+ },
+ "hierarquia_pesos": {
+  "discurso_oficial": 1.0,
+  "comunicado_ata": 1.0,
+  "imprensa_com_fala": 0.4,
+  "manchete": 0.0
+ },
+ "hierarquia_nota": "peso gravado no item para o sentimento aplicar. Este arquivo produz discurso_oficial e comunicado_ata — o texto e do proprio banco central, apenas recolhido pelo BIS. NAO e imprensa.",
+ "filtro_assunto": {
+  "inclusao": {
+   "politica monetaria": [
+    "monetary policy",
+    "policy decision",
+    "policy rate",
+    "bank rate",
+    "cash rate",
+    "official cash rate",
+    "federal funds",
+    "rate decision",
+    "policy stance",
+    "quantitative tightening",
+    "quantitative easing",
+    "balance sheet policy",
+    "asset purchase"
+   ],
+   "inflacao": [
+    "inflation",
+    "price stability",
+    "consumer price",
+    "cpi",
+    "disinflation",
+    "price pressure",
+    "wage growth"
+   ],
+   "juros": [
+    "interest rate",
+    "rate cut",
+    "rate hike",
+    "rate increase",
+    "rate reduction",
+    "restrictive",
+    "accommodative",
+    "neutral rate",
+    "easing cycle"
+   ],
+   "economia e perspectivas": [
+    "economic outlook",
+    "outlook for",
+    "economic activity",
+    "growth outlook",
+    "gdp",
+    "projections",
+    "forecast",
+    "the economy",
+    "economic conditions",
+    "economy",
+    "economic",
+    "recession",
+    "productivity"
+   ],
+   "mercado de trabalho": [
+    "labour market",
+    "labor market",
+    "employment",
+    "unemployment",
+    "payrolls",
+    "jobs report"
+   ],
+   "estabilidade financeira": [
+    "financial stability",
+    "financial system",
+    "banking system",
+    "systemic risk",
+    "stress test",
+    "financial conditions"
+   ]
+  },
+  "exclusao": {
+   "cedula": [
+    "bank note",
+    "banknote",
+    "bank-note",
+    "currency note",
+    "polymer note",
+    "unveiling",
+    "unveil",
+    "new note",
+    "note series"
+   ],
+   "aniversario": [
+    "anniversary",
+    "centenary",
+    "birthday",
+    "years of the bank"
+   ],
+   "homenagem": [
+    "tribute",
+    "in memoriam",
+    "memorial",
+    "farewell",
+    "obituary",
+    "eulogy",
+    "honouring",
+    "honoring",
+    "in honour of",
+    "in honor of"
+   ],
+   "premio": [
+    "award",
+    "prize",
+    "medal",
+    "laureate",
+    "scholarship"
+   ],
+   "museu": [
+    "museum",
+    "exhibition",
+    "gallery",
+    "art collection",
+    "heritage"
+   ],
+   "nomeacao administrativa": [
+    "appointment",
+    "appointed",
+    "reappointment",
+    "names new",
+    "board of directors",
+    "staff change",
+    "retirement of",
+    "resignation",
+    "steps down",
+    "term of office",
+    "swearing-in",
+    "takes office",
+    "new head of"
+   ]
+  },
+  "termos_fortes_corpo": [
+   "monetary policy",
+   "policy rate",
+   "interest rate",
+   "inflation",
+   "bank rate",
+   "cash rate",
+   "federal funds",
+   "labour market",
+   "labor market"
+  ],
+  "min_termos_fortes_no_corpo": 3,
+  "provisorio": true,
+  "nota": "regua IMPORTADA de bc_discursos.py, nao copiada. Mudou la, muda aqui. Limiar PROVISORIO, a calibrar pelo backtest."
+ },
+ "resumo_por_moeda": {
+  "AUD": {
+   "discurso_oficial": 2,
+   "comunicado_ata": 0,
+   "descartados": 3,
+   "itens_que_votam": 2,
+   "com_orador_identificado": 2,
+   "veredito_por_orador": [
+    {
+     "orador": "Christopher Kent",
+     "veredito": "indeterminado",
+     "motivo": "nenhuma frase de postura foi extraída do texto.",
+     "trecho": "",
+     "data": "2026-08-13",
+     "link": "https://www.bis.org/speeches/20260901-restrictive-stance-monetary-policy",
+     "banco": "RBA",
+     "falas_lidas": 1,
+     "frases_analisadas": 0,
+     "selo": "experimental — contexto, não vota",
+     "vota": false
+    },
+    {
+     "orador": "Michele Bullock",
+     "veredito": "indeterminado",
+     "motivo": "trata de política de juros (“interest rate”), mas não indica alta, corte nem manutenção.",
+     "trecho": "Graph 2 4 [ ] While we expect housing prices to be affected when interest rates rise, monetary policy doesn’t target housing prices.",
+     "data": "2026-07-28",
+     "link": "https://www.bis.org/speeches/20260817-monetary-policy-era-shocks",
+     "banco": "RBA",
+     "falas_lidas": 1,
+     "frases_analisadas": 1,
+     "selo": "experimental — contexto, não vota",
+     "vota": false
+    }
+   ]
+  },
+  "CHF": {
+   "discurso_oficial": 0,
+   "comunicado_ata": 0,
+   "descartados": 4,
+   "itens_que_votam": 0,
+   "com_orador_identificado": 0,
+   "veredito_por_orador": []
+  },
+  "EUR": {
+   "discurso_oficial": 0,
+   "comunicado_ata": 0,
+   "descartados": 1,
+   "itens_que_votam": 0,
+   "com_orador_identificado": 0,
+   "veredito_por_orador": []
+  },
+  "NZD": {
+   "discurso_oficial": 0,
+   "comunicado_ata": 0,
+   "descartados": 1,
+   "itens_que_votam": 0,
+   "com_orador_identificado": 0,
+   "veredito_por_orador": []
+  },
+  "USD": {
+   "discurso_oficial": 1,
+   "comunicado_ata": 0,
+   "descartados": 0,
+   "itens_que_votam": 1,
+   "com_orador_identificado": 1,
+   "veredito_por_orador": [
+    {
+     "orador": "Lisa D Cook",
+     "veredito": "alta",
+     "motivo": "postura firme de alta: “rate increase”, sem condição, sem negação e sobre o próximo passo.",
+     "trecho": "I would consider how a rate increase could negatively affect that stability.",
+     "data": "2026-08-05",
+     "link": "https://www.bis.org/speeches/20260817-outlook-us-and-alaskan-economies",
+     "banco": "Fed",
+     "falas_lidas": 1,
+     "frases_analisadas": 1,
+     "selo": "experimental — contexto, não vota",
+     "vota": false
+    }
+   ]
+  }
+ },
+ "veredito_por_orador": {
+  "AUD": [
+   {
+    "orador": "Christopher Kent",
+    "veredito": "indeterminado",
+    "motivo": "nenhuma frase de postura foi extraída do texto.",
+    "trecho": "",
+    "data": "2026-08-13",
+    "link": "https://www.bis.org/speeches/20260901-restrictive-stance-monetary-policy",
+    "banco": "RBA",
+    "falas_lidas": 1,
+    "frases_analisadas": 0,
+    "selo": "experimental — contexto, não vota",
+    "vota": false
+   },
+   {
+    "orador": "Michele Bullock",
+    "veredito": "indeterminado",
+    "motivo": "trata de política de juros (“interest rate”), mas não indica alta, corte nem manutenção.",
+    "trecho": "Graph 2 4 [ ] While we expect housing prices to be affected when interest rates rise, monetary policy doesn’t target housing prices.",
+    "data": "2026-07-28",
+    "link": "https://www.bis.org/speeches/20260817-monetary-policy-era-shocks",
+    "banco": "RBA",
+    "falas_lidas": 1,
+    "frases_analisadas": 1,
+    "selo": "experimental — contexto, não vota",
+    "vota": false
+   }
+  ],
+  "USD": [
+   {
+    "orador": "Lisa D Cook",
+    "veredito": "alta",
+    "motivo": "postura firme de alta: “rate increase”, sem condição, sem negação e sobre o próximo passo.",
+    "trecho": "I would consider how a rate increase could negatively affect that stability.",
+    "data": "2026-08-05",
+    "link": "https://www.bis.org/speeches/20260817-outlook-us-and-alaskan-economies",
+    "banco": "Fed",
+    "falas_lidas": 1,
+    "frases_analisadas": 1,
+    "selo": "experimental — contexto, não vota",
+    "vota": false
+   }
+  ]
+ },
+ "leitor_falas": {
+  "versao": "leitor_falas v0.1 (05/set/2026) — regras PROVISÓRIAS, sem validação histórica",
+  "selo": "experimental — contexto, não vota",
+  "vota": false,
+  "vereditos_possiveis": [
+   "alta",
+   "corte",
+   "manutenção",
+   "alta condicional",
+   "corte condicional",
+   "indeterminado"
+  ],
+  "regras": {
+   "ordem": [
+    "sujeito",
+    "marcador",
+    "tempo verbal",
+    "atribuição a terceiros",
+    "negação",
+    "condição"
+   ],
+   "forca": {
+    "4_firme": "marcador limpo",
+    "3_negacao": "manutenção deduzida da negação",
+    "2_condicional": "alta/corte condicional",
+    "1_nada": "indeterminado"
+   },
+   "manutencao_sob_condicao": "continua manutenção (não existe veredito 'manutenção condicional')",
+   "provisorio": true,
+   "janela_expectativa_caracteres": 40
+  },
+  "validacao_aceitavel": "Só passa a votar depois de comparar o veredito com a DECISÃO SEGUINTE do próprio banco, ponto-no-tempo (só texto publicado antes da reunião), em amostra declarada antes de rodar: n ≥ 200 falas, ≥ 5 bancos, ≥ 3 anos, com pelo menos 30 falas em cada classe de decisão (subiu / manteve / cortou); tem de ganhar da referência burra “sempre manutenção”; os vereditos condicionais são medidos à parte (o banco subiu QUANDO a condição se realizou?); e a regra é congelada antes da janela de fora da amostra. Nada disso existe hoje.",
+  "nota": "classificador por REGRA (negação, condição, tempo verbal e sujeito). É CONTEXTO: não entra em nenhuma soma e não move nenhuma leitura, exatamente como a geopolítica. A contagem de marcadores segue gravada no item apenas como rastro de auditoria."
+ },
+ "marcadores": {
+  "hawkish": [
+   "raise the policy rate",
+   "raise rates",
+   "raise interest rates",
+   "rate increase",
+   "hike",
+   "holding the target",
+   "hold the target",
+   "keep the policy rate",
+   "remain restrictive",
+   "restrictive for longer",
+   "premature to",
+   "upside risks to inflation",
+   "inflation remains too high",
+   "not yet time",
+   "patient before",
+   "tighten",
+   "further increases",
+   "additional tightening",
+   "sufficiently restrictive"
+  ],
+  "dovish": [
+   "cut the policy rate",
+   "lower the policy rate",
+   "reduce the policy rate",
+   "rate cut",
+   "cut rates",
+   "cutting rates",
+   "cut interest rates",
+   "lower interest rates",
+   "reduce interest rates",
+   "rate reduction",
+   "ease policy",
+   "easing policy",
+   "appropriate to reduce",
+   "downside risks to employment",
+   "labor market is weakening",
+   "labour market is weakening",
+   "labor market has weakened",
+   "further softening",
+   "insurance cut",
+   "move toward neutral",
+   "less restrictive",
+   "easing cycle"
+  ],
+  "postura": [
+   "i would",
+   "i believe",
+   "i expect",
+   "i support",
+   "i favor",
+   "i favour",
+   "inclined to",
+   "it may be appropriate",
+   "it would be appropriate",
+   "appropriate to",
+   "my view",
+   "i think the committee",
+   "we should",
+   "the committee should",
+   "the council",
+   "governing council",
+   "the mpc",
+   "the bank will",
+   "the bank expects",
+   "we expect",
+   "we will",
+   "we are prepared",
+   "we judge",
+   "our assessment",
+   "we decided",
+   "decided to",
+   "the committee decided",
+   "the council decided",
+   "voted to",
+   "agreed to",
+   "today held",
+   "today maintained",
+   "today lowered",
+   "today raised",
+   "maintains the policy",
+   "maintained the policy",
+   "held its target",
+   "kept the policy"
+  ]
+ },
+ "oradores_sem_id_no_bis": [],
+ "itens": [
+  {
+   "moeda": "AUD",
+   "banco": "RBA",
+   "tipo": "speech",
+   "data": "2026-08-13",
+   "data_discurso": "2026-08-13",
+   "data_publicacao_bis": "2026-09-01",
+   "data_fonte": "data escrita na descricao do BIS",
+   "defasagem_bis_dias": 19,
+   "idade_dias": 24,
+   "orador": "Christopher Kent",
+   "orador_identificado": "Christopher Kent",
+   "titulo": "The restrictive stance of monetary policy",
+   "link": "https://www.bis.org/speeches/20260901-restrictive-stance-monetary-policy",
+   "link_pdf": "https://www.bis.org/speeches/20260901-restrictive-stance-monetary-policy.pdf",
+   "resumo_bis": "Fireside chat by Mr Christopher Kent, Assistant Governor (Financial Markets) of the Reserve Bank of Australia, at Reuters NEXT Newsmaker Interview: LSEG Insight Series, Sydney, 13 August 2026.",
+   "procedencia": {
+    "agregador": "BIS",
+    "arquivo": "Central bankers' speeches",
+    "url_arquivo": "https://www.bis.org/cbspeeches/index.htm",
+    "rota": "RSS Central bankers' speeches",
+    "instituicao_motivo": "filiacao do orador na descricao do BIS: RBA",
+    "nota": "o texto e do proprio banco central, apenas RECOLHIDO pelo BIS, e chega com defasagem de publicacao — serve para historico e contexto, nao para reacao no minuto"
+   },
+   "assunto": {
+    "veredito": "politica_monetaria",
+    "temas": [
+     "politica monetaria",
+     "juros"
+    ],
+    "termos_fortes_no_corpo": 40,
+    "motivo": "titulo bate em: politica monetaria, juros",
+    "avaliado_sobre": "corpo integral"
+   },
+   "origem": "discurso_oficial",
+   "peso": 1.0,
+   "origem_motivo": "fala assinada por Christopher Kent no arquivo do BIS",
+   "corpo_origem": "PDF do BIS (9 paginas, texto integral)",
+   "caracteres": 13099,
+   "frases": [],
+   "marcadores_hawkish": 6,
+   "marcadores_dovish": 2,
+   "inclinacao_por_contagem": "hawkish",
+   "veredito_leitor": {
+    "veredito": "indeterminado",
+    "motivo": "nenhuma frase de postura foi extraída do texto.",
+    "trecho": "",
+    "forca": 1,
+    "selo": "experimental — contexto, não vota",
+    "vota": false,
+    "frases_analisadas": 0
+   }
+  },
+  {
+   "moeda": "USD",
+   "banco": "Fed",
+   "tipo": "speech",
+   "data": "2026-08-05",
+   "data_discurso": "2026-08-05",
+   "data_publicacao_bis": "2026-08-17",
+   "data_fonte": "data escrita na descricao do BIS",
+   "defasagem_bis_dias": 12,
+   "idade_dias": 32,
+   "orador": "Lisa D Cook",
+   "orador_identificado": "Lisa D Cook",
+   "titulo": "Outlook for the US and Alaskan economies",
+   "link": "https://www.bis.org/speeches/20260817-outlook-us-and-alaskan-economies",
+   "link_pdf": "https://www.bis.org/speeches/20260817-outlook-us-and-alaskan-economies.pdf",
+   "resumo_bis": "Speech by Ms Lisa D Cook, Member of the Board of Governors of the Federal Reserve System, at the 2026 Economic Luncheon of the Anchorage Economic Development Corporation, Anchorage, Alaska, 5 August 2026.",
+   "procedencia": {
+    "agregador": "BIS",
+    "arquivo": "Central bankers' speeches",
+    "url_arquivo": "https://www.bis.org/cbspeeches/index.htm",
+    "rota": "RSS Central bankers' speeches",
+    "instituicao_motivo": "filiacao do orador na descricao do BIS: Fed",
+    "nota": "o texto e do proprio banco central, apenas RECOLHIDO pelo BIS, e chega com defasagem de publicacao — serve para historico e contexto, nao para reacao no minuto"
+   },
+   "assunto": {
+    "veredito": "politica_monetaria",
+    "temas": [
+     "economia e perspectivas"
+    ],
+    "termos_fortes_no_corpo": 34,
+    "motivo": "titulo bate em: economia e perspectivas",
+    "avaliado_sobre": "corpo integral"
+   },
+   "origem": "discurso_oficial",
+   "peso": 1.0,
+   "origem_motivo": "fala assinada por Lisa D Cook no arquivo do BIS",
+   "corpo_origem": "PDF do BIS (5 paginas, texto integral)",
+   "caracteres": 15134,
+   "frases": [
+    {
+     "frase": "I would consider how a rate increase could negatively affect that stability.",
+     "hawkish": 1,
+     "dovish": 0
+    }
+   ],
+   "marcadores_hawkish": 2,
+   "marcadores_dovish": 0,
+   "inclinacao_por_contagem": "hawkish",
+   "veredito_leitor": {
+    "veredito": "alta",
+    "motivo": "postura firme de alta: “rate increase”, sem condição, sem negação e sobre o próximo passo.",
+    "trecho": "I would consider how a rate increase could negatively affect that stability.",
+    "forca": 4,
+    "selo": "experimental — contexto, não vota",
+    "vota": false,
+    "frases_analisadas": 1
+   }
+  },
+  {
+   "moeda": "AUD",
+   "banco": "RBA",
+   "tipo": "speech",
+   "data": "2026-07-28",
+   "data_discurso": "2026-07-28",
+   "data_publicacao_bis": "2026-08-17",
+   "data_fonte": "data escrita na descricao do BIS",
+   "defasagem_bis_dias": 20,
+   "idade_dias": 40,
+   "orador": "Michele Bullock",
+   "orador_identificado": "Michele Bullock",
+   "titulo": "Monetary policy in an era of shocks",
+   "link": "https://www.bis.org/speeches/20260817-monetary-policy-era-shocks",
+   "link_pdf": "https://www.bis.org/speeches/20260817-monetary-policy-era-shocks.pdf",
+   "resumo_bis": "Speech by Ms Michele Bullock, Governor of the Reserve Bank of Australia, at the Anika Foundation Fundraising Lunch, Sydney, 28 July 2026.",
+   "procedencia": {
+    "agregador": "BIS",
+    "arquivo": "Central bankers' speeches",
+    "url_arquivo": "https://www.bis.org/cbspeeches/index.htm",
+    "rota": "RSS Central bankers' speeches",
+    "instituicao_motivo": "filiacao do orador na descricao do BIS: RBA",
+    "nota": "o texto e do proprio banco central, apenas RECOLHIDO pelo BIS, e chega com defasagem de publicacao — serve para historico e contexto, nao para reacao no minuto"
+   },
+   "assunto": {
+    "veredito": "politica_monetaria",
+    "temas": [
+     "politica monetaria"
+    ],
+    "termos_fortes_no_corpo": 103,
+    "motivo": "titulo bate em: politica monetaria",
+    "avaliado_sobre": "corpo integral"
+   },
+   "origem": "discurso_oficial",
+   "peso": 1.0,
+   "origem_motivo": "fala assinada por Michele Bullock no arquivo do BIS",
+   "corpo_origem": "PDF do BIS (18 paginas, texto integral)",
+   "caracteres": 25359,
+   "frases": [
+    {
+     "frase": "Graph 2 4 [ ] While we expect housing prices to be affected when interest rates rise, monetary policy doesn’t target housing prices.",
+     "hawkish": 0,
+     "dovish": 0
+    }
+   ],
+   "marcadores_hawkish": 4,
+   "marcadores_dovish": 0,
+   "inclinacao_por_contagem": "hawkish",
+   "veredito_leitor": {
+    "veredito": "indeterminado",
+    "motivo": "trata de política de juros (“interest rate”), mas não indica alta, corte nem manutenção.",
+    "trecho": "Graph 2 4 [ ] While we expect housing prices to be affected when interest rates rise, monetary policy doesn’t target housing prices.",
+    "forca": 1,
+    "selo": "experimental — contexto, não vota",
+    "vota": false,
+    "frases_analisadas": 1
+   }
+  }
+ ],
+ "descartados": [
+  {
+   "moeda": "CHF",
+   "banco": "SNB",
+   "data": "2026-03-17",
+   "titulo": "Emphase Ltd to design new banknote series - the Swiss National Bank exhibits all 12 concepts from the design competition",
+   "link": "https://www.bis.org/speeches/20260317-emphase-ltd-design-new-banknote-series-swiss-national-bank-exhibits-all-12-concepts-design-competition",
+   "orador_identificado": "Antoine Martin",
+   "motivo": "assunto excluido no titulo (cedula) e nenhum tema de politica monetaria"
+  },
+  {
+   "moeda": "EUR",
+   "banco": "ECB",
+   "data": "2024-11-28",
+   "titulo": "The 25th anniversary of the Euro50 Group - looking ahead to the 50th anniversary",
+   "link": "https://www.bis.org/speeches/20241202-25th-anniversary-euro50-group-looking-ahead-50th-anniversary",
+   "orador_identificado": "Philip R Lane",
+   "motivo": "assunto excluido no titulo (aniversario) e nenhum tema de politica monetaria"
+  },
+  {
+   "moeda": "CHF",
+   "banco": "SNB",
+   "data": "2024-10-30",
+   "titulo": "Swiss National Bank to develop new banknote series. Theme of new series: Switzerland and its altitudes",
+   "link": "https://www.bis.org/speeches/20241104-swiss-national-bank-develop-new-banknote-series-theme-new-series-switzerland-and-its-altitudes",
+   "orador_identificado": "Martin Schlegel",
+   "motivo": "assunto excluido no titulo (cedula) e nenhum tema de politica monetaria"
+  },
+  {
+   "moeda": "CHF",
+   "banco": "SNB",
+   "data": "2019-09-03",
+   "titulo": "Unveiling of new 100-franc note",
+   "link": "https://www.bis.org/speeches/20190903-unveiling-new-100-franc-note",
+   "orador_identificado": "Fritz Zurbrügg",
+   "motivo": "assunto excluido no titulo (cedula) e nenhum tema de politica monetaria"
+  },
+  {
+   "moeda": "AUD",
+   "banco": "RBA",
+   "data": "2018-10-22",
+   "titulo": "Remarks - The Walkley Business Journalism Award",
+   "link": "https://www.bis.org/speeches/20181023-remarks-walkley-business-journalism-award",
+   "orador_identificado": "Guy Debelle",
+   "motivo": "assunto excluido no titulo (premio) e nenhum tema de politica monetaria"
+  },
+  {
+   "moeda": "AUD",
+   "banco": "RBA",
+   "data": "2017-09-08",
+   "titulo": "75th anniversary of the Bank of China's first branch in Australia",
+   "link": "https://www.bis.org/speeches/20170912-75th-anniversary-bank-chinas-first-branch-australia",
+   "orador_identificado": "Philip Lowe",
+   "motivo": "assunto excluido no titulo (aniversario) e nenhum tema de politica monetaria"
+  },
+  {
+   "moeda": "CHF",
+   "banco": "SNB",
+   "data": "2017-05-10",
+   "titulo": "Unveiling of the new 20-franc note",
+   "link": "https://www.bis.org/speeches/20170518-unveiling-new-20-franc-note",
+   "orador_identificado": "Fritz Zurbrügg",
+   "motivo": "assunto excluido no titulo (cedula) e nenhum tema de politica monetaria"
+  },
+  {
+   "moeda": "NZD",
+   "banco": "RBNZ",
+   "data": "2014-11-20",
+   "titulo": "Brighter money - enhancing innovation and embracing heritage",
+   "link": "https://www.bis.org/speeches/20141120-brighter-money-enhancing-innovation-and-embracing-heritage",
+   "orador_identificado": "Geoff Bascand",
+   "motivo": "assunto excluido no titulo (museu) e nenhum tema de politica monetaria"
+  },
+  {
+   "moeda": "AUD",
+   "banco": "RBA",
+   "data": "2011-12-08",
+   "titulo": "The Inaugural Warren Hogan Memorial Lecture",
+   "link": "https://www.bis.org/speeches/20111208-inaugural-warren-hogan-memorial-lecture",
+   "orador_identificado": "Glenn Stevens",
+   "motivo": "assunto excluido no titulo (homenagem) e nenhum tema de politica monetaria"
+  }
+ ]
+}

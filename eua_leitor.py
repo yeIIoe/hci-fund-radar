@@ -64,12 +64,17 @@ sys.path.insert(0, AQUI)
 # ⚠️ REGUA UNICA. `classifica` e `familia_de` vem de macro_eventos.py e `FAMILIAS` de
 # leitor_regras.py de proposito: duas reguas divergentes para a mesma pergunta ("essa surpresa
 # e hawkish?") e como ter dois relogios em casa — nunca se sabe qual esta certo.
-from macro_eventos import CORTE_PADRAO, classifica, familia_de   # noqa: E402
+from macro_eventos import CORTE_PADRAO, classifica, familia_de, corte_da_surpresa  # noqa: E402
 from leitor_regras import FAMILIAS                                # noqa: E402
 
 SAIDA = os.path.join(AQUI, "data", "eua_leitura.json")
 CAL_FXS = os.path.join(AQUI, "data", "calendario_resultado.json")
 CAL_MEV = os.path.join(AQUI, "data", "macro_eventos.json")
+
+# Quantos dias PARA TRAS buscar ao vivo na FXStreet. 60 cobre com folga o ciclo mensal dos
+# EUA (CPI e payroll saem uma vez por mes) e ainda pega a revisao do mes anterior. Numero
+# PROVISORIO, escolhido pelo calendario do indicador, nao por medicao de resultado.
+JANELA_LARGA_DIAS = 60
 # Copia crua da ultima resposta do BLS. Existe para o enriquecimento (casamento, media de 3
 # meses) poder rodar de novo SEM gastar cota quando o cache de 60 min ainda vale.
 BRUTO = os.path.join(AQUI, "data", "raw", "bls_series.json")
@@ -374,6 +379,31 @@ def carrega_calendario() -> list:
     except Exception as erro:
         print("  ! macro_eventos.json nao lido: %s" % erro)
 
+    # ⚠️ CONSERTO 06/set — A JANELA CURTA APAGAVA OS DOIS MAIORES INDICADORES DOS EUA.
+    # Os dois arquivos acima sao a MESMA janela rolante de ~10 dias (hoje 03/09 a 13/09).
+    # O CPI e mensal: o release de julho saiu em 12/08, ficou fora da janela, e por isso CPI
+    # e CPI nucleo — os dois de maior peso — apareciam na tela com "Esperado nao publicado".
+    # Como o release e mensal e a janela tem ~10 dias, o casamento so funcionava nos ~3 dias
+    # seguintes a cada divulgacao e falhava nos outros ~27 do mes.
+    # E a MESMA causa-raiz do bug da taxa do RBNZ: janela rolante usada como memoria.
+    # O conserto e o mesmo que o sentimento.py ja fazia: buscar a janela LARGA ao vivo. Se a
+    # fonte nao responder, fica o que os arquivos locais tinham — nunca pior do que antes.
+    try:
+        from fxstreet_calendario import buscar as _buscar_fxs, normaliza as _norm_fxs
+        n_antes = len(juntos)
+        for cru in _buscar_fxs(dias_atras=JANELA_LARGA_DIAS, dias_frente=30):
+            e = _norm_fxs(cru)
+            if not e:
+                continue
+            poe(e.get("titulo"), e.get("quando_utc"), e.get("impacto"), e.get("divulgado"),
+                e.get("consenso"), e.get("anterior"), e.get("revisado"), e.get("moeda"),
+                "FXStreet ao vivo (%d dias atrás)" % JANELA_LARGA_DIAS)
+        print("  janela larga ao vivo: %d dias atrás — %d eventos dos EUA a mais que os "
+              "arquivos locais" % (JANELA_LARGA_DIAS, len(juntos) - n_antes))
+    except Exception as erro:
+        print("  ! janela larga da FXStreet indisponível (%s) — vale só a janela curta dos "
+              "arquivos locais, e indicador mensal fora dela sai SEM CONSENSO" % erro)
+
     return sorted(juntos.values(), key=lambda x: x["quando_utc"])
 
 
@@ -511,10 +541,10 @@ def rotulo_da_surpresa(atual, esperado, familia):
     a familia `desemprego` tem sinal -1. Dentro do corte de CORTE_PADRAO o rotulo e "neutra":
     e um limiar PROVISORIO, o mesmo que classifica o calendario inteiro.
     """
-    classe, dif = classifica(atual, esperado)
+    classe, dif = classifica(atual, esperado, familia=familia)
     if classe is None:
         return None, None, None
-    corte = max(abs(esperado) * CORTE_PADRAO["fracao"], CORTE_PADRAO["minimo_abs"])
+    corte = corte_da_surpresa(esperado, familia)
     if classe == "EM_LINHA":
         return "neutra", classe, round(corte, 4)
     if not familia or familia not in FAMILIAS:

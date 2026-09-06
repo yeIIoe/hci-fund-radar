@@ -191,6 +191,19 @@ def manchetes(q: str, n: int = 5) -> list:
 #     "Missile attack on Kyiv leaves 12 dead, Ukraine says" ficam separadas: a segunda so
 #     nomeia a Ucrania. Preferimos a duplicata visivel a fusao errada.
 #
+# MEDIDO NAS MANCHETES REAIS (as duas coletas que existiram ate agora):
+#   coleta de 04/set 21h50 · mundo/conflito · 5 manchetes -> 3 grupos, 2 duplicatas removidas
+#       grupo 1 (diplomacia · eua,ira,russia · 2 fontes) kyivpost + freemalaysiatoday
+#       grupo 2 (ataque     · eua,ira,irgc   · 2 fontes) trend.az + khaama  <- o caso do dono
+#       grupo 3 (cessar_fogo· ira            · 1 fonte ) dailypioneer
+#   coleta de 06/set 15h48 · mundo/conflito · 5 manchetes -> 1 grupo, 4 duplicatas removidas
+#       a MESMA materia de agencia em cinco afiliadas (wtae, wesh, kcra, wdsu, wmtw): Jaccard
+#       de palavra 1,00, resolvida pela regra 1. Cinco linhas iguais na tela viraram uma.
+# ⚠️ O NUMERO DO DIA NAO E CONTRATO: o GDELT roda a lista a cada ~3 h e o total de duplicatas
+# muda com ela (foi 2, virou 4). O teste confere CONSERVACAO — nada some, nada conta duas
+# vezes, a ordem sai por confiabilidade — e mantem os dois casos acima congelados como
+# controle (3d e 3e em teste_geopolitica_dedup.py), para nao dependerem da coleta viva.
+#
 # NAO E NER NEM MODELO DE LINGUA. E lexico declarado, auditavel, provisorio — como manda a
 # lei da casa para todo limiar novo.
 

@@ -35,7 +35,51 @@ from __future__ import annotations
 # peso: quanto o banco central realmente olha para aquilo. Inflacao manda; pesquisa de
 #       sentimento e ruido comparada a ela. Os pesos sao JULGAMENTO DECLARADO, nao medidos —
 #       e e por isso que estao aqui em cima, visiveis, para o Eduardo discordar.
+#
+# corte_abs: o tamanho da faixa "veio como esperado", em unidade do proprio indicador.
+#       PROVISORIO, e nasceu de uma medicao — nao de chute. Ver o bloco abaixo.
 # ---------------------------------------------------------------------------------------
+
+# =======================================================================================
+# CORTE ABSOLUTO POR FAMILIA — conserto do defeito que BLOQUEAVA (06/set/2026)
+# =======================================================================================
+# O PROBLEMA MEDIDO. Ate hoje a faixa neutra era relativa ao NIVEL do indicador:
+#     corte = max(|consenso| x 0,35 ; 0,10)
+# Isso e 35% do NIVEL, nao da surpresa — e para todo indicador que vive num nivel alto o
+# corte fica absurdo. Medido nas 364 divulgacoes com consenso e familia com peso da janela
+# de 42 dias (06/set, oito moedas):
+#     PMI                 corte tipico 18,5 pontos numa escala 0-100  ->  100% EM_LINHA
+#     confianca           corte tipico 18,9 pontos                    ->  100% EM_LINHA
+#     auxilio_desemprego  corte tipico 70,4 mil pedidos               ->  100% EM_LINHA
+#     desemprego          corte tipico  1,96 pp                       ->   90% EM_LINHA
+#     inflacao_nucleo     corte tipico  0,88 pp                       ->   90% EM_LINHA
+#     TOTAL: 278 de 364 (76%) empurravam EXATAMENTE ZERO.
+# Ou seja: o peso 10 do nucleo era decorativo, porque 9 em cada 10 divulgacoes de nucleo
+# eram zeradas ANTES de o peso ser aplicado. E o alerta "uma unica divulgacao responde por
+# 100% da leitura do CAD" nao era azar de calendario: era esta regua apagando as outras.
+#
+# O CONSERTO, E O QUE ELE NAO E. O corte passa a ser ABSOLUTO por familia, no valor da
+# MEDIANA do |surpresa| daquela familia na janela medida. Le-se: "a divulgacao so conta
+# quando surpreende MAIS do que o normal para o proprio indicador". Nao ha nada de otimo
+# nisso — e uma regua declarada, nao calibrada por resultado. O que ela conserta e a
+# HETEROGENEIDADE: antes a fatia neutra ia de 20% (producao) a 100% (PMI, confianca,
+# auxilio); depois fica entre 40% e 57% em quase todas. Nenhuma familia continua muda por
+# construcao, e nenhuma dispara por construcao.
+#
+# EFEITO MEDIDO NA MESMA JANELA: EM_LINHA cai de 278/364 (76%) para 189/364 (51%). 117
+# divulgacoes trocam de classe — 103 ganham direcao (ex.: CPI da Australia 3,8 contra 4,0
+# esperado, que saia "em linha") e 14 perdem (ex.: vendas no varejo -0,3 contra +0,1, que e
+# ruido normal desta serie).
+#
+# ⚠️ PROVISORIO, como toda regua desta casa. A mediana foi medida numa janela de 42 dias e
+#    numa unica leitura; nao foi validada contra o que o banco central fez depois. O numero
+#    correto so sai do backtest, com amostra declarada.
+# ⚠️ ONDE ELE NAO SE APLICA, E POR QUE: balanca, moradia e emprego_criacao ficam na regua
+#    relativa antiga porque a UNIDADE muda de pais para pais dentro da mesma familia (a
+#    criacao de vagas americana vem em milhares, a neozelandesa em porcento; a balanca vem
+#    em milhoes num pais e em bilhoes noutro). Um unico numero absoluto para a familia
+#    inteira mentiria. Fica declarado como buraco, nao consertado em silencio.
+CORTE_ABS_MEDIDO_EM = "2026-09-06, janela de 42 dias da FXStreet, 8 moedas, n=364"
 
 FAMILIAS = {
     # ---------------- INFLACAO — o mandato. Peso maximo.
@@ -48,7 +92,15 @@ FAMILIAS = {
         "padroes": ["core cpi", "core inflation", "trimmed mean", "core pce", "core hicp",
                     "median cpi", "core ppi", "core consumer price", "core harmonized",
                     "core personal consumption", "core producer price",
-                    "ex food", "excluding food", "ex-food"],
+                    "ex food", "excluding food", "ex-food",
+                    # ⚠️ CONSERTO 06/set — "core" DEPOIS do substantivo. Todos os padroes
+                    # acima esperam "Core ..." na frente, e o Canada (e uma serie dos EUA)
+                    # escrevem ao contrario: "BoC Consumer Price Index Core (YoY)",
+                    # "Consumer Price Index - Core (MoM)", "Consumer Price Index Core s.a".
+                    # Medido na janela de 42 dias: quatro titulos caiam em `inflacao_cheia`,
+                    # ou seja, o nucleo que o BoC persegue entrava com peso 7 em vez de 10 e
+                    # aparecia rotulado "CPI" (cheio) no cartao do proximo evento do CAD.
+                    "price index core", "price index - core", "cpi core", "cpi - core"],
         "porque": "É nisto que o banco central mira de verdade. Núcleo acima da previsão é o "
                   "argumento mais forte que existe para apertar: tira o álibi de que "
                   "'foi energia e comida'.",
@@ -141,7 +193,11 @@ FAMILIAS = {
     # ---------------- EXTERNO — pesa pouco, salvo em economia aberta
     "balanca": {
         "peso": 2, "sinal": +1,
-        "padroes": ["trade balance", "current account", "exports", "imports"],
+        # "gdt price index" e o leilao de lacteos da Nova Zelandia: e termo de troca, nao
+        # inflacao ao consumidor. Sem esta linha ele casava com o generico "price index" da
+        # inflacao_cheia e entrava com peso 7 na leitura do NZD (conserto de 06/set).
+        "padroes": ["trade balance", "current account", "exports", "imports",
+                    "gdt price index", "terms of trade"],
         "porque": "Peso baixo, exceto em AUD, NZD e CAD, onde os termos de troca importam de verdade.",
     },
 
@@ -174,6 +230,41 @@ FAMILIAS = {
                   "que veio no COMUNICADO das 14:00 NZ, e não na coletiva das 15:00, que não "
                   "moveu nada (3,9 pips de amplitude).",
     },
+}
+
+
+# O CORTE ABSOLUTO POR FAMILIA (ver o bloco de explicacao la em cima).
+#   corte_abs   a faixa neutra, na unidade do proprio indicador
+#   p50_medido  a mediana do |surpresa| daquela familia na janela — de onde o corte saiu
+#   n           quantas divulgacoes com consenso entraram na medicao
+# Familia que NAO aparece aqui continua na regua relativa antiga, de proposito.
+CORTES_ABS_PROVISORIOS = {
+    "inflacao_nucleo":      {"corte_abs": 0.10, "p50_medido": 0.10, "n": 21,  "unidade": "pontos percentuais"},
+    "inflacao_cheia":       {"corte_abs": 0.10, "p50_medido": 0.10, "n": 108, "unidade": "pontos percentuais"},
+    "expectativa_inflacao": {"corte_abs": 0.10, "p50_medido": 0.00, "n": 4,   "unidade": "pontos percentuais"},
+    "salarios":             {"corte_abs": 0.10, "p50_medido": 0.10, "n": 12,  "unidade": "pontos percentuais"},
+    "desemprego":           {"corte_abs": 0.10, "p50_medido": 0.10, "n": 22,  "unidade": "pontos percentuais"},
+    "auxilio_desemprego":   {"corte_abs": 3.00, "p50_medido": 3.00, "n": 10,  "unidade": "mil pedidos"},
+    "pmi":                  {"corte_abs": 0.40, "p50_medido": 0.40, "n": 35,  "unidade": "pontos de índice"},
+    "confianca":            {"corte_abs": 0.90, "p50_medido": 0.90, "n": 29,  "unidade": "pontos de índice"},
+    "pib":                  {"corte_abs": 0.10, "p50_medido": 0.10, "n": 35,  "unidade": "pontos percentuais"},
+    "varejo":               {"corte_abs": 0.60, "p50_medido": 0.60, "n": 26,  "unidade": "pontos percentuais"},
+    "producao":             {"corte_abs": 0.50, "p50_medido": 0.50, "n": 15,  "unidade": "pontos percentuais"},
+}
+
+for _fam, _c in CORTES_ABS_PROVISORIOS.items():
+    FAMILIAS[_fam]["corte_abs"] = _c["corte_abs"]
+    FAMILIAS[_fam]["corte_abs_nota"] = (
+        "PROVISÓRIO. Faixa neutra de ±%s %s, igual à mediana do |surpresa| desta família "
+        "medida em %s (n=%d). Não foi validado contra o que o banco central fez depois."
+        % (str(_c["corte_abs"]).replace(".", ","), _c["unidade"], CORTE_ABS_MEDIDO_EM, _c["n"]))
+
+FAMILIAS_SEM_CORTE_ABS = {
+    "balanca": "a unidade muda de país para país (milhões num, bilhões noutro)",
+    "moradia": "mistura número de unidades com variação percentual",
+    "emprego_criacao": "vem em milhares nos EUA e em porcento na Nova Zelândia",
+    "coletiva": "peso 0 — é texto, não tem número para surpreender",
+    "decisao": "tem corte próprio, absoluto, de 0,10 pp (menos de meio quantum de 25 pb)",
 }
 
 

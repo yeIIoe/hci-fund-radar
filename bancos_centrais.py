@@ -113,7 +113,7 @@ BANCOS = {
     "CAD": {
         "banco": "Bank of Canada", "sigla": "BoC",
         "nome_taxa": "Target for the overnight rate", "taxa": 2.25,
-        "taxa_texto": "2,25%  (Bank Rate 2,50 · deposito 2,20)",
+        "taxa_texto": "2,25%  (taxa básica 2,50 · depósito 2,20)",
         "ultima_mudanca": "2025-10-29", "ultima_mudanca_bp": -25,
         "nota_vigencia": None,
         "hora_local": "09:45", "fuso": "America/Toronto", "coletiva_local": "10:30",
@@ -161,16 +161,46 @@ def _quando(valor):
         return None
 
 
+DIAS_ATRAS_DECISAO = 120     # PROVISORIO: cobre folgado o intervalo entre reunioes (6 a 8 semanas)
+
+
+def _eventos_para_decisao(caminho, ao_vivo=True):
+    """Os eventos onde procurar a ultima decisao — janela LARGA primeiro, arquivo depois.
+
+    ⚠️ O arquivo data/calendario_resultado.json e uma janela ROLANTE de poucos dias (medido em
+    06/set: de 03/set a 13/set). Uma decisao de 02/set ja esta fora dele. Por isso a busca ao
+    vivo de %d dias para tras vem PRIMEIRO: sem ela a reconciliacao expira sozinha alguns dias
+    depois de cada reuniao e a taxa volta para o cadastro estatico, que fica errado ate alguem
+    editar na mao.""" % DIAS_ATRAS_DECISAO
+    if not ao_vivo:
+        # caminho explicito (teste, ou um arquivo escolhido a mao): le SO o que foi pedido.
+        try:
+            with io.open(caminho, encoding="utf-8") as arquivo:
+                return (json.load(arquivo).get("eventos") or []), "arquivo indicado"
+        except Exception:
+            return [], "nenhuma"
+    try:
+        from fxstreet_calendario import buscar, normaliza
+        cru = buscar(dias_atras=DIAS_ATRAS_DECISAO, dias_frente=1)
+        vivos = [x for x in (normaliza(e) for e in cru) if x]
+        if vivos:
+            return vivos, "fxstreet %d dias atras" % DIAS_ATRAS_DECISAO
+    except Exception as erro:
+        print("  ! busca larga de decisoes indisponivel (%s) — usando o arquivo local" % erro)
+    try:
+        with io.open(caminho, encoding="utf-8") as arquivo:
+            return (json.load(arquivo).get("eventos") or []), "arquivo local (janela curta)"
+    except Exception:
+        return [], "nenhuma"
+
+
 def decisoes_publicadas(agora=None, caminho=CALENDARIO):
     """Ultima decisao ja publicada por moeda no mesmo calendario exibido pelo site."""
     agora = agora or dt.datetime.now(dt.timezone.utc)
-    try:
-        with io.open(caminho, encoding="utf-8") as arquivo:
-            doc = json.load(arquivo)
-    except Exception:
-        return {}
+    eventos, origem = _eventos_para_decisao(caminho, ao_vivo=(caminho == CALENDARIO))
+    print("  decisoes procuradas em: %s (%d eventos)" % (origem, len(eventos)))
     out = {}
-    for evento in doc.get("eventos", []):
+    for evento in eventos:
         moeda = evento.get("moeda")
         titulo = str(evento.get("titulo") or "").strip().lower()
         if moeda not in TITULOS_DECISAO or not any(x in titulo for x in TITULOS_DECISAO[moeda]):
@@ -191,7 +221,10 @@ def _taxa_texto(moeda, taxa):
     if moeda == "USD":
         return "%s–%s%%" % (pt(taxa - 0.25), pt(taxa))
     if moeda == "CAD":
-        return "%s%%  (Bank Rate %s · deposito %s)" % (pt(taxa), pt(taxa + 0.25), pt(taxa - 0.05))
+        # ⚠️ 06/set: nascia em INGLES ("Bank Rate") e a interface remendava no render.
+        # A lei da casa e nascer em portugues NA FONTE — o remendo do ui_macro.js
+        # continua la, inofensivo, so nao acha mais o que trocar.
+        return "%s%%  (taxa básica %s · depósito %s)" % (pt(taxa), pt(taxa + 0.25), pt(taxa - 0.05))
     if moeda == "JPY":
         return "cerca de %s%%" % pt(taxa)
     return "%s%%" % pt(taxa)
@@ -228,10 +261,66 @@ def reconcilia_taxa(moeda, banco, evento):
     return out
 
 
+def memoria_da_reconciliacao(caminho=SAIDA):
+    """A ULTIMA decisao ja reconciliada, guardada na propria saida anterior.
+
+    POR QUE EXISTE (medido em 06/set/2026, com o historico do repositorio):
+    `decisoes_publicadas` le data/calendario_resultado.json, que e uma JANELA ROLANTE curta —
+    hoje ela vai de 03/set a 13/set, ou seja, guarda cerca de tres dias para tras. A decisao do
+    RBNZ de 02/set (OCR 2,50 -> 2,75) foi reconciliada e ficou correta no arquivo das 03:02Z de
+    05/set ate as 22:19Z do mesmo dia; na rodada das 00:15Z de 06/set a decisao caiu para fora
+    da janela, `decisoes_reconciliadas` voltou a ser lista vazia e a taxa do NZD VOLTOU para o
+    cadastro estatico: 2,50%, ultima mudanca 08/jul, 60 dias de idade. O painel nao ficou em
+    silencio — ficou ERRADO, e o ciclo do NZD (a unica dimensao que vota naquela moeda) passou
+    a pesar 0,71 em vez de 0,98.
+
+    Isso nao e caso do NZD: acontece com TODO banco, cerca de tres dias depois de cada decisao.
+    A memoria abaixo faz a reconciliacao durar. Ela so vale quando a decisao guardada e mais
+    NOVA que a `ultima_mudanca` do cadastro estatico — assim uma correcao feita a mao no
+    cadastro continua ganhando da memoria.
+    """
+    try:
+        with io.open(caminho, encoding="utf-8") as arquivo:
+            velho = json.load(arquivo)
+    except Exception:
+        return {}
+    out = {}
+    for moeda, banco in (velho.get("bancos") or {}).items():
+        if not banco.get("taxa_reconciliada"):
+            continue
+        if not banco.get("taxa_confirmada_em"):
+            continue
+        out[moeda] = banco
+    return out
+
+
+def aplica_memoria(moeda, banco_calculado, cadastro, lembrado):
+    """Devolve o banco com a reconciliacao lembrada, quando ela e mais nova que o cadastro."""
+    if not lembrado:
+        return banco_calculado
+    if banco_calculado.get("taxa_reconciliada"):
+        return banco_calculado                      # o calendario ainda tem a decisao: ele manda
+    confirmada = str(lembrado.get("taxa_confirmada_em") or "")[:10]
+    if not confirmada or confirmada <= str(cadastro.get("ultima_mudanca") or ""):
+        return banco_calculado                      # cadastro igual ou mais novo: ele manda
+    out = dict(banco_calculado)
+    for campo in ("taxa", "taxa_texto", "ultima_decisao", "ultima_decisao_resultado",
+                  "ultima_mudanca", "ultima_mudanca_bp", "taxa_confirmada_em"):
+        if lembrado.get(campo) is not None:
+            out[campo] = lembrado[campo]
+    out["taxa_origem"] = "memoria da reconciliacao (%s) — a decisao saiu da janela do calendario" % confirmada
+    out["taxa_reconciliada"] = True
+    out["taxa_veio_da_memoria"] = True
+    out["nota_vigencia"] = ("reconciliado com o resultado publicado no calendario e mantido "
+                            "pela memoria depois que a decisao saiu da janela rolante")
+    return out
+
+
 def main():
     agora = dt.datetime.now(dt.timezone.utc)
     hoje = agora.date()
     decisoes = decisoes_publicadas(agora)
+    lembradas = memoria_da_reconciliacao()
     out = {}
     for m, b in BANCOS.items():
         futuras = [r for r in b["reunioes"] if dt.date.fromisoformat(r) >= hoje]
@@ -245,7 +334,7 @@ def main():
                 print("  !! %s: a lista de reunioes acaba em %s (%d dias) — ESTENDER para 2027"
                       % (m, fim, (fim - hoje).days))
         prox = futuras[0] if futuras else None
-        out[m] = reconcilia_taxa(m, b, decisoes.get(m))
+        out[m] = aplica_memoria(m, reconcilia_taxa(m, b, decisoes.get(m)), b, lembradas.get(m))
         out[m]["proxima"] = prox
         out[m]["dias_ate"] = (dt.date.fromisoformat(prox) - hoje).days if prox else None
         out[m]["proxima_utc"] = em_utc(prox, b["hora_local"], b["fuso"]) if prox else None

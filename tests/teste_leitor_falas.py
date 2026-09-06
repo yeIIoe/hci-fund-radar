@@ -99,8 +99,29 @@ CASOS_FRASE = [
      "I am comfortable holding rates where they are for now.", "manutenção"),
     (17, "TERCEIROS: 'prospective hikes/cuts' e expectativa de MERCADO, nao postura",
      PILL_MERCADO, "indeterminado"),
-    (18, "MANUTENCAO com alta condicional na mesma frase: manda a firme",
-     PILL_HOLD, "manutenção"),
+    # ⚠️ 06/set — ESTE CASO TROCOU DE GABARITO, E O GABARITO ANTIGO ESTAVA ERRADO.
+    # Ate hoje o teste exigia "manutenção" nesta frase, e o codigo entregava. So que a frase e
+    # a INTERPRETACAO DO MERCADO, nao a postura do Pill: "it is natural for MARKET
+    # PARTICIPANTS to interpret this set of scenarios as suggesting the MPC is seeking to keep
+    # rates on hold". O filtro de terceiros era derrotado por duas coisas ao mesmo tempo — o
+    # nome do banco ("the MPC") ligava o resgate de "orador", e o "but" abria uma oracao nova
+    # onde a palavra "mercado" ja nao aparecia. Resultado: o unico veredito do GBP no painel
+    # era um veredito de banco central tirado de uma frase sobre expectativa de mercado, com o
+    # nome do dirigente ao lado. Era exatamente o erro que o veredito veio substituir.
+    # O gabarito certo e "indeterminado": silencio nao e voto.
+    (18, "TERCEIROS na frase inteira: 'market participants ... interpret ... MPC is seeking "
+         "to keep rates on hold' NAO e postura do orador",
+     PILL_HOLD, "indeterminado"),
+    (181, "MANUTENCAO com alta condicional na mesma frase, dita em PRIMEIRA PESSOA: manda a firme",
+     "We are keeping rates on hold, but we would raise rates aggressively if the inflation "
+     "outlook were to deteriorate significantly.", "manutenção"),
+    (182, "DECISAO ANUNCIADA nao e passado: o comunicado descreve a postura EM VIGOR",
+     "With recent data coming out largely in line with our July forecast, we decided to "
+     "maintain the policy interest rate at 2.25%.", "manutenção"),
+    (183, "mas 'we decided to CUT' continua sendo passado — a excecao so vale para manutencao",
+     "We decided to cut the policy rate by 25 basis points.", "indeterminado"),
+    (184, "o nome do banco NAO resgata a frase de terceiros",
+     "The market expects the Fed to cut rates in December.", "indeterminado"),
     (19, "CONTRADICAO: duas posturas firmes na mesma frase nao dao direcao",
      "We will raise the policy rate in September and cut the policy rate in December.",
      "indeterminado"),

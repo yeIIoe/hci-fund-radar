@@ -212,11 +212,24 @@ DOVISH = ["cut the policy rate", "lower the policy rate", "reduce the policy rat
           "appropriate to reduce", "downside risks to employment", "labor market is weakening",
           "labour market is weakening", "labor market has weakened", "further softening",
           "insurance cut", "move toward neutral", "less restrictive", "easing cycle"]
+# POSTURA e o portao: a frase so vira candidata se tiver uma destas marcas E falar de juro.
+# ⚠️ CONSERTO 06/set — o portao so conhecia OPINIAO em primeira pessoa ("i would", "we expect").
+# Um COMUNICADO nao opina, ele DECIDE: "we decided to leave the policy rate unchanged" nao tem
+# nenhuma das marcas antigas, entao as duas falas do BoC de 02/set (tipo comunicado_ata, o peso
+# MAIS ALTO da hierarquia, 1,0) sairam com o motivo "nenhuma frase de postura foi extraida do
+# texto" — uma frase FALSA sobre o proprio anuncio de decisao do banco. As marcas de DECISAO
+# abaixo fecham esse buraco. Medido nas 12 falas reais: itens 4 e 5 vao de 0 para 1 e 3 frases
+# candidatas; os outros 10 nao mudam.
 POSTURA = ["i would", "i believe", "i expect", "i support", "i favor", "i favour", "inclined to",
            "it may be appropriate", "it would be appropriate", "appropriate to", "my view",
            "i think the committee", "we should", "the committee should", "the council",
            "governing council", "the mpc", "the bank will", "the bank expects", "we expect",
-           "we will", "we are prepared", "we judge", "our assessment"]
+           "we will", "we are prepared", "we judge", "our assessment",
+           # marcas de DECISAO (comunicado, ata, coletiva) — sem elas o peso 1,0 fica mudo
+           "we decided", "decided to", "the committee decided", "the council decided",
+           "voted to", "agreed to", "today held", "today maintained", "today lowered",
+           "today raised", "maintains the policy", "maintained the policy",
+           "held its target", "kept the policy"]
 
 
 def busca(url: str) -> str:
@@ -304,7 +317,54 @@ def texto_da_pagina(html: str) -> str:
             break
     html = re.sub(r"<(script|style|nav|header|footer)[^>]*>.*?</\1>", " ", html, flags=re.S)
     t = re.sub(r"<[^>]+>", " ", html)
-    return H.unescape(re.sub(r"\s+", " ", t)).strip()
+    t = H.unescape(re.sub(r"\s+", " ", t)).strip()
+    return sem_boilerplate(t)
+
+
+# ⚠️ CONSERTO 06/set — O TRECHO QUE VAI PARA A TELA NAO PODE SER LIXO DE PAGINA.
+# O veredito do Macklem saia com este "trecho que justificou", dentro do <blockquote> do
+# painel: "Content Type(s) : Press , Speeches and appearances , Webcasts Bank of Canada
+# maintains the policy rate at 2¼% The Bank of Canada today held its target for the overnight
+# rate at 2.25%...". As duas primeiras partes sao a linha de metadados do site e a MANCHETE da
+# materia — e a lei da casa precifica manchete em ZERO. Pior: o marcador que decidia o
+# veredito ("maintains the policy rate") estava DENTRO da manchete, enquanto a frase limpa do
+# proprio orador ("we decided to maintain the policy interest rate at 2.25%") ficava guardada
+# no mesmo item e era preterida.
+# Aqui a linha de metadados do CMS e cortada ANTES de a pagina virar frase. A manchete some
+# junto, porque ela vem colada nessa linha e nao termina em ponto — o quebrador de frases a
+# emendava na primeira frase de verdade.
+# A REGRA E DESCARTAR O BLOCO INTEIRO, nao recortar dentro dele. Recortar "ate a primeira
+# palavra util" deixaria metade da manchete colada na frase, e manchete continuaria decidindo
+# veredito — so que escondida. O bloco de metadados nao termina em ponto, entao ele forma uma
+# unica "frase" gigante para o quebrador; jogar essa frase fora nao perde nada que exista de
+# verdade no documento (a declaracao de abertura do BoC tem as frases limpas do orador logo
+# em seguida). Quando a pagina SO tem esse bloco — como a pagina de webcast da coletiva — o
+# item passa a sair "nenhuma frase de postura foi extraida do texto", que e a verdade sobre
+# uma pagina sem transcricao.
+BOILERPLATE = [
+    r"^\s*content type\(s\)\s*:",                      # Banco do Canada e CMS parecidos
+    r"^\s*(?:available as|disponible en|share this page|subscribe)\b",
+    r"^\s*skip to (?:main )?content\b",
+    r"^\s*(?:cookies?|privacy) (?:policy|notice|settings)\b",
+]
+
+
+def e_boilerplate(frase: str) -> bool:
+    """A "frase" e, na verdade, o cabecalho de navegacao/metadados que o CMS cola na pagina."""
+    f = (frase or "").lstrip()
+    return any(re.search(p, f, flags=re.I) for p in BOILERPLATE)
+
+
+def sem_boilerplate(t: str) -> str:
+    """Tira o bloco de metadados do COMECO do texto da pagina, ate a primeira frase de verdade.
+
+    "Primeira frase de verdade" = o primeiro ponto final seguido de espaco. O bloco do CMS nao
+    tem ponto, entao ele e engolido inteiro junto com a manchete que vem colada nele.
+    """
+    if not e_boilerplate(t):
+        return t
+    m = re.search(r"\.\s", t)
+    return t[m.end():].strip() if m else ""
 
 
 # PROVISORIO (05/set): abaixo desta fracao de caracteres legiveis o "texto" nao e texto.
@@ -333,6 +393,10 @@ def frases_de_postura(texto: str) -> dict:
     frases = re.split(r"(?<=[.!?])\s+", texto)
     chave, hawk, dove = [], 0, 0
     for f in frases:
+        # segunda barreira: mesmo que o bloco do CMS escape do corte no texto da pagina, ele
+        # nunca vira "frase que justificou" na tela (conserto de 06/set)
+        if e_boilerplate(f):
+            continue
         fl = f.lower()
         if not (40 < len(f) < 420):
             continue
@@ -500,6 +564,13 @@ def reaplica_leitor():
     with io.open(SAIDA, encoding="utf-8") as f:
         rel = json.load(f)
     itens = rel.get("itens") or []
+    # limpa o boilerplate que ficou GRAVADO em rodadas anteriores: sem isto o "trecho que
+    # justificou" continuaria sendo lixo de pagina ate a proxima raspagem (conserto 06/set)
+    for it in itens:
+        fr = it.get("frases")
+        if isinstance(fr, list):
+            it["frases"] = [f for f in fr
+                            if not e_boilerplate(f.get("frase") if isinstance(f, dict) else f)]
     resumo = rel.get("resumo_por_moeda") or {}
     for m in sorted({i.get("moeda") for i in itens if i.get("moeda")}):
         resumo.setdefault(m, {})

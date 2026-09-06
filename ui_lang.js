@@ -738,6 +738,11 @@
     [/\bOverall Household Spending\b/g, "gasto das famílias"],
     [/\bConsumer Spending Volume\b/g, "volume de consumo das famílias"],
     [/\bConsumer Credit Change\b/g, "variação do crédito ao consumidor"],
+    // ⚠️ verificado na tela em 06/set: as duas linhas da Universidade de Michigan ficavam
+    // INTEIRAS em ingles na ficha do dia 11/09, porque "UoM 1-year" nao casava regra nenhuma
+    // e o "year" que sobrava cancelava a traducao toda.
+    [/\bUoM (\d+)-y(?:ear)? Consumer Inflation Expectations?\b/g,
+      (m, n) => "expectativa de inflação do consumidor em " + n + (n === "1" ? " ano" : " anos") + " (Michigan)"],
     [/\bConsumer Inflation Expectations\b/g, "expectativa de inflação do consumidor"],
     // setor externo
     [/\bGoods and Services Trade Balance\b/g, "balança comercial de bens e serviços"],
@@ -763,12 +768,32 @@
     [/\bISM Services Prices Paid\b/g, "preços pagos em serviços (ISM)"],
     [/\bISM Services PMI\b/g, "PMI de serviços (ISM)"],
     [/\bISM Manufacturing PMI\b/g, "PMI da indústria (ISM)"],
+    [/\bJibun Bank Services PMI\b/g, "PMI de serviços (Jibun)"],
+    [/\bJibun Bank Manufacturing PMI\b/g, "PMI da indústria (Jibun)"],
+    [/\bJibun Bank Composite PMI\b/g, "PMI composto (Jibun)"],
     [/\bServices PMI\b/g, "PMI de serviços"],
     [/\bComposite PMI\b/g, "PMI composto"],
     [/\bManufacturing PMI\b/g, "PMI da indústria"],
     [/\bConstruction PMI\b/g, "PMI da construção"],
     [/\bSentix Investor Confidence\b/g, "confiança do investidor (Sentix)"],
     [/\bWestpac Consumer Confidence\b/g, "confiança do consumidor (Westpac)"],
+    // ⚠️ acrescentados na varredura de 06/set: apareciam em ingles na ficha do dia
+    [/\bMichigan Consumer Sentiment Index\b/g, "índice de confiança do consumidor (Michigan)"],
+    [/\bMichigan Consumer Expectations Index\b/g, "índice de expectativas do consumidor (Michigan)"],
+    [/\bMichigan Current Conditions\b/g, "condições atuais (Michigan)"],
+    [/\bBusiness NZ PMI\b/g, "PMI da indústria (BusinessNZ)"],
+    [/\bBusiness NZ PSI\b/g, "índice de serviços (BusinessNZ)"],
+    [/\bExisting Home Sales Change\b/g, "variação das vendas de imóveis usados"],
+    [/\bExisting Home Sales\b/g, "vendas de imóveis usados"],
+    [/\bNew Home Sales Change\b/g, "variação das vendas de imóveis novos"],
+    [/\bNew Home Sales\b/g, "vendas de imóveis novos"],
+    [/\bPending Home Sales\b/g, "vendas de imóveis pendentes"],
+    [/\bMonthly Budget Statement\b/g, "resultado orçamentário mensal"],
+    [/\bWholesale Inventories\b/g, "estoques no atacado"],
+    [/\bBSI Large Manufacturing Conditions Index\b/g, "índice de condições das grandes indústrias (BSI)"],
+    [/\bIndex of Services\b/g, "índice de serviços"],
+    [/\(3M\/3M\)/g, "(3 meses contra 3 meses)"],
+    [/\bUSDA WASDE Report\b/g, "relatório WASDE (USDA)"],
     [/\bNational Australia Bank's Business Conditions\b/g, "condições dos negócios (NAB)"],
     [/\bNational Australia Bank's Business Confidence\b/g, "confiança dos negócios (NAB)"],
     [/\bNFIB Business Optimism Index\b/g, "otimismo das pequenas empresas (NFIB)"],
@@ -791,6 +816,11 @@
     [/\bAPI Weekly Crude Oil Stock\b/g, "estoques de petróleo (API, semanal)"],
     [/\bBaker Hughes US Oil Rig Count\b/g, "sondas de petróleo nos EUA (Baker Hughes)"],
     // posicionamento e leiloes
+    // o ATIVO tem de ser traduzido ANTES da forma geral, senao sobra "Oil"/"Gold" em ingles
+    // e o RESTO_INGLES cancela o titulo inteiro (varredura de 06/set)
+    [/\bCFTC Oil NC Net Positions\b/g, "posições líquidas não comerciais em petróleo (CFTC)"],
+    [/\bCFTC Gold NC Net Positions\b/g, "posições líquidas não comerciais em ouro (CFTC)"],
+    [/\bCFTC Silver NC Net Positions\b/g, "posições líquidas não comerciais em prata (CFTC)"],
     [/\bCFTC (.+?) NC Net Positions\b/g, "posições líquidas não comerciais em $1 (CFTC)"],
     [/\b(\d+)-Week Bill Auction\b/gi, "leilão de letras de $1 semanas"],
     [/\b(\d+)-Month Bill Auction\b/gi, "leilão de letras de $1 meses"],
@@ -810,8 +840,14 @@
     // feriado
     [/\bLabor Day\b/g, "Dia do Trabalho (feriado)"],
     // a sigla do banco vem na frente na FXStreet; em portugues ela vai para o fim
-    [/^(RBNZ|RBA|BoC|BoE|BoJ|ECB|SNB|Fed|FOMC) (decisão de juro|comunicado de política monetária|revisão de política monetária|coletiva de imprensa|ata da reunião de política monetária)/g,
+    // ⚠️ verificado na tela em 06/set: a lista de substantivos estava curta e a sigla ficava
+    // na frente, em ingles — "ECB taxa das operacoes principais de refinanciamento" e
+    // "ECB taxa do deposito" apareceram na ficha do dia 10/09. As duas taxas entraram aqui.
+    [/^(RBNZ|RBA|BoC|BoE|BoJ|ECB|SNB|Fed|FOMC) (decisão de juro|comunicado de política monetária|revisão de política monetária|coletiva de imprensa|ata da reunião de política monetária|taxa das operações principais de refinanciamento|taxa do depósito|Livro Bege)/g,
       (m, banco, o) => o + " (" + (banco === "ECB" ? "BCE" : banco) + ")"],
+    // rede de seguranca: qualquer "ECB" que sobrou vira "BCE". Vem DEPOIS das regras de
+    // discurso e da inversao acima, para nao atrapalhar nenhuma delas.
+    [/\bECB\b/g, "BCE"],
     // sufixos de periodicidade e de ajuste — sempre por ultimo
     [/\(MoM\)/g, "(mês a mês)"],
     [/\(YoY\)/g, "(ano a ano)"],
@@ -828,9 +864,16 @@
      E o que impede meia-traducao em manchete e em frase corrida. */
   /* Letra, para o lookaround: inclui as acentuadas. O \b do JS so conhece ASCII, e por
      isso "for" casava DENTRO de "forca" e cancelava a traducao inteira — medido em 05/set,
-     em "Labor Force Participation Rate". */
+     em "Labor Force Participation Rate".
+     ⚠️ VARREDURA DE 06/set: tres palavras desta lista sao IDENTICAS em portugues e por isso
+     cancelavam traducoes JA COMPLETAS — "deflator" derrubava "deflator do PIB (ano a ano)", "natural" derrubava
+     "estoques de gas natural (EIA)",
+     "final" derrubava "PIB trimestral final" e "total" derrubaria qualquer "... total".
+     Foram retiradas: palavra que existe igual em portugues nao e prova de ingles restante.
+     O risco que sobra e nulo para o leitor — se sobrar so "final" ou "total", ele le em
+     portugues do mesmo jeito. */
   const LETRA = "A-Za-z\\u00C0-\\u024F";
-  const RESTO_INGLES = new RegExp("(?<![" + LETRA + "])(the|of|in|on|for|and|to|with|from|by|as|at|is|are|was|were|be|been|has|have|will|would|should|could|not|new|old|more|most|less|change|changes|rate|rates|index|indices|sales|price|prices|production|output|balance|orders|claims|employment|unemployment|earnings|spending|confidence|survey|current|net|total|final|core|goods|services|trade|bank|business|consumer|producer|house|housing|money|supply|reserves|auction|bill|note|bond|stock|stocks|count|speech|day|week|month|year|years|average|weekly|hourly|labor|labour|force|participation|productivity|costs|jobless|initial|continuing|building|permits|approvals|capacity|utilization|durable|wholesale|retail|inflation|expectations|investment|foreign|domestic|gross|product|deflator|annualized|underemployment|payrolls|nonfarm|purchasing|managers|composite|manufacturing|construction|crude|oil|gas|natural|gasoline|distillate|heating|storage|rig|positions|holiday|market|committee|federal|reserve|minutes|statement|conference|press|policy|monetary|decision|interest|deposit|facility|refinancing|operations|main|data|report|jumps|rises|falls|gains|weakens|ahead|after|before|about|higher|lower)(?![" + LETRA + "])", "i");
+  const RESTO_INGLES = new RegExp("(?<![" + LETRA + "])(the|of|in|on|for|and|to|with|from|by|as|at|is|are|was|were|be|been|has|have|will|would|should|could|not|new|old|more|most|less|change|changes|rate|rates|index|indices|sales|price|prices|production|output|balance|orders|claims|employment|unemployment|earnings|spending|confidence|survey|current|net|core|goods|services|trade|bank|business|consumer|producer|house|housing|money|supply|reserves|auction|bill|note|bond|stock|stocks|count|speech|day|week|month|year|years|average|weekly|hourly|labor|labour|force|participation|productivity|costs|jobless|initial|continuing|building|permits|approvals|capacity|utilization|durable|wholesale|retail|inflation|expectations|investment|foreign|domestic|gross|product|annualized|underemployment|payrolls|nonfarm|purchasing|managers|composite|manufacturing|construction|crude|oil|gas|gasoline|distillate|heating|storage|rig|positions|holiday|market|committee|federal|reserve|minutes|statement|conference|press|policy|monetary|decision|interest|deposit|facility|refinancing|operations|main|data|report|jumps|rises|falls|gains|weakens|ahead|after|before|about|higher|lower)(?![" + LETRA + "])", "i");
 
   /* Traduz um titulo de evento INTEIRO, ou devolve null.
      Recusa quando: e longo demais, tem cara de frase/manchete, ou sobra ingles no fim. */
@@ -857,8 +900,15 @@
   }]);
   // (c) o nome oficial da taxa, que o bancos_centrais.py ainda grava em ingles, e o
   //     "deposito" sem acento que vem do mesmo lugar
-  REGEX.push([/^(.*)\bBank Rate\b(.*)$/, (m, a, b) => a + "taxa básica" + b]);
-  REGEX.push([/^(.*)\bdeposito\b(.*)$/, (m, a, b) => a + "depósito" + b]);
+  //     ⚠️ 06/set: eram DUAS regras, e traduz() devolve na PRIMEIRA que casa. A celula do CAD
+  //     traz as duas coisas no mesmo no ("2,25% (Bank Rate 2,50 · deposito 2,20)"): a de cima
+  //     consertava "Bank Rate" e a de baixo nunca rodava, entao "deposito" ficava sem acento
+  //     na tela. Viraram UMA regra que aplica as duas trocas de uma vez.
+  //     E o (?![^]*[“”"]) e o freio: nunca mexer num no que carrega CITACAO. Em 06/set a
+  //     frase do Pill saiu na tela como "prospective taxa básica hikes" — a regra acertando
+  //     dentro de uma citacao do dirigente. Meia-traducao de citacao e pior que ingles.
+  REGEX.push([/^(?![^]*[“”"])(?=[^]*(?:\bBank Rate\b|\bdeposito\b))[^]*$/,
+    (m) => m.replace(/\bBank Rate\b/g, "taxa básica").replace(/\bdeposito\b/g, "depósito")]);
   // (d) titulos de publicacao do Fed — formularios fixos do feed oficial
   REGEX.push([/^Federal Reserve issues FOMC statement$/, "Fed divulga o comunicado do FOMC"]);
   REGEX.push([/^Minutes of the Federal Open Market Committee, (.+)$/,

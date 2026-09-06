@@ -11,6 +11,14 @@ nao cria gatilhos de entrada. O FUND preserva a formula V0.1 congelada:
     FUND   = 100 * tanh(z / 2)
 
 As medias e desvios de t usam apenas informacao ate t-1.
+
+LEI DO DONO — YIELD E DADO DE MERCADO EXIBIDO
+---------------------------------------------
+O juro (2 e 10 anos) e o diferencial entre moedas sao DADO DE MERCADO EXIBIDO.
+NAO ENTRAM NO SENTIMENTO EM NENHUMA HIPOTESE: nao votam, nao pontuam, nao
+filtram e nao ponderam o score. Sao coluna de comparacao para leitura humana.
+A camada de 10 anos (data/yields_10a.json e data/diferenciais.json) vive no fim
+deste arquivo e roda com `python update_fund.py --yields-10a`.
 """
 from __future__ import annotations
 
@@ -206,10 +214,17 @@ HISTORY_DOWNLOADS = {
     # e-mail de falha chegou ao Eduardo. O arquivo tem 20 KB e o MOF publica todo dia util as
     # 23:30 GMT (conferido: fonte com dado de 03/09 enquanto o repo tinha 28/08). TTL de 1 h:
     # toda rodada baixa de novo. Custo zero, e a guarda volta a medir a FONTE, nao o cache.
+    # ⚠️ 06-set-2026 — SEGUNDO BUG DESTE ARQUIVO, achado ao estender a curva para 10 anos.
+    # O piso de 800 bytes derrubava o arquivo NO COMECO DE CADA MES: o CSV do mes
+    # corrente so tem as linhas do proprio mes, e em 06/09 ele media 545 bytes (3 dias
+    # uteis) — o download virava "resposta suspeita" e caia em CACHE_APOS_FALHA,
+    # deixando o JPY parado em 31/08 nos primeiros dias de setembro. Uma unica linha
+    # de dado mede ~445 bytes (cabecalho + aviso do MoF), entao o piso passa a 300:
+    # continua pegando resposta vazia ou pagina de erro, sem cortar mes recem-virado.
     "JPY_CURRENT": (
         "https://www.mof.go.jp/english/policy/jgbs/reference/interest_rate/jgbcme.csv",
         RAW_DIR / "jpy_mof_mes.csv",
-        800,
+        300,
         1,
     ),
     "AUD_HISTORY": (
@@ -440,12 +455,13 @@ def refresh_downloads(force: bool, offline: bool) -> list[DownloadResult]:
     return results
 
 
-def read_usd_history() -> dict[date, float]:
+def read_usd_history(coluna: str = "2 Yr") -> dict[date, float]:
+    """CMT do Treasury. O mesmo CSV traz a curva inteira: '2 Yr', '10 Yr', etc."""
     output: dict[date, float] = {}
     for path in sorted(UST_DIR.glob("ust_cmt_*.csv")):
         with path.open("r", encoding="utf-8-sig", newline="") as handle:
             for row in csv.DictReader(handle):
-                raw = (row.get("2 Yr") or "").strip()
+                raw = (row.get(coluna) or "").strip()
                 if not raw:
                     continue
                 try:
@@ -456,8 +472,9 @@ def read_usd_history() -> dict[date, float]:
     return output
 
 
-def read_eur_history() -> dict[date, float]:
-    path = HISTORY_DOWNLOADS["EUR_HISTORY"][1]
+def read_eur_history(path: Path | None = None) -> dict[date, float]:
+    """Curva AAA do BCE. A serie muda so no sufixo da URL (SR_2Y / SR_10Y)."""
+    path = path or HISTORY_DOWNLOADS["EUR_HISTORY"][1]
     output: dict[date, float] = {}
     with path.open("r", encoding="utf-8-sig", newline="") as handle:
         for row in csv.DictReader(handle):
@@ -467,7 +484,10 @@ def read_eur_history() -> dict[date, float]:
     return output
 
 
-def read_gbp_history() -> dict[date, float]:
+def read_gbp_history(maturidade: float = 2.0) -> dict[date, float]:
+    """ZIP oficial do BoE. O MESMO arquivo tem todas as maturidades: a aba
+    '4. spot curve' traz uma coluna por prazo (0,5 ... 40 anos) e a linha de
+    cabecalho diz o prazo em anos. So muda qual coluna e lida."""
     path = HISTORY_DOWNLOADS["GBP_HISTORY"][1]
     output: dict[date, float] = {}
     with zipfile.ZipFile(path) as archive:
@@ -487,14 +507,14 @@ def read_gbp_history() -> dict[date, float]:
                 candidate = next(rows, None)
                 if candidate is None:
                     break
-                if any(isinstance(value, (int, float)) and abs(float(value) - 2.0) < 1e-9 for value in candidate[1:]):
+                if any(isinstance(value, (int, float)) and abs(float(value) - maturidade) < 1e-9 for value in candidate[1:]):
                     maturity_row = candidate
                     break
             if maturity_row is None:
                 continue
             target_column = next(
                 index for index, value in enumerate(maturity_row)
-                if isinstance(value, (int, float)) and abs(float(value) - 2.0) < 1e-9
+                if isinstance(value, (int, float)) and abs(float(value) - maturidade) < 1e-9
             )
             for row in rows:
                 if not row or not isinstance(row[0], (date, datetime)) or target_column >= len(row):
@@ -507,8 +527,11 @@ def read_gbp_history() -> dict[date, float]:
     return output
 
 
-def _le_jgb(path, pular: int) -> dict[date, float]:
-    """Le um CSV do MoF. Os dois tem o mesmo corpo; muda so quantas linhas de aviso pular."""
+def _le_jgb(path, pular: int, coluna: str = "2Y") -> dict[date, float]:
+    """Le um CSV do MoF. Os dois tem o mesmo corpo; muda so quantas linhas de aviso pular.
+
+    O CSV traz a CURVA INTEIRA (1Y..40Y) — o ponto de 10 anos e a coluna '10Y'.
+    """
     out: dict[date, float] = {}
     if not path.exists():
         return out
@@ -516,7 +539,7 @@ def _le_jgb(path, pular: int) -> dict[date, float]:
         for _ in range(pular):
             next(handle, None)
         for row in csv.DictReader(handle):
-            raw = (row.get("2Y") or "").strip()
+            raw = (row.get(coluna) or "").strip()
             if raw in ("", "-"):
                 continue
             try:
@@ -526,15 +549,15 @@ def _le_jgb(path, pular: int) -> dict[date, float]:
     return out
 
 
-def read_jpy_history() -> dict[date, float]:
+def read_jpy_history(coluna: str = "2Y") -> dict[date, float]:
     """Historico + mes corrente.
 
     O arquivo historico do MoF termina no mes anterior — em 31/ago/2026 ele parava em
     31/07, e isso deixava o JPY sem observacao por quatro semanas, o que impedia medir
     qualquer par com iene. O arquivo do mes corrente cobre o resto.
     """
-    base = _le_jgb(HISTORY_DOWNLOADS["JPY_HISTORY"][1], 1)
-    mes = _le_jgb(HISTORY_DOWNLOADS["JPY_CURRENT"][1], 1)
+    base = _le_jgb(HISTORY_DOWNLOADS["JPY_HISTORY"][1], 1, coluna)
+    mes = _le_jgb(HISTORY_DOWNLOADS["JPY_CURRENT"][1], 1, coluna)
     base.update(mes)          # o mes corrente tem prioridade onde houver sobreposicao
     return base
 
@@ -561,16 +584,19 @@ def read_core() -> dict[str, dict[date, float | None]]:
     return output
 
 
-def read_aud() -> dict[date, float]:
+def read_aud(mnemonico: str = "FCMYGBAG2D", path_atual: Path | None = None) -> dict[date, float]:
+    """Tabela F2 do RBA. O MESMO .xls tem 2, 3, 5 e 10 anos do titulo do governo
+    australiano — a linha 'Mnemonic' identifica a coluna (FCMYGBAG2D / FCMYGBAG10D).
+    O ponto corrente vem do espelho DBnomics da mesma serie."""
     historical_path = HISTORY_DOWNLOADS["AUD_HISTORY"][1]
     _, rows, date_mode = read_biff_sheet(historical_path, ("Data",))
     mnemonic_row = next(
         row for row in rows
-        if any(str(value).strip() == "FCMYGBAG2D" for value in row if value is not None)
+        if any(str(value).strip() == mnemonico for value in row if value is not None)
     )
     target_column = next(
         index for index, value in enumerate(mnemonic_row)
-        if str(value).strip() == "FCMYGBAG2D"
+        if str(value).strip() == mnemonico
     )
     excel_epoch = date(1904, 1, 1) if date_mode else date(1899, 12, 30)
     output: dict[date, float] = {}
@@ -581,7 +607,7 @@ def read_aud() -> dict[date, float]:
         if isinstance(raw, (int, float)) and row[0] > 20_000:
             output[excel_epoch + timedelta(days=int(row[0]))] = float(raw)
 
-    path = DOWNLOADS["AUD"][1]
+    path = path_atual or DOWNLOADS["AUD"][1]
     payload = json.loads(path.read_text(encoding="utf-8"))
     doc = payload["series"]["docs"][0]
     for period, value in zip(doc["period"], doc["value"]):
@@ -594,12 +620,14 @@ def read_aud() -> dict[date, float]:
     return output
 
 
-def read_cad() -> dict[date, float]:
-    path = DOWNLOADS["CAD"][1]
+def read_cad(serie: str = "BD.CDN.2YR.DQ.YLD", path: Path | None = None) -> dict[date, float]:
+    """API Valet do Banco do Canada. Troca so o codigo da serie:
+    BD.CDN.2YR.DQ.YLD (2 anos) / BD.CDN.10YR.DQ.YLD (10 anos)."""
+    path = path or DOWNLOADS["CAD"][1]
     payload = json.loads(path.read_text(encoding="utf-8"))
     output: dict[date, float] = {}
     for row in payload["observations"]:
-        raw = row.get("BD.CDN.2YR.DQ.YLD", {}).get("v")
+        raw = row.get(serie, {}).get("v")
         if raw not in (None, ""):
             output[parse_iso(row["d"])] = float(raw)
     return output
@@ -615,7 +643,10 @@ def column_number(reference: str) -> int:
     return number
 
 
-def read_nzd_xlsx(path: Path) -> dict[date, float]:
+def read_nzd_xlsx(path: Path, serie: str = "INM.DG102.NZZCF") -> dict[date, float]:
+    """Planilha B2 do RBNZ. A linha 5 traz o codigo de cada serie: o titulo do
+    governo de 2 anos e INM.DG102.NZZCF e o de 10 anos e INM.DG110.NZZCF —
+    ambos no MESMO arquivo, tanto no historico quanto no corrente."""
     namespace = {"x": "http://schemas.openxmlformats.org/spreadsheetml/2006/main"}
     with zipfile.ZipFile(path) as archive:
         shared_root = ET.fromstring(archive.read("xl/sharedStrings.xml"))
@@ -637,11 +668,11 @@ def read_nzd_xlsx(path: Path) -> dict[date, float]:
 
     series_row = rows.get(5, {})
     target_column = next(
-        (column for column, value in series_row.items() if value == "INM.DG102.NZZCF"),
+        (column for column, value in series_row.items() if value == serie),
         None,
     )
     if target_column is None:
-        raise RuntimeError("RBNZ: coluna Government 2Y nao encontrada")
+        raise RuntimeError(f"RBNZ: coluna {serie} nao encontrada em {path.name}")
 
     excel_epoch = date(1899, 12, 30)
     output: dict[date, float] = {}
@@ -659,14 +690,17 @@ def read_nzd_xlsx(path: Path) -> dict[date, float]:
     return output
 
 
-def read_nzd() -> dict[date, float]:
-    output = read_nzd_xlsx(HISTORY_DOWNLOADS["NZD_HISTORY"][1])
-    output.update(read_nzd_xlsx(DOWNLOADS["NZD"][1]))
+def read_nzd(serie: str = "INM.DG102.NZZCF") -> dict[date, float]:
+    output = read_nzd_xlsx(HISTORY_DOWNLOADS["NZD_HISTORY"][1], serie)
+    output.update(read_nzd_xlsx(DOWNLOADS["NZD"][1], serie))
     return output
 
 
-def read_chf() -> dict[date, float]:
-    path = DOWNLOADS["CHF"][1]
+def read_chf(prazo: str = "J02M0", path: Path | None = None) -> dict[date, float]:
+    """Warehouse NSS do SNB. A dimensao LAUFZEIT vai de J01M0 a J30M0 de 6 em 6
+    meses; J02M0 = 2 anos, J10M0 = 10 anos. O SNB ja publica o PONTO da curva
+    Nelson-Siegel-Svensson ja avaliado — nao e preciso reimplementar a formula."""
+    path = path or DOWNLOADS["CHF"][1]
     output: dict[date, float] = {}
     with path.open("r", encoding="utf-8-sig", newline="") as handle:
         started = False
@@ -677,10 +711,10 @@ def read_chf() -> dict[date, float]:
                 continue
             row = next(csv.reader([line], delimiter=";"))
             # warehouse NSS: Date;LAUFZEIT;ZEITPUNKT;frequency;AGGREGATIONSMETHODE;Value
-            if len(row) >= 6 and row[1] == "J02M0" and row[5]:
+            if len(row) >= 6 and row[1] == prazo and row[5]:
                 output[parse_iso(row[0])] = float(row[5])
             # compatibilidade com o cube antigo: Date;D0;D1;Value
-            elif len(row) == 4 and row[1] == "CHF" and row[2] == "2J" and row[3]:
+            elif len(row) == 4 and row[1] == "CHF" and row[2] == f"{int(prazo[1:3])}J" and row[3]:
                 output[parse_iso(row[0])] = float(row[3])
     return output
 
@@ -1642,11 +1676,443 @@ def build_snapshot(downloads: list[DownloadResult]) -> dict:
     }
 
 
+# ============================================================================
+# CAMADA DE 10 ANOS — data/yields_10a.json e data/diferenciais.json
+#
+# LEI DO DONO (nao negociavel): YIELD E DADO DE MERCADO EXIBIDO. NAO ENTRA NO
+# SENTIMENTO EM NENHUMA HIPOTESE. Nada aqui vota, pontua, filtra ou pondera o
+# score de sentimento — e coluna de comparacao e contexto para o Eduardo ler.
+#
+# POR QUE ESTE BLOCO EXISTE
+# -------------------------
+# A revisao do dono pediu o juro de 2 E de 10 anos, mais o diferencial entre as
+# moedas de cada par. O ponto de 2 anos ja existia (data/yields.json). Raspar
+# sites agregadores para pegar o de 10 anos esbarra em bloqueio — e era
+# desnecessario: as fontes OFICIAIS que este arquivo ja baixa publicam a CURVA
+# INTEIRA, nao so o ponto de 2 anos. Nenhuma fonte nova entrou:
+#   USD  mesmo CSV do Treasury, coluna "10 Yr"
+#   EUR  mesma API do BCE, serie SR_10Y no lugar de SR_2Y
+#   GBP  mesmo ZIP do BoE, coluna de maturidade 10 na aba "4. spot curve"
+#   JPY  mesmo CSV do MoF, coluna "10Y"
+#   AUD  mesma tabela F2 do RBA, mnemonico FCMYGBAG10D
+#   CAD  mesma API Valet, serie BD.CDN.10YR.DQ.YLD
+#   NZD  mesma planilha B2 do RBNZ, serie INM.DG110.NZZCF
+#   CHF  mesmo cubo NSS do SNB, LAUFZEIT J10M0
+#
+# SOBRE O CHF E A FORMULA NELSON-SIEGEL-SVENSSON
+# ----------------------------------------------
+# Nao foi preciso implementar a NSS. O warehouse do SNB expoe a dimensao
+# LAUFZEIT de J01M0 a J30M0 (de 6 em 6 meses) e devolve a curva NSS JA AVALIADA
+# em cada prazo — o ponto de 10 anos vem pronto em J10M0. Os cubos de PARAMETROS
+# (beta0..beta3, tau1, tau2) nao estao publicados em endpoint publico: tres ids
+# plausiveis foram testados em 06/set/2026 e todos deram HTTP 404. Reimplementar
+# a formula sem os parametros oficiais seria estimativa, nao medicao — entao a
+# leitura usa o ponto publicado, que e o mesmo numero.
+#
+# ONDE NAO DA PARA MEDIR, O CAMPO E null COM O MOTIVO ESCRITO. Nunca estimativa.
+# ============================================================================
+
+YIELDS_10A_PATH = DATA_DIR / "yields_10a.json"
+DIFERENCIAIS_PATH = DATA_DIR / "diferenciais.json"
+YIELDS_2A_PATH = DATA_DIR / "yields.json"
+SENTIMENTO_PATH = DATA_DIR / "sentimento.json"
+JANELA_10A = 252
+
+# Downloads exclusivos da camada de 10 anos. Os demais (GBP, JPY, USD, NZD e o
+# historico do AUD) REUSAM os arquivos que a camada de 2 anos ja baixou — sao os
+# mesmos arquivos, com a curva inteira dentro.
+DOWNLOADS_10A = {
+    "EUR_10A": (
+        "https://data-api.ecb.europa.eu/service/data/YC/B.U2.EUR.4F.G_N_A.SV_C_YM.SR_10Y"
+        "?startPeriod=2004-09-06&format=csvdata",
+        RAW_DIR / "eur_ecb_10a.csv",
+        1_000_000,
+        18,
+    ),
+    "CAD_10A": (
+        "https://www.bankofcanada.ca/valet/observations/BD.CDN.10YR.DQ.YLD/json?start_date=2002-01-01",
+        RAW_DIR / "cad_boc_10a.json",
+        50_000,
+        18,
+    ),
+    "AUD_10A": (
+        "https://api.db.nomics.world/v22/series/RBA/F2/FCMYGBAG10D?observations=1",
+        RAW_DIR / "aud_dbnomics_rba_f2_10a.json",
+        10_000,
+        18,
+    ),
+    "CHF_10A": (
+        "https://data.snb.ch/api/warehouse/cube/SNB1A.SNB.NSS.KZS.EID/data/csv/en"
+        "?dimSel=LAUFZEIT(J10M0),ZEITPUNKT(A1100),frequency(P1D_L),AGGREGATIONSMETHODE(ZZ)"
+        "&fromDate=1988-01-01&toDate=2036-12-31",
+        RAW_DIR / "chf_snb_nss_10a.csv",
+        150_000,
+        72,
+    ),
+}
+
+REFERERS_10A = {
+    "EUR_10A": "https://data.ecb.europa.eu/",
+    "CAD_10A": SOURCES["CAD"]["url"],
+    "AUD_10A": "https://www.rba.gov.au/statistics/tables/",
+    "CHF_10A": "https://data.snb.ch/",
+}
+
+# Nome e endereco da fonte de 10 anos, por moeda — o cartao do painel mostra isto.
+SOURCES_10A = {
+    "USD": {
+        "name": "US Treasury CMT 10Y",
+        "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+        "route": "mesmo arquivo anual do Treasury, coluna '10 Yr'",
+    },
+    "EUR": {
+        "name": "ECB AAA 10Y spot",
+        "url": "https://data.ecb.europa.eu/data/datasets/YC",
+        "route": "mesma API do BCE, serie SR_10Y",
+    },
+    "GBP": {
+        "name": "Bank of England 10Y spot curve",
+        "url": "https://www.bankofengland.co.uk/statistics/yield-curves",
+        "route": "mesmo ZIP glcnominalddata, maturidade 10 anos",
+    },
+    "JPY": {
+        "name": "Japan MoF JGB 10Y",
+        "url": "https://www.mof.go.jp/english/policy/jgbs/reference/interest_rate/",
+        "route": "mesmo CSV do MoF, coluna '10Y'",
+    },
+    "AUD": {
+        "name": "RBA F2 Australian Government 10Y",
+        "url": "https://www.rba.gov.au/statistics/tables/",
+        "route": "mesma tabela F2, mnemonico FCMYGBAG10D",
+    },
+    "CAD": {
+        "name": "Bank of Canada benchmark 10Y",
+        "url": "https://www.bankofcanada.ca/rates/interest-rates/lookup-bond-yields/",
+        "route": "mesma API Valet, serie BD.CDN.10YR.DQ.YLD",
+    },
+    "NZD": {
+        "name": "RBNZ B2 Government 10Y",
+        "url": "https://www.rbnz.govt.nz/statistics/series/exchange-and-interest-rates/wholesale-interest-rates",
+        "route": "mesma planilha B2, serie INM.DG110.NZZCF",
+    },
+    "CHF": {
+        "name": "SNB Confederation NSS spot rate 10Y",
+        "url": "https://data.snb.ch/en/warehouse/SNB1A/cube/SNB1A@SNB.NSS.KZS.EID",
+        "route": "mesmo cubo NSS, LAUFZEIT J10M0",
+    },
+}
+
+# Quem decide a taxa curta de cada moeda (o mesmo mapa de update_yields.py; fica
+# repetido aqui de proposito para nao criar import circular).
+BANCO_10A = {
+    "EUR": ("European Central Bank", "https://www.ecb.europa.eu/press/pr/date/html/index.en.html"),
+    "GBP": ("Bank of England", "https://www.bankofengland.co.uk/monetary-policy/the-interest-rate-bank-rate"),
+    "AUD": ("Reserve Bank of Australia", "https://www.rba.gov.au/media-releases/"),
+    "NZD": ("Reserve Bank of New Zealand", "https://www.rbnz.govt.nz/hub/news"),
+    "USD": ("Federal Reserve", "https://www.federalreserve.gov/newsevents/pressreleases.htm"),
+    "CAD": ("Bank of Canada", "https://www.bankofcanada.ca/press/press-releases/"),
+    "CHF": ("Swiss National Bank", "https://www.snb.ch/en/the-snb/mandates-goals/monetary-policy"),
+    "JPY": ("Bank of Japan", "https://www.boj.or.jp/en/announcements/index.htm"),
+}
+
+
+# Arquivos que a camada de 10 anos COMPARTILHA com a de 2 anos: sao os mesmos
+# downloads, com a curva inteira dentro. Precisam ser atualizados aqui tambem —
+# senao, rodando `--yields-10a` sozinho, o frescor mediria o CACHE e nao a FONTE
+# (o mesmo bug que congelou as fontes por uma semana em 31-ago-2026). O TTL e o
+# carimbo de frescor cuidam de nao rebaixar nada quando o pipeline principal ja
+# rodou nesta mesma hora.
+COMPARTILHADOS_10A = {
+    "NZD": ("NZD", SOURCES["NZD"]["url"]),
+    "GBP_HISTORY": ("GBP_HISTORY", SOURCES["GBP"]["url"]),
+    "JPY_HISTORY": ("JPY_HISTORY", SOURCES["JPY"]["url"]),
+    "JPY_CURRENT": ("JPY_CURRENT", SOURCES["JPY"]["url"]),
+    "AUD_HISTORY": ("AUD_HISTORY", "https://www.rba.gov.au/statistics/historical-data.html"),
+    "NZD_HISTORY": ("NZD_HISTORY", SOURCES["NZD"]["url"]),
+}
+
+
+def baixa_10a(force: bool, offline: bool) -> list[DownloadResult]:
+    """Baixa o que e exclusivo do ponto de 10 anos e reatualiza o que e compartilhado."""
+    if offline:
+        chaves = [*DOWNLOADS_10A, *COMPARTILHADOS_10A]
+        return [DownloadResult(k, "OFFLINE", "cache local") for k in chaves]
+    resultados = [
+        download_resource(k, spec, force, REFERERS_10A[k])
+        for k, spec in DOWNLOADS_10A.items()
+    ]
+    for chave, (origem, referer) in COMPARTILHADOS_10A.items():
+        spec = DOWNLOADS[origem] if origem in DOWNLOADS else HISTORY_DOWNLOADS[origem]
+        resultados.append(download_resource(
+            chave, spec, force and chave in ("GBP_HISTORY", "JPY_HISTORY"), referer,
+        ))
+    resultados.extend(refresh_usd_history(force, offline=False))
+    return resultados
+
+
+def le_yields_10a() -> tuple[dict[str, dict[date, float]], dict[str, str]]:
+    """Le o ponto de 10 anos de cada moeda.
+
+    Devolve (series, motivos). Uma moeda que falha NAO derruba as outras: ela sai
+    de `series` e entra em `motivos` com o erro real escrito.
+    """
+    leitores = {
+        "USD": lambda: read_usd_history("10 Yr"),
+        "EUR": lambda: read_eur_history(DOWNLOADS_10A["EUR_10A"][1]),
+        "GBP": lambda: read_gbp_history(10.0),
+        "JPY": lambda: read_jpy_history("10Y"),
+        "AUD": lambda: read_aud("FCMYGBAG10D", DOWNLOADS_10A["AUD_10A"][1]),
+        "CAD": lambda: read_cad("BD.CDN.10YR.DQ.YLD", DOWNLOADS_10A["CAD_10A"][1]),
+        "NZD": lambda: read_nzd("INM.DG110.NZZCF"),
+        "CHF": lambda: read_chf("J10M0", DOWNLOADS_10A["CHF_10A"][1]),
+    }
+    series: dict[str, dict[date, float]] = {}
+    motivos: dict[str, str] = {}
+    for moeda in CURRENCIES:
+        try:
+            valores = {d: float(v) for d, v in leitores[moeda]().items() if v is not None}
+        except Exception as erro:
+            motivos[moeda] = f"leitura falhou: {type(erro).__name__}: {erro}"
+            continue
+        if len(valores) < 30:
+            motivos[moeda] = f"serie curta demais para medir variacao: {len(valores)} observacoes"
+            continue
+        series[moeda] = valores
+    return series, motivos
+
+
+def _cartao_moeda(moeda: str, valores: dict[date, float], hoje: date) -> dict:
+    """Monta o cartao de uma moeda no mesmo formato do yields.json de 2 anos."""
+    dias = sorted(valores)
+    vals = [valores[d] for d in dias]
+    ultimo = dias[-1]
+
+    def var(n: int) -> float | None:
+        return None if len(vals) <= n else round((vals[-1] - vals[-1 - n]) * 100.0, 1)
+
+    movs = [(vals[i] - vals[i - 1]) * 100.0 for i in range(max(1, len(vals) - JANELA_10A), len(vals))]
+    sigma = statistics.stdev(movs) if len(movs) > 2 else None
+    d1 = var(1)
+    idade = business_age(ultimo, hoje)
+    limites = SOURCES[moeda]
+    if idade <= limites["current_bdays"]:
+        estado = "CURRENT"
+    elif idade <= limites["delayed_bdays"]:
+        estado = "DELAYED"
+    else:
+        estado = "STALE"
+    fonte = SOURCES_10A[moeda]
+    banco, banco_url = BANCO_10A[moeda]
+    return {
+        "currency": moeda,
+        "yield": round(vals[-1], 4),
+        "as_of": ultimo.isoformat(),
+        "stale_days": idade,
+        "status": estado,
+        "d1": d1, "d5": var(5), "d20": var(20),
+        "sigma_bp": round(sigma, 2) if sigma else None,
+        "z1": round(d1 / sigma, 2) if (d1 is not None and sigma and sigma > 0) else None,
+        "cadence": SOURCES[moeda]["cadence"],
+        "source": fonte["name"],
+        "source_url": fonte["url"],
+        "route": fonte["route"],
+        "central_bank": banco,
+        "central_bank_url": banco_url,
+        "observations": len(vals),
+        "first_observation": dias[0].isoformat(),
+        "motivo": None,
+        "history": [{"d": d.isoformat(), "y": round(valores[d], 4)} for d in dias[-JANELA_10A:]],
+    }
+
+
+def constroi_yields_10a(series: dict[str, dict[date, float]], motivos: dict[str, str]) -> dict:
+    hoje = date.today()
+    cartoes = [_cartao_moeda(m, series[m], hoje) for m in CURRENCIES if m in series]
+    cartoes.sort(key=lambda x: -x["yield"])
+    for moeda in CURRENCIES:
+        if moeda in series:
+            continue
+        fonte = SOURCES_10A[moeda]
+        banco, banco_url = BANCO_10A[moeda]
+        cartoes.append({
+            "currency": moeda, "yield": None, "as_of": None, "stale_days": None,
+            "status": "SEM_DADO", "d1": None, "d5": None, "d20": None,
+            "sigma_bp": None, "z1": None, "cadence": SOURCES[moeda]["cadence"],
+            "source": fonte["name"], "source_url": fonte["url"], "route": fonte["route"],
+            "central_bank": banco, "central_bank_url": banco_url,
+            "observations": 0, "first_observation": None,
+            "motivo": motivos.get(moeda, "fonte nao coletada nesta rodada"),
+            "history": [],
+        })
+    return {
+        "meta": {
+            "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+            "ponto": "10 anos",
+            "lei": ("YIELD E DADO DE MERCADO EXIBIDO. NAO ENTRA NO SENTIMENTO EM "
+                    "NENHUMA HIPOTESE — e coluna de comparacao, nunca voto."),
+            "note": ("Curvas soberanas oficiais no ponto de 10 anos, das MESMAS fontes que "
+                     "ja alimentavam o ponto de 2 anos. Cada banco central publica no seu "
+                     "ritmo: o cartao mostra a data da observacao e a idade em dias uteis. "
+                     "Campo sem fonte fica null com o motivo escrito, nunca estimado."),
+            "window": JANELA_10A,
+            "sem_nowcast": ("O ponto de 2 anos tem nowcast intradiario (tv_yields_nowcast.py, "
+                            "TradingView TVC) quando a fonte oficial ainda nao publicou o dia. "
+                            "O de 10 anos NAO tem: aqui so entra o valor oficial publicado. "
+                            "Por isso a data de 10 anos costuma ficar 1 a 5 dias uteis atras da de 2 anos."),
+            "sem_dado": sorted(motivos),
+        },
+        "currencies": cartoes,
+    }
+
+
+def _pares_do_sentimento() -> list[tuple[str, str, str]]:
+    """Le os pares de data/sentimento.json. NAO escreve nada la — so le a lista."""
+    payload = json.loads(SENTIMENTO_PATH.read_text(encoding="utf-8"))
+    saida: list[tuple[str, str, str]] = []
+    for item in payload.get("pares", []):
+        par = str(item.get("par", "")).upper()
+        if len(par) != 6:
+            continue
+        base = str(item.get("base") or par[:3]).upper()
+        cotada = str(item.get("cotada") or par[3:]).upper()
+        saida.append((par, base, cotada))
+    return saida
+
+
+def constroi_diferenciais(payload_10a: dict) -> dict:
+    """Diferencial base menos cotada, em pontos percentuais, nos dois pontos.
+
+    O ponto de 2 anos e REAPROVEITADO de data/yields.json (ja calculado pelo
+    update_yields.py); o de 10 anos vem do payload recem-montado aqui.
+
+    A variacao de 5 dias e a do DIFERENCIAL, em pontos-base:
+        d5(base) - d5(cotada)
+    onde d5 de cada moeda e a variacao sobre as suas proprias 5 observacoes
+    anteriores — que e como o painel de 2 anos ja define d5. Moedas de cadencia
+    diferente (o AUD chega a ficar uma semana parado) cobrem janelas de calendario
+    diferentes: por isso cada perna carrega a sua data e a sua idade ao lado.
+    """
+    if not YIELDS_2A_PATH.exists():
+        raise RuntimeError(f"{YIELDS_2A_PATH.name} nao existe — rode update_yields.py antes")
+    dois = {c["currency"]: c for c in json.loads(YIELDS_2A_PATH.read_text(encoding="utf-8"))["currencies"]}
+    dez = {c["currency"]: c for c in payload_10a["currencies"]}
+
+    def perna(mapa: dict, base: str, cotada: str) -> dict:
+        b, q = mapa.get(base), mapa.get(cotada)
+        faltando = [m for m, c in ((base, b), (cotada, q)) if c is None or c.get("yield") is None]
+        if faltando:
+            motivos = "; ".join(
+                f"{m}: {(mapa.get(m) or {}).get('motivo') or 'moeda ausente no arquivo de yields'}"
+                for m in faltando
+            )
+            return {
+                "base_pct": None, "cotada_pct": None, "diferencial_pp": None,
+                "var_5d_bp": None, "as_of_base": None, "as_of_cotada": None,
+                "idade_du_base": None, "idade_du_cotada": None,
+                "motivo": f"sem juro publicado para {', '.join(faltando)} — {motivos}",
+            }
+        d5b, d5q = b.get("d5"), q.get("d5")
+        return {
+            "base_pct": round(float(b["yield"]), 4),
+            "cotada_pct": round(float(q["yield"]), 4),
+            "diferencial_pp": round(float(b["yield"]) - float(q["yield"]), 4),
+            "var_5d_bp": (None if d5b is None or d5q is None else round(float(d5b) - float(d5q), 1)),
+            "as_of_base": b.get("as_of"), "as_of_cotada": q.get("as_of"),
+            "idade_du_base": b.get("stale_days"), "idade_du_cotada": q.get("stale_days"),
+            "motivo": (None if d5b is not None and d5q is not None
+                       else "diferencial medido; variacao de 5 dias indisponivel numa das pernas"),
+        }
+
+    linhas = []
+    for par, base, cotada in _pares_do_sentimento():
+        linhas.append({
+            "par": par, "base": base, "cotada": cotada,
+            "dois_anos": perna(dois, base, cotada),
+            "dez_anos": perna(dez, base, cotada),
+        })
+
+    moedas = {}
+    for m in CURRENCIES:
+        c2, c10 = dois.get(m) or {}, dez.get(m) or {}
+        moedas[m] = {
+            "y2_pct": c2.get("yield"), "y2_as_of": c2.get("as_of"), "y2_idade_du": c2.get("stale_days"),
+            "y10_pct": c10.get("yield"), "y10_as_of": c10.get("as_of"), "y10_idade_du": c10.get("stale_days"),
+        }
+
+    medidos_2 = sum(1 for l in linhas if l["dois_anos"]["diferencial_pp"] is not None)
+    medidos_10 = sum(1 for l in linhas if l["dez_anos"]["diferencial_pp"] is not None)
+    return {
+        "meta": {
+            "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+            "lei": ("YIELD E DADO DE MERCADO EXIBIDO. NAO ENTRA NO SENTIMENTO EM "
+                    "NENHUMA HIPOTESE — e coluna de comparacao, nunca voto."),
+            "definicao": "diferencial = juro da moeda BASE menos juro da moeda COTADA, em pontos percentuais",
+            "var_5d": "variacao do diferencial em pontos-base: d5(base) - d5(cotada), cada perna sobre as suas 5 observacoes anteriores",
+            "fonte_2a": "data/yields.json (reaproveitado)",
+            "fonte_10a": "data/yields_10a.json",
+            "fonte_pares": "data/sentimento.json -> pares[].par (somente leitura)",
+            "aviso_relogio": ("As duas pernas NAO sao do mesmo instante. O ponto de 2 anos pode "
+                              "trazer o nowcast intradiario do dia corrente; o de 10 anos e sempre "
+                              "o ultimo valor OFICIAL publicado. Cada perna carrega o seu as_of e a "
+                              "sua idade em dias uteis — compare 2a com 10a sabendo disso."),
+            "pares": len(linhas),
+            "pares_com_2a": medidos_2,
+            "pares_com_10a": medidos_10,
+        },
+        "pares": linhas,
+        "moedas": moedas,
+    }
+
+
+def atualiza_10a(force: bool = False, offline: bool = False) -> dict:
+    """Rotina completa da camada de 10 anos. Preserva o arquivo anterior se nada colar."""
+    RAW_DIR.mkdir(parents=True, exist_ok=True)
+    for r in baixa_10a(force=force, offline=offline):
+        log(f"{r.currency}: {r.state} | {r.detail}")
+
+    series, motivos = le_yields_10a()
+    if not series:
+        log("ERRO: nenhuma moeda teve juro de 10 anos lido. Arquivos anteriores preservados.")
+        for moeda, motivo in sorted(motivos.items()):
+            log(f"  {moeda}: {motivo}")
+        sys.exit(1)
+
+    payload = constroi_yields_10a(series, motivos)
+    YIELDS_10A_PATH.write_text(json.dumps(payload, ensure_ascii=False, indent=1), encoding="utf-8")
+    log(f"salvo: {YIELDS_10A_PATH} | {len(series)}/{len(CURRENCIES)} moedas com juro de 10 anos")
+    for c in payload["currencies"]:
+        if c["yield"] is None:
+            log(f"  {c['currency']}: SEM DADO — {c['motivo']}")
+        else:
+            log(f"  {c['currency']}: {c['yield']:>7.3f}%  1d {str(c['d1']):>6} bp  "
+                f"5d {str(c['d5']):>6}  20d {str(c['d20']):>6}  sigma {c['sigma_bp']}  "
+                f"atraso {c['stale_days']}du  [{c['status']}]")
+
+    try:
+        diferenciais = constroi_diferenciais(payload)
+    except Exception as erro:
+        log(f"diferenciais NAO gravados ({erro}). {YIELDS_10A_PATH.name} ja esta salvo.")
+        sys.exit(1)
+    DIFERENCIAIS_PATH.write_text(json.dumps(diferenciais, ensure_ascii=False, indent=1), encoding="utf-8")
+    m = diferenciais["meta"]
+    log(f"salvo: {DIFERENCIAIS_PATH} | {m['pares']} pares | "
+        f"{m['pares_com_2a']} com diferencial de 2a | {m['pares_com_10a']} com o de 10a")
+    log("LEI: estes numeros sao dado EXIBIDO. Nao entram no sentimento.")
+    return {"yields_10a": payload, "diferenciais": diferenciais}
+
+
 def main(argv: list[str] | None = None) -> dict:
     parser = argparse.ArgumentParser(description="Atualiza o HCI FUND Radar")
     parser.add_argument("--force", action="store_true", help="ignora TTL do cache")
     parser.add_argument("--offline", action="store_true", help="nao acessa a internet")
+    parser.add_argument(
+        "--yields-10a", action="store_true", dest="yields_10a",
+        help="roda SO a camada de 10 anos: data/yields_10a.json e data/diferenciais.json",
+    )
     args = parser.parse_args(argv)
+
+    if args.yields_10a:
+        return atualiza_10a(force=args.force, offline=args.offline)
 
     RAW_DIR.mkdir(parents=True, exist_ok=True)
     downloads = refresh_downloads(force=args.force, offline=args.offline)

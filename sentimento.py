@@ -66,10 +66,22 @@ A DIMENSAO DE FALA PAROU DE VOTAR — 05/set/2026, PARA AS OITO MOEDAS
         conviccao teto    75% ->  50%      dimensoes que votam   3 -> 2
     A DIVERGENCIA DOS PARES MUDA DE ESCALA: o denominador cai de 1,50 para 1,00, entao a
     mesma diferenca economica sai 50% MAIOR em pontos de divergencia — ao mesmo tempo que os
-    scores das pernas encolhem, porque a parcela de fala saiu do numerador. Os dois efeitos
-    andam em sentidos contrarios e nao se cancelam: as faixas provisorias (0-14 / 15-24 /
-    25-39 / 40+) FORAM CALIBRADAS NA ESCALA VELHA e ficam desalinhadas ate o backtest.
-    Isto esta dito aqui, na regua (regua.mudanca_de_escala_05set) e no relatorio.
+    leitura continua de cada perna encolhe, porque a parcela de fala saiu do numerador. Os
+    dois efeitos andam em sentidos contrarios e nao se cancelam por construcao: as faixas
+    provisorias (0-14 / 15-24 / 25-39 / 40+) FORAM CALIBRADAS NA ESCALA VELHA e ficam
+    desalinhadas ate o backtest.
+
+    DISTRIBUICAO DAS FAIXAS, ANTES E DEPOIS — medida nos 28 pares, mesmo calendario:
+        04/set (3 dimensoes votando, teto do par 1,50)   sem tese 12 · observacao 7 ·
+                                                         moderada 8 · forte 1
+        06/set (2 dimensoes votando, teto do par 1,00)   sem tese 13 · observacao 5 ·
+                                                         moderada 9 · forte 1
+    Um par saiu de observacao para sem tese e outro de observacao para moderada. O
+    deslocamento pequeno e COINCIDENCIA DESTE DIA, nao prova de que a escala ficou igual:
+    os dois efeitos contrarios quase se cancelaram neste calendario. Em um dia com fala
+    puxando forte para um lado, eles nao se cancelam.
+    Isto esta dito aqui, na regua (regua.mudanca_de_escala_05set.
+    distribuicao_das_faixas_antes_e_depois) e no relatorio impresso.
 
     ⚠️ A dimensao "mercado (probabilidade implicita)" saiu: ela dependeria de OIS/futuros de
     juro, e yield nao entra por decisao do Eduardo (repetida em 04/set).
@@ -197,6 +209,73 @@ FAIXAS_LEITURA_PROVISORIAS = {
 
 # (C) rotulo provisorio da QUALIDADE DA EVIDENCIA, para a tela mostrar palavra e nao numero.
 FAIXAS_EVIDENCIA_PROVISORIAS = {"fraca": [0, 39], "moderada": [40, 69], "forte": [70, 100]}
+
+# A CONSEQUENCIA MEDIDA da saida da fala do voto, nos 28 pares. Nao e estimativa: sao duas
+# rodadas do MESMO calendario, a de 04/set (tres dimensoes votando, teto do par 1,50) e a
+# rodada de AGORA (duas dimensoes, teto 1,00), com as MESMAS faixas provisorias aplicadas.
+#
+# ⚠️ 06/set: o bloco "depois" era ESCRITO A MAO e ficou defasado em horas — dizia
+# "moderada 9 · forte 1" enquanto a mesma execucao imprimia "moderada 8 · forte 2" (o RBNZ
+# subiu a taxa em 02/set e o par NZDUSD trocou de faixa). Numero congelado dentro de um
+# arquivo que se recalcula sozinho vira mentira no primeiro dia em que o dado anda. Agora
+# so o "antes" e constante (e um valor historico, medido uma vez e nunca mais reproduzivel);
+# o "depois" e CONTADO na propria rodada por distribuicao_depois().
+DISTRIBUICAO_FAIXAS_ANTES = {
+    "quando": "2026-09-04", "dimensoes_que_votavam": 3, "teto_do_par": 1.50,
+    "sem_tese": 12, "observacao": 7, "moderada": 8, "forte": 1,
+    "nota": "medido uma vez, na rodada de 04/set, antes de a fala sair do voto. É histórico: "
+            "não pode ser recalculado hoje porque o calendário da FXStreet é buscado ao vivo.",
+}
+
+# O SEGUNDO ANTES/DEPOIS, e ele e mais importante que o primeiro: o conserto da REGUA DA
+# SURPRESA (corte absoluto por familia), medido no MESMO calendario, na MESMA hora, com as
+# MESMAS faixas. So mudou a regua que decide se a divulgacao empurra ou nao.
+DISTRIBUICAO_ANTES_DA_REGUA = {
+    "quando": "2026-09-06, mesma janela, régua relativa antiga (35% do nível)",
+    "em_linha_pct": 76,
+    "sem_tese": 13, "observacao": 5, "moderada": 8, "forte": 2,
+    "leitura_por_moeda": {"USD": -0.20, "EUR": +0.23, "GBP": -0.07, "JPY": +0.03,
+                          "AUD": +0.15, "NZD": +0.24, "CAD": -0.10, "CHF": +0.17},
+    "nota": "com a régua relativa, 278 das 364 divulgações (76%) empurravam zero. Com o corte "
+            "absoluto por família são 189 de 364 (51%). O painel ficou MAIS SENSÍVEL porque "
+            "passou a ouvir dado que antes era apagado — e por isso a faixa 'forte' encheu: "
+            "as faixas 0-14/15-24/25-39/40+ foram desenhadas para a escala em que três quartos "
+            "das divulgações eram mudas. ⚠️ Elas estão desalinhadas e SÓ o backtest recalibra. "
+            "Enquanto isso, leia a ORDEM dos pares, não a palavra da faixa.",
+}
+
+AVISO_DISTRIBUICAO = (
+    "medido nos 28 pares, com as MESMAS faixas provisórias dos dois lados. O deslocamento "
+    "pequeno é coincidência do dia: o denominador caiu de 1,50 para 1,00 (empurra a "
+    "divergência para cima) e a parcela de fala saiu do numerador (empurra para baixo), e "
+    "neste calendário os dois quase se cancelaram. Não trate isso como prova de que a escala "
+    "é a mesma — ela não é, e as faixas foram desenhadas na escala velha. O lado 'antes' é um "
+    "valor histórico congelado; o lado 'depois' é contado na própria rodada."
+)
+
+
+def distribuicao_depois(conta, hoje_iso):
+    """Conta as faixas DESTA rodada e escreve a comparação com o 'antes' histórico.
+
+    Recebe o Counter dos estados dos 28 pares. Nada aqui é escrito à mão: se um par trocar de
+    faixa entre duas execuções, o texto muda junto — foi exatamente o que faltou em 06/set.
+    """
+    a = DISTRIBUICAO_FAIXAS_ANTES
+    d = {"quando": hoje_iso, "dimensoes_que_votam": len(DIMENSOES_QUE_VOTAM),
+         "teto_do_par": TETO_PAR}
+    for k in ("sem_tese", "observacao", "moderada", "forte"):
+        d[k] = int(conta.get(k, 0))
+    mudou = " · ".join("%s %d -> %d" % (rot, a[k], d[k]) for k, rot in (
+        ("sem_tese", "sem tese"), ("observacao", "observação"),
+        ("moderada", "moderada"), ("forte", "forte")))
+    r = DISTRIBUICAO_ANTES_DA_REGUA
+    mudou_regua = " · ".join("%s %d -> %d" % (rot, r[k], d[k]) for k, rot in (
+        ("sem_tese", "sem tese"), ("observacao", "observação"),
+        ("moderada", "moderada"), ("forte", "forte")))
+    return {"antes": a, "depois": d, "o_que_mudou": mudou,
+            "antes_da_regua_de_surpresa": r,
+            "o_que_a_regua_mudou": mudou_regua,
+            "aviso": AVISO_DISTRIBUICAO, "provisorio": True}
 
 # (D) FRESCOR — limiares PROVISORIOS, em minutos.
 FRESCOR_LIMIARES = {"atrasado_min": 45, "muito_atrasado_min": 120}
@@ -438,7 +517,8 @@ def dimensao_dados(ev, moeda, agora):
             familias.add(nome)
         if not fam or not fam.get("peso"):
             continue
-        classe, dif = classifica(e.get("divulgado"), e.get("consenso"))
+        # `nome` (a familia) escolhe o corte: a regua e UMA so, em macro_eventos.corte_da_surpresa
+        classe, dif = classifica(e.get("divulgado"), e.get("consenso"), familia=nome)
         if classe is None:
             continue
         forca, _txt = empurrao(classe, fam)
@@ -789,7 +869,8 @@ def por_que_a_fala_nao_vota():
     return ("a leitura de fala é CONTAGEM DE PALAVRAS, e contagem de palavras não lê negação, "
             "nem condição, nem referência temporal: 'holding the target' está na lista de "
             "termos hawkish, então Waller defendendo MANTER saía como alta. Desde 05/set a "
-            "dimensão fica como CONTEXTO, com peso 0,0 — não entra no score, não entra no "
+            "dimensão fica como CONTEXTO, com peso 0,0 — não entra na leitura contínua, "
+            "não entra no "
             "teto e não conta como MANTEM. O veredito por orador ao lado lê condição e "
             "negação, mas TAMBÉM não vota: nunca foi medido contra rótulo humano.")
 
@@ -1113,19 +1194,32 @@ def dimensao_geo(moeda, geo):
     A regra foi declarada em 04/set e nunca medida. Fica com selo "experimental" e
     "vota": false: nao entra no score nem no teto. A hipotese a medir continua registrada:
     pico de conflito z>=2 muda o retorno de 20 dias das moedas de risco?
+
+    ⚠️ CONSERTO DE 06/set: quando a coleta do GDELT falha para uma moeda (o USD levou 429
+    nesta rodada), a dimensao saia do arquivo como `null` cru — o mesmo buraco que o CHF
+    tinha na dimensao de fala ate 05/set, e que a tela nao consegue distinguir de "nao
+    perguntamos". Agora ela existe sempre, com conectada=false e o motivo escrito.
     """
     G = (geo or {}).get("moedas", {}).get(moeda)
     if not G:
-        return None
+        return {"z_energia": None, "z_conflito": None, "tom": None, "corte_z": GEO_Z_CORTE,
+                "manchete": None, "vota": False, "selo": "experimental",
+                "conectada": False, "direcao": None, "estado": "não conectada",
+                "leitura_se_votasse": None,
+                "motivo": "a coleta do GDELT não trouxe esta moeda nesta rodada — buraco "
+                          "declarado, não é ausência de notícia",
+                "nota": "dimensão sem fonte nesta rodada. Não vota (nunca votou desde "
+                        "05/set) e não entra no teto: o que falta aqui é o DADO, não o voto."}
     t = G.get("temas") or {}
     ze = ((t.get("energia") or {}).get("volume") or {}).get("z")
     zc = ((t.get("conflito") or {}).get("volume") or {}).get("z")
     base = {"z_energia": ze, "z_conflito": zc, "tom": G.get("tom"), "corte_z": GEO_Z_CORTE,
             "manchete": (((t.get("conflito") or {}).get("manchetes") or [{}])[0].get("titulo")),
-            "vota": False, "selo": "experimental",
+            "vota": False, "selo": "experimental", "conectada": True,
             "nota": "regra declarada sobre intensidade de notícia (GDELT). Contava desde "
                     "04/set; em 05/set o dono retirou o voto: regra nunca medida, e estava "
-                    "mexendo em leitura de verdade. Fica visível, fora do score e fora do teto."}
+                    "mexendo em leitura de verdade. Fica visível, fora da leitura contínua e "
+                    "fora do teto."}
     if ze is not None and ze >= GEO_Z_CORTE:
         if moeda in EXPORTADOR_ENERGIA:
             return dict(base, direcao=None, estado="quieta", leitura_se_votasse=None,
@@ -1145,7 +1239,8 @@ def dimensao_geo(moeda, geo):
 # QUALIDADE DA EVIDENCIA — 0 a 100, quatro partes de 25
 # ---------------------------------------------------------------------------------------
 def qualidade_evidencia(dd, tt, moeda):
-    """Quatro partes, cada uma medida 0..100. A nota e a media das partes QUE TEM DADO.
+    """Quatro partes na regua, TRES ligadas hoje, cada uma medida 0..100. A nota e a MEDIA
+    das partes QUE TEM DADO — nunca uma soma de fatias fixas de 25.
 
     quantidade      quantas divulgacoes e falas QUE VOTAM entraram na janela
     diversidade     quantas familias independentes (inflacao, emprego, atividade, comunicacao)
@@ -1497,6 +1592,7 @@ def le_moeda(m, ev, bancos, discursos, agora, geo=None, noticias=None, futuros=N
         score, len(disponiveis), direcao,
         dimensoes_discordam=len({v["direcao"] for v in disponiveis.values()}) > 1)
     regime, regime_motivo = regime_do_banco(cc, dd, b)
+    pev = proximo_evento_relevante(m, futuros or [], agora)
     nota_q = (qual or {}).get("nota")
     if len(disponiveis) == 0:
         concord_txt = "nenhuma dimensão vota"
@@ -1511,10 +1607,17 @@ def le_moeda(m, ev, bancos, discursos, agora, geo=None, noticias=None, futuros=N
         "moeda": m, "direcao": direcao, "intensidade": intensidade,
         "score": score, "score_componentes": comp,
         "score_texto_se_votasse": texto_se_votasse,
-        # teto do score = 0,25 por dimensao que VOTA — no maximo 0,50, porque a fala e a
-        # geopolitica sairam do teto em 05/set.
-        "score_teto": round(0.25 * len(disponiveis), 2),
+        # TETO DA LEITURA = 0,25 por dimensao que VOTA. Sao duas (dados e ciclo) desde que a
+        # fala e a geopolitica sairam do voto em 05/set, entao o teto e 0,50 — SEMPRE, nas
+        # oito moedas. E o denominador da intensidade relativa e da divergencia: constante de
+        # proposito, porque dividir pelo teto LIGADO fazia a FALTA de dado INFLAR a leitura.
+        # ⚠️ CONSERTO DE 06/set: `score_teto` vinha 0,25 no NZD (uma dimensao de pe), o que
+        # contraria o contrato ("score_teto e 0,50 em todas") e convidava quem lesse o campo a
+        # normalizar pelo teto ligado. O teto que se move ganhou nome proprio,
+        # `score_teto_ligado`, e ele so mede QUANTA dimensao esta de pe — nao normaliza nada.
+        "score_teto": TETO_MOEDA,
         "score_teto_teorico": TETO_MOEDA,
+        "score_teto_ligado": round(0.25 * len(disponiveis), 2),
         "score_nao_vai_para_a_tela": "lei do dono: a palavra 'score' e o número não aparecem "
                                      "em lugar nenhum da interface — nem no detalhe, nem em "
                                      "tooltip. Para a tela existem leitura_texto, "
@@ -1529,7 +1632,18 @@ def le_moeda(m, ev, bancos, discursos, agora, geo=None, noticias=None, futuros=N
         "concordancia_texto": concord_txt,
         "evidencia_rotulo": rotulo_de_evidencia(nota_q),
         "evidencia_faixas_provisorias": FAIXAS_EVIDENCIA_PROVISORIAS,
-        "proximo_evento_relevante": proximo_evento_relevante(m, futuros or [], agora),
+        "proximo_evento_relevante": pev,
+        # ⚠️ CONSERTO DE 06/set: o contrato pede "existe OU e null COM MOTIVO". O null saia
+        # cru, e null cru nao distingue "nao ha evento" de "nao perguntamos" — o mesmo buraco
+        # que a dimensao de fala do CHF tinha. Agora o motivo vem escrito ao lado, e fica
+        # null quando o evento existe (nao ha o que explicar).
+        "proximo_evento_relevante_motivo": None if pev else (
+            "nenhuma divulgação das %d famílias que o dono acompanha (%s) com impacto alto ou "
+            "médio aparece no horizonte de %d dias do calendário carregado — é ausência no "
+            "horizonte, não ausência de evento no mundo"
+            % (len(FAMILIAS_RELEVANTES),
+               ", ".join(sorted(set(FAMILIAS_RELEVANTES.values()))),
+               HORIZONTE_FRENTE_DIAS)),
         # ------------------------------------------------------------------------------
         "conviccao_pct": conv, "conviccao_teto_pct": teto,
         "dimensoes_ligadas": len(disponiveis), "dimensoes_total": len(dims),
@@ -1619,18 +1733,11 @@ def le_pares(leituras, bancos=None):
         teto_teorico = TETO_PAR
         # teto LIGADO = soma dos tetos das duas pernas. Nao normaliza mais nada; fica gravado
         # porque e a medida de quanta dimensao esta de pe neste par.
-        teto = round((lb.get("score_teto") or 0.0) + (lq.get("score_teto") or 0.0), 2)
+        teto = round((lb.get("score_teto_ligado") or 0.0)
+                     + (lq.get("score_teto_ligado") or 0.0), 2)
         diverg = round(abs(diff) / teto_teorico * 100) if teto_teorico > 0 else 0
         diverg_ligado = round(abs(diff) / teto * 100) if teto > 0 else 0
         estado = estado_da_divergencia(diverg)
-
-        if estado == "sem_tese":
-            sinal, rotulo = "SEM_TESE", "sem tese"
-            acao = "Sem tese"
-        else:
-            sinal = "BULL" if diff > 0 else "BEAR"
-            rotulo = {"observacao": "observação", "moderada": "moderada", "forte": "forte"}[estado]
-            acao = "%s %s/%s" % ("Compra" if diff > 0 else "Venda", b, q)
 
         # perna dominante: share do |score| de cada lado sobre a soma dos dois modulos
         tot = abs(sb) + abs(sq)
@@ -1659,7 +1766,46 @@ def le_pares(leituras, bancos=None):
             q_par = min(qb, qq)
             elo = b if qb <= qq else q
 
+        # ⚠️ CONSERTO 06/set — A ZONA "SEM LEITURA" PASSA A VALER PARA O PAR.
+        # Ate hoje a zona marcava a MOEDA e nao era herdada pelo par: nenhum dos 28 saia sem
+        # leitura. Medido na rodada da manha: 18 dos 28 pares tinham ao menos uma perna sem
+        # leitura, 9 dos 15 pares COM TESE tinham, e em 4 deles a perna que DA O MOTIVO estava
+        # sem leitura com qualidade da evidencia 0/100. O topo da tela mandava "Compra
+        # NZD/USD" com a maior divergencia do dia, atribuindo 55% do motivo a uma perna que o
+        # proprio arquivo declarava sem direcao e sem evidencia.
+        #
+        # A regra nao inventa limiar novo: ela PROPAGA a regra que ja existe na moeda.
+        #   (a) se a perna que da o MOTIVO esta sem leitura, o par nao tem tese — silencio nao
+        #       e voto, e um par nao pode ser mais confiante que a perna que o move;
+        #   (b) se a qualidade da evidencia do par e 0 ou nao existe, o par nao sai da zona de
+        #       OBSERVACAO, por mais alta que seja a divergencia. Divergencia grande entre dois
+        #       silencios continua sendo dois silencios.
+        # Fica gravado em `estado_limitado_por` para ninguem precisar adivinhar por que um par
+        # com 45% de divergencia esta rotulado observacao. PROVISORIO, como todo o resto.
+        estado_bruto, limitado = estado, None
+        motivo_perna = None if perna in (None, "ambas") else perna
+        if motivo_perna and leituras[motivo_perna].get("leitura") == "sem_leitura":
+            estado, limitado = "sem_tese", (
+                "a perna que dá o motivo (%s) está sem leitura — silêncio não é voto, e o par "
+                "não pode ter mais direção do que a perna que o move" % motivo_perna)
+        elif (q_par is None or q_par == 0) and estado in ("moderada", "forte"):
+            estado, limitado = "observacao", (
+                "qualidade da evidência do par é %s — sem evidência o par não sai da zona de "
+                "observação, por maior que seja a divergência"
+                % ("nula (0/100)" if q_par == 0 else "inexistente"))
+
+        if estado == "sem_tese":
+            sinal, rotulo = "SEM_TESE", "sem tese"
+            acao = "Sem tese"
+        else:
+            sinal = "BULL" if diff > 0 else "BEAR"
+            rotulo = {"observacao": "observação", "moderada": "moderada", "forte": "forte"}[estado]
+            acao = "%s %s/%s" % ("Compra" if diff > 0 else "Venda", b, q)
+
         alertas = []
+        if limitado:
+            alertas.append("estado rebaixado de '%s' para '%s': %s"
+                           % (estado_bruto, estado, limitado))
         for m, L in ((b, lb), (q, lq)):
             d = L.get("dominancia") or {}
             if d.get("alerta") and d.get("texto"):
@@ -1711,6 +1857,8 @@ def le_pares(leituras, bancos=None):
                          "provisórias foram desenhadas na escala velha."
                          % (teto_teorico, teto)},
             "estado": estado,
+            "estado_pela_divergencia": estado_bruto,
+            "estado_limitado_por": limitado,
             "faixas_provisorias": FAIXAS_PROVISORIAS,
             "qualidade_evidencia": q_par,
             "qualidade_por_perna": {b: qb, q: qq},
@@ -1722,7 +1870,20 @@ def le_pares(leituras, bancos=None):
             "proximo_evento_invalidante": proximo_invalidante(b, q, bancos),
             "alertas": alertas,
             "diff": diff, "diff_teto": teto, "diff_teto_teorico": teto_teorico,
-            "motivo": "%s %+.2f contra %s %+.2f" % (b, sb, q, sq),
+            # ⚠️ LEI (b) DO DONO: nem a palavra "score" nem o NÚMERO do score aparecem na
+            # interface — nem no detalhe, nem em tooltip. Este campo é texto de tela, então
+            # ele passou a falar em LEITURA, não em número: até 05/set saía
+            # "AUD +0.15 contra CAD -0.10", que é o score das duas pernas escrito por extenso.
+            # O par de números continua existindo para auditoria, no campo abaixo, que é
+            # DADO e não vai para a tela (o mesmo tratamento de `score`).
+            "motivo": "%s %s contra %s %s"
+                      % (b, lb.get("leitura_texto") or "sem leitura",
+                         q, lq.get("leitura_texto") or "sem leitura"),
+            "motivo_numerico_auditoria": "%s %+.2f contra %s %+.2f" % (b, sb, q, sq),
+            "motivo_nao_vai_para_a_tela": "motivo_numerico_auditoria carrega o número da "
+                                          "leitura contínua das duas pernas e existe só para "
+                                          "auditoria — a tela usa `motivo`, que fala em "
+                                          "leitura e não em número (lei do dono).",
             "perna_motivo": perna,
             "leitura_base": {"direcao": lb["direcao"], "score": sb, "conviccao_pct": lb["conviccao_pct"],
                              "votando": lb["dimensoes_ligadas"],
@@ -1915,7 +2076,7 @@ def le_instrumentos(leituras):
         # dividir pelo teto LIGADO fazia a falta de dado INFLAR a divergencia. O teto ligado
         # fica gravado ao lado.
         maximo = TETO_MOEDA
-        teto_ligado = round(u.get("score_teto") or 0.0, 2)
+        teto_ligado = round(u.get("score_teto_ligado") or 0.0, 2)
         diverg = round(abs(s) / maximo * 100)
         # a MESMA zona neutra dos pares vale aqui: 1% de divergência rotulado "BEAR" é
         # exatamente o vício que a revisão de 05/set foi corrigir.
@@ -2107,8 +2268,52 @@ def bloco_frescor(agora, cal_sincronizado_em, cal_ao_vivo, bancos, discursos, no
         "o_que_a_tela_faz": "com estado 'atrasado' ou 'muito_atrasado' a interface mostra o "
                             "aviso no topo e acinzenta as linhas; com bloqueia_leitura=true "
                             "nenhuma leitura direcional deve ser apresentada como tese nova.",
+        "idade_da_publicacao": IDADE_DA_PUBLICACAO,
         "provisorio": True,
     }
+
+
+# ⚠️ CONSERTO 06/set — SAO DOIS RELOGIOS, E ATE HOJE SO UM ERA MEDIDO.
+# O `atraso_min` acima e a idade da FONTE no instante em que esta rodada foi gerada. Como
+# data/bancos_centrais.json e reescrito pelo passo ANTERIOR da mesma rodada, e o calendario e
+# buscado ao vivo, esse numero e o tempo entre dois PASSOS da mesma cadeia — quase sempre 1 a
+# 18 minutos. Medido: nas 13 versoes de data/sentimento.json que ja tinham o bloco, o estado
+# saiu "ok" em 13 de 13. A tarja NUNCA acendeu.
+#
+# O relogio que falta e o do LEITOR: quanto tempo faz que esta pagina foi publicada. Medido no
+# historico do repositorio, 33 rodadas entre 02/set 10:34 e 06/set 17:59: intervalo minimo
+# 91 min, MEDIANA 157 min (2h37), media 188, maximo 549 min (9h09). O cron pede */15; o
+# GitHub Actions entrega mediana de 2h37, porque o proprio manual dele diz que o `schedule`
+# pode atrasar e que trabalho na fila pode ser descartado.
+#
+# POR QUE OS LIMIARES SAO OUTROS AQUI. Aplicar 45/120 min ao relogio do leitor deixaria a
+# tarja ambar em 100% das rodadas e vermelha em 78% — e uma tarja que grita sempre nao avisa
+# nada, alem de suspender a leitura na maior parte do tempo. O painel nao e tempo real por
+# construcao; o que o leitor precisa saber e quando a CADEIA PAROU, nao que passaram 20
+# minutos. Por isso os cortes daqui saem do ritmo MEDIDO: 180 min (acima da mediana de 157) e
+# 360 min (bem acima do intervalo tipico, abaixo do pior caso observado de 549).
+# ⚠️ Os dois numeros sao PROVISORIOS como todos os outros, e derivados de 33 observacoes de
+#    quatro dias — nao de um estudo de disponibilidade.
+IDADE_DA_PUBLICACAO = {
+    "o_que_e": "há quanto tempo esta leitura foi publicada, no relógio de quem lê",
+    "como_medir": "agora menos a raiz gerado_em — a interface recalcula no navegador; o "
+                  "número gravado no arquivo envelhece junto com o arquivo e por isso não "
+                  "serve sozinho",
+    "limiares_provisorios_min": {"atrasado_min": 180, "muito_atrasado_min": 360},
+    "por_que_limiares_diferentes": "o atraso_min mede o intervalo entre dois PASSOS da mesma "
+                                   "cadeia (1 a 18 min na prática) e usa 45/120; a idade da "
+                                   "publicação mede o intervalo entre RODADAS, cuja mediana "
+                                   "medida é de 157 min. Usar 45/120 aqui deixaria a tarja "
+                                   "acesa em 100% das rodadas.",
+    "ritmo_medido": {"janela": "02/09 10:34 a 06/09 17:59 (33 rodadas publicadas)",
+                     "minimo_min": 91, "mediana_min": 157, "media_min": 188, "maximo_min": 549,
+                     "cron_pedido": "*/15", "por_que_nao_cumpre":
+                         "o GitHub Actions declara que o schedule pode atrasar em carga alta e "
+                         "que trabalho na fila pode ser descartado"},
+    "nao_bloqueia": "a idade da publicação NÃO liga bloqueia_leitura. Ela avisa; quem "
+                    "suspende a leitura é o estado das fontes que votam.",
+    "provisorio": True,
+}
 
 
 # ---------------------------------------------------------------------------------------
@@ -2159,7 +2364,8 @@ def main():
                  "%s%s (dec %.2f, %dd)" % (cc["direcao"], "" if cc.get("vota") is not False else "*",
                                            cc.get("decaimento") or 0.0,
                                            cc.get("idade_dias") or 0),
-                 ("%s (energia z=%s, conflito z=%s)" % (gg["estado"], gg["z_energia"], gg["z_conflito"]))
+                 ("%s (energia z=%s, conflito z=%s)" % (gg["estado"], gg["z_energia"], gg["z_conflito"])
+                  if gg.get("conectada") is not False else "não conectada (buraco declarado)")
                  if gg else "não conectada"))
     print("    * = dimensão NÃO VOTA nesta moeda (silêncio não é voto): ela baixa o teto.")
 
@@ -2217,6 +2423,23 @@ def main():
     print("  FAIXAS (provisórias): sem_tese %d · observação %d · moderada %d · forte %d"
           % (conta.get("sem_tese", 0), conta.get("observacao", 0),
              conta.get("moderada", 0), conta.get("forte", 0)))
+    dist_faixas = distribuicao_depois(conta, agora.date().isoformat())
+    _a = dist_faixas["antes"]
+    print("  ANTES da fala sair do voto (%s, 3 dimensões, teto do par %.2f): sem_tese %d · "
+          "observação %d · moderada %d · forte %d"
+          % (_a["quando"], _a["teto_do_par"], _a["sem_tese"], _a["observacao"],
+             _a["moderada"], _a["forte"]))
+    print("  → %s. Os dois efeitos contrários (denominador 1,50→1,00 sobe a divergência; a "
+          "parcela de fala fora do numerador desce) quase se cancelaram NESTE calendário — "
+          "não é prova de que a escala ficou igual." % dist_faixas["o_que_mudou"])
+    _r = dist_faixas["antes_da_regua_de_surpresa"]
+    print("  ANTES do corte absoluto por família (mesma janela, régua relativa, %d%% das "
+          "divulgações em linha): sem_tese %d · observação %d · moderada %d · forte %d"
+          % (_r["em_linha_pct"], _r["sem_tese"], _r["observacao"], _r["moderada"], _r["forte"]))
+    print("  → %s. O painel ficou MAIS sensível porque parou de apagar 3 em cada 4 "
+          "divulgações; as faixas foram desenhadas na escala muda e estão desalinhadas até o "
+          "backtest — leia a ORDEM dos pares, não a palavra da faixa."
+          % dist_faixas["o_que_a_regua_mudou"])
     print("  PARES COM TESE — %d de %d" % (len(neg), len(pares)))
     print("  %-8s %-5s %-11s %-5s %-5s %-6s %-26s %s"
           % ("par", "lado", "estado", "div", "qual", "perna", "ação / motivo", "invalidante"))
@@ -2284,10 +2507,11 @@ def main():
                 "conviccao_teto_pct": "75 -> 50",
                 "efeito_na_divergencia": "o denominador da divergência caiu de 1,50 para "
                                          "1,00, então a MESMA diferença econômica sai 50% "
-                                         "maior em pontos de divergência; ao mesmo tempo os "
-                                         "scores das pernas encolhem, porque a parcela de "
+                                         "maior em pontos de divergência; ao mesmo tempo a "
+                                         "leitura contínua de cada perna encolhe, porque a parcela de "
                                          "fala saiu do numerador. Os dois efeitos andam em "
                                          "sentidos contrários e NÃO se cancelam.",
+                "distribuicao_das_faixas_antes_e_depois": dist_faixas,
                 "aviso": "as faixas provisórias (0-14 / 15-24 / 25-39 / 40+) foram desenhadas "
                          "na escala VELHA e ficam desalinhadas até o backtest. Enquanto isso, "
                          "a distribuição das faixas não é comparável com a de antes de "
@@ -2334,7 +2558,7 @@ def main():
                             "de 04/set ('quero que utilize as notícias'). Motivo: regra "
                             "declarada e nunca medida, mexendo em leitura de verdade (o NZD "
                             "saía com teto 1,00 por um z de energia de 1,85). Fica com selo "
-                            "experimental, vota:false, fora do score e fora do teto — o teto "
+                            "experimental, vota:false, fora da leitura contínua e fora do teto — o teto "
                             "máximo por moeda passou a 0,75, e a 0,50 quando a fala saiu do "
                             "voto na tarde do mesmo dia. O conteúdo "
                             "continua calculado e gravado para exibição.",
@@ -2345,7 +2569,7 @@ def main():
                                             "'confiabilidade' saiu da qualidade da evidência. "
                                             "A régua fica gravada (peso_se_votasse) para o "
                                             "dia em que o classificador for validado. Até "
-                                            "05/set o peso entrava no SCORE e na "
+                                            "05/set o peso entrava na LEITURA CONTÍNUA e na "
                                             "QUALIDADE DA EVIDÊNCIA (componente "
                                             "confiabilidade). MANCHETE PESA ZERO: não vota, "
                                             "não entra no teto e não conta como MANTEM — fica "
@@ -2364,10 +2588,26 @@ def main():
                                  "substitui": "CICLO_VALIDADE_DIAS = 180, que era um penhasco "
                                               "(179 dias valia 0,25 cheio, 181 valia zero)",
                                  "provisorio": True},
-            "qualidade_evidencia": {"partes": ["quantidade", "diversidade", "atualidade",
-                                               "confiabilidade"],
-                                    "cada_parte_vale_pct": 25,
+            # ⚠️ desde a tarde de 05/set a nota é a média das partes QUE TÊM DADO, e a parte
+            # "confiabilidade" está DESLIGADA nas oito moedas (ela media o peso da fonte de
+            # FALA, e a fala parou de votar — o que não vota não é evidência). A régua dizia
+            # "quatro partes de 25%" e isso já não descrevia a conta.
+            "qualidade_evidencia": {"partes_ativas": ["quantidade", "diversidade",
+                                                      "atualidade"],
+                                    "partes_desligadas": {
+                                        "confiabilidade": "media o peso da FONTE DE FALA; sai "
+                                                          "null desde 05/set, porque a fala "
+                                                          "não vota. Religa junto com o voto "
+                                                          "da fala, quando o classificador "
+                                                          "for validado."},
+                                    "como_soma": "a nota é a MÉDIA SIMPLES das partes com "
+                                                 "dado, não uma soma de fatias fixas: parte "
+                                                 "sem dado baixa o denominador em vez de "
+                                                 "contar como zero (silêncio não é voto). "
+                                                 "Com as três partes ativas de hoje, cada uma "
+                                                 "pesa 1/3 quando todas têm dado.",
                                     "satura_em_itens": QUALIDADE_N_SATURA,
+                                    "rotulos_provisorios": FAIXAS_EVIDENCIA_PROVISORIAS,
                                     "no_par": "vale a MENOR das duas pernas — o elo fraco manda",
                                     "provisorio": True},
             "conviccao_historica": NOTA_CONVICCAO_HISTORICA,
