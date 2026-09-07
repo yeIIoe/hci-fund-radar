@@ -1,15 +1,15 @@
 {
- "gerado_em": "2026-09-07T23:02:18.505353+00:00",
- "gerado_em_brt": "07/09/2026 20:02 (BRT)",
+ "gerado_em": "2026-09-07T23:03:42.020387+00:00",
+ "gerado_em_brt": "07/09/2026 20:03 (BRT)",
  "origem_eventos": "fxstreet 42 dias atrás + 30 à frente",
  "frescor": {
-  "atraso_min": 28,
-  "atraso_texto": "28 min",
+  "atraso_min": 1,
+  "atraso_texto": "1 min",
   "estado": "ok",
-  "ultima_sincronizacao_ok_utc": "2026-09-07T22:34:31.871090+00:00",
-  "ultima_sincronizacao_ok_brt": "07/09/2026 19:34 (BRT)",
+  "ultima_sincronizacao_ok_utc": "2026-09-07T23:02:36.918310+00:00",
+  "ultima_sincronizacao_ok_brt": "07/09/2026 20:02 (BRT)",
   "bloqueia_leitura": false,
-  "texto": "Dados sincronizados há 28 min (07/09 19:34, BRT). Leituras válidas.",
+  "texto": "Dados sincronizados há 1 min (07/09 20:02, BRT). Leituras válidas.",
   "limiares_provisorios": {
    "atrasado_min": 45,
    "muito_atrasado_min": 120
@@ -21,7 +21,7 @@
     "arquivo": "FXStreet ao vivo",
     "alimenta": "dimensão de dados (VOTA)",
     "vota": true,
-    "sincronizado_em": "2026-09-07T23:02:18.505353+00:00",
+    "sincronizado_em": "2026-09-07T23:03:42.020387+00:00",
     "atraso_min": 0,
     "ao_vivo": true,
     "atraso_texto": "0 min"
@@ -31,27 +31,27 @@
     "arquivo": "bancos_centrais.json",
     "alimenta": "dimensão de ciclo (VOTA)",
     "vota": true,
-    "sincronizado_em": "2026-09-07T22:34:31.871090+00:00",
-    "atraso_min": 28,
-    "atraso_texto": "28 min"
+    "sincronizado_em": "2026-09-07T23:02:36.918310+00:00",
+    "atraso_min": 1,
+    "atraso_texto": "1 min"
    },
    {
     "fonte": "discursos dos bancos centrais",
     "arquivo": "bc_discursos.json",
     "alimenta": "dimensão de fala (contexto, NÃO vota)",
     "vota": false,
-    "sincronizado_em": "2026-09-07T22:34:22.704068+00:00",
-    "atraso_min": 28,
-    "atraso_texto": "28 min"
+    "sincronizado_em": "2026-09-07T23:02:27.883001+00:00",
+    "atraso_min": 1,
+    "atraso_texto": "1 min"
    },
    {
     "fonte": "imprensa",
     "arquivo": "noticias.json",
     "alimenta": "contexto de fala (NÃO vota)",
     "vota": false,
-    "sincronizado_em": "2026-09-07T22:34:58.608278+00:00",
-    "atraso_min": 27,
-    "atraso_texto": "27 min"
+    "sincronizado_em": "2026-09-07T23:03:04.073340+00:00",
+    "atraso_min": 1,
+    "atraso_texto": "1 min"
    },
    {
     "fonte": "geopolítica (GDELT)",
@@ -59,8 +59,8 @@
     "alimenta": "dimensão experimental (NÃO vota)",
     "vota": false,
     "sincronizado_em": "2026-09-07T21:30:57.568315+00:00",
-    "atraso_min": 91,
-    "atraso_texto": "1h 31min"
+    "atraso_min": 93,
+    "atraso_texto": "1h 33min"
    }
   ],
   "o_que_conta": "só as fontes que alimentam dimensão QUE VOTA entram no atraso (calendário e bancos centrais). Discurso, imprensa e geopolítica são contexto: a idade deles fica gravada, rotulada, e não muda o estado.",
@@ -1540,8 +1540,8 @@
      "direcao_antes_do_teto": "MANTEM",
      "vota": true,
      "por_que_nao_vota": null,
-     "soma": 2.48,
-     "soma_antes_do_teto": 2.48,
+     "soma": 2.47,
+     "soma_antes_do_teto": 2.47,
      "n": 23,
      "n_alto": 1,
      "desde": "2026-07-31T03:11:27.150000+00:00",
@@ -1640,8 +1640,8 @@
        "impacto": "MEDIUM",
        "divulgado": 2.6,
        "consenso": 2.4,
-       "contribuicao_bruta": 1.7,
-       "contribuicao": 1.7,
+       "contribuicao_bruta": 1.69,
+       "contribuicao": 1.69,
        "idade_dias": 22.0,
        "winsorizado": false
       },
@@ -2326,9 +2326,9 @@
      "conectada": true,
      "hawkish": 1,
      "dovish": 0,
-     "n": 9,
+     "n": 10,
      "n_falas": 0,
-     "n_contexto": 9,
+     "n_contexto": 10,
      "contagem_contexto": {
       "alta": 1,
       "corte": 0
@@ -2338,10 +2338,10 @@
       "corte": 0
      },
      "oradores": [
+      "RNZ",
       "tmgm.com",
       "thepost.co.nz",
-      "FXStreet",
-      "NZ Herald"
+      "FXStreet"
      ],
      "datas": [
       "2026-09-07",
@@ -2349,13 +2349,13 @@
       "2026-09-07",
       "2026-09-07",
       "2026-09-07",
-      "2026-09-05"
+      "2026-09-07"
      ],
      "origem": "manchete",
      "peso_aplicado": 0.0,
      "peso_da_fonte": 0.0,
      "peso_se_votasse": 0.0,
-     "itens_unicos": 9,
+     "itens_unicos": 10,
      "duplicatas_removidas": 0,
      "rotulo_contexto": "sem fala oficial disponivel — o banco bloqueia automacao; a imprensa abaixo e contexto, nao voto",
      "veredito_por_orador": [],
@@ -2418,8 +2418,8 @@
     "partes_sem_dado": [
      "confiabilidade"
     ],
-    "contexto_nao_contado": 9,
-    "explicacao": "qualidade 39/100 do NZD (média de 3 parte(s) com dado; sem dado em confiabilidade) — 1 divulgações e 0 fala(s) que votam na janela; 9 item(ns) de imprensa que NÃO votam ficaram de fora da conta; 1 de 4 famílias independentes (atividade); o item que mais pesa tem 5 dia(s); fonte da fala: MANCHETE de imprensa — mas a fala NÃO VOTA desde 05/set, então a parte confiabilidade sai SEM DADO em vez de valer 0/100.",
+    "contexto_nao_contado": 10,
+    "explicacao": "qualidade 39/100 do NZD (média de 3 parte(s) com dado; sem dado em confiabilidade) — 1 divulgações e 0 fala(s) que votam na janela; 10 item(ns) de imprensa que NÃO votam ficaram de fora da conta; 1 de 4 famílias independentes (atividade); o item que mais pesa tem 5 dia(s); fonte da fala: MANCHETE de imprensa — mas a fala NÃO VOTA desde 05/set, então a parte confiabilidade sai SEM DADO em vez de valer 0/100.",
     "provisorio": true,
     "regua": {
      "satura_em_itens": 12,
