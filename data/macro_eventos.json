@@ -1,15 +1,15 @@
 {
- "gerado_em": "2026-09-07T23:43:24.061997+00:00",
- "fonte_gerado_em": "2026-09-07T23:43:12.582703+00:00",
+ "gerado_em": "2026-09-07T23:54:15.067755+00:00",
+ "fonte_gerado_em": "2026-09-07T23:54:14.842299+00:00",
  "fonte": "fxstreet",
  "aviso_fonte": "FXStreet calendar backend: released value, consensus, previous and revision for the 8 majors, with the delivery delay measured per event. Widget backend, not a licensed product — no SLA. Fallback is the Forex Factory feed.",
  "latencia_medida": {
-  "n": 52,
+  "n": 55,
   "p25": 31.0,
-  "mediana": 173.0,
+  "mediana": 181.0,
   "p75": 409.0,
-  "p90": 692.0,
-  "n_alta": 6,
+  "p90": 968.0,
+  "n_alta": 7,
   "mediana_alta": 221.0,
   "p90_alta": 421.0
  },
@@ -1652,51 +1652,35 @@
    "moeda": "JPY",
    "impacto": "Medium",
    "quando_utc": "2026-09-07T23:30:00+00:00",
-   "estado": "AGUARDANDO",
+   "estado": "DIVULGADO",
    "previsao": 3.9,
    "anterior": 3.4,
-   "resultado": null,
+   "resultado": 4.7,
    "revisado": null,
    "unidade": "%",
    "familia": "salarios",
    "familia_peso": 9,
    "familia_sinal": 1,
    "porque": "É a ligação entre trabalho e inflação de serviços. Para o BoJ e para o BoE é o número que eles dizem publicamente estar esperando.",
-   "classe": null,
-   "diferenca": null,
-   "surpresa_normalizada": null,
-   "melhor_que_esperado": null,
-   "empurrao": 0.0,
-   "empurrao_texto": "sem régua para medir — não há previsão publicada",
-   "atraso_s": null,
+   "classe": "MUITO_ACIMA",
+   "diferenca": 0.8,
+   "surpresa_normalizada": 3.03,
+   "melhor_que_esperado": true,
+   "empurrao": 4.5,
+   "empurrao_texto": "empurra para APERTO",
+   "atraso_s": 1133.0,
    "discurso": false,
    "data_a_confirmar": false,
    "preliminar": false,
    "fonte": "fxstreet",
-   "cenarios": [
-    {
-     "caso": "acima da previsão",
-     "empurra": "APERTO",
-     "peso": 9
-    },
-    {
-     "caso": "em linha",
-     "empurra": "nada — já está no preço",
-     "peso": 0
-    },
-    {
-     "caso": "abaixo da previsão",
-     "empurra": "ALÍVIO",
-     "peso": 9
-    }
-   ]
+   "cenarios": []
   },
   {
    "titulo": "Current Account n.s.a.",
    "moeda": "JPY",
    "impacto": "Medium",
    "quando_utc": "2026-09-07T23:50:00+00:00",
-   "estado": "AGENDADO",
+   "estado": "AGUARDANDO",
    "previsao": 2870.0,
    "anterior": -92.3,
    "resultado": null,
@@ -1740,51 +1724,35 @@
    "moeda": "JPY",
    "impacto": "High",
    "quando_utc": "2026-09-07T23:50:00+00:00",
-   "estado": "AGENDADO",
+   "estado": "DIVULGADO",
    "previsao": 0.4,
    "anterior": 0.3,
-   "resultado": null,
+   "resultado": 0.4,
    "revisado": null,
    "unidade": "%",
    "familia": "pib",
    "familia_peso": 6,
    "familia_sinal": 1,
    "porque": "Confirma o estado, mas é ATRASADO — cobre um trimestre que já acabou. Move pouco a decisão, porque o banco já viu as partes mensais.",
-   "classe": null,
-   "diferenca": null,
+   "classe": "EM_LINHA",
+   "diferenca": 0.0,
    "surpresa_normalizada": null,
    "melhor_que_esperado": null,
    "empurrao": 0.0,
-   "empurrao_texto": "sem régua para medir — não há previsão publicada",
-   "atraso_s": null,
+   "empurrao_texto": "veio como esperado — não muda o que já estava no preço",
+   "atraso_s": 254.0,
    "discurso": false,
    "data_a_confirmar": false,
    "preliminar": false,
    "fonte": "fxstreet",
-   "cenarios": [
-    {
-     "caso": "acima da previsão",
-     "empurra": "APERTO",
-     "peso": 6
-    },
-    {
-     "caso": "em linha",
-     "empurra": "nada — já está no preço",
-     "peso": 0
-    },
-    {
-     "caso": "abaixo da previsão",
-     "empurra": "ALÍVIO",
-     "peso": 6
-    }
-   ]
+   "cenarios": []
   },
   {
    "titulo": "Gross Domestic Product Annualized",
    "moeda": "JPY",
    "impacto": "Medium",
    "quando_utc": "2026-09-07T23:50:00+00:00",
-   "estado": "AGENDADO",
+   "estado": "AGUARDANDO",
    "previsao": 1.1,
    "anterior": 1.1,
    "resultado": null,
@@ -1828,7 +1796,7 @@
    "moeda": "JPY",
    "impacto": "Medium",
    "quando_utc": "2026-09-07T23:50:00+00:00",
-   "estado": "AGENDADO",
+   "estado": "AGUARDANDO",
    "previsao": 2.6,
    "anterior": 2.6,
    "resultado": null,
@@ -1872,10 +1840,10 @@
    "moeda": "JPY",
    "impacto": "Low",
    "quando_utc": "2026-09-07T23:50:00+00:00",
-   "estado": "AGENDADO",
+   "estado": "SEM_BARRA",
    "previsao": null,
    "anterior": -135.2,
-   "resultado": null,
+   "resultado": -399.9,
    "revisado": null,
    "unidade": "B¥",
    "familia": "balanca",
@@ -1888,28 +1856,12 @@
    "melhor_que_esperado": null,
    "empurrao": 0.0,
    "empurrao_texto": "sem régua para medir — não há previsão publicada",
-   "atraso_s": null,
+   "atraso_s": 243.0,
    "discurso": false,
    "data_a_confirmar": false,
    "preliminar": false,
    "fonte": "fxstreet",
-   "cenarios": [
-    {
-     "caso": "acima da previsão",
-     "empurra": "APERTO",
-     "peso": 2
-    },
-    {
-     "caso": "em linha",
-     "empurra": "nada — já está no preço",
-     "peso": 0
-    },
-    {
-     "caso": "abaixo da previsão",
-     "empurra": "ALÍVIO",
-     "peso": 2
-    }
-   ]
+   "cenarios": []
   },
   {
    "titulo": "Westpac Consumer Confidence",
