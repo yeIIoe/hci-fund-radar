@@ -6,23 +6,25 @@
    "ticker": "STNG",
    "aprovado": true,
    "nota": "A",
-   "preco": 80.64,
+   "preco": 82.35,
    "metricas": {
-    "EV/EBITDA": 3.6,
-    "P/B": 1.19,
+    "EV/EBITDA": 3.8,
+    "P/B": 1.21,
     "D/E": "20%",
     "net cash": true
    },
-   "porque": "fluxo barato (EV/EBITDA 3.6); NET CASH (sobrevive ao inverno).",
+   "porque": "fluxo barato (EV/EBITDA 3.8); NET CASH (sobrevive ao inverno).",
    "porque_nao": null,
+   "reprovacoes": [],
    "risco": "preco do petroleo/gas",
-   "confianca": "~70% individual"
+   "confianca": null,
+   "confianca_status": "nao calibrada"
   },
   {
    "ticker": "GOAU4.SA",
    "aprovado": true,
    "nota": "B",
-   "preco": 11.19,
+   "preco": 11.17,
    "metricas": {
     "EV/EBITDA": 6.0,
     "P/B": 0.77,
@@ -31,158 +33,198 @@
    },
    "porque": "ativos c/ desconto (P/B 0.77); divida controlada (D/E 28%).",
    "porque_nao": null,
+   "reprovacoes": [],
    "risco": "preco da commodity",
-   "confianca": "~60% individual"
+   "confianca": null,
+   "confianca_status": "nao calibrada"
   },
   {
    "ticker": "REPX",
    "aprovado": true,
    "nota": "B",
-   "preco": 41.63,
+   "preco": 41.93,
    "metricas": {
     "EV/EBITDA": 4.0,
-    "P/B": 1.46,
+    "P/B": 1.47,
     "D/E": "42%",
     "net cash": false
    },
    "porque": "fluxo barato (EV/EBITDA 4.0); balanco ok.",
    "porque_nao": null,
+   "reprovacoes": [],
    "risco": "preco do petroleo/gas",
-   "confianca": "~55% individual"
+   "confianca": null,
+   "confianca_status": "nao calibrada"
   },
   {
    "ticker": "MUR",
    "aprovado": false,
    "nota": "C",
-   "preco": 36.62,
+   "preco": 36.44,
    "metricas": {
-    "EV/EBITDA": 4.1,
-    "P/B": 1.0,
+    "EV/EBITDA": 4.0,
+    "P/B": 0.99,
     "D/E": "42%",
     "net cash": false
    },
    "porque": null,
-   "porque_nao": "nao passou na peneira anti-armadilha",
+   "porque_nao": "margem de seguranca insuficiente para a peneira",
+   "reprovacoes": [],
    "risco": "preco do petroleo/gas",
-   "confianca": null
+   "confianca": null,
+   "confianca_status": null
   },
   {
    "ticker": "CSAN3.SA",
    "aprovado": false,
    "nota": "D",
-   "preco": 3.83,
+   "preco": 3.8,
    "metricas": {
     "EV/EBITDA": 1.5,
-    "P/B": 3.04,
+    "P/B": 3.02,
     "D/E": "110%",
     "net cash": false
    },
    "porque": null,
-   "porque_nao": "armadilha de valor: balanco ok",
+   "porque_nao": "armadilha de valor: lucro<=0, FCF<=0, D/E 110%>50",
+   "reprovacoes": [
+    "lucro<=0",
+    "FCF<=0",
+    "D/E 110%>50"
+   ],
    "risco": "preco do petroleo/gas",
-   "confianca": null
+   "confianca": null,
+   "confianca_status": null
   },
   {
    "ticker": "CSNA3.SA",
    "aprovado": false,
    "nota": "D",
-   "preco": 6.39,
+   "preco": 6.36,
    "metricas": {
     "EV/EBITDA": 7.0,
-    "P/B": 0.7,
+    "P/B": 0.69,
     "D/E": "357%",
     "net cash": false
    },
    "porque": null,
-   "porque_nao": "armadilha de valor: balanco ok",
+   "porque_nao": "armadilha de valor: lucro<=0, FCF<=0, D/E 357%>50",
+   "reprovacoes": [
+    "lucro<=0",
+    "FCF<=0",
+    "D/E 357%>50"
+   ],
    "risco": "preco da commodity",
-   "confianca": null
+   "confianca": null,
+   "confianca_status": null
   },
   {
    "ticker": "FESA4.SA",
    "aprovado": false,
    "nota": "D",
-   "preco": 5.75,
+   "preco": 5.61,
    "metricas": {
-    "EV/EBITDA": 13.7,
-    "P/B": 0.59,
+    "EV/EBITDA": 13.4,
+    "P/B": 0.58,
     "D/E": "12%",
     "net cash": true
    },
    "porque": null,
-   "porque_nao": "armadilha de valor: NET CASH (sobrevive ao inverno)",
+   "porque_nao": "armadilha de valor: FCF<=0",
+   "reprovacoes": [
+    "FCF<=0"
+   ],
    "risco": "preco da commodity",
-   "confianca": null
+   "confianca": null,
+   "confianca_status": null
   },
   {
    "ticker": "PARR",
    "aprovado": false,
    "nota": "D",
-   "preco": 81.62,
+   "preco": 81.32,
    "metricas": {
-    "EV/EBITDA": 4.0,
-    "P/B": 2.03,
+    "EV/EBITDA": 3.9,
+    "P/B": 2.02,
     "D/E": "56%",
     "net cash": false
    },
    "porque": null,
-   "porque_nao": "armadilha de valor: balanco ok",
+   "porque_nao": "armadilha de valor: D/E 56%>50",
+   "reprovacoes": [
+    "D/E 56%>50"
+   ],
    "risco": "preco do petroleo/gas",
-   "confianca": null
+   "confianca": null,
+   "confianca_status": null
   },
   {
    "ticker": "ROMI3.SA",
    "aprovado": false,
    "nota": "D",
-   "preco": 5.98,
+   "preco": 5.96,
    "metricas": {
-    "EV/EBITDA": 8.6,
-    "P/B": 0.45,
+    "EV/EBITDA": 8.7,
+    "P/B": 0.44,
     "D/E": "76%",
     "net cash": false
    },
    "porque": null,
-   "porque_nao": "armadilha de valor: balanco ok",
+   "porque_nao": "armadilha de valor: FCF<=0, D/E 76%>50",
+   "reprovacoes": [
+    "FCF<=0",
+    "D/E 76%>50"
+   ],
    "risco": "ciclo industrial/frete",
-   "confianca": null
+   "confianca": null,
+   "confianca_status": null
   },
   {
    "ticker": "SAPR11.SA",
    "aprovado": false,
    "nota": "D",
-   "preco": 35.33,
+   "preco": 34.95,
    "metricas": {
-    "EV/EBITDA": 4.6,
-    "P/B": 0.88,
+    "EV/EBITDA": 4.5,
+    "P/B": 0.87,
     "D/E": "60%",
     "net cash": false
    },
    "porque": null,
-   "porque_nao": "armadilha de valor: balanco ok",
+   "porque_nao": "armadilha de valor: FCF<=0, D/E 60%>50",
+   "reprovacoes": [
+    "FCF<=0",
+    "D/E 60%>50"
+   ],
    "risco": "regulacao/juros",
-   "confianca": null
+   "confianca": null,
+   "confianca_status": null
   },
   {
    "ticker": "SM",
    "aprovado": false,
    "nota": "D",
-   "preco": 36.55,
+   "preco": 36.44,
    "metricas": {
-    "EV/EBITDA": 4.9,
+    "EV/EBITDA": 4.8,
     "P/B": 1.11,
     "D/E": "95%",
     "net cash": false
    },
    "porque": null,
-   "porque_nao": "armadilha de valor: balanco ok",
+   "porque_nao": "armadilha de valor: D/E 95%>50",
+   "reprovacoes": [
+    "D/E 95%>50"
+   ],
    "risco": "preco do petroleo/gas",
-   "confianca": null
+   "confianca": null,
+   "confianca_status": null
   },
   {
    "ticker": "TASA4.SA",
    "aprovado": false,
    "nota": "D",
-   "preco": 5.61,
+   "preco": 5.63,
    "metricas": {
     "EV/EBITDA": 16.1,
     "P/B": 0.66,
@@ -190,25 +232,33 @@
     "net cash": false
    },
    "porque": null,
-   "porque_nao": "armadilha de valor: balanco ok",
+   "porque_nao": "armadilha de valor: D/E 57%>50",
+   "reprovacoes": [
+    "D/E 57%>50"
+   ],
    "risco": "ciclo industrial/frete",
-   "confianca": null
+   "confianca": null,
+   "confianca_status": null
   },
   {
    "ticker": "USIM5.SA",
    "aprovado": false,
    "nota": "D",
-   "preco": 7.72,
+   "preco": 7.63,
    "metricas": {
-    "EV/EBITDA": 5.9,
-    "P/B": 0.46,
+    "EV/EBITDA": 5.8,
+    "P/B": 0.45,
     "D/E": "27%",
     "net cash": true
    },
    "porque": null,
-   "porque_nao": "armadilha de valor: NET CASH (sobrevive ao inverno)",
+   "porque_nao": "armadilha de valor: lucro<=0",
+   "reprovacoes": [
+    "lucro<=0"
+   ],
    "risco": "preco da commodity",
-   "confianca": null
+   "confianca": null,
+   "confianca_status": null
   }
  ]
 }
