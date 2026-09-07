@@ -1,5 +1,5 @@
 {
- "gerado_em": "2026-09-03 15:13",
+ "gerado_em": "2026-09-07 13:42",
  "o_que_e": "Pair file: the four outputs Volume I keeps separate — fundamental conviction, thesis health, market confirmation and analytical confidence — each with its source and date.",
  "o_que_nao_e": "Not a direction, not an order, not a target. FUND V0.1 is frozen as an experimental version that failed the directional tests (15 pre-registrations as a predictor; 0 of 9 cells as an entry filter). What is shown here is evidence for you to read, not an edge.",
  "regra_de_leitura": "Conviction is coherence with the fundamentals — it is NOT a probability of profit. Thesis health is measured on the raw differential, never on the Score: a Score staying high is not proof of persistence.",
@@ -8,40 +8,40 @@
    "par": "EURGBP",
    "base": "EUR",
    "quote": "GBP",
-   "as_of": "2026-09-04",
-   "fund": -50.64,
+   "as_of": "2026-09-08",
+   "fund": -42.28,
    "banda": "BEAR",
    "dias_na_banda": 1,
    "causa_dominante": {
     "perna": "GBP",
     "sentido": "rose",
-    "bp_5d": 32.3,
-    "sigmas_5d": 5.9,
-    "bp_1d": 25.6,
-    "bp_20d": 21.5,
-    "yield": 4.5447,
+    "bp_5d": 26.1,
+    "sigmas_5d": 4.8,
+    "bp_1d": 23.5,
+    "bp_20d": 34.2,
+    "yield": 4.5544,
     "banco_central": "Bank of England",
     "bc_url": "https://www.bankofengland.co.uk/monetary-policy/the-interest-rate-bank-rate",
     "fonte": "Bank of England 2Y spot curve",
     "fonte_url": "https://www.bankofengland.co.uk/statistics/yield-curves",
-    "lido_em": "2026-09-03",
-    "frase": "The GBP leg moved: GBP 2y rose 32.3 bp over 5 sessions (5.9 sigma).",
+    "lido_em": "2026-09-07",
+    "frase": "The GBP leg moved: GBP 2y rose 26.1 bp over 5 sessions (4.8 sigma).",
     "evento_identificado": null,
     "interpretacao": null,
     "evidencia_contraria": null,
     "conclusao": "not identified — this is the component that moved, not the reason it moved"
    },
    "conviccao_fundamental": {
-    "estado": "contradictory",
-    "nivel": -1.591,
-    "momento_bp": 6.6,
-    "porque": "Level and 20-session momentum disagree: differential at -1.59 pp but moving +6.6 bp the other way — the standing level is being eroded."
+    "estado": "coherent",
+    "nivel": -1.58,
+    "momento_bp": -4.0,
+    "porque": "Level and 20-session momentum point the same way: differential at -1.58 pp, moving -4.0 bp."
    },
    "saude_da_tese": {
     "estado": "strengthening",
-    "delta_5d_bp": -15.5,
-    "porque": "Differential widened -15.5 bp in 5 sessions, in the same direction as the level.",
-    "invalidaria": "The differential crossing zero, or giving back 50% of the move that created the thesis. Today it sits at -1.59 pp."
+    "delta_5d_bp": -7.2,
+    "porque": "Differential widened -7.2 bp in 5 sessions, in the same direction as the level.",
+    "invalidaria": "The differential crossing zero, or giving back 50% of the move that created the thesis. Today it sits at -1.58 pp."
    },
    "confirmacao_de_mercado": {
     "estado": "not assessed",
@@ -59,64 +59,62 @@
    },
    "evidencia": [
     {
-     "quando": "2026-09-04 06:00",
-     "moeda": "EUR",
-     "titulo": "German Factory Orders m/m",
-     "impacto": "Low",
-     "fonte": "forexfactory",
-     "url": "https://www.forexfactory.com/calendar/352-ge-factory-orders-mm"
-    },
-    {
-     "quando": "2026-09-04 08:00",
-     "moeda": "EUR",
-     "titulo": "Italian Retail Sales m/m",
-     "impacto": "Low",
-     "fonte": "forexfactory",
-     "url": "https://www.forexfactory.com/calendar/108-it-retail-sales-mm"
-    },
-    {
-     "quando": "2026-09-04 08:30",
+     "quando": "2026-09-07 23:01",
      "moeda": "GBP",
-     "titulo": "Construction PMI",
+     "titulo": "BRC Retail Sales Monitor y/y",
      "impacto": "Low",
      "fonte": "forexfactory",
-     "url": "https://www.forexfactory.com/calendar/251-uk-construction-pmi"
+     "url": "https://www.forexfactory.com/calendar/114-uk-brc-retail-sales-monitor-yy"
     },
     {
-     "quando": "2026-09-04 08:50",
-     "moeda": "GBP",
-     "titulo": "BOE Gov Bailey Speaks",
-     "impacto": "High",
+     "quando": "2026-09-08 06:00",
+     "moeda": "EUR",
+     "titulo": "German Trade Balance",
+     "impacto": "Low",
      "fonte": "forexfactory",
-     "url": "https://www.forexfactory.com/calendar/838-uk-boe-gov-bailey-speaks"
+     "url": "https://www.forexfactory.com/calendar/125-ge-trade-balance"
+    },
+    {
+     "quando": "2026-09-08 06:45",
+     "moeda": "EUR",
+     "titulo": "French Trade Balance",
+     "impacto": "Low",
+     "fonte": "forexfactory",
+     "url": "https://www.forexfactory.com/calendar/126-fr-trade-balance"
+    },
+    {
+     "quando": "2026-09-08 13:15",
+     "moeda": "GBP",
+     "titulo": "Monetary Policy Report Hearings",
+     "impacto": "Medium",
+     "fonte": "forexfactory",
+     "url": "https://www.forexfactory.com/calendar/439-uk-monetary-policy-report-hearings"
     }
    ],
-   "contradiz": [
-    "Level and 20-session momentum disagree: differential at -1.59 pp but moving +6.6 bp the other way — the standing level is being eroded."
-   ]
+   "contradiz": null
   },
   "EURAUD": {
    "par": "EURAUD",
    "base": "EUR",
    "quote": "AUD",
-   "as_of": "2026-09-04",
-   "fund": 8.66,
+   "as_of": "2026-09-08",
+   "fund": 8.46,
    "banda": "NEUTRAL",
-   "dias_na_banda": 1,
+   "dias_na_banda": 2,
    "causa_dominante": {
     "perna": "AUD",
     "sentido": "rose",
-    "bp_5d": 25.0,
-    "sigmas_5d": 5.4,
-    "bp_1d": 17.5,
-    "bp_20d": 23.5,
-    "yield": 4.794,
+    "bp_5d": 27.7,
+    "sigmas_5d": 5.9,
+    "bp_1d": 20.2,
+    "bp_20d": 26.2,
+    "yield": 4.821,
     "banco_central": "Reserve Bank of Australia",
     "bc_url": "https://www.rba.gov.au/media-releases/",
     "fonte": "RBA F2 Australian Government 2Y",
     "fonte_url": "https://www.rba.gov.au/statistics/tables/",
-    "lido_em": "2026-09-03",
-    "frase": "The AUD leg moved: AUD 2y rose 25.0 bp over 5 sessions (5.4 sigma).",
+    "lido_em": "2026-09-07",
+    "frase": "The AUD leg moved: AUD 2y rose 27.7 bp over 5 sessions (5.9 sigma).",
     "evento_identificado": null,
     "interpretacao": null,
     "evidencia_contraria": null,
@@ -124,15 +122,15 @@
    },
    "conviccao_fundamental": {
     "estado": "contradictory",
-    "nivel": -1.841,
-    "momento_bp": 4.6,
-    "porque": "Level and 20-session momentum disagree: differential at -1.84 pp but moving +4.6 bp the other way — the standing level is being eroded."
+    "nivel": -1.847,
+    "momento_bp": 4.0,
+    "porque": "Level and 20-session momentum disagree: differential at -1.85 pp but moving +4.0 bp the other way — the standing level is being eroded."
    },
    "saude_da_tese": {
     "estado": "strengthening",
-    "delta_5d_bp": -8.2,
-    "porque": "Differential widened -8.2 bp in 5 sessions, in the same direction as the level.",
-    "invalidaria": "The differential crossing zero, or giving back 50% of the move that created the thesis. Today it sits at -1.84 pp."
+    "delta_5d_bp": -8.8,
+    "porque": "Differential widened -8.8 bp in 5 sessions, in the same direction as the level.",
+    "invalidaria": "The differential crossing zero, or giving back 50% of the move that created the thesis. Today it sits at -1.85 pp."
    },
    "confirmacao_de_mercado": {
     "estado": "not assessed",
@@ -150,56 +148,64 @@
    },
    "evidencia": [
     {
-     "quando": "2026-09-04 06:00",
-     "moeda": "EUR",
-     "titulo": "German Factory Orders m/m",
+     "quando": "2026-09-08 00:30",
+     "moeda": "AUD",
+     "titulo": "Westpac Consumer Sentiment",
      "impacto": "Low",
      "fonte": "forexfactory",
-     "url": "https://www.forexfactory.com/calendar/352-ge-factory-orders-mm"
+     "url": "https://www.forexfactory.com/calendar/338-au-westpac-consumer-sentiment"
     },
     {
-     "quando": "2026-09-04 08:00",
-     "moeda": "EUR",
-     "titulo": "Italian Retail Sales m/m",
+     "quando": "2026-09-08 01:30",
+     "moeda": "AUD",
+     "titulo": "NAB Business Confidence",
      "impacto": "Low",
      "fonte": "forexfactory",
-     "url": "https://www.forexfactory.com/calendar/108-it-retail-sales-mm"
+     "url": "https://www.forexfactory.com/calendar/323-au-nab-business-confidence"
     },
     {
-     "quando": "2026-09-04 09:00",
-     "moeda": "EUR",
-     "titulo": "Retail Sales m/m",
+     "quando": "2026-09-08 03:20",
+     "moeda": "AUD",
+     "titulo": "RBA Assist Gov Hunter Speaks",
      "impacto": "Low",
      "fonte": "forexfactory",
-     "url": "https://www.forexfactory.com/calendar/106-ez-retail-sales-mm"
+     "url": "https://www.forexfactory.com/calendar/907-au-rba-assist-gov-hunter-speaks"
+    },
+    {
+     "quando": "2026-09-08 06:00",
+     "moeda": "EUR",
+     "titulo": "German Trade Balance",
+     "impacto": "Low",
+     "fonte": "forexfactory",
+     "url": "https://www.forexfactory.com/calendar/125-ge-trade-balance"
     }
    ],
    "contradiz": [
-    "Level and 20-session momentum disagree: differential at -1.84 pp but moving +4.6 bp the other way — the standing level is being eroded."
+    "Level and 20-session momentum disagree: differential at -1.85 pp but moving +4.0 bp the other way — the standing level is being eroded."
    ]
   },
   "EURNZD": {
    "par": "EURNZD",
    "base": "EUR",
    "quote": "NZD",
-   "as_of": "2026-09-04",
-   "fund": 44.32,
+   "as_of": "2026-09-08",
+   "fund": 41.96,
    "banda": "BULL",
-   "dias_na_banda": 4,
+   "dias_na_banda": 6,
    "causa_dominante": {
     "perna": "EUR",
     "sentido": "rose",
-    "bp_5d": 16.8,
-    "sigmas_5d": 4.7,
-    "bp_1d": 4.0,
-    "bp_20d": 28.1,
-    "yield": 2.9534,
+    "bp_5d": 18.9,
+    "sigmas_5d": 5.2,
+    "bp_1d": 6.1,
+    "bp_20d": 30.2,
+    "yield": 2.9743,
     "banco_central": "European Central Bank",
     "bc_url": "https://www.ecb.europa.eu/press/pr/date/html/index.en.html",
     "fonte": "ECB AAA 2Y spot",
     "fonte_url": "https://data.ecb.europa.eu/data/datasets/YC",
-    "lido_em": "2026-09-03",
-    "frase": "The EUR leg moved: EUR 2y rose 16.8 bp over 5 sessions (4.7 sigma).",
+    "lido_em": "2026-09-07",
+    "frase": "The EUR leg moved: EUR 2y rose 18.9 bp over 5 sessions (5.2 sigma).",
     "evento_identificado": null,
     "interpretacao": null,
     "evidencia_contraria": null,
@@ -207,14 +213,14 @@
    },
    "conviccao_fundamental": {
     "estado": "contradictory",
-    "nivel": -0.672,
-    "momento_bp": 29.6,
-    "porque": "Level and 20-session momentum disagree: differential at -0.67 pp but moving +29.6 bp the other way — the standing level is being eroded."
+    "nivel": -0.666,
+    "momento_bp": 25.2,
+    "porque": "Level and 20-session momentum disagree: differential at -0.67 pp but moving +25.2 bp the other way — the standing level is being eroded."
    },
    "saude_da_tese": {
     "estado": "weakening",
-    "delta_5d_bp": 10.3,
-    "porque": "Differential moved +10.3 bp AGAINST the standing level in 5 sessions.",
+    "delta_5d_bp": 14.9,
+    "porque": "Differential moved +14.9 bp AGAINST the standing level in 5 sessions.",
     "invalidaria": "The differential crossing zero, or giving back 50% of the move that created the thesis. Today it sits at -0.67 pp."
    },
    "confirmacao_de_mercado": {
@@ -233,57 +239,65 @@
    },
    "evidencia": [
     {
-     "quando": "2026-09-04 06:00",
-     "moeda": "EUR",
-     "titulo": "German Factory Orders m/m",
+     "quando": "2026-09-07 22:45",
+     "moeda": "NZD",
+     "titulo": "Manufacturing Sales q/q",
      "impacto": "Low",
      "fonte": "forexfactory",
-     "url": "https://www.forexfactory.com/calendar/352-ge-factory-orders-mm"
+     "url": "https://www.forexfactory.com/calendar/161-nz-manufacturing-sales-qq"
     },
     {
-     "quando": "2026-09-04 08:00",
+     "quando": "2026-09-08 06:00",
      "moeda": "EUR",
-     "titulo": "Italian Retail Sales m/m",
+     "titulo": "German Trade Balance",
      "impacto": "Low",
      "fonte": "forexfactory",
-     "url": "https://www.forexfactory.com/calendar/108-it-retail-sales-mm"
+     "url": "https://www.forexfactory.com/calendar/125-ge-trade-balance"
     },
     {
-     "quando": "2026-09-04 09:00",
+     "quando": "2026-09-08 06:45",
      "moeda": "EUR",
-     "titulo": "Retail Sales m/m",
+     "titulo": "French Trade Balance",
      "impacto": "Low",
      "fonte": "forexfactory",
-     "url": "https://www.forexfactory.com/calendar/106-ez-retail-sales-mm"
+     "url": "https://www.forexfactory.com/calendar/126-fr-trade-balance"
+    },
+    {
+     "quando": "2026-09-09 06:45",
+     "moeda": "EUR",
+     "titulo": "French Industrial Production m/m",
+     "impacto": "Low",
+     "fonte": "forexfactory",
+     "url": "https://www.forexfactory.com/calendar/222-fr-industrial-production-mm"
     }
    ],
    "contradiz": [
-    "Level and 20-session momentum disagree: differential at -0.67 pp but moving +29.6 bp the other way — the standing level is being eroded.",
-    "Differential moved +10.3 bp AGAINST the standing level in 5 sessions."
+    "Level and 20-session momentum disagree: differential at -0.67 pp but moving +25.2 bp the other way — the standing level is being eroded.",
+    "Differential moved +14.9 bp AGAINST the standing level in 5 sessions."
    ]
   },
   "EURUSD": {
    "par": "EURUSD",
    "base": "EUR",
    "quote": "USD",
-   "as_of": "2026-09-04",
-   "fund": 61.77,
-   "banda": "STRONG_BULL",
+   "as_of": "2026-09-08",
+   "fund": 42.88,
+   "banda": "BULL",
    "dias_na_banda": 1,
    "causa_dominante": {
     "perna": "EUR",
     "sentido": "rose",
-    "bp_5d": 16.8,
-    "sigmas_5d": 4.7,
-    "bp_1d": 4.0,
-    "bp_20d": 28.1,
-    "yield": 2.9534,
+    "bp_5d": 18.9,
+    "sigmas_5d": 5.2,
+    "bp_1d": 6.1,
+    "bp_20d": 30.2,
+    "yield": 2.9743,
     "banco_central": "European Central Bank",
     "bc_url": "https://www.ecb.europa.eu/press/pr/date/html/index.en.html",
     "fonte": "ECB AAA 2Y spot",
     "fonte_url": "https://data.ecb.europa.eu/data/datasets/YC",
-    "lido_em": "2026-09-03",
-    "frase": "The EUR leg moved: EUR 2y rose 16.8 bp over 5 sessions (4.7 sigma).",
+    "lido_em": "2026-09-07",
+    "frase": "The EUR leg moved: EUR 2y rose 18.9 bp over 5 sessions (5.2 sigma).",
     "evento_identificado": null,
     "interpretacao": null,
     "evidencia_contraria": null,
@@ -291,15 +305,15 @@
    },
    "conviccao_fundamental": {
     "estado": "contradictory",
-    "nivel": -1.379,
-    "momento_bp": 19.9,
-    "porque": "Level and 20-session momentum disagree: differential at -1.38 pp but moving +19.9 bp the other way — the standing level is being eroded."
+    "nivel": -1.4,
+    "momento_bp": 17.8,
+    "porque": "Level and 20-session momentum disagree: differential at -1.40 pp but moving +17.8 bp the other way — the standing level is being eroded."
    },
    "saude_da_tese": {
     "estado": "weakening",
-    "delta_5d_bp": 3.6,
-    "porque": "Differential moved +3.6 bp AGAINST the standing level in 5 sessions.",
-    "invalidaria": "The differential crossing zero, or giving back 50% of the move that created the thesis. Today it sits at -1.38 pp."
+    "delta_5d_bp": 15.5,
+    "porque": "Differential moved +15.5 bp AGAINST the standing level in 5 sessions.",
+    "invalidaria": "The differential crossing zero, or giving back 50% of the move that created the thesis. Today it sits at -1.40 pp."
    },
    "confirmacao_de_mercado": {
     "estado": "not assessed",
@@ -317,81 +331,81 @@
    },
    "evidencia": [
     {
-     "quando": "2026-09-03 19:00",
-     "moeda": "USD",
-     "titulo": "FOMC Member Hammack Speaks",
-     "impacto": "Low",
-     "fonte": "forexfactory",
-     "url": "https://www.forexfactory.com/calendar/913-us-fomc-member-hammack-speaks"
-    },
-    {
-     "quando": "2026-09-03 19:55",
-     "moeda": "USD",
-     "titulo": "FOMC Member Goolsbee Speaks",
-     "impacto": "Low",
-     "fonte": "forexfactory",
-     "url": "https://www.forexfactory.com/calendar/889-us-fomc-member-goolsbee-speaks"
-    },
-    {
-     "quando": "2026-09-04 06:00",
+     "quando": "2026-09-08 06:00",
      "moeda": "EUR",
-     "titulo": "German Factory Orders m/m",
+     "titulo": "German Trade Balance",
      "impacto": "Low",
      "fonte": "forexfactory",
-     "url": "https://www.forexfactory.com/calendar/352-ge-factory-orders-mm"
+     "url": "https://www.forexfactory.com/calendar/125-ge-trade-balance"
     },
     {
-     "quando": "2026-09-04 08:00",
+     "quando": "2026-09-08 06:45",
      "moeda": "EUR",
-     "titulo": "Italian Retail Sales m/m",
+     "titulo": "French Trade Balance",
      "impacto": "Low",
      "fonte": "forexfactory",
-     "url": "https://www.forexfactory.com/calendar/108-it-retail-sales-mm"
+     "url": "https://www.forexfactory.com/calendar/126-fr-trade-balance"
+    },
+    {
+     "quando": "2026-09-08 10:00",
+     "moeda": "USD",
+     "titulo": "NFIB Small Business Index",
+     "impacto": "Low",
+     "fonte": "forexfactory",
+     "url": "https://www.forexfactory.com/calendar/570-us-nfib-small-business-index"
+    },
+    {
+     "quando": "2026-09-08 19:00",
+     "moeda": "USD",
+     "titulo": "Consumer Credit m/m",
+     "impacto": "Low",
+     "fonte": "forexfactory",
+     "url": "https://www.forexfactory.com/calendar/341-us-consumer-credit-mm"
     }
    ],
    "contradiz": [
-    "Level and 20-session momentum disagree: differential at -1.38 pp but moving +19.9 bp the other way — the standing level is being eroded.",
-    "Differential moved +3.6 bp AGAINST the standing level in 5 sessions."
+    "Level and 20-session momentum disagree: differential at -1.40 pp but moving +17.8 bp the other way — the standing level is being eroded.",
+    "Differential moved +15.5 bp AGAINST the standing level in 5 sessions."
    ]
   },
   "EURCAD": {
    "par": "EURCAD",
    "base": "EUR",
    "quote": "CAD",
-   "as_of": "2026-09-04",
-   "fund": 15.86,
-   "banda": "NEUTRAL",
-   "dias_na_banda": 4,
+   "as_of": "2026-09-08",
+   "fund": 60.82,
+   "banda": "STRONG_BULL",
+   "dias_na_banda": 1,
    "causa_dominante": {
-    "perna": "CAD",
+    "perna": "EUR",
     "sentido": "rose",
-    "bp_5d": 20.1,
-    "sigmas_5d": 4.5,
-    "bp_1d": 12.1,
-    "bp_20d": 31.1,
-    "yield": 3.131,
-    "banco_central": "Bank of Canada",
-    "bc_url": "https://www.bankofcanada.ca/press/press-releases/",
-    "fonte": "Bank of Canada benchmark 2Y",
-    "fonte_url": "https://www.bankofcanada.ca/rates/interest-rates/lookup-bond-yields/",
-    "lido_em": "2026-09-03",
-    "frase": "The CAD leg moved: CAD 2y rose 20.1 bp over 5 sessions (4.5 sigma).",
+    "bp_5d": 18.9,
+    "sigmas_5d": 5.2,
+    "bp_1d": 6.1,
+    "bp_20d": 30.2,
+    "yield": 2.9743,
+    "banco_central": "European Central Bank",
+    "bc_url": "https://www.ecb.europa.eu/press/pr/date/html/index.en.html",
+    "fonte": "ECB AAA 2Y spot",
+    "fonte_url": "https://data.ecb.europa.eu/data/datasets/YC",
+    "lido_em": "2026-09-07",
+    "frase": "The EUR leg moved: EUR 2y rose 18.9 bp over 5 sessions (5.2 sigma).",
     "evento_identificado": null,
     "interpretacao": null,
     "evidencia_contraria": null,
     "conclusao": "not identified — this is the component that moved, not the reason it moved"
    },
    "conviccao_fundamental": {
-    "estado": "coherent",
-    "nivel": -0.178,
-    "momento_bp": -3.0,
-    "porque": "Level and 20-session momentum point the same way: differential at -0.18 pp, moving -3.0 bp."
+    "estado": "no base",
+    "nivel": -0.129,
+    "momento_bp": 1.9,
+    "porque": "Rate differential is near zero (-0.13 pp): there is no level for a thesis to rest on."
    },
    "saude_da_tese": {
-    "estado": "strengthening",
-    "delta_5d_bp": -3.3,
-    "porque": "Differential widened -3.3 bp in 5 sessions, in the same direction as the level.",
-    "invalidaria": "The differential crossing zero, or giving back 50% of the move that created the thesis. Today it sits at -0.18 pp."
+    "estado": "flat",
+    "delta_5d_bp": 1.6,
+    "porque": "Differential barely moved over 5 sessions (+1.6 bp).",
+    "invalidaria": "The differential crossing zero, or giving back 50% of the move that created the thesis. Today it sits at -0.13 pp."
    },
    "confirmacao_de_mercado": {
     "estado": "not assessed",
@@ -409,36 +423,36 @@
    },
    "evidencia": [
     {
-     "quando": "2026-09-04 06:00",
+     "quando": "2026-09-08 06:00",
      "moeda": "EUR",
-     "titulo": "German Factory Orders m/m",
+     "titulo": "German Trade Balance",
      "impacto": "Low",
      "fonte": "forexfactory",
-     "url": "https://www.forexfactory.com/calendar/352-ge-factory-orders-mm"
+     "url": "https://www.forexfactory.com/calendar/125-ge-trade-balance"
     },
     {
-     "quando": "2026-09-04 08:00",
+     "quando": "2026-09-08 06:45",
      "moeda": "EUR",
-     "titulo": "Italian Retail Sales m/m",
+     "titulo": "French Trade Balance",
      "impacto": "Low",
      "fonte": "forexfactory",
-     "url": "https://www.forexfactory.com/calendar/108-it-retail-sales-mm"
+     "url": "https://www.forexfactory.com/calendar/126-fr-trade-balance"
     },
     {
-     "quando": "2026-09-04 09:00",
+     "quando": "2026-09-09 06:45",
      "moeda": "EUR",
-     "titulo": "Retail Sales m/m",
+     "titulo": "French Industrial Production m/m",
      "impacto": "Low",
      "fonte": "forexfactory",
-     "url": "https://www.forexfactory.com/calendar/106-ez-retail-sales-mm"
+     "url": "https://www.forexfactory.com/calendar/222-fr-industrial-production-mm"
     },
     {
-     "quando": "2026-09-04 12:30",
-     "moeda": "CAD",
-     "titulo": "Employment Change",
-     "impacto": "High",
+     "quando": "2026-09-09 09:42",
+     "moeda": "EUR",
+     "titulo": "German 10-y Bond Auction",
+     "impacto": "Low",
      "fonte": "forexfactory",
-     "url": "https://www.forexfactory.com/calendar/67-ca-employment-change"
+     "url": "https://www.forexfactory.com/calendar/522-ge-10-y-bond-auction"
     }
    ],
    "contradiz": null
@@ -447,24 +461,24 @@
    "par": "EURCHF",
    "base": "EUR",
    "quote": "CHF",
-   "as_of": "2026-09-04",
-   "fund": 60.79,
-   "banda": "STRONG_BULL",
-   "dias_na_banda": 1,
+   "as_of": "2026-09-08",
+   "fund": 56.24,
+   "banda": "BULL",
+   "dias_na_banda": 4,
    "causa_dominante": {
     "perna": "EUR",
     "sentido": "rose",
-    "bp_5d": 16.8,
-    "sigmas_5d": 4.7,
-    "bp_1d": 4.0,
-    "bp_20d": 28.1,
-    "yield": 2.9534,
+    "bp_5d": 18.9,
+    "sigmas_5d": 5.2,
+    "bp_1d": 6.1,
+    "bp_20d": 30.2,
+    "yield": 2.9743,
     "banco_central": "European Central Bank",
     "bc_url": "https://www.ecb.europa.eu/press/pr/date/html/index.en.html",
     "fonte": "ECB AAA 2Y spot",
     "fonte_url": "https://data.ecb.europa.eu/data/datasets/YC",
-    "lido_em": "2026-09-03",
-    "frase": "The EUR leg moved: EUR 2y rose 16.8 bp over 5 sessions (4.7 sigma).",
+    "lido_em": "2026-09-07",
+    "frase": "The EUR leg moved: EUR 2y rose 18.9 bp over 5 sessions (5.2 sigma).",
     "evento_identificado": null,
     "interpretacao": null,
     "evidencia_contraria": null,
@@ -472,15 +486,15 @@
    },
    "conviccao_fundamental": {
     "estado": "coherent",
-    "nivel": 2.819,
-    "momento_bp": 23.4,
-    "porque": "Level and 20-session momentum point the same way: differential at 2.82 pp, moving +23.4 bp."
+    "nivel": 2.84,
+    "momento_bp": 21.7,
+    "porque": "Level and 20-session momentum point the same way: differential at 2.84 pp, moving +21.7 bp."
    },
    "saude_da_tese": {
     "estado": "strengthening",
-    "delta_5d_bp": 7.6,
-    "porque": "Differential widened +7.6 bp in 5 sessions, in the same direction as the level.",
-    "invalidaria": "The differential crossing zero, or giving back 50% of the move that created the thesis. Today it sits at 2.82 pp."
+    "delta_5d_bp": 9.7,
+    "porque": "Differential widened +9.7 bp in 5 sessions, in the same direction as the level.",
+    "invalidaria": "The differential crossing zero, or giving back 50% of the move that created the thesis. Today it sits at 2.84 pp."
    },
    "confirmacao_de_mercado": {
     "estado": "not assessed",
@@ -498,28 +512,36 @@
    },
    "evidencia": [
     {
-     "quando": "2026-09-04 06:00",
+     "quando": "2026-09-08 06:00",
      "moeda": "EUR",
-     "titulo": "German Factory Orders m/m",
+     "titulo": "German Trade Balance",
      "impacto": "Low",
      "fonte": "forexfactory",
-     "url": "https://www.forexfactory.com/calendar/352-ge-factory-orders-mm"
+     "url": "https://www.forexfactory.com/calendar/125-ge-trade-balance"
     },
     {
-     "quando": "2026-09-04 08:00",
+     "quando": "2026-09-08 06:45",
      "moeda": "EUR",
-     "titulo": "Italian Retail Sales m/m",
+     "titulo": "French Trade Balance",
      "impacto": "Low",
      "fonte": "forexfactory",
-     "url": "https://www.forexfactory.com/calendar/108-it-retail-sales-mm"
+     "url": "https://www.forexfactory.com/calendar/126-fr-trade-balance"
     },
     {
-     "quando": "2026-09-04 09:00",
+     "quando": "2026-09-09 06:45",
      "moeda": "EUR",
-     "titulo": "Retail Sales m/m",
+     "titulo": "French Industrial Production m/m",
      "impacto": "Low",
      "fonte": "forexfactory",
-     "url": "https://www.forexfactory.com/calendar/106-ez-retail-sales-mm"
+     "url": "https://www.forexfactory.com/calendar/222-fr-industrial-production-mm"
+    },
+    {
+     "quando": "2026-09-09 09:42",
+     "moeda": "EUR",
+     "titulo": "German 10-y Bond Auction",
+     "impacto": "Low",
+     "fonte": "forexfactory",
+     "url": "https://www.forexfactory.com/calendar/522-ge-10-y-bond-auction"
     }
    ],
    "contradiz": null
@@ -528,40 +550,40 @@
    "par": "EURJPY",
    "base": "EUR",
    "quote": "JPY",
-   "as_of": "2026-09-04",
-   "fund": -1.98,
+   "as_of": "2026-09-08",
+   "fund": 7.22,
    "banda": "NEUTRAL",
-   "dias_na_banda": 1,
+   "dias_na_banda": 6,
    "causa_dominante": {
     "perna": "EUR",
     "sentido": "rose",
-    "bp_5d": 16.8,
-    "sigmas_5d": 4.7,
-    "bp_1d": 4.0,
-    "bp_20d": 28.1,
-    "yield": 2.9534,
+    "bp_5d": 18.9,
+    "sigmas_5d": 5.2,
+    "bp_1d": 6.1,
+    "bp_20d": 30.2,
+    "yield": 2.9743,
     "banco_central": "European Central Bank",
     "bc_url": "https://www.ecb.europa.eu/press/pr/date/html/index.en.html",
     "fonte": "ECB AAA 2Y spot",
     "fonte_url": "https://data.ecb.europa.eu/data/datasets/YC",
-    "lido_em": "2026-09-03",
-    "frase": "The EUR leg moved: EUR 2y rose 16.8 bp over 5 sessions (4.7 sigma).",
+    "lido_em": "2026-09-07",
+    "frase": "The EUR leg moved: EUR 2y rose 18.9 bp over 5 sessions (5.2 sigma).",
     "evento_identificado": null,
     "interpretacao": null,
     "evidencia_contraria": null,
     "conclusao": "not identified — this is the component that moved, not the reason it moved"
    },
    "conviccao_fundamental": {
-    "estado": "contradictory",
-    "nivel": 1.103,
-    "momento_bp": -6.2,
-    "porque": "Level and 20-session momentum disagree: differential at 1.10 pp but moving -6.2 bp the other way — the standing level is being eroded."
+    "estado": "partial",
+    "nivel": 1.125,
+    "momento_bp": 1.8,
+    "porque": "Level favours EUR (1.13 pp) but the differential is not moving (1.8 bp in 20 sessions): a standing level, not a live revision."
    },
    "saude_da_tese": {
-    "estado": "flat",
-    "delta_5d_bp": 0.3,
-    "porque": "Differential barely moved over 5 sessions (+0.3 bp).",
-    "invalidaria": "The differential crossing zero, or giving back 50% of the move that created the thesis. Today it sits at 1.10 pp."
+    "estado": "strengthening",
+    "delta_5d_bp": 5.9,
+    "porque": "Differential widened +5.9 bp in 5 sessions, in the same direction as the level.",
+    "invalidaria": "The differential crossing zero, or giving back 50% of the move that created the thesis. Today it sits at 1.13 pp."
    },
    "confirmacao_de_mercado": {
     "estado": "not assessed",
@@ -579,80 +601,78 @@
    },
    "evidencia": [
     {
-     "quando": "2026-09-03 23:30",
+     "quando": "2026-09-07 23:30",
      "moeda": "JPY",
-     "titulo": "Household Spending y/y",
+     "titulo": "Average Cash Earnings y/y",
      "impacto": "Low",
      "fonte": "forexfactory",
-     "url": "https://www.forexfactory.com/calendar/359-jn-household-spending-yy"
+     "url": "https://www.forexfactory.com/calendar/181-jn-average-cash-earnings-yy"
     },
     {
-     "quando": "2026-09-04 06:00",
-     "moeda": "EUR",
-     "titulo": "German Factory Orders m/m",
+     "quando": "2026-09-07 23:50",
+     "moeda": "JPY",
+     "titulo": "Bank Lending y/y",
      "impacto": "Low",
      "fonte": "forexfactory",
-     "url": "https://www.forexfactory.com/calendar/352-ge-factory-orders-mm"
+     "url": "https://www.forexfactory.com/calendar/388-jn-bank-lending-yy"
     },
     {
-     "quando": "2026-09-04 08:00",
-     "moeda": "EUR",
-     "titulo": "Italian Retail Sales m/m",
+     "quando": "2026-09-07 23:50",
+     "moeda": "JPY",
+     "titulo": "Current Account",
      "impacto": "Low",
      "fonte": "forexfactory",
-     "url": "https://www.forexfactory.com/calendar/108-it-retail-sales-mm"
+     "url": "https://www.forexfactory.com/calendar/217-jn-current-account"
     },
     {
-     "quando": "2026-09-04 09:00",
-     "moeda": "EUR",
-     "titulo": "Retail Sales m/m",
+     "quando": "2026-09-07 23:50",
+     "moeda": "JPY",
+     "titulo": "Final GDP Price Index y/y",
      "impacto": "Low",
      "fonte": "forexfactory",
-     "url": "https://www.forexfactory.com/calendar/106-ez-retail-sales-mm"
+     "url": "https://www.forexfactory.com/calendar/44-jn-final-gdp-price-index-yy"
     }
    ],
-   "contradiz": [
-    "Level and 20-session momentum disagree: differential at 1.10 pp but moving -6.2 bp the other way — the standing level is being eroded."
-   ]
+   "contradiz": null
   },
   "GBPAUD": {
    "par": "GBPAUD",
    "base": "GBP",
    "quote": "AUD",
-   "as_of": "2026-09-04",
-   "fund": 29.69,
+   "as_of": "2026-09-08",
+   "fund": 32.79,
    "banda": "BULL",
-   "dias_na_banda": 4,
+   "dias_na_banda": 1,
    "causa_dominante": {
-    "perna": "GBP",
+    "perna": "AUD",
     "sentido": "rose",
-    "bp_5d": 32.3,
+    "bp_5d": 27.7,
     "sigmas_5d": 5.9,
-    "bp_1d": 25.6,
-    "bp_20d": 21.5,
-    "yield": 4.5447,
-    "banco_central": "Bank of England",
-    "bc_url": "https://www.bankofengland.co.uk/monetary-policy/the-interest-rate-bank-rate",
-    "fonte": "Bank of England 2Y spot curve",
-    "fonte_url": "https://www.bankofengland.co.uk/statistics/yield-curves",
-    "lido_em": "2026-09-03",
-    "frase": "The GBP leg moved: GBP 2y rose 32.3 bp over 5 sessions (5.9 sigma).",
+    "bp_1d": 20.2,
+    "bp_20d": 26.2,
+    "yield": 4.821,
+    "banco_central": "Reserve Bank of Australia",
+    "bc_url": "https://www.rba.gov.au/media-releases/",
+    "fonte": "RBA F2 Australian Government 2Y",
+    "fonte_url": "https://www.rba.gov.au/statistics/tables/",
+    "lido_em": "2026-09-07",
+    "frase": "The AUD leg moved: AUD 2y rose 27.7 bp over 5 sessions (5.9 sigma).",
     "evento_identificado": null,
     "interpretacao": null,
     "evidencia_contraria": null,
     "conclusao": "not identified — this is the component that moved, not the reason it moved"
    },
    "conviccao_fundamental": {
-    "estado": "partial",
-    "nivel": -0.249,
-    "momento_bp": -2.0,
-    "porque": "Level favours AUD (-0.25 pp) but the differential is not moving (-2.0 bp in 20 sessions): a standing level, not a live revision."
+    "estado": "contradictory",
+    "nivel": -0.267,
+    "momento_bp": 8.0,
+    "porque": "Level and 20-session momentum disagree: differential at -0.27 pp but moving +8.0 bp the other way — the standing level is being eroded."
    },
    "saude_da_tese": {
-    "estado": "weakening",
-    "delta_5d_bp": 7.3,
-    "porque": "Differential moved +7.3 bp AGAINST the standing level in 5 sessions.",
-    "invalidaria": "The differential crossing zero, or giving back 50% of the move that created the thesis. Today it sits at -0.25 pp."
+    "estado": "flat",
+    "delta_5d_bp": -1.6,
+    "porque": "Differential barely moved over 5 sessions (-1.6 bp).",
+    "invalidaria": "The differential crossing zero, or giving back 50% of the move that created the thesis. Today it sits at -0.27 pp."
    },
    "confirmacao_de_mercado": {
     "estado": "not assessed",
@@ -670,48 +690,64 @@
    },
    "evidencia": [
     {
-     "quando": "2026-09-04 08:30",
+     "quando": "2026-09-07 23:01",
      "moeda": "GBP",
-     "titulo": "Construction PMI",
+     "titulo": "BRC Retail Sales Monitor y/y",
      "impacto": "Low",
      "fonte": "forexfactory",
-     "url": "https://www.forexfactory.com/calendar/251-uk-construction-pmi"
+     "url": "https://www.forexfactory.com/calendar/114-uk-brc-retail-sales-monitor-yy"
     },
     {
-     "quando": "2026-09-04 08:50",
-     "moeda": "GBP",
-     "titulo": "BOE Gov Bailey Speaks",
-     "impacto": "High",
+     "quando": "2026-09-08 00:30",
+     "moeda": "AUD",
+     "titulo": "Westpac Consumer Sentiment",
+     "impacto": "Low",
      "fonte": "forexfactory",
-     "url": "https://www.forexfactory.com/calendar/838-uk-boe-gov-bailey-speaks"
+     "url": "https://www.forexfactory.com/calendar/338-au-westpac-consumer-sentiment"
+    },
+    {
+     "quando": "2026-09-08 01:30",
+     "moeda": "AUD",
+     "titulo": "NAB Business Confidence",
+     "impacto": "Low",
+     "fonte": "forexfactory",
+     "url": "https://www.forexfactory.com/calendar/323-au-nab-business-confidence"
+    },
+    {
+     "quando": "2026-09-08 03:20",
+     "moeda": "AUD",
+     "titulo": "RBA Assist Gov Hunter Speaks",
+     "impacto": "Low",
+     "fonte": "forexfactory",
+     "url": "https://www.forexfactory.com/calendar/907-au-rba-assist-gov-hunter-speaks"
     }
    ],
    "contradiz": [
-    "Differential moved +7.3 bp AGAINST the standing level in 5 sessions."
+    "Level and 20-session momentum disagree: differential at -0.27 pp but moving +8.0 bp the other way — the standing level is being eroded."
    ]
   },
   "GBPNZD": {
    "par": "GBPNZD",
    "base": "GBP",
    "quote": "NZD",
-   "as_of": "2026-09-04",
-   "fund": 67.51,
+   "as_of": "2026-09-08",
+   "fund": 64.42,
    "banda": "STRONG_BULL",
    "dias_na_banda": 1,
    "causa_dominante": {
     "perna": "GBP",
     "sentido": "rose",
-    "bp_5d": 32.3,
-    "sigmas_5d": 5.9,
-    "bp_1d": 25.6,
-    "bp_20d": 21.5,
-    "yield": 4.5447,
+    "bp_5d": 26.1,
+    "sigmas_5d": 4.8,
+    "bp_1d": 23.5,
+    "bp_20d": 34.2,
+    "yield": 4.5544,
     "banco_central": "Bank of England",
     "bc_url": "https://www.bankofengland.co.uk/monetary-policy/the-interest-rate-bank-rate",
     "fonte": "Bank of England 2Y spot curve",
     "fonte_url": "https://www.bankofengland.co.uk/statistics/yield-curves",
-    "lido_em": "2026-09-03",
-    "frase": "The GBP leg moved: GBP 2y rose 32.3 bp over 5 sessions (5.9 sigma).",
+    "lido_em": "2026-09-07",
+    "frase": "The GBP leg moved: GBP 2y rose 26.1 bp over 5 sessions (4.8 sigma).",
     "evento_identificado": null,
     "interpretacao": null,
     "evidencia_contraria": null,
@@ -719,15 +755,15 @@
    },
    "conviccao_fundamental": {
     "estado": "coherent",
-    "nivel": 0.92,
-    "momento_bp": 23.0,
-    "porque": "Level and 20-session momentum point the same way: differential at 0.92 pp, moving +23.0 bp."
+    "nivel": 0.914,
+    "momento_bp": 29.2,
+    "porque": "Level and 20-session momentum point the same way: differential at 0.91 pp, moving +29.2 bp."
    },
    "saude_da_tese": {
     "estado": "strengthening",
-    "delta_5d_bp": 25.8,
-    "porque": "Differential widened +25.8 bp in 5 sessions, in the same direction as the level.",
-    "invalidaria": "The differential crossing zero, or giving back 50% of the move that created the thesis. Today it sits at 0.92 pp."
+    "delta_5d_bp": 22.1,
+    "porque": "Differential widened +22.1 bp in 5 sessions, in the same direction as the level.",
+    "invalidaria": "The differential crossing zero, or giving back 50% of the move that created the thesis. Today it sits at 0.91 pp."
    },
    "confirmacao_de_mercado": {
     "estado": "not assessed",
@@ -745,20 +781,36 @@
    },
    "evidencia": [
     {
-     "quando": "2026-09-04 08:30",
-     "moeda": "GBP",
-     "titulo": "Construction PMI",
+     "quando": "2026-09-07 22:45",
+     "moeda": "NZD",
+     "titulo": "Manufacturing Sales q/q",
      "impacto": "Low",
      "fonte": "forexfactory",
-     "url": "https://www.forexfactory.com/calendar/251-uk-construction-pmi"
+     "url": "https://www.forexfactory.com/calendar/161-nz-manufacturing-sales-qq"
     },
     {
-     "quando": "2026-09-04 08:50",
+     "quando": "2026-09-07 23:01",
      "moeda": "GBP",
-     "titulo": "BOE Gov Bailey Speaks",
-     "impacto": "High",
+     "titulo": "BRC Retail Sales Monitor y/y",
+     "impacto": "Low",
      "fonte": "forexfactory",
-     "url": "https://www.forexfactory.com/calendar/838-uk-boe-gov-bailey-speaks"
+     "url": "https://www.forexfactory.com/calendar/114-uk-brc-retail-sales-monitor-yy"
+    },
+    {
+     "quando": "2026-09-08 13:15",
+     "moeda": "GBP",
+     "titulo": "Monetary Policy Report Hearings",
+     "impacto": "Medium",
+     "fonte": "forexfactory",
+     "url": "https://www.forexfactory.com/calendar/439-uk-monetary-policy-report-hearings"
+    },
+    {
+     "quando": "2026-09-09 23:01",
+     "moeda": "GBP",
+     "titulo": "RICS House Price Balance",
+     "impacto": "Low",
+     "fonte": "forexfactory",
+     "url": "https://www.forexfactory.com/calendar/260-uk-rics-house-price-balance"
     }
    ],
    "contradiz": null
@@ -767,24 +819,24 @@
    "par": "GBPUSD",
    "base": "GBP",
    "quote": "USD",
-   "as_of": "2026-09-04",
-   "fund": 70.09,
-   "banda": "STRONG_BULL",
+   "as_of": "2026-09-08",
+   "fund": 54.6,
+   "banda": "BULL",
    "dias_na_banda": 1,
    "causa_dominante": {
     "perna": "GBP",
     "sentido": "rose",
-    "bp_5d": 32.3,
-    "sigmas_5d": 5.9,
-    "bp_1d": 25.6,
-    "bp_20d": 21.5,
-    "yield": 4.5447,
+    "bp_5d": 26.1,
+    "sigmas_5d": 4.8,
+    "bp_1d": 23.5,
+    "bp_20d": 34.2,
+    "yield": 4.5544,
     "banco_central": "Bank of England",
     "bc_url": "https://www.bankofengland.co.uk/monetary-policy/the-interest-rate-bank-rate",
     "fonte": "Bank of England 2Y spot curve",
     "fonte_url": "https://www.bankofengland.co.uk/statistics/yield-curves",
-    "lido_em": "2026-09-03",
-    "frase": "The GBP leg moved: GBP 2y rose 32.3 bp over 5 sessions (5.9 sigma).",
+    "lido_em": "2026-09-07",
+    "frase": "The GBP leg moved: GBP 2y rose 26.1 bp over 5 sessions (4.8 sigma).",
     "evento_identificado": null,
     "interpretacao": null,
     "evidencia_contraria": null,
@@ -792,15 +844,15 @@
    },
    "conviccao_fundamental": {
     "estado": "coherent",
-    "nivel": 0.213,
-    "momento_bp": 13.3,
-    "porque": "Level and 20-session momentum point the same way: differential at 0.21 pp, moving +13.3 bp."
+    "nivel": 0.18,
+    "momento_bp": 21.8,
+    "porque": "Level and 20-session momentum point the same way: differential at 0.18 pp, moving +21.8 bp."
    },
    "saude_da_tese": {
     "estado": "strengthening",
-    "delta_5d_bp": 19.1,
-    "porque": "Differential widened +19.1 bp in 5 sessions, in the same direction as the level.",
-    "invalidaria": "The differential crossing zero, or giving back 50% of the move that created the thesis. Today it sits at 0.21 pp."
+    "delta_5d_bp": 22.7,
+    "porque": "Differential widened +22.7 bp in 5 sessions, in the same direction as the level.",
+    "invalidaria": "The differential crossing zero, or giving back 50% of the move that created the thesis. Today it sits at 0.18 pp."
    },
    "confirmacao_de_mercado": {
     "estado": "not assessed",
@@ -818,36 +870,36 @@
    },
    "evidencia": [
     {
-     "quando": "2026-09-03 19:00",
-     "moeda": "USD",
-     "titulo": "FOMC Member Hammack Speaks",
-     "impacto": "Low",
-     "fonte": "forexfactory",
-     "url": "https://www.forexfactory.com/calendar/913-us-fomc-member-hammack-speaks"
-    },
-    {
-     "quando": "2026-09-03 19:55",
-     "moeda": "USD",
-     "titulo": "FOMC Member Goolsbee Speaks",
-     "impacto": "Low",
-     "fonte": "forexfactory",
-     "url": "https://www.forexfactory.com/calendar/889-us-fomc-member-goolsbee-speaks"
-    },
-    {
-     "quando": "2026-09-04 08:30",
+     "quando": "2026-09-07 23:01",
      "moeda": "GBP",
-     "titulo": "Construction PMI",
+     "titulo": "BRC Retail Sales Monitor y/y",
      "impacto": "Low",
      "fonte": "forexfactory",
-     "url": "https://www.forexfactory.com/calendar/251-uk-construction-pmi"
+     "url": "https://www.forexfactory.com/calendar/114-uk-brc-retail-sales-monitor-yy"
     },
     {
-     "quando": "2026-09-04 08:50",
-     "moeda": "GBP",
-     "titulo": "BOE Gov Bailey Speaks",
-     "impacto": "High",
+     "quando": "2026-09-08 10:00",
+     "moeda": "USD",
+     "titulo": "NFIB Small Business Index",
+     "impacto": "Low",
      "fonte": "forexfactory",
-     "url": "https://www.forexfactory.com/calendar/838-uk-boe-gov-bailey-speaks"
+     "url": "https://www.forexfactory.com/calendar/570-us-nfib-small-business-index"
+    },
+    {
+     "quando": "2026-09-08 13:15",
+     "moeda": "GBP",
+     "titulo": "Monetary Policy Report Hearings",
+     "impacto": "Medium",
+     "fonte": "forexfactory",
+     "url": "https://www.forexfactory.com/calendar/439-uk-monetary-policy-report-hearings"
+    },
+    {
+     "quando": "2026-09-08 19:00",
+     "moeda": "USD",
+     "titulo": "Consumer Credit m/m",
+     "impacto": "Low",
+     "fonte": "forexfactory",
+     "url": "https://www.forexfactory.com/calendar/341-us-consumer-credit-mm"
     }
    ],
    "contradiz": null
@@ -856,40 +908,40 @@
    "par": "GBPCAD",
    "base": "GBP",
    "quote": "CAD",
-   "as_of": "2026-09-04",
-   "fund": 29.54,
-   "banda": "BULL",
+   "as_of": "2026-09-08",
+   "fund": 67.67,
+   "banda": "STRONG_BULL",
    "dias_na_banda": 1,
    "causa_dominante": {
     "perna": "GBP",
     "sentido": "rose",
-    "bp_5d": 32.3,
-    "sigmas_5d": 5.9,
-    "bp_1d": 25.6,
-    "bp_20d": 21.5,
-    "yield": 4.5447,
+    "bp_5d": 26.1,
+    "sigmas_5d": 4.8,
+    "bp_1d": 23.5,
+    "bp_20d": 34.2,
+    "yield": 4.5544,
     "banco_central": "Bank of England",
     "bc_url": "https://www.bankofengland.co.uk/monetary-policy/the-interest-rate-bank-rate",
     "fonte": "Bank of England 2Y spot curve",
     "fonte_url": "https://www.bankofengland.co.uk/statistics/yield-curves",
-    "lido_em": "2026-09-03",
-    "frase": "The GBP leg moved: GBP 2y rose 32.3 bp over 5 sessions (5.9 sigma).",
+    "lido_em": "2026-09-07",
+    "frase": "The GBP leg moved: GBP 2y rose 26.1 bp over 5 sessions (4.8 sigma).",
     "evento_identificado": null,
     "interpretacao": null,
     "evidencia_contraria": null,
     "conclusao": "not identified — this is the component that moved, not the reason it moved"
    },
    "conviccao_fundamental": {
-    "estado": "contradictory",
-    "nivel": 1.414,
-    "momento_bp": -9.6,
-    "porque": "Level and 20-session momentum disagree: differential at 1.41 pp but moving -9.6 bp the other way — the standing level is being eroded."
+    "estado": "coherent",
+    "nivel": 1.451,
+    "momento_bp": 5.9,
+    "porque": "Level and 20-session momentum point the same way: differential at 1.45 pp, moving +5.9 bp."
    },
    "saude_da_tese": {
     "estado": "strengthening",
-    "delta_5d_bp": 12.2,
-    "porque": "Differential widened +12.2 bp in 5 sessions, in the same direction as the level.",
-    "invalidaria": "The differential crossing zero, or giving back 50% of the move that created the thesis. Today it sits at 1.41 pp."
+    "delta_5d_bp": 8.8,
+    "porque": "Differential widened +8.8 bp in 5 sessions, in the same direction as the level.",
+    "invalidaria": "The differential crossing zero, or giving back 50% of the move that created the thesis. Today it sits at 1.45 pp."
    },
    "confirmacao_de_mercado": {
     "estado": "not assessed",
@@ -907,64 +959,62 @@
    },
    "evidencia": [
     {
-     "quando": "2026-09-04 08:30",
+     "quando": "2026-09-07 23:01",
      "moeda": "GBP",
-     "titulo": "Construction PMI",
+     "titulo": "BRC Retail Sales Monitor y/y",
      "impacto": "Low",
      "fonte": "forexfactory",
-     "url": "https://www.forexfactory.com/calendar/251-uk-construction-pmi"
+     "url": "https://www.forexfactory.com/calendar/114-uk-brc-retail-sales-monitor-yy"
     },
     {
-     "quando": "2026-09-04 08:50",
+     "quando": "2026-09-08 13:15",
      "moeda": "GBP",
-     "titulo": "BOE Gov Bailey Speaks",
-     "impacto": "High",
+     "titulo": "Monetary Policy Report Hearings",
+     "impacto": "Medium",
      "fonte": "forexfactory",
-     "url": "https://www.forexfactory.com/calendar/838-uk-boe-gov-bailey-speaks"
+     "url": "https://www.forexfactory.com/calendar/439-uk-monetary-policy-report-hearings"
     },
     {
-     "quando": "2026-09-04 12:30",
-     "moeda": "CAD",
-     "titulo": "Employment Change",
-     "impacto": "High",
+     "quando": "2026-09-09 23:01",
+     "moeda": "GBP",
+     "titulo": "RICS House Price Balance",
+     "impacto": "Low",
      "fonte": "forexfactory",
-     "url": "https://www.forexfactory.com/calendar/67-ca-employment-change"
+     "url": "https://www.forexfactory.com/calendar/260-uk-rics-house-price-balance"
     },
     {
-     "quando": "2026-09-04 12:30",
-     "moeda": "CAD",
-     "titulo": "Unemployment Rate",
+     "quando": "2026-09-11 06:00",
+     "moeda": "GBP",
+     "titulo": "GDP m/m",
      "impacto": "High",
      "fonte": "forexfactory",
-     "url": "https://www.forexfactory.com/calendar/57-ca-unemployment-rate"
+     "url": "https://www.forexfactory.com/calendar/804-uk-gdp-mm"
     }
    ],
-   "contradiz": [
-    "Level and 20-session momentum disagree: differential at 1.41 pp but moving -9.6 bp the other way — the standing level is being eroded."
-   ]
+   "contradiz": null
   },
   "GBPCHF": {
    "par": "GBPCHF",
    "base": "GBP",
    "quote": "CHF",
-   "as_of": "2026-09-04",
-   "fund": 62.84,
-   "banda": "STRONG_BULL",
+   "as_of": "2026-09-08",
+   "fund": 56.15,
+   "banda": "BULL",
    "dias_na_banda": 1,
    "causa_dominante": {
     "perna": "GBP",
     "sentido": "rose",
-    "bp_5d": 32.3,
-    "sigmas_5d": 5.9,
-    "bp_1d": 25.6,
-    "bp_20d": 21.5,
-    "yield": 4.5447,
+    "bp_5d": 26.1,
+    "sigmas_5d": 4.8,
+    "bp_1d": 23.5,
+    "bp_20d": 34.2,
+    "yield": 4.5544,
     "banco_central": "Bank of England",
     "bc_url": "https://www.bankofengland.co.uk/monetary-policy/the-interest-rate-bank-rate",
     "fonte": "Bank of England 2Y spot curve",
     "fonte_url": "https://www.bankofengland.co.uk/statistics/yield-curves",
-    "lido_em": "2026-09-03",
-    "frase": "The GBP leg moved: GBP 2y rose 32.3 bp over 5 sessions (5.9 sigma).",
+    "lido_em": "2026-09-07",
+    "frase": "The GBP leg moved: GBP 2y rose 26.1 bp over 5 sessions (4.8 sigma).",
     "evento_identificado": null,
     "interpretacao": null,
     "evidencia_contraria": null,
@@ -972,15 +1022,15 @@
    },
    "conviccao_fundamental": {
     "estado": "coherent",
-    "nivel": 4.41,
-    "momento_bp": 16.8,
-    "porque": "Level and 20-session momentum point the same way: differential at 4.41 pp, moving +16.8 bp."
+    "nivel": 4.42,
+    "momento_bp": 25.7,
+    "porque": "Level and 20-session momentum point the same way: differential at 4.42 pp, moving +25.7 bp."
    },
    "saude_da_tese": {
     "estado": "strengthening",
-    "delta_5d_bp": 23.1,
-    "porque": "Differential widened +23.1 bp in 5 sessions, in the same direction as the level.",
-    "invalidaria": "The differential crossing zero, or giving back 50% of the move that created the thesis. Today it sits at 4.41 pp."
+    "delta_5d_bp": 16.9,
+    "porque": "Differential widened +16.9 bp in 5 sessions, in the same direction as the level.",
+    "invalidaria": "The differential crossing zero, or giving back 50% of the move that created the thesis. Today it sits at 4.42 pp."
    },
    "confirmacao_de_mercado": {
     "estado": "not assessed",
@@ -998,20 +1048,36 @@
    },
    "evidencia": [
     {
-     "quando": "2026-09-04 08:30",
+     "quando": "2026-09-07 23:01",
      "moeda": "GBP",
-     "titulo": "Construction PMI",
+     "titulo": "BRC Retail Sales Monitor y/y",
      "impacto": "Low",
      "fonte": "forexfactory",
-     "url": "https://www.forexfactory.com/calendar/251-uk-construction-pmi"
+     "url": "https://www.forexfactory.com/calendar/114-uk-brc-retail-sales-monitor-yy"
     },
     {
-     "quando": "2026-09-04 08:50",
+     "quando": "2026-09-08 13:15",
      "moeda": "GBP",
-     "titulo": "BOE Gov Bailey Speaks",
+     "titulo": "Monetary Policy Report Hearings",
+     "impacto": "Medium",
+     "fonte": "forexfactory",
+     "url": "https://www.forexfactory.com/calendar/439-uk-monetary-policy-report-hearings"
+    },
+    {
+     "quando": "2026-09-09 23:01",
+     "moeda": "GBP",
+     "titulo": "RICS House Price Balance",
+     "impacto": "Low",
+     "fonte": "forexfactory",
+     "url": "https://www.forexfactory.com/calendar/260-uk-rics-house-price-balance"
+    },
+    {
+     "quando": "2026-09-11 06:00",
+     "moeda": "GBP",
+     "titulo": "GDP m/m",
      "impacto": "High",
      "fonte": "forexfactory",
-     "url": "https://www.forexfactory.com/calendar/838-uk-boe-gov-bailey-speaks"
+     "url": "https://www.forexfactory.com/calendar/804-uk-gdp-mm"
     }
    ],
    "contradiz": null
@@ -1020,40 +1086,40 @@
    "par": "GBPJPY",
    "base": "GBP",
    "quote": "JPY",
-   "as_of": "2026-09-04",
-   "fund": 15.31,
+   "as_of": "2026-09-08",
+   "fund": 24.25,
    "banda": "NEUTRAL",
    "dias_na_banda": 2,
    "causa_dominante": {
     "perna": "GBP",
     "sentido": "rose",
-    "bp_5d": 32.3,
-    "sigmas_5d": 5.9,
-    "bp_1d": 25.6,
-    "bp_20d": 21.5,
-    "yield": 4.5447,
+    "bp_5d": 26.1,
+    "sigmas_5d": 4.8,
+    "bp_1d": 23.5,
+    "bp_20d": 34.2,
+    "yield": 4.5544,
     "banco_central": "Bank of England",
     "bc_url": "https://www.bankofengland.co.uk/monetary-policy/the-interest-rate-bank-rate",
     "fonte": "Bank of England 2Y spot curve",
     "fonte_url": "https://www.bankofengland.co.uk/statistics/yield-curves",
-    "lido_em": "2026-09-03",
-    "frase": "The GBP leg moved: GBP 2y rose 32.3 bp over 5 sessions (5.9 sigma).",
+    "lido_em": "2026-09-07",
+    "frase": "The GBP leg moved: GBP 2y rose 26.1 bp over 5 sessions (4.8 sigma).",
     "evento_identificado": null,
     "interpretacao": null,
     "evidencia_contraria": null,
     "conclusao": "not identified — this is the component that moved, not the reason it moved"
    },
    "conviccao_fundamental": {
-    "estado": "contradictory",
-    "nivel": 2.695,
-    "momento_bp": -12.8,
-    "porque": "Level and 20-session momentum disagree: differential at 2.69 pp but moving -12.8 bp the other way — the standing level is being eroded."
+    "estado": "coherent",
+    "nivel": 2.705,
+    "momento_bp": 5.8,
+    "porque": "Level and 20-session momentum point the same way: differential at 2.71 pp, moving +5.8 bp."
    },
    "saude_da_tese": {
     "estado": "strengthening",
-    "delta_5d_bp": 15.8,
-    "porque": "Differential widened +15.8 bp in 5 sessions, in the same direction as the level.",
-    "invalidaria": "The differential crossing zero, or giving back 50% of the move that created the thesis. Today it sits at 2.69 pp."
+    "delta_5d_bp": 13.1,
+    "porque": "Differential widened +13.1 bp in 5 sessions, in the same direction as the level.",
+    "invalidaria": "The differential crossing zero, or giving back 50% of the move that created the thesis. Today it sits at 2.71 pp."
    },
    "confirmacao_de_mercado": {
     "estado": "not assessed",
@@ -1071,112 +1137,62 @@
    },
    "evidencia": [
     {
-     "quando": "2026-09-03 23:30",
+     "quando": "2026-09-07 23:01",
+     "moeda": "GBP",
+     "titulo": "BRC Retail Sales Monitor y/y",
+     "impacto": "Low",
+     "fonte": "forexfactory",
+     "url": "https://www.forexfactory.com/calendar/114-uk-brc-retail-sales-monitor-yy"
+    },
+    {
+     "quando": "2026-09-07 23:30",
      "moeda": "JPY",
-     "titulo": "Household Spending y/y",
+     "titulo": "Average Cash Earnings y/y",
      "impacto": "Low",
      "fonte": "forexfactory",
-     "url": "https://www.forexfactory.com/calendar/359-jn-household-spending-yy"
+     "url": "https://www.forexfactory.com/calendar/181-jn-average-cash-earnings-yy"
     },
     {
-     "quando": "2026-09-04 08:30",
-     "moeda": "GBP",
-     "titulo": "Construction PMI",
+     "quando": "2026-09-07 23:50",
+     "moeda": "JPY",
+     "titulo": "Bank Lending y/y",
      "impacto": "Low",
      "fonte": "forexfactory",
-     "url": "https://www.forexfactory.com/calendar/251-uk-construction-pmi"
+     "url": "https://www.forexfactory.com/calendar/388-jn-bank-lending-yy"
     },
     {
-     "quando": "2026-09-04 08:50",
-     "moeda": "GBP",
-     "titulo": "BOE Gov Bailey Speaks",
-     "impacto": "High",
+     "quando": "2026-09-07 23:50",
+     "moeda": "JPY",
+     "titulo": "Current Account",
+     "impacto": "Low",
      "fonte": "forexfactory",
-     "url": "https://www.forexfactory.com/calendar/838-uk-boe-gov-bailey-speaks"
+     "url": "https://www.forexfactory.com/calendar/217-jn-current-account"
     }
    ],
-   "contradiz": [
-    "Level and 20-session momentum disagree: differential at 2.69 pp but moving -12.8 bp the other way — the standing level is being eroded."
-   ]
+   "contradiz": null
   },
   "AUDNZD": {
    "par": "AUDNZD",
    "base": "AUD",
    "quote": "NZD",
-   "as_of": "2026-09-04",
-   "fund": 63.25,
-   "banda": "STRONG_BULL",
-   "dias_na_banda": 1,
-   "causa_dominante": {
-    "perna": "AUD",
-    "sentido": "rose",
-    "bp_5d": 25.0,
-    "sigmas_5d": 5.4,
-    "bp_1d": 17.5,
-    "bp_20d": 23.5,
-    "yield": 4.794,
-    "banco_central": "Reserve Bank of Australia",
-    "bc_url": "https://www.rba.gov.au/media-releases/",
-    "fonte": "RBA F2 Australian Government 2Y",
-    "fonte_url": "https://www.rba.gov.au/statistics/tables/",
-    "lido_em": "2026-09-03",
-    "frase": "The AUD leg moved: AUD 2y rose 25.0 bp over 5 sessions (5.4 sigma).",
-    "evento_identificado": null,
-    "interpretacao": null,
-    "evidencia_contraria": null,
-    "conclusao": "not identified — this is the component that moved, not the reason it moved"
-   },
-   "conviccao_fundamental": {
-    "estado": "coherent",
-    "nivel": 1.169,
-    "momento_bp": 25.0,
-    "porque": "Level and 20-session momentum point the same way: differential at 1.17 pp, moving +25.0 bp."
-   },
-   "saude_da_tese": {
-    "estado": "strengthening",
-    "delta_5d_bp": 18.5,
-    "porque": "Differential widened +18.5 bp in 5 sessions, in the same direction as the level.",
-    "invalidaria": "The differential crossing zero, or giving back 50% of the move that created the thesis. Today it sits at 1.17 pp."
-   },
-   "confirmacao_de_mercado": {
-    "estado": "not assessed",
-    "porque": "Price confirmation is measured contemporaneously, never as anticipation. The transmission we measured is +0.430 contemporaneous and -0.046 predictive at 120 sessions: rates MOVE the price, they do not LEAD it. This box stays empty until a confirmation layer is tested on its own."
-   },
-   "confianca_analitica": {
-    "estado": "medium",
-    "stale_base": 0,
-    "stale_quote": 0,
-    "cadencia_base": "weekly",
-    "cadencia_quote": "daily",
-    "porque": "AUD publishes weekly — the reading can be up to 7 days old",
-    "sustentacao_da_analise": "not established — level, 5-session and 20-session change are related measures of the SAME series. They are not three independent confirmations.",
-    "validade_operacional": "not demonstrated. FUND V0.1 failed 15 pre-registrations as a directional predictor and 0 of 9 cells as an entry filter."
-   },
-   "evidencia": [],
-   "contradiz": null
-  },
-  "AUDUSD": {
-   "par": "AUDUSD",
-   "base": "AUD",
-   "quote": "USD",
-   "as_of": "2026-09-04",
-   "fund": 38.98,
+   "as_of": "2026-09-08",
+   "fund": 47.24,
    "banda": "BULL",
-   "dias_na_banda": 1,
+   "dias_na_banda": 2,
    "causa_dominante": {
     "perna": "AUD",
     "sentido": "rose",
-    "bp_5d": 25.0,
-    "sigmas_5d": 5.4,
-    "bp_1d": 17.5,
-    "bp_20d": 23.5,
-    "yield": 4.794,
+    "bp_5d": 27.7,
+    "sigmas_5d": 5.9,
+    "bp_1d": 20.2,
+    "bp_20d": 26.2,
+    "yield": 4.821,
     "banco_central": "Reserve Bank of Australia",
     "bc_url": "https://www.rba.gov.au/media-releases/",
     "fonte": "RBA F2 Australian Government 2Y",
     "fonte_url": "https://www.rba.gov.au/statistics/tables/",
-    "lido_em": "2026-09-03",
-    "frase": "The AUD leg moved: AUD 2y rose 25.0 bp over 5 sessions (5.4 sigma).",
+    "lido_em": "2026-09-07",
+    "frase": "The AUD leg moved: AUD 2y rose 27.7 bp over 5 sessions (5.9 sigma).",
     "evento_identificado": null,
     "interpretacao": null,
     "evidencia_contraria": null,
@@ -1184,15 +1200,15 @@
    },
    "conviccao_fundamental": {
     "estado": "coherent",
-    "nivel": 0.462,
-    "momento_bp": 15.3,
-    "porque": "Level and 20-session momentum point the same way: differential at 0.46 pp, moving +15.3 bp."
+    "nivel": 1.181,
+    "momento_bp": 21.2,
+    "porque": "Level and 20-session momentum point the same way: differential at 1.18 pp, moving +21.2 bp."
    },
    "saude_da_tese": {
     "estado": "strengthening",
-    "delta_5d_bp": 11.8,
-    "porque": "Differential widened +11.8 bp in 5 sessions, in the same direction as the level.",
-    "invalidaria": "The differential crossing zero, or giving back 50% of the move that created the thesis. Today it sits at 0.46 pp."
+    "delta_5d_bp": 23.7,
+    "porque": "Differential widened +23.7 bp in 5 sessions, in the same direction as the level.",
+    "invalidaria": "The differential crossing zero, or giving back 50% of the move that created the thesis. Today it sits at 1.18 pp."
    },
    "confirmacao_de_mercado": {
     "estado": "not assessed",
@@ -1210,36 +1226,125 @@
    },
    "evidencia": [
     {
-     "quando": "2026-09-03 19:00",
-     "moeda": "USD",
-     "titulo": "FOMC Member Hammack Speaks",
+     "quando": "2026-09-07 22:45",
+     "moeda": "NZD",
+     "titulo": "Manufacturing Sales q/q",
      "impacto": "Low",
      "fonte": "forexfactory",
-     "url": "https://www.forexfactory.com/calendar/913-us-fomc-member-hammack-speaks"
+     "url": "https://www.forexfactory.com/calendar/161-nz-manufacturing-sales-qq"
     },
     {
-     "quando": "2026-09-03 19:55",
-     "moeda": "USD",
-     "titulo": "FOMC Member Goolsbee Speaks",
+     "quando": "2026-09-08 00:30",
+     "moeda": "AUD",
+     "titulo": "Westpac Consumer Sentiment",
      "impacto": "Low",
      "fonte": "forexfactory",
-     "url": "https://www.forexfactory.com/calendar/889-us-fomc-member-goolsbee-speaks"
+     "url": "https://www.forexfactory.com/calendar/338-au-westpac-consumer-sentiment"
     },
     {
-     "quando": "2026-09-04 12:30",
-     "moeda": "USD",
-     "titulo": "Average Hourly Earnings m/m",
-     "impacto": "High",
+     "quando": "2026-09-08 01:30",
+     "moeda": "AUD",
+     "titulo": "NAB Business Confidence",
+     "impacto": "Low",
      "fonte": "forexfactory",
-     "url": "https://www.forexfactory.com/calendar/159-us-average-hourly-earnings-mm"
+     "url": "https://www.forexfactory.com/calendar/323-au-nab-business-confidence"
     },
     {
-     "quando": "2026-09-04 12:30",
-     "moeda": "USD",
-     "titulo": "Non-Farm Employment Change",
-     "impacto": "High",
+     "quando": "2026-09-08 03:20",
+     "moeda": "AUD",
+     "titulo": "RBA Assist Gov Hunter Speaks",
+     "impacto": "Low",
      "fonte": "forexfactory",
-     "url": "https://www.forexfactory.com/calendar/66-us-non-farm-employment-change"
+     "url": "https://www.forexfactory.com/calendar/907-au-rba-assist-gov-hunter-speaks"
+    }
+   ],
+   "contradiz": null
+  },
+  "AUDUSD": {
+   "par": "AUDUSD",
+   "base": "AUD",
+   "quote": "USD",
+   "as_of": "2026-09-08",
+   "fund": 23.39,
+   "banda": "NEUTRAL",
+   "dias_na_banda": 2,
+   "causa_dominante": {
+    "perna": "AUD",
+    "sentido": "rose",
+    "bp_5d": 27.7,
+    "sigmas_5d": 5.9,
+    "bp_1d": 20.2,
+    "bp_20d": 26.2,
+    "yield": 4.821,
+    "banco_central": "Reserve Bank of Australia",
+    "bc_url": "https://www.rba.gov.au/media-releases/",
+    "fonte": "RBA F2 Australian Government 2Y",
+    "fonte_url": "https://www.rba.gov.au/statistics/tables/",
+    "lido_em": "2026-09-07",
+    "frase": "The AUD leg moved: AUD 2y rose 27.7 bp over 5 sessions (5.9 sigma).",
+    "evento_identificado": null,
+    "interpretacao": null,
+    "evidencia_contraria": null,
+    "conclusao": "not identified — this is the component that moved, not the reason it moved"
+   },
+   "conviccao_fundamental": {
+    "estado": "coherent",
+    "nivel": 0.447,
+    "momento_bp": 13.8,
+    "porque": "Level and 20-session momentum point the same way: differential at 0.45 pp, moving +13.8 bp."
+   },
+   "saude_da_tese": {
+    "estado": "strengthening",
+    "delta_5d_bp": 24.3,
+    "porque": "Differential widened +24.3 bp in 5 sessions, in the same direction as the level.",
+    "invalidaria": "The differential crossing zero, or giving back 50% of the move that created the thesis. Today it sits at 0.45 pp."
+   },
+   "confirmacao_de_mercado": {
+    "estado": "not assessed",
+    "porque": "Price confirmation is measured contemporaneously, never as anticipation. The transmission we measured is +0.430 contemporaneous and -0.046 predictive at 120 sessions: rates MOVE the price, they do not LEAD it. This box stays empty until a confirmation layer is tested on its own."
+   },
+   "confianca_analitica": {
+    "estado": "medium",
+    "stale_base": 0,
+    "stale_quote": 0,
+    "cadencia_base": "weekly",
+    "cadencia_quote": "daily",
+    "porque": "AUD publishes weekly — the reading can be up to 7 days old",
+    "sustentacao_da_analise": "not established — level, 5-session and 20-session change are related measures of the SAME series. They are not three independent confirmations.",
+    "validade_operacional": "not demonstrated. FUND V0.1 failed 15 pre-registrations as a directional predictor and 0 of 9 cells as an entry filter."
+   },
+   "evidencia": [
+    {
+     "quando": "2026-09-08 00:30",
+     "moeda": "AUD",
+     "titulo": "Westpac Consumer Sentiment",
+     "impacto": "Low",
+     "fonte": "forexfactory",
+     "url": "https://www.forexfactory.com/calendar/338-au-westpac-consumer-sentiment"
+    },
+    {
+     "quando": "2026-09-08 01:30",
+     "moeda": "AUD",
+     "titulo": "NAB Business Confidence",
+     "impacto": "Low",
+     "fonte": "forexfactory",
+     "url": "https://www.forexfactory.com/calendar/323-au-nab-business-confidence"
+    },
+    {
+     "quando": "2026-09-08 03:20",
+     "moeda": "AUD",
+     "titulo": "RBA Assist Gov Hunter Speaks",
+     "impacto": "Low",
+     "fonte": "forexfactory",
+     "url": "https://www.forexfactory.com/calendar/907-au-rba-assist-gov-hunter-speaks"
+    },
+    {
+     "quando": "2026-09-08 09:30",
+     "moeda": "AUD",
+     "titulo": "RBA Deputy Gov Hauser Speaks",
+     "impacto": "Low",
+     "fonte": "forexfactory",
+     "url": "https://www.forexfactory.com/calendar/904-au-rba-deputy-gov-hauser-speaks"
     }
    ],
    "contradiz": null
@@ -1248,40 +1353,40 @@
    "par": "AUDCAD",
    "base": "AUD",
    "quote": "CAD",
-   "as_of": "2026-09-04",
-   "fund": -28.12,
-   "banda": "BEAR",
-   "dias_na_banda": 3,
+   "as_of": "2026-09-08",
+   "fund": 19.23,
+   "banda": "NEUTRAL",
+   "dias_na_banda": 1,
    "causa_dominante": {
     "perna": "AUD",
     "sentido": "rose",
-    "bp_5d": 25.0,
-    "sigmas_5d": 5.4,
-    "bp_1d": 17.5,
-    "bp_20d": 23.5,
-    "yield": 4.794,
+    "bp_5d": 27.7,
+    "sigmas_5d": 5.9,
+    "bp_1d": 20.2,
+    "bp_20d": 26.2,
+    "yield": 4.821,
     "banco_central": "Reserve Bank of Australia",
     "bc_url": "https://www.rba.gov.au/media-releases/",
     "fonte": "RBA F2 Australian Government 2Y",
     "fonte_url": "https://www.rba.gov.au/statistics/tables/",
-    "lido_em": "2026-09-03",
-    "frase": "The AUD leg moved: AUD 2y rose 25.0 bp over 5 sessions (5.4 sigma).",
+    "lido_em": "2026-09-07",
+    "frase": "The AUD leg moved: AUD 2y rose 27.7 bp over 5 sessions (5.9 sigma).",
     "evento_identificado": null,
     "interpretacao": null,
     "evidencia_contraria": null,
     "conclusao": "not identified — this is the component that moved, not the reason it moved"
    },
    "conviccao_fundamental": {
-    "estado": "contradictory",
-    "nivel": 1.663,
-    "momento_bp": -7.6,
-    "porque": "Level and 20-session momentum disagree: differential at 1.66 pp but moving -7.6 bp the other way — the standing level is being eroded."
+    "estado": "partial",
+    "nivel": 1.718,
+    "momento_bp": -2.1,
+    "porque": "Level favours AUD (1.72 pp) but the differential is not moving (-2.1 bp in 20 sessions): a standing level, not a live revision."
    },
    "saude_da_tese": {
     "estado": "strengthening",
-    "delta_5d_bp": 4.9,
-    "porque": "Differential widened +4.9 bp in 5 sessions, in the same direction as the level.",
-    "invalidaria": "The differential crossing zero, or giving back 50% of the move that created the thesis. Today it sits at 1.66 pp."
+    "delta_5d_bp": 10.4,
+    "porque": "Differential widened +10.4 bp in 5 sessions, in the same direction as the level.",
+    "invalidaria": "The differential crossing zero, or giving back 50% of the move that created the thesis. Today it sits at 1.72 pp."
    },
    "confirmacao_de_mercado": {
     "estado": "not assessed",
@@ -1299,56 +1404,62 @@
    },
    "evidencia": [
     {
-     "quando": "2026-09-04 12:30",
-     "moeda": "CAD",
-     "titulo": "Employment Change",
-     "impacto": "High",
+     "quando": "2026-09-08 00:30",
+     "moeda": "AUD",
+     "titulo": "Westpac Consumer Sentiment",
+     "impacto": "Low",
      "fonte": "forexfactory",
-     "url": "https://www.forexfactory.com/calendar/67-ca-employment-change"
+     "url": "https://www.forexfactory.com/calendar/338-au-westpac-consumer-sentiment"
     },
     {
-     "quando": "2026-09-04 12:30",
-     "moeda": "CAD",
-     "titulo": "Unemployment Rate",
-     "impacto": "High",
+     "quando": "2026-09-08 01:30",
+     "moeda": "AUD",
+     "titulo": "NAB Business Confidence",
+     "impacto": "Low",
      "fonte": "forexfactory",
-     "url": "https://www.forexfactory.com/calendar/57-ca-unemployment-rate"
+     "url": "https://www.forexfactory.com/calendar/323-au-nab-business-confidence"
     },
     {
-     "quando": "2026-09-04 14:00",
-     "moeda": "CAD",
-     "titulo": "Ivey PMI",
-     "impacto": "Medium",
+     "quando": "2026-09-08 03:20",
+     "moeda": "AUD",
+     "titulo": "RBA Assist Gov Hunter Speaks",
+     "impacto": "Low",
      "fonte": "forexfactory",
-     "url": "https://www.forexfactory.com/calendar/254-ca-ivey-pmi"
+     "url": "https://www.forexfactory.com/calendar/907-au-rba-assist-gov-hunter-speaks"
+    },
+    {
+     "quando": "2026-09-08 09:30",
+     "moeda": "AUD",
+     "titulo": "RBA Deputy Gov Hauser Speaks",
+     "impacto": "Low",
+     "fonte": "forexfactory",
+     "url": "https://www.forexfactory.com/calendar/904-au-rba-deputy-gov-hauser-speaks"
     }
    ],
-   "contradiz": [
-    "Level and 20-session momentum disagree: differential at 1.66 pp but moving -7.6 bp the other way — the standing level is being eroded."
-   ]
+   "contradiz": null
   },
   "AUDCHF": {
    "par": "AUDCHF",
    "base": "AUD",
    "quote": "CHF",
-   "as_of": "2026-09-04",
-   "fund": 41.8,
+   "as_of": "2026-09-08",
+   "fund": 37.31,
    "banda": "BULL",
-   "dias_na_banda": 1,
+   "dias_na_banda": 3,
    "causa_dominante": {
     "perna": "AUD",
     "sentido": "rose",
-    "bp_5d": 25.0,
-    "sigmas_5d": 5.4,
-    "bp_1d": 17.5,
-    "bp_20d": 23.5,
-    "yield": 4.794,
+    "bp_5d": 27.7,
+    "sigmas_5d": 5.9,
+    "bp_1d": 20.2,
+    "bp_20d": 26.2,
+    "yield": 4.821,
     "banco_central": "Reserve Bank of Australia",
     "bc_url": "https://www.rba.gov.au/media-releases/",
     "fonte": "RBA F2 Australian Government 2Y",
     "fonte_url": "https://www.rba.gov.au/statistics/tables/",
-    "lido_em": "2026-09-03",
-    "frase": "The AUD leg moved: AUD 2y rose 25.0 bp over 5 sessions (5.4 sigma).",
+    "lido_em": "2026-09-07",
+    "frase": "The AUD leg moved: AUD 2y rose 27.7 bp over 5 sessions (5.9 sigma).",
     "evento_identificado": null,
     "interpretacao": null,
     "evidencia_contraria": null,
@@ -1356,15 +1467,15 @@
    },
    "conviccao_fundamental": {
     "estado": "coherent",
-    "nivel": 4.66,
-    "momento_bp": 18.8,
-    "porque": "Level and 20-session momentum point the same way: differential at 4.66 pp, moving +18.8 bp."
+    "nivel": 4.687,
+    "momento_bp": 17.7,
+    "porque": "Level and 20-session momentum point the same way: differential at 4.69 pp, moving +17.7 bp."
    },
    "saude_da_tese": {
     "estado": "strengthening",
-    "delta_5d_bp": 15.8,
-    "porque": "Differential widened +15.8 bp in 5 sessions, in the same direction as the level.",
-    "invalidaria": "The differential crossing zero, or giving back 50% of the move that created the thesis. Today it sits at 4.66 pp."
+    "delta_5d_bp": 18.5,
+    "porque": "Differential widened +18.5 bp in 5 sessions, in the same direction as the level.",
+    "invalidaria": "The differential crossing zero, or giving back 50% of the move that created the thesis. Today it sits at 4.69 pp."
    },
    "confirmacao_de_mercado": {
     "estado": "not assessed",
@@ -1380,47 +1491,80 @@
     "sustentacao_da_analise": "not established — level, 5-session and 20-session change are related measures of the SAME series. They are not three independent confirmations.",
     "validade_operacional": "not demonstrated. FUND V0.1 failed 15 pre-registrations as a directional predictor and 0 of 9 cells as an entry filter."
    },
-   "evidencia": [],
+   "evidencia": [
+    {
+     "quando": "2026-09-08 00:30",
+     "moeda": "AUD",
+     "titulo": "Westpac Consumer Sentiment",
+     "impacto": "Low",
+     "fonte": "forexfactory",
+     "url": "https://www.forexfactory.com/calendar/338-au-westpac-consumer-sentiment"
+    },
+    {
+     "quando": "2026-09-08 01:30",
+     "moeda": "AUD",
+     "titulo": "NAB Business Confidence",
+     "impacto": "Low",
+     "fonte": "forexfactory",
+     "url": "https://www.forexfactory.com/calendar/323-au-nab-business-confidence"
+    },
+    {
+     "quando": "2026-09-08 03:20",
+     "moeda": "AUD",
+     "titulo": "RBA Assist Gov Hunter Speaks",
+     "impacto": "Low",
+     "fonte": "forexfactory",
+     "url": "https://www.forexfactory.com/calendar/907-au-rba-assist-gov-hunter-speaks"
+    },
+    {
+     "quando": "2026-09-08 09:30",
+     "moeda": "AUD",
+     "titulo": "RBA Deputy Gov Hauser Speaks",
+     "impacto": "Low",
+     "fonte": "forexfactory",
+     "url": "https://www.forexfactory.com/calendar/904-au-rba-deputy-gov-hauser-speaks"
+    }
+   ],
    "contradiz": null
   },
   "AUDJPY": {
    "par": "AUDJPY",
    "base": "AUD",
    "quote": "JPY",
-   "as_of": "2026-09-04",
-   "fund": -13.47,
+   "as_of": "2026-09-08",
+   "fund": 0.0,
    "banda": "NEUTRAL",
-   "dias_na_banda": 1,
+   "dias_na_banda": 7,
    "causa_dominante": {
     "perna": "AUD",
     "sentido": "rose",
-    "bp_5d": 25.0,
-    "sigmas_5d": 5.4,
-    "bp_1d": 17.5,
-    "bp_20d": 23.5,
-    "yield": 4.794,
+    "bp_5d": 27.7,
+    "sigmas_5d": 5.9,
+    "bp_1d": 20.2,
+    "bp_20d": 26.2,
+    "yield": 4.821,
     "banco_central": "Reserve Bank of Australia",
     "bc_url": "https://www.rba.gov.au/media-releases/",
     "fonte": "RBA F2 Australian Government 2Y",
     "fonte_url": "https://www.rba.gov.au/statistics/tables/",
-    "lido_em": "2026-09-03",
-    "frase": "The AUD leg moved: AUD 2y rose 25.0 bp over 5 sessions (5.4 sigma).",
+    "lido_em": "2026-09-07",
+    "frase": "The AUD leg moved: AUD 2y rose 27.7 bp over 5 sessions (5.9 sigma).",
     "evento_identificado": null,
     "interpretacao": null,
     "evidencia_contraria": null,
     "conclusao": "not identified — this is the component that moved, not the reason it moved"
    },
    "conviccao_fundamental": {
-    "estado": "contradictory",
-    "nivel": 2.944,
-    "momento_bp": -10.8,
-    "porque": "Level and 20-session momentum disagree: differential at 2.94 pp but moving -10.8 bp the other way — the standing level is being eroded."
+    "estado": "partial",
+    "nivel": 2.972,
+    "momento_bp": -2.2,
+    "porque": "Level favours AUD (2.97 pp) but the differential is not moving (-2.2 bp in 20 sessions): a standing level, not a live revision."
    },
    "saude_da_tese": {
     "estado": "strengthening",
-    "delta_5d_bp": 8.5,
-    "porque": "Differential widened +8.5 bp in 5 sessions, in the same direction as the level.",
-    "invalidaria": "The differential crossing zero, or giving back 50% of the move that created the thesis. Today it sits at 2.94 pp."
+    "delta_5d_bp": 14.7,
+    "porque": "Differential widened +14.7 bp in 5 sessions, in the same direction as the level.",
+    "invalidaria": "The differential crossing zero, or giving back 50% of the move that created the thesis. Today it sits at 2.97 pp."
    },
    "confirmacao_de_mercado": {
     "estado": "not assessed",
@@ -1438,40 +1582,62 @@
    },
    "evidencia": [
     {
-     "quando": "2026-09-03 23:30",
+     "quando": "2026-09-07 23:30",
      "moeda": "JPY",
-     "titulo": "Household Spending y/y",
+     "titulo": "Average Cash Earnings y/y",
      "impacto": "Low",
      "fonte": "forexfactory",
-     "url": "https://www.forexfactory.com/calendar/359-jn-household-spending-yy"
+     "url": "https://www.forexfactory.com/calendar/181-jn-average-cash-earnings-yy"
+    },
+    {
+     "quando": "2026-09-07 23:50",
+     "moeda": "JPY",
+     "titulo": "Bank Lending y/y",
+     "impacto": "Low",
+     "fonte": "forexfactory",
+     "url": "https://www.forexfactory.com/calendar/388-jn-bank-lending-yy"
+    },
+    {
+     "quando": "2026-09-07 23:50",
+     "moeda": "JPY",
+     "titulo": "Current Account",
+     "impacto": "Low",
+     "fonte": "forexfactory",
+     "url": "https://www.forexfactory.com/calendar/217-jn-current-account"
+    },
+    {
+     "quando": "2026-09-07 23:50",
+     "moeda": "JPY",
+     "titulo": "Final GDP Price Index y/y",
+     "impacto": "Low",
+     "fonte": "forexfactory",
+     "url": "https://www.forexfactory.com/calendar/44-jn-final-gdp-price-index-yy"
     }
    ],
-   "contradiz": [
-    "Level and 20-session momentum disagree: differential at 2.94 pp but moving -10.8 bp the other way — the standing level is being eroded."
-   ]
+   "contradiz": null
   },
   "NZDUSD": {
    "par": "NZDUSD",
    "base": "NZD",
    "quote": "USD",
-   "as_of": "2026-09-04",
-   "fund": 1.63,
+   "as_of": "2026-09-08",
+   "fund": -10.9,
    "banda": "NEUTRAL",
    "dias_na_banda": 1,
    "causa_dominante": {
-    "perna": "USD",
+    "perna": "NZD",
     "sentido": "rose",
-    "bp_5d": 13.2,
-    "sigmas_5d": 3.0,
-    "bp_1d": -5.8,
-    "bp_20d": 8.2,
-    "yield": 4.332,
-    "banco_central": "Federal Reserve",
-    "bc_url": "https://www.federalreserve.gov/newsevents/pressreleases.htm",
-    "fonte": "US Treasury 2Y",
-    "fonte_url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
-    "lido_em": "2026-09-03",
-    "frase": "The USD leg moved: USD 2y rose 13.2 bp over 5 sessions (3.0 sigma).",
+    "bp_5d": 4.0,
+    "sigmas_5d": 0.8,
+    "bp_1d": 5.0,
+    "bp_20d": 5.0,
+    "yield": 3.64,
+    "banco_central": "Reserve Bank of New Zealand",
+    "bc_url": "https://www.rbnz.govt.nz/hub/news",
+    "fonte": "RBNZ B2 Government 2Y",
+    "fonte_url": "https://www.rbnz.govt.nz/statistics/series/exchange-and-interest-rates/wholesale-interest-rates",
+    "lido_em": "2026-09-07",
+    "frase": "The NZD leg moved: NZD 2y rose 4.0 bp over 5 sessions (0.8 sigma).",
     "evento_identificado": null,
     "interpretacao": null,
     "evidencia_contraria": null,
@@ -1479,15 +1645,15 @@
    },
    "conviccao_fundamental": {
     "estado": "coherent",
-    "nivel": -0.707,
-    "momento_bp": -9.7,
-    "porque": "Level and 20-session momentum point the same way: differential at -0.71 pp, moving -9.7 bp."
+    "nivel": -0.734,
+    "momento_bp": -7.4,
+    "porque": "Level and 20-session momentum point the same way: differential at -0.73 pp, moving -7.4 bp."
    },
    "saude_da_tese": {
-    "estado": "strengthening",
-    "delta_5d_bp": -6.7,
-    "porque": "Differential widened -6.7 bp in 5 sessions, in the same direction as the level.",
-    "invalidaria": "The differential crossing zero, or giving back 50% of the move that created the thesis. Today it sits at -0.71 pp."
+    "estado": "flat",
+    "delta_5d_bp": 0.6,
+    "porque": "Differential barely moved over 5 sessions (+0.6 bp).",
+    "invalidaria": "The differential crossing zero, or giving back 50% of the move that created the thesis. Today it sits at -0.73 pp."
    },
    "confirmacao_de_mercado": {
     "estado": "not assessed",
@@ -1505,36 +1671,36 @@
    },
    "evidencia": [
     {
-     "quando": "2026-09-03 19:00",
-     "moeda": "USD",
-     "titulo": "FOMC Member Hammack Speaks",
+     "quando": "2026-09-07 22:45",
+     "moeda": "NZD",
+     "titulo": "Manufacturing Sales q/q",
      "impacto": "Low",
      "fonte": "forexfactory",
-     "url": "https://www.forexfactory.com/calendar/913-us-fomc-member-hammack-speaks"
+     "url": "https://www.forexfactory.com/calendar/161-nz-manufacturing-sales-qq"
     },
     {
-     "quando": "2026-09-03 19:55",
+     "quando": "2026-09-08 10:00",
      "moeda": "USD",
-     "titulo": "FOMC Member Goolsbee Speaks",
+     "titulo": "NFIB Small Business Index",
      "impacto": "Low",
      "fonte": "forexfactory",
-     "url": "https://www.forexfactory.com/calendar/889-us-fomc-member-goolsbee-speaks"
+     "url": "https://www.forexfactory.com/calendar/570-us-nfib-small-business-index"
     },
     {
-     "quando": "2026-09-04 12:30",
+     "quando": "2026-09-08 19:00",
      "moeda": "USD",
-     "titulo": "Average Hourly Earnings m/m",
-     "impacto": "High",
+     "titulo": "Consumer Credit m/m",
+     "impacto": "Low",
      "fonte": "forexfactory",
-     "url": "https://www.forexfactory.com/calendar/159-us-average-hourly-earnings-mm"
+     "url": "https://www.forexfactory.com/calendar/341-us-consumer-credit-mm"
     },
     {
-     "quando": "2026-09-04 12:30",
+     "quando": "2026-09-09 12:15",
      "moeda": "USD",
-     "titulo": "Non-Farm Employment Change",
-     "impacto": "High",
+     "titulo": "ADP Weekly Employment Change",
+     "impacto": "Low",
      "fonte": "forexfactory",
-     "url": "https://www.forexfactory.com/calendar/66-us-non-farm-employment-change"
+     "url": "https://www.forexfactory.com/calendar/929-us-adp-weekly-employment-change"
     }
    ],
    "contradiz": null
@@ -1543,24 +1709,24 @@
    "par": "NZDCAD",
    "base": "NZD",
    "quote": "CAD",
-   "as_of": "2026-09-04",
-   "fund": -63.74,
-   "banda": "STRONG_BEAR",
-   "dias_na_banda": 1,
+   "as_of": "2026-09-08",
+   "fund": -31.21,
+   "banda": "BEAR",
+   "dias_na_banda": 2,
    "causa_dominante": {
     "perna": "CAD",
     "sentido": "rose",
-    "bp_5d": 20.1,
-    "sigmas_5d": 4.5,
-    "bp_1d": 12.1,
-    "bp_20d": 31.1,
-    "yield": 3.131,
+    "bp_5d": 17.3,
+    "sigmas_5d": 3.9,
+    "bp_1d": 9.3,
+    "bp_20d": 28.3,
+    "yield": 3.103,
     "banco_central": "Bank of Canada",
     "bc_url": "https://www.bankofcanada.ca/press/press-releases/",
     "fonte": "Bank of Canada benchmark 2Y",
     "fonte_url": "https://www.bankofcanada.ca/rates/interest-rates/lookup-bond-yields/",
-    "lido_em": "2026-09-03",
-    "frase": "The CAD leg moved: CAD 2y rose 20.1 bp over 5 sessions (4.5 sigma).",
+    "lido_em": "2026-09-07",
+    "frase": "The CAD leg moved: CAD 2y rose 17.3 bp over 5 sessions (3.9 sigma).",
     "evento_identificado": null,
     "interpretacao": null,
     "evidencia_contraria": null,
@@ -1568,15 +1734,15 @@
    },
    "conviccao_fundamental": {
     "estado": "contradictory",
-    "nivel": 0.494,
-    "momento_bp": -32.6,
-    "porque": "Level and 20-session momentum disagree: differential at 0.49 pp but moving -32.6 bp the other way — the standing level is being eroded."
+    "nivel": 0.537,
+    "momento_bp": -23.3,
+    "porque": "Level and 20-session momentum disagree: differential at 0.54 pp but moving -23.3 bp the other way — the standing level is being eroded."
    },
    "saude_da_tese": {
     "estado": "weakening",
-    "delta_5d_bp": -13.6,
-    "porque": "Differential moved -13.6 bp AGAINST the standing level in 5 sessions.",
-    "invalidaria": "The differential crossing zero, or giving back 50% of the move that created the thesis. Today it sits at 0.49 pp."
+    "delta_5d_bp": -13.3,
+    "porque": "Differential moved -13.3 bp AGAINST the standing level in 5 sessions.",
+    "invalidaria": "The differential crossing zero, or giving back 50% of the move that created the thesis. Today it sits at 0.54 pp."
    },
    "confirmacao_de_mercado": {
     "estado": "not assessed",
@@ -1594,57 +1760,49 @@
    },
    "evidencia": [
     {
-     "quando": "2026-09-04 12:30",
-     "moeda": "CAD",
-     "titulo": "Employment Change",
-     "impacto": "High",
+     "quando": "2026-09-07 22:45",
+     "moeda": "NZD",
+     "titulo": "Manufacturing Sales q/q",
+     "impacto": "Low",
      "fonte": "forexfactory",
-     "url": "https://www.forexfactory.com/calendar/67-ca-employment-change"
+     "url": "https://www.forexfactory.com/calendar/161-nz-manufacturing-sales-qq"
     },
     {
-     "quando": "2026-09-04 12:30",
-     "moeda": "CAD",
-     "titulo": "Unemployment Rate",
-     "impacto": "High",
+     "quando": "2026-09-10 22:30",
+     "moeda": "NZD",
+     "titulo": "BusinessNZ Manufacturing Index",
+     "impacto": "Low",
      "fonte": "forexfactory",
-     "url": "https://www.forexfactory.com/calendar/57-ca-unemployment-rate"
-    },
-    {
-     "quando": "2026-09-04 14:00",
-     "moeda": "CAD",
-     "titulo": "Ivey PMI",
-     "impacto": "Medium",
-     "fonte": "forexfactory",
-     "url": "https://www.forexfactory.com/calendar/254-ca-ivey-pmi"
+     "url": "https://www.forexfactory.com/calendar/149-nz-businessnz-manufacturing-index"
     }
    ],
    "contradiz": [
-    "Level and 20-session momentum disagree: differential at 0.49 pp but moving -32.6 bp the other way — the standing level is being eroded.",
-    "Differential moved -13.6 bp AGAINST the standing level in 5 sessions."
+    "Level and 20-session momentum disagree: differential at 0.54 pp but moving -23.3 bp the other way — the standing level is being eroded.",
+    "Differential moved -13.3 bp AGAINST the standing level in 5 sessions."
    ]
   },
   "NZDCHF": {
    "par": "NZDCHF",
    "base": "NZD",
    "quote": "CHF",
-   "as_of": "2026-09-04",
-   "fund": -5.93,
+   "as_of": "2026-09-08",
+   "fund": -6.6,
    "banda": "NEUTRAL",
-   "dias_na_banda": 17,
+   "dias_na_banda": 19,
    "causa_dominante": {
     "perna": "CHF",
     "sentido": "rose",
     "bp_5d": 9.2,
-    "sigmas_5d": 3.0,
-    "bp_1d": 7.6,
-    "bp_20d": 4.7,
-    "yield": 0.1344,
+    "sigmas_5d": 3.1,
+    "bp_1d": 2.8,
+    "bp_20d": 8.5,
+    "yield": 0.1341,
     "banco_central": "Swiss National Bank",
     "bc_url": "https://www.snb.ch/en/the-snb/mandates-goals/monetary-policy",
     "fonte": "SNB Confederation NSS spot rate 2Y",
     "fonte_url": "https://data.snb.ch/en/warehouse/SNB1A/cube/SNB1A@SNB.NSS.KZS.EID",
-    "lido_em": "2026-09-03",
-    "frase": "The CHF leg moved: CHF 2y rose 9.2 bp over 5 sessions (3.0 sigma).",
+    "lido_em": "2026-09-07",
+    "frase": "The CHF leg moved: CHF 2y rose 9.2 bp over 5 sessions (3.1 sigma).",
     "evento_identificado": null,
     "interpretacao": null,
     "evidencia_contraria": null,
@@ -1652,15 +1810,15 @@
    },
    "conviccao_fundamental": {
     "estado": "contradictory",
-    "nivel": 3.491,
-    "momento_bp": -6.2,
-    "porque": "Level and 20-session momentum disagree: differential at 3.49 pp but moving -6.2 bp the other way — the standing level is being eroded."
+    "nivel": 3.506,
+    "momento_bp": -3.5,
+    "porque": "Level and 20-session momentum disagree: differential at 3.51 pp but moving -3.5 bp the other way — the standing level is being eroded."
    },
    "saude_da_tese": {
     "estado": "weakening",
-    "delta_5d_bp": -2.7,
-    "porque": "Differential moved -2.7 bp AGAINST the standing level in 5 sessions.",
-    "invalidaria": "The differential crossing zero, or giving back 50% of the move that created the thesis. Today it sits at 3.49 pp."
+    "delta_5d_bp": -5.2,
+    "porque": "Differential moved -5.2 bp AGAINST the standing level in 5 sessions.",
+    "invalidaria": "The differential crossing zero, or giving back 50% of the move that created the thesis. Today it sits at 3.51 pp."
    },
    "confirmacao_de_mercado": {
     "estado": "not assessed",
@@ -1676,34 +1834,67 @@
     "sustentacao_da_analise": "not established — level, 5-session and 20-session change are related measures of the SAME series. They are not three independent confirmations.",
     "validade_operacional": "not demonstrated. FUND V0.1 failed 15 pre-registrations as a directional predictor and 0 of 9 cells as an entry filter."
    },
-   "evidencia": [],
+   "evidencia": [
+    {
+     "quando": "2026-09-07 22:45",
+     "moeda": "NZD",
+     "titulo": "Manufacturing Sales q/q",
+     "impacto": "Low",
+     "fonte": "forexfactory",
+     "url": "https://www.forexfactory.com/calendar/161-nz-manufacturing-sales-qq"
+    },
+    {
+     "quando": "2026-09-10 22:30",
+     "moeda": "NZD",
+     "titulo": "BusinessNZ Manufacturing Index",
+     "impacto": "Low",
+     "fonte": "forexfactory",
+     "url": "https://www.forexfactory.com/calendar/149-nz-businessnz-manufacturing-index"
+    },
+    {
+     "quando": "2026-09-11 07:00",
+     "moeda": "CHF",
+     "titulo": "SECO Consumer Climate",
+     "impacto": "Low",
+     "fonte": "forexfactory",
+     "url": "https://www.forexfactory.com/calendar/337-sz-seco-consumer-climate"
+    },
+    {
+     "quando": "2026-09-11 09:15",
+     "moeda": "CHF",
+     "titulo": "SNB Chairman Schlegel Speaks",
+     "impacto": "Medium",
+     "fonte": "forexfactory",
+     "url": "https://www.forexfactory.com/calendar/915-sz-snb-chairman-schlegel-speaks"
+    }
+   ],
    "contradiz": [
-    "Level and 20-session momentum disagree: differential at 3.49 pp but moving -6.2 bp the other way — the standing level is being eroded.",
-    "Differential moved -2.7 bp AGAINST the standing level in 5 sessions."
+    "Level and 20-session momentum disagree: differential at 3.51 pp but moving -3.5 bp the other way — the standing level is being eroded.",
+    "Differential moved -5.2 bp AGAINST the standing level in 5 sessions."
    ]
   },
   "NZDJPY": {
    "par": "NZDJPY",
    "base": "NZD",
    "quote": "JPY",
-   "as_of": "2026-09-04",
-   "fund": -54.42,
+   "as_of": "2026-09-08",
+   "fund": -29.51,
    "banda": "BEAR",
-   "dias_na_banda": 10,
+   "dias_na_banda": 15,
    "causa_dominante": {
     "perna": "JPY",
     "sentido": "rose",
-    "bp_5d": 16.5,
-    "sigmas_5d": 9.1,
-    "bp_1d": 13.1,
-    "bp_20d": 34.3,
-    "yield": 1.85,
+    "bp_5d": 13.0,
+    "sigmas_5d": 7.6,
+    "bp_1d": -0.1,
+    "bp_20d": 28.4,
+    "yield": 1.849,
     "banco_central": "Bank of Japan",
     "bc_url": "https://www.boj.or.jp/en/announcements/index.htm",
     "fonte": "Japan MoF JGB 2Y",
     "fonte_url": "https://www.mof.go.jp/english/policy/jgbs/reference/interest_rate/",
-    "lido_em": "2026-09-03",
-    "frase": "The JPY leg moved: JPY 2y rose 16.5 bp over 5 sessions (9.1 sigma).",
+    "lido_em": "2026-09-07",
+    "frase": "The JPY leg moved: JPY 2y rose 13.0 bp over 5 sessions (7.6 sigma).",
     "evento_identificado": null,
     "interpretacao": null,
     "evidencia_contraria": null,
@@ -1711,15 +1902,15 @@
    },
    "conviccao_fundamental": {
     "estado": "contradictory",
-    "nivel": 1.775,
-    "momento_bp": -35.8,
-    "porque": "Level and 20-session momentum disagree: differential at 1.77 pp but moving -35.8 bp the other way — the standing level is being eroded."
+    "nivel": 1.791,
+    "momento_bp": -23.4,
+    "porque": "Level and 20-session momentum disagree: differential at 1.79 pp but moving -23.4 bp the other way — the standing level is being eroded."
    },
    "saude_da_tese": {
     "estado": "weakening",
-    "delta_5d_bp": -10.0,
-    "porque": "Differential moved -10.0 bp AGAINST the standing level in 5 sessions.",
-    "invalidaria": "The differential crossing zero, or giving back 50% of the move that created the thesis. Today it sits at 1.77 pp."
+    "delta_5d_bp": -9.0,
+    "porque": "Differential moved -9.0 bp AGAINST the standing level in 5 sessions.",
+    "invalidaria": "The differential crossing zero, or giving back 50% of the move that created the thesis. Today it sits at 1.79 pp."
    },
    "confirmacao_de_mercado": {
     "estado": "not assessed",
@@ -1737,41 +1928,65 @@
    },
    "evidencia": [
     {
-     "quando": "2026-09-03 23:30",
-     "moeda": "JPY",
-     "titulo": "Household Spending y/y",
+     "quando": "2026-09-07 22:45",
+     "moeda": "NZD",
+     "titulo": "Manufacturing Sales q/q",
      "impacto": "Low",
      "fonte": "forexfactory",
-     "url": "https://www.forexfactory.com/calendar/359-jn-household-spending-yy"
+     "url": "https://www.forexfactory.com/calendar/161-nz-manufacturing-sales-qq"
+    },
+    {
+     "quando": "2026-09-07 23:30",
+     "moeda": "JPY",
+     "titulo": "Average Cash Earnings y/y",
+     "impacto": "Low",
+     "fonte": "forexfactory",
+     "url": "https://www.forexfactory.com/calendar/181-jn-average-cash-earnings-yy"
+    },
+    {
+     "quando": "2026-09-07 23:50",
+     "moeda": "JPY",
+     "titulo": "Bank Lending y/y",
+     "impacto": "Low",
+     "fonte": "forexfactory",
+     "url": "https://www.forexfactory.com/calendar/388-jn-bank-lending-yy"
+    },
+    {
+     "quando": "2026-09-07 23:50",
+     "moeda": "JPY",
+     "titulo": "Current Account",
+     "impacto": "Low",
+     "fonte": "forexfactory",
+     "url": "https://www.forexfactory.com/calendar/217-jn-current-account"
     }
    ],
    "contradiz": [
-    "Level and 20-session momentum disagree: differential at 1.77 pp but moving -35.8 bp the other way — the standing level is being eroded.",
-    "Differential moved -10.0 bp AGAINST the standing level in 5 sessions."
+    "Level and 20-session momentum disagree: differential at 1.79 pp but moving -23.4 bp the other way — the standing level is being eroded.",
+    "Differential moved -9.0 bp AGAINST the standing level in 5 sessions."
    ]
   },
   "USDCAD": {
    "par": "USDCAD",
    "base": "USD",
    "quote": "CAD",
-   "as_of": "2026-09-04",
-   "fund": -52.8,
-   "banda": "BEAR",
-   "dias_na_banda": 1,
+   "as_of": "2026-09-08",
+   "fund": 8.1,
+   "banda": "NEUTRAL",
+   "dias_na_banda": 2,
    "causa_dominante": {
     "perna": "CAD",
     "sentido": "rose",
-    "bp_5d": 20.1,
-    "sigmas_5d": 4.5,
-    "bp_1d": 12.1,
-    "bp_20d": 31.1,
-    "yield": 3.131,
+    "bp_5d": 17.3,
+    "sigmas_5d": 3.9,
+    "bp_1d": 9.3,
+    "bp_20d": 28.3,
+    "yield": 3.103,
     "banco_central": "Bank of Canada",
     "bc_url": "https://www.bankofcanada.ca/press/press-releases/",
     "fonte": "Bank of Canada benchmark 2Y",
     "fonte_url": "https://www.bankofcanada.ca/rates/interest-rates/lookup-bond-yields/",
-    "lido_em": "2026-09-03",
-    "frase": "The CAD leg moved: CAD 2y rose 20.1 bp over 5 sessions (4.5 sigma).",
+    "lido_em": "2026-09-07",
+    "frase": "The CAD leg moved: CAD 2y rose 17.3 bp over 5 sessions (3.9 sigma).",
     "evento_identificado": null,
     "interpretacao": null,
     "evidencia_contraria": null,
@@ -1779,15 +1994,15 @@
    },
    "conviccao_fundamental": {
     "estado": "contradictory",
-    "nivel": 1.201,
-    "momento_bp": -22.9,
-    "porque": "Level and 20-session momentum disagree: differential at 1.20 pp but moving -22.9 bp the other way — the standing level is being eroded."
+    "nivel": 1.271,
+    "momento_bp": -15.9,
+    "porque": "Level and 20-session momentum disagree: differential at 1.27 pp but moving -15.9 bp the other way — the standing level is being eroded."
    },
    "saude_da_tese": {
     "estado": "weakening",
-    "delta_5d_bp": -6.9,
-    "porque": "Differential moved -6.9 bp AGAINST the standing level in 5 sessions.",
-    "invalidaria": "The differential crossing zero, or giving back 50% of the move that created the thesis. Today it sits at 1.20 pp."
+    "delta_5d_bp": -13.9,
+    "porque": "Differential moved -13.9 bp AGAINST the standing level in 5 sessions.",
+    "invalidaria": "The differential crossing zero, or giving back 50% of the move that created the thesis. Today it sits at 1.27 pp."
    },
    "confirmacao_de_mercado": {
     "estado": "not assessed",
@@ -1805,65 +2020,65 @@
    },
    "evidencia": [
     {
-     "quando": "2026-09-03 19:00",
+     "quando": "2026-09-08 10:00",
      "moeda": "USD",
-     "titulo": "FOMC Member Hammack Speaks",
+     "titulo": "NFIB Small Business Index",
      "impacto": "Low",
      "fonte": "forexfactory",
-     "url": "https://www.forexfactory.com/calendar/913-us-fomc-member-hammack-speaks"
+     "url": "https://www.forexfactory.com/calendar/570-us-nfib-small-business-index"
     },
     {
-     "quando": "2026-09-03 19:55",
+     "quando": "2026-09-08 19:00",
      "moeda": "USD",
-     "titulo": "FOMC Member Goolsbee Speaks",
+     "titulo": "Consumer Credit m/m",
      "impacto": "Low",
      "fonte": "forexfactory",
-     "url": "https://www.forexfactory.com/calendar/889-us-fomc-member-goolsbee-speaks"
+     "url": "https://www.forexfactory.com/calendar/341-us-consumer-credit-mm"
     },
     {
-     "quando": "2026-09-04 12:30",
-     "moeda": "CAD",
-     "titulo": "Employment Change",
-     "impacto": "High",
+     "quando": "2026-09-09 12:15",
+     "moeda": "USD",
+     "titulo": "ADP Weekly Employment Change",
+     "impacto": "Low",
      "fonte": "forexfactory",
-     "url": "https://www.forexfactory.com/calendar/67-ca-employment-change"
+     "url": "https://www.forexfactory.com/calendar/929-us-adp-weekly-employment-change"
     },
     {
-     "quando": "2026-09-04 12:30",
-     "moeda": "CAD",
-     "titulo": "Unemployment Rate",
-     "impacto": "High",
+     "quando": "2026-09-09 12:16",
+     "moeda": "USD",
+     "titulo": "ADP Weekly Employment Change",
+     "impacto": "Low",
      "fonte": "forexfactory",
-     "url": "https://www.forexfactory.com/calendar/57-ca-unemployment-rate"
+     "url": "https://www.forexfactory.com/calendar/929-us-adp-weekly-employment-change"
     }
    ],
    "contradiz": [
-    "Level and 20-session momentum disagree: differential at 1.20 pp but moving -22.9 bp the other way — the standing level is being eroded.",
-    "Differential moved -6.9 bp AGAINST the standing level in 5 sessions."
+    "Level and 20-session momentum disagree: differential at 1.27 pp but moving -15.9 bp the other way — the standing level is being eroded.",
+    "Differential moved -13.9 bp AGAINST the standing level in 5 sessions."
    ]
   },
   "USDCHF": {
    "par": "USDCHF",
    "base": "USD",
    "quote": "CHF",
-   "as_of": "2026-09-04",
-   "fund": -14.27,
+   "as_of": "2026-09-08",
+   "fund": 6.94,
    "banda": "NEUTRAL",
    "dias_na_banda": 1,
    "causa_dominante": {
-    "perna": "USD",
+    "perna": "CHF",
     "sentido": "rose",
-    "bp_5d": 13.2,
-    "sigmas_5d": 3.0,
-    "bp_1d": -5.8,
-    "bp_20d": 8.2,
-    "yield": 4.332,
-    "banco_central": "Federal Reserve",
-    "bc_url": "https://www.federalreserve.gov/newsevents/pressreleases.htm",
-    "fonte": "US Treasury 2Y",
-    "fonte_url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
-    "lido_em": "2026-09-03",
-    "frase": "The USD leg moved: USD 2y rose 13.2 bp over 5 sessions (3.0 sigma).",
+    "bp_5d": 9.2,
+    "sigmas_5d": 3.1,
+    "bp_1d": 2.8,
+    "bp_20d": 8.5,
+    "yield": 0.1341,
+    "banco_central": "Swiss National Bank",
+    "bc_url": "https://www.snb.ch/en/the-snb/mandates-goals/monetary-policy",
+    "fonte": "SNB Confederation NSS spot rate 2Y",
+    "fonte_url": "https://data.snb.ch/en/warehouse/SNB1A/cube/SNB1A@SNB.NSS.KZS.EID",
+    "lido_em": "2026-09-07",
+    "frase": "The CHF leg moved: CHF 2y rose 9.2 bp over 5 sessions (3.1 sigma).",
     "evento_identificado": null,
     "interpretacao": null,
     "evidencia_contraria": null,
@@ -1871,15 +2086,15 @@
    },
    "conviccao_fundamental": {
     "estado": "coherent",
-    "nivel": 4.198,
-    "momento_bp": 3.5,
-    "porque": "Level and 20-session momentum point the same way: differential at 4.20 pp, moving +3.5 bp."
+    "nivel": 4.24,
+    "momento_bp": 3.9,
+    "porque": "Level and 20-session momentum point the same way: differential at 4.24 pp, moving +3.9 bp."
    },
    "saude_da_tese": {
-    "estado": "strengthening",
-    "delta_5d_bp": 4.0,
-    "porque": "Differential widened +4.0 bp in 5 sessions, in the same direction as the level.",
-    "invalidaria": "The differential crossing zero, or giving back 50% of the move that created the thesis. Today it sits at 4.20 pp."
+    "estado": "weakening",
+    "delta_5d_bp": -5.8,
+    "porque": "Differential moved -5.8 bp AGAINST the standing level in 5 sessions.",
+    "invalidaria": "The differential crossing zero, or giving back 50% of the move that created the thesis. Today it sits at 4.24 pp."
    },
    "confirmacao_de_mercado": {
     "estado": "not assessed",
@@ -1897,62 +2112,64 @@
    },
    "evidencia": [
     {
-     "quando": "2026-09-03 19:00",
+     "quando": "2026-09-08 10:00",
      "moeda": "USD",
-     "titulo": "FOMC Member Hammack Speaks",
+     "titulo": "NFIB Small Business Index",
      "impacto": "Low",
      "fonte": "forexfactory",
-     "url": "https://www.forexfactory.com/calendar/913-us-fomc-member-hammack-speaks"
+     "url": "https://www.forexfactory.com/calendar/570-us-nfib-small-business-index"
     },
     {
-     "quando": "2026-09-03 19:55",
+     "quando": "2026-09-08 19:00",
      "moeda": "USD",
-     "titulo": "FOMC Member Goolsbee Speaks",
+     "titulo": "Consumer Credit m/m",
      "impacto": "Low",
      "fonte": "forexfactory",
-     "url": "https://www.forexfactory.com/calendar/889-us-fomc-member-goolsbee-speaks"
+     "url": "https://www.forexfactory.com/calendar/341-us-consumer-credit-mm"
     },
     {
-     "quando": "2026-09-04 12:30",
+     "quando": "2026-09-09 12:15",
      "moeda": "USD",
-     "titulo": "Average Hourly Earnings m/m",
-     "impacto": "High",
+     "titulo": "ADP Weekly Employment Change",
+     "impacto": "Low",
      "fonte": "forexfactory",
-     "url": "https://www.forexfactory.com/calendar/159-us-average-hourly-earnings-mm"
+     "url": "https://www.forexfactory.com/calendar/929-us-adp-weekly-employment-change"
     },
     {
-     "quando": "2026-09-04 12:30",
+     "quando": "2026-09-09 12:16",
      "moeda": "USD",
-     "titulo": "Non-Farm Employment Change",
-     "impacto": "High",
+     "titulo": "ADP Weekly Employment Change",
+     "impacto": "Low",
      "fonte": "forexfactory",
-     "url": "https://www.forexfactory.com/calendar/66-us-non-farm-employment-change"
+     "url": "https://www.forexfactory.com/calendar/929-us-adp-weekly-employment-change"
     }
    ],
-   "contradiz": null
+   "contradiz": [
+    "Differential moved -5.8 bp AGAINST the standing level in 5 sessions."
+   ]
   },
   "USDJPY": {
    "par": "USDJPY",
    "base": "USD",
    "quote": "JPY",
-   "as_of": "2026-09-04",
-   "fund": -52.62,
+   "as_of": "2026-09-08",
+   "fund": -28.02,
    "banda": "BEAR",
    "dias_na_banda": 1,
    "causa_dominante": {
     "perna": "JPY",
     "sentido": "rose",
-    "bp_5d": 16.5,
-    "sigmas_5d": 9.1,
-    "bp_1d": 13.1,
-    "bp_20d": 34.3,
-    "yield": 1.85,
+    "bp_5d": 13.0,
+    "sigmas_5d": 7.6,
+    "bp_1d": -0.1,
+    "bp_20d": 28.4,
+    "yield": 1.849,
     "banco_central": "Bank of Japan",
     "bc_url": "https://www.boj.or.jp/en/announcements/index.htm",
     "fonte": "Japan MoF JGB 2Y",
     "fonte_url": "https://www.mof.go.jp/english/policy/jgbs/reference/interest_rate/",
-    "lido_em": "2026-09-03",
-    "frase": "The JPY leg moved: JPY 2y rose 16.5 bp over 5 sessions (9.1 sigma).",
+    "lido_em": "2026-09-07",
+    "frase": "The JPY leg moved: JPY 2y rose 13.0 bp over 5 sessions (7.6 sigma).",
     "evento_identificado": null,
     "interpretacao": null,
     "evidencia_contraria": null,
@@ -1960,15 +2177,15 @@
    },
    "conviccao_fundamental": {
     "estado": "contradictory",
-    "nivel": 2.482,
-    "momento_bp": -26.1,
-    "porque": "Level and 20-session momentum disagree: differential at 2.48 pp but moving -26.1 bp the other way — the standing level is being eroded."
+    "nivel": 2.525,
+    "momento_bp": -16.0,
+    "porque": "Level and 20-session momentum disagree: differential at 2.52 pp but moving -16.0 bp the other way — the standing level is being eroded."
    },
    "saude_da_tese": {
     "estado": "weakening",
-    "delta_5d_bp": -3.3,
-    "porque": "Differential moved -3.3 bp AGAINST the standing level in 5 sessions.",
-    "invalidaria": "The differential crossing zero, or giving back 50% of the move that created the thesis. Today it sits at 2.48 pp."
+    "delta_5d_bp": -9.6,
+    "porque": "Differential moved -9.6 bp AGAINST the standing level in 5 sessions.",
+    "invalidaria": "The differential crossing zero, or giving back 50% of the move that created the thesis. Today it sits at 2.52 pp."
    },
    "confirmacao_de_mercado": {
     "estado": "not assessed",
@@ -1986,65 +2203,65 @@
    },
    "evidencia": [
     {
-     "quando": "2026-09-03 19:00",
-     "moeda": "USD",
-     "titulo": "FOMC Member Hammack Speaks",
-     "impacto": "Low",
-     "fonte": "forexfactory",
-     "url": "https://www.forexfactory.com/calendar/913-us-fomc-member-hammack-speaks"
-    },
-    {
-     "quando": "2026-09-03 19:55",
-     "moeda": "USD",
-     "titulo": "FOMC Member Goolsbee Speaks",
-     "impacto": "Low",
-     "fonte": "forexfactory",
-     "url": "https://www.forexfactory.com/calendar/889-us-fomc-member-goolsbee-speaks"
-    },
-    {
-     "quando": "2026-09-03 23:30",
+     "quando": "2026-09-07 23:30",
      "moeda": "JPY",
-     "titulo": "Household Spending y/y",
+     "titulo": "Average Cash Earnings y/y",
      "impacto": "Low",
      "fonte": "forexfactory",
-     "url": "https://www.forexfactory.com/calendar/359-jn-household-spending-yy"
+     "url": "https://www.forexfactory.com/calendar/181-jn-average-cash-earnings-yy"
     },
     {
-     "quando": "2026-09-04 12:30",
-     "moeda": "USD",
-     "titulo": "Average Hourly Earnings m/m",
-     "impacto": "High",
+     "quando": "2026-09-07 23:50",
+     "moeda": "JPY",
+     "titulo": "Bank Lending y/y",
+     "impacto": "Low",
      "fonte": "forexfactory",
-     "url": "https://www.forexfactory.com/calendar/159-us-average-hourly-earnings-mm"
+     "url": "https://www.forexfactory.com/calendar/388-jn-bank-lending-yy"
+    },
+    {
+     "quando": "2026-09-07 23:50",
+     "moeda": "JPY",
+     "titulo": "Current Account",
+     "impacto": "Low",
+     "fonte": "forexfactory",
+     "url": "https://www.forexfactory.com/calendar/217-jn-current-account"
+    },
+    {
+     "quando": "2026-09-07 23:50",
+     "moeda": "JPY",
+     "titulo": "Final GDP Price Index y/y",
+     "impacto": "Low",
+     "fonte": "forexfactory",
+     "url": "https://www.forexfactory.com/calendar/44-jn-final-gdp-price-index-yy"
     }
    ],
    "contradiz": [
-    "Level and 20-session momentum disagree: differential at 2.48 pp but moving -26.1 bp the other way — the standing level is being eroded.",
-    "Differential moved -3.3 bp AGAINST the standing level in 5 sessions."
+    "Level and 20-session momentum disagree: differential at 2.52 pp but moving -16.0 bp the other way — the standing level is being eroded.",
+    "Differential moved -9.6 bp AGAINST the standing level in 5 sessions."
    ]
   },
   "CADCHF": {
    "par": "CADCHF",
    "base": "CAD",
    "quote": "CHF",
-   "as_of": "2026-09-04",
-   "fund": 44.01,
-   "banda": "BULL",
-   "dias_na_banda": 5,
+   "as_of": "2026-09-08",
+   "fund": -0.02,
+   "banda": "NEUTRAL",
+   "dias_na_banda": 2,
    "causa_dominante": {
     "perna": "CAD",
     "sentido": "rose",
-    "bp_5d": 20.1,
-    "sigmas_5d": 4.5,
-    "bp_1d": 12.1,
-    "bp_20d": 31.1,
-    "yield": 3.131,
+    "bp_5d": 17.3,
+    "sigmas_5d": 3.9,
+    "bp_1d": 9.3,
+    "bp_20d": 28.3,
+    "yield": 3.103,
     "banco_central": "Bank of Canada",
     "bc_url": "https://www.bankofcanada.ca/press/press-releases/",
     "fonte": "Bank of Canada benchmark 2Y",
     "fonte_url": "https://www.bankofcanada.ca/rates/interest-rates/lookup-bond-yields/",
-    "lido_em": "2026-09-03",
-    "frase": "The CAD leg moved: CAD 2y rose 20.1 bp over 5 sessions (4.5 sigma).",
+    "lido_em": "2026-09-07",
+    "frase": "The CAD leg moved: CAD 2y rose 17.3 bp over 5 sessions (3.9 sigma).",
     "evento_identificado": null,
     "interpretacao": null,
     "evidencia_contraria": null,
@@ -2052,15 +2269,15 @@
    },
    "conviccao_fundamental": {
     "estado": "coherent",
-    "nivel": 2.997,
-    "momento_bp": 26.4,
-    "porque": "Level and 20-session momentum point the same way: differential at 3.00 pp, moving +26.4 bp."
+    "nivel": 2.969,
+    "momento_bp": 19.8,
+    "porque": "Level and 20-session momentum point the same way: differential at 2.97 pp, moving +19.8 bp."
    },
    "saude_da_tese": {
     "estado": "strengthening",
-    "delta_5d_bp": 10.9,
-    "porque": "Differential widened +10.9 bp in 5 sessions, in the same direction as the level.",
-    "invalidaria": "The differential crossing zero, or giving back 50% of the move that created the thesis. Today it sits at 3.00 pp."
+    "delta_5d_bp": 8.1,
+    "porque": "Differential widened +8.1 bp in 5 sessions, in the same direction as the level.",
+    "invalidaria": "The differential crossing zero, or giving back 50% of the move that created the thesis. Today it sits at 2.97 pp."
    },
    "confirmacao_de_mercado": {
     "estado": "not assessed",
@@ -2078,28 +2295,20 @@
    },
    "evidencia": [
     {
-     "quando": "2026-09-04 12:30",
-     "moeda": "CAD",
-     "titulo": "Employment Change",
-     "impacto": "High",
+     "quando": "2026-09-11 07:00",
+     "moeda": "CHF",
+     "titulo": "SECO Consumer Climate",
+     "impacto": "Low",
      "fonte": "forexfactory",
-     "url": "https://www.forexfactory.com/calendar/67-ca-employment-change"
+     "url": "https://www.forexfactory.com/calendar/337-sz-seco-consumer-climate"
     },
     {
-     "quando": "2026-09-04 12:30",
-     "moeda": "CAD",
-     "titulo": "Unemployment Rate",
-     "impacto": "High",
-     "fonte": "forexfactory",
-     "url": "https://www.forexfactory.com/calendar/57-ca-unemployment-rate"
-    },
-    {
-     "quando": "2026-09-04 14:00",
-     "moeda": "CAD",
-     "titulo": "Ivey PMI",
+     "quando": "2026-09-11 09:15",
+     "moeda": "CHF",
+     "titulo": "SNB Chairman Schlegel Speaks",
      "impacto": "Medium",
      "fonte": "forexfactory",
-     "url": "https://www.forexfactory.com/calendar/254-ca-ivey-pmi"
+     "url": "https://www.forexfactory.com/calendar/915-sz-snb-chairman-schlegel-speaks"
     }
    ],
    "contradiz": null
@@ -2108,40 +2317,40 @@
    "par": "CADJPY",
    "base": "CAD",
    "quote": "JPY",
-   "as_of": "2026-09-04",
-   "fund": 21.93,
-   "banda": "NEUTRAL",
-   "dias_na_banda": 5,
+   "as_of": "2026-09-08",
+   "fund": -35.62,
+   "banda": "BEAR",
+   "dias_na_banda": 1,
    "causa_dominante": {
     "perna": "CAD",
     "sentido": "rose",
-    "bp_5d": 20.1,
-    "sigmas_5d": 4.5,
-    "bp_1d": 12.1,
-    "bp_20d": 31.1,
-    "yield": 3.131,
+    "bp_5d": 17.3,
+    "sigmas_5d": 3.9,
+    "bp_1d": 9.3,
+    "bp_20d": 28.3,
+    "yield": 3.103,
     "banco_central": "Bank of Canada",
     "bc_url": "https://www.bankofcanada.ca/press/press-releases/",
     "fonte": "Bank of Canada benchmark 2Y",
     "fonte_url": "https://www.bankofcanada.ca/rates/interest-rates/lookup-bond-yields/",
-    "lido_em": "2026-09-03",
-    "frase": "The CAD leg moved: CAD 2y rose 20.1 bp over 5 sessions (4.5 sigma).",
+    "lido_em": "2026-09-07",
+    "frase": "The CAD leg moved: CAD 2y rose 17.3 bp over 5 sessions (3.9 sigma).",
     "evento_identificado": null,
     "interpretacao": null,
     "evidencia_contraria": null,
     "conclusao": "not identified — this is the component that moved, not the reason it moved"
    },
    "conviccao_fundamental": {
-    "estado": "contradictory",
-    "nivel": 1.281,
-    "momento_bp": -3.2,
-    "porque": "Level and 20-session momentum disagree: differential at 1.28 pp but moving -3.2 bp the other way — the standing level is being eroded."
+    "estado": "partial",
+    "nivel": 1.254,
+    "momento_bp": -0.1,
+    "porque": "Level favours CAD (1.25 pp) but the differential is not moving (-0.1 bp in 20 sessions): a standing level, not a live revision."
    },
    "saude_da_tese": {
     "estado": "strengthening",
-    "delta_5d_bp": 3.6,
-    "porque": "Differential widened +3.6 bp in 5 sessions, in the same direction as the level.",
-    "invalidaria": "The differential crossing zero, or giving back 50% of the move that created the thesis. Today it sits at 1.28 pp."
+    "delta_5d_bp": 4.3,
+    "porque": "Differential widened +4.3 bp in 5 sessions, in the same direction as the level.",
+    "invalidaria": "The differential crossing zero, or giving back 50% of the move that created the thesis. Today it sits at 1.25 pp."
    },
    "confirmacao_de_mercado": {
     "estado": "not assessed",
@@ -2159,64 +2368,62 @@
    },
    "evidencia": [
     {
-     "quando": "2026-09-03 23:30",
+     "quando": "2026-09-07 23:30",
      "moeda": "JPY",
-     "titulo": "Household Spending y/y",
+     "titulo": "Average Cash Earnings y/y",
      "impacto": "Low",
      "fonte": "forexfactory",
-     "url": "https://www.forexfactory.com/calendar/359-jn-household-spending-yy"
+     "url": "https://www.forexfactory.com/calendar/181-jn-average-cash-earnings-yy"
     },
     {
-     "quando": "2026-09-04 12:30",
-     "moeda": "CAD",
-     "titulo": "Employment Change",
-     "impacto": "High",
+     "quando": "2026-09-07 23:50",
+     "moeda": "JPY",
+     "titulo": "Bank Lending y/y",
+     "impacto": "Low",
      "fonte": "forexfactory",
-     "url": "https://www.forexfactory.com/calendar/67-ca-employment-change"
+     "url": "https://www.forexfactory.com/calendar/388-jn-bank-lending-yy"
     },
     {
-     "quando": "2026-09-04 12:30",
-     "moeda": "CAD",
-     "titulo": "Unemployment Rate",
-     "impacto": "High",
+     "quando": "2026-09-07 23:50",
+     "moeda": "JPY",
+     "titulo": "Current Account",
+     "impacto": "Low",
      "fonte": "forexfactory",
-     "url": "https://www.forexfactory.com/calendar/57-ca-unemployment-rate"
+     "url": "https://www.forexfactory.com/calendar/217-jn-current-account"
     },
     {
-     "quando": "2026-09-04 14:00",
-     "moeda": "CAD",
-     "titulo": "Ivey PMI",
-     "impacto": "Medium",
+     "quando": "2026-09-07 23:50",
+     "moeda": "JPY",
+     "titulo": "Final GDP Price Index y/y",
+     "impacto": "Low",
      "fonte": "forexfactory",
-     "url": "https://www.forexfactory.com/calendar/254-ca-ivey-pmi"
+     "url": "https://www.forexfactory.com/calendar/44-jn-final-gdp-price-index-yy"
     }
    ],
-   "contradiz": [
-    "Level and 20-session momentum disagree: differential at 1.28 pp but moving -3.2 bp the other way — the standing level is being eroded."
-   ]
+   "contradiz": null
   },
   "CHFJPY": {
    "par": "CHFJPY",
    "base": "CHF",
    "quote": "JPY",
-   "as_of": "2026-09-04",
-   "fund": -62.53,
-   "banda": "STRONG_BEAR",
-   "dias_na_banda": 1,
+   "as_of": "2026-09-08",
+   "fund": -47.87,
+   "banda": "BEAR",
+   "dias_na_banda": 3,
    "causa_dominante": {
     "perna": "JPY",
     "sentido": "rose",
-    "bp_5d": 16.5,
-    "sigmas_5d": 9.1,
-    "bp_1d": 13.1,
-    "bp_20d": 34.3,
-    "yield": 1.85,
+    "bp_5d": 13.0,
+    "sigmas_5d": 7.6,
+    "bp_1d": -0.1,
+    "bp_20d": 28.4,
+    "yield": 1.849,
     "banco_central": "Bank of Japan",
     "bc_url": "https://www.boj.or.jp/en/announcements/index.htm",
     "fonte": "Japan MoF JGB 2Y",
     "fonte_url": "https://www.mof.go.jp/english/policy/jgbs/reference/interest_rate/",
-    "lido_em": "2026-09-03",
-    "frase": "The JPY leg moved: JPY 2y rose 16.5 bp over 5 sessions (9.1 sigma).",
+    "lido_em": "2026-09-07",
+    "frase": "The JPY leg moved: JPY 2y rose 13.0 bp over 5 sessions (7.6 sigma).",
     "evento_identificado": null,
     "interpretacao": null,
     "evidencia_contraria": null,
@@ -2224,15 +2431,15 @@
    },
    "conviccao_fundamental": {
     "estado": "coherent",
-    "nivel": -1.716,
-    "momento_bp": -29.6,
-    "porque": "Level and 20-session momentum point the same way: differential at -1.72 pp, moving -29.6 bp."
+    "nivel": -1.715,
+    "momento_bp": -19.9,
+    "porque": "Level and 20-session momentum point the same way: differential at -1.71 pp, moving -19.9 bp."
    },
    "saude_da_tese": {
     "estado": "strengthening",
-    "delta_5d_bp": -7.3,
-    "porque": "Differential widened -7.3 bp in 5 sessions, in the same direction as the level.",
-    "invalidaria": "The differential crossing zero, or giving back 50% of the move that created the thesis. Today it sits at -1.72 pp."
+    "delta_5d_bp": -3.8,
+    "porque": "Differential widened -3.8 bp in 5 sessions, in the same direction as the level.",
+    "invalidaria": "The differential crossing zero, or giving back 50% of the move that created the thesis. Today it sits at -1.71 pp."
    },
    "confirmacao_de_mercado": {
     "estado": "not assessed",
@@ -2250,12 +2457,36 @@
    },
    "evidencia": [
     {
-     "quando": "2026-09-03 23:30",
+     "quando": "2026-09-07 23:30",
      "moeda": "JPY",
-     "titulo": "Household Spending y/y",
+     "titulo": "Average Cash Earnings y/y",
      "impacto": "Low",
      "fonte": "forexfactory",
-     "url": "https://www.forexfactory.com/calendar/359-jn-household-spending-yy"
+     "url": "https://www.forexfactory.com/calendar/181-jn-average-cash-earnings-yy"
+    },
+    {
+     "quando": "2026-09-07 23:50",
+     "moeda": "JPY",
+     "titulo": "Bank Lending y/y",
+     "impacto": "Low",
+     "fonte": "forexfactory",
+     "url": "https://www.forexfactory.com/calendar/388-jn-bank-lending-yy"
+    },
+    {
+     "quando": "2026-09-07 23:50",
+     "moeda": "JPY",
+     "titulo": "Current Account",
+     "impacto": "Low",
+     "fonte": "forexfactory",
+     "url": "https://www.forexfactory.com/calendar/217-jn-current-account"
+    },
+    {
+     "quando": "2026-09-07 23:50",
+     "moeda": "JPY",
+     "titulo": "Final GDP Price Index y/y",
+     "impacto": "Low",
+     "fonte": "forexfactory",
+     "url": "https://www.forexfactory.com/calendar/44-jn-final-gdp-price-index-yy"
     }
    ],
    "contradiz": null
