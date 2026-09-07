@@ -1,0 +1,31 @@
+{
+ "agente": "geopolitica",
+ "versao_prompt": "geopolitica@v1",
+ "gerado_em": "2026-09-07T00:00:00+00:00",
+ "rodada_id": "geopolitica-semente-2026-09-07",
+ "entradas": {
+  "arquivo": "data/geopolitica.json",
+  "gerado_em": "2026-09-07T02:45:35.563824+00:00",
+  "n_itens": 1
+ },
+ "julgamentos": [],
+ "nao_julgados": [
+  {
+   "chave": "todas",
+   "porque": "SEMENTE do contrato: o agente `geopolitica` ainda não rodou nesta instalação."
+  },
+  {
+   "chave": "USD",
+   "porque": "a moeda não é coletada por data/geopolitica.json (só GBP, AUD, EUR, JPY, NZD, CAD, CHF)"
+  }
+ ],
+ "limites": [
+  "SEMENTE: nenhum julgamento foi feito; a primeira rodada do agente substitui este arquivo",
+  "não vota, selo experimental: volume de notícia não é direção (veto do dono, 05/set)",
+  "julga o JURO, não o câmbio; o canal de refúgio é FX e fica só no motivo",
+  "coleta de 07/set com 7 erros HTTP 429 e orçamento estourado antes do CAD: nenhuma moeda teve manchete própria",
+  "os mecanismos M1 (energia), M2 (crescimento) e M3 (já precificado?) são regras DECLARADAS e nunca medidas"
+ ],
+ "selo": "experimental — contexto, não vota",
+ "vota": false
+}

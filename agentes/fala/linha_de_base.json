@@ -1,0 +1,118 @@
+{
+ "gerado_em": "2026-09-07T20:33:48.857197+00:00",
+ "versao_regra": "leitor_falas v0.1 (05/set/2026) — regras PROVISÓRIAS, sem validação histórica",
+ "o_que_e": "linha de base do classificador POR REGRA (leitor_falas.py). E o numero que o agente `fala` tem de bater, e ele so CITA — nunca recalcula.",
+ "historico": {
+  "arquivo": "data/bis_discursos_historico.jsonl",
+  "n": 1319,
+  "amostra": "todas",
+  "corpo_disponivel": false,
+  "corpo_nota": "o historico guarda titulo e resumo_bis (linha bibliografica do BIS), nunca o corpo do discurso — o teto da entrada e baixo por construcao",
+  "tamanho_mediano_do_resumo": 174,
+  "vereditos": {
+   "indeterminado": 1315,
+   "corte": 3,
+   "alta": 1
+  },
+  "indeterminado_pct": 99.7,
+  "so_politica_monetaria": {
+   "n": 581,
+   "vereditos": {
+    "indeterminado": 580,
+    "alta": 1
+   },
+   "indeterminado_pct": 99.83
+  },
+  "por_moeda": {
+   "AUD": {
+    "indeterminado": 440
+   },
+   "CAD": {
+    "indeterminado": 45,
+    "alta": 1
+   },
+   "CHF": {
+    "indeterminado": 222,
+    "corte": 1
+   },
+   "EUR": {
+    "indeterminado": 119
+   },
+   "GBP": {
+    "indeterminado": 99
+   },
+   "JPY": {
+    "indeterminado": 82
+   },
+   "NZD": {
+    "indeterminado": 137
+   },
+   "USD": {
+    "indeterminado": 171,
+    "corte": 2
+   }
+  },
+  "os_que_sairam_com_direcao": [
+   {
+    "moeda": "CHF",
+    "orador": "Thomas Jordan",
+    "data": "2015-01-15",
+    "veredito": "corte",
+    "trecho": "The rationale for discontinuing the minimum exchange rate and lowering interest rates",
+    "link": "https://www.bis.org/speeches/20150116-rationale-discontinuing-minimum-exchange-rate-and-lowering-interest-rates"
+   },
+   {
+    "moeda": "CAD",
+    "orador": "Carolyn Rogers",
+    "data": "2023-11-09",
+    "veredito": "alta",
+    "trecho": "Financial stability in a world of higher interest rates",
+    "link": "https://www.bis.org/speeches/20231114-financial-stability-world-higher-interest-rates"
+   },
+   {
+    "moeda": "USD",
+    "orador": "Christopher J Waller",
+    "data": "2025-10-16",
+    "veredito": "corte",
+    "trecho": "Cutting rates in the face of conflicting data",
+    "link": "https://www.bis.org/speeches/20251110-cutting-rates-face-conflicting-data"
+   },
+   {
+    "moeda": "USD",
+    "orador": "Christopher J Waller",
+    "data": "2025-11-17",
+    "veredito": "corte",
+    "trecho": "The case for continuing rate cuts",
+    "link": "https://www.bis.org/speeches/20251120-case-continuing-rate-cuts"
+   }
+  ]
+ },
+ "vivos": [
+  {
+   "arquivo": "data/bc_discursos.json",
+   "gerado_em": "2026-09-07T20:33:08.541854+00:00",
+   "n_itens": 12,
+   "itens_sem_frase_extraida": 6,
+   "n_oradores": 11,
+   "vereditos": {
+    "indeterminado": 7,
+    "manutenção": 2,
+    "alta condicional": 1,
+    "alta": 1
+   },
+   "indeterminado_pct": 63.64
+  },
+  {
+   "arquivo": "data/bis_discursos.json",
+   "gerado_em": "2026-09-07T02:40:25.051740+00:00",
+   "n_itens": 3,
+   "itens_sem_frase_extraida": 2,
+   "n_oradores": 3,
+   "vereditos": {
+    "indeterminado": 2,
+    "alta": 1
+   },
+   "indeterminado_pct": 66.67
+  }
+ ]
+}

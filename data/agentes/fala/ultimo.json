@@ -1,0 +1,39 @@
+{
+ "agente": "fala",
+ "versao_prompt": "fala@v1",
+ "gerado_em": "2026-09-07T00:00:00+00:00",
+ "rodada_id": "fala-semente-2026-09-07",
+ "entradas": {
+  "arquivo": "data/bc_discursos.json",
+  "gerado_em": "2026-09-07T20:33:08.541854+00:00",
+  "n_itens": 15,
+  "arquivos": [
+   {
+    "arquivo": "data/bc_discursos.json",
+    "gerado_em": "2026-09-07T20:33:08.541854+00:00",
+    "n_itens": 12
+   },
+   {
+    "arquivo": "data/bis_discursos.json",
+    "gerado_em": "2026-09-07T02:40:25.051740+00:00",
+    "n_itens": 3
+   }
+  ]
+ },
+ "julgamentos": [],
+ "nao_julgados": [
+  {
+   "chave": "todas",
+   "porque": "SEMENTE do contrato: o agente `fala` ainda não rodou nesta instalação. Nenhum julgamento aqui — este arquivo existe para o site ter a forma certa para ler e para a sala aparecer vazia com a idade, nunca inventada."
+  }
+ ],
+ "limites": [
+  "SEMENTE: nenhum julgamento foi feito; a primeira rodada do agente substitui este arquivo",
+  "não vota: dimensão não validada só informa (lei do dono)",
+  "o corpo integral do discurso não está no JSON; o agente lê no máximo 5 frases pré-filtradas por item",
+  "linha de base da regra em 07/set/2026: 63,6% de indeterminado nos arquivos vivos e 99,7% nas 1.319 falas do histórico (agentes/fala/linha_de_base.json)",
+  "'entradas.arquivos' é acréscimo ao contrato: este agente lê dois arquivos, e 'entradas.arquivo' traz o principal"
+ ],
+ "selo": "experimental — contexto, não vota",
+ "vota": false
+}

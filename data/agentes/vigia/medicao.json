@@ -1,0 +1,687 @@
+{
+ "janela_h": 24,
+ "idade": [
+  {
+   "arquivo": "data/sentimento.json",
+   "cadeia": "macro-direction",
+   "cadencia_min": 15,
+   "tolerancia_min": 90,
+   "tolerancia_texto": "1 h 30 min",
+   "tolerancia_estado": "PROVISORIA — escolhida a mao em 07/set, sem amostra",
+   "por_que_esta_tolerancia": "e o arquivo que o painel le em primeiro lugar; velho aqui e painel velho",
+   "alimenta": "a leitura das 8 moedas e dos 28 pares que a tela mostra",
+   "gravidade_se_velho": "alta",
+   "campo_lido": "gerado_em",
+   "carimbo_literal": "2026-09-07T20:58:27.700271+00:00",
+   "carimbo_utc": "2026-09-07T20:58:27Z",
+   "idade_min": 30.1,
+   "idade_texto": "30 min",
+   "carimbo_sem_fuso": false,
+   "estado": "ok",
+   "observacao": null
+  },
+  {
+   "arquivo": "data/macro_eventos.json",
+   "cadeia": "macro-direction",
+   "cadencia_min": 15,
+   "tolerancia_min": 90,
+   "tolerancia_texto": "1 h 30 min",
+   "tolerancia_estado": "PROVISORIA — escolhida a mao em 07/set, sem amostra",
+   "por_que_esta_tolerancia": "uma das duas dimensoes que ainda votam sai daqui",
+   "alimenta": "o calendario interpretado, que alimenta a dimensao de dados (VOTA)",
+   "gravidade_se_velho": "alta",
+   "campo_lido": "gerado_em",
+   "carimbo_literal": "2026-09-07T20:57:24.828681+00:00",
+   "carimbo_utc": "2026-09-07T20:57:24Z",
+   "idade_min": 31.1,
+   "idade_texto": "31 min",
+   "carimbo_sem_fuso": false,
+   "estado": "ok",
+   "observacao": null
+  },
+  {
+   "arquivo": "data/calendario_resultado.json",
+   "cadeia": "macro-direction",
+   "cadencia_min": 15,
+   "tolerancia_min": 90,
+   "tolerancia_texto": "1 h 30 min",
+   "tolerancia_estado": "PROVISORIA — escolhida a mao em 07/set, sem amostra",
+   "por_que_esta_tolerancia": "e a fonte primaria da surpresa; e ela que muda quando o numero sai",
+   "alimenta": "divulgado, consenso e surpresa das 8 moedas (FXStreet)",
+   "gravidade_se_velho": "alta",
+   "campo_lido": "gerado_em",
+   "carimbo_literal": "2026-09-07T20:57:13.939862+00:00",
+   "carimbo_utc": "2026-09-07T20:57:13Z",
+   "idade_min": 31.3,
+   "idade_texto": "31 min",
+   "carimbo_sem_fuso": false,
+   "estado": "ok",
+   "observacao": null
+  },
+  {
+   "arquivo": "data/bancos_centrais.json",
+   "cadeia": "macro-direction",
+   "cadencia_min": 15,
+   "tolerancia_min": 90,
+   "tolerancia_texto": "1 h 30 min",
+   "tolerancia_estado": "PROVISORIA — escolhida a mao em 07/set, sem amostra",
+   "por_que_esta_tolerancia": "a segunda das duas dimensoes que votam",
+   "alimenta": "a dimensao de ciclo (VOTA): ultimo movimento e proxima reuniao",
+   "gravidade_se_velho": "alta",
+   "campo_lido": "gerado_em",
+   "carimbo_literal": "2026-09-07T20:57:24.202026+00:00",
+   "carimbo_utc": "2026-09-07T20:57:24Z",
+   "idade_min": 31.2,
+   "idade_texto": "31 min",
+   "carimbo_sem_fuso": false,
+   "estado": "ok",
+   "observacao": null
+  },
+  {
+   "arquivo": "data/eua_leitura.json",
+   "cadeia": "macro-direction",
+   "cadencia_min": 15,
+   "tolerancia_min": 180,
+   "tolerancia_texto": "3 h 00 min",
+   "tolerancia_estado": "PROVISORIA — escolhida a mao em 07/set, sem amostra",
+   "por_que_esta_tolerancia": "o script ja tem cache de 60 min por causa da cota de 25/dia do BLS",
+   "alimenta": "BLS (CPI, NFP, desemprego, salario) e o calendario do FOMC",
+   "gravidade_se_velho": "media",
+   "campo_lido": "gerado_em",
+   "carimbo_literal": "2026-09-07T20:48:59.740936+00:00",
+   "carimbo_utc": "2026-09-07T20:48:59Z",
+   "idade_min": 39.6,
+   "idade_texto": "40 min",
+   "carimbo_sem_fuso": false,
+   "estado": "ok",
+   "observacao": null
+  },
+  {
+   "arquivo": "data/bc_discursos.json",
+   "cadeia": "macro-direction",
+   "cadencia_min": 15,
+   "tolerancia_min": 180,
+   "tolerancia_texto": "3 h 00 min",
+   "tolerancia_estado": "PROVISORIA — escolhida a mao em 07/set, sem amostra",
+   "por_que_esta_tolerancia": "e contexto com selo de experimental; atraso nao muda leitura nenhuma",
+   "alimenta": "frases de postura dos bancos centrais — NAO VOTA desde 05/set",
+   "gravidade_se_velho": "media",
+   "campo_lido": "gerado_em",
+   "carimbo_literal": "2026-09-07T20:57:15.005328+00:00",
+   "carimbo_utc": "2026-09-07T20:57:15Z",
+   "idade_min": 31.3,
+   "idade_texto": "31 min",
+   "carimbo_sem_fuso": false,
+   "estado": "ok",
+   "observacao": null
+  },
+  {
+   "arquivo": "data/precificacao.json",
+   "cadeia": "macro-direction",
+   "cadencia_min": 15,
+   "tolerancia_min": 180,
+   "tolerancia_texto": "3 h 00 min",
+   "tolerancia_estado": "PROVISORIA — escolhida a mao em 07/set, sem amostra",
+   "por_que_esta_tolerancia": "nao entra no sentimento; e a coluna que o agente `divergencia` usa",
+   "alimenta": "o que o mercado paga pela proxima decisao — a coluna de comparacao",
+   "gravidade_se_velho": "media",
+   "campo_lido": "gerado_em",
+   "carimbo_literal": "2026-09-07T20:49:10Z",
+   "carimbo_utc": "2026-09-07T20:49:10Z",
+   "idade_min": 39.4,
+   "idade_texto": "39 min",
+   "carimbo_sem_fuso": false,
+   "estado": "ok",
+   "observacao": null
+  },
+  {
+   "arquivo": "data/noticias.json",
+   "cadeia": "macro-direction",
+   "cadencia_min": 15,
+   "tolerancia_min": 180,
+   "tolerancia_texto": "3 h 00 min",
+   "tolerancia_estado": "PROVISORIA — escolhida a mao em 07/set, sem amostra",
+   "por_que_esta_tolerancia": "manchete tem peso ZERO na hierarquia de falas; atraso e cosmetico",
+   "alimenta": "manchetes por moeda (Google News) — contexto, nao vota",
+   "gravidade_se_velho": "baixa",
+   "campo_lido": "gerado_em",
+   "carimbo_literal": "2026-09-07T20:57:49.435684+00:00",
+   "carimbo_utc": "2026-09-07T20:57:49Z",
+   "idade_min": 30.7,
+   "idade_texto": "31 min",
+   "carimbo_sem_fuso": false,
+   "estado": "ok",
+   "observacao": null
+  },
+  {
+   "arquivo": "data/geopolitica.json",
+   "cadeia": "macro-direction",
+   "cadencia_min": 15,
+   "tolerancia_min": 360,
+   "tolerancia_texto": "6 h 00 min",
+   "tolerancia_estado": "PROVISORIA — escolhida a mao em 07/set, sem amostra",
+   "por_que_esta_tolerancia": "o script tem cache de 3 h e carrega a rodada anterior por 24 h",
+   "alimenta": "GDELT — NAO VOTA desde 05/set (mede volume de noticia, nao direcao)",
+   "gravidade_se_velho": "baixa",
+   "campo_lido": "gerado_em",
+   "carimbo_literal": "2026-09-07T02:45:35.563824+00:00",
+   "carimbo_utc": "2026-09-07T02:45:35Z",
+   "idade_min": 1123.0,
+   "idade_texto": "18 h 43 min",
+   "carimbo_sem_fuso": false,
+   "estado": "velho",
+   "observacao": null
+  },
+  {
+   "arquivo": "data/correlacao_juros.json",
+   "cadeia": "macro-direction",
+   "cadencia_min": 15,
+   "tolerancia_min": 1800,
+   "tolerancia_texto": "30 h 00 min",
+   "tolerancia_estado": "PROVISORIA — escolhida a mao em 07/set, sem amostra",
+   "por_que_esta_tolerancia": "dado DIARIO com cache de 20 h dentro do script; 30 h e o cache + folga",
+   "alimenta": "juro americano x NQ/ES/ouro, 5 anos diarios",
+   "gravidade_se_velho": "baixa",
+   "campo_lido": "gerado_em",
+   "carimbo_literal": "2026-09-07T20:49:36.483132+00:00",
+   "carimbo_utc": "2026-09-07T20:49:36Z",
+   "idade_min": 39.0,
+   "idade_texto": "39 min",
+   "carimbo_sem_fuso": false,
+   "estado": "ok",
+   "observacao": null
+  },
+  {
+   "arquivo": "data/frescor.json",
+   "cadeia": "cadeia-2x-dia",
+   "cadencia_min": 720,
+   "tolerancia_min": 1080,
+   "tolerancia_texto": "18 h 00 min",
+   "tolerancia_estado": "PROVISORIA — escolhida a mao em 07/set, sem amostra",
+   "por_que_esta_tolerancia": "a guarda roda 2x/dia; 18 h ja e um ciclo e meio perdido",
+   "alimenta": "o relatorio da guarda de frescor das fontes brutas",
+   "gravidade_se_velho": "alta",
+   "campo_lido": "gerado_em",
+   "carimbo_literal": "2026-09-07 16:41",
+   "carimbo_utc": "2026-09-07T16:41:00Z",
+   "idade_min": 287.6,
+   "idade_texto": "4 h 48 min",
+   "carimbo_sem_fuso": true,
+   "estado": "ok",
+   "observacao": "carimbo sem fuso: lido como UTC. Se este arquivo foi escrito na maquina do dono (BRT), a idade esta superestimada em ate 3 h."
+  },
+  {
+   "arquivo": "data/yields.json",
+   "cadeia": "cadeia-2x-dia",
+   "cadencia_min": 720,
+   "tolerancia_min": 1080,
+   "tolerancia_texto": "18 h 00 min",
+   "tolerancia_estado": "PROVISORIA — escolhida a mao em 07/set, sem amostra",
+   "por_que_esta_tolerancia": "curva de juro e D+1 por natureza; 2x/dia basta e 18 h e a folga",
+   "alimenta": "as curvas oficiais de 2 anos das 8 moedas",
+   "gravidade_se_velho": "media",
+   "campo_lido": "meta.generated_at",
+   "carimbo_literal": "2026-09-07T19:49:32+00:00",
+   "carimbo_utc": "2026-09-07T19:49:32Z",
+   "idade_min": 99.0,
+   "idade_texto": "1 h 39 min",
+   "carimbo_sem_fuso": false,
+   "estado": "ok",
+   "observacao": null
+  },
+  {
+   "arquivo": "data/fund_snapshot.json",
+   "cadeia": "cadeia-2x-dia",
+   "cadencia_min": 720,
+   "tolerancia_min": 1080,
+   "tolerancia_texto": "18 h 00 min",
+   "tolerancia_estado": "PROVISORIA — escolhida a mao em 07/set, sem amostra",
+   "por_que_esta_tolerancia": "mesma cadeia da curva de juro",
+   "alimenta": "o snapshot do FUND (8 moedas, 28 pares)",
+   "gravidade_se_velho": "media",
+   "campo_lido": "meta.generated_at",
+   "carimbo_literal": "2026-09-07T13:41:26-03:00",
+   "carimbo_utc": "2026-09-07T16:41:26Z",
+   "idade_min": 287.1,
+   "idade_texto": "4 h 47 min",
+   "carimbo_sem_fuso": false,
+   "estado": "ok",
+   "observacao": null
+  },
+  {
+   "arquivo": "data/juros_vs_cambio.json",
+   "cadeia": "cadeia-2x-dia",
+   "cadencia_min": 720,
+   "tolerancia_min": 1800,
+   "tolerancia_texto": "30 h 00 min",
+   "tolerancia_estado": "PROVISORIA — escolhida a mao em 07/set, sem amostra",
+   "por_que_esta_tolerancia": "roda com `|| echo ... segue`: falhar aqui nunca derruba a cadeia",
+   "alimenta": "juro x cambio por par",
+   "gravidade_se_velho": "baixa",
+   "campo_lido": "gerado_em",
+   "carimbo_literal": "2026-09-07 16:41",
+   "carimbo_utc": "2026-09-07T16:41:00Z",
+   "idade_min": 287.6,
+   "idade_texto": "4 h 48 min",
+   "carimbo_sem_fuso": true,
+   "estado": "ok",
+   "observacao": "carimbo sem fuso: lido como UTC. Se este arquivo foi escrito na maquina do dono (BRT), a idade esta superestimada em ate 3 h."
+  },
+  {
+   "arquivo": "data/bis_discursos.json",
+   "cadeia": "cadeia-2x-dia",
+   "cadencia_min": 720,
+   "tolerancia_min": 1800,
+   "tolerancia_texto": "30 h 00 min",
+   "tolerancia_estado": "PROVISORIA — escolhida a mao em 07/set, sem amostra",
+   "por_que_esta_tolerancia": "e arquivo HISTORICO e o proprio BIS publica com dias de defasagem",
+   "alimenta": "1.319 falas do arquivo do BIS, 2009-2026 — amostra de validacao",
+   "gravidade_se_velho": "baixa",
+   "campo_lido": "gerado_em",
+   "carimbo_literal": "2026-09-07T02:40:25.051740+00:00",
+   "carimbo_utc": "2026-09-07T02:40:25Z",
+   "idade_min": 1128.1,
+   "idade_texto": "18 h 48 min",
+   "carimbo_sem_fuso": false,
+   "estado": "ok",
+   "observacao": null
+  }
+ ],
+ "execucoes": {
+  "janela_h": 24,
+  "janela_de": "2026-09-06T21:28Z",
+  "janela_ate": "2026-09-07T21:28Z",
+  "fonte": "https://api.github.com/repos/yeIIoe/hci-fund-radar/actions/runs (API publica, sem chave)",
+  "erro": null,
+  "workflows": [
+   {
+    "workflow": "nowcast-1h",
+    "path": ".github/workflows/nowcast.yml",
+    "crons": [
+     "7 * * * *"
+    ],
+    "teto_min": 10,
+    "tem_agenda": true,
+    "deveria": 24,
+    "rodou_agendadas": 5,
+    "rodou_outras": 0,
+    "sucesso": 5,
+    "falhou": 0,
+    "cancelou": 0,
+    "estourou_teto": 0,
+    "em_andamento": 0,
+    "ruins": []
+   },
+   {
+    "workflow": "macro-direction",
+    "path": ".github/workflows/macro_direction.yml",
+    "crons": [
+     "37 */3 * * *"
+    ],
+    "teto_min": 20,
+    "tem_agenda": true,
+    "deveria": 8,
+    "rodou_agendadas": 6,
+    "rodou_outras": 0,
+    "sucesso": 2,
+    "falhou": 0,
+    "cancelou": 4,
+    "estourou_teto": 0,
+    "em_andamento": 0,
+    "ruins": [
+     {
+      "id": 34151494850,
+      "conclusao": "cancelled",
+      "evento": "schedule",
+      "criado_em": "2026-09-07T18:24:25Z",
+      "url": "https://github.com/yeIIoe/hci-fund-radar/actions/runs/34151494850",
+      "tentativa": 1
+     },
+     {
+      "id": 34128756971,
+      "conclusao": "cancelled",
+      "evento": "schedule",
+      "criado_em": "2026-09-07T13:41:00Z",
+      "url": "https://github.com/yeIIoe/hci-fund-radar/actions/runs/34128756971",
+      "tentativa": 1
+     },
+     {
+      "id": 34095990810,
+      "conclusao": "cancelled",
+      "evento": "schedule",
+      "criado_em": "2026-09-07T07:32:47Z",
+      "url": "https://github.com/yeIIoe/hci-fund-radar/actions/runs/34095990810",
+      "tentativa": 1
+     },
+     {
+      "id": 34068119120,
+      "conclusao": "cancelled",
+      "evento": "schedule",
+      "criado_em": "2026-09-06T23:53:08Z",
+      "url": "https://github.com/yeIIoe/hci-fund-radar/actions/runs/34068119120",
+      "tentativa": 1
+     }
+    ]
+   },
+   {
+    "workflow": "cadeia-2x-dia",
+    "path": ".github/workflows/cadeia.yml",
+    "crons": [
+     "35 7 * * *",
+     "35 11 * * *"
+    ],
+    "teto_min": 30,
+    "tem_agenda": true,
+    "deveria": 2,
+    "rodou_agendadas": 2,
+    "rodou_outras": 0,
+    "sucesso": 2,
+    "falhou": 0,
+    "cancelou": 0,
+    "estourou_teto": 0,
+    "em_andamento": 0,
+    "ruins": []
+   },
+   {
+    "workflow": "macro",
+    "path": ".github/workflows/macro.yml",
+    "crons": [
+     "0 15 * * 1-5",
+     "30 22 * * 5"
+    ],
+    "teto_min": 25,
+    "tem_agenda": true,
+    "deveria": 1,
+    "rodou_agendadas": 1,
+    "rodou_outras": 0,
+    "sucesso": 1,
+    "falhou": 0,
+    "cancelou": 0,
+    "estourou_teto": 0,
+    "em_andamento": 0,
+    "ruins": []
+   },
+   {
+    "workflow": "sentinela-equities",
+    "path": ".github/workflows/sentinela.yml",
+    "crons": [
+     "0 12 * * 1-5",
+     "30 21 * * 1-5"
+    ],
+    "teto_min": 20,
+    "tem_agenda": true,
+    "deveria": 1,
+    "rodou_agendadas": 1,
+    "rodou_outras": 0,
+    "sucesso": 1,
+    "falhou": 0,
+    "cancelou": 0,
+    "estourou_teto": 0,
+    "em_andamento": 0,
+    "ruins": []
+   },
+   {
+    "workflow": "equities-research",
+    "path": ".github/workflows/equities.yml",
+    "crons": [
+     "40 21 * * 1-5"
+    ],
+    "teto_min": 20,
+    "tem_agenda": true,
+    "deveria": 0,
+    "rodou_agendadas": 0,
+    "rodou_outras": 0,
+    "sucesso": 0,
+    "falhou": 0,
+    "cancelou": 0,
+    "estourou_teto": 0,
+    "em_andamento": 0,
+    "ruins": []
+   },
+   {
+    "workflow": "pages",
+    "path": ".github/workflows/pages.yml",
+    "crons": [],
+    "teto_min": null,
+    "tem_agenda": false,
+    "deveria": 0,
+    "rodou_agendadas": 0,
+    "rodou_outras": 25,
+    "sucesso": 24,
+    "falhou": 0,
+    "cancelou": 1,
+    "estourou_teto": 0,
+    "em_andamento": 0,
+    "ruins": [
+     {
+      "id": 34161728849,
+      "conclusao": "cancelled",
+      "evento": "push",
+      "criado_em": "2026-09-07T21:03:48Z",
+      "url": "https://github.com/yeIIoe/hci-fund-radar/actions/runs/34161728849",
+      "tentativa": 1
+     }
+    ]
+   }
+  ]
+ },
+ "passos_pulados": {
+  "consultadas": 5,
+  "teto_consultas": 8,
+  "achados": [
+   {
+    "workflow": "pages",
+    "execucao_id": 34161728849,
+    "conclusao_execucao": "cancelled",
+    "criado_em": "2026-09-07T21:03:48Z",
+    "url": "https://github.com/yeIIoe/hci-fund-radar/actions/runs/34161728849",
+    "job": "build",
+    "duracao_min": 0.3,
+    "teto_min": null,
+    "bateu_no_teto": false,
+    "parou_no_passo": null,
+    "ultimo_passo_ok": "Run actions/upload-pages-artifact@v3",
+    "passos_pulados": [],
+    "essenciais_pulados": []
+   },
+   {
+    "workflow": "pages",
+    "execucao_id": 34161728849,
+    "conclusao_execucao": "cancelled",
+    "criado_em": "2026-09-07T21:03:48Z",
+    "url": "https://github.com/yeIIoe/hci-fund-radar/actions/runs/34161728849",
+    "job": "deploy",
+    "duracao_min": 0.0,
+    "teto_min": null,
+    "bateu_no_teto": false,
+    "parou_no_passo": null,
+    "ultimo_passo_ok": null,
+    "passos_pulados": [],
+    "essenciais_pulados": []
+   },
+   {
+    "workflow": "macro-direction",
+    "execucao_id": 34151494850,
+    "conclusao_execucao": "cancelled",
+    "criado_em": "2026-09-07T18:24:25Z",
+    "url": "https://github.com/yeIIoe/hci-fund-radar/actions/runs/34151494850",
+    "job": "atualiza",
+    "duracao_min": 15.2,
+    "teto_min": 20,
+    "bateu_no_teto": false,
+    "parou_no_passo": "geopolitica (GDELT)",
+    "ultimo_passo_ok": "noticias por moeda (Google News)",
+    "passos_pulados": [
+     "sentimento (moeda e par)",
+     "registro imutavel (snapshot dos pares)",
+     "commita se mudou"
+    ],
+    "essenciais_pulados": [
+     {
+      "passo": "sentimento (moeda e par)",
+      "custo": "sem ele a leitura das 8 moedas e dos 28 pares nao e recalculada"
+     },
+     {
+      "passo": "registro imutavel (snapshot dos pares)",
+      "custo": "sem ele a serie de snapshots perde a linha daquele instante"
+     },
+     {
+      "passo": "commita se mudou",
+      "custo": "sem ele nada do que foi medido chega ao site"
+     }
+    ]
+   },
+   {
+    "workflow": "macro-direction",
+    "execucao_id": 34128756971,
+    "conclusao_execucao": "cancelled",
+    "criado_em": "2026-09-07T13:41:00Z",
+    "url": "https://github.com/yeIIoe/hci-fund-radar/actions/runs/34128756971",
+    "job": "atualiza",
+    "duracao_min": 15.3,
+    "teto_min": 20,
+    "bateu_no_teto": false,
+    "parou_no_passo": "geopolitica (GDELT)",
+    "ultimo_passo_ok": "noticias por moeda (Google News)",
+    "passos_pulados": [
+     "sentimento (moeda e par)",
+     "registro imutavel (snapshot dos pares)",
+     "commita se mudou"
+    ],
+    "essenciais_pulados": [
+     {
+      "passo": "sentimento (moeda e par)",
+      "custo": "sem ele a leitura das 8 moedas e dos 28 pares nao e recalculada"
+     },
+     {
+      "passo": "registro imutavel (snapshot dos pares)",
+      "custo": "sem ele a serie de snapshots perde a linha daquele instante"
+     },
+     {
+      "passo": "commita se mudou",
+      "custo": "sem ele nada do que foi medido chega ao site"
+     }
+    ]
+   },
+   {
+    "workflow": "macro-direction",
+    "execucao_id": 34095990810,
+    "conclusao_execucao": "cancelled",
+    "criado_em": "2026-09-07T07:32:47Z",
+    "url": "https://github.com/yeIIoe/hci-fund-radar/actions/runs/34095990810",
+    "job": "atualiza",
+    "duracao_min": 15.2,
+    "teto_min": 20,
+    "bateu_no_teto": false,
+    "parou_no_passo": "geopolitica (GDELT)",
+    "ultimo_passo_ok": "noticias por moeda (Google News)",
+    "passos_pulados": [
+     "sentimento (moeda e par)",
+     "registro imutavel (snapshot dos pares)",
+     "commita se mudou"
+    ],
+    "essenciais_pulados": [
+     {
+      "passo": "sentimento (moeda e par)",
+      "custo": "sem ele a leitura das 8 moedas e dos 28 pares nao e recalculada"
+     },
+     {
+      "passo": "registro imutavel (snapshot dos pares)",
+      "custo": "sem ele a serie de snapshots perde a linha daquele instante"
+     },
+     {
+      "passo": "commita se mudou",
+      "custo": "sem ele nada do que foi medido chega ao site"
+     }
+    ]
+   },
+   {
+    "workflow": "macro-direction",
+    "execucao_id": 34068119120,
+    "conclusao_execucao": "cancelled",
+    "criado_em": "2026-09-06T23:53:08Z",
+    "url": "https://github.com/yeIIoe/hci-fund-radar/actions/runs/34068119120",
+    "job": "atualiza",
+    "duracao_min": 15.2,
+    "teto_min": 20,
+    "bateu_no_teto": false,
+    "parou_no_passo": "geopolitica (GDELT)",
+    "ultimo_passo_ok": "noticias por moeda (Google News)",
+    "passos_pulados": [
+     "sentimento (moeda e par)",
+     "registro imutavel (snapshot dos pares)",
+     "commita se mudou"
+    ],
+    "essenciais_pulados": [
+     {
+      "passo": "sentimento (moeda e par)",
+      "custo": "sem ele a leitura das 8 moedas e dos 28 pares nao e recalculada"
+     },
+     {
+      "passo": "registro imutavel (snapshot dos pares)",
+      "custo": "sem ele a serie de snapshots perde a linha daquele instante"
+     },
+     {
+      "passo": "commita se mudou",
+      "custo": "sem ele nada do que foi medido chega ao site"
+     }
+    ]
+   }
+  ],
+  "erros": []
+ },
+ "frescor": {
+  "sentimento": {
+   "atraso_min": 1,
+   "atraso_texto": "1 min",
+   "estado": "ok",
+   "bloqueia_leitura": false,
+   "fonte_mais_velha": "bancos centrais",
+   "limiares_provisorios": {
+    "atrasado_min": 45,
+    "muito_atrasado_min": 120
+   },
+   "texto_do_painel": "Dados sincronizados há 1 min (07/09 17:57, BRT). Leituras válidas.",
+   "fontes_que_votam_atrasadas": []
+  },
+  "guarda": {
+   "gerado_em": "2026-09-07 16:41",
+   "carimbo_sem_fuso": true,
+   "idade_min": 287.6,
+   "idade_texto": "4 h 48 min",
+   "n_fontes": 22,
+   "fora_da_tolerancia": [],
+   "sem_data_legivel": [
+    "_APOSENTADOS.md",
+    "ust_cmt_2002.csv"
+   ]
+  }
+ },
+ "snapshots": {
+  "estado": "ok",
+  "por_dia": [
+   {
+    "dia": "2026-09-05",
+    "linhas": 330
+   },
+   {
+    "dia": "2026-09-06",
+    "linhas": 90
+   },
+   {
+    "dia": "2026-09-07",
+    "linhas": 54
+   }
+  ],
+  "dias_com_linha": 3,
+  "ultimo_dia_com_linha": "2026-09-07",
+  "dias_desde_ultima_linha": 0,
+  "linhas_hoje": 54,
+  "hoje_utc": "2026-09-07",
+  "hora_utc": 21,
+  "para_que_serve": "e a UNICA amostra que torna o backtest de 21/dez possivel: a leitura de hoje nao pode ser reconstruida amanha, porque a FXStreet e buscada ao vivo e as manchetes tem janela de 72 h"
+ },
+ "gerado_em": "2026-09-07T21:28:33Z",
+ "rodada_id": "vigia-20260907T2128Z",
+ "versao_codigo": "vigia.py@v1"
+}

@@ -412,8 +412,15 @@ def main():
                 vistos_link.add(it["link"])
                 c = classifica_origem(it["titulo"], it.get("resumo") or "", it["fonte"], moeda)
                 pal = palavras_de(it["titulo"], it["fonte"])
+                # 07/set, refutacao da camada 2: o `resumo` era COLETADO (linha 248), usado
+                # para classificar a origem (linha acima) e depois JOGADO FORA. Com isso o
+                # agente `noticia` so recebia titulo — e a lapide L-03 dele diz o contrario:
+                # "filtro e por FRASE, nunca por titulo" (caso Barr: titulo social, corpo com
+                # alta condicional). Sem esta linha, a lapide era inaplicavel por construcao.
+                # Fica truncado em 300 para nao inchar o JSON que a cadeia commita 12x/dia.
                 brutos_moeda.append({
                     "titulo": it["titulo"][:160], "fonte": it["fonte"][:40], "link": it["link"],
+                    "resumo": (it.get("resumo") or "")[:300],
                     "quando_utc": d.astimezone(dt.timezone.utc).isoformat(),
                     "classe": classifica(it["titulo"]),
                     "origem": c["origem"], "peso": c["peso"],
@@ -472,6 +479,11 @@ def main():
 
         saida[moeda] = {
             "itens": itens_saida, "n_72h": len(brutos_moeda), "n_unicos": len(unicos),
+            # 07/set, refutacao: o agente `noticia` tem de preencher `entradas.n_itens` e o
+            # PROMPT dele mandava "use o numero de itens que voce efetivamente leu" — o que
+            # obriga a IA a CONTAR, contrariando a linha dura ("voce nao calcula contagem")
+            # na propria secao 2 do mesmo prompt. Agora o numero vem medido daqui.
+            "n_gravados": len(itens_saida),
             "duplicatas_removidas": dupes,
             "contagem": cont,
             "contagem_nota": "CONTEXTO: conta todos os eventos unicos das 72 h. Nao e voto — "
@@ -532,6 +544,13 @@ def main():
                                 "rotulo": ROTULO_CONTEXTO,
                                 "nota": "sem fala de dirigente, a dimensao de texto destas moedas fica "
                                         "SEM VOTO — nao com voto fraco. Silencio nao e voto."},
+           # TOTAIS GLOBAIS (07/set): a camada 2 precisa de um total pronto para
+           # `entradas.n_itens`. Sem estes campos a IA teria de somar as oito moedas, e
+           # somar e calcular. n_gravados_total e o que o agente efetivamente le (os itens
+           # do topo de cada moeda); n_unicos_total e o universo depois da deduplicacao.
+           "n_gravados_total": sum(len(v["itens"]) for v in saida.values()),
+           "n_unicos_total": sum(v["n_unicos"] for v in saida.values()),
+           "n_72h_total": sum(v["n_72h"] for v in saida.values()),
            "moedas": saida, "erros": erros}
     os.makedirs(os.path.dirname(SAIDA), exist_ok=True)
     json.dump(rel, io.open(SAIDA, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
