@@ -1,46 +1,26 @@
 {
  "meta": {
-  "generated_at": "2026-09-07T13:39:12+00:00",
+  "generated_at": "2026-09-07T15:46:26+00:00",
   "note": "Official sovereign 2-year curves. Each central bank publishes on its own schedule — this is not a live feed and never can be from these sources. Every card shows how many business days old its reading is.",
   "window": 252
  },
  "currencies": [
   {
    "currency": "AUD",
-   "yield": 4.821,
+   "yield": 4.82,
    "as_of": "2026-09-07",
    "stale_days": 0,
-   "d1": 20.2,
-   "d5": 27.7,
-   "d20": 26.2,
-   "sigma_bp": 4.66,
-   "z1": 4.34,
+   "d1": -1.1,
+   "d5": 13.6,
+   "d20": 31.5,
+   "sigma_bp": 4.53,
+   "z1": -0.24,
    "cadence": "weekly",
    "source": "RBA F2 Australian Government 2Y",
    "source_url": "https://www.rba.gov.au/statistics/tables/",
    "central_bank": "Reserve Bank of Australia",
    "central_bank_url": "https://www.rba.gov.au/media-releases/",
    "history": [
-    {
-     "d": "2025-08-29",
-     "y": 3.333
-    },
-    {
-     "d": "2025-09-01",
-     "y": 3.342
-    },
-    {
-     "d": "2025-09-02",
-     "y": 3.373
-    },
-    {
-     "d": "2025-09-03",
-     "y": 3.435
-    },
-    {
-     "d": "2025-09-04",
-     "y": 3.4
-    },
     {
      "d": "2025-09-05",
      "y": 3.396
@@ -1026,21 +1006,41 @@
      "y": 4.619
     },
     {
+     "d": "2026-08-27",
+     "y": 4.684
+    },
+    {
+     "d": "2026-08-28",
+     "y": 4.673
+    },
+    {
+     "d": "2026-08-31",
+     "y": 4.677
+    },
+    {
+     "d": "2026-09-01",
+     "y": 4.734
+    },
+    {
+     "d": "2026-09-02",
+     "y": 4.831
+    },
+    {
      "d": "2026-09-07",
-     "y": 4.821
+     "y": 4.82
     }
    ]
   },
   {
    "currency": "GBP",
-   "yield": 4.5544,
+   "yield": 4.5721,
    "as_of": "2026-09-07",
    "stale_days": 0,
-   "d1": 23.5,
-   "d5": 26.1,
-   "d20": 34.2,
-   "sigma_bp": 5.43,
-   "z1": 4.32,
+   "d1": 25.3,
+   "d5": 27.9,
+   "d20": 36.0,
+   "sigma_bp": 5.47,
+   "z1": 4.63,
    "cadence": "daily",
    "source": "Bank of England 2Y spot curve",
    "source_url": "https://www.bankofengland.co.uk/statistics/yield-curves",
@@ -2053,7 +2053,7 @@
     },
     {
      "d": "2026-09-07",
-     "y": 4.5544
+     "y": 4.5721
     }
    ]
   },
@@ -4114,25 +4114,17 @@
    "yield": 3.103,
    "as_of": "2026-09-07",
    "stale_days": 0,
-   "d1": 9.3,
-   "d5": 17.3,
-   "d20": 28.3,
+   "d1": 0.3,
+   "d5": 9.3,
+   "d20": 14.3,
    "sigma_bp": 4.41,
-   "z1": 2.11,
+   "z1": 0.07,
    "cadence": "daily",
    "source": "Bank of Canada benchmark 2Y",
    "source_url": "https://www.bankofcanada.ca/rates/interest-rates/lookup-bond-yields/",
    "central_bank": "Bank of Canada",
    "central_bank_url": "https://www.bankofcanada.ca/press/press-releases/",
    "history": [
-    {
-     "d": "2025-08-29",
-     "y": 2.64
-    },
-    {
-     "d": "2025-09-02",
-     "y": 2.66
-    },
     {
      "d": "2025-09-03",
      "y": 2.62
@@ -5130,6 +5122,14 @@
      "y": 3.01
     },
     {
+     "d": "2026-09-02",
+     "y": 3.11
+    },
+    {
+     "d": "2026-09-03",
+     "y": 3.1
+    },
+    {
      "d": "2026-09-07",
      "y": 3.103
     }
@@ -5137,28 +5137,20 @@
   },
   {
    "currency": "EUR",
-   "yield": 2.9743,
+   "yield": 2.9921,
    "as_of": "2026-09-07",
    "stale_days": 0,
-   "d1": 6.1,
-   "d5": 18.9,
-   "d20": 30.2,
-   "sigma_bp": 3.62,
-   "z1": 1.68,
+   "d1": 11.5,
+   "d5": 13.6,
+   "d20": 27.1,
+   "sigma_bp": 3.68,
+   "z1": 3.13,
    "cadence": "daily",
    "source": "ECB AAA 2Y spot",
    "source_url": "https://data.ecb.europa.eu/data/datasets/YC",
    "central_bank": "European Central Bank",
    "central_bank_url": "https://www.ecb.europa.eu/press/pr/date/html/index.en.html",
    "history": [
-    {
-     "d": "2025-09-09",
-     "y": 1.9051
-    },
-    {
-     "d": "2025-09-10",
-     "y": 1.9142
-    },
     {
      "d": "2025-09-11",
      "y": 1.9532
@@ -6156,8 +6148,16 @@
      "y": 2.9132
     },
     {
+     "d": "2026-09-03",
+     "y": 2.8857
+    },
+    {
+     "d": "2026-09-04",
+     "y": 2.8766
+    },
+    {
      "d": "2026-09-07",
-     "y": 2.9743
+     "y": 2.9921
     }
    ]
   },
@@ -6166,21 +6166,17 @@
    "yield": 1.849,
    "as_of": "2026-09-07",
    "stale_days": 0,
-   "d1": -0.1,
-   "d5": 13.0,
-   "d20": 28.4,
-   "sigma_bp": 1.7,
-   "z1": -0.06,
+   "d1": 1.9,
+   "d5": 10.6,
+   "d20": 23.8,
+   "sigma_bp": 1.71,
+   "z1": 1.11,
    "cadence": "daily",
    "source": "Japan MoF JGB 2Y",
    "source_url": "https://www.mof.go.jp/english/policy/jgbs/reference/interest_rate/",
    "central_bank": "Bank of Japan",
    "central_bank_url": "https://www.boj.or.jp/en/announcements/index.htm",
    "history": [
-    {
-     "d": "2025-08-25",
-     "y": 0.869
-    },
     {
      "d": "2025-08-26",
      "y": 0.874
@@ -7182,6 +7178,10 @@
      "y": 1.85
     },
     {
+     "d": "2026-09-04",
+     "y": 1.83
+    },
+    {
      "d": "2026-09-07",
      "y": 1.849
     }
@@ -7189,28 +7189,20 @@
   },
   {
    "currency": "CHF",
-   "yield": 0.1341,
+   "yield": 0.1179,
    "as_of": "2026-09-07",
    "stale_days": 0,
-   "d1": 2.8,
-   "d5": 9.2,
-   "d20": 8.5,
-   "sigma_bp": 2.99,
-   "z1": 0.94,
+   "d1": -2.7,
+   "d5": 4.0,
+   "d20": 5.5,
+   "sigma_bp": 3.0,
+   "z1": -0.9,
    "cadence": "daily (business days), published D+1 ~08:30 CET",
    "source": "SNB Confederation NSS spot rate 2Y",
    "source_url": "https://data.snb.ch/en/warehouse/SNB1A/cube/SNB1A@SNB.NSS.KZS.EID",
    "central_bank": "Swiss National Bank",
    "central_bank_url": "https://www.snb.ch/en/the-snb/mandates-goals/monetary-policy",
    "history": [
-    {
-     "d": "2025-09-02",
-     "y": -0.113
-    },
-    {
-     "d": "2025-09-03",
-     "y": -0.13
-    },
     {
      "d": "2025-09-04",
      "y": -0.132
@@ -8208,8 +8200,16 @@
      "y": 0.106
     },
     {
+     "d": "2026-09-03",
+     "y": 0.152
+    },
+    {
+     "d": "2026-09-04",
+     "y": 0.145
+    },
+    {
      "d": "2026-09-07",
-     "y": 0.1341
+     "y": 0.1179
     }
    ]
   }
