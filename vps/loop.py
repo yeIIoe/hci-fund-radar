@@ -99,6 +99,13 @@ CADEIA_COMPLETA = [
     # 06/set: o workflow ganhou este passo e o loop nao tinha. Sem ele a serie de snapshots
     # (a base do backtest da conviccao historica) parava no dia em que o Actions fosse desligado.
     ("snapshot.py", 120),
+]
+
+# [07/set] A geopolitica saiu da cadeia principal e virou CADEIA TARDIA: ela roda DEPOIS de
+# o essencial ja ter sido publicado. Motivo medido nesta mesma tarde: com ela no meio, o
+# sentimento nascia as 20:56 e so ia para o ar as 21:07, porque a publicacao esperava a
+# rodada inteira. Ela nao vota desde 05/set — atrasar um ciclo nao muda leitura nenhuma.
+CADEIA_TARDIA = [
     ("geopolitica.py", 660),
 ]
 # Na fast lane so o calendario. O sentimento.py baixa 42 dias da FXStreet por conta propria:
@@ -499,7 +506,7 @@ def passada_seca() -> int:
     ok = True
     log.info("cadeia completa (a cada %d min):", INTERVALO_COMPLETA_S // 60)
     log.info("   feed de reserva FF -> %s", FF_ALVO)
-    for nome, t in list(CADEIA_COMPLETA) + list(CADEIA_DIARIA):
+    for nome, t in list(CADEIA_COMPLETA) + list(CADEIA_TARDIA) + list(CADEIA_DIARIA):
         existe = os.path.exists(os.path.join(RAIZ, nome))
         ok &= existe
         log.info("   %-24s timeout %4ds  %s", nome, t, "" if existe else "<<< NAO ENCONTRADO")
@@ -605,10 +612,17 @@ def loop_para_sempre() -> None:
                     log.info("cadeia DIARIA (primeira rodada de %s)", hoje)
                     roda_cadeia(CADEIA_DIARIA, com_feed=False)
                     _ULTIMO_DIA["bis"] = hoje
+                # PUBLICA O ESSENCIAL primeiro. Se a geopolitica travar ou a maquina cair
+                # agora, o painel ja esta no ar com a leitura desta rodada.
                 if fotografa() != antes:
                     publica("rodada completa")
                 else:
                     log.info("nada mudou nesta rodada")
+                # e so entao o que e caro e nao vota
+                antes_tardia = fotografa()
+                roda_cadeia(CADEIA_TARDIA, com_feed=False)
+                if fotografa() != antes_tardia:
+                    publica("cadeia tardia")
                 proxima_completa = inicio + dt.timedelta(seconds=INTERVALO_COMPLETA_S)
                 if proxima_completa < agora() + dt.timedelta(seconds=60):
                     proxima_completa = agora() + dt.timedelta(seconds=60)
