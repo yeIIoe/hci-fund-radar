@@ -47,7 +47,10 @@
       // 31-ago-2026: dizia "LIVE", e o texto educativo do painel diz que NAO ha feed ao
       // vivo de yield de 2 anos. O selo confundia atualizacao da PAGINA com atualizacao da
       // OBSERVACAO. Agora diz o que e: cotacao de mercado lida agora, nao a curva oficial.
-      selo.textContent = "market quote " + new Date().toLocaleTimeString();
+      selo.textContent = "cotação de mercado " + new Intl.DateTimeFormat("pt-BR", {
+        timeZone: "America/Sao_Paulo", day: "2-digit", month: "2-digit",
+        hour: "2-digit", minute: "2-digit"
+      }).format(new Date()) + " BRT";
       selo.classList.add("is-live");
     }
     card.classList.remove("is-stale", "is-aging");

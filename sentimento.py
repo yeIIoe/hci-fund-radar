@@ -1594,17 +1594,37 @@ def le_moeda(m, ev, bancos, discursos, agora, geo=None, noticias=None, futuros=N
     regime, regime_motivo = regime_do_banco(cc, dd, b)
     pev = proximo_evento_relevante(m, futuros or [], agora)
     nota_q = (qual or {}).get("nota")
-    if len(disponiveis) == 0:
+    # A direcao publicada precisa ser a mesma que a leitura formada pela MAGNITUDE. Antes,
+    # `direcao` guardava o vencedor da contagem de votos enquanto `leitura` vinha do sinal do
+    # score continuo. Num empate, isso fazia o USD aparecer inclinado ao corte e, ao mesmo
+    # tempo, marcar ciclo/MANTEM como a dimensao que "concordava". Preservamos o voto de
+    # maioria para auditoria, mas toda explicacao da tela passa a comparar com a leitura final.
+    direcao_voto_maioria = direcao
+    direcao_leitura = ("SOBE" if leitura == "inclinado_alta"
+                       else "CORTA" if leitura == "inclinado_corte"
+                       else "MANTEM")
+    direcao_formada = leitura in ("inclinado_alta", "inclinado_corte")
+    concordam_por_dimensao = {
+        k: bool(direcao_formada and v["direcao"] == direcao_leitura)
+        for k, v in disponiveis.items()
+    }
+    n_concordam_leitura = sum(concordam_por_dimensao.values())
+
+    if not disponiveis:
         concord_txt = "nenhuma dimensão vota"
+    elif not direcao_formada:
+        concord_txt = ("a dimensão disponível não forma direção" if len(disponiveis) == 1
+                       else "%d dimensões disponíveis; direção não formada" % len(disponiveis))
     elif len(disponiveis) == 1:
-        # portugues de gente: "1 de 1 dimensoes concordam" nao existe
-        concord_txt = ("a única dimensão que vota concorda" if concordam
+        concord_txt = ("a única dimensão que vota concorda" if n_concordam_leitura
                        else "a única dimensão que vota não fecha direção")
     else:
-        concord_txt = "%d de %d dimensões concordam" % (concordam, len(disponiveis))
+        concord_txt = "%d de %d dimensões concordam" % (
+            n_concordam_leitura, len(disponiveis))
 
     return {
-        "moeda": m, "direcao": direcao, "intensidade": intensidade,
+        "moeda": m, "direcao": direcao_leitura, "direcao_voto_maioria": direcao_voto_maioria,
+        "intensidade": intensidade,
         "score": score, "score_componentes": comp,
         "score_texto_se_votasse": texto_se_votasse,
         # TETO DA LEITURA = 0,25 por dimensao que VOTA. Sao duas (dados e ciclo) desde que a
@@ -1649,7 +1669,7 @@ def le_moeda(m, ev, bancos, discursos, agora, geo=None, noticias=None, futuros=N
         "dimensoes_ligadas": len(disponiveis), "dimensoes_total": len(dims),
         "dimensoes_que_votam": list(votantes),
         "dimensoes_que_nao_votam": {"texto": SELO_NAO_VOTA, "geo": "experimental"},
-        "concordam": {k: (v["direcao"] == direcao) for k, v in disponiveis.items()},
+        "concordam": concordam_por_dimensao,
         "dimensoes": dims,
         "qualidade_evidencia": qual,
         "familias_independentes": {"n": len(fams), "quais": sorted(fams)},

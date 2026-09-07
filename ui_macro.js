@@ -60,7 +60,7 @@
 
   const M = { bancos: null, eventos: null, eua: null, pronto: false,
               mes: new Date(), diaSel: null,
-              parSel: null, filtro: "tese", moedaSel: null, moedaCal: null, sent: null,
+              parSel: null, filtro: "prioridade", moedaSel: null, moedaCal: null, sent: null,
               menuAgrupado: false };
   const BRT = -3;
 
@@ -666,6 +666,7 @@
 
   function dimsChips(s) {
     const D = s.dimensoes || {};
+    const leituraFormada = s.leitura === "inclinado_alta" || s.leitura === "inclinado_corte";
     return `<span class="mac-dims">${["dados", "texto", "ciclo", "geo"].map((k) => {
       const v = D[k];
       const nome = k === "dados" ? "dados"
@@ -707,8 +708,10 @@
       const cls = !vota ? "exp"
                 : v.direcao === "SOBE" ? "d-alta"
                 : v.direcao === "CORTA" ? "d-corte" : "d-mantem";
-      const concordo = ok ? "concorda com a leitura da moeda" : "discorda da leitura da moeda";
-      return `<span class="mac-dim ${cls}${vota && !ok ? " discorda" : ""}" title="${esc(det + " · " + concordo)}">${nome} ${vota ? (ok ? "&#10003;" : "&#10007;") : "&#9679;"}
+      const concordo = !leituraFormada ? "dimensão disponível; a moeda ainda não formou direção"
+        : ok ? "concorda com a leitura da moeda" : "discorda da leitura da moeda";
+      const icone = !vota || !leituraFormada ? "&#9679;" : (ok ? "&#10003;" : "&#10007;");
+      return `<span class="mac-dim ${cls}${vota && leituraFormada && !ok ? " discorda" : ""}" title="${esc(det + " · " + concordo)}">${nome} ${icone}
         <small>${ROT_DIR_PT[v.direcao] || ""}</small>${selo}</span>`;
     }).join("")}</span>`;
   }
@@ -822,7 +825,13 @@
   // dirigente quando ha discurso ligado. O Eduardo pediu a conviccao "devido a x, y e z".
   function motivosPerna(m, s) {
     const D = s.dimensoes || {};
-    const top = ((D.dados || {}).principais || []).slice(0, 3);
+    const dados = D.dados || {};
+    const todos = (dados.principais || []).slice();
+    const sinalSaldo = Number(dados.soma || 0) > 0 ? 1 : Number(dados.soma || 0) < 0 ? -1 : 0;
+    const aFavor = todos.filter((x) => Math.sign(Number(x.contribuicao) || 0) === sinalSaldo);
+    const contra = todos.filter((x) => Math.sign(Number(x.contribuicao) || 0) === -sinalSaldo);
+    const top = [...aFavor.slice(0, 2), ...contra.slice(0, 1)];
+    todos.forEach((x) => { if (top.length < 3 && !top.includes(x)) top.push(x); });
     const ROT = { MUITO_ACIMA: "muito acima", MUITO_ABAIXO: "muito abaixo", EM_LINHA: "em linha" };
     const li = top.map((x) =>
       `<li><span class="muted mac-ref-td">${esc(diaMesBr(x.quando_utc))}</span>
@@ -851,7 +860,11 @@
       }
     }
     if (!li.length) return `<div class="mac-perna-linha muted"><small>nenhuma divulgação com consenso na janela</small></div>`;
-    return `<span class="mac-perna-papel" style="margin-top:10px">porque</span><ul class="mac-motivos">${li.join("")}</ul>`;
+    const saldo = sinalSaldo > 0 ? "inclina à alta" : sinalSaldo < 0 ? "inclina ao corte" : "não fecha direção";
+    const resumoDados = dados.n != null
+      ? `<p class="mac-saldo-dados"><b>Saldo da dimensão de dados:</b> ${saldo} · ${dados.n} divulgações ponderadas. A lista mostra forças a favor e contra.</p>`
+      : "";
+    return `<span class="mac-perna-papel" style="margin-top:10px">porque</span>${resumoDados}<ul class="mac-motivos">${li.join("")}</ul>`;
   }
 
   // bloco dentro do cartao da perna — (c) sem pontuacao; (h) tarja de dominancia; (j) origem do texto
@@ -918,8 +931,8 @@
     return Math.round(Number(v) || 0);
   }
 
-  const ROT_ESTADO = { sem_tese: "sem tese", observacao: "observação",
-                       moderada: "tese moderada", forte: "tese forte" };
+  const ROT_ESTADO = { sem_tese: "sem divergência útil", observacao: "divergência em observação",
+                       moderada: "divergência moderada", forte: "divergência alta" };
   const ACAO_ESTADO = { sem_tese: "nada a fazer", observacao: "apenas observar",
                         moderada: "aguardar BO + ZOI", forte: "aguardar BO + ZOI" };
   const CLS_ESTADO = { sem_tese: "e-sem", observacao: "e-obs", moderada: "e-mod", forte: "e-forte" };
@@ -964,17 +977,18 @@
     const s = d.s;
     const alvo = d.instr ? (d.par === "XAUUSD" ? "XAU/USD" : d.par) : (d.b + "/" + d.q);
     if (s && s.acao) return String(s.acao);
-    if (!d.tese) return "Sem tese";
+    if (!d.tese) return "Sem direção";
     if (s && s.sinal === "BULL") return "Compra " + alvo;
     if (s && s.sinal === "BEAR") return "Venda " + alvo;
-    return "Sem tese";
+    return "Sem direção";
   }
   // o verbo e a sigla, separados: o verbo manda, a sigla fica secundaria
   function acaoPartes(d) {
     const txt = acaoDe(d);
     if (txt === ACAO_SUSPENSA) return { verbo: txt, alvo: "", cls: "v-suspensa" };
     const m = /^(Compra|Venda)\s+(.+)$/.exec(txt);
-    if (m) return { verbo: m[1], alvo: m[2], cls: m[1] === "Compra" ? "v-bull" : "v-bear" };
+    if (m) return { verbo: m[1] === "Compra" ? "Viés de alta" : "Viés de queda",
+                    alvo: m[2], cls: m[1] === "Compra" ? "v-bull" : "v-bear" };
     return { verbo: txt, alvo: "", cls: "v-nao" };
   }
 
@@ -1023,12 +1037,34 @@
 
   const CLS_SINAL = { BULL: "v-bull", BEAR: "v-bear", SEM_TESE: "v-nao", "NAO NEGOCIA": "v-nao", SEM_DADO: "v-nao" };
 
+  function validadeLista(d) {
+    const riscos = [d.b, d.q].filter(Boolean).map((m) => {
+      const ev = eventoRelevante(m);
+      return ev ? { moeda: m, evento: ev.titulo, dias: ev.dias, brt: ev.brt } : null;
+    }).filter((x) => x && x.dias != null).sort((a, b) => a.dias - b.dias);
+    if (riscos.length) {
+      const r = riscos[0];
+      return { texto: r.dias < 0 ? "reavaliar agora" : `válido até ${r.brt || quandoTexto(r.dias)}`,
+               titulo: `${r.moeda} · ${tituloPt(r.evento)} — próximo evento relevante` };
+    }
+    const P = d.s && d.s.proximo_evento_invalidante;
+    if (P && (P.data || P.dias != null)) {
+      const dias = P.dias != null ? P.dias : diasAte(P.data);
+      return { texto: dias < 0 ? "reavaliar agora" : `válido até ${P.data ? diaMesBr(P.data) : quandoTexto(dias)}`,
+               titulo: `${P.moeda || ""} ${P.evento || "próxima decisão"} — limite disponível` };
+    }
+    return { texto: "validade sem data", titulo: "nenhum evento invalidante publicado" };
+  }
+
   // (f) A ACAO na frente, a sigla atras. (e) Mais contraste: o item nao selecionado tem
   // fundo e borda proprios — antes sumia no fundo da pagina.
   function itemLista(d) {
     const sel = d.par === M.parSel ? " mac-item-sel" : "";
     const a = acaoPartes(d);
     const est = d.estado || null;
+    const validade = validadeLista(d);
+    const mesma = d.s && Array.isArray(d.s.mesma_aposta) ? d.s.mesma_aposta.length : 0;
+    const dominante = d.s && d.s.perna_dominante && d.s.perna_dominante.moeda;
     // sem tese: o verbo ja diz "Sem tese", entao a etiqueta mostra so a divergencia — repetir
     // a mesma palavra duas vezes no mesmo item nao informa nada
     // LEI DO DONO: limiar novo e PROVISORIO e tem de estar rotulado como tal EM TODA PARTE.
@@ -1036,15 +1072,16 @@
     // detalhe): "tese moderada" aparecia sozinho, como se a faixa ja estivesse calibrada.
     const tag = d.s
       ? `<span class="mac-item-tag ${a.cls}" title="faixa provisória, ainda não calibrada por backtest">${
-          d.tese ? esc(est ? (ROT_ESTADO[est] || est) : "com tese") + " " : "divergência "
-          }<b>${d.conv}</b><small class="mac-de100">/100</small>${
-          est ? `<small class="mac-prov-mini">prov.</small>` : ""}</span>`
+          esc(est ? (ROT_ESTADO[est] || est) : "divergência") + " "
+          }<b>${d.conv}</b><small class="mac-de100">/100</small> · evid. <b>${d.qual == null ? "—" : d.qual}</b><small class="mac-de100">/100</small>${
+          est ? `<small class="mac-prov-mini"> · prov.</small>` : ""}</span>`
       : `<span class="mac-item-tag ${d.diverge ? "e-div" : "e-igual"}">${d.diverge ? "divergência" : "mesmo lado"}</span>`;
     return `<button type="button" class="mac-item${sel}${d.instr ? " mac-item-instr" : ""}${clsAtraso()}" data-mac-par="${d.par}">
       <span class="mac-item-acao ${a.cls}">${esc(a.verbo)}</span>
       <span class="mac-item-par">${d.instr ? d.rotulo : d.b + "<em>/</em>" + d.q}</span>
       ${tag}
-      <span class="mac-item-dias">${d.dias === null ? "sem data" : d.dias === 0 ? "decide hoje" : d.dias + "d"}</span>
+      <span class="mac-item-dias" title="${esc(validade.titulo)}">${esc(validade.texto)}</span>
+      ${mesma ? `<span class="mac-item-corr">mesma perna ${esc(dominante || "")} ×${mesma + 1}</span>` : ""}
     </button>`;
   }
 
@@ -1124,7 +1161,7 @@
     const pill = s
       ? `<span class="mac-det-leitura ${est ? CLS_ESTADO[est] : (CLS_SINAL[s.sinal] || "v-nao")}"
               title="faixa provisória, ainda não calibrada por backtest">${
-          est ? esc(ROT_ESTADO[est] || est) : (d.tese ? "com tese" : "sem tese")}${
+          est ? esc(ROT_ESTADO[est] || est) : (d.tese ? "com direção" : "sem divergência útil")}${
           est ? `<small class="mac-prov-mini">prov.</small>` : ""}</span>`
       : `<span class="mac-det-leitura ${d.diverge ? "e-div" : "e-igual"}">${d.diverge ? "DIVERGÊNCIA DE CICLO" : "MESMO LADO"}</span>`;
 
@@ -1302,7 +1339,7 @@
           <span class="mac-det-sigla">${d.rotulo}</span></h2>
         <span class="mac-det-leitura ${est ? CLS_ESTADO[est] : (CLS_SINAL[I.sinal] || "v-nao")}"
               title="faixa provisória, ainda não calibrada por backtest">${
-          est ? esc(ROT_ESTADO[est] || est) : (d.tese ? "com tese" : "sem tese")}${
+          est ? esc(ROT_ESTADO[est] || est) : (d.tese ? "com direção" : "sem divergência útil")}${
           est ? `<small class="mac-prov-mini">prov.</small>` : ""}</span>
         <span class="mac-det-dado ${velho ? "e-velho" : "e-fresco"}">${idade}</span>
       </div>
@@ -1321,7 +1358,7 @@
             <small>ainda não calibrada — precisa de backtest com amostra declarada</small></div>
         </div>
         <p class="mac-resumo-estado"><span class="mac-resumo-rot">Estado</span>
-          <b>${est ? esc(ROT_ESTADO[est] || est) : (d.tese ? "com tese" : "sem tese")}</b>${
+          <b>${est ? esc(ROT_ESTADO[est] || est) : (d.tese ? "com direção" : "sem divergência útil")}</b>${
             est && ACAO_ESTADO[est] ? ` — ${ACAO_ESTADO[est]}` : ""}
           <small class="mac-provisorio">faixas provisórias</small></p>
         ${tarjaAlerta(dominanciaDe("USD"), "mac-tarja-dom")}
@@ -1361,7 +1398,7 @@
     const forte = (s.perna_dominante && s.perna_dominante.moeda)
                 || (s.perna_motivo && s.perna_motivo !== "ambas" ? s.perna_motivo : null);
     const estado = d.estado || null;
-    const rotEstado = estado ? (ROT_ESTADO[estado] || estado) : (d.tese ? "com tese" : "sem tese");
+    const rotEstado = estado ? (ROT_ESTADO[estado] || estado) : (d.tese ? "com direção" : "sem divergência útil");
     const acaoEstado = estado ? (ACAO_ESTADO[estado] || "") : (d.tese ? "aguardar BO + ZOI" : "nada a fazer");
     const div = d.conv;
     const qual = d.qual;
@@ -1476,9 +1513,10 @@
    * ficam a um clique, em "Mostrar todos". Era a queixa do dono: 28 pares na tela, nenhum
    * marcado como sem tese, e a lista pedindo para operar tudo. */
   const FILTROS = [
-    { k: "tese", r: "Com tese", f: (d) => d.tese },
+    { k: "prioridade", r: "Prioridade agora", f: (d) => d.tese },
+    { k: "tese", r: "Com direção", f: (d) => d.tese },
     { k: "todos", r: "Mostrar todos", f: () => true },
-    { k: "sem", r: "Sem tese", f: (d) => d.s && !d.tese },
+    { k: "sem", r: "Sem direção", f: (d) => d.s && !d.tese },
     { k: "perto", r: "Decide em breve", f: (d) => d.dias !== null && d.dias <= 7 },
   ];
 
@@ -1495,6 +1533,8 @@
     // com tese primeiro, por conviccao; depois os demais por proximidade da decisao
     lista.sort((a, b) => (b.tese - a.tese) || (b.conv - a.conv) || (b.diverge - a.diverge) ||
                          ((a.dias ?? 999) - (b.dias ?? 999)) || a.par.localeCompare(b.par));
+    if (filtro.k === "prioridade") lista = lista.slice(0, 5);
+    if (lista.length && !lista.some((d) => d.par === M.parSel)) M.parSel = lista[0].par;
 
     const S = M.sent && M.sent.moedas;
     // O PLACAR responde "qual moeda esta mais hawkish e qual esta mais dovish". Agrupado pela
@@ -1535,13 +1575,14 @@
 
       <div class="mac-chips">${chips}</div>
       <p class="mac-conta">${lista.length} de ${total}${instr.length ? ` — ${PARES.length} pares + ${instr.length} instrumentos puxados pelo dólar (ouro, NQ, ES)` : " pares"}${
-        filtro.k === "tese" && escondidos > 0 ? ` · ${escondidos} sem tese escondidos — use “Mostrar todos”` : ""}</p>
+        filtro.k === "prioridade" ? " · os 5 maiores contrastes primeiro" :
+        filtro.k === "tese" && escondidos > 0 ? ` · ${escondidos} sem direção escondidos — use “Mostrar todos”` : ""}</p>
 
       <div class="mac-duas">
         <div class="mac-lista">${lista.length
           ? lista.map(itemLista).join("")
-          : `<div class="mac-vazio"><strong>Nenhum par com tese agora.</strong>
-               <p>Clique em “Mostrar todos” para ver os ${total} pares, inclusive os que estão sem tese.</p></div>`}</div>
+          : `<div class="mac-vazio"><strong>Nenhum par com direção agora.</strong>
+               <p>Clique em “Mostrar todos” para ver os ${total} pares, inclusive os que estão sem direção.</p></div>`}</div>
         <aside class="mac-detalhe">${detalhePar(M.parSel)}</aside>
       </div>
     </section>`;
@@ -1997,12 +2038,15 @@
     }).join("");
     const B = N.moedas[sel] || { itens: [], contagem: {} };
     const c = B.contagem || {};
-    const lista = (B.itens || []).map((it) => `<li class="mac-news-item${it.classe ? " c-" + it.classe : ""}">
+    const noticiaHtml = (it) => `<li class="mac-news-item${it.classe ? " c-" + it.classe : ""}">
         <span class="muted mac-ref-td">${esc(brt(it.quando_utc) || "")}</span>
         <a href="${esc(it.link || "#")}" target="_blank" rel="noopener" translate="no">${esc(it.titulo)}</a>
         <small class="muted">${esc(it.fonte || "")}</small>
-        ${it.classe ? `<span class="mac-news-tag c-${it.classe}">${{ alta: "alta", corte: "corte", mantem: "manutenção" }[it.classe]}</span>` : ""}
-      </li>`).join("");
+        ${it.classe ? `<span class="mac-news-tag c-${it.classe}">menciona ${{ alta: "alta", corte: "corte", mantem: "manutenção" }[it.classe]}</span>` : ""}
+      </li>`;
+    const itens = B.itens || [];
+    const lista = itens.slice(0, 5).map(noticiaHtml).join("");
+    const resto = itens.slice(5).map(noticiaHtml).join("");
     const g = N.gerado_em ? Math.round((Date.now() - new Date(N.gerado_em).getTime()) / 60000) : null;
     return `<section class="content-section mac-bloco mac-news">
       <div class="section-title"><div><h2>Notícias por moeda</h2></div>
@@ -2011,9 +2055,11 @@
            ler, nunca uma leitura, e ela não vota. Para RBA, RBNZ e SNB, que bloqueiam automação, esta
            é também a fonte de reserva da dimensão de texto: entra como <b>manchete (contexto)</b>.</p></div>
       <div class="mac-chips">${chips}</div>
-      <p class="mac-conta">${FLAG[sel] || ""} ${sel} · ${B.n_72h || 0} manchetes em 72 h · alta ${c.alta || 0} · corte ${c.corte || 0} · manutenção ${c.mantem || 0}${
+      <p class="mac-conta">${FLAG[sel] || ""} ${sel} · ${B.n_72h || 0} manchetes em 72 h · menções no título: alta ${c.alta || 0} · corte ${c.corte || 0} · manutenção ${c.mantem || 0}${
         g !== null ? ` · <span class="${g > 240 ? "mac-velho" : "mac-fresco"}">coletadas ${idadeTexto(g)}</span>` : ""}</p>
       <ul class="mac-news-lista">${lista || "<li class='muted'>nenhuma manchete na janela</li>"}</ul>
+      ${resto ? `<details class="mac-news-resto"><summary>Ver mais ${itens.length - 5} manchetes</summary>
+        <ul class="mac-news-lista">${resto}</ul></details>` : ""}
     </section>`;
   }
 
@@ -2281,6 +2327,10 @@
     const grade = document.querySelector(".mac-cal");
     if (!grade) return;
     const ano = M.mes.getFullYear(), mes = M.mes.getMonth();
+    if (!M.diaSel) {
+      const hoje = hojeBrt(), prefixo = `${ano}-${String(mes + 1).padStart(2, "0")}`;
+      M.diaSel = hoje.startsWith(prefixo) ? hoje : `${prefixo}-01`;
+    }
     const tit = document.querySelector(".mac-mes-titulo");
     if (tit) tit.textContent = M.mes.toLocaleDateString("pt-BR",
       { month: "long", year: "numeric" });
@@ -2337,7 +2387,7 @@
     { r: "Radar",    abas: ["market", "pairs"] },
     { r: "Macro",    abas: ["yields", "calendar", "news", "cot"] },
     { r: "Análise",  abas: ["ratesfx", "spreads"] },
-    { r: "Método",   abas: ["sources"] },
+    { r: "Método",   abas: ["sources", "journal"] },
     { r: "Ações",    abas: ["equities"] },
   ];
 
@@ -2825,7 +2875,7 @@
    .mac-detalhe{min-width:0}
    .mac-lista{display:flex;flex-direction:column;gap:5px;max-height:74vh;overflow-y:auto;
      padding-right:4px}
-   .mac-item{display:grid;grid-template-columns:1fr auto;grid-template-rows:auto auto auto;
+   .mac-item{display:grid;grid-template-columns:1fr auto;grid-template-rows:auto auto auto auto;
      gap:2px 8px;text-align:left;background:rgba(255,255,255,.045);
      border:1px solid rgba(255,255,255,.11);border-radius:8px;
      padding:9px 11px;color:inherit;cursor:pointer;border-left:3px solid rgba(255,255,255,.14)}
@@ -2839,12 +2889,18 @@
    .mac-item-par{grid-column:1;grid-row:2;font-size:12.5px;font-weight:500;letter-spacing:.03em;
      opacity:.72}
    .mac-item-par em{opacity:.35;font-style:normal;margin:0 1px}
-   .mac-item-dias{grid-column:2;grid-row:1;font-size:11px;opacity:.72;
-     font-variant-numeric:tabular-nums;align-self:center}
+   .mac-item-dias{grid-column:2;grid-row:1/3;font-size:10.5px;opacity:.78;max-width:112px;
+     text-align:right;line-height:1.35;
+      font-variant-numeric:tabular-nums;align-self:center}
    .mac-item-tag{grid-column:1/-1;grid-row:3;font-size:10px;letter-spacing:.06em;text-transform:uppercase;
      opacity:.85}
    .mac-item-tag.e-div{color:#8fd0ff}
    .mac-item-tag.e-igual{opacity:.35}
+   .mac-item-corr{grid-column:1/-1;grid-row:4;font-size:10.5px;color:#ffcf72;opacity:.82}
+   .mac-saldo-dados{margin:2px 0 7px;font-size:12px;line-height:1.45;opacity:.78}
+   .mac-news-resto{margin-top:10px}
+   .mac-news-resto>summary{cursor:pointer;font-size:12.5px;color:#8fd0ff}
+   .mac-news-resto .mac-news-lista{margin-top:10px}
 
    /* o detalhe acompanha a rolagem — era a queixa principal do Eduardo */
    .mac-detalhe{position:sticky;top:16px;border:1px solid rgba(255,255,255,.09);
@@ -2898,10 +2954,10 @@
    .mac-conta{font-size:11.5px;opacity:.45;margin:0 0 14px}
 
    /* celular: uma coluna, detalhe abaixo da lista */
-   @media (max-width:900px){
-     .mac-duas{grid-template-columns:1fr}
-     .mac-lista{max-height:none;flex-direction:row;flex-wrap:wrap}
-     .mac-item{flex:1 1 132px}
+    @media (max-width:900px){
+      .mac-duas{grid-template-columns:1fr}
+      .mac-lista{max-height:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));padding-right:0}
+      .mac-item{width:100%;box-sizing:border-box}
      .mac-detalhe{position:static}
      .mac-pernas{grid-template-columns:1fr}
      .mac-placar{grid-template-columns:1fr}
@@ -3061,7 +3117,28 @@
    .mac-pl-rot.p{color:#5fe0a0}
    .mac-pl-rot.n{color:#ff8f8f}
    .mac-pl-linha{grid-template-columns:82px 120px minmax(0,1fr)}
-   @media (max-width:640px){.mac-pl-linha{grid-template-columns:70px 104px minmax(0,1fr)}}`;
+   @media (max-width:640px){
+     html,body{max-width:100%;overflow-x:hidden}
+     .mac-pl-linha{grid-template-columns:70px 104px minmax(0,1fr)}
+     .mac-tela,.content-section,.mac-duas,.mac-lista,.mac-detalhe,.mac-pernas,
+     .mac-perna,.mac-placar,.mac-chips{min-width:0;max-width:100%;box-sizing:border-box}
+     .mac-lista{grid-template-columns:1fr}
+     .mac-item{padding:11px 12px}
+     .mac-item-acao{font-size:14px}
+     .mac-item-par{font-size:13px}
+     .mac-item-tag,.mac-item-corr,.mac-item-dias{font-size:11px}
+     .mac-item-dias{max-width:128px}
+     .mac-detalhe{padding:16px 14px;overflow:hidden}
+     .mac-perna{padding:14px 12px}
+     .mac-perna-linha,.mac-motivos,.mac-saldo-dados{font-size:13px}
+     .mac-chips{overflow-x:auto;flex-wrap:nowrap;padding-bottom:4px;-webkit-overflow-scrolling:touch}
+     .mac-chip{flex:0 0 auto}
+     .mac-det-par{font-size:23px}
+     .mac-cal{gap:3px}
+     .mac-dia-cel{min-height:64px;padding:5px 4px}
+     .mac-ev{display:none}
+     .mac-decisao{font-size:9px;white-space:normal}
+   }`;
   document.head.appendChild(estilo);
 
   carrega().then(() => {

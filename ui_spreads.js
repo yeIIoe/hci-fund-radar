@@ -6,9 +6,9 @@
   const N = (v, d) => (v === null || v === undefined || Number.isNaN(v) ? "—" : Number(v).toFixed(d === undefined ? 2 : d));
 
   function riscoPill(r) {
-    if (r === "IMINENTE") return '<span class="spr-pill spr-red">flip imminent</span>';
-    if (r === "PROXIMO") return '<span class="spr-pill spr-amber">flip near</span>';
-    return '<span class="spr-pill spr-dim">stable</span>';
+    if (r === "IMINENTE") return '<span class="spr-pill spr-red">virada iminente</span>';
+    if (r === "PROXIMO") return '<span class="spr-pill spr-amber">virada próxima</span>';
+    return '<span class="spr-pill spr-dim">estável</span>';
   }
 
   function linha(p) {
@@ -16,7 +16,7 @@
     const longBarato = p.lado_barato === "COMPRADO";
     const mkL = longBarato ? ' class="spr-good"' : "";
     const mkS = longBarato ? "" : ' class="spr-good"';
-    const semLado = p.sem_lado_bom ? '<span class="spr-pill spr-red">no good side</span>' : "";
+    const semLado = p.sem_lado_bom ? '<span class="spr-pill spr-red">sem lado favorável</span>' : "";
     return `<tr>
       <td><strong>${p.par}</strong></td>
       <td class="mono">${N(p.spread_medido_pip)}</td>
@@ -25,7 +25,7 @@
       <td class="mono"${mkS}>${N(p.swap_short_pip, 3)}</td>
       <td class="mono"${mkL}>${cl === undefined ? "—" : N(cl)}</td>
       <td class="mono"${mkS}>${cs === undefined ? "—" : N(cs)}</td>
-      <td>${p.lado_barato === "COMPRADO" ? "long" : "short"}</td>
+      <td>${p.lado_barato === "COMPRADO" ? "comprado" : "vendido"}</td>
       <td>${riscoPill(p.risco_virada)} ${semLado}</td>
     </tr>`;
   }
@@ -39,8 +39,8 @@
       if (!r.ok) throw new Error(`HTTP ${r.status}`);
       doc = await r.json();
     } catch (e) {
-      alvo.innerHTML = `<p class="method-note">Could not read data/custo_carrego.json (${e.message}).
-        Run <code>python fund_custo_carrego.py</code> or <code>atualiza_radar.bat</code>.</p>`;
+      alvo.innerHTML = `<p class="method-note">Não foi possível ler data/custo_carrego.json (${e.message}).
+        Execute <code>python fund_custo_carrego.py</code> ou <code>atualiza_radar.bat</code>.</p>`;
       return;
     }
     const ps = doc.pares || [];
@@ -53,29 +53,29 @@
     });
 
     alvo.innerHTML = `
-      ${alerta.length ? `<div class="spr-alert"><strong>Cheap side about to flip:</strong>
-        ${alerta.map((p) => `${p.par} (${p.dif_juro > 0 ? "+" : ""}${N(p.dif_juro, 3)}%, ${N(p.sigmas_do_zero)} sigmas from zero)`).join(" · ")}
+      ${alerta.length ? `<div class="spr-alert"><strong>O lado mais barato está perto de virar:</strong>
+        ${alerta.map((p) => `${p.par} (${p.dif_juro > 0 ? "+" : ""}${N(p.dif_juro, 3)}%, ${N(p.sigmas_do_zero)} desvios do zero)`).join(" · ")}
         </div>` : ""}
-      ${semLado.length ? `<div class="spr-alert spr-alert-dim"><strong>No good side for swing</strong>
-        (differential below 0.8% — no carry to offset the markup):
+      ${semLado.length ? `<div class="spr-alert spr-alert-dim"><strong>Sem lado favorável para swing</strong>
+        (diferencial abaixo de 0,8% — o carrego não compensa o custo):
         ${semLado.map((p) => p.par).join(" · ")}</div>` : ""}
       <div class="table-wrap"><table class="data-table">
         <thead><tr>
-          <th>Pair</th><th>Spread measured</th><th>2y rate diff</th>
-          <th>Swap long</th><th>Swap short</th>
-          <th>5d cost long</th><th>5d cost short</th>
-          <th>Cheap side</th><th>State</th>
+          <th>Par</th><th>Spread medido</th><th>Dif. de juro 2 anos</th>
+          <th>Swap comprado</th><th>Swap vendido</th>
+          <th>Custo 5d comprado</th><th>Custo 5d vendido</th>
+          <th>Lado mais barato</th><th>Estado</th>
         </tr></thead>
         <tbody>${ordenado.map(linha).join("")}</tbody>
       </table></div>
       <p class="method-note">
-        Spread measured from 1-minute bid x ask (Dukascopy; median, 24-38 days per pair).
-        Swap estimated from the 2-year differential and calibrated against the broker's own table
-        (${doc.calibracao?.fonte || "31 Aug 2026"}): r=${doc.calibracao?.r}, R2=${doc.calibracao?.r2},
-        median error ${doc.calibracao?.erro_mediano_pip} pip per night.
-        5-day cost = spread + commission (${doc.comissao_pip} pip) + swap x ${doc.noites_5d} nights
-        (Wednesday charges 3x). Values in pips per lot. Yields as of ${doc.yields_de}.
-        Generated ${doc.gerado_em}.
+        Spread medido no bid × ask de 1 minuto (Dukascopy; mediana de 24–38 dias por par).
+        Swap estimado pelo diferencial de 2 anos e calibrado contra a tabela da corretora
+        (${doc.calibracao?.fonte || "31 ago 2026"}): r=${doc.calibracao?.r}, R²=${doc.calibracao?.r2},
+        erro mediano de ${doc.calibracao?.erro_mediano_pip} pip por noite.
+        Custo de 5 dias = spread + comissão (${doc.comissao_pip} pip) + swap × ${doc.noites_5d} noites
+        (quarta-feira cobra 3×). Valores em pips por lote. Juros em ${doc.yields_de}.
+        Gerado em ${doc.gerado_em}.
       </p>`;
   }
 

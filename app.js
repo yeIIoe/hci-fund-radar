@@ -36,7 +36,7 @@ const decisionLabels = {
   VENDER_BASE: "quote leg has the higher rate momentum",
   NEUTRAL: "no side outside neutral", DADO_BLOQUEADO: "data blocked",
 };
-const qualityLabels = { CURRENT: "CURRENT", DELAYED: "DELAYED", STALE: "STALE" };
+const qualityLabels = { CURRENT: "ATUAL", DELAYED: "ATRASADO", STALE: "MUITO ATRASADO" };
 const exitLabels = {
   // nao instrui saida: descreve que a banda foi perdida
   SAIR_LONG: "left the positive band", SAIR_SHORT: "left the negative band",
@@ -603,7 +603,7 @@ async function setCalendarMonth(value) {
   state.calendarMonth = clampCalendarMonth(value);
   state.calendarSelectedDate = null;
   try { await renderCalendarMonth(); }
-  catch (error) { $("#calendarStatus").textContent = `Could not open the month: ${error.message}`; }
+  catch (error) { $("#calendarStatus").textContent = `Não foi possível abrir o mês: ${error.message}`; }
 }
 
 async function runBacktest(event) {
@@ -710,6 +710,6 @@ $("#calendarMonth").addEventListener("change", (event) => setCalendarMonth(event
 
 loadData().catch((error) => {
   const hint = location.protocol === "file:" ? " Open it through ABRIR_RADAR.bat." : "";
-  showMessage(`Could not load the radar: ${error.message}.${hint}`, true);
+  showMessage(`Não foi possível carregar o radar: ${error.message}.${hint}`, true);
 });
 

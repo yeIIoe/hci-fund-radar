@@ -15,7 +15,7 @@
        ordem e por prefixo html nos seletores. As tres familias vem no @import dela. -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="estilo_hci.css?v=20260906-vis1">
+  <link rel="stylesheet" href="estilo_hci.css?v=20260906-ux1">
 </head>
 <body>
   <header class="site-header">
@@ -44,6 +44,7 @@
       <button type="button" class="tab" data-tab="cot">COT</button>
       <button type="button" class="tab" data-tab="news">Notícias</button>
       <button type="button" class="tab" data-tab="sources">Fontes</button>
+      <button type="button" class="tab" data-tab="journal">Backtest</button>
     </nav>
 
 
@@ -107,7 +108,7 @@
           <strong>só-FUND</strong> — ele não inclui a sua vantagem de entrada.</p></div>
         </details>
         <div class="table-wrap"><table class="data-table">
-          <thead><tr><th>#</th><th>Par</th><th>Lado fundamental</th><th>FUND</th><th>Dias na faixa</th><th>Convicção</th><th>Saúde da tese</th><th>Evidência</th></tr></thead>
+          <thead><tr><th>#</th><th>Par</th><th>Lado fundamental</th><th>Leitura</th><th>Dias na faixa</th><th>Divergência</th><th>Saúde da tese</th><th>Evidência</th></tr></thead>
           <tbody id="priorityTableBody"></tbody>
         </table></div>
       </section>
@@ -121,7 +122,7 @@
         <div class="section-title"><div><h2>Matriz completa</h2></div><p>Cada célula lê a moeda da linha contra a moeda da coluna. Clique para abrir o par.</p></div>
         <div class="matrix-frame"><table id="strengthMatrix" class="matrix-table" aria-label="Matriz de força"></table></div>
         <div class="legend">
-          <span><i class="scale s5"></i>Venda forte</span><span><i class="scale s4"></i>Venda</span><span><i class="scale s3"></i>Neutro</span><span><i class="scale s2"></i>Compra</span><span><i class="scale s1"></i>Compra forte</span>
+          <span><i class="scale s5"></i>Viés forte de queda</span><span><i class="scale s4"></i>Viés de queda</span><span><i class="scale s3"></i>Neutro</span><span><i class="scale s2"></i>Viés de alta</span><span><i class="scale s1"></i>Viés forte de alta</span>
         </div>
       </section>
     </div>
@@ -428,6 +429,16 @@
       </section>
     </div>
 
+    <!-- ============ TAB: BACKTEST MANUAL ============ -->
+    <div class="tab-panel" data-panel="journal">
+      <section class="content-section bt-manual">
+        <div class="section-title"><div><h2>Diário do backtest manual</h2></div>
+          <p>Registre somente o que era conhecido naquele momento. Os dados ficam neste aparelho e
+             formam a amostra que, no futuro, poderá calibrar a convicção histórica.</p></div>
+        <div id="manualBacktestBody"></div>
+      </section>
+    </div>
+
     <!-- Backtest permanece no DOM (o app.js depende destes ids) mas sem aba:
          a estrategia ainda nao esta final, entao o numero nao deve ser exibido. -->
     <div class="tab-panel" data-panel="backtest" hidden>
@@ -451,19 +462,20 @@
     </div>
   </footer>
 
-  <script src="app.js?v=20260905-rev1"></script>
-  <script src="ui_extras.js?v=20260905-rev1"></script>
-  <script src="ui_live_yields.js?v=20260905-rev1"></script>
+  <script src="app.js?v=20260906-ux1"></script>
+  <script src="ui_extras.js?v=20260906-ux1"></script>
+  <script src="ui_live_yields.js?v=20260906-ux1"></script>
   <script src="ui_cut_global.js?v=20260905-rev1"></script>
-  <script src="ui_spreads.js?v=20260905-rev1"></script>
-  <script src="ui_equities.js?v=20260905-rev2"></script>
+  <script src="ui_spreads.js?v=20260906-ux1"></script>
+  <script src="ui_equities.js?v=20260906-ux1"></script>
   <script src="ui_fund_ficha.js?v=20260905-rev1"></script>
-  <script src="ui_juros_cambio.js?v=20260905-rev1"></script>
+  <script src="ui_juros_cambio.js?v=20260906-ux1"></script>
+  <script src="ui_backtest_manual.js?v=20260906-ux1"></script>
   <script src="ui_nav.js?v=20260905-rev1"></script>
   <!-- ANTES do ui_macro.js: ele desenha assim que o dado chega e precisa do
        window.HCI_MEDIDORES existindo nesse instante. Sem fetch, sem evento. -->
   <script src="ui_medidores.js?v=20260906-vis1"></script>
-  <script src="ui_macro.js?v=20260906-rev2"></script>
+  <script src="ui_macro.js?v=20260906-ux1"></script>
   <!-- Depois do ui_macro.js de proposito: ele repinta os paineis a cada 900 ms e precisa
        ter desenhado antes de a auditoria esconder as manchetes posteriores ao corte. -->
   <script src="ui_corte_auditoria.js?v=20260905-rev1"></script>

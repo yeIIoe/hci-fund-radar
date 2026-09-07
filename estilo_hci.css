@@ -2141,3 +2141,57 @@ html .med-notas-txt{
    ============================================================================
    Fim de estilo_hci.css
    ============================================================================ */
+/* Backtest manual: formulário compacto, leitura primeiro e armazenamento local. */
+.bt-resumo{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:9px;margin:0 0 18px}
+.bt-resumo>div{padding:12px 13px;border:1px solid var(--regua);border-radius:9px;
+  background:var(--painel);min-width:0}
+.bt-resumo span{display:block;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--tinta-3);margin-bottom:6px}
+.bt-resumo strong{font-size:14px;line-height:1.35}
+.bt-resumo strong small{display:block;font-size:10px;font-weight:400;color:var(--tinta-3);margin-top:3px}
+.bt-form-box,.bt-faixas{border:1px solid var(--regua);border-radius:10px;padding:12px 14px;margin:0 0 18px}
+.bt-form-box>summary,.bt-faixas>summary{cursor:pointer;font-size:13px;font-weight:650;color:var(--marca)}
+.bt-form{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:15px}
+.bt-form label{display:grid;gap:5px;font-size:11px;letter-spacing:.04em;color:var(--tinta-2)}
+.bt-form input,.bt-form select,.bt-form textarea{width:100%;box-sizing:border-box;border:1px solid var(--regua-forte);
+  background:var(--fundo-band);color:var(--tinta);border-radius:7px;padding:9px 10px;font:inherit}
+.bt-form textarea{resize:vertical}
+.bt-form .bt-check{display:flex;align-items:center;gap:8px;align-self:end;padding:10px 0}
+.bt-form .bt-check input{width:auto}
+.bt-form .bt-notas{grid-column:1/-1}
+.bt-botoes{grid-column:1/-1;display:flex;gap:8px}
+.bt-botoes button,.bt-lista-topo button,.bt-acoes button{border:1px solid var(--marca-borda);background:var(--painel);
+  color:var(--tinta);border-radius:7px;padding:8px 12px;cursor:pointer}
+.bt-botoes .bt-sec,.bt-acoes button{border-color:var(--regua);background:var(--painel-alto);color:var(--tinta)}
+.bt-faixas .table-wrap{margin-top:12px}
+.bt-lista-topo{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:22px 0 8px}
+.bt-lista-topo h3{margin:0;font-size:15px}
+.bt-acoes{display:flex;gap:5px}
+.bt-acoes button{font-size:11px;padding:5px 7px}
+.bt-vazio{margin-top:18px}
+.eq-recolhido{margin-top:14px;border:1px solid var(--regua);border-radius:9px;padding:10px 12px}
+.eq-recolhido>summary{cursor:pointer;font-size:13px;color:var(--tinta-2)}
+.eq-recolhido .eq-grade{margin-top:12px}
+@media(max-width:900px){.bt-resumo{grid-template-columns:repeat(2,minmax(0,1fr))}.bt-form{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:640px){
+  .bt-resumo,.bt-form{grid-template-columns:1fr}
+  .bt-form .bt-notas,.bt-botoes{grid-column:1}
+  .bt-form-box,.bt-faixas{padding:11px 10px}
+  .bt-manual{overflow:hidden}
+  html .site-header{flex-wrap:wrap;padding:var(--e3) var(--e5);gap:var(--e3)}
+  html .header-update{width:100%;max-width:100%;margin-left:0;flex:1 1 100%;justify-content:flex-start}
+  html .header-update .timecut{min-width:0;flex:1 1 auto}
+  html #timeCutDate{min-width:0;flex:1 1 112px}
+  html .mac-tela{display:flex;flex-direction:column}
+  html .mac-tela>.section-title{order:0}
+  html .mac-tela>.mac-tarja-atraso{order:1}
+  html .mac-tela>.mac-chips{order:2}
+  html .mac-tela>.mac-conta{order:3}
+  html .mac-tela>.mac-duas{order:4}
+  html .mac-tela>.mac-placar{order:5;margin-top:var(--e6)}
+  html .mac-tela>.mac-placar-sem{order:6}
+  html .mac-item .mac-item-acao,html .mac-item .mac-item-acao.v-suspensa{font-size:var(--t-base)}
+  html .mac-item-tag,html .mac-item-dias{font-size:var(--t-min)}
+  html .mac-dim{max-width:100%;white-space:normal;overflow-wrap:anywhere}
+  html .mac-dim .mac-selo{white-space:normal;overflow-wrap:anywhere}
+}

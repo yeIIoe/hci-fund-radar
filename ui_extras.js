@@ -223,35 +223,38 @@ async function renderCot() {
                  percentile: atual.percentile, zscore: atual.zscore };
       }).filter(Boolean);
       if (!rows.length) {
-        status.textContent = "No CFTC report published before the time cut.";
+        status.textContent = "Nenhum relatório da CFTC foi publicado antes do corte de tempo.";
         grid.innerHTML = "";
         return;
       }
     }
     const dataRel = timeCut.active ? rows[0].report_date : ((data.meta && data.meta.report_date) || "—");
-    status.textContent = "CFTC Legacy report — week of " + dataRel +
-      (timeCut.active ? " (latest available before the cut)" : "");
+    const dataMs = /^\d{4}-\d{2}-\d{2}$/.test(dataRel) ? Date.parse(dataRel + "T00:00:00Z") : NaN;
+    const idadeDias = Number.isFinite(dataMs) ? Math.floor((Date.now() - dataMs) / 864e5) : null;
+    status.textContent = "Relatório Legacy da CFTC — semana de " + dataRel +
+      (timeCut.active ? " (último disponível antes do corte)" : "") +
+      (!timeCut.active && idadeDias > 10 ? " · ATENÇÃO: arquivo atrasado, " + idadeDias + " dias corridos" : "");
     grid.innerHTML = rows.map((c) => {
       const pct = Number(c.percentile);
       const crowd = pct >= 90 ? "crowded-long" : pct <= 10 ? "crowded-short" : "";
       const net = Number(c.net);
       const chg = Number(c.change);
-      const selo = crowd ? '<em class="cot-badge">' + (pct >= 90 ? "CROWDED LONG" : "CROWDED SHORT") + "</em>" : "";
+      const selo = crowd ? '<em class="cot-badge">' + (pct >= 90 ? "COMPRADO LOTADO" : "VENDIDO LOTADO") + "</em>" : "";
       return '<article class="cot-card ' + crowd + '">' +
         '<header>' + chip(c.currency) + '<strong>' + c.currency + "</strong>" + selo + "</header>" +
-        '<div class="cot-net ' + (net >= 0 ? "positive" : "negative") + '">' + net.toLocaleString("en-US") +
-        "<small>net non-commercial contracts</small></div>" +
+        '<div class="cot-net ' + (net >= 0 ? "positive" : "negative") + '">' + net.toLocaleString("pt-BR") +
+        "<small>posição líquida não comercial</small></div>" +
         '<div class="cot-meta">' +
-        "<div><span>Weekly change</span><strong class=\"" + (chg >= 0 ? "positive" : "negative") + "\">" +
-        (chg >= 0 ? "+" : "") + chg.toLocaleString("en-US") + "</strong></div>" +
-        "<div><span>Percentile (5y)</span><strong>" + (Number.isFinite(pct) ? pct.toFixed(0) + "%" : "—") + "</strong></div>" +
-        "<div><span>Z-score</span><strong>" + (Number.isFinite(Number(c.zscore)) ? Number(c.zscore).toFixed(2) : "—") + "</strong></div>" +
+        "<div><span>Variação semanal</span><strong class=\"" + (chg >= 0 ? "positive" : "negative") + "\">" +
+        (chg >= 0 ? "+" : "") + chg.toLocaleString("pt-BR") + "</strong></div>" +
+        "<div><span>Percentil (5 anos)</span><strong>" + (Number.isFinite(pct) ? pct.toFixed(0) + "%" : "—") + "</strong></div>" +
+        "<div><span>Escore-z</span><strong>" + (Number.isFinite(Number(c.zscore)) ? Number(c.zscore).toFixed(2).replace(".", ",") : "—") + "</strong></div>" +
         "</div></article>";
     }).join("");
     cotDone = true;
   } catch (err) {
     console.error("[COT]", err);
-    status.textContent = "COT unavailable: " + (err && err.message ? err.message : err);
+    status.textContent = "COT indisponível: " + (err && err.message ? err.message : err);
     grid.innerHTML = "";
   }
 }
@@ -278,10 +281,10 @@ async function renderCot() {
     const bp = (v) => v === null || v === undefined ? "—" : (v > 0 ? "+" : "") + v.toFixed(1);
     const cor = (v) => v === null || v === undefined ? "" : (v > 0 ? "positive" : v < 0 ? "negative" : "");
     const z = x.z1;
-    const forca = z === null || z === undefined ? "no reading"
-      : Math.abs(z) < 1 ? "inside the daily noise"
-      : Math.abs(z) < 2 ? "a real move, " + Math.abs(z).toFixed(1) + "\u03c3"
-      : "a large move, " + Math.abs(z).toFixed(1) + "\u03c3";
+    const forca = z === null || z === undefined ? "sem leitura"
+      : Math.abs(z) < 1 ? "dentro do ruído diário"
+      : Math.abs(z) < 2 ? "movimento relevante, " + Math.abs(z).toFixed(1).replace(".", ",") + "\u03c3"
+      : "movimento grande, " + Math.abs(z).toFixed(1).replace(".", ",") + "\u03c3";
     const velho = x.stale_days >= 5 ? "is-stale" : x.stale_days >= 3 ? "is-aging" : "";
     const spark = (() => {
       const h = x.history || [];
@@ -295,28 +298,29 @@ async function renderCot() {
     })();
     return '<article class="yield-card ' + velho + '" data-cur="' + x.currency + '">' +
       '<header><strong>' + x.currency + "</strong>" +
-        '<span class="yield-stale">' + (x.stale_days === 0 ? "today" :
-          x.stale_days + (x.stale_days === 1 ? " business day old" : " business days old")) + "</span></header>" +
+        '<span class="yield-stale">' + (x.stale_days === 0 ? "hoje" :
+          x.stale_days + (x.stale_days === 1 ? " dia útil atrás" : " dias úteis atrás")) + "</span></header>" +
       '<div class="yield-value mono">' + x.yield.toFixed(3) + "<i>%</i></div>" + spark +
       '<div class="yield-changes">' +
-        '<div><span>1 day</span><strong class="mono ' + cor(x.d1) + '">' + bp(x.d1) + " bp</strong></div>" +
-        '<div><span>5 days</span><strong class="mono ' + cor(x.d5) + '">' + bp(x.d5) + " bp</strong></div>" +
-        '<div><span>20 days</span><strong class="mono ' + cor(x.d20) + '">' + bp(x.d20) + " bp</strong></div>" +
+        '<div><span>1 dia</span><strong class="mono ' + cor(x.d1) + '">' + bp(x.d1) + " pb</strong></div>" +
+        '<div><span>5 dias</span><strong class="mono ' + cor(x.d5) + '">' + bp(x.d5) + " pb</strong></div>" +
+        '<div><span>20 dias</span><strong class="mono ' + cor(x.d20) + '">' + bp(x.d20) + " pb</strong></div>" +
       "</div>" +
-      '<details class="yield-why"><summary><span>Why it moved, and where to look</span></summary>' +
+      '<details class="yield-why"><summary><span>Por que se moveu e onde verificar</span></summary>' +
         '<div class="yield-why-body">' +
-          "<p><span>Size of today's move</span>" + forca +
-            (x.sigma_bp ? ". One standard deviation on this curve is <b>" + x.sigma_bp.toFixed(1) +
-             " bp</b>, from the last 252 observations." : ".") + "</p>" +
-          "<p><span>What would explain a rise</span>inflation above expectations, a firm labour market, or a " +
-            "hawkish turn — all of them make the market price fewer or later cuts from the " +
-            (x.central_bank || "central bank") + ". A fall means the opposite.</p>" +
-          "<p><span>Check the decision</span>" + (x.central_bank_url
+          "<p><span>Tamanho do movimento de hoje</span>" + forca +
+            (x.sigma_bp ? ". Um desvio padrão nesta curva é <b>" + x.sigma_bp.toFixed(1).replace(".", ",") +
+             " pb</b>, nas últimas 252 observações." : ".") + "</p>" +
+          "<p><span>O que explicaria uma alta</span>inflação acima do esperado, emprego firme ou uma virada " +
+            "hawkish fazem o mercado precificar menos cortes ou cortes mais tarde pelo " +
+            (x.central_bank || "banco central") + ". Uma queda indica o oposto.</p>" +
+          "<p><span>Verificar a decisão</span>" + (x.central_bank_url
             ? '<a href="' + x.central_bank_url + '" target="_blank" rel="noreferrer">' + x.central_bank +
-              " — press releases</a>" : "\u2014") + "</p>" +
-          "<p><span>Check the number</span>" + (x.source_url
+              " — comunicados</a>" : "\u2014") + "</p>" +
+          "<p><span>Verificar o número</span>" + (x.source_url
             ? '<a href="' + x.source_url + '" target="_blank" rel="noreferrer">' + x.source + "</a>" : "\u2014") +
-            " \u00b7 published " + (x.cadence || "\u2014") + "</p>" +
+            " \u00b7 publicação " + ({ daily: "diária", weekly: "semanal",
+              "daily (business days), published D+1 ~08:30 CET": "diária em dias úteis, D+1 por volta de 08:30 CET" }[x.cadence] || x.cadence || "\u2014") + "</p>" +
         "</div></details>" +
       "</article>";
   };
@@ -333,12 +337,12 @@ async function renderCot() {
       const nota = document.getElementById("yieldNote");
       if (nota) {
         const maior = Math.max.apply(null, (d.currencies || []).map((x) => x.stale_days || 0));
-        nota.innerHTML = (d.meta && d.meta.note ? d.meta.note : "") +
-          " Oldest reading on screen: <b>" + maior + " business days</b>. This page re-reads the file every " +
-          "60 seconds, so it follows the next update without a reload.";
+        nota.innerHTML = "Curvas soberanas oficiais de 2 anos. Cada fonte publica no seu próprio ritmo; não é um feed em tempo real. " +
+          "Leitura mais antiga na tela: <b>" + maior + " dias úteis</b>. A página relê o arquivo a cada " +
+          "60 segundos e acompanha a próxima atualização sem recarregar.";
       }
     } catch (_) {
-      grid.innerHTML = '<div class="empty-state">yields.json not generated yet — run update_yields.py.</div>';
+      grid.innerHTML = '<div class="empty-state">yields.json ainda não foi gerado — execute update_yields.py.</div>';
     }
   }
   window.recarregaYields = carrega;   // o corte chama isto ao ser desligado

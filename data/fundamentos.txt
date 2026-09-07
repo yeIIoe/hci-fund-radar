@@ -1,0 +1,1148 @@
+==============================================================================
+HCI — FICHA DE FUNDAMENTO
+gerado em 2026-09-06T21:01:30 | 20 tickers | fonte primaria: SEC EDGAR companyfacts (XBRL)
+origem da lista: ficha de queda de 2026-09-06 (semana 2026-08-28 a 2026-09-04), 20 aprovados
+
+COMO LER: cada campo traz NIVEL, TENDENCIA e FONTE. Campo vazio sai como
+'sem dado' COM O MOTIVO — nunca zero, nunca estimado. Bandeira de armadilha
+vem sempre com o NUMERO que a levantou.
+YAHOO* = campo que o EDGAR nao tinha; o Yahoo NAO traz data de publicacao,
+logo esse campo serve de leitura de hoje e NAO serve para backtest.
+Isto e DADO e CLASSIFICACAO. Nao ha veredito, nao ha recomendacao,
+nao ha sinal de compra. A decisao e a entrada sao do Eduardo.
+==============================================================================
+
+##############################################################################
+CRDO — Credo Technology Group Holding Ltd  (CIK 0001807794)
+TTM encerrado em 2026-08-01, publicado em 2026-09-02 | serie de 20 TTMs desde 2021-10-31
+receita TTM US$ 1.59 bi | lucro liquido TTM US$ 0.54 bi | EBITDA TTM US$ 0.54 bi
+  [tratamento] 1 desdobramento(s) detectado(s) e reescalado(s): 1.965x entre 2022-01-31 e 2022-07-30
+  [ponto-no-tempo] 23 trimestres de receita, 0 REAPRESENTADOS depois da 1a publicacao
+  [frescor] 4 dias desde a publicacao. ficha atual: o ultimo arquivamento na SEC (10-Q de 2026-09-02) e o mesmo que alimenta a ficha
+##############################################################################
+
+RENTABILIDADE
+  margem bruta         67.07%         [EDGAR ] tendencia: MELHORA (+0.818/trim em 8 TTMs; +1.09 contra 4 trimestres atras)
+  margem operacional   31.74%         [EDGAR ] tendencia: MELHORA (+6.944/trim em 8 TTMs; +13.02 contra 4 trimestres atras)
+  ROIC                 22.27%         [EDGAR ] tendencia: MELHORA (+9.907/trim em 8 TTMs; +2.80 contra 4 trimestres atras)
+  ROE                  19.73%         [EDGAR ] tendencia: MELHORA (+4.388/trim em 8 TTMs; +3.72 contra 4 trimestres atras)
+  margem liquida       33.83%         [EDGAR ] tendencia: MELHORA (+6.620/trim em 8 TTMs; +12.98 contra 4 trimestres atras)
+  (ressalva: capital investido calculado SEM conta de divida (nenhuma foi encontrada no XBRL) — pode ser empresa sem divida ou tag ausente)
+
+CAIXA
+  FCF TTM              0.439 US$ bi   [EDGAR ] sinal: POSITIVO
+  margem de FCF        27.57%         [EDGAR ] tendencia: MELHORA (+6.220/trim em 8 TTMs; +12.00 contra 4 trimestres atras)
+  conversao            81.48%         conversao de LUCRO em caixa (FCF/lucro liquido)
+                       92.95%         conversao OPERACIONAL (OCF/lucro liquido)
+  FCF+ seguidos        6 trimestres   de 22 trimestres na serie
+  abertura do FCF      OCF 0.50 US$ bi menos capex 0.06 US$ bi  (FCF por capex != FCF por operacao)
+
+BALANCO — sem dado no EDGAR (nenhuma conta de divida no XBRL); a leitura de -1.36x ao lado vem do Yahoo, SEM data de publicacao
+         direcao: sem dado
+  divida liq./EBITDA   -1.36x         [YAHOO*] tendencia: sem dado (so 0 TTMs com este campo)
+  cobertura de juros   sem dado (despesa de juros ausente no XBRL) [-     ] tendencia: sem dado (so 0 TTMs com este campo)
+                       divida bruta sem dado (nenhuma conta de divida no XBRL (empresa sem divida ou tag ausente — daqui de dentro os dois casos sao iguais)) | caixa 0.47 US$ bi | divida liquida sem dado (exige divida E caixa medidos no mesmo trimestre; falta pelo menos um)
+
+CRESCIMENTO — ritmo: DESACELERANDO
+  receita YoY          165.11%        [EDGAR ] tendencia: MELHORA (+26.213/trim em 8 TTMs; -10.70 contra 4 trimestres atras)
+  aceleracao           -39.75 pontos percentuais
+  YoY trimestre a trimestre 2025-05 +126.3%  2025-08 +175.8%  2025-11 +224.2%  2026-01 +226.1%  2026-05 +205.7%  2026-08 +165.1%
+
+DILUICAO
+  acoes diluidas       194.4 milhoes  [EDGAR ] 
+  diluicao YoY         5.31%          [EDGAR ] tendencia: PIORA (+0.070/trim em 8 TTMs; -3.85 contra 4 trimestres atras)
+  acoes trimestre a trimestre 2024-11 166.5  2025-02 182.5  2025-08 184.6  2025-11 187.7  2026-01 192.0  2026-08 194.4
+  (negativo = recompra; positivo = emissao)
+
+SINAIS DE ARMADILHA — cada bandeira com o numero que a levantou
+  [ apaga] queima de caixa
+          FCF TTM US$ 0.44 bi | 2 de 8 trimestres negativos (ultimos: 2024-11-02, 2025-02-01) | OCF TTM US$ 0.50 bi menos capex TTM US$ 0.06 bi (FCF negativo por CAPEX e por OPERACAO sao coisas diferentes: os dois numeros estao aqui para o dono separar)
+  [s/dado] divida subindo com lucro caindo
+          sem dado: faltam 5 TTMs com divida liquida e lucro liquido
+  [ACESA] diluicao continua
+          3 de 3 trimestres com acoes subindo YoY | ultimo +5.31% ao ano | acoes 194.4 mm | 1 split(s) tratado(s)
+  [ apaga] prejuizo recorrente
+          0 de 4 trimestres com prejuizo (nenhum) | lucro TTM US$ 0.54 bi
+  [ apaga] estoque crescendo mais que a receita
+          estoque +168.31% YoY contra receita +165.11% YoY = +3.20 pontos de diferenca
+
+SINTESE (enumeracao, NAO veredito — a decisao e do Eduardo)
+  BOM ...: margem bruta 67.07 (melhorando); margem operacional 31.74 (melhorando); ROIC 22.27 (melhorando); ROE 19.73 (melhorando); margem de FCF 27.57 (melhorando); receita YoY 165.11 (melhorando); FCF positivo ha 6 trimestres seguidos
+  RUIM ..: diluicao 5.31 (piorando)
+  ACESAS : diluicao continua
+  S/DADO : cobertura de juros, divida subindo com lucro caindo
+
+##############################################################################
+GWRE — Guidewire Software, Inc.  (CIK 0001528396)
+TTM encerrado em 2026-04-30, publicado em 2026-06-05 | serie de 59 TTMs desde 2011-10-31
+receita TTM US$ 1.42 bi | lucro liquido TTM US$ 0.16 bi | EBITDA TTM US$ 0.14 bi
+  [tratamento] 1 desdobramento(s) detectado(s) e reescalado(s): 2.348x entre 2012-01-31 e 2012-04-30
+  [ponto-no-tempo] 62 trimestres de receita, 2 REAPRESENTADOS depois da 1a publicacao
+  [frescor] 93 dias desde a publicacao. ficha atual: o ultimo arquivamento na SEC (10-Q de 2026-06-05) e o mesmo que alimenta a ficha
+##############################################################################
+
+RENTABILIDADE
+  margem bruta         64.01%         [EDGAR ] tendencia: MELHORA (+0.593/trim em 8 TTMs; +1.88 contra 4 trimestres atras)
+  margem operacional   8.25%          [EDGAR ] tendencia: MELHORA (+1.753/trim em 8 TTMs; +6.33 contra 4 trimestres atras)
+  ROIC                 11.46%         [EDGAR ] tendencia: MELHORA (+2.080/trim em 8 TTMs; +8.90 contra 4 trimestres atras)
+  ROE                  12.14%         [EDGAR ] tendencia: MELHORA (+2.165/trim em 8 TTMs; +9.60 contra 4 trimestres atras)
+  margem liquida       11.25%         [EDGAR ] tendencia: MELHORA (+2.053/trim em 8 TTMs; +8.21 contra 4 trimestres atras)
+  (ressalva: capital investido calculado SEM conta de divida (nenhuma foi encontrada no XBRL) — pode ser empresa sem divida ou tag ausente)
+
+CAIXA
+  FCF TTM              0.337 US$ bi   [EDGAR ] sinal: POSITIVO
+  margem de FCF        23.74%         [EDGAR ] tendencia: MELHORA (+0.724/trim em 8 TTMs; +2.13 contra 4 trimestres atras)
+  conversao            211.04%        conversao de LUCRO em caixa (FCF/lucro liquido)
+                       219.38%        conversao OPERACIONAL (OCF/lucro liquido)
+  FCF+ seguidos        2 trimestres   de 61 trimestres na serie
+  abertura do FCF      OCF 0.35 US$ bi menos capex 0.01 US$ bi  (FCF por capex != FCF por operacao)
+
+BALANCO — sem dado no EDGAR (nenhuma conta de divida no XBRL); a leitura de -0.28x ao lado vem do Yahoo, SEM data de publicacao
+         direcao: sem dado
+  divida liq./EBITDA   -0.28x         [YAHOO*] tendencia: PIORA (+5.013/trim em 4 TTMs) [serie do EDGAR; o NIVEL acima veio do Yahoo — fontes diferentes, nao compare os dois numeros como se fossem a mesma medicao]
+  cobertura de juros   8.83x          [EDGAR ] tendencia: MELHORA (+2.023/trim em 8 TTMs; +6.95 contra 4 trimestres atras)
+                       divida bruta sem dado (nenhuma conta de divida no XBRL (empresa sem divida ou tag ausente — daqui de dentro os dois casos sao iguais)) | caixa 0.29 US$ bi | divida liquida sem dado (exige divida E caixa medidos no mesmo trimestre; falta pelo menos um)
+
+CRESCIMENTO — ritmo: ACELERANDO
+  receita YoY          24.92%         [EDGAR ] tendencia: MELHORA (+2.160/trim em 8 TTMs; +6.31 contra 4 trimestres atras)
+  aceleracao           1.60 pontos percentuais
+  YoY trimestre a trimestre 2025-01 +17.2%  2025-04 +18.6%  2025-07 +22.6%  2025-10 +22.8%  2026-01 +23.7%  2026-04 +24.9%
+
+DILUICAO
+  acoes diluidas       85.1 milhoes   [EDGAR ] 
+  diluicao YoY         -0.95%         [EDGAR ] tendencia: MELHORA (-0.295/trim em 8 TTMs; -1.43 contra 4 trimestres atras)
+  acoes trimestre a trimestre 2024-10 86.0  2025-01 83.7  2025-04 85.9  2025-10 86.5  2026-01 86.1  2026-04 85.1
+  (negativo = recompra; positivo = emissao)
+
+SINAIS DE ARMADILHA — cada bandeira com o numero que a levantou
+  [ apaga] queima de caixa
+          FCF TTM US$ 0.34 bi | 2 de 8 trimestres negativos (ultimos: 2024-10-31, 2025-10-31) | OCF TTM US$ 0.35 bi menos capex TTM US$ 0.01 bi (FCF negativo por CAPEX e por OPERACAO sao coisas diferentes: os dois numeros estao aqui para o dono separar)
+  [s/dado] divida subindo com lucro caindo
+          sem dado: faltam 5 TTMs com divida liquida e lucro liquido
+  [ apaga] diluicao continua
+          2 de 3 trimestres com acoes subindo YoY | ultimo -0.95% ao ano | acoes 85.1 mm | 1 split(s) tratado(s)
+  [ apaga] prejuizo recorrente
+          0 de 4 trimestres com prejuizo (nenhum) | lucro TTM US$ 0.16 bi
+  [s/dado] estoque crescendo mais que a receita
+          sem dado: conta de estoque ausente (empresa de servico/software nao publica InventoryNet)
+
+SINTESE (enumeracao, NAO veredito — a decisao e do Eduardo)
+  BOM ...: margem bruta 64.01 (melhorando); margem operacional 8.25 (melhorando); ROIC 11.46 (melhorando); ROE 12.14 (melhorando); margem de FCF 23.74 (melhorando); cobertura de juros 8.834 (melhorando); receita YoY 24.92 (melhorando); diluicao -0.95 (melhorando); FCF positivo ha 2 trimestres seguidos
+  RUIM ..: colchao de caixa (-0.28x EBITDA) encolhendo
+  ACESAS : nenhuma
+  S/DADO : divida subindo com lucro caindo, estoque crescendo mais que a receita
+
+##############################################################################
+EIX — EDISON INTERNATIONAL  (CIK 0000827052)
+TTM encerrado em 2026-03-31, publicado em 2026-04-28 | serie de 69 TTMs desde 2009-03-31
+receita TTM US$ 19.61 bi | lucro liquido TTM US$ 3.55 bi | EBITDA TTM US$ 9.36 bi
+  [ponto-no-tempo] 72 trimestres de receita, 5 REAPRESENTADOS depois da 1a publicacao
+  [!! FRESCOR] 131 dias desde a publicacao. DEFASADA: a empresa arquivou 10-Q em 2026-07-30 e NENHUM fato desse arquivamento esta no companyfacts. A ficha abaixo e do trimestre anterior (2026-03-31). Nao e erro de extracao: e atraso da fonte.
+##############################################################################
+
+RENTABILIDADE
+  margem bruta         61.00%         [YAHOO*] tendencia: sem dado (so 0 TTMs com este campo)
+  margem operacional   30.77%         [EDGAR ] tendencia: MELHORA (+2.862/trim em 8 TTMs; +2.97 contra 4 trimestres atras)
+  ROIC                 8.40%          [EDGAR ] tendencia: MELHORA (+0.644/trim em 8 TTMs; +0.88 contra 4 trimestres atras)
+  ROE                  20.52%         [EDGAR ] tendencia: MELHORA (+2.457/trim em 8 TTMs; +4.09 contra 4 trimestres atras)
+  margem liquida       18.12%         [EDGAR ] tendencia: MELHORA (+2.410/trim em 8 TTMs; +2.36 contra 4 trimestres atras)
+
+CAIXA
+  FCF TTM              -0.643 US$ bi  [EDGAR ] sinal: NEGATIVO
+  margem de FCF        -3.28%         [EDGAR ] tendencia: MELHORA (+0.400/trim em 8 TTMs; +0.42 contra 4 trimestres atras)
+  conversao            -18.09%        conversao de LUCRO em caixa (FCF/lucro liquido)
+                       168.91%        conversao OPERACIONAL (OCF/lucro liquido)
+  FCF+ seguidos        0 trimestres   de 71 trimestres na serie
+  abertura do FCF      OCF 6.00 US$ bi menos capex 6.65 US$ bi  (FCF por capex != FCF por operacao)
+
+BALANCO — DIVIDA LIQUIDA de US$ 40.14 bi
+         direcao: multiplo MELHOROU, mas a divida liquida em dolar SUBIU de US$ 37.07 bi para US$ 40.14 bi em 4 trimestres — quem caiu foi a RAZAO, porque o EBITDA cresceu mais rapido que a divida, e nao a divida
+  divida liq./EBITDA   4.29x          [EDGAR ] tendencia: MELHORA (-0.421/trim em 8 TTMs; -0.49 contra 4 trimestres atras)
+  cobertura de juros   3.42x          [EDGAR ] tendencia: MELHORA (+0.330/trim em 8 TTMs; +0.63 contra 4 trimestres atras)
+                       divida bruta 40.31 US$ bi | caixa 0.17 US$ bi | divida liquida 40.14 US$ bi
+
+CRESCIMENTO — ritmo: ACELERANDO
+  receita YoY          13.14%         [EDGAR ] tendencia: MELHORA (+1.517/trim em 8 TTMs; +7.78 contra 4 trimestres atras)
+  aceleracao           7.10 pontos percentuais
+  YoY trimestre a trimestre 2024-12 +7.7%  2025-03 +5.4%  2025-06 +4.3%  2025-09 +4.4%  2025-12 +9.8%  2026-03 +13.1%
+
+DILUICAO
+  acoes diluidas       387.0 milhoes  [EDGAR ] 
+  diluicao YoY         0.26%          [EDGAR ] tendencia: MELHORA (-0.195/trim em 8 TTMs; -1.04 contra 4 trimestres atras)
+  acoes trimestre a trimestre 2024-06 388.0  2024-09 390.0  2025-03 386.0  2025-06 386.0  2025-09 386.0  2026-03 387.0
+  (negativo = recompra; positivo = emissao)
+
+SINAIS DE ARMADILHA — cada bandeira com o numero que a levantou
+  [ACESA] queima de caixa
+          FCF TTM US$ -0.64 bi | 6 de 8 trimestres negativos (ultimos: 2025-06-30, 2025-12-31, 2026-03-31) | OCF TTM US$ 6.00 bi menos capex TTM US$ 6.65 bi (FCF negativo por CAPEX e por OPERACAO sao coisas diferentes: os dois numeros estao aqui para o dono separar)
+  [ apaga] divida subindo com lucro caindo
+          divida liquida 37.07 bi -> 40.14 bi (+8.3%) e lucro TTM 2.73 bi -> 3.55 bi (+30.1%), em 4 trimestres
+  [ apaga] diluicao continua
+          1 de 3 trimestres com acoes subindo YoY | ultimo +0.26% ao ano | acoes 387.0 mm
+  [ apaga] prejuizo recorrente
+          0 de 4 trimestres com prejuizo (nenhum) | lucro TTM US$ 3.55 bi
+  [ apaga] estoque crescendo mais que a receita
+          estoque +0.56% YoY contra receita +13.14% YoY = -12.58 pontos de diferenca
+
+SINTESE (enumeracao, NAO veredito — a decisao e do Eduardo)
+  BOM ...: margem operacional 30.77 (melhorando); ROIC 8.4 (melhorando); ROE 20.52 (melhorando); margem de FCF -3.28 (melhorando); cobertura de juros 3.424 (melhorando); receita YoY 13.14 (melhorando); diluicao 0.26 (melhorando)
+  RUIM ..: divida/EBITDA 4.287: multiplo MELHOROU, mas a divida liquida em dolar SUBIU de US$ 37.07 bi para US$ 40.14 bi em 4 trimestres — quem caiu foi a RAZAO, porque o EBITDA cresceu mais rapido que a divida, e nao a divida; FCF TTM negativo
+  ACESAS : queima de caixa
+  S/DADO : nenhum
+
+##############################################################################
+FICO — FAIR ISAAC CORP  (CIK 0000814547)
+TTM encerrado em 2026-06-30, publicado em 2026-07-29 | serie de 66 TTMs desde 2010-03-31
+receita TTM US$ 2.39 bi | lucro liquido TTM US$ 0.82 bi | EBITDA TTM US$ 1.25 bi
+  [ponto-no-tempo] 69 trimestres de receita, 1 REAPRESENTADOS depois da 1a publicacao
+  [frescor] 39 dias desde a publicacao. ficha atual: o ultimo arquivamento na SEC (10-Q de 2026-07-29) e o mesmo que alimenta a ficha
+##############################################################################
+
+RENTABILIDADE
+  margem bruta         85.10%         [EDGAR ] tendencia: MELHORA (+0.767/trim em 8 TTMs; +3.35 contra 4 trimestres atras)
+  margem operacional   51.65%         [EDGAR ] tendencia: MELHORA (+1.277/trim em 8 TTMs; +5.78 contra 4 trimestres atras)
+  ROIC                 76.49%         [EDGAR ] tendencia: MELHORA (+3.023/trim em 8 TTMs; +15.67 contra 4 trimestres atras)
+  ROE                  sem dado (patrimonio liquido de US$ -4.10 bi (NAO POSITIVO) — o ROE nao tem significado economico aqui; leia o ROIC) [-     ] serie historica: MELHORA (+10.297/trim em 8 TTMs) — mas o NIVEL atual esta sem dado, entao NAO leia como melhora de hoje
+  margem liquida       34.05%         [EDGAR ] tendencia: MELHORA (+0.599/trim em 8 TTMs; +1.25 contra 4 trimestres atras)
+
+CAIXA
+  FCF TTM              0.996 US$ bi   [EDGAR ] sinal: POSITIVO
+  margem de FCF        41.61%         [EDGAR ] tendencia: MELHORA (+0.475/trim em 8 TTMs; +1.43 contra 4 trimestres atras)
+  conversao            122.21%        conversao de LUCRO em caixa (FCF/lucro liquido)
+                       122.89%        conversao OPERACIONAL (OCF/lucro liquido)
+  FCF+ seguidos        46 trimestres  de 68 trimestres na serie
+  abertura do FCF      OCF 1.00 US$ bi menos capex 0.01 US$ bi  (FCF por capex != FCF por operacao)
+
+BALANCO — DIVIDA LIQUIDA de US$ 5.33 bi
+         direcao: ENDIVIDANDO
+  divida liq./EBITDA   4.27x          [EDGAR ] tendencia: PIORA (+0.062/trim em 8 TTMs; +1.38 contra 4 trimestres atras)
+  cobertura de juros   6.63x          [EDGAR ] tendencia: PIORA (-0.035/trim em 8 TTMs; -0.60 contra 4 trimestres atras)
+                       divida bruta 5.58 US$ bi | caixa 0.25 US$ bi | divida liquida 5.33 US$ bi
+
+CRESCIMENTO — ritmo: ACELERANDO
+  receita YoY          24.09%         [EDGAR ] tendencia: MELHORA (+1.515/trim em 8 TTMs; +7.43 contra 4 trimestres atras)
+  aceleracao           7.28 pontos percentuais
+  YoY trimestre a trimestre 2025-03 +14.7%  2025-06 +16.7%  2025-09 +15.9%  2025-12 +16.2%  2026-03 +22.6%  2026-06 +24.1%
+
+DILUICAO
+  acoes diluidas       22.7 milhoes   [EDGAR ] 
+  diluicao YoY         -7.62%         [EDGAR ] tendencia: MELHORA (-0.506/trim em 8 TTMs; -5.76 contra 4 trimestres atras)
+  acoes trimestre a trimestre 2024-12 24.8  2025-03 24.7  2025-06 24.6  2025-12 24.0  2026-03 23.7  2026-06 22.7
+  (negativo = recompra; positivo = emissao)
+
+SINAIS DE ARMADILHA — cada bandeira com o numero que a levantou
+  [ apaga] queima de caixa
+          FCF TTM US$ 1.00 bi | 0 de 8 trimestres negativos (nenhum) | OCF TTM US$ 1.00 bi menos capex TTM US$ 0.01 bi (FCF negativo por CAPEX e por OPERACAO sao coisas diferentes: os dois numeros estao aqui para o dono separar)
+  [ apaga] divida subindo com lucro caindo
+          divida liquida 2.59 bi -> 5.33 bi (+105.9%) e lucro TTM 0.63 bi -> 0.82 bi (+28.8%), em 4 trimestres
+  [ apaga] diluicao continua
+          0 de 3 trimestres com acoes subindo YoY | ultimo -7.62% ao ano | acoes 22.7 mm
+  [ apaga] prejuizo recorrente
+          0 de 4 trimestres com prejuizo (nenhum) | lucro TTM US$ 0.82 bi
+  [s/dado] estoque crescendo mais que a receita
+          sem dado: conta de estoque ausente (empresa de servico/software nao publica InventoryNet)
+
+SINTESE (enumeracao, NAO veredito — a decisao e do Eduardo)
+  BOM ...: margem bruta 85.1 (melhorando); margem operacional 51.65 (melhorando); ROIC 76.49 (melhorando); margem de FCF 41.61 (melhorando); receita YoY 24.09 (melhorando); diluicao -7.62 (melhorando); FCF positivo ha 46 trimestres seguidos
+  RUIM ..: divida/EBITDA 4.269 (piorando); cobertura de juros 6.634 (piorando)
+  ACESAS : nenhuma
+  S/DADO : ROE, estoque crescendo mais que a receita
+
+##############################################################################
+MDB — MongoDB, Inc.  (CIK 0001441816)
+TTM encerrado em 2026-07-31, publicado em 2026-09-01 | serie de 37 TTMs desde 2017-07-31
+receita TTM US$ 2.78 bi | lucro liquido TTM US$ 0.06 bi | EBITDA TTM US$ 0.01 bi
+  [ponto-no-tempo] 40 trimestres de receita, 0 REAPRESENTADOS depois da 1a publicacao
+  [frescor] 5 dias desde a publicacao. ficha atual: o ultimo arquivamento na SEC (10-Q de 2026-09-01) e o mesmo que alimenta a ficha
+##############################################################################
+
+RENTABILIDADE
+  margem bruta         72.69%         [EDGAR ] tendencia: PIORA (-0.290/trim em 8 TTMs; +0.36 contra 4 trimestres atras)
+  margem operacional   -0.52%         [EDGAR ] tendencia: MELHORA (+1.642/trim em 8 TTMs; +6.93 contra 4 trimestres atras)
+  ROIC                 -0.57%         [EDGAR ] tendencia: MELHORA (+1.447/trim em 8 TTMs; +6.56 contra 4 trimestres atras)
+  ROE                  1.98%          [EDGAR ] tendencia: MELHORA (+1.103/trim em 8 TTMs; +4.65 contra 4 trimestres atras)
+  margem liquida       2.12%          [EDGAR ] tendencia: MELHORA (+1.425/trim em 8 TTMs; +5.66 contra 4 trimestres atras)
+  (ressalva: capital investido calculado SEM conta de divida (nenhuma foi encontrada no XBRL) — pode ser empresa sem divida ou tag ausente)
+
+CAIXA
+  FCF TTM              0.659 US$ bi   [EDGAR ] sinal: POSITIVO
+  margem de FCF        23.68%         [EDGAR ] tendencia: MELHORA (+2.945/trim em 8 TTMs; +12.86 contra 4 trimestres atras)
+  conversao            1118.94%       conversao de LUCRO em caixa (FCF/lucro liquido)
+                       1131.85%       conversao OPERACIONAL (OCF/lucro liquido)
+  FCF+ seguidos        8 trimestres   de 39 trimestres na serie
+  abertura do FCF      OCF 0.67 US$ bi menos capex 0.01 US$ bi  (FCF por capex != FCF por operacao)
+
+BALANCO — sem dado no EDGAR (nenhuma conta de divida no XBRL); a leitura de -170.08x ao lado vem do Yahoo, SEM data de publicacao
+         direcao: sem dado
+  divida liq./EBITDA   -170.08x       [YAHOO*] tendencia: sem dado (so 0 TTMs com este campo)
+  cobertura de juros   -6.14x         [EDGAR ] tendencia: PIORA (-0.269/trim em 8 TTMs; +19.48 contra 4 trimestres atras)
+  (ressalva: multiplo de -170.1x e extremo: ele diz que o EBITDA e minusculo perto do caixa/divida, nao que a alavancagem seja essa. Leia o valor em dolar ao lado.)
+                       divida bruta sem dado (nenhuma conta de divida no XBRL (empresa sem divida ou tag ausente — daqui de dentro os dois casos sao iguais)) | caixa 1.00 US$ bi | divida liquida sem dado (exige divida E caixa medidos no mesmo trimestre; falta pelo menos um)
+
+CRESCIMENTO — ritmo: ACELERANDO
+  receita YoY          25.45%         [EDGAR ] tendencia: MELHORA (+0.884/trim em 8 TTMs; +3.55 contra 4 trimestres atras)
+  aceleracao           2.69 pontos percentuais
+  YoY trimestre a trimestre 2025-04 +19.2%  2025-07 +21.9%  2025-10 +20.9%  2026-01 +22.8%  2026-04 +23.6%  2026-07 +25.4%
+
+DILUICAO
+  acoes diluidas       82.0 milhoes   [EDGAR ] 
+  diluicao YoY         1.13%          [EDGAR ] tendencia: MELHORA (-0.330/trim em 8 TTMs; -9.93 contra 4 trimestres atras)
+  acoes trimestre a trimestre 2024-10 74.0  2025-04 81.1  2025-07 81.1  2025-10 81.4  2026-04 81.6  2026-07 82.0
+  (negativo = recompra; positivo = emissao)
+
+SINAIS DE ARMADILHA — cada bandeira com o numero que a levantou
+  [ apaga] queima de caixa
+          FCF TTM US$ 0.66 bi | 0 de 8 trimestres negativos (nenhum) | OCF TTM US$ 0.67 bi menos capex TTM US$ 0.01 bi (FCF negativo por CAPEX e por OPERACAO sao coisas diferentes: os dois numeros estao aqui para o dono separar)
+  [s/dado] divida subindo com lucro caindo
+          sem dado: faltam 5 TTMs com divida liquida e lucro liquido
+  [ACESA] diluicao continua
+          3 de 3 trimestres com acoes subindo YoY | ultimo +1.13% ao ano | acoes 82.0 mm
+  [ apaga] prejuizo recorrente
+          1 de 4 trimestres com prejuizo (2025-10-31) | lucro TTM US$ 0.06 bi
+  [s/dado] estoque crescendo mais que a receita
+          sem dado: conta de estoque ausente (empresa de servico/software nao publica InventoryNet)
+
+SINTESE (enumeracao, NAO veredito — a decisao e do Eduardo)
+  BOM ...: margem operacional -0.52 (melhorando); ROIC -0.57 (melhorando); ROE 1.98 (melhorando); margem de FCF 23.68 (melhorando); receita YoY 25.45 (melhorando); diluicao 1.13 (melhorando); FCF positivo ha 8 trimestres seguidos
+  RUIM ..: margem bruta 72.69 (piorando); cobertura de juros -6.139 (piorando)
+  ACESAS : diluicao continua
+  S/DADO : divida subindo com lucro caindo, estoque crescendo mais que a receita
+
+##############################################################################
+ADSK — Autodesk, Inc.  (CIK 0000769397)
+TTM encerrado em 2026-07-31, publicado em 2026-08-28 | serie de 71 TTMs desde 2009-01-31
+receita TTM US$ 7.79 bi | lucro liquido TTM US$ 1.64 bi | EBITDA TTM US$ 2.24 bi
+  [ponto-no-tempo] 74 trimestres de receita, 4 REAPRESENTADOS depois da 1a publicacao
+  [frescor] 9 dias desde a publicacao. ficha atual: o ultimo arquivamento na SEC (10-Q de 2026-08-28) e o mesmo que alimenta a ficha
+##############################################################################
+
+RENTABILIDADE
+  margem bruta         91.25%         [EDGAR ] tendencia: MELHORA (+0.113/trim em 8 TTMs; +0.64 contra 4 trimestres atras)
+  margem operacional   26.20%         [EDGAR ] tendencia: MELHORA (+0.620/trim em 8 TTMs; +5.17 contra 4 trimestres atras)
+  ROIC                 57.29%         [EDGAR ] tendencia: MELHORA (+2.460/trim em 8 TTMs; +25.37 contra 4 trimestres atras)
+  ROE                  48.54%         [EDGAR ] tendencia: MELHORA (+0.690/trim em 8 TTMs; +10.12 contra 4 trimestres atras)
+  margem liquida       21.08%         [EDGAR ] tendencia: MELHORA (+0.198/trim em 8 TTMs; +5.29 contra 4 trimestres atras)
+
+CAIXA
+  FCF TTM              2.839 US$ bi   [EDGAR ] sinal: POSITIVO
+  margem de FCF        36.44%         [EDGAR ] tendencia: MELHORA (+2.158/trim em 8 TTMs; +7.92 contra 4 trimestres atras)
+  conversao            172.90%        conversao de LUCRO em caixa (FCF/lucro liquido)
+                       176.37%        conversao OPERACIONAL (OCF/lucro liquido)
+  FCF+ seguidos        33 trimestres  de 67 trimestres na serie
+  abertura do FCF      OCF 2.90 US$ bi menos capex 0.06 US$ bi  (FCF por capex != FCF por operacao)
+
+BALANCO — CAIXA LIQUIDO (o caixa supera a divida em US$ 0.60 bi)
+         direcao: colchao de caixa CRESCENDO em multiplos de EBITDA
+  divida liq./EBITDA   -0.27x         [EDGAR ] tendencia: MELHORA (-0.111/trim em 8 TTMs; -0.58 contra 4 trimestres atras)
+  cobertura de juros   sem dado (despesa de juros ausente no XBRL) [-     ] serie historica: MELHORA (+1.277/trim em 8 TTMs) — mas o NIVEL atual esta sem dado, entao NAO leia como melhora de hoje
+                       divida bruta 3.49 US$ bi | caixa 4.10 US$ bi | divida liquida -0.60 US$ bi
+
+CRESCIMENTO — ritmo: ACELERANDO
+  receita YoY          17.94%         [EDGAR ] tendencia: MELHORA (+1.130/trim em 8 TTMs; +4.16 contra 4 trimestres atras)
+  aceleracao           1.57 pontos percentuais
+  YoY trimestre a trimestre 2025-04 +12.4%  2025-07 +13.8%  2025-10 +15.6%  2026-01 +17.5%  2026-04 +18.3%  2026-07 +17.9%
+
+DILUICAO
+  acoes diluidas       211.0 milhoes  [EDGAR ] 
+  diluicao YoY         -1.86%         [EDGAR ] tendencia: MELHORA (-0.460/trim em 8 TTMs; -1.40 contra 4 trimestres atras)
+  acoes trimestre a trimestre 2024-10 217.0  2025-04 216.0  2025-07 215.0  2025-10 215.0  2026-04 212.0  2026-07 211.0
+  (negativo = recompra; positivo = emissao)
+
+SINAIS DE ARMADILHA — cada bandeira com o numero que a levantou
+  [ apaga] queima de caixa
+          FCF TTM US$ 2.84 bi | 0 de 8 trimestres negativos (nenhum) | OCF TTM US$ 2.90 bi menos capex TTM US$ 0.06 bi (FCF negativo por CAPEX e por OPERACAO sao coisas diferentes: os dois numeros estao aqui para o dono separar)
+  [ apaga] divida subindo com lucro caindo
+          divida liquida 0.50 bi -> -0.60 bi (-221.5%) e lucro TTM 1.04 bi -> 1.64 bi (+57.4%), em 4 trimestres
+  [ apaga] diluicao continua
+          0 de 3 trimestres com acoes subindo YoY | ultimo -1.86% ao ano | acoes 211.0 mm
+  [ apaga] prejuizo recorrente
+          0 de 4 trimestres com prejuizo (nenhum) | lucro TTM US$ 1.64 bi
+  [s/dado] estoque crescendo mais que a receita
+          sem dado: conta de estoque ausente (empresa de servico/software nao publica InventoryNet)
+
+SINTESE (enumeracao, NAO veredito — a decisao e do Eduardo)
+  BOM ...: margem bruta 91.25 (melhorando); margem operacional 26.2 (melhorando); ROIC 57.29 (melhorando); ROE 48.54 (melhorando); margem de FCF 36.44 (melhorando); colchao de caixa (-0.27x EBITDA) crescendo; receita YoY 17.94 (melhorando); diluicao -1.86 (melhorando); FCF positivo ha 33 trimestres seguidos
+  RUIM ..: nada nesta lista
+  ACESAS : nenhuma
+  S/DADO : cobertura de juros, estoque crescendo mais que a receita
+
+##############################################################################
+LULU — lululemon athletica inc.  (CIK 0001397187)
+TTM encerrado em 2026-08-02, publicado em 2026-09-03 | serie de 66 TTMs desde 2010-05-02
+receita TTM US$ 11.09 bi | lucro liquido TTM US$ 1.42 bi | EBITDA TTM US$ 2.52 bi
+  [tratamento] 1 desdobramento(s) detectado(s) e reescalado(s): 2.004x entre 2011-05-01 e 2011-07-31
+  [ponto-no-tempo] 69 trimestres de receita, 1 REAPRESENTADOS depois da 1a publicacao
+  [frescor] 3 dias desde a publicacao. ficha atual: o ultimo arquivamento na SEC (10-Q de 2026-09-03) e o mesmo que alimenta a ficha
+##############################################################################
+
+RENTABILIDADE
+  margem bruta         56.11%         [EDGAR ] tendencia: PIORA (-0.518/trim em 8 TTMs; -2.99 contra 4 trimestres atras)
+  margem operacional   17.84%         [EDGAR ] tendencia: PIORA (-0.843/trim em 8 TTMs; -5.04 contra 4 trimestres atras)
+  ROIC                 41.07%         [EDGAR ] tendencia: PIORA (-3.387/trim em 8 TTMs; -13.09 contra 4 trimestres atras)
+  ROE                  29.60%         [EDGAR ] tendencia: PIORA (-2.030/trim em 8 TTMs; -11.10 contra 4 trimestres atras)
+  margem liquida       12.78%         [EDGAR ] tendencia: PIORA (-0.670/trim em 8 TTMs; -3.60 contra 4 trimestres atras)
+
+CAIXA
+  FCF TTM              1.354 US$ bi   [EDGAR ] sinal: POSITIVO
+  margem de FCF        12.21%         [EDGAR ] tendencia: PIORA (-0.707/trim em 8 TTMs; +1.50 contra 4 trimestres atras)
+  conversao            95.51%         conversao de LUCRO em caixa (FCF/lucro liquido)
+                       139.78%        conversao OPERACIONAL (OCF/lucro liquido)
+  FCF+ seguidos        5 trimestres   de 68 trimestres na serie
+  abertura do FCF      OCF 1.98 US$ bi menos capex 0.63 US$ bi  (FCF por capex != FCF por operacao)
+
+BALANCO — CAIXA LIQUIDO (o caixa supera a divida em US$ 1.39 bi)
+         direcao: colchao de caixa ENCOLHENDO em multiplos de EBITDA (atencao: tambem encolhe quando o EBITDA cresce)
+  divida liq./EBITDA   -0.55x         [EDGAR ] tendencia: PIORA (+0.001/trim em 8 TTMs; -0.16 contra 4 trimestres atras)
+  cobertura de juros   sem dado (despesa de juros ausente no XBRL) [-     ] tendencia: sem dado (so 0 TTMs com este campo)
+                       divida bruta 0.00 US$ bi | caixa 1.39 US$ bi | divida liquida -1.39 US$ bi
+
+CRESCIMENTO — ritmo: DESACELERANDO
+  receita YoY          1.74%          [EDGAR ] tendencia: PIORA (-1.196/trim em 8 TTMs; -7.42 contra 4 trimestres atras)
+  aceleracao           -3.83 pontos percentuais
+  YoY trimestre a trimestre 2025-05 +9.4%  2025-08 +9.2%  2025-11 +8.8%  2026-02 +4.9%  2026-05 +4.2%  2026-08 +1.7%
+
+DILUICAO
+  acoes diluidas       112.9 milhoes  [EDGAR ] 
+  diluicao YoY         -5.65%         [EDGAR ] tendencia: MELHORA (-0.510/trim em 8 TTMs; -1.30 contra 4 trimestres atras)
+  acoes trimestre a trimestre 2024-10 122.8  2025-05 120.8  2025-08 119.7  2025-11 118.6  2026-05 115.5  2026-08 112.9
+  (negativo = recompra; positivo = emissao)
+
+SINAIS DE ARMADILHA — cada bandeira com o numero que a levantou
+  [ apaga] queima de caixa
+          FCF TTM US$ 1.35 bi | 1 de 8 trimestres negativos (ultimos: 2025-05-04) | OCF TTM US$ 1.98 bi menos capex TTM US$ 0.63 bi (FCF negativo por CAPEX e por OPERACAO sao coisas diferentes: os dois numeros estao aqui para o dono separar)
+  [ apaga] divida subindo com lucro caindo
+          divida liquida -1.16 bi -> -1.39 bi (-20.2%) e lucro TTM 1.79 bi -> 1.42 bi (-20.6%), em 4 trimestres
+  [ apaga] diluicao continua
+          0 de 3 trimestres com acoes subindo YoY | ultimo -5.65% ao ano | acoes 112.9 mm | 1 split(s) tratado(s)
+  [ apaga] prejuizo recorrente
+          0 de 4 trimestres com prejuizo (nenhum) | lucro TTM US$ 1.42 bi
+  [ apaga] estoque crescendo mais que a receita
+          estoque -0.65% YoY contra receita +1.74% YoY = -2.39 pontos de diferenca
+
+SINTESE (enumeracao, NAO veredito — a decisao e do Eduardo)
+  BOM ...: diluicao -5.65 (melhorando); FCF positivo ha 5 trimestres seguidos
+  RUIM ..: margem bruta 56.11 (piorando); margem operacional 17.84 (piorando); ROIC 41.07 (piorando); ROE 29.6 (piorando); margem de FCF 12.21 (piorando); colchao de caixa (-0.55x EBITDA) encolhendo; receita YoY 1.74 (piorando)
+  ACESAS : nenhuma
+  S/DADO : cobertura de juros
+
+##############################################################################
+PCG — PG&E Corp  (CIK 0001004980)
+TTM encerrado em 2026-06-30, publicado em 2026-07-23 | serie de 70 TTMs desde 2009-03-31
+receita TTM US$ 25.84 bi | lucro liquido TTM US$ 0.46 bi | EBITDA TTM US$ None bi
+  [tratamento] 1 desdobramento(s) detectado(s) e reescalado(s): 4.045x entre 2020-06-30 e 2020-09-30
+  [ponto-no-tempo] 73 trimestres de receita, 0 REAPRESENTADOS depois da 1a publicacao
+  [frescor] 45 dias desde a publicacao. ficha atual: o ultimo arquivamento na SEC (10-Q de 2026-07-23) e o mesmo que alimenta a ficha
+##############################################################################
+
+RENTABILIDADE
+  margem bruta         39.82%         [YAHOO*] tendencia: sem dado (so 0 TTMs com este campo)
+  margem operacional   19.99%         [EDGAR ] tendencia: MELHORA (+0.288/trim em 8 TTMs; +2.14 contra 4 trimestres atras)
+  ROIC                 5.39%          [EDGAR ] tendencia: MELHORA (+0.023/trim em 8 TTMs; +0.45 contra 4 trimestres atras)
+  ROE                  1.37%          [EDGAR ] tendencia: MELHORA (+0.120/trim em 8 TTMs; +1.61 contra 4 trimestres atras)
+  margem liquida       1.79%          [EDGAR ] tendencia: MELHORA (+0.155/trim em 8 TTMs; +2.10 contra 4 trimestres atras)
+
+CAIXA
+  FCF TTM              -4.263 US$ bi  [EDGAR ] sinal: NEGATIVO
+  margem de FCF        -16.50%        [EDGAR ] tendencia: PIORA (-1.157/trim em 8 TTMs; -7.65 contra 4 trimestres atras)
+  conversao            -920.73%       conversao de LUCRO em caixa (FCF/lucro liquido)
+                       1759.60%       conversao OPERACIONAL (OCF/lucro liquido)
+  FCF+ seguidos        0 trimestres   de 72 trimestres na serie
+  abertura do FCF      OCF 8.15 US$ bi menos capex 12.41 US$ bi  (FCF por capex != FCF por operacao)
+
+BALANCO — DIVIDA LIQUIDA de US$ 61.87 bi
+         direcao: sem dado
+  divida liq./EBITDA   6.10x          [YAHOO*] tendencia: sem dado (so 0 TTMs com este campo)
+  cobertura de juros   1.67x          [EDGAR ] tendencia: MELHORA (+0.045/trim em 8 TTMs; +0.23 contra 4 trimestres atras)
+                       divida bruta 62.84 US$ bi | caixa 0.97 US$ bi | divida liquida 61.87 US$ bi
+
+CRESCIMENTO — ritmo: ACELERANDO
+  receita YoY          5.66%          [EDGAR ] tendencia: MELHORA (+0.750/trim em 8 TTMs; +6.96 contra 4 trimestres atras)
+  aceleracao           4.54 pontos percentuais
+  YoY trimestre a trimestre 2025-03 +1.9%  2025-06 -1.3%  2025-09 -0.3%  2025-12 +2.1%  2026-03 +5.3%  2026-06 +5.7%
+
+DILUICAO
+  acoes diluidas       2285.0 milhoes [EDGAR ] 
+  diluicao YoY         3.72%          [EDGAR ] tendencia: PIORA (+0.630/trim em 8 TTMs; +0.87 contra 4 trimestres atras)
+  acoes trimestre a trimestre 2024-09 2143.0  2025-03 2200.0  2025-06 2203.0  2025-09 2281.0  2026-03 2281.0  2026-06 2285.0
+  (negativo = recompra; positivo = emissao)
+
+SINAIS DE ARMADILHA — cada bandeira com o numero que a levantou
+  [ACESA] queima de caixa
+          FCF TTM US$ -4.26 bi | 6 de 8 trimestres negativos (ultimos: 2025-12-31, 2026-03-31, 2026-06-30) | OCF TTM US$ 8.15 bi menos capex TTM US$ 12.41 bi (FCF negativo por CAPEX e por OPERACAO sao coisas diferentes: os dois numeros estao aqui para o dono separar)
+  [ apaga] divida subindo com lucro caindo
+          divida liquida 57.15 bi -> 61.87 bi (+8.3%) e lucro TTM -0.08 bi -> 0.46 bi (+709.2%), em 4 trimestres
+  [ACESA] diluicao continua
+          3 de 3 trimestres com acoes subindo YoY | ultimo +3.72% ao ano | acoes 2285.0 mm | 1 split(s) tratado(s)
+  [ apaga] prejuizo recorrente
+          1 de 4 trimestres com prejuizo (2025-12-31) | lucro TTM US$ 0.46 bi
+  [ apaga] estoque crescendo mais que a receita
+          estoque -4.11% YoY contra receita +5.66% YoY = -9.77 pontos de diferenca
+
+SINTESE (enumeracao, NAO veredito — a decisao e do Eduardo)
+  BOM ...: margem operacional 19.99 (melhorando); ROIC 5.39 (melhorando); ROE 1.37 (melhorando); cobertura de juros 1.666 (melhorando); receita YoY 5.66 (melhorando)
+  RUIM ..: margem de FCF -16.5 (piorando); diluicao 3.72 (piorando); FCF TTM negativo
+  ACESAS : queima de caixa, diluicao continua
+  S/DADO : nenhum
+
+##############################################################################
+CDNS — CADENCE DESIGN SYSTEMS INC  (CIK 0000813672)
+TTM encerrado em 2026-03-31, publicado em 2026-05-01 | serie de 65 TTMs desde 2010-04-03
+receita TTM US$ 5.53 bi | lucro liquido TTM US$ 1.17 bi | EBITDA TTM US$ 1.82 bi
+  [ponto-no-tempo] 68 trimestres de receita, 0 REAPRESENTADOS depois da 1a publicacao
+  [!! FRESCOR] 128 dias desde a publicacao. DEFASADA: a empresa arquivou 10-Q em 2026-07-29 e NENHUM fato desse arquivamento esta no companyfacts. A ficha abaixo e do trimestre anterior (2026-03-31). Nao e erro de extracao: e atraso da fonte.
+##############################################################################
+
+RENTABILIDADE
+  margem bruta         85.87%         [YAHOO*] tendencia: PIORA (-0.170/trim em 8 TTMs) [serie do EDGAR; o NIVEL acima veio do Yahoo — fontes diferentes, nao compare os dois numeros como se fossem a mesma medicao]
+  margem operacional   28.25%         [EDGAR ] tendencia: PIORA (-0.002/trim em 8 TTMs; -1.75 contra 4 trimestres atras)
+  ROIC                 22.25%         [EDGAR ] tendencia: PIORA (-2.098/trim em 8 TTMs; -32.64 contra 4 trimestres atras)
+  ROE                  17.85%         [EDGAR ] tendencia: PIORA (-0.793/trim em 8 TTMs; -4.79 contra 4 trimestres atras)
+  margem liquida       21.18%         [EDGAR ] tendencia: PIORA (-0.597/trim em 8 TTMs; -1.01 contra 4 trimestres atras)
+  (ressalva: capital investido calculado SEM conta de divida (nenhuma foi encontrada no XBRL) — pode ser empresa sem divida ou tag ausente)
+
+CAIXA
+  FCF TTM              1.430 US$ bi   [EDGAR ] sinal: POSITIVO
+  margem de FCF        25.86%         [EDGAR ] tendencia: MELHORA (+1.218/trim em 8 TTMs; -2.42 contra 4 trimestres atras)
+  conversao            122.11%        conversao de LUCRO em caixa (FCF/lucro liquido)
+                       136.43%        conversao OPERACIONAL (OCF/lucro liquido)
+  FCF+ seguidos        65 trimestres  de 67 trimestres na serie
+  abertura do FCF      OCF 1.60 US$ bi menos capex 0.17 US$ bi  (FCF por capex != FCF por operacao)
+
+BALANCO — sem dado no EDGAR (nenhuma conta de divida no XBRL); a leitura de 0.52x ao lado vem do Yahoo, SEM data de publicacao
+         direcao: sem dado
+  divida liq./EBITDA   0.52x          [YAHOO*] tendencia: PIORA (+0.353/trim em 4 TTMs) [serie do EDGAR; o NIVEL acima veio do Yahoo — fontes diferentes, nao compare os dois numeros como se fossem a mesma medicao]
+  cobertura de juros   13.12x         [EDGAR ] tendencia: PIORA (-1.907/trim em 8 TTMs; -2.04 contra 4 trimestres atras)
+                       divida bruta sem dado (nenhuma conta de divida no XBRL (empresa sem divida ou tag ausente — daqui de dentro os dois casos sao iguais)) | caixa 1.41 US$ bi | divida liquida sem dado (exige divida E caixa medidos no mesmo trimestre; falta pelo menos um)
+
+CRESCIMENTO — ritmo: DESACELERANDO
+  receita YoY          13.42%         [EDGAR ] tendencia: MELHORA (+0.772/trim em 8 TTMs; -6.13 contra 4 trimestres atras)
+  aceleracao           -7.23 pontos percentuais
+  YoY trimestre a trimestre 2024-12 +13.5%  2025-03 +19.6%  2025-06 +22.3%  2025-09 +19.7%  2025-12 +14.1%  2026-03 +13.4%
+
+DILUICAO
+  acoes diluidas       273.7 milhoes  [EDGAR ] 
+  diluicao YoY         0.03%          [EDGAR ] tendencia: estavel (+0.000/trim em 8 TTMs; -0.53 contra 4 trimestres atras)
+  acoes trimestre a trimestre 2024-06 273.5  2024-09 274.0  2025-03 273.6  2025-06 272.9  2025-09 273.8  2026-03 273.7
+  (negativo = recompra; positivo = emissao)
+
+SINAIS DE ARMADILHA — cada bandeira com o numero que a levantou
+  [ apaga] queima de caixa
+          FCF TTM US$ 1.43 bi | 0 de 8 trimestres negativos (nenhum) | OCF TTM US$ 1.60 bi menos capex TTM US$ 0.17 bi (FCF negativo por CAPEX e por OPERACAO sao coisas diferentes: os dois numeros estao aqui para o dono separar)
+  [s/dado] divida subindo com lucro caindo
+          sem dado: faltam 5 TTMs com divida liquida e lucro liquido
+  [ apaga] diluicao continua
+          1 de 3 trimestres com acoes subindo YoY | ultimo +0.03% ao ano | acoes 273.7 mm
+  [ apaga] prejuizo recorrente
+          0 de 4 trimestres com prejuizo (nenhum) | lucro TTM US$ 1.17 bi
+  [ACESA] estoque crescendo mais que a receita
+          estoque +40.92% YoY contra receita +13.42% YoY = +27.50 pontos de diferenca
+
+SINTESE (enumeracao, NAO veredito — a decisao e do Eduardo)
+  BOM ...: margem de FCF 25.86 (melhorando); receita YoY 13.42 (melhorando); FCF positivo ha 65 trimestres seguidos
+  RUIM ..: margem bruta 85.87 (piorando); margem operacional 28.25 (piorando); ROIC 22.25 (piorando); ROE 17.85 (piorando); divida/EBITDA 0.519 (piorando); cobertura de juros 13.121 (piorando)
+  ACESAS : estoque crescendo mais que a receita
+  S/DADO : divida subindo com lucro caindo
+
+##############################################################################
+OSW — ONESPAWORLD HOLDINGS Ltd  (CIK 0001758488)
+TTM encerrado em 2026-06-30, publicado em 2026-07-30 | serie de 31 TTMs desde 2018-12-31
+receita TTM US$ 1.01 bi | lucro liquido TTM US$ 0.08 bi | EBITDA TTM US$ 0.12 bi
+  [tratamento] 4 TROCA(S) DE UNIDADE na serie de acoes (razao ~1023.171), reescalada(s) — nao sao desdobramentos, sao milhares contra unidades em arquivamento antigo
+  [ponto-no-tempo] 35 trimestres de receita, 0 REAPRESENTADOS depois da 1a publicacao
+  [frescor] 38 dias desde a publicacao. ficha atual: o ultimo arquivamento na SEC (10-Q de 2026-07-30) e o mesmo que alimenta a ficha
+##############################################################################
+
+RENTABILIDADE
+  margem bruta         13.42%         [YAHOO*] tendencia: sem dado (so 0 TTMs com este campo)
+  margem operacional   8.92%          [EDGAR ] tendencia: MELHORA (+0.055/trim em 8 TTMs; +0.09 contra 4 trimestres atras)
+  ROIC                 13.78%         [EDGAR ] tendencia: MELHORA (+0.252/trim em 8 TTMs; +1.13 contra 4 trimestres atras)
+  ROE                  13.90%         [EDGAR ] tendencia: MELHORA (+0.283/trim em 8 TTMs; +0.92 contra 4 trimestres atras)
+  margem liquida       8.02%          [EDGAR ] tendencia: MELHORA (+0.122/trim em 8 TTMs; +0.28 contra 4 trimestres atras)
+
+CAIXA
+  FCF TTM              0.078 US$ bi   [EDGAR ] sinal: POSITIVO
+  margem de FCF        7.75%          [EDGAR ] tendencia: PIORA (-0.208/trim em 8 TTMs; +0.49 contra 4 trimestres atras)
+  conversao            96.63%         conversao de LUCRO em caixa (FCF/lucro liquido)
+                       117.98%        conversao OPERACIONAL (OCF/lucro liquido)
+  FCF+ seguidos        17 trimestres  de 30 trimestres na serie
+  abertura do FCF      OCF 0.10 US$ bi menos capex 0.02 US$ bi  (FCF por capex != FCF por operacao)
+
+BALANCO — DIVIDA LIQUIDA de US$ 0.04 bi
+         direcao: multiplo PIOROU, mas a divida liquida em dolar CAIU de US$ 0.06 bi para US$ 0.04 bi — quem subiu foi a RAZAO, por queda do EBITDA
+  divida liq./EBITDA   0.35x          [EDGAR ] tendencia: PIORA (+0.001/trim em 8 TTMs; -0.23 contra 4 trimestres atras)
+  cobertura de juros   16.79x         [EDGAR ] tendencia: MELHORA (+1.652/trim em 8 TTMs; +5.84 contra 4 trimestres atras)
+                       divida bruta 0.08 US$ bi | caixa 0.04 US$ bi | divida liquida 0.04 US$ bi
+
+CRESCIMENTO — ritmo: ACELERANDO
+  receita YoY          9.82%          [EDGAR ] tendencia: PIORA (-0.650/trim em 8 TTMs; +1.31 contra 4 trimestres atras)
+  aceleracao           2.32 pontos percentuais
+  YoY trimestre a trimestre 2025-03 +9.8%  2025-06 +8.5%  2025-09 +7.3%  2025-12 +7.4%  2026-03 +9.5%  2026-06 +9.8%
+
+DILUICAO
+  acoes diluidas       102.5 milhoes  [EDGAR ] 
+  diluicao YoY         -1.10%         [EDGAR ] tendencia: MELHORA (-1.970/trim em 8 TTMs; -3.18 contra 4 trimestres atras)
+  acoes trimestre a trimestre 2024-09 105.6  2025-03 105.1  2025-06 103.6  2025-09 103.6  2026-03 102.3  2026-06 102.5
+  (negativo = recompra; positivo = emissao)
+
+SINAIS DE ARMADILHA — cada bandeira com o numero que a levantou
+  [ apaga] queima de caixa
+          FCF TTM US$ 0.08 bi | 0 de 8 trimestres negativos (nenhum) | OCF TTM US$ 0.10 bi menos capex TTM US$ 0.02 bi (FCF negativo por CAPEX e por OPERACAO sao coisas diferentes: os dois numeros estao aqui para o dono separar)
+  [ apaga] divida subindo com lucro caindo
+          divida liquida 0.06 bi -> 0.04 bi (-32.6%) e lucro TTM 0.07 bi -> 0.08 bi (+13.8%), em 4 trimestres
+  [ apaga] diluicao continua
+          0 de 3 trimestres com acoes subindo YoY | ultimo -1.10% ao ano | acoes 102.5 mm | 4 split(s) tratado(s)
+  [ apaga] prejuizo recorrente
+          0 de 4 trimestres com prejuizo (nenhum) | lucro TTM US$ 0.08 bi
+  [ apaga] estoque crescendo mais que a receita
+          estoque +0.57% YoY contra receita +9.82% YoY = -9.25 pontos de diferenca
+
+SINTESE (enumeracao, NAO veredito — a decisao e do Eduardo)
+  BOM ...: margem operacional 8.92 (melhorando); ROIC 13.78 (melhorando); ROE 13.9 (melhorando); cobertura de juros 16.794 (melhorando); diluicao -1.1 (melhorando); FCF positivo ha 17 trimestres seguidos
+  RUIM ..: margem de FCF 7.75 (piorando); divida/EBITDA 0.352: multiplo PIOROU, mas a divida liquida em dolar CAIU de US$ 0.06 bi para US$ 0.04 bi — quem subiu foi a RAZAO, por queda do EBITDA; receita YoY 9.82 (piorando)
+  ACESAS : nenhuma
+  S/DADO : nenhum
+
+##############################################################################
+PTC — PTC INC.  (CIK 0000857005)
+TTM encerrado em 2026-06-30, publicado em 2026-07-31 | serie de 66 TTMs desde 2010-04-03
+receita TTM US$ 2.95 bi | lucro liquido TTM US$ 1.22 bi | EBITDA TTM US$ 1.22 bi
+  [ponto-no-tempo] 69 trimestres de receita, 0 REAPRESENTADOS depois da 1a publicacao
+  [frescor] 37 dias desde a publicacao. ficha atual: o ultimo arquivamento na SEC (10-Q de 2026-07-31) e o mesmo que alimenta a ficha
+##############################################################################
+
+RENTABILIDADE
+  margem bruta         84.50%         [EDGAR ] tendencia: MELHORA (+0.677/trim em 8 TTMs; +2.34 contra 4 trimestres atras)
+  margem operacional   37.81%         [EDGAR ] tendencia: MELHORA (+2.204/trim em 8 TTMs; +7.76 contra 4 trimestres atras)
+  ROIC                 19.67%         [EDGAR ] tendencia: MELHORA (+1.658/trim em 8 TTMs; +7.02 contra 4 trimestres atras)
+  ROE                  35.27%         [EDGAR ] tendencia: MELHORA (+3.350/trim em 8 TTMs; +20.67 contra 4 trimestres atras)
+  margem liquida       41.43%         [EDGAR ] tendencia: MELHORA (+3.935/trim em 8 TTMs; +20.69 contra 4 trimestres atras)
+
+CAIXA
+  FCF TTM              0.935 US$ bi   [EDGAR ] sinal: POSITIVO
+  margem de FCF        31.67%         [EDGAR ] tendencia: PIORA (-0.188/trim em 8 TTMs; -2.71 contra 4 trimestres atras)
+  conversao            76.44%         conversao de LUCRO em caixa (FCF/lucro liquido)
+                       78.06%         conversao OPERACIONAL (OCF/lucro liquido)
+  FCF+ seguidos        30 trimestres  de 68 trimestres na serie
+  abertura do FCF      OCF 0.96 US$ bi menos capex 0.02 US$ bi  (FCF por capex != FCF por operacao)
+
+BALANCO — DIVIDA LIQUIDA de US$ 1.07 bi
+         direcao: multiplo MELHOROU, mas a divida liquida em dolar SUBIU de US$ 1.03 bi para US$ 1.07 bi em 4 trimestres — quem caiu foi a RAZAO, porque o EBITDA cresceu mais rapido que a divida, e nao a divida
+  divida liq./EBITDA   0.88x          [EDGAR ] tendencia: MELHORA (-0.243/trim em 8 TTMs; -0.34 contra 4 trimestres atras)
+  cobertura de juros   17.10x         [EDGAR ] tendencia: MELHORA (+2.076/trim em 8 TTMs; +8.36 contra 4 trimestres atras)
+                       divida bruta 1.42 US$ bi | caixa 0.35 US$ bi | divida liquida 1.07 US$ bi
+
+CRESCIMENTO — ritmo: ACELERANDO
+  receita YoY          19.50%         [EDGAR ] tendencia: MELHORA (+3.025/trim em 8 TTMs; +8.08 contra 4 trimestres atras)
+  aceleracao           2.23 pontos percentuais
+  YoY trimestre a trimestre 2025-03 +4.7%  2025-06 +11.4%  2025-09 +19.2%  2025-12 +23.6%  2026-03 +27.8%  2026-06 +19.5%
+
+DILUICAO
+  acoes diluidas       115.0 milhoes  [EDGAR ] 
+  diluicao YoY         -4.55%         [EDGAR ] tendencia: MELHORA (-0.563/trim em 8 TTMs; -4.67 contra 4 trimestres atras)
+  acoes trimestre a trimestre 2024-12 121.1  2025-03 120.9  2025-06 120.5  2025-12 120.0  2026-03 118.6  2026-06 115.0
+  (negativo = recompra; positivo = emissao)
+
+SINAIS DE ARMADILHA — cada bandeira com o numero que a levantou
+  [ apaga] queima de caixa
+          FCF TTM US$ 0.94 bi | 0 de 8 trimestres negativos (nenhum) | OCF TTM US$ 0.96 bi menos capex TTM US$ 0.02 bi (FCF negativo por CAPEX e por OPERACAO sao coisas diferentes: os dois numeros estao aqui para o dono separar)
+  [ apaga] divida subindo com lucro caindo
+          divida liquida 1.03 bi -> 1.07 bi (+3.7%) e lucro TTM 0.51 bi -> 1.22 bi (+138.7%), em 4 trimestres
+  [ apaga] diluicao continua
+          0 de 3 trimestres com acoes subindo YoY | ultimo -4.55% ao ano | acoes 115.0 mm
+  [ apaga] prejuizo recorrente
+          0 de 4 trimestres com prejuizo (nenhum) | lucro TTM US$ 1.22 bi
+  [s/dado] estoque crescendo mais que a receita
+          sem dado: conta de estoque ausente (empresa de servico/software nao publica InventoryNet)
+
+SINTESE (enumeracao, NAO veredito — a decisao e do Eduardo)
+  BOM ...: margem bruta 84.5 (melhorando); margem operacional 37.81 (melhorando); ROIC 19.67 (melhorando); ROE 35.27 (melhorando); cobertura de juros 17.101 (melhorando); receita YoY 19.5 (melhorando); diluicao -4.55 (melhorando); FCF positivo ha 30 trimestres seguidos
+  RUIM ..: margem de FCF 31.67 (piorando); divida/EBITDA 0.881: multiplo MELHOROU, mas a divida liquida em dolar SUBIU de US$ 1.03 bi para US$ 1.07 bi em 4 trimestres — quem caiu foi a RAZAO, porque o EBITDA cresceu mais rapido que a divida, e nao a divida
+  ACESAS : nenhuma
+  S/DADO : estoque crescendo mais que a receita
+
+##############################################################################
+WLY — JOHN WILEY & SONS, INC.  (CIK 0000107140)
+TTM encerrado em 2026-07-31, publicado em 2026-09-04 | serie de 66 TTMs desde 2010-04-30
+receita TTM US$ 1.67 bi | lucro liquido TTM US$ 0.2 bi | EBITDA TTM US$ 0.39 bi
+  [tratamento] 4 TROCA(S) DE UNIDADE na serie de acoes (razao ~993.659), reescalada(s) — nao sao desdobramentos, sao milhares contra unidades em arquivamento antigo
+  [ponto-no-tempo] 69 trimestres de receita, 18 REAPRESENTADOS depois da 1a publicacao
+  [frescor] 2 dias desde a publicacao. ficha atual: o ultimo arquivamento na SEC (10-Q de 2026-09-04) e o mesmo que alimenta a ficha
+##############################################################################
+
+RENTABILIDADE
+  margem bruta         74.60%         [EDGAR ] tendencia: MELHORA (+0.108/trim em 8 TTMs; +0.42 contra 4 trimestres atras)
+  margem operacional   14.94%         [EDGAR ] tendencia: MELHORA (+0.610/trim em 8 TTMs; +1.57 contra 4 trimestres atras)
+  ROIC                 12.56%         [EDGAR ] tendencia: MELHORA (+2.268/trim em 8 TTMs; +1.88 contra 4 trimestres atras)
+  ROE                  24.87%         [EDGAR ] tendencia: MELHORA (+3.735/trim em 8 TTMs; +11.60 contra 4 trimestres atras)
+  margem liquida       11.90%         [EDGAR ] tendencia: MELHORA (+2.050/trim em 8 TTMs; +6.08 contra 4 trimestres atras)
+
+CAIXA
+  FCF TTM              0.240 US$ bi   [EDGAR ] sinal: POSITIVO
+  margem de FCF        14.40%         [EDGAR ] tendencia: MELHORA (+0.940/trim em 8 TTMs; +5.58 contra 4 trimestres atras)
+  conversao            121.04%        conversao de LUCRO em caixa (FCF/lucro liquido)
+                       146.45%        conversao OPERACIONAL (OCF/lucro liquido)
+  FCF+ seguidos        0 trimestres   de 68 trimestres na serie
+  abertura do FCF      OCF 0.29 US$ bi menos capex 0.05 US$ bi  (FCF por capex != FCF por operacao)
+
+BALANCO — DIVIDA LIQUIDA de US$ 1.18 bi
+         direcao: multiplo MELHOROU, mas a divida liquida em dolar SUBIU de US$ 0.75 bi para US$ 1.18 bi em 4 trimestres — quem caiu foi a RAZAO, porque o EBITDA cresceu mais rapido que a divida, e nao a divida
+  divida liq./EBITDA   3.01x          [EDGAR ] tendencia: MELHORA (-0.067/trim em 8 TTMs; +0.99 contra 4 trimestres atras)
+  cobertura de juros   5.33x          [EDGAR ] tendencia: MELHORA (+0.443/trim em 8 TTMs; +0.93 contra 4 trimestres atras)
+                       divida bruta 1.29 US$ bi | caixa 0.11 US$ bi | divida liquida 1.18 US$ bi
+
+CRESCIMENTO — ritmo: ACELERANDO
+  receita YoY          -0.27%         [EDGAR ] tendencia: MELHORA (+1.930/trim em 8 TTMs; +8.23 contra 4 trimestres atras)
+  aceleracao           3.45 pontos percentuais
+  YoY trimestre a trimestre 2025-04 -10.4%  2025-07 -8.5%  2025-10 -5.3%  2026-01 -1.9%  2026-04 -0.1%  2026-07 -0.3%
+
+DILUICAO
+  acoes diluidas       50.8 milhoes   [EDGAR ] 
+  diluicao YoY         -5.96%         [EDGAR ] tendencia: MELHORA (-0.277/trim em 8 TTMs; -4.39 contra 4 trimestres atras)
+  acoes trimestre a trimestre 2024-10 54.9  2025-01 54.0  2025-07 54.0  2025-10 53.5  2026-01 52.7  2026-07 50.8
+  (negativo = recompra; positivo = emissao)
+
+SINAIS DE ARMADILHA — cada bandeira com o numero que a levantou
+  [ apaga] queima de caixa
+          FCF TTM US$ 0.24 bi | 4 de 8 trimestres negativos (ultimos: 2025-07-31, 2025-10-31, 2026-07-31) | OCF TTM US$ 0.29 bi menos capex TTM US$ 0.05 bi (FCF negativo por CAPEX e por OPERACAO sao coisas diferentes: os dois numeros estao aqui para o dono separar)
+  [ apaga] divida subindo com lucro caindo
+          divida liquida 0.75 bi -> 1.18 bi (+58.7%) e lucro TTM 0.10 bi -> 0.20 bi (+103.7%), em 4 trimestres
+  [ apaga] diluicao continua
+          0 de 3 trimestres com acoes subindo YoY | ultimo -5.96% ao ano | acoes 50.8 mm | 4 split(s) tratado(s)
+  [ apaga] prejuizo recorrente
+          1 de 4 trimestres com prejuizo (2026-07-31) | lucro TTM US$ 0.20 bi
+  [ apaga] estoque crescendo mais que a receita
+          estoque -15.85% YoY contra receita -0.27% YoY = -15.58 pontos de diferenca
+
+SINTESE (enumeracao, NAO veredito — a decisao e do Eduardo)
+  BOM ...: margem bruta 74.6 (melhorando); margem operacional 14.94 (melhorando); ROIC 12.56 (melhorando); ROE 24.87 (melhorando); margem de FCF 14.4 (melhorando); cobertura de juros 5.325 (melhorando); receita YoY -0.27 (melhorando); diluicao -5.96 (melhorando); FCF TTM positivo
+  RUIM ..: divida/EBITDA 3.013: multiplo MELHOROU, mas a divida liquida em dolar SUBIU de US$ 0.75 bi para US$ 1.18 bi em 4 trimestres — quem caiu foi a RAZAO, porque o EBITDA cresceu mais rapido que a divida, e nao a divida; o ULTIMO trimestre fechou com FCF negativo (a soma de 12 meses ainda e positiva)
+  ACESAS : nenhuma
+  S/DADO : nenhum
+
+##############################################################################
+AON — Aon plc  (CIK 0000315293)
+TTM encerrado em 2026-06-30, publicado em 2026-07-29 | serie de 70 TTMs desde 2009-03-31
+receita TTM US$ 17.58 bi | lucro liquido TTM US$ 3.91 bi | EBITDA TTM US$ 4.84 bi
+  [ponto-no-tempo] 73 trimestres de receita, 11 REAPRESENTADOS depois da 1a publicacao
+  [frescor] 39 dias desde a publicacao. ficha atual: o ultimo arquivamento na SEC (10-Q de 2026-07-29) e o mesmo que alimenta a ficha
+##############################################################################
+
+RENTABILIDADE
+  margem bruta         48.15%         [YAHOO*] tendencia: sem dado (so 0 TTMs com este campo)
+  margem operacional   26.48%         [EDGAR ] tendencia: MELHORA (+0.553/trim em 8 TTMs; +2.40 contra 4 trimestres atras)
+  ROIC                 15.50%         [EDGAR ] tendencia: MELHORA (+0.493/trim em 8 TTMs; +1.97 contra 4 trimestres atras)
+  ROE                  40.78%         [EDGAR ] tendencia: MELHORA (+0.580/trim em 8 TTMs; +7.59 contra 4 trimestres atras)
+  margem liquida       22.27%         [EDGAR ] tendencia: MELHORA (+1.030/trim em 8 TTMs; +6.73 contra 4 trimestres atras)
+
+CAIXA
+  FCF TTM              3.248 US$ bi   [EDGAR ] sinal: POSITIVO
+  margem de FCF        18.48%         [EDGAR ] tendencia: MELHORA (+0.210/trim em 8 TTMs; +1.10 contra 4 trimestres atras)
+  conversao            82.98%         conversao de LUCRO em caixa (FCF/lucro liquido)
+                       90.21%         conversao OPERACIONAL (OCF/lucro liquido)
+  FCF+ seguidos        19 trimestres  de 72 trimestres na serie
+  abertura do FCF      OCF 3.53 US$ bi menos capex 0.28 US$ bi  (FCF por capex != FCF por operacao)
+
+BALANCO — DIVIDA LIQUIDA de US$ 13.90 bi
+         direcao: DESALAVANCANDO
+  divida liq./EBITDA   2.87x          [EDGAR ] tendencia: MELHORA (-0.242/trim em 8 TTMs; -0.99 contra 4 trimestres atras)
+  cobertura de juros   6.16x          [EDGAR ] tendencia: MELHORA (+0.255/trim em 8 TTMs; +1.34 contra 4 trimestres atras)
+                       divida bruta 14.97 US$ bi | caixa 1.06 US$ bi | divida liquida 13.90 US$ bi
+
+CRESCIMENTO — ritmo: DESACELERANDO
+  receita YoY          4.92%          [EDGAR ] tendencia: PIORA (-2.092/trim em 8 TTMs; -13.40 contra 4 trimestres atras)
+  aceleracao           -5.86 pontos percentuais
+  YoY trimestre a trimestre 2025-03 +20.5%  2025-06 +18.3%  2025-09 +14.1%  2025-12 +9.4%  2026-03 +6.9%  2026-06 +4.9%
+
+DILUICAO
+  acoes diluidas       213.9 milhoes  [EDGAR ] 
+  diluicao YoY         -1.56%         [EDGAR ] tendencia: MELHORA (-0.503/trim em 8 TTMs; -10.46 contra 4 trimestres atras)
+  acoes trimestre a trimestre 2024-09 218.4  2025-03 217.9  2025-06 217.3  2025-09 216.7  2026-03 215.4  2026-06 213.9
+  (negativo = recompra; positivo = emissao)
+
+SINAIS DE ARMADILHA — cada bandeira com o numero que a levantou
+  [ apaga] queima de caixa
+          FCF TTM US$ 3.25 bi | 0 de 8 trimestres negativos (nenhum) | OCF TTM US$ 3.53 bi menos capex TTM US$ 0.28 bi (FCF negativo por CAPEX e por OPERACAO sao coisas diferentes: os dois numeros estao aqui para o dono separar)
+  [ apaga] divida subindo com lucro caindo
+          divida liquida 16.28 bi -> 13.90 bi (-14.6%) e lucro TTM 2.60 bi -> 3.91 bi (+50.4%), em 4 trimestres
+  [ apaga] diluicao continua
+          0 de 3 trimestres com acoes subindo YoY | ultimo -1.56% ao ano | acoes 213.9 mm
+  [ apaga] prejuizo recorrente
+          0 de 4 trimestres com prejuizo (nenhum) | lucro TTM US$ 3.91 bi
+  [s/dado] estoque crescendo mais que a receita
+          sem dado: conta de estoque ausente (empresa de servico/software nao publica InventoryNet)
+
+SINTESE (enumeracao, NAO veredito — a decisao e do Eduardo)
+  BOM ...: margem operacional 26.48 (melhorando); ROIC 15.5 (melhorando); ROE 40.78 (melhorando); margem de FCF 18.48 (melhorando); divida/EBITDA 2.871 (melhorando); cobertura de juros 6.164 (melhorando); diluicao -1.56 (melhorando); FCF positivo ha 19 trimestres seguidos
+  RUIM ..: receita YoY 4.92 (piorando)
+  ACESAS : nenhuma
+  S/DADO : estoque crescendo mais que a receita
+
+##############################################################################
+REYN — Reynolds Consumer Products Inc.  (CIK 0001786431)
+TTM encerrado em 2026-03-31, publicado em 2026-05-06 | serie de 26 TTMs desde 2019-12-31
+receita TTM US$ 3.78 bi | lucro liquido TTM US$ 0.33 bi | EBITDA TTM US$ 0.65 bi
+  [ponto-no-tempo] 29 trimestres de receita, 1 REAPRESENTADOS depois da 1a publicacao
+  [!! FRESCOR] 123 dias desde a publicacao. DEFASADA: a empresa arquivou 10-Q em 2026-07-29 e NENHUM fato desse arquivamento esta no companyfacts. A ficha abaixo e do trimestre anterior (2026-03-31). Nao e erro de extracao: e atraso da fonte.
+##############################################################################
+
+RENTABILIDADE
+  margem bruta         24.66%         [EDGAR ] tendencia: PIORA (-0.468/trim em 8 TTMs; -1.55 contra 4 trimestres atras)
+  margem operacional   13.62%         [EDGAR ] tendencia: PIORA (-0.423/trim em 8 TTMs; -0.55 contra 4 trimestres atras)
+  ROIC                 10.60%         [EDGAR ] tendencia: PIORA (-0.350/trim em 8 TTMs; -0.42 contra 4 trimestres atras)
+  ROE                  14.48%         [EDGAR ] tendencia: PIORA (-0.690/trim em 8 TTMs; -1.31 contra 4 trimestres atras)
+  margem liquida       8.68%          [EDGAR ] tendencia: PIORA (-0.282/trim em 8 TTMs; -0.43 contra 4 trimestres atras)
+  (ressalva: EBIT DERIVADO por nos (lucro antes de impostos + despesa de juros): a empresa nao publica OperatingIncomeLoss no XBRL. Margem operacional, ROIC, EBITDA e cobertura de juros herdam essa reconstrucao.)
+
+CAIXA
+  FCF TTM              0.326 US$ bi   [EDGAR ] sinal: POSITIVO
+  margem de FCF        8.62%          [EDGAR ] tendencia: PIORA (-0.830/trim em 8 TTMs; +0.03 contra 4 trimestres atras)
+  conversao            99.39%         conversao de LUCRO em caixa (FCF/lucro liquido)
+                       150.00%        conversao OPERACIONAL (OCF/lucro liquido)
+  FCF+ seguidos        14 trimestres  de 29 trimestres na serie
+  abertura do FCF      OCF 0.49 US$ bi menos capex 0.17 US$ bi  (FCF por capex != FCF por operacao)
+
+BALANCO — DIVIDA LIQUIDA de US$ 1.46 bi
+         direcao: multiplo PIOROU, mas a divida liquida em dolar CAIU de US$ 1.58 bi para US$ 1.46 bi — quem subiu foi a RAZAO, por queda do EBITDA
+  divida liq./EBITDA   2.25x          [EDGAR ] tendencia: PIORA (+0.001/trim em 8 TTMs; -0.18 contra 4 trimestres atras)
+  cobertura de juros   5.92x          [EDGAR ] tendencia: MELHORA (+0.054/trim em 8 TTMs; +0.32 contra 4 trimestres atras)
+                       divida bruta 1.53 US$ bi | caixa 0.07 US$ bi | divida liquida 1.46 US$ bi
+
+CRESCIMENTO — ritmo: ACELERANDO
+  receita YoY          2.77%          [EDGAR ] tendencia: MELHORA (+0.734/trim em 8 TTMs; +3.74 contra 4 trimestres atras)
+  aceleracao           1.63 pontos percentuais
+  YoY trimestre a trimestre 2024-12 -1.1%  2025-03 -1.0%  2025-06 -0.5%  2025-09 +0.8%  2025-12 +0.8%  2026-03 +2.8%
+
+DILUICAO
+  acoes diluidas       211.8 milhoes  [EDGAR ] 
+  diluicao YoY         0.71%          [EDGAR ] tendencia: estavel (+0.000/trim em 8 TTMs; +0.57 contra 4 trimestres atras)
+  acoes trimestre a trimestre 2024-06 210.2  2024-09 210.3  2025-03 210.3  2025-06 210.3  2025-09 210.4  2026-03 211.8
+  (negativo = recompra; positivo = emissao)
+
+SINAIS DE ARMADILHA — cada bandeira com o numero que a levantou
+  [ apaga] queima de caixa
+          FCF TTM US$ 0.33 bi | 0 de 8 trimestres negativos (nenhum) | OCF TTM US$ 0.49 bi menos capex TTM US$ 0.17 bi (FCF negativo por CAPEX e por OPERACAO sao coisas diferentes: os dois numeros estao aqui para o dono separar)
+  [ apaga] divida subindo com lucro caindo
+          divida liquida 1.58 bi -> 1.46 bi (-7.6%) e lucro TTM 0.34 bi -> 0.33 bi (-2.1%), em 4 trimestres
+  [ apaga] diluicao continua
+          3 de 3 trimestres com acoes subindo YoY | ultimo +0.71% ao ano | acoes 211.8 mm
+  [ apaga] prejuizo recorrente
+          0 de 4 trimestres com prejuizo (nenhum) | lucro TTM US$ 0.33 bi
+  [ apaga] estoque crescendo mais que a receita
+          estoque +0.79% YoY contra receita +2.77% YoY = -1.98 pontos de diferenca
+
+SINTESE (enumeracao, NAO veredito — a decisao e do Eduardo)
+  BOM ...: cobertura de juros 5.92 (melhorando); receita YoY 2.77 (melhorando); FCF positivo ha 14 trimestres seguidos
+  RUIM ..: margem bruta 24.66 (piorando); margem operacional 13.62 (piorando); ROIC 10.6 (piorando); ROE 14.48 (piorando); margem de FCF 8.62 (piorando); divida/EBITDA 2.245: multiplo PIOROU, mas a divida liquida em dolar CAIU de US$ 1.58 bi para US$ 1.46 bi — quem subiu foi a RAZAO, por queda do EBITDA
+  ACESAS : nenhuma
+  S/DADO : nenhum
+
+##############################################################################
+SYK — STRYKER CORP  (CIK 0000310764)
+TTM encerrado em 2026-06-30, publicado em 2026-07-31 | serie de 70 TTMs desde 2009-03-31
+receita TTM US$ 25.84 bi | lucro liquido TTM US$ 3.73 bi | EBITDA TTM US$ 7.16 bi
+  [ponto-no-tempo] 73 trimestres de receita, 6 REAPRESENTADOS depois da 1a publicacao
+  [frescor] 37 dias desde a publicacao. ficha atual: o ultimo arquivamento na SEC (10-Q de 2026-07-31) e o mesmo que alimenta a ficha
+##############################################################################
+
+RENTABILIDADE
+  margem bruta         64.98%         [EDGAR ] tendencia: MELHORA (+0.078/trim em 8 TTMs; +0.84 contra 4 trimestres atras)
+  margem operacional   21.42%         [EDGAR ] tendencia: MELHORA (+0.682/trim em 8 TTMs; +6.24 contra 4 trimestres atras)
+  ROIC                 11.28%         [EDGAR ] tendencia: MELHORA (+0.290/trim em 8 TTMs; +2.38 contra 4 trimestres atras)
+  ROE                  15.55%         [EDGAR ] tendencia: MELHORA (+0.040/trim em 8 TTMs; +1.78 contra 4 trimestres atras)
+  margem liquida       14.43%         [EDGAR ] tendencia: PIORA (-0.008/trim em 8 TTMs; +2.18 contra 4 trimestres atras)
+
+CAIXA
+  FCF TTM              4.702 US$ bi   [EDGAR ] sinal: POSITIVO
+  margem de FCF        18.20%         [EDGAR ] tendencia: MELHORA (+0.530/trim em 8 TTMs; +1.31 contra 4 trimestres atras)
+  conversao            126.09%        conversao de LUCRO em caixa (FCF/lucro liquido)
+                       148.16%        conversao OPERACIONAL (OCF/lucro liquido)
+  FCF+ seguidos        35 trimestres  de 73 trimestres na serie
+  abertura do FCF      OCF 5.53 US$ bi menos capex 0.82 US$ bi  (FCF por capex != FCF por operacao)
+
+BALANCO — DIVIDA LIQUIDA de US$ 11.55 bi
+         direcao: DESALAVANCANDO
+  divida liq./EBITDA   1.61x          [EDGAR ] tendencia: MELHORA (-0.055/trim em 8 TTMs; -1.18 contra 4 trimestres atras)
+  cobertura de juros   9.22x          [EDGAR ] tendencia: MELHORA (+0.332/trim em 6 TTMs; +2.15 contra 4 trimestres atras)
+                       divida bruta 14.94 US$ bi | caixa 3.39 US$ bi | divida liquida 11.55 US$ bi
+
+CRESCIMENTO — ritmo: DESACELERANDO
+  receita YoY          8.48%          [EDGAR ] tendencia: PIORA (-0.278/trim em 8 TTMs; -2.88 contra 4 trimestres atras)
+  aceleracao           -2.39 pontos percentuais
+  YoY trimestre a trimestre 2025-03 +10.8%  2025-06 +11.4%  2025-09 +10.9%  2025-12 +11.2%  2026-03 +8.8%  2026-06 +8.5%
+
+DILUICAO
+  acoes diluidas       386.0 milhoes  [EDGAR ] 
+  diluicao YoY         -0.10%         [EDGAR ] tendencia: MELHORA (-0.080/trim em 8 TTMs; -0.44 contra 4 trimestres atras)
+  acoes trimestre a trimestre 2024-09 385.6  2025-03 386.4  2025-06 386.4  2025-09 386.7  2026-03 386.5  2026-06 386.0
+  (negativo = recompra; positivo = emissao)
+
+SINAIS DE ARMADILHA — cada bandeira com o numero que a levantou
+  [ apaga] queima de caixa
+          FCF TTM US$ 4.70 bi | 0 de 8 trimestres negativos (nenhum) | OCF TTM US$ 5.53 bi menos capex TTM US$ 0.82 bi (FCF negativo por CAPEX e por OPERACAO sao coisas diferentes: os dois numeros estao aqui para o dono separar)
+  [ apaga] divida subindo com lucro caindo
+          divida liquida 14.21 bi -> 11.55 bi (-18.7%) e lucro TTM 2.92 bi -> 3.73 bi (+27.8%), em 4 trimestres
+  [ apaga] diluicao continua
+          2 de 3 trimestres com acoes subindo YoY | ultimo -0.10% ao ano | acoes 386.0 mm
+  [ apaga] prejuizo recorrente
+          0 de 4 trimestres com prejuizo (nenhum) | lucro TTM US$ 3.73 bi
+  [ apaga] estoque crescendo mais que a receita
+          estoque +4.39% YoY contra receita +8.48% YoY = -4.09 pontos de diferenca
+
+SINTESE (enumeracao, NAO veredito — a decisao e do Eduardo)
+  BOM ...: margem bruta 64.98 (melhorando); margem operacional 21.42 (melhorando); ROIC 11.28 (melhorando); ROE 15.55 (melhorando); margem de FCF 18.2 (melhorando); divida/EBITDA 1.614 (melhorando); cobertura de juros 9.223 (melhorando); diluicao -0.1 (melhorando); FCF positivo ha 35 trimestres seguidos
+  RUIM ..: receita YoY 8.48 (piorando)
+  ACESAS : nenhuma
+  S/DADO : nenhum
+
+##############################################################################
+CLX — CLOROX CO /DE/  (CIK 0000021076)
+TTM encerrado em 2026-03-31, publicado em 2026-04-30 | serie de 43 TTMs desde 2015-09-30
+receita TTM US$ 6.76 bi | lucro liquido TTM US$ 0.76 bi | EBITDA TTM US$ 1.31 bi
+  [tratamento] 5 TROCA(S) DE UNIDADE na serie de acoes (razao ~1005.634), reescalada(s) — nao sao desdobramentos, sao milhares contra unidades em arquivamento antigo
+  [ponto-no-tempo] 71 trimestres de receita, 9 REAPRESENTADOS depois da 1a publicacao
+  [!! FRESCOR] 129 dias desde a publicacao. DEFASADA: a empresa arquivou 10-K em 2026-08-07 e NENHUM fato desse arquivamento esta no companyfacts. A ficha abaixo e do trimestre anterior (2026-03-31). Nao e erro de extracao: e atraso da fonte.
+##############################################################################
+
+RENTABILIDADE
+  margem bruta         43.85%         [EDGAR ] tendencia: PIORA (-0.037/trim em 8 TTMs; -1.36 contra 4 trimestres atras)
+  margem operacional   16.05%         [EDGAR ] tendencia: MELHORA (+1.515/trim em 8 TTMs; +1.38 contra 4 trimestres atras)
+  ROIC                 68.58%         [EDGAR ] tendencia: MELHORA (+5.015/trim em 8 TTMs; +34.67 contra 4 trimestres atras)
+  ROE                  sem dado (patrimonio liquido de US$ -0.07 bi (NAO POSITIVO) — o ROE nao tem significado economico aqui; leia o ROIC) [-     ] serie historica: MELHORA (+30.768/trim em 8 TTMs) — mas o NIVEL atual esta sem dado, entao NAO leia como melhora de hoje
+  margem liquida       11.18%         [EDGAR ] tendencia: MELHORA (+1.203/trim em 8 TTMs; +1.29 contra 4 trimestres atras)
+  (ressalva: EBIT DERIVADO por nos (lucro antes de impostos + despesa de juros): a empresa nao publica OperatingIncomeLoss no XBRL. Margem operacional, ROIC, EBITDA e cobertura de juros herdam essa reconstrucao.)
+
+CAIXA
+  FCF TTM              0.380 US$ bi   [EDGAR ] sinal: POSITIVO
+  margem de FCF        5.62%          [EDGAR ] tendencia: MELHORA (+0.453/trim em 8 TTMs; -5.79 contra 4 trimestres atras)
+  conversao            50.26%         conversao de LUCRO em caixa (FCF/lucro liquido)
+                       76.19%         conversao OPERACIONAL (OCF/lucro liquido)
+  FCF+ seguidos        0 trimestres   de 71 trimestres na serie
+  abertura do FCF      OCF 0.58 US$ bi menos capex 0.20 US$ bi  (FCF por capex != FCF por operacao)
+
+BALANCO — DIVIDA LIQUIDA de US$ 1.30 bi
+         direcao: DESALAVANCANDO
+  divida liq./EBITDA   0.99x          [EDGAR ] tendencia: MELHORA (-0.259/trim em 8 TTMs; -0.81 contra 4 trimestres atras)
+  cobertura de juros   11.19x         [EDGAR ] tendencia: MELHORA (+1.030/trim em 8 TTMs; -0.65 contra 4 trimestres atras)
+                       divida bruta 2.49 US$ bi | caixa 1.19 US$ bi | divida liquida 1.30 US$ bi
+
+CRESCIMENTO — ritmo: ESTAVEL
+  receita YoY          -3.69%         [EDGAR ] tendencia: PIORA (-0.660/trim em 8 TTMs; -1.05 contra 4 trimestres atras)
+  aceleracao           -0.09 pontos percentuais
+  YoY trimestre a trimestre 2024-12 -2.0%  2025-03 -2.6%  2025-06 +0.2%  2025-09 -9.3%  2025-12 -5.7%  2026-03 -3.7%
+
+DILUICAO
+  acoes diluidas       121.8 milhoes  [EDGAR ] 
+  diluicao YoY         -1.84%         [EDGAR ] tendencia: MELHORA (-0.372/trim em 8 TTMs; -1.87 contra 4 trimestres atras)
+  acoes trimestre a trimestre 2024-09 124.7  2024-12 124.7  2025-03 124.1  2025-09 123.0  2025-12 121.9  2026-03 121.8
+  (negativo = recompra; positivo = emissao)
+
+SINAIS DE ARMADILHA — cada bandeira com o numero que a levantou
+  [ apaga] queima de caixa
+          FCF TTM US$ 0.38 bi | 1 de 8 trimestres negativos (ultimos: 2026-03-31) | OCF TTM US$ 0.58 bi menos capex TTM US$ 0.20 bi (FCF negativo por CAPEX e por OPERACAO sao coisas diferentes: os dois numeros estao aqui para o dono separar)
+  [ apaga] divida subindo com lucro caindo
+          divida liquida 2.26 bi -> 1.30 bi (-42.4%) e lucro TTM 0.69 bi -> 0.76 bi (+8.9%), em 4 trimestres
+  [ apaga] diluicao continua
+          0 de 3 trimestres com acoes subindo YoY | ultimo -1.84% ao ano | acoes 121.8 mm | 5 split(s) tratado(s)
+  [ apaga] prejuizo recorrente
+          0 de 4 trimestres com prejuizo (nenhum) | lucro TTM US$ 0.76 bi
+  [ apaga] estoque crescendo mais que a receita
+          estoque -7.40% YoY contra receita -3.69% YoY = -3.71 pontos de diferenca
+
+SINTESE (enumeracao, NAO veredito — a decisao e do Eduardo)
+  BOM ...: margem operacional 16.05 (melhorando); ROIC 68.58 (melhorando); margem de FCF 5.62 (melhorando); divida/EBITDA 0.992 (melhorando); cobertura de juros 11.186 (melhorando); diluicao -1.84 (melhorando); FCF TTM positivo
+  RUIM ..: margem bruta 43.85 (piorando); receita YoY -3.69 (piorando); o ULTIMO trimestre fechou com FCF negativo (a soma de 12 meses ainda e positiva)
+  ACESAS : nenhuma
+  S/DADO : ROE
+
+##############################################################################
+CPB — CAMPBELL'S Co  (CIK 0000016732)
+TTM encerrado em 2026-05-03, publicado em 2026-06-08 | serie de 68 TTMs desde 2009-08-02
+receita TTM US$ 9.93 bi | lucro liquido TTM US$ 0.61 bi | EBITDA TTM US$ 1.53 bi
+  [ponto-no-tempo] 71 trimestres de receita, 13 REAPRESENTADOS depois da 1a publicacao
+  [frescor] 90 dias desde a publicacao. ficha atual: o ultimo arquivamento na SEC (10-Q de 2026-06-08) e o mesmo que alimenta a ficha
+##############################################################################
+
+RENTABILIDADE
+  margem bruta         28.85%         [EDGAR ] tendencia: PIORA (-0.283/trim em 8 TTMs; -1.36 contra 4 trimestres atras)
+  margem operacional   11.25%         [EDGAR ] tendencia: MELHORA (+0.124/trim em 8 TTMs; +2.14 contra 4 trimestres atras)
+  ROIC                 8.06%          [EDGAR ] tendencia: MELHORA (+0.157/trim em 8 TTMs; +1.49 contra 4 trimestres atras)
+  ROE                  15.09%         [EDGAR ] tendencia: MELHORA (+0.067/trim em 8 TTMs; +3.36 contra 4 trimestres atras)
+  margem liquida       6.12%          [EDGAR ] tendencia: MELHORA (+0.034/trim em 8 TTMs; +1.68 contra 4 trimestres atras)
+
+CAIXA
+  FCF TTM              0.671 US$ bi   [EDGAR ] sinal: POSITIVO
+  margem de FCF        6.76%          [EDGAR ] tendencia: PIORA (-0.078/trim em 8 TTMs; -0.31 contra 4 trimestres atras)
+  conversao            110.36%        conversao de LUCRO em caixa (FCF/lucro liquido)
+                       180.59%        conversao OPERACIONAL (OCF/lucro liquido)
+  FCF+ seguidos        47 trimestres  de 71 trimestres na serie
+  abertura do FCF      OCF 1.10 US$ bi menos capex 0.43 US$ bi  (FCF por capex != FCF por operacao)
+
+BALANCO — DIVIDA LIQUIDA de US$ 6.61 bi
+         direcao: DESALAVANCANDO
+  divida liq./EBITDA   4.32x          [EDGAR ] tendencia: MELHORA (-0.071/trim em 8 TTMs; -0.60 contra 4 trimestres atras)
+  cobertura de juros   3.38x          [EDGAR ] tendencia: PIORA (-0.069/trim em 8 TTMs; +0.67 contra 4 trimestres atras)
+                       divida bruta 7.01 US$ bi | caixa 0.40 US$ bi | divida liquida 6.61 US$ bi
+
+CRESCIMENTO — ritmo: DESACELERANDO
+  receita YoY          -2.90%         [EDGAR ] tendencia: PIORA (-1.430/trim em 8 TTMs; -11.55 contra 4 trimestres atras)
+  aceleracao           -6.41 pontos percentuais
+  YoY trimestre a trimestre 2025-01 +9.2%  2025-04 +8.7%  2025-08 +6.4%  2025-11 +2.7%  2026-02 -0.8%  2026-05 -2.9%
+
+DILUICAO
+  acoes diluidas       299.0 milhoes  [EDGAR ] 
+  diluicao YoY         0.00%          [EDGAR ] tendencia: PIORA (+0.055/trim em 8 TTMs; +0.00 contra 4 trimestres atras)
+  acoes trimestre a trimestre 2024-10 301.0  2025-01 299.0  2025-04 299.0  2025-11 299.0  2026-02 299.0  2026-05 299.0
+  (negativo = recompra; positivo = emissao)
+
+SINAIS DE ARMADILHA — cada bandeira com o numero que a levantou
+  [ apaga] queima de caixa
+          FCF TTM US$ 0.67 bi | 0 de 8 trimestres negativos (nenhum) | OCF TTM US$ 1.10 bi menos capex TTM US$ 0.43 bi (FCF negativo por CAPEX e por OPERACAO sao coisas diferentes: os dois numeros estao aqui para o dono separar)
+  [ apaga] divida subindo com lucro caindo
+          divida liquida 6.75 bi -> 6.61 bi (-2.1%) e lucro TTM 0.45 bi -> 0.61 bi (+33.9%), em 4 trimestres
+  [ apaga] diluicao continua
+          0 de 3 trimestres com acoes subindo YoY | ultimo +0.00% ao ano | acoes 299.0 mm
+  [ apaga] prejuizo recorrente
+          0 de 4 trimestres com prejuizo (nenhum) | lucro TTM US$ 0.61 bi
+  [ACESA] estoque crescendo mais que a receita
+          estoque +12.13% YoY contra receita -2.90% YoY = +15.03 pontos de diferenca
+
+SINTESE (enumeracao, NAO veredito — a decisao e do Eduardo)
+  BOM ...: margem operacional 11.25 (melhorando); ROIC 8.06 (melhorando); ROE 15.09 (melhorando); divida/EBITDA 4.322 (melhorando); FCF positivo ha 47 trimestres seguidos
+  RUIM ..: margem bruta 28.85 (piorando); margem de FCF 6.76 (piorando); cobertura de juros 3.375 (piorando); receita YoY -2.9 (piorando); diluicao 0.0 (piorando)
+  ACESAS : estoque crescendo mais que a receita
+  S/DADO : nenhum
+
+##############################################################################
+GIS — GENERAL MILLS INC  (CIK 0000040704)
+TTM encerrado em 2026-05-31, publicado em 2026-07-01 | serie de 69 TTMs desde 2009-05-31
+receita TTM US$ 18.42 bi | lucro liquido TTM US$ -0.09 bi | EBITDA TTM US$ 1.44 bi
+  [ponto-no-tempo] 72 trimestres de receita, 4 REAPRESENTADOS depois da 1a publicacao
+  [frescor] 67 dias desde a publicacao. ficha atual: o ultimo arquivamento na SEC (10-K de 2026-07-01) e o mesmo que alimenta a ficha
+##############################################################################
+
+RENTABILIDADE
+  margem bruta         33.63%         [EDGAR ] tendencia: PIORA (-0.270/trim em 8 TTMs; -0.92 contra 4 trimestres atras)
+  margem operacional   4.81%          [EDGAR ] tendencia: MELHORA (+0.174/trim em 8 TTMs; -12.15 contra 4 trimestres atras)
+  ROIC                 1.74%          [EDGAR ] tendencia: PIORA (-0.260/trim em 8 TTMs; -9.70 contra 4 trimestres atras)
+  ROE                  -1.19%         [EDGAR ] tendencia: PIORA (-0.670/trim em 8 TTMs; -26.14 contra 4 trimestres atras)
+  margem liquida       -0.48%         [EDGAR ] tendencia: PIORA (-0.120/trim em 8 TTMs; -12.26 contra 4 trimestres atras)
+
+CAIXA
+  FCF TTM              1.626 US$ bi   [EDGAR ] sinal: POSITIVO
+  margem de FCF        8.83%          [EDGAR ] tendencia: PIORA (-0.840/trim em 8 TTMs; -2.94 contra 4 trimestres atras)
+  conversao            sem dado (lucro liquido TTM nao positivo — a razao perde sentido) conversao de LUCRO em caixa (FCF/lucro liquido)
+                       sem dado (lucro liquido TTM nao positivo) conversao OPERACIONAL (OCF/lucro liquido)
+  FCF+ seguidos        72 trimestres  de 72 trimestres na serie
+  abertura do FCF      OCF 2.17 US$ bi menos capex 0.54 US$ bi  (FCF por capex != FCF por operacao)
+
+BALANCO — DIVIDA LIQUIDA de US$ 13.02 bi
+         direcao: multiplo PIOROU, mas a divida liquida em dolar CAIU de US$ 13.84 bi para US$ 13.02 bi — quem subiu foi a RAZAO, por queda do EBITDA
+  divida liq./EBITDA   9.03x          [EDGAR ] tendencia: PIORA (+0.095/trim em 8 TTMs; +5.43 contra 4 trimestres atras)
+  cobertura de juros   sem dado (despesa de juros ausente no XBRL) [-     ] serie historica: PIORA (-0.027/trim em 8 TTMs) — mas o NIVEL atual esta sem dado, entao NAO leia como melhora de hoje
+                       divida bruta 13.47 US$ bi | caixa 0.45 US$ bi | divida liquida 13.02 US$ bi
+
+CRESCIMENTO — ritmo: DESACELERANDO
+  receita YoY          -5.45%         [EDGAR ] tendencia: PIORA (-0.662/trim em 8 TTMs; -3.58 contra 4 trimestres atras)
+  aceleracao           -1.51 pontos percentuais
+  YoY trimestre a trimestre 2025-02 -2.6%  2025-05 -1.9%  2025-08 -3.3%  2025-11 -5.7%  2026-02 -6.5%  2026-05 -5.5%
+
+DILUICAO
+  acoes diluidas       sem dado (sem serie de acoes no XBRL) [-     ] 
+  diluicao YoY         sem dado (conta ausente no XBRL da empresa) [-     ] serie historica: PIORA (+0.080/trim em 8 TTMs) — mas o NIVEL atual esta sem dado, entao NAO leia como melhora de hoje
+  acoes trimestre a trimestre 2024-08 563.8  2024-11 560.4  2025-02 555.0  2025-08 542.5  2025-11 537.3  2026-02 537.3
+  (negativo = recompra; positivo = emissao)
+
+SINAIS DE ARMADILHA — cada bandeira com o numero que a levantou
+  [ apaga] queima de caixa
+          FCF TTM US$ 1.63 bi | 0 de 8 trimestres negativos (nenhum) | OCF TTM US$ 2.17 bi menos capex TTM US$ 0.54 bi (FCF negativo por CAPEX e por OPERACAO sao coisas diferentes: os dois numeros estao aqui para o dono separar)
+  [ apaga] divida subindo com lucro caindo
+          divida liquida 13.84 bi -> 13.02 bi (-5.9%) e lucro TTM 2.30 bi -> -0.09 bi (-103.8%), em 4 trimestres
+  [ apaga] diluicao continua
+          0 de 3 trimestres com acoes subindo YoY | ultimo +0.00% ao ano | acoes None mm
+  [ apaga] prejuizo recorrente
+          1 de 4 trimestres com prejuizo (2026-05-31) | lucro TTM US$ -0.09 bi
+  [ apaga] estoque crescendo mais que a receita
+          estoque +0.37% YoY contra receita -5.45% YoY = +5.82 pontos de diferenca
+
+SINTESE (enumeracao, NAO veredito — a decisao e do Eduardo)
+  BOM ...: margem operacional 4.81 (melhorando); FCF positivo ha 72 trimestres seguidos
+  RUIM ..: margem bruta 33.63 (piorando); ROIC 1.74 (piorando); ROE -1.19 (piorando); margem de FCF 8.83 (piorando); divida/EBITDA 9.032: multiplo PIOROU, mas a divida liquida em dolar CAIU de US$ 13.84 bi para US$ 13.02 bi — quem subiu foi a RAZAO, por queda do EBITDA; receita YoY -5.45 (piorando)
+  ACESAS : nenhuma
+  S/DADO : cobertura de juros, diluicao
+
+##############################################################################
+NSC — NORFOLK SOUTHERN CORP  (CIK 0000702165)
+TTM encerrado em 2026-06-30, publicado em 2026-07-23 | serie de 69 TTMs desde 2009-06-30
+receita TTM US$ 12.54 bi | lucro liquido TTM US$ 2.64 bi | EBITDA TTM US$ 5.45 bi
+  [ponto-no-tempo] 72 trimestres de receita, 0 REAPRESENTADOS depois da 1a publicacao
+  [frescor] 45 dias desde a publicacao. ficha atual: o ultimo arquivamento na SEC (10-Q de 2026-07-23) e o mesmo que alimenta a ficha
+##############################################################################
+
+RENTABILIDADE
+  margem bruta         45.16%         [YAHOO*] tendencia: sem dado (so 0 TTMs com este campo)
+  margem operacional   32.19%         [EDGAR ] tendencia: PIORA (-0.232/trim em 8 TTMs; -9.26 contra 4 trimestres atras)
+  ROIC                 9.95%          [EDGAR ] tendencia: PIORA (-0.130/trim em 8 TTMs; -2.71 contra 4 trimestres atras)
+  ROE                  16.22%         [EDGAR ] tendencia: PIORA (-0.352/trim em 8 TTMs; -6.44 contra 4 trimestres atras)
+  margem liquida       21.02%         [EDGAR ] tendencia: PIORA (-0.102/trim em 8 TTMs; -6.49 contra 4 trimestres atras)
+
+CAIXA
+  FCF TTM              1.631 US$ bi   [EDGAR ] sinal: POSITIVO
+  margem de FCF        13.01%         [EDGAR ] tendencia: MELHORA (+0.550/trim em 8 TTMs; -3.61 contra 4 trimestres atras)
+  conversao            61.87%         conversao de LUCRO em caixa (FCF/lucro liquido)
+                       141.58%        conversao OPERACIONAL (OCF/lucro liquido)
+  FCF+ seguidos        1 trimestres   de 71 trimestres na serie
+  abertura do FCF      OCF 3.73 US$ bi menos capex 2.10 US$ bi  (FCF por capex != FCF por operacao)
+
+BALANCO — DIVIDA LIQUIDA de US$ 15.55 bi
+         direcao: multiplo PIOROU, mas a divida liquida em dolar CAIU de US$ 16.06 bi para US$ 15.55 bi — quem subiu foi a RAZAO, por queda do EBITDA
+  divida liq./EBITDA   2.85x          [EDGAR ] tendencia: PIORA (+0.001/trim em 8 TTMs; +0.35 contra 4 trimestres atras)
+  cobertura de juros   5.13x          [EDGAR ] tendencia: MELHORA (+0.015/trim em 8 TTMs; -1.16 contra 4 trimestres atras)
+                       divida bruta 16.62 US$ bi | caixa 1.07 US$ bi | divida liquida 15.55 US$ bi
+
+CRESCIMENTO — ritmo: ACELERANDO
+  receita YoY          2.97%          [EDGAR ] tendencia: MELHORA (+0.334/trim em 8 TTMs; +2.26 contra 4 trimestres atras)
+  aceleracao           1.31 pontos percentuais
+  YoY trimestre a trimestre 2025-03 +0.7%  2025-06 +0.7%  2025-09 +0.5%  2025-12 +0.5%  2026-03 +0.6%  2026-06 +3.0%
+
+DILUICAO
+  acoes diluidas       225.0 milhoes  [EDGAR ] 
+  diluicao YoY         -0.09%         [EDGAR ] tendencia: PIORA (+0.057/trim em 8 TTMs; -0.22 contra 4 trimestres atras)
+  acoes trimestre a trimestre 2024-09 226.5  2025-03 226.5  2025-06 225.2  2025-09 224.7  2026-03 225.0  2026-06 225.0
+  (negativo = recompra; positivo = emissao)
+
+SINAIS DE ARMADILHA — cada bandeira com o numero que a levantou
+  [ apaga] queima de caixa
+          FCF TTM US$ 1.63 bi | 1 de 8 trimestres negativos (ultimos: 2026-03-31) | OCF TTM US$ 3.73 bi menos capex TTM US$ 2.10 bi (FCF negativo por CAPEX e por OPERACAO sao coisas diferentes: os dois numeros estao aqui para o dono separar)
+  [ apaga] divida subindo com lucro caindo
+          divida liquida 16.06 bi -> 15.55 bi (-3.2%) e lucro TTM 3.35 bi -> 2.64 bi (-21.3%), em 4 trimestres
+  [ apaga] diluicao continua
+          0 de 3 trimestres com acoes subindo YoY | ultimo -0.09% ao ano | acoes 225.0 mm
+  [ apaga] prejuizo recorrente
+          0 de 4 trimestres com prejuizo (nenhum) | lucro TTM US$ 2.64 bi
+  [s/dado] estoque crescendo mais que a receita
+          sem dado: conta de estoque ausente (empresa de servico/software nao publica InventoryNet)
+
+SINTESE (enumeracao, NAO veredito — a decisao e do Eduardo)
+  BOM ...: margem de FCF 13.01 (melhorando); cobertura de juros 5.135 (melhorando); receita YoY 2.97 (melhorando); FCF positivo ha 1 trimestres seguidos
+  RUIM ..: margem operacional 32.19 (piorando); ROIC 9.95 (piorando); ROE 16.22 (piorando); divida/EBITDA 2.854: multiplo PIOROU, mas a divida liquida em dolar CAIU de US$ 16.06 bi para US$ 15.55 bi — quem subiu foi a RAZAO, por queda do EBITDA; diluicao -0.09 (piorando)
+  ACESAS : nenhuma
+  S/DADO : estoque crescendo mais que a receita
+
+==============================================================================
+SEM FICHA (1) — isto e informacao, nao falha escondida
+  TCOM     serie XBRL curta demais: 0 TTMs montados (minimo 4). Nenhum 10-Q/10-K no submissions — provavel emissora estrangeira, que arquiva 20-F/6-K anual em IFRS e nao entrega trimestre em us-gaap
+
+==============================================================================
+LIMITES DECLARADOS
+  - EDGAR e GAAP puro: o numero AJUSTADO da empresa, que o mercado costuma
+    seguir, NAO esta aqui.
+  - Emissora estrangeira / ADR arquiva 20-F em IFRS: fora do escopo, nao testado.
+  - Indicador operacional (assinantes, entregas, vidas cobertas) nao e conta
+    contabil e nao esta no companyfacts — e justamente o que costuma mover a acao.
+  - Os limiares das bandeiras sao PROVISORIOS e nao foram pre-registrados:
+    {"diluicao_trimestres": 3, "diluicao_pct_ano": 1.0, "prejuizo_trimestres": 2, "estoque_vs_receita_pp": 10.0, "divida_delta_pct": 5.0}
+    Eles nao filtram nada; so acendem luz com o numero ao lado.
+  - Esta ficha diz o que a empresa JA REALIZOU. Ela nao responde sozinha se a
+    queda da semana teve lastro — isso e a ficha de queda, que le o consenso
+    de lucro FUTURO. Os dois relogios sao diferentes e ambos sao necessarios.
+==============================================================================
