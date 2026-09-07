@@ -1,25 +1,24 @@
 {
- "gerado_em": "2026-09-04 23:15",
+ "gerado_em": "2026-09-07 23:44",
  "escopo": "EQUITIES — unidade e a EMPRESA. Nao usa FUND nem par de moeda.",
  "metodo": "METODO_PESQUISA_EQUITIES_HCI_v1: multiplo alvo pre-registrado x lucro projetado.",
  "limite": "Leitura fundamental. Nao e ordem nem gatilho de entrada.",
  "regenera_quando": "preco 3% | projecao de lucro 10% | resultado divulgado | virada de regime | 5 pregoes",
  "regenerados": [
-  "MU: TP 1550 (+52%) | COMPRA/MANTER — upside +52% >= +10% pela regua | regen: preco +9.0%",
-  "KLAC: TP 187 (+1%) | MANTER (sem reforco) — upside +1% entre -10% e +10%; armar reforco apenas em dip | regen: preco +5.7%",
-  "LRCX: TP 289 (-6%) | MANTER (sem reforco) — upside -6% entre -10% e +10%; armar reforco apenas em dip | regen: preco +6.0%"
+  "TSM: TP 525 (+22%) | COMPRA/MANTER — upside +22% >= +10% pela regua | regen: 7d desde o ultimo",
+  "ASML: TP 1802 (+5%) | MANTER (sem reforco) — upside +5% entre -10% e +10%; armar reforco apenas em dip | regen: 7d desde o ultimo"
  ],
  "nomes": [
   {
    "ticker": "TSM",
-   "preco": 417.5199890136719,
-   "tp": 523.0,
-   "upside": 0.2526346372912798,
-   "posicao": "COMPRA/MANTER — upside +25% >= +10% pela regua",
+   "preco": 428.9100036621094,
+   "tp": 525.0,
+   "upside": 0.22403300346799382,
+   "posicao": "COMPRA/MANTER — upside +22% >= +10% pela regua",
    "regime_ok": true,
    "earnings": "2026-10-15",
    "hi52": 477.57000732421875,
-   "regenerado": false,
+   "regenerado": true,
    "tese": "Pedagio de 67% da era da IA: >90% dos chips avancados; fwd P/E em linha com o setor sendo O monopolio."
   },
   {
@@ -31,19 +30,19 @@
    "regime_ok": true,
    "earnings": "2026-09-30",
    "hi52": 1213.3734130859375,
-   "regenerado": true,
+   "regenerado": false,
    "tese": "O gargalo do buildout de IA migrou de GPU para HBM; LTAs de 3-5 anos deram poder de preco estrutural."
   },
   {
    "ticker": "ASML",
-   "preco": 1696.1600341796875,
-   "tp": 1807.0,
-   "upside": 0.06534758724810885,
-   "posicao": "MANTER (sem reforco) — upside +7% entre -10% e +10%; armar reforco apenas em dip >=5% com tese intacta",
+   "preco": 1714.8800048828125,
+   "tp": 1802.0,
+   "upside": 0.05080238551334726,
+   "posicao": "MANTER (sem reforco) — upside +5% entre -10% e +10%; armar reforco apenas em dip >=5% com tese intacta",
    "regime_ok": true,
    "earnings": "2026-10-14",
    "hi52": 1986.870361328125,
-   "regenerado": false,
+   "regenerado": true,
    "tese": "Monopolio literal (100% EUV). Bloqueada pela guarda de valuation; entra por gatilho."
   },
   {
@@ -67,7 +66,7 @@
    "regime_ok": true,
    "earnings": "2026-10-28",
    "hi52": 301.3693542480469,
-   "regenerado": true,
+   "regenerado": false,
    "tese": "Oligopolio de inspecao: quanto menor o node, mais inspecao por wafer."
   },
   {
@@ -79,7 +78,7 @@
    "regime_ok": true,
    "earnings": "2026-10-21",
    "hi52": 433.3299865722656,
-   "regenerado": true,
+   "regenerado": false,
    "tese": "Oligopolio etch/deposicao; alavancada a NAND/DRAM capex."
   }
  ]
