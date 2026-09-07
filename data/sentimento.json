@@ -1,15 +1,15 @@
 {
- "gerado_em": "2026-09-07T23:03:42.020387+00:00",
- "gerado_em_brt": "07/09/2026 20:03 (BRT)",
+ "gerado_em": "2026-09-07T23:18:38.538897+00:00",
+ "gerado_em_brt": "07/09/2026 20:18 (BRT)",
  "origem_eventos": "fxstreet 42 dias atrás + 30 à frente",
  "frescor": {
   "atraso_min": 1,
   "atraso_texto": "1 min",
   "estado": "ok",
-  "ultima_sincronizacao_ok_utc": "2026-09-07T23:02:36.918310+00:00",
-  "ultima_sincronizacao_ok_brt": "07/09/2026 20:02 (BRT)",
+  "ultima_sincronizacao_ok_utc": "2026-09-07T23:17:36.451913+00:00",
+  "ultima_sincronizacao_ok_brt": "07/09/2026 20:17 (BRT)",
   "bloqueia_leitura": false,
-  "texto": "Dados sincronizados há 1 min (07/09 20:02, BRT). Leituras válidas.",
+  "texto": "Dados sincronizados há 1 min (07/09 20:17, BRT). Leituras válidas.",
   "limiares_provisorios": {
    "atrasado_min": 45,
    "muito_atrasado_min": 120
@@ -21,7 +21,7 @@
     "arquivo": "FXStreet ao vivo",
     "alimenta": "dimensão de dados (VOTA)",
     "vota": true,
-    "sincronizado_em": "2026-09-07T23:03:42.020387+00:00",
+    "sincronizado_em": "2026-09-07T23:18:38.538897+00:00",
     "atraso_min": 0,
     "ao_vivo": true,
     "atraso_texto": "0 min"
@@ -31,7 +31,7 @@
     "arquivo": "bancos_centrais.json",
     "alimenta": "dimensão de ciclo (VOTA)",
     "vota": true,
-    "sincronizado_em": "2026-09-07T23:02:36.918310+00:00",
+    "sincronizado_em": "2026-09-07T23:17:36.451913+00:00",
     "atraso_min": 1,
     "atraso_texto": "1 min"
    },
@@ -40,7 +40,7 @@
     "arquivo": "bc_discursos.json",
     "alimenta": "dimensão de fala (contexto, NÃO vota)",
     "vota": false,
-    "sincronizado_em": "2026-09-07T23:02:27.883001+00:00",
+    "sincronizado_em": "2026-09-07T23:17:27.495925+00:00",
     "atraso_min": 1,
     "atraso_texto": "1 min"
    },
@@ -49,7 +49,7 @@
     "arquivo": "noticias.json",
     "alimenta": "contexto de fala (NÃO vota)",
     "vota": false,
-    "sincronizado_em": "2026-09-07T23:03:04.073340+00:00",
+    "sincronizado_em": "2026-09-07T23:18:00.930585+00:00",
     "atraso_min": 1,
     "atraso_texto": "1 min"
    },
@@ -59,8 +59,8 @@
     "alimenta": "dimensão experimental (NÃO vota)",
     "vota": false,
     "sincronizado_em": "2026-09-07T21:30:57.568315+00:00",
-    "atraso_min": 93,
-    "atraso_texto": "1h 33min"
+    "atraso_min": 108,
+    "atraso_texto": "1h 48min"
    }
   ],
   "o_que_conta": "só as fontes que alimentam dimensão QUE VOTA entram no atraso (calendário e bancos centrais). Discurso, imprensa e geopolítica são contexto: a idade deles fica gravada, rotulada, e não muda o estado.",
@@ -394,8 +394,8 @@
      "direcao_antes_do_teto": "MANTEM",
      "vota": true,
      "por_que_nao_vota": null,
-     "soma": -8.63,
-     "soma_antes_do_teto": -1.18,
+     "soma": -8.62,
+     "soma_antes_do_teto": -1.17,
      "n": 84,
      "n_alto": 25,
      "desde": "2026-07-29T18:00:00+00:00",
@@ -409,7 +409,7 @@
      "deslocamento_pelo_teto": {
       "valor": -7.45,
       "direcao_mudou": true,
-      "texto": "cortar os itens moveu a soma em -7.45 (de -1.18 para -8.63); a DIREÇÃO mudou de MANTEM para CORTA — winsorizar termos de uma SOMA desloca o total para o lado contrário ao do item cortado, não amortece"
+      "texto": "cortar os itens moveu a soma em -7.45 (de -1.17 para -8.62); a DIREÇÃO mudou de MANTEM para CORTA — winsorizar termos de uma SOMA desloca o total para o lado contrário ao do item cortado, não amortece"
      },
      "winsor": {
       "teto_por_item": 4.0,
@@ -486,7 +486,7 @@
        "consenso": 3.0,
        "contribuicao_bruta": 8.03,
        "contribuicao": 4.0,
-       "idade_dias": 3.4,
+       "idade_dias": 3.5,
        "winsorizado": true
       },
       {
@@ -499,7 +499,7 @@
        "consenso": 56.0,
        "contribuicao_bruta": 7.14,
        "contribuicao": 4.0,
-       "idade_dias": 3.4,
+       "idade_dias": 3.5,
        "winsorizado": true
       },
       {
@@ -512,7 +512,7 @@
        "consenso": 1.3,
        "contribuicao_bruta": -3.89,
        "contribuicao": -3.89,
-       "idade_dias": 4.4,
+       "idade_dias": 4.5,
        "winsorizado": false
       },
       {
@@ -525,7 +525,7 @@
        "consenso": 3.4,
        "contribuicao_bruta": 3.32,
        "contribuicao": 3.32,
-       "idade_dias": 12.4,
+       "idade_dias": 12.5,
        "winsorizado": false
       }
      ]
@@ -779,8 +779,8 @@
      "direcao_antes_do_teto": "SOBE",
      "vota": true,
      "por_que_nao_vota": null,
-     "soma": 22.21,
-     "soma_antes_do_teto": 16.69,
+     "soma": 22.19,
+     "soma_antes_do_teto": 16.68,
      "n": 161,
      "n_alto": 17,
      "desde": "2026-07-27",
@@ -792,9 +792,9 @@
       "texto": null
      },
      "deslocamento_pelo_teto": {
-      "valor": 5.52,
+      "valor": 5.51,
       "direcao_mudou": false,
-      "texto": "cortar os itens moveu a soma em +5.52 (de +16.69 para +22.21) — winsorizar termos de uma SOMA desloca o total para o lado contrário ao do item cortado, não amortece"
+      "texto": "cortar os itens moveu a soma em +5.51 (de +16.68 para +22.19) — winsorizar termos de uma SOMA desloca o total para o lado contrário ao do item cortado, não amortece"
      },
      "winsor": {
       "teto_por_item": 4.0,
@@ -853,7 +853,7 @@
        "impacto": "HIGH",
        "divulgado": 2.4,
        "consenso": 2.5,
-       "contribuicao_bruta": -8.05,
+       "contribuicao_bruta": -8.04,
        "contribuicao": -4.0,
        "idade_dias": 6.6,
        "winsorizado": true
@@ -1601,8 +1601,8 @@
        "impacto": "HIGH",
        "divulgado": 0.3,
        "consenso": 0.5,
-       "contribuicao_bruta": -2.91,
-       "contribuicao": -2.91,
+       "contribuicao_bruta": -2.9,
+       "contribuicao": -2.9,
        "idade_dias": 22.0,
        "winsorizado": false
       },
@@ -1627,8 +1627,8 @@
        "impacto": "MEDIUM",
        "divulgado": 1.8,
        "consenso": 1.7,
-       "contribuicao_bruta": 2.44,
-       "contribuicao": 2.44,
+       "contribuicao_bruta": 2.43,
+       "contribuicao": 2.43,
        "idade_dias": 11.0,
        "winsorizado": false
       },
@@ -2040,13 +2040,13 @@
      "vota": false,
      "selo": "experimental — contexto, não vota",
      "conectada": true,
-     "hawkish": 3,
+     "hawkish": 4,
      "dovish": 0,
-     "n": 15,
+     "n": 18,
      "n_falas": 0,
-     "n_contexto": 15,
+     "n_contexto": 18,
      "contagem_contexto": {
-      "alta": 3,
+      "alta": 4,
       "corte": 0
      },
      "contagem_voto": {
@@ -2071,13 +2071,13 @@
      "peso_aplicado": 0.0,
      "peso_da_fonte": 0.0,
      "peso_se_votasse": 0.0,
-     "itens_unicos": 15,
+     "itens_unicos": 18,
      "duplicatas_removidas": 0,
      "rotulo_contexto": "sem fala oficial disponivel — o banco bloqueia automacao; a imprensa abaixo e contexto, nao voto",
      "veredito_por_orador": [],
      "por_que_nao_vota": "a leitura de fala é CONTAGEM DE PALAVRAS, e contagem de palavras não lê negação, nem condição, nem referência temporal: 'holding the target' está na lista de termos hawkish, então Waller defendendo MANTER saía como alta. Desde 05/set a dimensão fica como CONTEXTO, com peso 0,0 — não entra na leitura contínua, não entra no teto e não conta como MANTEM. O veredito por orador ao lado lê condição e negação, mas TAMBÉM não vota: nunca foi medido contra rótulo humano.",
      "nota": "imprensa (Google News, 72 h) — o banco central bloqueia automação. É contagem de expressão da imprensa, NÃO é fala do banco. Não vota desde 05/set, como nenhuma fala vota.",
-     "nota_peso": "NÃO VOTA: os 3 'alta' e 0 'corte' são CONTEXTO da imprensa. Se a régua antiga valesse, esta origem (manchete) pesaria 0.0."
+     "nota_peso": "NÃO VOTA: os 4 'alta' e 0 'corte' são CONTEXTO da imprensa. Se a régua antiga valesse, esta origem (manchete) pesaria 0.0."
     },
     "ciclo": {
      "bp": 25,
@@ -2134,8 +2134,8 @@
     "partes_sem_dado": [
      "confiabilidade"
     ],
-    "contexto_nao_contado": 15,
-    "explicacao": "qualidade 76/100 do AUD (média de 3 parte(s) com dado; sem dado em confiabilidade) — 16 divulgações e 0 fala(s) que votam na janela; 15 item(ns) de imprensa que NÃO votam ficaram de fora da conta; 3 de 4 famílias independentes (atividade, emprego, inflacao); o item que mais pesa tem 19 dia(s); fonte da fala: MANCHETE de imprensa — mas a fala NÃO VOTA desde 05/set, então a parte confiabilidade sai SEM DADO em vez de valer 0/100.",
+    "contexto_nao_contado": 18,
+    "explicacao": "qualidade 76/100 do AUD (média de 3 parte(s) com dado; sem dado em confiabilidade) — 16 divulgações e 0 fala(s) que votam na janela; 18 item(ns) de imprensa que NÃO votam ficaram de fora da conta; 3 de 4 famílias independentes (atividade, emprego, inflacao); o item que mais pesa tem 19 dia(s); fonte da fala: MANCHETE de imprensa — mas a fala NÃO VOTA desde 05/set, então a parte confiabilidade sai SEM DADO em vez de valer 0/100.",
     "provisorio": true,
     "regua": {
      "satura_em_itens": 12,
@@ -2598,7 +2598,7 @@
        "consenso": 15.0,
        "contribuicao_bruta": -7.14,
        "contribuicao": -4.0,
-       "idade_dias": 3.4,
+       "idade_dias": 3.5,
        "winsorizado": true
       },
       {
@@ -2719,7 +2719,7 @@
      "confiabilidade"
     ],
     "contexto_nao_contado": 2,
-    "explicacao": "qualidade 55/100 do CAD (média de 3 parte(s) com dado; sem dado em confiabilidade) — 3 divulgações e 0 fala(s) que votam na janela; 2 item(ns) de imprensa que NÃO votam ficaram de fora da conta; 2 de 4 famílias independentes (atividade, emprego); o item que mais pesa tem 3 dia(s); fonte da fala: comunicado/ata — mas a fala NÃO VOTA desde 05/set, então a parte confiabilidade sai SEM DADO em vez de valer 100/100.",
+    "explicacao": "qualidade 55/100 do CAD (média de 3 parte(s) com dado; sem dado em confiabilidade) — 3 divulgações e 0 fala(s) que votam na janela; 2 item(ns) de imprensa que NÃO votam ficaram de fora da conta; 2 de 4 famílias independentes (atividade, emprego); o item que mais pesa tem 4 dia(s); fonte da fala: comunicado/ata — mas a fala NÃO VOTA desde 05/set, então a parte confiabilidade sai SEM DADO em vez de valer 100/100.",
     "provisorio": true,
     "regua": {
      "satura_em_itens": 12,
@@ -2845,7 +2845,7 @@
      "vota": true,
      "por_que_nao_vota": null,
      "soma": 12.53,
-     "soma_antes_do_teto": 15.67,
+     "soma_antes_do_teto": 15.66,
      "n": 8,
      "n_alto": 2,
      "desde": "2026-07-27",
@@ -2857,9 +2857,9 @@
       "texto": null
      },
      "deslocamento_pelo_teto": {
-      "valor": -3.14,
+      "valor": -3.13,
       "direcao_mudou": false,
-      "texto": "cortar os itens moveu a soma em -3.14 (de +15.67 para +12.53) — winsorizar termos de uma SOMA desloca o total para o lado contrário ao do item cortado, não amortece"
+      "texto": "cortar os itens moveu a soma em -3.13 (de +15.66 para +12.53) — winsorizar termos de uma SOMA desloca o total para o lado contrário ao do item cortado, não amortece"
      },
      "winsor": {
       "teto_por_item": 4.0,
@@ -2902,7 +2902,7 @@
        "impacto": "HIGH",
        "divulgado": 0.8,
        "consenso": 0.5,
-       "contribuicao_bruta": 6.0,
+       "contribuicao_bruta": 5.99,
        "contribuicao": 4.0,
        "idade_dias": 4.7,
        "winsorizado": true
@@ -2956,7 +2956,7 @@
        "consenso": 53.5,
        "contribuicao_bruta": 0.8,
        "contribuicao": 0.8,
-       "idade_dias": 6.6,
+       "idade_dias": 6.7,
        "winsorizado": false
       },
       {
@@ -6312,7 +6312,7 @@
      "consenso": 3.0,
      "contribuicao_bruta": 8.03,
      "contribuicao": 4.0,
-     "idade_dias": 3.4,
+     "idade_dias": 3.5,
      "winsorizado": true
     },
     {
@@ -6325,7 +6325,7 @@
      "consenso": 56.0,
      "contribuicao_bruta": 7.14,
      "contribuicao": 4.0,
-     "idade_dias": 3.4,
+     "idade_dias": 3.5,
      "winsorizado": true
     }
    ],
@@ -6479,7 +6479,7 @@
      "consenso": 3.0,
      "contribuicao_bruta": 8.03,
      "contribuicao": 4.0,
-     "idade_dias": 3.4,
+     "idade_dias": 3.5,
      "winsorizado": true
     },
     {
@@ -6492,7 +6492,7 @@
      "consenso": 56.0,
      "contribuicao_bruta": 7.14,
      "contribuicao": 4.0,
-     "idade_dias": 3.4,
+     "idade_dias": 3.5,
      "winsorizado": true
     }
    ],
@@ -6646,7 +6646,7 @@
      "consenso": 3.0,
      "contribuicao_bruta": 8.03,
      "contribuicao": 4.0,
-     "idade_dias": 3.4,
+     "idade_dias": 3.5,
      "winsorizado": true
     },
     {
@@ -6659,7 +6659,7 @@
      "consenso": 56.0,
      "contribuicao_bruta": 7.14,
      "contribuicao": 4.0,
-     "idade_dias": 3.4,
+     "idade_dias": 3.5,
      "winsorizado": true
     }
    ],
