@@ -1,9 +1,109 @@
 {
- "gerado_em": "2026-09-07T21:05:28.099829+00:00",
+ "gerado_em": "2026-09-07T21:30:57.568315+00:00",
  "fonte": "GDELT DOC 2.0 API (gratuita, sem chave, atualização de 15 min); fontes em inglês",
  "metodo": "volume de artigos dos últimos 3 dias contra a média diária da janela de 14 dias (razão e z); manchetes por relevância híbrida, agrupadas por evento antes de aparecer",
  "aviso": "Camada de CONTEXTO. A implicação é uma regra declarada (aversão a risco -> moedas de refúgio; choque de energia -> empurrão de inflação), não é medição, e NÃO entra na convicção. Hipótese a medir: um pico de conflito z>=2 muda o retorno de 20 dias das moedas de risco?",
  "mundo": {
+  "conflito": {
+   "volume": {
+    "n": 14,
+    "recente_3d": 3.2144,
+    "base_14d": 2.9231,
+    "razao": 1.1,
+    "z": 1.06
+   },
+   "manchetes": [
+    {
+     "titulo": "Iran claims strike on US ship in Strait of Hormuz as fighting escalates",
+     "url": "https://www.wtae.com/article/iran-us-war-strait-of-hormuz-ship/73624224",
+     "fonte": "wtae.com",
+     "quando": "20260906T124500Z",
+     "pais_fonte": "United States"
+    },
+    {
+     "titulo": "Iran claims strike on US ship in Strait of Hormuz as fighting escalates",
+     "url": "https://www.wesh.com/article/iran-us-war-strait-of-hormuz-ship/73624224",
+     "fonte": "wesh.com",
+     "quando": "20260906T124500Z",
+     "pais_fonte": "United States"
+    },
+    {
+     "titulo": "Iran claims strike on US ship in Strait of Hormuz as fighting escalates",
+     "url": "https://www.kcra.com/article/iran-us-war-strait-of-hormuz-ship/73624224",
+     "fonte": "kcra.com",
+     "quando": "20260906T141500Z",
+     "pais_fonte": "United States"
+    },
+    {
+     "titulo": "Iran claims strike on US ship in Strait of Hormuz as fighting escalates",
+     "url": "https://www.wdsu.com/article/iran-us-war-strait-of-hormuz-ship/73624224",
+     "fonte": "wdsu.com",
+     "quando": "20260906T124500Z",
+     "pais_fonte": "United States"
+    },
+    {
+     "titulo": "Iran claims strike on US ship in Strait of Hormuz as fighting escalates",
+     "url": "https://www.wmtw.com/article/iran-us-war-strait-of-hormuz-ship/73624224",
+     "fonte": "wmtw.com",
+     "quando": "20260906T123000Z",
+     "pais_fonte": "United States"
+    }
+   ],
+   "manchetes_unicas": [
+    {
+     "titulo": "Iran claims strike on US ship in Strait of Hormuz as fighting escalates",
+     "url": "https://www.wmtw.com/article/iran-us-war-strait-of-hormuz-ship/73624224",
+     "fonte": "wmtw.com",
+     "quando": "20260906T123000Z",
+     "pais_fonte": "United States",
+     "titulo_original": "Iran claims strike on US ship in Strait of Hormuz as fighting escalates",
+     "confiabilidade": "baixa",
+     "fontes": [
+      "wmtw.com",
+      "wtae.com",
+      "wesh.com",
+      "wdsu.com",
+      "kcra.com"
+     ],
+     "n_republicacoes": 5,
+     "acao": "ataque",
+     "entidades": [
+      "eua",
+      "ira"
+     ],
+     "agrupadas": [
+      {
+       "titulo": "Iran claims strike on US ship in Strait of Hormuz as fighting escalates",
+       "fonte": "wtae.com",
+       "confiabilidade": "baixa",
+       "url": "https://www.wtae.com/article/iran-us-war-strait-of-hormuz-ship/73624224"
+      },
+      {
+       "titulo": "Iran claims strike on US ship in Strait of Hormuz as fighting escalates",
+       "fonte": "wesh.com",
+       "confiabilidade": "baixa",
+       "url": "https://www.wesh.com/article/iran-us-war-strait-of-hormuz-ship/73624224"
+      },
+      {
+       "titulo": "Iran claims strike on US ship in Strait of Hormuz as fighting escalates",
+       "fonte": "wdsu.com",
+       "confiabilidade": "baixa",
+       "url": "https://www.wdsu.com/article/iran-us-war-strait-of-hormuz-ship/73624224"
+      },
+      {
+       "titulo": "Iran claims strike on US ship in Strait of Hormuz as fighting escalates",
+       "fonte": "kcra.com",
+       "confiabilidade": "baixa",
+       "url": "https://www.kcra.com/article/iran-us-war-strait-of-hormuz-ship/73624224"
+      }
+     ]
+    }
+   ],
+   "duplicatas_removidas": 4,
+   "vota": false,
+   "selo": "experimental — contexto, não vota",
+   "reaproveitado": true
+  },
   "energia": {
    "volume": {
     "n": 14,
@@ -132,105 +232,6 @@
    ],
    "duplicatas_removidas": 1,
    "vota": false,
-   "selo": "experimental — contexto, não vota"
-  },
-  "conflito": {
-   "volume": {
-    "n": 14,
-    "recente_3d": 3.2144,
-    "base_14d": 2.9231,
-    "razao": 1.1,
-    "z": 1.06
-   },
-   "manchetes": [
-    {
-     "titulo": "Iran claims strike on US ship in Strait of Hormuz as fighting escalates",
-     "url": "https://www.wtae.com/article/iran-us-war-strait-of-hormuz-ship/73624224",
-     "fonte": "wtae.com",
-     "quando": "20260906T124500Z",
-     "pais_fonte": "United States"
-    },
-    {
-     "titulo": "Iran claims strike on US ship in Strait of Hormuz as fighting escalates",
-     "url": "https://www.wesh.com/article/iran-us-war-strait-of-hormuz-ship/73624224",
-     "fonte": "wesh.com",
-     "quando": "20260906T124500Z",
-     "pais_fonte": "United States"
-    },
-    {
-     "titulo": "Iran claims strike on US ship in Strait of Hormuz as fighting escalates",
-     "url": "https://www.kcra.com/article/iran-us-war-strait-of-hormuz-ship/73624224",
-     "fonte": "kcra.com",
-     "quando": "20260906T141500Z",
-     "pais_fonte": "United States"
-    },
-    {
-     "titulo": "Iran claims strike on US ship in Strait of Hormuz as fighting escalates",
-     "url": "https://www.wdsu.com/article/iran-us-war-strait-of-hormuz-ship/73624224",
-     "fonte": "wdsu.com",
-     "quando": "20260906T124500Z",
-     "pais_fonte": "United States"
-    },
-    {
-     "titulo": "Iran claims strike on US ship in Strait of Hormuz as fighting escalates",
-     "url": "https://www.wmtw.com/article/iran-us-war-strait-of-hormuz-ship/73624224",
-     "fonte": "wmtw.com",
-     "quando": "20260906T123000Z",
-     "pais_fonte": "United States"
-    }
-   ],
-   "manchetes_unicas": [
-    {
-     "titulo": "Iran claims strike on US ship in Strait of Hormuz as fighting escalates",
-     "url": "https://www.wmtw.com/article/iran-us-war-strait-of-hormuz-ship/73624224",
-     "fonte": "wmtw.com",
-     "quando": "20260906T123000Z",
-     "pais_fonte": "United States",
-     "titulo_original": "Iran claims strike on US ship in Strait of Hormuz as fighting escalates",
-     "confiabilidade": "baixa",
-     "fontes": [
-      "wmtw.com",
-      "wtae.com",
-      "wesh.com",
-      "wdsu.com",
-      "kcra.com"
-     ],
-     "n_republicacoes": 5,
-     "acao": "ataque",
-     "entidades": [
-      "eua",
-      "ira"
-     ],
-     "agrupadas": [
-      {
-       "titulo": "Iran claims strike on US ship in Strait of Hormuz as fighting escalates",
-       "fonte": "wtae.com",
-       "confiabilidade": "baixa",
-       "url": "https://www.wtae.com/article/iran-us-war-strait-of-hormuz-ship/73624224"
-      },
-      {
-       "titulo": "Iran claims strike on US ship in Strait of Hormuz as fighting escalates",
-       "fonte": "wesh.com",
-       "confiabilidade": "baixa",
-       "url": "https://www.wesh.com/article/iran-us-war-strait-of-hormuz-ship/73624224"
-      },
-      {
-       "titulo": "Iran claims strike on US ship in Strait of Hormuz as fighting escalates",
-       "fonte": "wdsu.com",
-       "confiabilidade": "baixa",
-       "url": "https://www.wdsu.com/article/iran-us-war-strait-of-hormuz-ship/73624224"
-      },
-      {
-       "titulo": "Iran claims strike on US ship in Strait of Hormuz as fighting escalates",
-       "fonte": "kcra.com",
-       "confiabilidade": "baixa",
-       "url": "https://www.kcra.com/article/iran-us-war-strait-of-hormuz-ship/73624224"
-      }
-     ]
-    }
-   ],
-   "duplicatas_removidas": 4,
-   "vota": false,
    "selo": "experimental — contexto, não vota",
    "reaproveitado": true
   }
@@ -266,7 +267,7 @@
     "fx": null,
     "juro": null
    },
-   "coletado_em": "2026-09-07T21:05:28.099829+00:00",
+   "coletado_em": "2026-09-07T21:30:57.568315+00:00",
    "vota": false,
    "experimental": true,
    "selo": "experimental — contexto, não vota",
@@ -279,10 +280,10 @@
     "conflito": {
      "volume": {
       "n": 14,
-      "recente_3d": 0.0258,
+      "recente_3d": 0.0265,
       "base_14d": 0.0345,
-      "razao": 0.75,
-      "z": -0.55
+      "razao": 0.77,
+      "z": -0.51
      },
      "manchetes": [],
      "manchetes_unicas": [],
@@ -304,7 +305,7 @@
     "fx": null,
     "juro": null
    },
-   "coletado_em": "2026-09-07T21:05:28.099829+00:00",
+   "coletado_em": "2026-09-07T21:30:57.568315+00:00",
    "vota": false,
    "experimental": true,
    "selo": "experimental — contexto, não vota",
@@ -400,11 +401,13 @@
  },
  "erros": [
   "mundo/conflito: HTTP Error 429: Too Many Requests",
+  "mundo/energia: HTTP Error 429: Too Many Requests",
   "NZD/conflito: HTTP Error 429: Too Many Requests",
   "CAD/conflito: HTTP Error 429: Too Many Requests",
   "CAD/energia: HTTP Error 429: Too Many Requests",
   "CHF/energia: HTTP Error 429: Too Many Requests",
   "USD/conflito: HTTP Error 429: Too Many Requests",
+  "USD/energia: HTTP Error 429: Too Many Requests",
   "orcamento de 480 s estourado antes de EUR — o resto fica para a proxima rodada"
  ],
  "vota": false,
