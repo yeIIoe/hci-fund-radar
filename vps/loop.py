@@ -605,13 +605,6 @@ def loop_para_sempre() -> None:
                 log.info("RODADA COMPLETA comecando")
                 antes = fotografa()
                 roda_cadeia(CADEIA_COMPLETA, com_feed=True)
-                # A cadeia DIARIA pega carona na primeira rodada completa de cada dia. O BIS
-                # custa ~5,5 min e e arquivo historico: rodar a cada 15 min so queima fonte.
-                hoje = agora().date().isoformat()
-                if _ULTIMO_DIA.get("bis") != hoje:
-                    log.info("cadeia DIARIA (primeira rodada de %s)", hoje)
-                    roda_cadeia(CADEIA_DIARIA, com_feed=False)
-                    _ULTIMO_DIA["bis"] = hoje
                 # PUBLICA O ESSENCIAL primeiro. Se a geopolitica travar ou a maquina cair
                 # agora, o painel ja esta no ar com a leitura desta rodada.
                 if fotografa() != antes:
@@ -619,8 +612,16 @@ def loop_para_sempre() -> None:
                 else:
                     log.info("nada mudou nesta rodada")
                 # e so entao o que e caro e nao vota
+                # e so entao o que e caro e nao vota. A cadeia DIARIA (o BIS, 5,5 min) tambem
+                # desceu para ca: rodando antes da publicacao, ela segurava o painel por 5
+                # minutos na primeira rodada de cada dia, sem nenhum ganho de leitura.
                 antes_tardia = fotografa()
                 roda_cadeia(CADEIA_TARDIA, com_feed=False)
+                hoje = agora().date().isoformat()
+                if _ULTIMO_DIA.get("bis") != hoje:
+                    log.info("cadeia DIARIA (primeira rodada de %s)", hoje)
+                    roda_cadeia(CADEIA_DIARIA, com_feed=False)
+                    _ULTIMO_DIA["bis"] = hoje
                 if fotografa() != antes_tardia:
                     publica("cadeia tardia")
                 proxima_completa = inicio + dt.timedelta(seconds=INTERVALO_COMPLETA_S)
