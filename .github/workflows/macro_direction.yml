@@ -48,7 +48,7 @@ jobs:
     runs-on: ubuntu-latest
     # 15 e nao 8: sao cinco fontes externas em sequencia, cada uma com ate 45-60 s de timeout
     # proprio; 8 min era menor que a soma no pior caso (revisao de 03/set)
-    timeout-minutes: 15
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v5
 
@@ -110,14 +110,6 @@ jobs:
         continue-on-error: true
         run: python bc_discursos.py
 
-      # RBA e RBNZ devolvem 403 a robo e o SNB nao tem feed. O arquivo do BIS agrega os
-      # discursos de todos os bancos e nao bloqueia. Medido em 06/set: 1.319 falas de 2009 a
-      # 2026 (AUD 440, CHF 223, NZD 137) — mas o BIS publica com defasagem, entao na janela
-      # de 42 dias ele quase nao ajuda. Serve para HISTORICO, que e o que valida o
-      # classificador de falas.
-      - name: discursos pelo arquivo do BIS (historico dos bancos que bloqueiam)
-        continue-on-error: true
-        run: python bis_discursos.py
 
       - name: gera o leitor
         run: |
@@ -153,15 +145,6 @@ jobs:
         continue-on-error: true
         run: python noticias.py
 
-      # Geopolitica (GDELT) ANTES do sentimento porque ele LE este arquivo — mas desde
-      # 05/set ela NAO VOTA: entra como dimensao experimental, com selo, fora do score e
-      # fora do teto (a decisao de 04/set, que a fazia 4a dimensao e segunda perna do ouro,
-      # foi revogada por nunca ter sido medida). Cache de 3 h no script; a API limita a taxa
-      # e o script espera 15 s entre chamadas, com orcamento de 8 min; quem falha carrega a
-      # rodada anterior por 24 h.
-      - name: geopolitica (GDELT)
-        continue-on-error: true
-        run: python geopolitica.py
 
       - name: sentimento (moeda e par)
         continue-on-error: true
@@ -178,9 +161,40 @@ jobs:
         continue-on-error: true
         run: python snapshot.py
 
+      # [07/set] O TETO DE 15 MIN MATAVA A CADEIA. Medido na execucao 34151494850: o passo do
+      # BIS levava 5,5 min e a geopolitica 8,3 min; o trabalho batia em 15,2 min e o GitHub
+      # marcava CANCELADO — que nao gera e-mail de falha. Com isso sentimento, snapshot e o
+      # commit eram PULADOS, e o painel ficou 17 h velho sem ninguem avisar.
+      # A correcao tem tres partes: o BIS saiu daqui (e historico, o proprio BIS publica com
+      # dias de defasagem — foi para a cadeia de 2x/dia); a geopolitica desceu para DEPOIS
+      # deste commit (ela nao vota, entao atrasar um ciclo nao muda leitura nenhuma); e o
+      # ESSENCIAL passa a ser publicado ANTES dos passos caros. Se o teto estourar agora, ja
+      # publicamos o que importa.
+      - name: publica o essencial (antes dos passos caros)
+        run: |
+          git config user.name  "hci-bot"
+          git config user.email "bot@hokiresearch.com"
+          git add data/macro_eventos.json data/bancos_centrais.json                   data/calendario_resultado.json data/eua_leitura.json                   data/bc_discursos.json data/sentimento.json                   data/noticias.json data/precificacao.json data/precificacao_hist.jsonl                   data/calendario_arquivo/ data/snapshots/                   data/raw/ff_calendar_thisweek.json
+          if git diff --cached --quiet; then
+            echo "essencial: nada mudou"
+          else
+            git commit -m "macro direction $(date -u +%Y-%m-%dT%H:%MZ)"
+            git pull --rebase --autostash origin main || true
+            git push
+          fi
+      # Geopolitica (GDELT) ANTES do sentimento porque ele LE este arquivo — mas desde
+      # 05/set ela NAO VOTA: entra como dimensao experimental, com selo, fora do score e
+      # fora do teto (a decisao de 04/set, que a fazia 4a dimensao e segunda perna do ouro,
+      # foi revogada por nunca ter sido medida). Cache de 3 h no script; a API limita a taxa
+      # e o script espera 15 s entre chamadas, com orcamento de 8 min; quem falha carrega a
+      # rodada anterior por 24 h.
+      - name: geopolitica (GDELT)
+        continue-on-error: true
+        run: python geopolitica.py
+
       # Commit so quando o conteudo mudou de verdade. Sem isto seriam 96 commits vazios por
       # dia, e o historico do repositorio viraria lixo.
-      - name: commita se mudou
+      - name: commita o resto (geopolitica e correlacao)
         run: |
           git config user.name  "hci-bot"
           git config user.email "bot@hokiresearch.com"

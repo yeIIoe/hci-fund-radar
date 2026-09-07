@@ -84,6 +84,10 @@ CADEIA_COMPLETA = [
     ("bc_discursos.py", 300),
     ("bancos_centrais.py", 120),
     ("macro_eventos.py", 120),
+    # [07/set] Os tres coletores que entraram no workflow em 06/set e que o loop nao conhecia.
+    # Sem eles a VPS publicaria menos que o Actions.
+    ("calendario_arquivo.py", 120),
+    ("precificacao.py", 240),
     ("correlacao_juros.py", 420),
     ("noticias.py", 300),
     ("geopolitica.py", 660),
@@ -95,6 +99,16 @@ CADEIA_COMPLETA = [
 # Na fast lane so o calendario. O sentimento.py baixa 42 dias da FXStreet por conta propria:
 # roda-lo a cada 5 s dobraria as batidas na fonte sem informacao nova. Ele roda UMA vez, quando
 # o resultado chega (SENTIMENTO_FAST).
+# O BIS e arquivo HISTORICO e publica com dias de defasagem: roda UMA vez por dia, nao a
+# cada 15 min (custava 5,5 min por rodada e estourou o teto do GitHub em 07/set).
+# marca do ultimo dia em que a cadeia diaria rodou (memoria do processo; ao reiniciar,
+# ela roda uma vez a mais no mesmo dia — barato e sem efeito colateral)
+_ULTIMO_DIA: dict = {}
+
+CADEIA_DIARIA = [
+    ("bis_discursos.py", 600),
+]
+
 CADEIA_FAST = [
     ("fxstreet_calendario.py", 90),
     ("macro_eventos.py", 90),
@@ -480,7 +494,7 @@ def passada_seca() -> int:
     ok = True
     log.info("cadeia completa (a cada %d min):", INTERVALO_COMPLETA_S // 60)
     log.info("   feed de reserva FF -> %s", FF_ALVO)
-    for nome, t in CADEIA_COMPLETA:
+    for nome, t in list(CADEIA_COMPLETA) + list(CADEIA_DIARIA):
         existe = os.path.exists(os.path.join(RAIZ, nome))
         ok &= existe
         log.info("   %-24s timeout %4ds  %s", nome, t, "" if existe else "<<< NAO ENCONTRADO")
@@ -579,6 +593,13 @@ def loop_para_sempre() -> None:
                 log.info("RODADA COMPLETA comecando")
                 antes = fotografa()
                 roda_cadeia(CADEIA_COMPLETA, com_feed=True)
+                # A cadeia DIARIA pega carona na primeira rodada completa de cada dia. O BIS
+                # custa ~5,5 min e e arquivo historico: rodar a cada 15 min so queima fonte.
+                hoje = agora().date().isoformat()
+                if _ULTIMO_DIA.get("bis") != hoje:
+                    log.info("cadeia DIARIA (primeira rodada de %s)", hoje)
+                    roda_cadeia(CADEIA_DIARIA, com_feed=False)
+                    _ULTIMO_DIA["bis"] = hoje
                 if fotografa() != antes:
                     publica("rodada completa")
                 else:

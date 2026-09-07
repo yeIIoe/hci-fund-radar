@@ -44,6 +44,10 @@ jobs:
           python fund_custo_carrego.py || echo "custo de carrego falhou, segue"
           python fund_ficha_par.py || echo "ficha do par falhou, segue"
           python juros_vs_cambio.py || echo "juros x cambio falhou, segue"
+          # [07/set] O BIS veio da cadeia de 15 min, onde custava 5,5 min por rodada e
+          # estourava o teto de 20 min do trabalho. E arquivo HISTORICO e o proprio BIS
+          # publica com dias de defasagem: rodar 2x/dia e mais do que suficiente.
+          python bis_discursos.py || echo "BIS falhou, segue"
 
       # ⚠️ A GUARDA. Em 31/ago todas as fontes ficaram uma semana congeladas e nada
       # reclamou: o TTL lia o mtime, e o checkout reescreve o mtime a cada execucao.
