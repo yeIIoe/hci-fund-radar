@@ -33,7 +33,11 @@ name: macro-direction
 
 on:
   schedule:
-    - cron: "*/15 * * * *"
+    # [07/set] A VPS assumiu a cadeia (15 min de verdade + faixa rapida de 5 s nos eventos).
+    # Este workflow NAO foi desligado de proposito: virou a RESERVA. Se a VPS morrer as 3 da
+    # manha, o painel continua andando de 3 em 3 h em vez de parar. A frequencia baixa e o que
+    # evita corrida de push — duas maquinas publicando de 15 em 15 min brigariam a cada rodada.
+    - cron: "37 */3 * * *"
   workflow_dispatch:
 
 permissions:

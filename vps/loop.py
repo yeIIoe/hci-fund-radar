@@ -90,11 +90,16 @@ CADEIA_COMPLETA = [
     ("precificacao.py", 240),
     ("correlacao_juros.py", 420),
     ("noticias.py", 300),
-    ("geopolitica.py", 660),
+    # [07/set] A GEOPOLITICA DESCEU para depois do sentimento e do snapshot. Ela tem
+    # orcamento de 8 min e NAO VOTA desde 05/set: rodando antes, empurrava a leitura 8-11 min
+    # para tras em TODA rodada de 15 min — foi o que deixou o sentimento.json com 21 h na
+    # primeira publicacao da VPS, com o resto ja em 2 min. Atrasar a geopolitica um ciclo nao
+    # muda leitura nenhuma; atrasar o sentimento muda tudo.
     ("sentimento.py", 180),
     # 06/set: o workflow ganhou este passo e o loop nao tinha. Sem ele a serie de snapshots
     # (a base do backtest da conviccao historica) parava no dia em que o Actions fosse desligado.
     ("snapshot.py", 120),
+    ("geopolitica.py", 660),
 ]
 # Na fast lane so o calendario. O sentimento.py baixa 42 dias da FXStreet por conta propria:
 # roda-lo a cada 5 s dobraria as batidas na fonte sem informacao nova. Ele roda UMA vez, quando
