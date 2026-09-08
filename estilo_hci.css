@@ -2697,3 +2697,55 @@ html .mac-falas > summary::after{
 html .mac-falas[open] > summary::after{ content:"\2212"; }
 html .mac-falas > summary:hover{ background:var(--fundo-band); }
 html .mac-falas > summary:hover::after{ color:var(--marca); }
+
+/* --- o rodape, terceira volta ---------------------------------------------
+   Ele voltou pela terceira vez. O que restava: `.footer-contact` tem
+   `display:flex; flex-direction:column; align-items:flex-end` numa folha
+   anterior — e em coluna, align-items e o eixo HORIZONTAL. O text-align:left
+   que eu tinha posto nao alcanca isso: o item inteiro estava encostado a
+   direita, e nenhuma regra de texto conserta caixa. */
+html .site-footer .footer-contact{ align-items:flex-start; gap:var(--e4); }
+
+/* --- JURO x CAMBIO: cartao que abre ---------------------------------------
+   "deixe como cards que voce interage e abre". Eram quatro quadros de numeros
+   por par, abertos, todos ao mesmo tempo: 28 pares x 4 quadros na mesma tela.
+   O resumo passa a responder a direcao — par, para onde o diferencial anda em
+   20 pregoes, e se o cambio concorda. O resto abre no clique. */
+html .jc-card{
+  border:1px solid var(--regua); background:var(--painel-fundo);
+  margin-bottom:var(--e5);
+}
+html .jc-card > summary{
+  display:flex; align-items:baseline; gap:var(--e6); flex-wrap:wrap;
+  padding:var(--e5) var(--e6); cursor:pointer;
+  list-style:none; position:relative;
+}
+html .jc-card > summary::-webkit-details-marker{ display:none; }
+html .jc-card > summary::marker{ content:""; }
+html .jc-card > summary::after{
+  content:"+"; margin-left:auto; font-family:var(--mono); font-size:var(--t-md);
+  line-height:1; color:var(--tinta-3);
+}
+html .jc-card[open] > summary::after{ content:"\2212"; }
+html .jc-card > summary:hover{ background:var(--fundo-band); }
+html .jc-card > summary:hover::after{ color:var(--marca); }
+html .jc-card[open] > summary{ border-bottom:1px solid var(--regua); }
+html .jc-card > summary strong{
+  font-family:var(--mono); font-size:var(--t-md); color:var(--tinta);
+  letter-spacing:.04em; min-width:88px;
+}
+html .jc-resumo-dif{
+  font-family:var(--mono); font-size:var(--t-min); letter-spacing:.02em;
+  font-variant-numeric:tabular-nums;
+}
+html .jc-resumo-dif small{ color:var(--tinta-3); margin-left:var(--e2); }
+html .jc-resumo-conc{
+  font-family:var(--serifa); font-size:var(--t-base); color:var(--tinta-2);
+  overflow-wrap:anywhere;
+}
+html .jc-cab-det{
+  display:flex; gap:var(--e6); flex-wrap:wrap; align-items:baseline;
+  padding:var(--e4) var(--e6); border-bottom:1px solid var(--regua-fraca);
+  font-family:var(--mono); font-size:var(--t-micro); color:var(--tinta-3);
+}
+html .jc-card > .jc-grid{ padding:var(--e6); }

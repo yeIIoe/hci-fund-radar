@@ -667,10 +667,32 @@
   const ROT_FAMILIA = { inflacao: "inflação", emprego: "emprego", atividade: "atividade",
                         comunicacao: "comunicação" };
 
+  /* [08/set] "SOMENTE O ESSENCIAL PARA A COMPREENSAO DA DIRECAO, NAO DE COMO CHEGAMOS A
+   * AQUELA IDEIA."
+   *
+   * Aqui saiam QUATRO chips por perna, e DOIS deles existiam so para dizer que nao contam:
+   * "discursos quieta · EXPERIMENTAL — CONTEXTO, NAO VOTA" e "geopolitica quieta ·
+   * EXPERIMENTAL — CONTEXTO, NAO VOTA". Num par sao oito elementos anunciando ausencia de
+   * informacao, e o selo repetido quatro vezes na mesma tela.
+   *
+   * Agora a linha mostra so quem VOTA. O que nao vota nao pode ser confundido com sinal
+   * porque nao esta la — e a contagem do que ficou de fora vai no title, entao a informacao
+   * continua declarada, sem ocupar a leitura. A secao "O que os dirigentes disseram" segue
+   * inteira logo abaixo, para quem quiser o texto.
+   */
   function dimsChips(s) {
     const D = s.dimensoes || {};
     const leituraFormada = s.leitura === "inclinado_alta" || s.leitura === "inclinado_corte";
-    return `<span class="mac-dims">${["dados", "texto", "ciclo", "geo"].map((k) => {
+    const votantes = ["dados", "texto", "ciclo", "geo"].filter((k) => dimVota(k, D[k]));
+    const fora = ["dados", "texto", "ciclo", "geo"].filter((k) => votantes.indexOf(k) < 0);
+    const rotFora = fora.map((k) => k === "texto" ? "discursos" : k === "geo" ? "geopolítica" : k);
+    const dica = rotFora.length
+      ? "fora da conta nesta leitura: " + rotFora.join(", ") + " — não votam"
+      : "todas as dimensões conectadas votam nesta leitura";
+    if (!votantes.length) {
+      return `<span class="mac-dims" title="${esc(dica)}"><span class="mac-dim off">nenhuma dimensão vota</span></span>`;
+    }
+    return `<span class="mac-dims" title="${esc(dica)}">${votantes.map((k) => {
       const v = D[k];
       const nome = k === "dados" ? "dados"
                  : k === "texto" ? rotuloTexto(v)
@@ -716,7 +738,7 @@
       const icone = !vota || !leituraFormada ? "&#9679;" : (ok ? "&#10003;" : "&#10007;");
       return `<span class="mac-dim ${cls}${vota && leituraFormada && !ok ? " discorda" : ""}" title="${esc(det + " · " + concordo)}">${nome} ${icone}
         <small>${ROT_DIR_PT[v.direcao] || ""}</small>${selo}</span>`;
-    }).join("")}</span>`;
+    }).join("")}${rotFora.length ? `<span class="mac-dim off" title="${esc(dica)}">+${rotFora.length} sem voto</span>` : ""}</span>`;
   }
 
   /* ==================================================================================
@@ -902,8 +924,6 @@
       ${tarjaAlerta(dominanciaDe(m), "mac-tarja-dom")}
       ${motivosPerna(m, s)}
       ${dimsChips(s)}
-      ${fam ? `<div class="mac-familias" title="famílias independentes que sustentam a leitura"><span class="mac-perna-papel">famílias</span>
-        <b>${fam.n}</b>${fam.quais.length ? ` <small class="muted">${fam.quais.map((x) => esc(ROT_FAMILIA[x] || x)).join(", ")}</small>` : ""}</div>` : ""}
       ${falasDeMoeda(m)}
     </div>`;
   }
@@ -1460,22 +1480,18 @@
         <div class="mac-resumo-item">
           <span class="mac-resumo-rot">Divergência</span>
           <strong>${div}<small class="mac-de100">/100</small></strong>
-          <div class="mac-barra-forca"><i style="width:${Math.max(2, Math.min(100, div))}%"></i></div>
-          <small>quanto as duas pernas discordam</small>
+          <div class="mac-barra-forca" title="quanto as duas pernas discordam"><i style="width:${Math.max(2, Math.min(100, div))}%"></i></div>
         </div>
         <div class="mac-resumo-item">
           <span class="mac-resumo-rot">Qualidade da evidência</span>
           <strong>${qual === null || qual === undefined ? "—" : qual + `<small class="mac-de100">/100</small>`}</strong>
           ${qual === null || qual === undefined ? "" :
-            `<div class="mac-barra-forca q"><i style="width:${Math.max(2, Math.min(100, qual))}%"></i></div>`}
-          <small>${qual === null || qual === undefined
-            ? "ainda não informada pelo núcleo"
-            : "o elo fraco das duas pernas — quantidade, diversidade, atualidade e confiabilidade"}</small>
+            `<div class="mac-barra-forca q" title="o elo fraco das duas pernas — quantidade, diversidade, atualidade e confiabilidade"><i style="width:${Math.max(2, Math.min(100, qual))}%"></i></div>`}
+          ${qual === null || qual === undefined ? `<small>ainda não informada pelo núcleo</small>` : ""}
         </div>
         <div class="mac-resumo-item">
           <span class="mac-resumo-rot">Convicção histórica</span>
-          <strong class="mac-naocal">ainda não calibrada</strong>
-          <small>${esc(s.conviccao_historica_nota || "ainda não calibrada — precisa de backtest com amostra declarada")}</small>
+          <strong class="mac-naocal" title="${esc(s.conviccao_historica_nota || "ainda não calibrada — precisa de backtest com amostra declarada")}">ainda não calibrada</strong>
         </div>
       </div>
 
@@ -1720,8 +1736,9 @@
             ? `<small class="muted mac-eua-revisado" title="o BLS revisou este numero depois da primeira divulgacao">revisado</small>` : ""}</td>
         <td class="mac-num-td mac-surp-td">${(semCons || surp === null)
           ? `<small class="muted">sem consenso</small>`
-          : `<span class="mac-surp ${rot ? (CLS_SURPRESA[rot] || "muted") : "muted"}">${
-              esc(euaTxt(r, "surpresa_texto", surp))}${rot ? " · " + esc(ROT_SURPRESA[rot] || rot) : ""}</span>`}</td>
+          : `<span class="mac-surp ${rot ? (CLS_SURPRESA[rot] || "muted") : "muted"}" title="surpresa de ${
+              esc(euaTxt(r, "surpresa_texto", surp))} contra o consenso">${
+              rot ? esc(ROT_SURPRESA[rot] || rot) : esc(euaTxt(r, "surpresa_texto", surp))}</span>`}</td>
         <td class="mac-num-td muted">${esc(euaTxt(r, "media_3m_texto", r.media_3m))}</td></tr>`;
     }).join("");
 
