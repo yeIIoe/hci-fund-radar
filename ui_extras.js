@@ -7,9 +7,19 @@
 
 const CCY = ["USD", "EUR", "GBP", "JPY", "AUD", "CAD", "NZD", "CHF"];
 /* `esc` ja existe no app.js — reaproveitado aqui. */
-/* Emoji de bandeira (regional indicator) nao renderiza no Windows: vira "US".
-   Chip de duas letras colorido funciona em qualquer sistema, offline. */
-const chip = (c) => CCY.includes(c) ? `<span class="ccy-chip" data-c="${c}">${c.slice(0, 2)}</span>` : "";
+/* [08/set] "MUDE AS LETRAS DE CADA COT PARA A BANDEIRA DE CADA PAIS."
+   O comentario que estava aqui dizia que emoji de bandeira nao renderiza no Windows e
+   por isso o chip era de duas letras. Isso ficou FALSO: o ui_macro.js usa 🇺🇸 🇪🇺 🇬🇧 no
+   calendario, na tabela dos bancos e nas manchetes, e renderiza na maquina dele — da para
+   ver nas fotos que ele mandou hoje. O chip de letra era a unica ilha de "US EU GB" num
+   site que ja e todo bandeira.
+   O `data-c` continua no span: e ele que da a cor de fundo do chip no CSS, e serve de
+   fallback silencioso se a fonte de emoji faltar. */
+const BANDEIRA = {
+  USD: "🇺🇸", EUR: "🇪🇺", GBP: "🇬🇧", JPY: "🇯🇵",
+  AUD: "🇦🇺", CAD: "🇨🇦", NZD: "🇳🇿", CHF: "🇨🇭",
+};
+const chip = (c) => CCY.includes(c) ? `<span class="ccy-chip ccy-bandeira" data-c="${c}" title="${c}">${BANDEIRA[c] || c.slice(0, 2)}</span>` : "";
 const pairChips = (p) => {
   const t = String(p || "").toUpperCase();
   if (t.length < 6) return "";
@@ -278,7 +288,9 @@ async function renderCot() {
   if (!grid) return;
 
   const linha = (x) => {
-    const bp = (v) => v === null || v === undefined ? "—" : (v > 0 ? "+" : "") + v.toFixed(1);
+    // separador DECIMAL em portugues e virgula — a tela mostrava "+13.3 pb" e "-1.4 pb".
+    // Mesma lapide ja pega no ui_macro.js (06/set) e no ui_juros_cambio.js (08/set).
+    const bp = (v) => v === null || v === undefined ? "—" : (v > 0 ? "+" : "") + v.toFixed(1).replace(".", ",");
     const cor = (v) => v === null || v === undefined ? "" : (v > 0 ? "positive" : v < 0 ? "negative" : "");
     const z = x.z1;
     const forca = z === null || z === undefined ? "sem leitura"
@@ -337,9 +349,10 @@ async function renderCot() {
       const nota = document.getElementById("yieldNote");
       if (nota) {
         const maior = Math.max.apply(null, (d.currencies || []).map((x) => x.stale_days || 0));
-        nota.innerHTML = "Curvas soberanas oficiais de 2 anos. Cada fonte publica no seu próprio ritmo; não é um feed em tempo real. " +
-          "Leitura mais antiga na tela: <b>" + maior + " dias úteis</b>. A página relê o arquivo a cada " +
-          "60 segundos e acompanha a próxima atualização sem recarregar.";
+        // [08/set] a nota de rodape da aba de juros saiu — o Eduardo riscou o paragrafo
+        // inteiro. O que ela dizia (cada fonte publica no proprio ritmo; nao e feed
+        // ao vivo) vive no title do titulo da secao e na idade de cada cartao.
+        nota.innerHTML = "";
       }
     } catch (_) {
       grid.innerHTML = '<div class="empty-state">yields.json ainda não foi gerado — execute update_yields.py.</div>';

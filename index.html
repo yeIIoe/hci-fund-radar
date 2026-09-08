@@ -15,7 +15,7 @@
        ordem e por prefixo html nos seletores. As tres familias vem no @import dela. -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="estilo_hci.css?v=20260908-min4">
+  <link rel="stylesheet" href="estilo_hci.css?v=20260908-min5">
 </head>
 <body>
   <header class="site-header">
@@ -101,8 +101,8 @@
     <div class="tab-panel is-active" data-panel="market">
       <section class="content-section">
         <div class="section-title">
-          <div><h2>Candidatos a análise</h2></div>
-          <p>Pares com o FUND fora do neutro. <b>Sem vantagem direcional comprovada.</b> Abra a ficha do par para ver a causa, o que a contradiz e as fontes.</p>
+          <div><h2 title="Pares com o FUND fora do neutro. Sem vantagem direcional comprovada. Abra a ficha do par para ver a causa, o que a contradiz e as fontes.">Candidatos a análise</h2></div>
+          
         </div>
         <details class="tab-about">
           <summary><span>Como ler o FUND e as decisões</span></summary>
@@ -118,12 +118,12 @@
       </section>
 
       <section class="content-section">
-        <div class="section-title"><div><h2>Força das moedas</h2></div><p>Média com sinal do FUND contra todos os pares com dado válido.</p></div>
+        <div class="section-title"><div><h2 title="Média com sinal do FUND contra todos os pares com dado válido.">Força das moedas</h2></div></div>
         <div id="currencyGrid" class="currency-grid"></div>
       </section>
 
       <section class="content-section">
-        <div class="section-title"><div><h2>Matriz completa</h2></div><p>Cada célula lê a moeda da linha contra a moeda da coluna. Clique para abrir o par.</p></div>
+        <div class="section-title"><div><h2 title="Cada célula lê a moeda da linha contra a moeda da coluna. Clique para abrir o par.">Matriz completa</h2></div></div>
         <div class="matrix-frame"><table id="strengthMatrix" class="matrix-table" aria-label="Matriz de força"></table></div>
         <div class="legend">
           <span><i class="scale s5"></i>Viés forte de queda</span><span><i class="scale s4"></i>Viés de queda</span><span><i class="scale s3"></i>Neutro</span><span><i class="scale s2"></i>Viés de alta</span><span><i class="scale s1"></i>Viés forte de alta</span>
@@ -135,8 +135,8 @@
     <div class="tab-panel" data-panel="yields">
       <section class="content-section">
         <div class="section-title">
-          <div><h2>Juro soberano de 2 anos</h2></div>
-          <p>Mantido só como contexto: ele <b>não</b> alimenta a leitura macro. Cada cartão mostra a idade da própria leitura.</p>
+          <div><h2 title="Mantido só como contexto: ele não alimenta a leitura macro. Cada cartão mostra a idade da própria leitura.">Juro soberano de 2 anos</h2></div>
+          
         </div>
         <details class="tab-about">
           <summary><span>O que é o juro de 2 anos, o que o move, e o que medimos de verdade</span></summary>
@@ -181,8 +181,8 @@
     <div class="tab-panel" data-panel="calendar">
       <section class="calendar-section">
         <div class="section-title">
-          <div><h2>Calendário macro</h2></div>
-          <p>Divulgações agendadas e decisões de banco central. Clique num evento para ver o que ele empurra na decisão de juro.</p>
+          <div><h2 title="Divulgações agendadas e decisões de banco central. Clique num evento para ver o que ele empurra na decisão de juro.">Calendário macro</h2></div>
+          
         </div>        <details class="tab-about">
           <summary><span>O que o calendário mostra, e por que ele é honesto</span></summary>
           <div class="tab-about-body"><p><strong>Modo de estudo.</strong> Clique em qualquer dia para ver o que o radar teria marcado ali — e,
@@ -241,8 +241,8 @@
 
       <section class="content-section">
         <div class="section-title">
-          <div><h2>Todos os 28 pares</h2></div>
-          <p>Ordenados pelo FUND em módulo. Clique numa linha para abrir o par acima.</p>
+          <div><h2 title="Ordenados pelo FUND em módulo. Clique numa linha para abrir o par acima.">Todos os 28 pares</h2></div>
+          
         </div>
         <details class="tab-about">
           <summary><span>Como esta lista é ordenada, e o que significa “operável”</span></summary>
@@ -273,8 +273,8 @@
     <div class="tab-panel" data-panel="ratesfx">
       <section class="content-section">
         <div class="section-title">
-          <div><h2>Juro contra câmbio</h2></div>
-          <p>Trajetória, magnitude e concordância em três campos separados — um rótulo só esconde a nuance.</p>
+          <div><h2 title="Trajetória, magnitude e concordância em três campos separados — um rótulo só esconde a nuance.">Juro contra câmbio</h2></div>
+          
         </div>
         <details class="tab-about">
           <summary><span>O que este painel faz, e as quatro regras que ele não pode quebrar</span></summary>
@@ -307,8 +307,8 @@
     <div class="tab-panel" data-panel="spreads">
       <section class="content-section">
         <div class="section-title">
-          <div><h2>Custo real de carregar uma posição</h2></div>
-          <p>Quanto cada par cobra para ser carregado — por lado, medido, não tirado de folheto.</p>
+          <div><h2 title="Quanto cada par cobra para ser carregado — por lado, medido, não tirado de folheto.">Custo real de carregar uma posição</h2></div>
+          
         </div>
         <details class="tab-about">
           <summary><span>Por que o spread sozinho engana, e o que muda no swing</span></summary>
@@ -343,8 +343,8 @@
     <div class="tab-panel" data-panel="equities">
       <section class="content-section">
         <div class="section-title">
-          <div><h2>Ações — Agente de Pesquisa</h2></div>
-          <p>Outra casa, outro método. Aqui não há FUND nem par de moedas.</p>
+          <div><h2 title="Outra casa, outro método. Aqui não há FUND nem par de moedas.">Ações — Agente de Pesquisa</h2></div>
+          
         </div>
         <details class="tab-about">
           <summary><span>Por que ações e câmbio são sistemas separados aqui</span></summary>
@@ -372,8 +372,8 @@
     <div class="tab-panel" data-panel="cot">
       <section class="content-section">
         <div class="section-title">
-          <div><h2>Posicionamento dos participantes (COT)</h2></div>
-          <p>Posicionamento semanal em futuros, da CFTC. Publicado sexta às 15:30 ET, com o livro de terça.</p>
+          <div><h2 title="Posicionamento semanal em futuros, da CFTC. Publicado sexta às 15:30 ET, com o livro de terça.">Posicionamento dos participantes (COT)</h2></div>
+          
         </div>        <details class="tab-about">
           <summary><span>O que o COT acrescenta aqui, e o que ele não acrescenta</span></summary>
           <div class="tab-about-body"><p><strong>Por que o posicionamento importa aqui.</strong> A leitura
@@ -394,8 +394,8 @@
     <div class="tab-panel" data-panel="news">
       <section class="content-section">
         <div class="section-title">
-          <div><h2>Próximas divulgações</h2></div>
-          <p>Eventos agendados que podem reprecificar o caminho do juro.</p>
+          <div><h2 title="Eventos agendados que podem reprecificar o caminho do juro.">Próximas divulgações</h2></div>
+          
         </div>        <details class="tab-about">
           <summary><span>Por que a divulgação em si não é a operação</span></summary>
           <div class="tab-about-body"><p><strong>Opere a reprecificação, não o número.</strong> O preço ajusta a uma surpresa em minutos,
@@ -416,7 +416,7 @@
     <!-- ============ TAB: SOURCES ============ -->
     <div class="tab-panel" data-panel="sources">
       <section class="content-section">
-        <div class="section-title"><div><h2>Fontes e frescor</h2></div><p>Uma perna velha mantém o valor visível, mas impede o par de ser operável.</p></div>        <details class="tab-about">
+        <div class="section-title"><div><h2 title="Uma perna velha mantém o valor visível, mas impede o par de ser operável.">Fontes e frescor</h2></div></div>        <details class="tab-about">
           <summary><span>Por que uma perna velha bloqueia o par</span></summary>
           <div class="tab-about-body"><p><strong>Por que uma perna velha bloqueia o par.</strong> Uma leitura montada sobre um juro de três
           semanas atrás é opinião velha vestida de número novo. O painel mantém o valor visível como
@@ -440,11 +440,8 @@
     <div class="tab-panel" data-panel="agentes">
       <section class="content-section">
         <div class="section-title">
-          <div><h2>Sala de julgamentos</h2></div>
-          <p>O que cada agente julgou nesta rodada, por moeda, com o trecho, o link da fonte e a
-             versão do prompt. A objeção do advogado aparece ao lado da tese, nunca escondida.
-             <b>Experimental — contexto, não vota.</b> Nada aqui é ordem, sinal de entrada ou
-             promessa de retorno: o painel dá o lado fundamental, a entrada é sua.</p>
+          <div><h2 title="O que cada agente julgou nesta rodada, por moeda, com o trecho, o link da fonte e a versão do prompt. A objeção do advogado aparece ao lado da tese, nunca escondida. Experimental — contexto, não vota. Nada aqui é ordem, sinal de entrada ou promessa de retorno: o painel dá o lado fundamental, a entrada é sua.">Sala de julgamentos</h2></div>
+          
         </div>
         <details class="tab-about">
           <summary><span>Como ler esta aba: proveniência e selo</span></summary>
@@ -464,9 +461,8 @@
     <!-- ============ TAB: BACKTEST MANUAL ============ -->
     <div class="tab-panel" data-panel="journal">
       <section class="content-section bt-manual">
-        <div class="section-title"><div><h2>Diário do backtest manual</h2></div>
-          <p>Registre somente o que era conhecido naquele momento. Os dados ficam neste aparelho e
-             formam a amostra que, no futuro, poderá calibrar a convicção histórica.</p></div>
+        <div class="section-title"><div><h2 title="Registre somente o que era conhecido naquele momento. Os dados ficam neste aparelho e formam a amostra que, no futuro, poderá calibrar a convicção histórica.">Diário do backtest manual</h2></div>
+          </div>
         <div id="manualBacktestBody"></div>
       </section>
     </div>
@@ -495,11 +491,11 @@
   </footer>
 
   <script src="app.js?v=20260906-ux1"></script>
-  <script src="ui_extras.js?v=20260906-ux1"></script>
+  <script src="ui_extras.js?v=20260908-min5"></script>
   <script src="ui_live_yields.js?v=20260906-ux1"></script>
   <script src="ui_cut_global.js?v=20260905-rev1"></script>
   <script src="ui_spreads.js?v=20260906-ux1"></script>
-  <script src="ui_equities.js?v=20260906-ux1"></script>
+  <script src="ui_equities.js?v=20260908-min5"></script>
   <script src="ui_fund_ficha.js?v=20260905-rev1"></script>
   <script src="ui_juros_cambio.js?v=20260908-min4"></script>
   <script src="ui_backtest_manual.js?v=20260906-ux1"></script>
@@ -508,7 +504,7 @@
        window.HCI_MEDIDORES existindo nesse instante. Sem fetch, sem evento. -->
   <script src="ui_medidores.js?v=20260906-vis1"></script>
   <script src="ui_agentes.js?v=20260908-vigia"></script>
-  <script src="ui_macro.js?v=20260908-min4"></script>
+  <script src="ui_macro.js?v=20260908-min5"></script>
   <!-- Depois do ui_macro.js de proposito: ele repinta os paineis a cada 900 ms e precisa
        ter desenhado antes de a auditoria esconder as manchetes posteriores ao corte. -->
   <script src="ui_corte_auditoria.js?v=20260905-rev1"></script>

@@ -1084,13 +1084,15 @@
     }).filter((x) => x && x.dias != null).sort((a, b) => a.dias - b.dias);
     if (riscos.length) {
       const r = riscos[0];
-      return { texto: r.dias < 0 ? "reavaliar agora" : `válido até ${r.brt || quandoTexto(r.dias)}`,
-               titulo: `${r.moeda} · ${tituloPt(r.evento)} — próximo evento relevante` };
+      const soDia = (t) => String(t || "").replace(/\s+\d{1,2}:\d{2}(\s*BRT)?$/, "");
+      return { texto: r.dias < 0 ? "reavaliar agora" : `até ${soDia(r.brt) || quandoTexto(r.dias)}`,
+               titulo: `${r.moeda} · ${tituloPt(r.evento)} — próximo evento relevante${
+                 r.brt ? " · " + r.brt : ""}` };
     }
     const P = d.s && d.s.proximo_evento_invalidante;
     if (P && (P.data || P.dias != null)) {
       const dias = P.dias != null ? P.dias : diasAte(P.data);
-      return { texto: dias < 0 ? "reavaliar agora" : `válido até ${P.data ? diaMesBr(P.data) : quandoTexto(dias)}`,
+      return { texto: dias < 0 ? "reavaliar agora" : `até ${P.data ? diaMesBr(P.data) : quandoTexto(dias)}`,
                titulo: `${P.moeda || ""} ${P.evento || "próxima decisão"} — limite disponível` };
     }
     return { texto: "validade sem data", titulo: "nenhum evento invalidante publicado" };
@@ -1560,9 +1562,13 @@
     // (i) a geopolitica nao entra nesta conta.
     const porLeitura = (chave) => S ? Object.keys(S)
       .filter((m) => { const L = leituraDe(m); return L && L.chave === chave; })
+      // [08/set] "corta isso dai q eu grifei, faca isso para os inclinados ao corte tbm":
+      // ele riscou o "2/2 · forte" debaixo de CADA moeda das duas colunas. No placar a
+      // pergunta e "quais moedas estao inclinadas para onde" — a contagem de dimensoes e a
+      // forca da evidencia sao COMO se chegou la, e ja aparecem inteiras na ficha do par.
       .map((m) => { const L = leituraDe(m);
-        return `${FLAG[m] || ""} ${esc(m)} <small>${L.ok}/${L.total}${
-          L.evid ? " · " + esc(L.evid) : ""}</small>`; }).join("&nbsp; ") : "";
+        return `<span title="${esc(L.ok + "/" + L.total + (L.evid ? " · evidência " + L.evid : ""))}">${
+          FLAG[m] || ""} ${esc(m)}</span>`; }).join("&nbsp; ") : "";
 
     const chips = FILTROS.map((x) =>
       `<button type="button" class="mac-chip${x.k === filtro.k ? " on" : ""}" data-mac-filtro="${x.k}">${x.r}</button>`
@@ -2071,21 +2077,19 @@
     const B = N.moedas[sel] || { itens: [], contagem: {} };
     const c = B.contagem || {};
     const noticiaHtml = (it) => `<li class="mac-news-item${it.classe ? " c-" + it.classe : ""}">
-        <span class="muted mac-ref-td">${esc(brt(it.quando_utc) || "")}</span>
-        <a href="${esc(it.link || "#")}" target="_blank" rel="noopener" translate="no">${esc(it.titulo)}</a>
-        <small class="muted">${esc(it.fonte || "")}</small>
-        ${it.classe ? `<span class="mac-news-tag c-${it.classe}">menciona ${{ alta: "alta", corte: "corte", mantem: "manutenção" }[it.classe]}</span>` : ""}
+        <a class="mac-news-titulo" href="${esc(it.link || "#")}" target="_blank" rel="noopener" translate="no">${esc(it.titulo)}</a>
+        <div class="mac-news-pe">
+          <span class="mac-news-quando">${esc(brt(it.quando_utc) || "")}</span>
+          <span class="mac-news-fonte">${esc(it.fonte || "")}</span>
+          ${it.classe ? `<span class="mac-news-tag c-${it.classe}">menciona ${{ alta: "alta", corte: "corte", mantem: "manutenção" }[it.classe]}</span>` : ""}
+        </div>
       </li>`;
     const itens = B.itens || [];
     const lista = itens.slice(0, 5).map(noticiaHtml).join("");
     const resto = itens.slice(5).map(noticiaHtml).join("");
     const g = N.gerado_em ? Math.round((Date.now() - new Date(N.gerado_em).getTime()) / 60000) : null;
     return `<section class="content-section mac-bloco mac-news">
-      <div class="section-title"><div><h2>Notícias por moeda</h2></div>
-        <p>Manchetes sobre cada banco central e cada economia nas últimas 72 horas, pelo feed de busca
-           do Google Notícias. A etiqueta é <b>contagem de expressão no título</b> — um indicador do que
-           ler, nunca uma leitura, e ela não vota. Para RBA, RBNZ e SNB, que bloqueiam automação, esta
-           é também a fonte de reserva da dimensão de texto: entra como <b>manchete (contexto)</b>.</p></div>
+      <div class="section-title"><div><h2 title="Manchetes sobre cada banco central e cada economia nas últimas 72 horas, pelo feed de busca do Google Notícias. A etiqueta é contagem de expressão no título — um indicador do que ler, nunca uma leitura, e ela não vota. Para RBA, RBNZ e SNB, que bloqueiam automação, esta é também a fonte de reserva da dimensão de texto: entra como manchete (contexto).">Notícias por moeda</h2></div></div>
       <div class="mac-chips">${chips}</div>
       <p class="mac-conta">${FLAG[sel] || ""} ${sel} · ${B.n_72h || 0} manchetes em 72 h · menções no título: alta ${c.alta || 0} · corte ${c.corte || 0} · manutenção ${c.mantem || 0}${
         g !== null ? ` · <span class="${g > 240 ? "mac-velho" : "mac-fresco"}">coletadas ${idadeTexto(g)}</span>` : ""}</p>
@@ -2570,9 +2574,7 @@
     if (painelCal && !painelCal.querySelector(".mac-cal")) {
       recolheLegado(painelCal);
       painelCal.innerHTML = `<section class="content-section mac-bloco">
-          <div class="section-title"><div><h2>Calendário macro</h2></div>
-            <p>Divulgações agendadas e decisões de banco central. Escolha um dia para ler o que cada
-               uma empurraria na decisão de juro. Todos os horários em BRT.</p></div>
+          <div class="section-title"><div><h2 title="Divulgações agendadas e decisões de banco central. Escolha um dia para ler o que cada uma empurraria na decisão de juro. Todos os horários em BRT.">Calendário macro</h2></div></div>
           <div class="mac-chips mac-cal-chips">
             <button type="button" class="mac-chip on" data-mac-cal-moeda="">Todas as moedas</button>
             ${Object.keys(FLAG).map((m) =>

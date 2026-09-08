@@ -2749,3 +2749,42 @@ html .jc-cab-det{
   font-family:var(--mono); font-size:var(--t-micro); color:var(--tinta-3);
 }
 html .jc-card > .jc-grid{ padding:var(--e6); }
+
+/* ============================================================================
+   §08set-c · MAIS MARCACOES A MAO
+   ============================================================================ */
+
+/* "REALCE AS MANCHETES." A manchete era um link de 12px, na cor do corpo,
+   espremido entre o carimbo de hora e o nome do veiculo — tres pesos iguais na
+   mesma linha, e o unico que interessa (o que a materia DIZ) nao se destacava.
+   Agora a manchete e o elemento principal da linha; hora, veiculo e etiqueta
+   descem para um pe de referencia. */
+html .mac-news-lista{ display:flex; flex-direction:column; gap:var(--e2); }
+html .mac-news-item{
+  display:block; padding:var(--e4) var(--e5);
+  border:0; border-bottom:1px solid var(--regua-fraca);
+}
+html .mac-news-item:last-child{ border-bottom:0; }
+html .mac-news-item:hover{ background:var(--painel-fundo); }
+html .mac-news-titulo{
+  display:block; font-family:var(--sans); font-size:var(--t-md);
+  line-height:1.42; color:var(--tinta); font-weight:500; text-decoration:none;
+}
+html .mac-news-titulo:hover{ color:var(--marca); text-decoration:underline; }
+html .mac-news-pe{
+  display:flex; gap:var(--e5); align-items:baseline; flex-wrap:wrap;
+  margin-top:var(--e2);
+  font-family:var(--mono); font-size:var(--t-micro); color:var(--tinta-3);
+}
+html .mac-news-pe .mac-news-quando{ font-variant-numeric:tabular-nums; }
+html .mac-news-pe .mac-news-fonte{ color:var(--tinta-3); }
+
+/* a bandeira do COT no lugar das duas letras */
+html .ccy-chip.ccy-bandeira{
+  background:transparent; color:inherit; font-size:15px; line-height:1;
+  padding:0; min-width:0; letter-spacing:0; border:0;
+}
+
+/* a validade do par nao pode empurrar a lista para fora da caixa */
+html .mac-item .mac-item-dias{ min-width:0; overflow:hidden; text-overflow:ellipsis; }
+html .mac-lista{ overflow-x:hidden; }

@@ -55,14 +55,9 @@
         </tr></thead>
         <tbody>${ns.map(linha).join("")}</tbody>
       </table></div>
-      <p class="method-note">
-        ${doc.metodo || ""}<br>
-        O relatório só é reconstruído quando os dados por trás dele realmente mudam:
-        ${doc.regenera_quando || ""}.<br>
-        O alvo é um múltiplo pré-registrado vezes o lucro projetado — não é previsão de preço,
-        mas o valor implícito caso a projeção se confirme.
-        Gerado em ${doc.gerado_em || "—"}.
-      </p>
+      <!-- [08/set] a nota de metodo saiu da tela por ordem do dono: "tire o metodo de
+           pesquisa". Ela dizia o mesmo em toda secao, em toda carga. O conteudo vive no
+           title do titulo da secao e em METODO_HCI_Pesquisa.md, que e onde metodo mora. -->
       <div id="sentinelaBody"></div>`;
     renderCards();
   }
@@ -168,9 +163,8 @@
     const rejeitados = maus.length ? `<details class="eq-recolhido"><summary>${esc(rotulos[1])} · ${maus.length}</summary>
       ${grade(maus, false, rotulos[1])}</details>` : "";
     return `<div class="section-title" style="margin-top:30px">
-        <div><h2>${titulo}</h2></div><p>${subtitulo}</p>
+        <div><h2 title="${[subtitulo, doc.metodo, doc.limite].filter(Boolean).join(" — ")}">${titulo}</h2></div>
       </div>
-      <p class="method-note">${esc(doc.metodo || "")}<br><em>${esc(doc.limite || "")}</em></p>
       ${grade(bons, true, rotulos[0])}
       ${rejeitados}`;
   }
@@ -229,13 +223,11 @@
       pct_subindo: Math.round(xs.filter((x) => x > 0).length / xs.length * 100) }))
       .filter((x) => x.n >= 2).sort((a, b) => b.rev_mediana - a.rev_mediana);
     return `<div class="section-title" style="margin-top:30px">
-        <div><h2>Revisões de lucros</h2></div>
-        <p>O que os analistas mudaram entre dois retratos congelados no tempo.</p>
+        <div><h2 title="O que os analistas mudaram entre dois retratos congelados no tempo. Revisão do consenso de LPA do ano fiscal entre dois retratos sem revisão retroativa. Filtro do ranking: mesmo sinal do LPA, base inicial absoluta de pelo menos 0,25 e no mínimo 5 analistas. Janela ${esc(d.janela || "")} · universo de ${d.n_tickers} nomes · ${comparaveis.length} casos comparáveis · gerado em ${esc(d.gerado_em || "")}.">Revisões de lucros</h2></div>
+        
       </div>
-      <p class="method-note">Revisão do consenso de LPA do ano fiscal entre dois retratos sem revisão retroativa.
-        Filtro do ranking: mesmo sinal do LPA, base inicial absoluta de pelo menos 0,25 e no mínimo 5 analistas.<br>
-        Janela ${esc(d.janela || "")} · universo de ${d.n_tickers} nomes · ${comparaveis.length} casos comparáveis ·
-        gerado em ${esc(d.gerado_em || "")}.</p>
+      <!-- [08/set] "revisoes de lucro a mesma coisa": a nota de metodo sai da tela e vai
+           para o title do titulo da secao, como nas outras quatro. -->
       <div class="eq-setores">${set.map((x) => `<span class="eq-set ${x.rev_mediana >= 0 ? "eq-set-up" : "eq-set-dn"}">
         ${esc(x.setor)} <b>${x.rev_mediana >= 0 ? "+" : ""}${x.rev_mediana}%</b>
         <i>${x.pct_subindo}% subindo · n=${x.n}</i></span>`).join("")}</div>
