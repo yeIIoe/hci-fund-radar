@@ -1,15 +1,15 @@
 {
- "gerado_em": "2026-09-08T13:47:47.540713+00:00",
- "gerado_em_brt": "08/09/2026 10:47 (BRT)",
+ "gerado_em": "2026-09-08T14:02:45.747542+00:00",
+ "gerado_em_brt": "08/09/2026 11:02 (BRT)",
  "origem_eventos": "fxstreet 42 dias atrás + 30 à frente",
  "frescor": {
   "atraso_min": 1,
   "atraso_texto": "1 min",
   "estado": "ok",
-  "ultima_sincronizacao_ok_utc": "2026-09-08T13:46:43.037713+00:00",
-  "ultima_sincronizacao_ok_brt": "08/09/2026 10:46 (BRT)",
+  "ultima_sincronizacao_ok_utc": "2026-09-08T14:01:42.332723+00:00",
+  "ultima_sincronizacao_ok_brt": "08/09/2026 11:01 (BRT)",
   "bloqueia_leitura": false,
-  "texto": "Dados sincronizados há 1 min (08/09 10:46, BRT). Leituras válidas.",
+  "texto": "Dados sincronizados há 1 min (08/09 11:01, BRT). Leituras válidas.",
   "limiares_provisorios": {
    "atrasado_min": 45,
    "muito_atrasado_min": 120
@@ -21,7 +21,7 @@
     "arquivo": "FXStreet ao vivo",
     "alimenta": "dimensão de dados (VOTA)",
     "vota": true,
-    "sincronizado_em": "2026-09-08T13:47:47.540713+00:00",
+    "sincronizado_em": "2026-09-08T14:02:45.747542+00:00",
     "atraso_min": 0,
     "ao_vivo": true,
     "atraso_texto": "0 min"
@@ -31,7 +31,7 @@
     "arquivo": "bancos_centrais.json",
     "alimenta": "dimensão de ciclo (VOTA)",
     "vota": true,
-    "sincronizado_em": "2026-09-08T13:46:43.037713+00:00",
+    "sincronizado_em": "2026-09-08T14:01:42.332723+00:00",
     "atraso_min": 1,
     "atraso_texto": "1 min"
    },
@@ -40,7 +40,7 @@
     "arquivo": "bc_discursos.json",
     "alimenta": "dimensão de fala (contexto, NÃO vota)",
     "vota": false,
-    "sincronizado_em": "2026-09-08T13:46:35.906226+00:00",
+    "sincronizado_em": "2026-09-08T14:01:35.290898+00:00",
     "atraso_min": 1,
     "atraso_texto": "1 min"
    },
@@ -49,7 +49,7 @@
     "arquivo": "noticias.json",
     "alimenta": "contexto de fala (NÃO vota)",
     "vota": false,
-    "sincronizado_em": "2026-09-08T13:47:09.337928+00:00",
+    "sincronizado_em": "2026-09-08T14:02:07.357420+00:00",
     "atraso_min": 1,
     "atraso_texto": "1 min"
    },
@@ -59,8 +59,8 @@
     "alimenta": "dimensão experimental (NÃO vota)",
     "vota": false,
     "sincronizado_em": "2026-09-08T11:42:22.084996+00:00",
-    "atraso_min": 125,
-    "atraso_texto": "2h 5min"
+    "atraso_min": 140,
+    "atraso_texto": "2h 20min"
    }
   ],
   "o_que_conta": "só as fontes que alimentam dimensão QUE VOTA entram no atraso (calendário e bancos centrais). Discurso, imprensa e geopolítica são contexto: a idade deles fica gravada, rotulada, e não muda o estado.",
@@ -750,8 +750,8 @@
     "quando_brt": "10/09 03:00",
     "impacto": "HIGH",
     "dias": 1,
-    "horas": 16,
-    "horas_total": 40,
+    "horas": 15,
+    "horas_total": 39,
     "reserva": false,
     "texto": "CPI em 10/09 às 03:00 (BRT)",
     "nota": "é o próximo DADO relevante, não a próxima decisão: ele diz até quando vale procurar BO + ZOI. A reunião continua no campo `proxima`, como limite final do ciclo."
@@ -779,8 +779,8 @@
      "direcao_antes_do_teto": "SOBE",
      "vota": true,
      "por_que_nao_vota": null,
-     "soma": 20.26,
-     "soma_antes_do_teto": 15.02,
+     "soma": 20.27,
+     "soma_antes_do_teto": 15.03,
      "n": 164,
      "n_alto": 17,
      "desde": "2026-07-28",
@@ -794,7 +794,7 @@
      "deslocamento_pelo_teto": {
       "valor": 5.24,
       "direcao_mudou": false,
-      "texto": "cortar os itens moveu a soma em +5.24 (de +15.02 para +20.26) — winsorizar termos de uma SOMA desloca o total para o lado contrário ao do item cortado, não amortece"
+      "texto": "cortar os itens moveu a soma em +5.24 (de +15.03 para +20.27) — winsorizar termos de uma SOMA desloca o total para o lado contrário ao do item cortado, não amortece"
      },
      "winsor": {
       "teto_por_item": 4.0,
@@ -1140,8 +1140,8 @@
     "quando_brt": "15/09 03:00",
     "impacto": "HIGH",
     "dias": 6,
-    "horas": 16,
-    "horas_total": 160,
+    "horas": 15,
+    "horas_total": 159,
     "reserva": false,
     "texto": "emprego em 15/09 às 03:00 (BRT)",
     "nota": "é o próximo DADO relevante, não a próxima decisão: ele diz até quando vale procurar BO + ZOI. A reunião continua no campo `proxima`, como limite final do ciclo."
@@ -1680,13 +1680,13 @@
      "vota": false,
      "selo": "experimental — contexto, não vota",
      "conectada": true,
-     "hawkish": 27,
+     "hawkish": 26,
      "dovish": 0,
-     "n": 98,
+     "n": 99,
      "n_falas": 0,
-     "n_contexto": 112,
+     "n_contexto": 110,
      "contagem_contexto": {
-      "alta": 27,
+      "alta": 26,
       "corte": 0
      },
      "contagem_voto": {
@@ -1694,10 +1694,10 @@
       "corte": 0
      },
      "oradores": [
+      "Yahoo Finance Singapore",
       "finance.biggo.com",
       "fxstreet.com",
-      "mezha.net",
-      "毎日新聞"
+      "mezha.net"
      ],
      "datas": [
       "2026-09-08",
@@ -1711,13 +1711,13 @@
      "peso_aplicado": 0.0,
      "peso_da_fonte": 0.0,
      "peso_se_votasse": 0.0,
-     "itens_unicos": 98,
-     "duplicatas_removidas": 14,
+     "itens_unicos": 99,
+     "duplicatas_removidas": 11,
      "rotulo_contexto": null,
      "veredito_por_orador": [],
      "por_que_nao_vota": "a leitura de fala é CONTAGEM DE PALAVRAS, e contagem de palavras não lê negação, nem condição, nem referência temporal: 'holding the target' está na lista de termos hawkish, então Waller defendendo MANTER saía como alta. Desde 05/set a dimensão fica como CONTEXTO, com peso 0,0 — não entra na leitura contínua, não entra no teto e não conta como MANTEM. O veredito por orador ao lado lê condição e negação, mas TAMBÉM não vota: nunca foi medido contra rótulo humano.",
      "nota": "imprensa (Google News, 72 h) — o banco central bloqueia automação. É contagem de expressão da imprensa, NÃO é fala do banco. Não vota desde 05/set, como nenhuma fala vota.",
-     "nota_peso": "NÃO VOTA: os 27 'alta' e 0 'corte' são CONTEXTO da imprensa. Se a régua antiga valesse, esta origem (manchete) pesaria 0.0."
+     "nota_peso": "NÃO VOTA: os 26 'alta' e 0 'corte' são CONTEXTO da imprensa. Se a régua antiga valesse, esta origem (manchete) pesaria 0.0."
     },
     "ciclo": {
      "bp": 25,
@@ -1774,8 +1774,8 @@
     "partes_sem_dado": [
      "confiabilidade"
     ],
-    "contexto_nao_contado": 98,
-    "explicacao": "qualidade 91/100 do JPY (média de 3 parte(s) com dado; sem dado em confiabilidade) — 28 divulgações e 0 fala(s) que votam na janela; 98 item(ns) de imprensa que NÃO votam ficaram de fora da conta; 3 de 4 famílias independentes (atividade, emprego, inflacao); o item que mais pesa tem 1 dia(s); fonte da fala: MANCHETE de imprensa — mas a fala NÃO VOTA desde 05/set, então a parte confiabilidade sai SEM DADO em vez de valer 0/100.",
+    "contexto_nao_contado": 99,
+    "explicacao": "qualidade 91/100 do JPY (média de 3 parte(s) com dado; sem dado em confiabilidade) — 28 divulgações e 0 fala(s) que votam na janela; 99 item(ns) de imprensa que NÃO votam ficaram de fora da conta; 3 de 4 famílias independentes (atividade, emprego, inflacao); o item que mais pesa tem 1 dia(s); fonte da fala: MANCHETE de imprensa — mas a fala NÃO VOTA desde 05/set, então a parte confiabilidade sai SEM DADO em vez de valer 0/100.",
     "provisorio": true,
     "regua": {
      "satura_em_itens": 12,
@@ -2045,7 +2045,7 @@
      "dovish": 0,
      "n": 35,
      "n_falas": 2,
-     "n_contexto": 36,
+     "n_contexto": 37,
      "contagem_contexto": {
       "alta": 7,
       "corte": 0
@@ -2071,7 +2071,7 @@
      "peso_da_fonte": 0.4,
      "peso_se_votasse": 0.4,
      "itens_unicos": 35,
-     "duplicatas_removidas": 1,
+     "duplicatas_removidas": 2,
      "rotulo_contexto": "sem fala oficial disponivel — o banco bloqueia automacao; a imprensa abaixo e contexto, nao voto",
      "veredito_por_orador": [],
      "por_que_nao_vota": "a leitura de fala é CONTAGEM DE PALAVRAS, e contagem de palavras não lê negação, nem condição, nem referência temporal: 'holding the target' está na lista de termos hawkish, então Waller defendendo MANTER saía como alta. Desde 05/set a dimensão fica como CONTEXTO, com peso 0,0 — não entra na leitura contínua, não entra no teto e não conta como MANTEM. O veredito por orador ao lado lê condição e negação, mas TAMBÉM não vota: nunca foi medido contra rótulo humano.",
@@ -2844,7 +2844,7 @@
      "vota": true,
      "por_que_nao_vota": null,
      "soma": 12.45,
-     "soma_antes_do_teto": 15.37,
+     "soma_antes_do_teto": 15.36,
      "n": 8,
      "n_alto": 2,
      "desde": "2026-07-28",
@@ -2856,9 +2856,9 @@
       "texto": null
      },
      "deslocamento_pelo_teto": {
-      "valor": -2.92,
+      "valor": -2.91,
       "direcao_mudou": false,
-      "texto": "cortar os itens moveu a soma em -2.92 (de +15.37 para +12.45) — winsorizar termos de uma SOMA desloca o total para o lado contrário ao do item cortado, não amortece"
+      "texto": "cortar os itens moveu a soma em -2.91 (de +15.36 para +12.45) — winsorizar termos de uma SOMA desloca o total para o lado contrário ao do item cortado, não amortece"
      },
      "winsor": {
       "teto_por_item": 4.0,
@@ -2901,7 +2901,7 @@
        "impacto": "HIGH",
        "divulgado": 0.8,
        "consenso": 0.5,
-       "contribuicao_bruta": 5.88,
+       "contribuicao_bruta": 5.87,
        "contribuicao": 4.0,
        "idade_dias": 5.3,
        "winsorizado": true
@@ -3200,8 +3200,8 @@
     "quando_brt": "10/09 03:00",
     "impacto": "HIGH",
     "dias": 1,
-    "horas": 16,
-    "horas_total": 40,
+    "horas": 15,
+    "horas_total": 39,
     "reserva": false,
     "texto": "CPI em 10/09 às 03:00 (BRT)",
     "nota": "é o próximo DADO relevante, não a próxima decisão: ele diz até quando vale procurar BO + ZOI. A reunião continua no campo `proxima`, como limite final do ciclo."
@@ -3977,8 +3977,8 @@
     "quando_brt": "10/09 03:00",
     "impacto": "HIGH",
     "dias": 1,
-    "horas": 16,
-    "horas_total": 40,
+    "horas": 15,
+    "horas_total": 39,
     "reserva": false,
     "texto": "CPI em 10/09 às 03:00 (BRT)",
     "nota": "é o próximo DADO relevante, não a próxima decisão: ele diz até quando vale procurar BO + ZOI. A reunião continua no campo `proxima`, como limite final do ciclo."
@@ -4090,8 +4090,8 @@
     "quando_brt": "10/09 03:00",
     "impacto": "HIGH",
     "dias": 1,
-    "horas": 16,
-    "horas_total": 40,
+    "horas": 15,
+    "horas_total": 39,
     "reserva": false,
     "texto": "CPI em 10/09 às 03:00 (BRT)",
     "nota": "é o próximo DADO relevante, não a próxima decisão: ele diz até quando vale procurar BO + ZOI. A reunião continua no campo `proxima`, como limite final do ciclo."
@@ -4204,8 +4204,8 @@
     "quando_brt": "10/09 03:00",
     "impacto": "HIGH",
     "dias": 1,
-    "horas": 16,
-    "horas_total": 40,
+    "horas": 15,
+    "horas_total": 39,
     "reserva": false,
     "texto": "CPI em 10/09 às 03:00 (BRT)",
     "nota": "é o próximo DADO relevante, não a próxima decisão: ele diz até quando vale procurar BO + ZOI. A reunião continua no campo `proxima`, como limite final do ciclo."
@@ -4319,8 +4319,8 @@
     "quando_brt": "10/09 03:00",
     "impacto": "HIGH",
     "dias": 1,
-    "horas": 16,
-    "horas_total": 40,
+    "horas": 15,
+    "horas_total": 39,
     "reserva": false,
     "texto": "CPI em 10/09 às 03:00 (BRT)",
     "nota": "é o próximo DADO relevante, não a próxima decisão: ele diz até quando vale procurar BO + ZOI. A reunião continua no campo `proxima`, como limite final do ciclo."
@@ -4434,8 +4434,8 @@
     "quando_brt": "10/09 03:00",
     "impacto": "HIGH",
     "dias": 1,
-    "horas": 16,
-    "horas_total": 40,
+    "horas": 15,
+    "horas_total": 39,
     "reserva": false,
     "texto": "CPI em 10/09 às 03:00 (BRT)",
     "nota": "é o próximo DADO relevante, não a próxima decisão: ele diz até quando vale procurar BO + ZOI. A reunião continua no campo `proxima`, como limite final do ciclo."
@@ -4548,8 +4548,8 @@
     "quando_brt": "10/09 03:00",
     "impacto": "HIGH",
     "dias": 1,
-    "horas": 16,
-    "horas_total": 40,
+    "horas": 15,
+    "horas_total": 39,
     "reserva": false,
     "texto": "CPI em 10/09 às 03:00 (BRT)",
     "nota": "é o próximo DADO relevante, não a próxima decisão: ele diz até quando vale procurar BO + ZOI. A reunião continua no campo `proxima`, como limite final do ciclo."
@@ -4661,8 +4661,8 @@
     "quando_brt": "15/09 03:00",
     "impacto": "HIGH",
     "dias": 6,
-    "horas": 16,
-    "horas_total": 160,
+    "horas": 15,
+    "horas_total": 159,
     "reserva": false,
     "texto": "emprego em 15/09 às 03:00 (BRT)",
     "nota": "é o próximo DADO relevante, não a próxima decisão: ele diz até quando vale procurar BO + ZOI. A reunião continua no campo `proxima`, como limite final do ciclo."
@@ -4772,8 +4772,8 @@
     "quando_brt": "15/09 03:00",
     "impacto": "HIGH",
     "dias": 6,
-    "horas": 16,
-    "horas_total": 160,
+    "horas": 15,
+    "horas_total": 159,
     "reserva": false,
     "texto": "emprego em 15/09 às 03:00 (BRT)",
     "nota": "é o próximo DADO relevante, não a próxima decisão: ele diz até quando vale procurar BO + ZOI. A reunião continua no campo `proxima`, como limite final do ciclo."
@@ -4884,8 +4884,8 @@
     "quando_brt": "15/09 03:00",
     "impacto": "HIGH",
     "dias": 6,
-    "horas": 16,
-    "horas_total": 160,
+    "horas": 15,
+    "horas_total": 159,
     "reserva": false,
     "texto": "emprego em 15/09 às 03:00 (BRT)",
     "nota": "é o próximo DADO relevante, não a próxima decisão: ele diz até quando vale procurar BO + ZOI. A reunião continua no campo `proxima`, como limite final do ciclo."
@@ -5106,8 +5106,8 @@
     "quando_brt": "15/09 03:00",
     "impacto": "HIGH",
     "dias": 6,
-    "horas": 16,
-    "horas_total": 160,
+    "horas": 15,
+    "horas_total": 159,
     "reserva": false,
     "texto": "emprego em 15/09 às 03:00 (BRT)",
     "nota": "é o próximo DADO relevante, não a próxima decisão: ele diz até quando vale procurar BO + ZOI. A reunião continua no campo `proxima`, como limite final do ciclo."
