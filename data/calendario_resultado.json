@@ -1,21 +1,21 @@
 {
- "gerado_em": "2026-09-08T23:37:08.457016+00:00",
+ "gerado_em": "2026-09-08T23:52:08.462022+00:00",
  "fonte": "backend do calendario da FXStreet (sem chave; exige Origin/Referer)",
  "aviso_fonte": "backend de widget, NAO produto licenciado: sem contrato, sem SLA, pode ser bloqueado sem aviso. Plano B = ponte MT5.",
  "aviso_gargalo": "de nada adianta feed de 12s lido por cron de 15min. A doc do GitHub diz que o schedule pode atrasar sob carga e que jobs na fila podem ser descartados. O relogio decide antes da fonte.",
  "latencia_medida": {
-  "n": 48,
-  "p25": 181.0,
-  "mediana": 556.0,
-  "p75": 2324.0,
+  "n": 49,
+  "p25": 173.0,
+  "mediana": 538.0,
+  "p75": 1579.0,
   "p90": 17340.0,
   "n_alta": 1,
   "mediana_alta": 23180.0,
   "p90_alta": 23180.0
  },
  "total": 213,
- "divulgados": 48,
- "por_vir": 160,
+ "divulgados": 49,
+ "por_vir": 159,
  "eventos": [
   {
    "id": "609d2cee-3ed9-4151-bb48-1207ff5ab810",
@@ -1192,7 +1192,7 @@
    "impacto": "LOW",
    "unidade": "%",
    "escala": null,
-   "divulgado": null,
+   "divulgado": 2.0,
    "consenso": null,
    "anterior": 2.2,
    "revisado": null,
@@ -1202,7 +1202,7 @@
    "preliminar": false,
    "discurso": false,
    "data_a_confirmar": false,
-   "atraso_s": null,
+   "atraso_s": 40.0,
    "fonte": "fxstreet"
   },
   {
