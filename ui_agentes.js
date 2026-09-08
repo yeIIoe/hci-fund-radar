@@ -89,6 +89,30 @@
     return m[3] + "/" + m[2] + " " + m[4] + ":" + m[5] + " UTC";
   }
 
+  /* [08/set] QUEM VIGIA O VIGIA.
+     O Eduardo perguntou por que a tela nao atualiza "na hora" tendo VPS. A medicao daquele
+     momento: os DADOS do painel estavam com 11 min e o VIGIA com 19 h — ele nao estava em
+     workflow nenhum nem no loop da VPS, tinha rodado uma vez a mao e congelado. A tela
+     mostrava um retrato de ontem com cara de agora, que e o defeito que o proprio vigia
+     existe para denunciar nos outros. Agora ele roda de hora em hora na VPS, e a idade dele
+     aparece na tela como aparece a de qualquer outra fonte. */
+  function idadeMin(iso) {
+    var s = txt(iso);
+    if (!s) return null;
+    var t = Date.parse(/[Zz]|[+-]\d{2}:?\d{2}$/.test(s) ? s : s + "Z");
+    if (isNaN(t)) return null;
+    var m = Math.floor((Date.now() - t) / 60000);
+    return m < 0 ? 0 : m;
+  }
+  function idadeTexto(m) {
+    if (m === null) return "";
+    if (m < 60) return m + " min";
+    var h = Math.floor(m / 60);
+    if (h < 24) return h + " h " + (m % 60) + " min";
+    return Math.floor(h / 24) + " d " + (h % 24) + " h";
+  }
+  var VIGIA_TOLERANCIA_MIN = 180;   // ele roda de hora em hora; 3 h e o dobro do intervalo
+
   function ehLink(s) { return /^https?:\/\//i.test(txt(s)); }
 
   function link(fonte) {
@@ -231,6 +255,8 @@
     var quando = carimbo(vig.gerado_em);
     var placar = ehObj(vig.placar) ? vig.placar : {};
     var selo = txt(a.lista[0].selo);
+    var idade = idadeMin(vig.gerado_em);
+    var velho = idade !== null && idade > VIGIA_TOLERANCIA_MIN;
 
     var linhas = a.lista.map(function (j) {
       return '<div class="alarme">' +
@@ -264,11 +290,22 @@
         '<span class="rot">estado degradado — ' + esc(num(a.lista.length, 0)) + " de " +
           esc(num((ehObj(vig.julgamentos) ? vig.julgamentos.length : 0), 0)) + " checagens</span>" +
         chip("medido", "chip-mudo") +
+        (idade !== null
+          ? '<span class="chip ' + (velho ? "chip-aviso" : "chip-mudo") + '">medido ha ' +
+            esc(idadeTexto(idade)) + "</span>"
+          : "") +
         (contagem ? '<span class="chip chip-aviso">' + esc(contagem) + "</span>" : "") +
         '<span class="verificacao">' + esc(versao) +
           (rodada ? " · " + esc(rodada) : "") +
           (quando ? " · " + esc(quando) : "") + "</span>" +
       "</div>" +
+      (velho
+        ? '<div class="alarme-escopo alarme-velho"><strong>Esta medição tem ' +
+          esc(idadeTexto(idade)) + ' — ela descreve o sistema como ele estava naquele ' +
+          'instante, não agora.</strong> As linhas abaixo podem já ter sido resolvidas ou ' +
+          'piorado. O vigia roda de hora em hora na VPS; passar de 3 h significa que ' +
+          'ele próprio parou.</div>'
+        : "") +
       '<div class="alarme-escopo"><em>Isto é medição da operação do sistema, não leitura de mercado: ' +
         'nenhuma linha abaixo vota na direção de moeda nenhuma e nenhuma invalida a tabela — todas ' +
         'mudam o peso do que está na tela.' +

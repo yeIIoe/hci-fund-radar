@@ -662,8 +662,73 @@ def alarme(ident, assunto, medida, consequencia, gravidade, numeros,
     }
 
 
+# [08/set] QUAL MAQUINA E O MOTOR.
+#
+# Ate hoje este vigia so enxergava a API do GitHub, e por isso media o `macro-direction` do
+# Actions como se ele fosse o motor da cadeia. Desde 07/set ele NAO E: o motor e a VPS, que
+# roda de 15 em 15 min, e o Actions virou reserva de 3 em 3 h — de proposito, para duas
+# maquinas nao brigarem no push. Sem saber disso, o vigia lia a reserva rodando pouco e
+# gritava ALTA por um comportamento que e PROJETO.
+#
+# Foi exatamente o que o Eduardo viu em 08/set: cinco alarmes na tela, todos sobre o Actions,
+# enquanto a VPS publicava a cada 15 min com a cadeia inteira em 74 s.
+#
+# O contrato: a VPS grava data/vps_pulso.json junto com os dados, no MESMO commit. Se o pulso
+# esta fresco, o motor esta vivo e os alarmes do Actions caem para `baixa` com a consequencia
+# reescrita. Se o pulso sumiu ou envelheceu, o motor caiu — e AI o Actions volta a ser medido
+# como motor, porque passou a ser.
+PULSO = "data/vps_pulso.json"
+
+
+def le_pulso():
+    """Devolve (vivo, dado, idade_min, motivo). Nunca levanta."""
+    d, erro = _le_json(_p(PULSO))
+    if erro or not isinstance(d, dict):
+        return False, None, None, "o arquivo do pulso nao foi lido: %s" % (erro or "ausente")
+    carimbo = d.get("gerado_em")
+    dt, _ingenuo, erro_dt = _data_de(carimbo)
+    idade = None if dt is None else max(
+        0.0, (datetime.now(timezone.utc) - dt).total_seconds() / 60.0)
+    if idade is None:
+        return False, d, None, ("o pulso existe mas nao traz carimbo legivel: %s"
+                                % (erro_dt or "sem detalhe"))
+    prometida = d.get("cadencia_prometida_min") or 15
+    limite = 2 * int(prometida) + 10          # dois ciclos mais folga de rede
+    if idade > limite:
+        return False, d, idade, ("o pulso tem %s, acima do limite de %s (dois ciclos da "
+                                 "cadencia prometida)" % (_hm(idade), _hm(limite)))
+    return True, d, idade, ""
+
+
 def monta_alarmes(idades, execucoes, pulados, frescor, snapshots, janela_h):
     A = []
+    motor_vivo, pulso, pulso_idade, pulso_motivo = le_pulso()
+
+    # -------------------------------------------------------- 0. O MOTOR, antes de tudo
+    if motor_vivo:
+        A.append(alarme(
+            "MOTOR/vps", "o motor da cadeia esta batendo",
+            "pulso de %s; cadencia prometida de %s; ultima cadeia %s"
+            % (_hm(pulso_idade), _hm(pulso.get("cadencia_prometida_min") or 15),
+               ("%.0f s" % pulso["ultima_cadeia_s"]) if pulso.get("ultima_cadeia_s") else "nao declarada"),
+            ("Nada a fazer: a VPS publicou ha %s e promete voltar a cada %s. Enquanto este "
+             "pulso estiver fresco, os alarmes de execucao do GitHub Actions abaixo se "
+             "referem a RESERVA, nao ao motor — e reserva rodando pouco e o combinado."
+             % (_hm(pulso_idade), _hm(pulso.get("cadencia_prometida_min") or 15))),
+            "ok", {"pulso_idade_min": pulso_idade,
+                   "cadencia_prometida_min": pulso.get("cadencia_prometida_min"),
+                   "ultima_cadeia_s": pulso.get("ultima_cadeia_s")},
+            fonte={"titulo": PULSO, "quando": pulso.get("gerado_em")}, ok=True))
+    else:
+        A.append(alarme(
+            "MOTOR/vps", "o motor da cadeia parou de bater", pulso_motivo,
+            ("A VPS e quem roda a cadeia de 15 em 15 min desde 07/set. Sem o pulso dela, o "
+             "painel passa a depender do GitHub Actions, que e a RESERVA de 3 em 3 h: a "
+             "leitura publicada pode ficar ate 6 h atrasada. Os alarmes de execucao abaixo "
+             "voltam a valer como medicao do motor, porque na falta da VPS o Actions passou "
+             "a ser o motor."),
+            "alta", {"pulso_idade_min": pulso_idade},
+            fonte={"titulo": PULSO, "quando": (pulso or {}).get("gerado_em")}))
 
     # ---------------------------------------------------------------- 1. IDADE
     for it in idades:
@@ -702,6 +767,9 @@ def monta_alarmes(idades, execucoes, pulados, frescor, snapshots, janela_h):
                 ("Nada a fazer: %s esta fresco e alimenta %s com dado do carimbo %s."
                  % (nome, it["alimenta"], it["carimbo_utc"])),
                 "ok", base, trecho=it["carimbo_literal"], fonte=fonte, ok=True))
+
+    # marcador para o pos-processamento da RESERVA, logo abaixo
+    _n_antes_exec = len(A)
 
     # ------------------------------------------------------- 2. EXECUCOES e CANCELAMENTOS
     if execucoes["erro"]:
@@ -835,6 +903,33 @@ def monta_alarmes(idades, execucoes, pulados, frescor, snapshots, janela_h):
                          "foram pulados — que e a assinatura do estouro de teto. Esta "
                          "execucao fica sem diagnostico nesta rodada."),
                         "baixa", {}))
+
+    # ------------------------------------------------- 3b. A RESERVA NAO E O MOTOR
+    # Com o pulso da VPS fresco, todo alarme de EXECUCAO do GitHub Actions passa a falar da
+    # RESERVA de 3 em 3 h. Reserva rodando pouco e o combinado, nao degradacao — e um painel
+    # que grita ALTA pelo combinado ensina o dono a ignorar a faixa, que e o pior desfecho
+    # possivel para um vigia. O alarme NAO some (continua medido e visivel): cai para `baixa`
+    # e ganha a frase que diz o que ele realmente significa agora.
+    if motor_vivo:
+        for j in A[_n_antes_exec:]:
+            ident = j.get("identificador", "")
+            if not (ident.startswith("EXEC/") or ident.startswith("CANC/")
+                    or ident.startswith("PULO/")):
+                continue
+            if "macro-direction" not in ident or j.get("estado") == "ok":
+                continue
+            j["gravidade"] = "baixa"
+            j["consequencia"] = (
+                "RESERVA, NAO MOTOR. A VPS publicou ha %s e e ela quem roda a cadeia de 15 "
+                "em 15 min desde 07/set; o `macro-direction` do GitHub e a reserva de 3 em "
+                "3 h, rebaixada de proposito para duas maquinas nao brigarem no push. Esta "
+                "linha so vira problema se o pulso da VPS parar — e nesse caso o alarme "
+                "MOTOR/vps sobe para alta e este volta a valer como medicao do motor. "
+                "Medicao original: %s"
+                % (_hm(pulso_idade), j.get("consequencia", "")))
+            j["numeros_citados"] = dict(j.get("numeros_citados") or {},
+                                        rebaixado_por_pulso_vps=True,
+                                        pulso_idade_min=pulso_idade)
 
     # ---------------------------------------------------------------- 4. FRESCOR
     fs = frescor["sentimento"] or {}

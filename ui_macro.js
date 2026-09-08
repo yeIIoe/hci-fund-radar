@@ -801,10 +801,9 @@
     if (!L) return `<small class="muted">leitura ainda não construída</small>`;
     const cls = CLS_LEITURA[L.chave] || "muted";
     if (L.chave === "sem_leitura") {
-      return `<div class="mac-bloco-moeda${tam === "big" ? " big" : ""}${clsAtraso()}">
+      return `<div class="mac-bloco-moeda${tam === "big" ? " big" : ""}${clsAtraso()}" title="${esc(L.conc)}">
         <div class="mac-bm-linha1 muted"><strong>${esc(m)}</strong> &mdash; sem leitura</div>
         ${L.motivo ? `<div class="mac-bm-motivo" title="${esc(L.motivo)}">${esc(L.motivo)}</div>` : ""}
-        <div class="mac-bm-linha2">${esc(L.conc)}</div>
         ${L.evid ? `<div class="mac-bm-linha3">Evidência: <b>${esc(L.evid)}</b>
           <small class="mac-prov-mini">· faixa provisória</small></div>` : ""}
       </div>`;
@@ -812,8 +811,7 @@
     return `<div class="mac-bloco-moeda${tam === "big" ? " big" : ""}${clsAtraso()}">
       <div class="mac-bm-linha1 ${cls}"><span class="mac-bm-seta">${SETA_LEITURA[L.chave]}</span>
         <strong>${esc(m)}</strong> &mdash; ${esc(L.texto)}</div>
-      <div class="mac-bm-linha2">${esc(L.conc)}</div>
-      <div class="mac-bm-linha3">${L.evid
+      <div class="mac-bm-linha3" title="${esc(L.conc)}">${L.evid
         ? `Evidência: <b>${esc(L.evid)}</b> <small class="mac-prov-mini">· faixa provisória</small>`
         : `Evidência: <span class="muted">ainda não informada pelo núcleo</span>`}</div>
     </div>`;
@@ -1224,35 +1222,7 @@
         ${desenhoPernas(d)}
         <p class="mac-det-nota">${nota}</p></details>
 
-      <div class="mac-pernas">${pernaCard(d.b, d.cb, "base")}${pernaCard(d.q, d.cq, "cotada")}</div>
-
-      <details class="mac-det-mais">
-        <summary>Como esta leitura é construída, e o que ainda falta</summary>
-        <div class="mac-det-mais-corpo">
-          <p>Dimensões que VOTAM, nenhuma delas um juro de mercado: <b>dados</b> (surpresas desde a última decisão do banco,
-             ponderadas por família e impacto, meia-vida 21 dias), <b>texto</b> (marcadores de alta/corte no que o banco
-             disse — e a interface diz a ORIGEM: discurso oficial, comunicado ou ata, imprensa com fala de dirigente,
-             ou manchete, que é contexto e não vota) e <b>ciclo</b> (o último movimento, com decaimento pelo tempo
-             e pelas reuniões de manutenção que passaram).</p>
-          <p>A <b>geopolítica</b> aparece marcada como <b>${SELO_GEO}</b>: não entra no cálculo nem na conta
-             "N de M dimensões concordam". Silêncio não é voto — dimensão sem dado não conta, nunca vira zero.</p>
-          <p>O par mostra <b>três leituras separadas, nunca somadas</b>: a <b>divergência</b> (quanto as duas pernas
-             discordam), a <b>qualidade da evidência</b> (quanto dado sustenta a leitura, que vira o rótulo
-             <b>fraca / moderada / forte</b>) e a <b>convicção histórica</b>, que hoje sai como
-             <b>ainda não calibrada</b> — só existirá com backtest de amostra declarada.
-             Não existe pontuação nesta tela, nem no detalhe, nem em dica de tela.
-             Todos os limiares de faixa são <b>provisórios</b>, rotulados como tal, para calibração posterior.</p>
-          <p>Uma moeda entra na zona <b>sem leitura</b> quando menos de duas dimensões votam, ou quando o
-             sinal fica abaixo do piso provisório sobre o teto das dimensões que votam. Foi o caso que o dono
-             apontou: leitura anunciada com apenas duas de quatro dimensões conectadas.</p>
-          <p>Qual perna carrega o peso importa. Em 02/set o GBPNZD foi <b>82% kiwi</b>; no mesmo dia o EURJPY foi
-             <b>90% iene</b>. Quando o motivo está numa perna, todo par que compartilha essa perna é a mesma aposta.</p>
-          <p>Ainda falta: falas próprias existem para Fed, BCE, BoE, BoJ e BoC (RBA e RBNZ bloqueiam automação, o SNB
-             não tem feed) — nesses casos o que entra é manchete, marcada como contexto.</p>
-          <p>Isto é uma leitura do lado fundamental, não um sinal: o FUND anterior foi encerrado como regra de entrada
-             depois de 15 testes nulos. A entrada é sua.</p>
-        </div>
-      </details>`;
+      <div class="mac-pernas">${pernaCard(d.b, d.cb, "base")}${pernaCard(d.q, d.cq, "cotada")}</div>`;
   }
 
   /* ---------------------------------------------------------- DESENHO DAS DUAS PERNAS
@@ -2029,8 +1999,7 @@
 
     return `<section class="content-section mac-bloco mac-geo">
       <details class="mac-geo-det">
-        <summary><span class="mac-geo-sum" title="Intensidade do noticiário por moeda: artigos dos últimos 3 dias contra a média diária de 14 dias, do GDELT.">Geopolítica <small class="mac-selo">${SELO_GEO}</small>
-          <small class="muted">— clique para abrir</small></span></summary>
+        <summary><span class="mac-geo-sum" title="Intensidade do noticiário por moeda: artigos dos últimos 3 dias contra a média diária de 14 dias, do GDELT.">Geopolítica <small class="mac-selo">${SELO_GEO}</small></span></summary>
         <div class="mac-geo-mundo">
           <span class="mac-perna-papel">Pano de fundo do mundo</span>
           ${zPill((W.conflito || {}).volume, "conflito")} ${zPill((W.energia || {}).volume, "energia")}
@@ -2141,17 +2110,40 @@
       (!M.moedaCal || e.moeda === M.moedaCal));
   }
 
+  /* [08/set] "AINDA NAO ESTA MINIMALISTA NO CALENDARIO, AINDA ESTA MUITO POLUIDO."
+   *
+   * Antes: os TRES primeiros eventos de impacto medio-ou-alto, na ordem em que vinham, mais
+   * "+N". Na tela do Eduardo isso dava quatro linhas por dia e quase todas terminavam em
+   * reticencias — "balanca comercial (dessazonaliz…", "discurso de President Lagarde (…".
+   * Nome cortado no meio nao informa nada: ocupa a linha e obriga a abrir o dia do mesmo
+   * jeito. E a maioria delas era impacto MEDIO, que por definicao nao muda a leitura.
+   *
+   * Agora a celula responde uma pergunta so: ESTE DIA MERECE ATENCAO? Fica
+   *   · a DECISAO do banco, sempre e por extenso — ela e a ancora de todo o painel;
+   *   · no maximo DUAS de impacto ALTO;
+   *   · e uma unica contagem para todo o resto, com a lista no title.
+   * O medio deixa de gastar linha e passa a existir na contagem, que e onde ele pesa.
+   */
+  // UMA regra, um lugar. Ate 08/set esta logica existia DUAS vezes — aqui e dentro do
+  // construtor da grade — e as duas tinham que ser editadas juntas. Nao eram: eu mudei so
+  // esta e a tela nao mudou. Agora a grade chama esta funcao.
+  function conteudoDoDia(ev) {
+    if (!ev || !ev.length) return "";
+    const decisao = ev.find((e) => e.familia === "decisao");
+    const altos = ev.filter((e) => String(e.impacto).toLowerCase() === "high" && e !== decisao)
+                    .slice(0, 2);
+    const resto = ev.filter((e) => e !== decisao && altos.indexOf(e) < 0);
+    const dica = resto.map((e) => e.moeda + " " + tituloPt(e.titulo || "")).join(" · ");
+    return (decisao ? `<span class="mac-decisao">${FLAG[decisao.moeda] || ""} ${esc(decisao.moeda)} decide</span>` : "")
+      + altos.map((e) => `<span class="mac-ev alto" title="${esc(tituloPt(e.titulo || ""))}">${
+          FLAG[e.moeda] || ""} ${esc(tituloPt(e.titulo || ""))}</span>`).join("")
+      + (resto.length ? `<span class="mac-mais" title="${esc(dica)}">+${resto.length}</span>` : "");
+  }
+
   function celulaEventos(iso) {
     const ev = eventosDoDia(iso).filter((e) => String(e.impacto).toLowerCase() !== "low");
     if (!ev.length) return "";
-    const decisao = ev.find((e) => e.familia === "decisao");
-    const top = ev.slice(0, 3);
-    return `<div class="mac-cel">
-      ${decisao ? `<span class="mac-decisao">${FLAG[decisao.moeda] || ""} ${esc(decisao.moeda)} decide</span>` : ""}
-      ${top.map((e) => `<span class="mac-ev ${String(e.impacto).toLowerCase() === "high" ? "alto" : ""}">
-          ${FLAG[e.moeda] || ""} ${esc(tituloPt(e.titulo || ""))}</span>`).join("")}
-      ${ev.length > 3 ? `<span class="mac-mais">+${ev.length - 3}</span>` : ""}
-    </div>`;
+    return `<div class="mac-cel">${conteudoDoDia(ev)}</div>`;
   }
 
   // Atraso de entrega em unidade legivel. "+16641 s" nao diz nada; "+4.6 h" diz.
@@ -2391,15 +2383,10 @@
     for (let d = 1; d <= ndias; d++) {
       const iso = `${ano}-${String(mes + 1).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
       const ev = eventosDoDia(iso).filter((e) => String(e.impacto).toLowerCase() !== "low");
-      const dec = ev.find((e) => e.familia === "decisao");
       html += `<button type="button" class="mac-dia-cel${iso === hojeIso ? " mac-hoje" : ""}${
           iso === M.diaSel ? " mac-sel" : ""}${ev.length ? " mac-tem" : ""}" data-mac-dia="${iso}">
         <span class="mac-num">${d}</span>
-        ${dec ? `<span class="mac-decisao">${FLAG[dec.moeda] || ""} ${esc(dec.moeda)} decide</span>` : ""}
-        ${ev.slice(0, 3).map((e) => `<span class="mac-ev${
-            String(e.impacto).toLowerCase() === "high" ? " alto" : ""}">${
-            FLAG[e.moeda] || ""} ${esc(tituloPt(e.titulo || ""))}</span>`).join("")}
-        ${ev.length > 3 ? `<span class="mac-mais">+${ev.length - 3}</span>` : ""}
+        ${conteudoDoDia(ev)}
       </button>`;
     }
     grade.innerHTML = html;

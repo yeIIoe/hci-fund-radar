@@ -2533,17 +2533,45 @@ html .method-note{
 }
 html .mac-eua-nota b, html .method-note b{ color:var(--tinta); font-weight:600; }
 
-/* o rodape do site: os dois blocos que ele circulou */
-html .site-footer{ font-size:var(--t-base); color:var(--tinta-2); }
+/* O RODAPE DO SITE.
+   Ele voltou duas vezes com "ainda mal formatado". O que estava errado: a coluna da
+   direita era mono alinhada A DIREITA — texto ragged-left, que se le mal em tres linhas —
+   enquanto a esquerda era serifa alinhada a esquerda. Duas familias, dois alinhamentos e
+   duas escalas no mesmo rodape. Agora as duas colunas dividem a MESMA linha de base, o
+   mesmo alinhamento e a mesma escala; o que separa e a cor e um fio, nao o alinhamento. */
+html .site-footer{
+  font-size:var(--t-base); color:var(--tinta-2);
+  grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);
+  gap:var(--e9); align-items:start; padding:var(--e8) var(--e7);
+}
+html .site-footer > div > strong{
+  display:block; font-size:var(--t-md); color:var(--tinta); font-weight:600;
+  letter-spacing:.01em; margin-bottom:var(--e4);
+}
 html .site-footer p{
   font-family:var(--serifa); font-size:var(--t-base); line-height:1.68;
-  color:var(--tinta-2); max-width:62ch; margin:var(--e3) 0 0;
+  color:var(--tinta-2); max-width:58ch; margin:0;
 }
-html .site-footer .footer-contact{ text-align:right; }
+html .site-footer .footer-contact{
+  text-align:left; padding-left:var(--e7); border-left:1px solid var(--regua);
+}
+html .site-footer .footer-contact a{
+  display:block; font-family:var(--mono); font-size:var(--t-min);
+  letter-spacing:.02em; color:var(--marca); text-decoration:none;
+  overflow-wrap:anywhere; margin-bottom:var(--e4);
+}
+html .site-footer .footer-contact a:hover{ text-decoration:underline; }
 html .site-footer .footer-contact small{
-  display:block; margin-top:var(--e3); max-width:34ch; margin-left:auto;
-  font-family:var(--mono); font-size:var(--t-min); line-height:1.6;
-  color:var(--tinta-3); letter-spacing:.02em;
+  display:block; max-width:44ch;
+  font-family:var(--serifa); font-size:var(--t-base); line-height:1.68;
+  color:var(--tinta-3); letter-spacing:0;
+}
+@media (max-width:820px){
+  html .site-footer{ grid-template-columns:minmax(0,1fr); gap:var(--e7); }
+  html .site-footer .footer-contact{
+    padding-left:0; padding-top:var(--e6);
+    border-left:0; border-top:1px solid var(--regua);
+  }
 }
 
 /* --- (1b) a tabela dos EUA cabia em 852px e pedia 960 ---------------------
@@ -2581,3 +2609,91 @@ html .mac-falas > summary{
   cursor:pointer; list-style-position:outside;
 }
 html .mac-falas > summary .mac-perna-papel{ display:inline; }
+
+/* --- o vigia declara a propria idade -------------------------------------
+   Ele mede o frescor de todo mundo e nao media o proprio: em 08/set a tela
+   mostrava um retrato de 19 h atras com cara de agora. Quando passa da
+   tolerancia, a faixa diz isso ANTES das linhas, no tom de degradacao. */
+html .alarme-bloco .alarme-velho{
+  margin:0; padding:var(--e4) var(--e6);
+  border-bottom:1px solid var(--aviso-fio-2);
+  background:var(--aviso-fraca);
+  font-family:var(--serifa); font-size:var(--t-base); line-height:1.6;
+  color:var(--tinta-2);
+}
+html .alarme-bloco .alarme-velho strong{ color:var(--aviso); font-weight:600; }
+
+/* ============================================================================
+   §08set-b · OS EXPANSIVEIS VIRAM CONTROLE, NAO LINHA SOLTA
+   ----------------------------------------------------------------------------
+   Ele apontou tres pelo nome — "defasagem e entrega", "Ultimas publicacoes do
+   Fed" e "Geopolitica" — e o dos pares ("a caixa dele ainda parece retraida /
+   escondida"). Todos tinham o mesmo desenho: um triangulo cinza a 60% de opacidade
+   sobre um fio, sem fundo e sem area de clique declarada. Nao PARECIAM clicaveis,
+   e um controle que nao parece controle nao existe.
+   Agora todo <details> desta familia e uma barra com fundo, borda e sinal de
+   abrir/fechar a direita — e o estado aberto se distingue do fechado.
+   ============================================================================ */
+html .mac-det-mais{
+  margin-top:var(--e6); border:1px solid var(--regua); border-top:1px solid var(--regua);
+  padding-top:0; background:var(--painel-fundo);
+}
+html .mac-det-mais > summary{
+  display:flex; align-items:center; gap:var(--e4);
+  padding:var(--e5) var(--e6); cursor:pointer; opacity:1;
+  font-family:var(--mono); font-size:var(--t-min);
+  letter-spacing:.06em; text-transform:uppercase; color:var(--tinta-2);
+  list-style:none; position:relative;
+}
+html .mac-det-mais > summary::-webkit-details-marker{ display:none; }
+html .mac-det-mais > summary::marker{ content:""; }
+/* o sinal de abrir/fechar, a direita, no lugar do triangulo padrao */
+html .mac-det-mais > summary::after{
+  content:"+"; margin-left:auto; font-family:var(--mono); font-size:var(--t-md);
+  line-height:1; color:var(--tinta-3);
+}
+html .mac-det-mais[open] > summary::after{ content:"\2212"; }
+html .mac-det-mais > summary:hover{ background:var(--fundo-band); color:var(--tinta); }
+html .mac-det-mais > summary:hover::after{ color:var(--marca); }
+html .mac-det-mais[open] > summary{
+  border-bottom:1px solid var(--regua); color:var(--tinta);
+}
+html .mac-det-mais > *:not(summary){ padding:var(--e5) var(--e6); }
+html .mac-det-mais-corpo{ opacity:1; color:var(--tinta-2); }
+
+/* a Geopolitica e uma secao inteira, nao um bloco de dentro de cartao */
+html .mac-geo-det{
+  border:1px solid var(--regua); background:var(--painel-fundo);
+}
+html .mac-geo-det > summary{
+  display:flex; align-items:center; gap:var(--e5);
+  padding:var(--e5) var(--e6); cursor:pointer;
+  list-style:none; position:relative;
+}
+html .mac-geo-det > summary::-webkit-details-marker{ display:none; }
+html .mac-geo-det > summary::marker{ content:""; }
+html .mac-geo-det > summary::after{
+  content:"+"; margin-left:auto; font-family:var(--mono); font-size:var(--t-md);
+  line-height:1; color:var(--tinta-3);
+}
+html .mac-geo-det[open] > summary::after{ content:"\2212"; }
+html .mac-geo-det > summary:hover{ background:var(--fundo-band); }
+html .mac-geo-det > summary:hover::after{ color:var(--marca); }
+html .mac-geo-det[open] > summary{ border-bottom:1px solid var(--regua); }
+html .mac-geo-sum{
+  display:flex; align-items:baseline; gap:var(--e4); flex-wrap:wrap;
+  font-size:var(--t-md); color:var(--tinta); font-weight:600;
+}
+html .mac-geo-det > *:not(summary){ padding:var(--e6); }
+
+/* a caixa das falas usa a mesma familia: o sinal a direita tambem vale la */
+html .mac-falas > summary{ list-style:none; position:relative; }
+html .mac-falas > summary::-webkit-details-marker{ display:none; }
+html .mac-falas > summary::marker{ content:""; }
+html .mac-falas > summary::after{
+  content:"+"; margin-left:auto; font-family:var(--mono); font-size:var(--t-md);
+  line-height:1; color:var(--tinta-3);
+}
+html .mac-falas[open] > summary::after{ content:"\2212"; }
+html .mac-falas > summary:hover{ background:var(--fundo-band); }
+html .mac-falas > summary:hover::after{ color:var(--marca); }

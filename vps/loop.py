@@ -121,6 +121,25 @@ CADEIA_DIARIA = [
     ("bis_discursos.py", 600),
 ]
 
+# [08/set] O VIGIA NUNCA FOI AGENDADO EM LUGAR NENHUM.
+#
+# O Eduardo perguntou: "por que isso nao e atualizado na hora, se temos VPS?". A medicao:
+# os DADOS do painel estavam com 11 min; o VIGIA estava com 19 h. Ele nao esta em workflow
+# nenhum e nao estava neste loop — rodou uma vez a mao em 07/set 21:28 UTC e o arquivo
+# congelou ali. A tela mostrava um retrato de ontem com cara de agora, que e exatamente o
+# defeito que o proprio vigia existe para denunciar nos outros.
+#
+# Entra aqui, de HORA em HORA e nao a cada 15 min, por dois motivos medidos:
+#   · ele consulta a API do GitHub SEM chave — 60 chamadas/hora por IP, e cada rodada dele
+#     gasta uma dezena entre paginas de execucoes e jobs. A 4 rodadas/h a margem some;
+#   · o que ele mede sao execucoes de CI, que mudam em escala de dezenas de minutos. Medir
+#     de 15 em 15 min nao traz informacao nova, so gasta cota.
+_ULTIMA_HORA: dict = {}
+
+CADEIA_HORARIA = [
+    ("vigia.py", 240),
+]
+
 CADEIA_FAST = [
     ("fxstreet_calendario.py", 90),
     ("macro_eventos.py", 90),
@@ -145,6 +164,7 @@ JSONS_COMMIT = [
     # diretorio, nao arquivo: o git add e o git status aceitam caminho de pasta, e o
     # snapshot.py grava um .jsonl por dia (append-only).
     "data/snapshots",
+    "data/vps_pulso.json",
 ]
 assert all(p.startswith("data/") for p in JSONS_COMMIT), "so data/ pode ser commitado"
 
@@ -234,6 +254,49 @@ def grava_estado(**campos) -> None:
         os.replace(ESTADO_ARQ + ".tmp", ESTADO_ARQ)
     except Exception as e:
         log.warning("estado.json: %s", e)
+
+
+# [08/set] O PULSO PUBLICO DA MAQUINA QUE MANDA.
+#
+# O estado.json acima vive em vps/logs/ e nunca sai da VPS: serve para o dono ler por ssh.
+# Mas o VIGIA — que desenha a faixa "ESTADO DEGRADADO" no site — nao tem ssh. Ele so
+# enxergava a API do GitHub, e por isso continuava medindo o `macro-direction` do Actions
+# como se ele fosse o motor. Desde 07/set o motor e ESTA MAQUINA e o Actions e a reserva de
+# 3 em 3 h; sem saber disso, o vigia lia a reserva rodando pouco e chamava de degradacao.
+#
+# Este arquivo e o batimento que vai junto com os dados: quem publicou, quando, quanto
+# demorou e de quanto em quanto tempo promete voltar. E o unico jeito honesto de a tela
+# distinguir "o motor parou" de "a reserva rodou pouco, como combinado".
+PULSO_ARQ = os.path.join(DATA, "vps_pulso.json")
+
+
+def grava_pulso(motivo: str, duracao_s=None, ok=None, total=None) -> None:
+    try:
+        p = {
+            "gerado_em": agora().isoformat(),
+            "motor": "vps",
+            "papel": "esta maquina e o motor da cadeia desde 07/set; o GitHub Actions e a "
+                     "reserva de 3 em 3 h e nao deve ser medido como motor",
+            "cadencia_prometida_min": INTERVALO_COMPLETA_S // 60,
+            "fast_lane_s": FAST_PASSO_S,
+            "ultima_publicacao": {"motivo": motivo, "quando": agora().isoformat()},
+        }
+        if duracao_s is not None:
+            p["ultima_cadeia_s"] = round(float(duracao_s), 1)
+        if ok is not None and total is not None:
+            p["ultima_cadeia_passos"] = {"ok": int(ok), "de": int(total)}
+        if os.path.exists(PULSO_ARQ):
+            try:
+                with open(PULSO_ARQ, encoding="utf-8") as f:
+                    ant = json.load(f)
+                p["publicacao_anterior"] = ant.get("ultima_publicacao")
+            except Exception:
+                pass
+        with open(PULSO_ARQ + ".tmp", "w", encoding="utf-8") as f:
+            json.dump(p, f, ensure_ascii=False, indent=1)
+        os.replace(PULSO_ARQ + ".tmp", PULSO_ARQ)
+    except Exception as e:
+        log.warning("vps_pulso.json: %s", e)
 
 
 # ----------------------------------------------------------------------------- scripts
@@ -498,6 +561,9 @@ def publica(motivo: str, dry: bool = False) -> bool:
             log.info("[seco] git add de %d arquivos; mudados agora: %s",
                      len(existentes), mudados or "nenhum")
             return False
+        # o batimento e escrito ANTES do add, para viajar no mesmo commit dos dados. Assim a
+        # tela nunca ve dado novo com pulso velho — que seria a mesma mentira, invertida.
+        grava_pulso(motivo)
         saneia_git()
         # [08/set] Era `git add` so da lista fixa. Mas a cadeia escreve arquivos FORA dela
         # (data/raw/bls_series.json, por exemplo). Esses ficavam sujos, o autostash do pull
@@ -565,7 +631,8 @@ def passada_seca() -> int:
     ok = True
     log.info("cadeia completa (a cada %d min):", INTERVALO_COMPLETA_S // 60)
     log.info("   feed de reserva FF -> %s", FF_ALVO)
-    for nome, t in list(CADEIA_COMPLETA) + list(CADEIA_TARDIA) + list(CADEIA_DIARIA):
+    for nome, t in (list(CADEIA_COMPLETA) + list(CADEIA_TARDIA) + list(CADEIA_DIARIA)
+                    + list(CADEIA_HORARIA)):
         existe = os.path.exists(os.path.join(RAIZ, nome))
         ok &= existe
         log.info("   %-24s timeout %4ds  %s", nome, t, "" if existe else "<<< NAO ENCONTRADO")
@@ -681,6 +748,13 @@ def loop_para_sempre() -> None:
                     log.info("cadeia DIARIA (primeira rodada de %s)", hoje)
                     roda_cadeia(CADEIA_DIARIA, com_feed=False)
                     _ULTIMO_DIA["bis"] = hoje
+                # o vigia, de hora em hora — ele tambem estava velho, e era o unico
+                # que ninguem vigiava
+                esta_hora = agora().strftime("%Y-%m-%dT%H")
+                if _ULTIMA_HORA.get("vigia") != esta_hora:
+                    log.info("cadeia HORARIA (vigia, hora %s)", esta_hora)
+                    roda_cadeia(CADEIA_HORARIA, com_feed=False)
+                    _ULTIMA_HORA["vigia"] = esta_hora
                 if fotografa() != antes_tardia:
                     publica("cadeia tardia")
                 proxima_completa = inicio + dt.timedelta(seconds=INTERVALO_COMPLETA_S)
