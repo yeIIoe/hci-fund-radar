@@ -1,15 +1,15 @@
 {
- "gerado_em": "2026-09-08T15:13:56.857560+00:00",
- "gerado_em_brt": "08/09/2026 12:13 (BRT)",
+ "gerado_em": "2026-09-08T15:28:56.253706+00:00",
+ "gerado_em_brt": "08/09/2026 12:28 (BRT)",
  "origem_eventos": "fxstreet 42 dias atrás + 30 à frente",
  "frescor": {
   "atraso_min": 1,
   "atraso_texto": "1 min",
   "estado": "ok",
-  "ultima_sincronizacao_ok_utc": "2026-09-08T15:12:52.551395+00:00",
-  "ultima_sincronizacao_ok_brt": "08/09/2026 12:12 (BRT)",
+  "ultima_sincronizacao_ok_utc": "2026-09-08T15:27:53.631736+00:00",
+  "ultima_sincronizacao_ok_brt": "08/09/2026 12:27 (BRT)",
   "bloqueia_leitura": false,
-  "texto": "Dados sincronizados há 1 min (08/09 12:12, BRT). Leituras válidas.",
+  "texto": "Dados sincronizados há 1 min (08/09 12:27, BRT). Leituras válidas.",
   "limiares_provisorios": {
    "atrasado_min": 45,
    "muito_atrasado_min": 120
@@ -21,7 +21,7 @@
     "arquivo": "FXStreet ao vivo",
     "alimenta": "dimensão de dados (VOTA)",
     "vota": true,
-    "sincronizado_em": "2026-09-08T15:13:56.857560+00:00",
+    "sincronizado_em": "2026-09-08T15:28:56.253706+00:00",
     "atraso_min": 0,
     "ao_vivo": true,
     "atraso_texto": "0 min"
@@ -31,7 +31,7 @@
     "arquivo": "bancos_centrais.json",
     "alimenta": "dimensão de ciclo (VOTA)",
     "vota": true,
-    "sincronizado_em": "2026-09-08T15:12:52.551395+00:00",
+    "sincronizado_em": "2026-09-08T15:27:53.631736+00:00",
     "atraso_min": 1,
     "atraso_texto": "1 min"
    },
@@ -40,7 +40,7 @@
     "arquivo": "bc_discursos.json",
     "alimenta": "dimensão de fala (contexto, NÃO vota)",
     "vota": false,
-    "sincronizado_em": "2026-09-08T15:12:43.997297+00:00",
+    "sincronizado_em": "2026-09-08T15:27:43.902018+00:00",
     "atraso_min": 1,
     "atraso_texto": "1 min"
    },
@@ -49,7 +49,7 @@
     "arquivo": "noticias.json",
     "alimenta": "contexto de fala (NÃO vota)",
     "vota": false,
-    "sincronizado_em": "2026-09-08T15:13:17.853960+00:00",
+    "sincronizado_em": "2026-09-08T15:28:18.709135+00:00",
     "atraso_min": 1,
     "atraso_texto": "1 min"
    },
@@ -59,8 +59,8 @@
     "alimenta": "dimensão experimental (NÃO vota)",
     "vota": false,
     "sincronizado_em": "2026-09-08T14:47:49.585665+00:00",
-    "atraso_min": 26,
-    "atraso_texto": "26 min"
+    "atraso_min": 41,
+    "atraso_texto": "41 min"
    }
   ],
   "o_que_conta": "só as fontes que alimentam dimensão QUE VOTA entram no atraso (calendário e bancos centrais). Discurso, imprensa e geopolítica são contexto: a idade deles fica gravada, rotulada, e não muda o estado.",
@@ -480,11 +480,11 @@
      "tipo": "faixa_neutra",
      "muda_a_direcao": true,
      "soma_publicada": -1.17,
-     "soma_sem_faixa": -16.28,
+     "soma_sem_faixa": -16.27,
      "direcao_sem_faixa": "CORTA",
      "itens_zerados": 47,
      "efeito": "a direção da dimensão de dados depende da largura da faixa neutra, que é PROVISÓRIA e nunca foi validada contra o que o banco central fez depois",
-     "texto": "a direção da dimensão de dados do USD DEPENDE da faixa neutra: com a régua de hoje a soma é -1.17 (MANTEM), sem faixa nenhuma seria -16.28 (CORTA), e com a mesma régua pela metade seria -10.80 (CORTA). A faixa zera 47 divulgação(ões) que, com o sinal do próprio desvio, pesariam -15.10 — zerar um termo desloca a soma no sentido contrário ao dele, que é a mesma aritmética da winsorização revogada. A faixa NÃO foi desligada: ela tem tese e é a régua única da casa. O que muda é que isto aparece."
+     "texto": "a direção da dimensão de dados do USD DEPENDE da faixa neutra: com a régua de hoje a soma é -1.17 (MANTEM), sem faixa nenhuma seria -16.27 (CORTA), e com a mesma régua pela metade seria -10.79 (CORTA). A faixa zera 47 divulgação(ões) que, com o sinal do próprio desvio, pesariam -15.09 — zerar um termo desloca a soma no sentido contrário ao dele, que é a mesma aritmética da winsorização revogada. A faixa NÃO foi desligada: ela tem tese e é a régua única da casa. O que muda é que isto aparece."
     }
    ],
    "score_texto_se_votasse": 0.214,
@@ -633,19 +633,19 @@
      },
      "faixa_neutra": {
       "itens_zerados": 47,
-      "peso_que_os_zerados_teriam": -15.1,
-      "soma_sem_faixa": -16.28,
+      "peso_que_os_zerados_teriam": -15.09,
+      "soma_sem_faixa": -16.27,
       "direcao_sem_faixa": "CORTA",
-      "deslocamento_pela_faixa": 15.11,
+      "deslocamento_pela_faixa": 15.1,
       "escala": [
        {
         "fator": 0.0,
-        "soma": -16.28,
+        "soma": -16.27,
         "direcao": "CORTA"
        },
        {
         "fator": 0.5,
-        "soma": -10.8,
+        "soma": -10.79,
         "direcao": "CORTA"
        },
        {
@@ -655,12 +655,12 @@
        },
        {
         "fator": 2.0,
-        "soma": 1.13,
+        "soma": 1.14,
         "direcao": "MANTEM"
        }
       ],
       "direcao_depende_da_faixa": true,
-      "texto": "a direção da dimensão de dados do USD DEPENDE da faixa neutra: com a régua de hoje a soma é -1.17 (MANTEM), sem faixa nenhuma seria -16.28 (CORTA), e com a mesma régua pela metade seria -10.80 (CORTA). A faixa zera 47 divulgação(ões) que, com o sinal do próprio desvio, pesariam -15.10 — zerar um termo desloca a soma no sentido contrário ao dele, que é a mesma aritmética da winsorização revogada. A faixa NÃO foi desligada: ela tem tese e é a régua única da casa. O que muda é que isto aparece.",
+      "texto": "a direção da dimensão de dados do USD DEPENDE da faixa neutra: com a régua de hoje a soma é -1.17 (MANTEM), sem faixa nenhuma seria -16.27 (CORTA), e com a mesma régua pela metade seria -10.79 (CORTA). A faixa zera 47 divulgação(ões) que, com o sinal do próprio desvio, pesariam -15.09 — zerar um termo desloca a soma no sentido contrário ao dele, que é a mesma aritmética da winsorização revogada. A faixa NÃO foi desligada: ela tem tese e é a régua única da casa. O que muda é que isto aparece.",
       "o_que_e": "divulgacao com |divulgado - consenso| dentro do corte da familia entra na soma como ZERO",
       "por_que_nao_foi_revogada": "tem tese economica declarada e e a regua unica da casa; trocar de metodo sem medida e decisao do dono",
       "provisorio": true
@@ -696,8 +696,8 @@
        "impacto": "HIGH",
        "divulgado": 3.1,
        "consenso": 3.0,
-       "contribuicao_bruta": 7.86,
-       "contribuicao": 7.86,
+       "contribuicao_bruta": 7.85,
+       "contribuicao": 7.85,
        "idade_dias": 4.1,
        "tratado": false
       },
@@ -1122,18 +1122,18 @@
      "faixa_neutra": {
       "itens_zerados": 90,
       "peso_que_os_zerados_teriam": -3.98,
-      "soma_sem_faixa": 11.04,
+      "soma_sem_faixa": 11.05,
       "direcao_sem_faixa": "SOBE",
-      "deslocamento_pela_faixa": 4.0,
+      "deslocamento_pela_faixa": 3.99,
       "escala": [
        {
         "fator": 0.0,
-        "soma": 11.04,
+        "soma": 11.05,
         "direcao": "SOBE"
        },
        {
         "fator": 0.5,
-        "soma": 13.23,
+        "soma": 13.25,
         "direcao": "SOBE"
        },
        {
@@ -2174,7 +2174,7 @@
        "consenso": 1.1,
        "contribuicao_bruta": 2.94,
        "contribuicao": 2.94,
-       "idade_dias": 0.6,
+       "idade_dias": 0.7,
        "tratado": false
       },
       {
@@ -2187,7 +2187,7 @@
        "consenso": 0.5,
        "contribuicao_bruta": -2.84,
        "contribuicao": -2.84,
-       "idade_dias": 22.6,
+       "idade_dias": 22.7,
        "tratado": false
       },
       {
@@ -2226,7 +2226,7 @@
        "consenso": 2.4,
        "contribuicao_bruta": 1.66,
        "contribuicao": 1.66,
-       "idade_dias": 22.6,
+       "idade_dias": 22.7,
        "tratado": false
       }
      ]
@@ -2238,13 +2238,13 @@
      "vota": false,
      "selo": "experimental — contexto, não vota",
      "conectada": true,
-     "hawkish": 26,
+     "hawkish": 25,
      "dovish": 0,
-     "n": 100,
+     "n": 97,
      "n_falas": 0,
-     "n_contexto": 113,
+     "n_contexto": 109,
      "contagem_contexto": {
-      "alta": 26,
+      "alta": 25,
       "corte": 0
      },
      "contagem_voto": {
@@ -2255,7 +2255,7 @@
       "Anadolu Ajansı",
       "International Business Times",
       "finance.biggo.com",
-      "The Business Times"
+      "FXStreet"
      ],
      "datas": [
       "2026-09-08",
@@ -2269,13 +2269,13 @@
      "peso_aplicado": 0.0,
      "peso_da_fonte": 0.0,
      "peso_se_votasse": 0.0,
-     "itens_unicos": 100,
-     "duplicatas_removidas": 13,
+     "itens_unicos": 97,
+     "duplicatas_removidas": 12,
      "rotulo_contexto": null,
      "veredito_por_orador": [],
      "por_que_nao_vota": "a leitura de fala é CONTAGEM DE PALAVRAS, e contagem de palavras não lê negação, nem condição, nem referência temporal: 'holding the target' está na lista de termos hawkish, então Waller defendendo MANTER saía como alta. Desde 05/set a dimensão fica como CONTEXTO, com peso 0,0 — não entra na leitura contínua, não entra no teto e não conta como MANTEM. O veredito por orador ao lado lê condição e negação, mas TAMBÉM não vota: nunca foi medido contra rótulo humano.",
      "nota": "imprensa (Google News, 72 h) — o banco central bloqueia automação. É contagem de expressão da imprensa, NÃO é fala do banco. Não vota desde 05/set, como nenhuma fala vota.",
-     "nota_peso": "NÃO VOTA: os 26 'alta' e 0 'corte' são CONTEXTO da imprensa. Se a régua antiga valesse, esta origem (manchete) pesaria 0.0."
+     "nota_peso": "NÃO VOTA: os 25 'alta' e 0 'corte' são CONTEXTO da imprensa. Se a régua antiga valesse, esta origem (manchete) pesaria 0.0."
     },
     "ciclo": {
      "bp": 25,
@@ -2332,12 +2332,12 @@
     "partes_sem_dado": [
      "confiabilidade"
     ],
-    "contexto_nao_contado": 100,
+    "contexto_nao_contado": 97,
     "nota_antes_da_dominancia": 91,
     "limitada_pela_dominancia": false,
     "teto_pela_dominancia": null,
     "dominancia_share_pct": null,
-    "explicacao": "qualidade 91/100 do JPY (média de 3 parte(s) com dado; sem dado em confiabilidade) — 28 divulgações e 0 fala(s) que votam na janela; 100 item(ns) de imprensa que NÃO votam ficaram de fora da conta; 3 de 4 famílias independentes (atividade, emprego, inflacao); o item que mais pesa tem 1 dia(s); fonte da fala: MANCHETE de imprensa — mas a fala NÃO VOTA desde 05/set, então a parte confiabilidade sai SEM DADO em vez de valer 0/100.",
+    "explicacao": "qualidade 91/100 do JPY (média de 3 parte(s) com dado; sem dado em confiabilidade) — 28 divulgações e 0 fala(s) que votam na janela; 97 item(ns) de imprensa que NÃO votam ficaram de fora da conta; 3 de 4 famílias independentes (atividade, emprego, inflacao); o item que mais pesa tem 1 dia(s); fonte da fala: MANCHETE de imprensa — mas a fala NÃO VOTA desde 05/set, então a parte confiabilidade sai SEM DADO em vez de valer 0/100.",
     "provisorio": true,
     "regua": {
      "satura_em_itens": 12,
@@ -2715,9 +2715,9 @@
      "conectada": true,
      "hawkish": 7,
      "dovish": 0,
-     "n": 37,
+     "n": 35,
      "n_falas": 2,
-     "n_contexto": 39,
+     "n_contexto": 37,
      "contagem_contexto": {
       "alta": 7,
       "corte": 0
@@ -2742,7 +2742,7 @@
      "peso_aplicado": 0.0,
      "peso_da_fonte": 0.4,
      "peso_se_votasse": 0.4,
-     "itens_unicos": 37,
+     "itens_unicos": 35,
      "duplicatas_removidas": 2,
      "rotulo_contexto": "sem fala oficial disponivel — o banco bloqueia automacao; a imprensa abaixo e contexto, nao voto",
      "veredito_por_orador": [],
@@ -2805,12 +2805,12 @@
     "partes_sem_dado": [
      "confiabilidade"
     ],
-    "contexto_nao_contado": 37,
+    "contexto_nao_contado": 35,
     "nota_antes_da_dominancia": 80,
     "limitada_pela_dominancia": false,
     "teto_pela_dominancia": null,
     "dominancia_share_pct": null,
-    "explicacao": "qualidade 80/100 do AUD (média de 3 parte(s) com dado; sem dado em confiabilidade) — 16 divulgações e 0 fala(s) que votam na janela; 37 item(ns) de imprensa que NÃO votam ficaram de fora da conta; 3 de 4 famílias independentes (atividade, emprego, inflacao); o item que mais pesa tem 14 dia(s); fonte da fala: imprensa com fala de dirigente nomeado — mas a fala NÃO VOTA desde 05/set, então a parte confiabilidade sai SEM DADO em vez de valer 40/100.",
+    "explicacao": "qualidade 80/100 do AUD (média de 3 parte(s) com dado; sem dado em confiabilidade) — 16 divulgações e 0 fala(s) que votam na janela; 35 item(ns) de imprensa que NÃO votam ficaram de fora da conta; 3 de 4 famílias independentes (atividade, emprego, inflacao); o item que mais pesa tem 14 dia(s); fonte da fala: imprensa com fala de dirigente nomeado — mas a fala NÃO VOTA desde 05/set, então a parte confiabilidade sai SEM DADO em vez de valer 40/100.",
     "provisorio": true,
     "regua": {
      "satura_em_itens": 12,
@@ -3125,7 +3125,7 @@
       "equiti.com",
       "mpamag.com",
       "FXStreet",
-      "MacroBusiness"
+      "macrobusiness.com.au"
      ],
      "datas": [
       "2026-09-08",
@@ -3917,7 +3917,7 @@
        "consenso": 1.6,
        "contribuicao_bruta": 5.03,
        "contribuicao": 5.03,
-       "idade_dias": 5.3,
+       "idade_dias": 5.4,
        "tratado": false
       },
       {
@@ -4176,7 +4176,7 @@
     "dias": 2
    },
    "alertas": [
-    "a direção dos DADOS do USD depende da FAIXA NEUTRA (a régua de 'veio como esperado', PROVISÓRIA e nunca validada): hoje a soma é -1.17 (MANTEM), mas sem faixa nenhuma a soma é -16.28 (CORTA); com a faixa pela metade a soma é -10.80 (CORTA). A faixa zera 47 divulgação(ões) que, com o sinal do próprio desvio, pesariam -15.10 — zerar um termo desloca a soma para o lado contrário, a mesma aritmética da winsorização revogada",
+    "a direção dos DADOS do USD depende da FAIXA NEUTRA (a régua de 'veio como esperado', PROVISÓRIA e nunca validada): hoje a soma é -1.17 (MANTEM), mas sem faixa nenhuma a soma é -16.27 (CORTA); com a faixa pela metade a soma é -10.79 (CORTA). A faixa zera 47 divulgação(ões) que, com o sinal do próprio desvio, pesariam -15.09 — zerar um termo desloca a soma para o lado contrário, a mesma aritmética da winsorização revogada",
     "qualidade da evidência do par = 85/100, a MENOR das duas pernas (elo fraco: EUR, 85/100 contra 87/100 do USD)",
     "a perna USD está SEM LEITURA (sem leitura: intensidade relativa 6% abaixo do mínimo provisório de 15% (a leitura está perto demais de zero para virar direção). A moeda continua no arquivo, com tudo o que foi medido — o que não existe é a DIREÇÃO.) — a tese do par se apoia só na outra perna",
     "nenhuma das duas pernas tem fala votando: desde 05/set a dimensão de discurso é contexto com selo, e a leitura vem de DADOS e CICLO apenas — duas dimensões por perna, teto 1.00 no par",
@@ -4291,7 +4291,7 @@
    },
    "alertas": [
     "a direção dos DADOS do GBP depende da FAIXA NEUTRA (a régua de 'veio como esperado', PROVISÓRIA e nunca validada): hoje a soma é -4.65 (MANTEM), mas sem faixa nenhuma a soma é -5.70 (CORTA); com a faixa pela metade a soma é -5.78 (CORTA). A faixa zera 21 divulgação(ões) que, com o sinal do próprio desvio, pesariam -1.04 — zerar um termo desloca a soma para o lado contrário, a mesma aritmética da winsorização revogada",
-    "a direção dos DADOS do USD depende da FAIXA NEUTRA (a régua de 'veio como esperado', PROVISÓRIA e nunca validada): hoje a soma é -1.17 (MANTEM), mas sem faixa nenhuma a soma é -16.28 (CORTA); com a faixa pela metade a soma é -10.80 (CORTA). A faixa zera 47 divulgação(ões) que, com o sinal do próprio desvio, pesariam -15.10 — zerar um termo desloca a soma para o lado contrário, a mesma aritmética da winsorização revogada",
+    "a direção dos DADOS do USD depende da FAIXA NEUTRA (a régua de 'veio como esperado', PROVISÓRIA e nunca validada): hoje a soma é -1.17 (MANTEM), mas sem faixa nenhuma a soma é -16.27 (CORTA); com a faixa pela metade a soma é -10.79 (CORTA). A faixa zera 47 divulgação(ões) que, com o sinal do próprio desvio, pesariam -15.09 — zerar um termo desloca a soma para o lado contrário, a mesma aritmética da winsorização revogada",
     "qualidade da evidência do par = 75/100, a MENOR das duas pernas (elo fraco: GBP, 75/100 contra 87/100 do USD)",
     "a perna USD está SEM LEITURA (sem leitura: intensidade relativa 6% abaixo do mínimo provisório de 15% (a leitura está perto demais de zero para virar direção). A moeda continua no arquivo, com tudo o que foi medido — o que não existe é a DIREÇÃO.) — a tese do par se apoia só na outra perna",
     "nenhuma das duas pernas tem fala votando: desde 05/set a dimensão de discurso é contexto com selo, e a leitura vem de DADOS e CICLO apenas — duas dimensões por perna, teto 1.00 no par",
@@ -4402,7 +4402,7 @@
    },
    "alertas": [
     "a direção dos DADOS do AUD depende da FAIXA NEUTRA (a régua de 'veio como esperado', PROVISÓRIA e nunca validada): hoje a soma é +21.00 (SOBE), mas com a faixa dobrada a soma é +2.69 (MANTEM). A faixa zera 8 divulgação(ões) que, com o sinal do próprio desvio, pesariam +1.43 — zerar um termo desloca a soma para o lado contrário, a mesma aritmética da winsorização revogada",
-    "a direção dos DADOS do USD depende da FAIXA NEUTRA (a régua de 'veio como esperado', PROVISÓRIA e nunca validada): hoje a soma é -1.17 (MANTEM), mas sem faixa nenhuma a soma é -16.28 (CORTA); com a faixa pela metade a soma é -10.80 (CORTA). A faixa zera 47 divulgação(ões) que, com o sinal do próprio desvio, pesariam -15.10 — zerar um termo desloca a soma para o lado contrário, a mesma aritmética da winsorização revogada",
+    "a direção dos DADOS do USD depende da FAIXA NEUTRA (a régua de 'veio como esperado', PROVISÓRIA e nunca validada): hoje a soma é -1.17 (MANTEM), mas sem faixa nenhuma a soma é -16.27 (CORTA); com a faixa pela metade a soma é -10.79 (CORTA). A faixa zera 47 divulgação(ões) que, com o sinal do próprio desvio, pesariam -15.09 — zerar um termo desloca a soma para o lado contrário, a mesma aritmética da winsorização revogada",
     "qualidade da evidência do par = 80/100, a MENOR das duas pernas (elo fraco: AUD, 80/100 contra 87/100 do USD)",
     "a perna USD está SEM LEITURA (sem leitura: intensidade relativa 6% abaixo do mínimo provisório de 15% (a leitura está perto demais de zero para virar direção). A moeda continua no arquivo, com tudo o que foi medido — o que não existe é a DIREÇÃO.) — a tese do par se apoia só na outra perna",
     "nenhuma das duas pernas tem fala votando: desde 05/set a dimensão de discurso é contexto com selo, e a leitura vem de DADOS e CICLO apenas — duas dimensões por perna, teto 1.00 no par",
@@ -4517,7 +4517,7 @@
    "alertas": [
     "estado rebaixado de 'moderada' para 'observacao': qualidade da evidência do par é nula (0/100) — sem evidência o par não sai da zona de observação, por maior que seja a divergência",
     "uma única divulgação responde por 100% da leitura do NZD (Terms of Trade Index)",
-    "a direção dos DADOS do USD depende da FAIXA NEUTRA (a régua de 'veio como esperado', PROVISÓRIA e nunca validada): hoje a soma é -1.17 (MANTEM), mas sem faixa nenhuma a soma é -16.28 (CORTA); com a faixa pela metade a soma é -10.80 (CORTA). A faixa zera 47 divulgação(ões) que, com o sinal do próprio desvio, pesariam -15.10 — zerar um termo desloca a soma para o lado contrário, a mesma aritmética da winsorização revogada",
+    "a direção dos DADOS do USD depende da FAIXA NEUTRA (a régua de 'veio como esperado', PROVISÓRIA e nunca validada): hoje a soma é -1.17 (MANTEM), mas sem faixa nenhuma a soma é -16.27 (CORTA); com a faixa pela metade a soma é -10.79 (CORTA). A faixa zera 47 divulgação(ões) que, com o sinal do próprio desvio, pesariam -15.09 — zerar um termo desloca a soma para o lado contrário, a mesma aritmética da winsorização revogada",
     "qualidade da evidência do par = 0/100, a MENOR das duas pernas (elo fraco: NZD, 0/100 contra 87/100 do USD)",
     "a perna USD está SEM LEITURA (sem leitura: intensidade relativa 6% abaixo do mínimo provisório de 15% (a leitura está perto demais de zero para virar direção). A moeda continua no arquivo, com tudo o que foi medido — o que não existe é a DIREÇÃO.) — a tese do par se apoia só na outra perna",
     "nenhuma das duas pernas tem fala votando: desde 05/set a dimensão de discurso é contexto com selo, e a leitura vem de DADOS e CICLO apenas — duas dimensões por perna, teto 1.00 no par",
@@ -4630,7 +4630,7 @@
     "dias": 8
    },
    "alertas": [
-    "a direção dos DADOS do USD depende da FAIXA NEUTRA (a régua de 'veio como esperado', PROVISÓRIA e nunca validada): hoje a soma é -1.17 (MANTEM), mas sem faixa nenhuma a soma é -16.28 (CORTA); com a faixa pela metade a soma é -10.80 (CORTA). A faixa zera 47 divulgação(ões) que, com o sinal do próprio desvio, pesariam -15.10 — zerar um termo desloca a soma para o lado contrário, a mesma aritmética da winsorização revogada",
+    "a direção dos DADOS do USD depende da FAIXA NEUTRA (a régua de 'veio como esperado', PROVISÓRIA e nunca validada): hoje a soma é -1.17 (MANTEM), mas sem faixa nenhuma a soma é -16.27 (CORTA); com a faixa pela metade a soma é -10.79 (CORTA). A faixa zera 47 divulgação(ões) que, com o sinal do próprio desvio, pesariam -15.09 — zerar um termo desloca a soma para o lado contrário, a mesma aritmética da winsorização revogada",
     "qualidade da evidência do par = 87/100, a MENOR das duas pernas (elo fraco: USD, 87/100 contra 91/100 do JPY)",
     "a perna USD está SEM LEITURA (sem leitura: intensidade relativa 6% abaixo do mínimo provisório de 15% (a leitura está perto demais de zero para virar direção). A moeda continua no arquivo, com tudo o que foi medido — o que não existe é a DIREÇÃO.) — a tese do par se apoia só na outra perna",
     "nenhuma das duas pernas tem fala votando: desde 05/set a dimensão de discurso é contexto com selo, e a leitura vem de DADOS e CICLO apenas — duas dimensões por perna, teto 1.00 no par",
@@ -4743,7 +4743,7 @@
     "dias": 8
    },
    "alertas": [
-    "a direção dos DADOS do USD depende da FAIXA NEUTRA (a régua de 'veio como esperado', PROVISÓRIA e nunca validada): hoje a soma é -1.17 (MANTEM), mas sem faixa nenhuma a soma é -16.28 (CORTA); com a faixa pela metade a soma é -10.80 (CORTA). A faixa zera 47 divulgação(ões) que, com o sinal do próprio desvio, pesariam -15.10 — zerar um termo desloca a soma para o lado contrário, a mesma aritmética da winsorização revogada",
+    "a direção dos DADOS do USD depende da FAIXA NEUTRA (a régua de 'veio como esperado', PROVISÓRIA e nunca validada): hoje a soma é -1.17 (MANTEM), mas sem faixa nenhuma a soma é -16.27 (CORTA); com a faixa pela metade a soma é -10.79 (CORTA). A faixa zera 47 divulgação(ões) que, com o sinal do próprio desvio, pesariam -15.09 — zerar um termo desloca a soma para o lado contrário, a mesma aritmética da winsorização revogada",
     "uma única divulgação responde por 76% da leitura do CAD (Net Change in Employment)",
     "qualidade da evidência do par = 24/100, a MENOR das duas pernas (elo fraco: CAD, 24/100 contra 87/100 do USD)",
     "a perna USD está SEM LEITURA (sem leitura: intensidade relativa 6% abaixo do mínimo provisório de 15% (a leitura está perto demais de zero para virar direção). A moeda continua no arquivo, com tudo o que foi medido — o que não existe é a DIREÇÃO.) — a tese do par se apoia só na outra perna",
@@ -4854,7 +4854,7 @@
     "dias": 8
    },
    "alertas": [
-    "a direção dos DADOS do USD depende da FAIXA NEUTRA (a régua de 'veio como esperado', PROVISÓRIA e nunca validada): hoje a soma é -1.17 (MANTEM), mas sem faixa nenhuma a soma é -16.28 (CORTA); com a faixa pela metade a soma é -10.80 (CORTA). A faixa zera 47 divulgação(ões) que, com o sinal do próprio desvio, pesariam -15.10 — zerar um termo desloca a soma para o lado contrário, a mesma aritmética da winsorização revogada",
+    "a direção dos DADOS do USD depende da FAIXA NEUTRA (a régua de 'veio como esperado', PROVISÓRIA e nunca validada): hoje a soma é -1.17 (MANTEM), mas sem faixa nenhuma a soma é -16.27 (CORTA); com a faixa pela metade a soma é -10.79 (CORTA). A faixa zera 47 divulgação(ões) que, com o sinal do próprio desvio, pesariam -15.09 — zerar um termo desloca a soma para o lado contrário, a mesma aritmética da winsorização revogada",
     "qualidade da evidência do par = 75/100, a MENOR das duas pernas (elo fraco: CHF, 75/100 contra 87/100 do USD)",
     "a perna USD está SEM LEITURA (sem leitura: intensidade relativa 6% abaixo do mínimo provisório de 15% (a leitura está perto demais de zero para virar direção). A moeda continua no arquivo, com tudo o que foi medido — o que não existe é a DIREÇÃO.) — a tese do par se apoia só na outra perna",
     "o CHF não tem fonte de fala conectada (sem_fonte) — buraco declarado, não zero",
@@ -7314,8 +7314,8 @@
      "impacto": "HIGH",
      "divulgado": 3.1,
      "consenso": 3.0,
-     "contribuicao_bruta": 7.86,
-     "contribuicao": 7.86,
+     "contribuicao_bruta": 7.85,
+     "contribuicao": 7.85,
      "idade_dias": 4.1,
      "tratado": false
     },
@@ -7481,8 +7481,8 @@
      "impacto": "HIGH",
      "divulgado": 3.1,
      "consenso": 3.0,
-     "contribuicao_bruta": 7.86,
-     "contribuicao": 7.86,
+     "contribuicao_bruta": 7.85,
+     "contribuicao": 7.85,
      "idade_dias": 4.1,
      "tratado": false
     },
@@ -7648,8 +7648,8 @@
      "impacto": "HIGH",
      "divulgado": 3.1,
      "consenso": 3.0,
-     "contribuicao_bruta": 7.86,
-     "contribuicao": 7.86,
+     "contribuicao_bruta": 7.85,
+     "contribuicao": 7.85,
      "idade_dias": 4.1,
      "tratado": false
     },
