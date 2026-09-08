@@ -1,9 +1,129 @@
 {
- "gerado_em": "2026-09-08T11:42:22.084996+00:00",
+ "gerado_em": "2026-09-08T14:47:49.585665+00:00",
  "fonte": "GDELT DOC 2.0 API (gratuita, sem chave, atualização de 15 min); fontes em inglês",
  "metodo": "volume de artigos dos últimos 3 dias contra a média diária da janela de 14 dias (razão e z); manchetes por relevância híbrida, agrupadas por evento antes de aparecer",
  "aviso": "Camada de CONTEXTO. A implicação é uma regra declarada (aversão a risco -> moedas de refúgio; choque de energia -> empurrão de inflação), não é medição, e NÃO entra na convicção. Hipótese a medir: um pico de conflito z>=2 muda o retorno de 20 dias das moedas de risco?",
  "mundo": {
+  "energia": {
+   "volume": {
+    "n": 14,
+    "recente_3d": 1.1813,
+    "base_14d": 1.1468,
+    "razao": 1.03,
+    "z": 0.25
+   },
+   "manchetes": [
+    {
+     "titulo": "Canada - U . S . trade war takes centre stage at Toronto annual Labour Day parade",
+     "url": "https://www.cbc.ca/news/canada/toronto/canada-us-trade-war-toronto-labour-day-parade-9.7334984",
+     "fonte": "cbc.ca",
+     "quando": "20260908T013000Z",
+     "pais_fonte": "Canada"
+    },
+    {
+     "titulo": "Pacheco : Canada will not be bullied in U . S . trade war",
+     "url": "https://www.abqjournal.com/business/pacheco-canada-wont-be-bullied-by-its-biggest-neighbor/3114597",
+     "fonte": "abqjournal.com",
+     "quando": "20260906T131500Z",
+     "pais_fonte": "United States"
+    },
+    {
+     "titulo": "Trump says oil prices will drop  precipitously , gas could fall below $2 after US wins Iran war",
+     "url": "https://www.moneycontrol.com/world/trump-says-oil-prices-will-drop-precipitously-gas-could-fall-below-2-after-us-wins-iran-war-article-14024746.html",
+     "fonte": "moneycontrol.com",
+     "quando": "20260908T031500Z",
+     "pais_fonte": "India"
+    },
+    {
+     "titulo": "Counter - tariff fallout could be ugly , expert warns",
+     "url": "https://www.cbc.ca/player/play/video/9.7334585",
+     "fonte": "cbc.ca",
+     "quando": "20260907T150000Z",
+     "pais_fonte": "Canada"
+    },
+    {
+     "titulo": "Canada Biggest Newspaper Targets US States Over  Trump Tariff Tantrums  ",
+     "url": "https://www.newsweek.com/canada-biggest-newspaper-targets-us-states-trump-tariffs-doug-ford-12409726",
+     "fonte": "newsweek.com",
+     "quando": "20260906T120000Z",
+     "pais_fonte": "United States"
+    }
+   ],
+   "manchetes_unicas": [
+    {
+     "titulo": "Canada - U.S. trade war takes centre stage at Toronto annual Labour Day parade",
+     "url": "https://www.cbc.ca/news/canada/toronto/canada-us-trade-war-toronto-labour-day-parade-9.7334984",
+     "fonte": "cbc.ca",
+     "quando": "20260908T013000Z",
+     "pais_fonte": "Canada",
+     "titulo_original": "Canada - U . S . trade war takes centre stage at Toronto annual Labour Day parade",
+     "confiabilidade": "media",
+     "fontes": [
+      "cbc.ca",
+      "newsweek.com",
+      "abqjournal.com"
+     ],
+     "n_republicacoes": 3,
+     "acao": "sancoes",
+     "entidades": [
+      "canada",
+      "eua"
+     ],
+     "agrupadas": [
+      {
+       "titulo": "Canada Biggest Newspaper Targets US States Over Trump Tariff Tantrums",
+       "fonte": "newsweek.com",
+       "confiabilidade": "baixa",
+       "url": "https://www.newsweek.com/canada-biggest-newspaper-targets-us-states-trump-tariffs-doug-ford-12409726"
+      },
+      {
+       "titulo": "Pacheco: Canada will not be bullied in U.S. trade war",
+       "fonte": "abqjournal.com",
+       "confiabilidade": "baixa",
+       "url": "https://www.abqjournal.com/business/pacheco-canada-wont-be-bullied-by-its-biggest-neighbor/3114597"
+      }
+     ]
+    },
+    {
+     "titulo": "Counter - tariff fallout could be ugly, expert warns",
+     "url": "https://www.cbc.ca/player/play/video/9.7334585",
+     "fonte": "cbc.ca",
+     "quando": "20260907T150000Z",
+     "pais_fonte": "Canada",
+     "titulo_original": "Counter - tariff fallout could be ugly , expert warns",
+     "confiabilidade": "media",
+     "fontes": [
+      "cbc.ca"
+     ],
+     "n_republicacoes": 1,
+     "acao": "sancoes",
+     "entidades": [],
+     "agrupadas": []
+    },
+    {
+     "titulo": "Trump says oil prices will drop precipitously, gas could fall below $2 after US wins Iran war",
+     "url": "https://www.moneycontrol.com/world/trump-says-oil-prices-will-drop-precipitously-gas-could-fall-below-2-after-us-wins-iran-war-article-14024746.html",
+     "fonte": "moneycontrol.com",
+     "quando": "20260908T031500Z",
+     "pais_fonte": "India",
+     "titulo_original": "Trump says oil prices will drop  precipitously , gas could fall below $2 after US wins Iran war",
+     "confiabilidade": "baixa",
+     "fontes": [
+      "moneycontrol.com"
+     ],
+     "n_republicacoes": 1,
+     "acao": "energia",
+     "entidades": [
+      "eua",
+      "ira"
+     ],
+     "agrupadas": []
+    }
+   ],
+   "duplicatas_removidas": 2,
+   "vota": false,
+   "selo": "experimental — contexto, não vota"
+  },
   "conflito": {
    "volume": {
     "n": 14,
@@ -103,140 +223,85 @@
    "vota": false,
    "selo": "experimental — contexto, não vota",
    "reaproveitado": true
-  },
-  "energia": {
-   "volume": {
-    "n": 14,
-    "recente_3d": 0.9317,
-    "base_14d": 1.2198,
-    "razao": 0.76,
-    "z": -1.82
-   },
-   "manchetes": [
-    {
-     "titulo": "Pacheco : Canada will not be bullied in U . S . trade war",
-     "url": "https://www.abqjournal.com/business/pacheco-canada-wont-be-bullied-by-its-biggest-neighbor/3114597",
-     "fonte": "abqjournal.com",
-     "quando": "20260906T131500Z",
-     "pais_fonte": "United States"
-    },
-    {
-     "titulo": "Trump Threatens to Halt Trade Following News That US Trade Deficit Grew in July",
-     "url": "https://wwd.com/sourcing-journal/trade/trump-us-trade-deficit-july-federal-reserve-tariffs-1239199217/",
-     "fonte": "wwd.com",
-     "quando": "20260904T233000Z",
-     "pais_fonte": "United States"
-    },
-    {
-     "titulo": "Crude Oil Prices Settle Higher on US - Iran Tensions",
-     "url": "https://finance.yahoo.com/energy/articles/crude-oil-prices-settle-higher-191321257.html",
-     "fonte": "finance.yahoo.com",
-     "quando": "20260905T014500Z",
-     "pais_fonte": "United States"
-    },
-    {
-     "titulo": "Crude Oil Prices Rally as No End in Sight to US - Iran War",
-     "url": "https://finance.yahoo.com/energy/articles/crude-oil-prices-rally-no-153527029.html",
-     "fonte": "finance.yahoo.com",
-     "quando": "20260904T230000Z",
-     "pais_fonte": "United States"
-    },
-    {
-     "titulo": "Counter - tariff fallout could be ugly , expert warns",
-     "url": "https://www.cbc.ca/player/play/video/9.7334585",
-     "fonte": "cbc.ca",
-     "quando": "20260907T150000Z",
-     "pais_fonte": "Canada"
-    }
-   ],
-   "manchetes_unicas": [
-    {
-     "titulo": "Counter - tariff fallout could be ugly, expert warns",
-     "url": "https://www.cbc.ca/player/play/video/9.7334585",
-     "fonte": "cbc.ca",
-     "quando": "20260907T150000Z",
-     "pais_fonte": "Canada",
-     "titulo_original": "Counter - tariff fallout could be ugly , expert warns",
-     "confiabilidade": "media",
-     "fontes": [
-      "cbc.ca"
-     ],
-     "n_republicacoes": 1,
-     "acao": "sancoes",
-     "entidades": [],
-     "agrupadas": []
-    },
-    {
-     "titulo": "Crude Oil Prices Rally as No End in Sight to US - Iran War",
-     "url": "https://finance.yahoo.com/energy/articles/crude-oil-prices-rally-no-153527029.html",
-     "fonte": "finance.yahoo.com",
-     "quando": "20260904T230000Z",
-     "pais_fonte": "United States",
-     "titulo_original": "Crude Oil Prices Rally as No End in Sight to US - Iran War",
-     "confiabilidade": "baixa",
-     "fontes": [
-      "finance.yahoo.com"
-     ],
-     "n_republicacoes": 2,
-     "acao": "energia",
-     "entidades": [
-      "eua",
-      "ira"
-     ],
-     "agrupadas": [
-      {
-       "titulo": "Crude Oil Prices Settle Higher on US - Iran Tensions",
-       "fonte": "finance.yahoo.com",
-       "confiabilidade": "baixa",
-       "url": "https://finance.yahoo.com/energy/articles/crude-oil-prices-settle-higher-191321257.html"
-      }
-     ]
-    },
-    {
-     "titulo": "Trump Threatens to Halt Trade Following News That US Trade Deficit Grew in July",
-     "url": "https://wwd.com/sourcing-journal/trade/trump-us-trade-deficit-july-federal-reserve-tariffs-1239199217/",
-     "fonte": "wwd.com",
-     "quando": "20260904T233000Z",
-     "pais_fonte": "United States",
-     "titulo_original": "Trump Threatens to Halt Trade Following News That US Trade Deficit Grew in July",
-     "confiabilidade": "baixa",
-     "fontes": [
-      "wwd.com"
-     ],
-     "n_republicacoes": 1,
-     "acao": "outro",
-     "entidades": [
-      "eua"
-     ],
-     "agrupadas": []
-    },
-    {
-     "titulo": "Pacheco: Canada will not be bullied in U.S. trade war",
-     "url": "https://www.abqjournal.com/business/pacheco-canada-wont-be-bullied-by-its-biggest-neighbor/3114597",
-     "fonte": "abqjournal.com",
-     "quando": "20260906T131500Z",
-     "pais_fonte": "United States",
-     "titulo_original": "Pacheco : Canada will not be bullied in U . S . trade war",
-     "confiabilidade": "baixa",
-     "fontes": [
-      "abqjournal.com"
-     ],
-     "n_republicacoes": 1,
-     "acao": "sancoes",
-     "entidades": [
-      "canada",
-      "eua"
-     ],
-     "agrupadas": []
-    }
-   ],
-   "duplicatas_removidas": 1,
-   "vota": false,
-   "selo": "experimental — contexto, não vota",
-   "reaproveitado": true
   }
  },
  "moedas": {
+  "CHF": {
+   "temas": {
+    "conflito": {
+     "volume": {
+      "n": 14,
+      "recente_3d": 0.0206,
+      "base_14d": 0.0321,
+      "razao": 0.64,
+      "z": -0.89
+     },
+     "manchetes": [],
+     "manchetes_unicas": [],
+     "duplicatas_removidas": 0,
+     "vota": false,
+     "selo": "experimental — contexto, não vota"
+    },
+    "energia": {
+     "erro": "HTTP Error 429: Too Many Requests",
+     "manchetes_unicas": [],
+     "duplicatas_removidas": 0,
+     "vota": false,
+     "selo": "experimental — contexto, não vota"
+    }
+   },
+   "tom": null,
+   "implicacao": {
+    "regra": "regra declarada, não medida — está aqui para o julgamento, não entra na convicção",
+    "fx": null,
+    "juro": null
+   },
+   "coletado_em": "2026-09-08T14:47:49.585665+00:00",
+   "vota": false,
+   "experimental": true,
+   "selo": "experimental — contexto, não vota",
+   "selo_motivo": "Camada de contexto. A implicação é regra declarada, nunca medida, e não entra na convicção nem no teto do sentimento. A interface pode recolher esta seção por padrão: a informação continua inteira no arquivo.",
+   "recolher_por_padrao": true,
+   "peso_no_sentimento": 0.0
+  },
+  "EUR": {
+   "temas": {
+    "conflito": {
+     "erro": "HTTP Error 429: Too Many Requests",
+     "manchetes_unicas": [],
+     "duplicatas_removidas": 0,
+     "vota": false,
+     "selo": "experimental — contexto, não vota"
+    },
+    "energia": {
+     "volume": {
+      "n": 14,
+      "recente_3d": 0.1665,
+      "base_14d": 0.129,
+      "razao": 1.29,
+      "z": 0.83
+     },
+     "manchetes": [],
+     "manchetes_unicas": [],
+     "duplicatas_removidas": 0,
+     "vota": false,
+     "selo": "experimental — contexto, não vota"
+    }
+   },
+   "tom": null,
+   "implicacao": {
+    "regra": "regra declarada, não medida — está aqui para o julgamento, não entra na convicção",
+    "fx": null,
+    "juro": null
+   },
+   "coletado_em": "2026-09-08T14:47:49.585665+00:00",
+   "vota": false,
+   "experimental": true,
+   "selo": "experimental — contexto, não vota",
+   "selo_motivo": "Camada de contexto. A implicação é regra declarada, nunca medida, e não entra na convicção nem no teto do sentimento. A interface pode recolher esta seção por padrão: a informação continua inteira no arquivo.",
+   "recolher_por_padrao": true,
+   "peso_no_sentimento": 0.0
+  },
   "JPY": {
    "temas": {
     "conflito": {
@@ -273,45 +338,8 @@
    "selo": "experimental — contexto, não vota",
    "selo_motivo": "Camada de contexto. A implicação é regra declarada, nunca medida, e não entra na convicção nem no teto do sentimento. A interface pode recolher esta seção por padrão: a informação continua inteira no arquivo.",
    "recolher_por_padrao": true,
-   "peso_no_sentimento": 0.0
-  },
-  "CAD": {
-   "temas": {
-    "conflito": {
-     "volume": {
-      "n": 14,
-      "recente_3d": 0.2454,
-      "base_14d": 0.3537,
-      "razao": 0.69,
-      "z": -0.98
-     },
-     "manchetes": [],
-     "manchetes_unicas": [],
-     "duplicatas_removidas": 0,
-     "vota": false,
-     "selo": "experimental — contexto, não vota"
-    },
-    "energia": {
-     "erro": "HTTP Error 429: Too Many Requests",
-     "manchetes_unicas": [],
-     "duplicatas_removidas": 0,
-     "vota": false,
-     "selo": "experimental — contexto, não vota"
-    }
-   },
-   "tom": null,
-   "implicacao": {
-    "regra": "regra declarada, não medida — está aqui para o julgamento, não entra na convicção",
-    "fx": null,
-    "juro": null
-   },
-   "coletado_em": "2026-09-08T11:42:22.084996+00:00",
-   "vota": false,
-   "experimental": true,
-   "selo": "experimental — contexto, não vota",
-   "selo_motivo": "Camada de contexto. A implicação é regra declarada, nunca medida, e não entra na convicção nem no teto do sentimento. A interface pode recolher esta seção por padrão: a informação continua inteira no arquivo.",
-   "recolher_por_padrao": true,
-   "peso_no_sentimento": 0.0
+   "peso_no_sentimento": 0.0,
+   "reaproveitado_de": "2026-09-08T11:42:22.084996+00:00"
   },
   "NZD": {
    "temas": {
@@ -359,15 +387,15 @@
    "peso_no_sentimento": 0.0,
    "reaproveitado_de": "2026-09-08T05:08:54.646038+00:00"
   },
-  "CHF": {
+  "CAD": {
    "temas": {
     "conflito": {
      "volume": {
       "n": 14,
-      "recente_3d": 0.0206,
-      "base_14d": 0.0321,
-      "razao": 0.64,
-      "z": -0.88
+      "recente_3d": 0.2454,
+      "base_14d": 0.3537,
+      "razao": 0.69,
+      "z": -0.98
      },
      "manchetes": [],
      "manchetes_unicas": [],
@@ -389,33 +417,32 @@
     "fx": null,
     "juro": null
    },
-   "coletado_em": "2026-09-08T05:08:54.646038+00:00",
+   "coletado_em": "2026-09-08T11:42:22.084996+00:00",
    "vota": false,
    "experimental": true,
    "selo": "experimental — contexto, não vota",
    "selo_motivo": "Camada de contexto. A implicação é regra declarada, nunca medida, e não entra na convicção nem no teto do sentimento. A interface pode recolher esta seção por padrão: a informação continua inteira no arquivo.",
    "recolher_por_padrao": true,
    "peso_no_sentimento": 0.0,
-   "reaproveitado_de": "2026-09-08T05:08:54.646038+00:00"
+   "reaproveitado_de": "2026-09-08T11:42:22.084996+00:00"
   }
  },
  "erros": [
   "mundo/conflito: HTTP Error 429: Too Many Requests",
-  "mundo/energia: HTTP Error 429: Too Many Requests",
-  "JPY/energia: HTTP Error 429: Too Many Requests",
-  "AUD/conflito: HTTP Error 429: Too Many Requests",
-  "AUD/energia: HTTP Error 429: Too Many Requests",
-  "NZD/conflito: HTTP Error 429: Too Many Requests",
-  "NZD/energia: HTTP Error 429: Too Many Requests",
+  "CAD/conflito: HTTP Error 429: Too Many Requests",
   "CAD/energia: HTTP Error 429: Too Many Requests",
-  "orcamento de 480 s estourado antes de CHF — o resto fica para a proxima rodada"
+  "CHF/energia: HTTP Error 429: Too Many Requests",
+  "USD/conflito: HTTP Error 429: Too Many Requests",
+  "USD/energia: HTTP Error 429: Too Many Requests",
+  "EUR/conflito: HTTP Error 429: Too Many Requests",
+  "orcamento de 480 s estourado antes de GBP — o resto fica para a proxima rodada"
  ],
  "vota": false,
  "experimental": true,
  "selo": "experimental — contexto, não vota",
  "selo_motivo": "Camada de contexto. A implicação é regra declarada, nunca medida, e não entra na convicção nem no teto do sentimento. A interface pode recolher esta seção por padrão: a informação continua inteira no arquivo.",
  "recolher_por_padrao": true,
- "duplicatas_removidas_total": 5,
+ "duplicatas_removidas_total": 6,
  "regra_deduplicacao": {
   "metodo": "duas regras em OU, sobre o título normalizado",
   "regra_1": "Jaccard >= 0.55 sobre as palavras de 4+ letras",
