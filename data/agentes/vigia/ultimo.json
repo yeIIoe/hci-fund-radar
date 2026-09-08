@@ -2,143 +2,145 @@
  "agente": "vigia",
  "versao_prompt": "vigia.py@v1",
  "escrito_por": "vigia.py (camada 1) — o agente `vigia` ainda nao passou nesta rodada; os campos `causa` e `resumo_pt` estao vazios de proposito",
- "gerado_em": "2026-09-08T17:07:32Z",
- "rodada_id": "vigia-20260908T1707Z",
+ "gerado_em": "2026-09-08T17:23:23Z",
+ "rodada_id": "vigia-20260908T1723Z",
  "resumo_pt": null,
  "placar": {
-  "alarmes_alta": 4,
-  "alarmes_media": 2,
-  "alarmes_baixa": 0,
-  "checagens_ok": 22,
+  "alarmes_alta": 1,
+  "alarmes_media": 1,
+  "alarmes_baixa": 3,
+  "checagens_ok": 23,
   "estado_geral": "vermelho"
  },
  "entradas": {
   "arquivo": "data/*.json + data/snapshots/*.jsonl + API do GitHub Actions",
-  "gerado_em": "2026-09-08T17:07:32Z",
+  "gerado_em": "2026-09-08T17:23:23Z",
   "n_itens": 28,
   "detalhe": [
    {
     "arquivo": "data/sentimento.json",
-    "gerado_em": "2026-09-08T16:50:43Z",
+    "gerado_em": "2026-09-08T17:23:19Z",
     "campo_lido": "gerado_em",
-    "idade_min": 16.8
+    "idade_min": 0.1
    },
    {
     "arquivo": "data/macro_eventos.json",
-    "gerado_em": "2026-09-08T16:49:32Z",
+    "gerado_em": "2026-09-08T17:22:17Z",
     "campo_lido": "gerado_em",
-    "idade_min": 18.0
+    "idade_min": 1.1
    },
    {
     "arquivo": "data/calendario_resultado.json",
-    "gerado_em": "2026-09-08T16:49:22Z",
+    "gerado_em": "2026-09-08T17:22:08Z",
     "campo_lido": "gerado_em",
-    "idade_min": 18.2
+    "idade_min": 1.3
    },
    {
     "arquivo": "data/bancos_centrais.json",
-    "gerado_em": "2026-09-08T16:49:31Z",
+    "gerado_em": "2026-09-08T17:22:17Z",
     "campo_lido": "gerado_em",
-    "idade_min": 18.0
+    "idade_min": 1.1
    },
    {
     "arquivo": "data/eua_leitura.json",
-    "gerado_em": "2026-09-08T15:57:11Z",
+    "gerado_em": "2026-09-08T17:14:39Z",
     "campo_lido": "gerado_em",
-    "idade_min": 70.4
+    "idade_min": 8.7
    },
    {
     "arquivo": "data/bc_discursos.json",
-    "gerado_em": "2026-09-08T16:49:23Z",
+    "gerado_em": "2026-09-08T17:22:09Z",
     "campo_lido": "gerado_em",
-    "idade_min": 18.2
+    "idade_min": 1.2
    },
    {
     "arquivo": "data/precificacao.json",
-    "gerado_em": "2026-09-08T16:49:32Z",
+    "gerado_em": "2026-09-08T17:22:17Z",
     "campo_lido": "gerado_em",
-    "idade_min": 18.0
+    "idade_min": 1.1
    },
    {
     "arquivo": "data/noticias.json",
-    "gerado_em": "2026-09-08T16:50:06Z",
+    "gerado_em": "2026-09-08T17:22:41Z",
     "campo_lido": "gerado_em",
-    "idade_min": 17.4
+    "idade_min": 0.7
    },
    {
     "arquivo": "data/geopolitica.json",
     "gerado_em": "2026-09-08T14:47:49Z",
     "campo_lido": "gerado_em",
-    "idade_min": 139.7
+    "idade_min": 155.6
    },
    {
     "arquivo": "data/correlacao_juros.json",
     "gerado_em": "2026-09-08T16:50:00Z",
     "campo_lido": "gerado_em",
-    "idade_min": 17.5
+    "idade_min": 33.4
    },
    {
     "arquivo": "data/frescor.json",
     "gerado_em": "2026-09-08T15:25:00Z",
     "campo_lido": "gerado_em",
-    "idade_min": 102.5
+    "idade_min": 118.4
    },
    {
     "arquivo": "data/yields.json",
     "gerado_em": "2026-09-08T15:16:29Z",
     "campo_lido": "meta.generated_at",
-    "idade_min": 111.1
+    "idade_min": 126.9
    },
    {
     "arquivo": "data/fund_snapshot.json",
     "gerado_em": "2026-09-08T15:19:23Z",
     "campo_lido": "meta.generated_at",
-    "idade_min": 108.2
+    "idade_min": 124.0
    },
    {
     "arquivo": "data/juros_vs_cambio.json",
     "gerado_em": "2026-09-08T15:19:00Z",
     "campo_lido": "gerado_em",
-    "idade_min": 108.5
+    "idade_min": 124.4
    },
    {
     "arquivo": "data/bis_discursos.json",
     "gerado_em": "2026-09-08T15:58:27Z",
     "campo_lido": "gerado_em",
-    "idade_min": 69.1
+    "idade_min": 84.9
    },
    {
     "arquivo": "https://api.github.com/repos/yeIIoe/hci-fund-radar/actions/runs",
-    "gerado_em": "2026-09-08T17:07Z",
-    "n_itens": 81
+    "gerado_em": "2026-09-08T17:23Z",
+    "n_itens": 84
    },
    {
     "arquivo": "data/snapshots/*.jsonl",
     "gerado_em": "2026-09-08",
-    "n_itens": 243
+    "n_itens": 250
    }
   ]
  },
  "julgamentos": [
   {
    "chave": "MOTOR/vps",
-   "veredito": "ALARME",
+   "veredito": "OK",
    "confianca": "alta",
-   "motivo": "o motor da cadeia parou de bater — o arquivo do pulso nao foi lido: arquivo nao existe no repositorio. A VPS e quem roda a cadeia de 15 em 15 min desde 07/set. Sem o pulso dela, o painel passa a depender do GitHub Actions, que e a RESERVA de 3 em 3 h: a leitura publicada pode ficar ate 6 h atrasada. Os alarmes de execucao abaixo voltam a valer como medicao do motor, porque na falta da VPS o Actions passou a ser o motor.",
+   "motivo": "o motor da cadeia esta batendo — pulso de 0 min; cadencia prometida de 15 min; ultima cadeia nao declarada. Nada a fazer: a VPS publicou ha 0 min e promete voltar a cada 15 min. Enquanto este pulso estiver fresco, os alarmes de execucao do GitHub Actions abaixo se referem a RESERVA, nao ao motor — e reserva rodando pouco e o combinado.",
    "trecho": null,
    "numeros_citados": {
-    "pulso_idade_min": null
+    "pulso_idade_min": 0.10771326666666667,
+    "cadencia_prometida_min": 15,
+    "ultima_cadeia_s": null
    },
    "fonte": {
     "titulo": "data/vps_pulso.json",
-    "quando": null
+    "quando": "2026-09-08T17:23:20.845461+00:00"
    },
    "vota": false,
    "selo": "medição de operação — não é leitura de mercado, não vota",
-   "assunto": "o motor da cadeia parou de bater",
-   "medida": "o arquivo do pulso nao foi lido: arquivo nao existe no repositorio",
-   "consequencia": "A VPS e quem roda a cadeia de 15 em 15 min desde 07/set. Sem o pulso dela, o painel passa a depender do GitHub Actions, que e a RESERVA de 3 em 3 h: a leitura publicada pode ficar ate 6 h atrasada. Os alarmes de execucao abaixo voltam a valer como medicao do motor, porque na falta da VPS o Actions passou a ser o motor.",
-   "gravidade": "alta",
+   "assunto": "o motor da cadeia esta batendo",
+   "medida": "pulso de 0 min; cadencia prometida de 15 min; ultima cadeia nao declarada",
+   "consequencia": "Nada a fazer: a VPS publicou ha 0 min e promete voltar a cada 15 min. Enquanto este pulso estiver fresco, os alarmes de execucao do GitHub Actions abaixo se referem a RESERVA, nao ao motor — e reserva rodando pouco e o combinado.",
+   "gravidade": "ok",
    "natureza": "MEDIDO",
    "causa": null,
    "causa_confianca": null
@@ -147,25 +149,25 @@
    "chave": "IDADE/data/sentimento.json",
    "veredito": "OK",
    "confianca": "alta",
-   "motivo": "arquivo dentro da tolerancia — 17 min de idade contra tolerancia de 1 h 30 min. Nada a fazer: data/sentimento.json esta fresco e alimenta a leitura das 8 moedas e dos 28 pares que a tela mostra com dado do carimbo 2026-09-08T16:50:43Z.",
-   "trecho": "2026-09-08T16:50:43.948927+00:00",
+   "motivo": "arquivo dentro da tolerancia — 0 min de idade contra tolerancia de 1 h 30 min. Nada a fazer: data/sentimento.json esta fresco e alimenta a leitura das 8 moedas e dos 28 pares que a tela mostra com dado do carimbo 2026-09-08T17:23:19Z.",
+   "trecho": "2026-09-08T17:23:19.868057+00:00",
    "numeros_citados": {
-    "idade_min": 16.8,
+    "idade_min": 0.1,
     "tolerancia_min": 90,
-    "carimbo_utc": "2026-09-08T16:50:43Z",
+    "carimbo_utc": "2026-09-08T17:23:19Z",
     "campo_lido": "gerado_em",
     "cadencia_esperada_min": 15
    },
    "fonte": {
     "titulo": "data/sentimento.json (campo gerado_em, lido DENTRO do arquivo — nunca o mtime)",
     "link": "data/sentimento.json",
-    "quando": "2026-09-08T16:50:43Z"
+    "quando": "2026-09-08T17:23:19Z"
    },
    "vota": false,
    "selo": "medição de operação — não é leitura de mercado, não vota",
    "assunto": "arquivo dentro da tolerancia",
-   "medida": "17 min de idade contra tolerancia de 1 h 30 min",
-   "consequencia": "Nada a fazer: data/sentimento.json esta fresco e alimenta a leitura das 8 moedas e dos 28 pares que a tela mostra com dado do carimbo 2026-09-08T16:50:43Z.",
+   "medida": "0 min de idade contra tolerancia de 1 h 30 min",
+   "consequencia": "Nada a fazer: data/sentimento.json esta fresco e alimenta a leitura das 8 moedas e dos 28 pares que a tela mostra com dado do carimbo 2026-09-08T17:23:19Z.",
    "gravidade": "ok",
    "natureza": "MEDIDO",
    "causa": null,
@@ -175,25 +177,25 @@
    "chave": "IDADE/data/macro_eventos.json",
    "veredito": "OK",
    "confianca": "alta",
-   "motivo": "arquivo dentro da tolerancia — 18 min de idade contra tolerancia de 1 h 30 min. Nada a fazer: data/macro_eventos.json esta fresco e alimenta o calendario interpretado, que alimenta a dimensao de dados (VOTA) com dado do carimbo 2026-09-08T16:49:32Z.",
-   "trecho": "2026-09-08T16:49:32.421613+00:00",
+   "motivo": "arquivo dentro da tolerancia — 1 min de idade contra tolerancia de 1 h 30 min. Nada a fazer: data/macro_eventos.json esta fresco e alimenta o calendario interpretado, que alimenta a dimensao de dados (VOTA) com dado do carimbo 2026-09-08T17:22:17Z.",
+   "trecho": "2026-09-08T17:22:17.654418+00:00",
    "numeros_citados": {
-    "idade_min": 18.0,
+    "idade_min": 1.1,
     "tolerancia_min": 90,
-    "carimbo_utc": "2026-09-08T16:49:32Z",
+    "carimbo_utc": "2026-09-08T17:22:17Z",
     "campo_lido": "gerado_em",
     "cadencia_esperada_min": 15
    },
    "fonte": {
     "titulo": "data/macro_eventos.json (campo gerado_em, lido DENTRO do arquivo — nunca o mtime)",
     "link": "data/macro_eventos.json",
-    "quando": "2026-09-08T16:49:32Z"
+    "quando": "2026-09-08T17:22:17Z"
    },
    "vota": false,
    "selo": "medição de operação — não é leitura de mercado, não vota",
    "assunto": "arquivo dentro da tolerancia",
-   "medida": "18 min de idade contra tolerancia de 1 h 30 min",
-   "consequencia": "Nada a fazer: data/macro_eventos.json esta fresco e alimenta o calendario interpretado, que alimenta a dimensao de dados (VOTA) com dado do carimbo 2026-09-08T16:49:32Z.",
+   "medida": "1 min de idade contra tolerancia de 1 h 30 min",
+   "consequencia": "Nada a fazer: data/macro_eventos.json esta fresco e alimenta o calendario interpretado, que alimenta a dimensao de dados (VOTA) com dado do carimbo 2026-09-08T17:22:17Z.",
    "gravidade": "ok",
    "natureza": "MEDIDO",
    "causa": null,
@@ -203,25 +205,25 @@
    "chave": "IDADE/data/calendario_resultado.json",
    "veredito": "OK",
    "confianca": "alta",
-   "motivo": "arquivo dentro da tolerancia — 18 min de idade contra tolerancia de 1 h 30 min. Nada a fazer: data/calendario_resultado.json esta fresco e alimenta divulgado, consenso e surpresa das 8 moedas (FXStreet) com dado do carimbo 2026-09-08T16:49:22Z.",
-   "trecho": "2026-09-08T16:49:22.705705+00:00",
+   "motivo": "arquivo dentro da tolerancia — 1 min de idade contra tolerancia de 1 h 30 min. Nada a fazer: data/calendario_resultado.json esta fresco e alimenta divulgado, consenso e surpresa das 8 moedas (FXStreet) com dado do carimbo 2026-09-08T17:22:08Z.",
+   "trecho": "2026-09-08T17:22:08.332111+00:00",
    "numeros_citados": {
-    "idade_min": 18.2,
+    "idade_min": 1.3,
     "tolerancia_min": 90,
-    "carimbo_utc": "2026-09-08T16:49:22Z",
+    "carimbo_utc": "2026-09-08T17:22:08Z",
     "campo_lido": "gerado_em",
     "cadencia_esperada_min": 15
    },
    "fonte": {
     "titulo": "data/calendario_resultado.json (campo gerado_em, lido DENTRO do arquivo — nunca o mtime)",
     "link": "data/calendario_resultado.json",
-    "quando": "2026-09-08T16:49:22Z"
+    "quando": "2026-09-08T17:22:08Z"
    },
    "vota": false,
    "selo": "medição de operação — não é leitura de mercado, não vota",
    "assunto": "arquivo dentro da tolerancia",
-   "medida": "18 min de idade contra tolerancia de 1 h 30 min",
-   "consequencia": "Nada a fazer: data/calendario_resultado.json esta fresco e alimenta divulgado, consenso e surpresa das 8 moedas (FXStreet) com dado do carimbo 2026-09-08T16:49:22Z.",
+   "medida": "1 min de idade contra tolerancia de 1 h 30 min",
+   "consequencia": "Nada a fazer: data/calendario_resultado.json esta fresco e alimenta divulgado, consenso e surpresa das 8 moedas (FXStreet) com dado do carimbo 2026-09-08T17:22:08Z.",
    "gravidade": "ok",
    "natureza": "MEDIDO",
    "causa": null,
@@ -231,25 +233,25 @@
    "chave": "IDADE/data/bancos_centrais.json",
    "veredito": "OK",
    "confianca": "alta",
-   "motivo": "arquivo dentro da tolerancia — 18 min de idade contra tolerancia de 1 h 30 min. Nada a fazer: data/bancos_centrais.json esta fresco e alimenta a dimensao de ciclo (VOTA): ultimo movimento e proxima reuniao com dado do carimbo 2026-09-08T16:49:31Z.",
-   "trecho": "2026-09-08T16:49:31.961203+00:00",
+   "motivo": "arquivo dentro da tolerancia — 1 min de idade contra tolerancia de 1 h 30 min. Nada a fazer: data/bancos_centrais.json esta fresco e alimenta a dimensao de ciclo (VOTA): ultimo movimento e proxima reuniao com dado do carimbo 2026-09-08T17:22:17Z.",
+   "trecho": "2026-09-08T17:22:17.026529+00:00",
    "numeros_citados": {
-    "idade_min": 18.0,
+    "idade_min": 1.1,
     "tolerancia_min": 90,
-    "carimbo_utc": "2026-09-08T16:49:31Z",
+    "carimbo_utc": "2026-09-08T17:22:17Z",
     "campo_lido": "gerado_em",
     "cadencia_esperada_min": 15
    },
    "fonte": {
     "titulo": "data/bancos_centrais.json (campo gerado_em, lido DENTRO do arquivo — nunca o mtime)",
     "link": "data/bancos_centrais.json",
-    "quando": "2026-09-08T16:49:31Z"
+    "quando": "2026-09-08T17:22:17Z"
    },
    "vota": false,
    "selo": "medição de operação — não é leitura de mercado, não vota",
    "assunto": "arquivo dentro da tolerancia",
-   "medida": "18 min de idade contra tolerancia de 1 h 30 min",
-   "consequencia": "Nada a fazer: data/bancos_centrais.json esta fresco e alimenta a dimensao de ciclo (VOTA): ultimo movimento e proxima reuniao com dado do carimbo 2026-09-08T16:49:31Z.",
+   "medida": "1 min de idade contra tolerancia de 1 h 30 min",
+   "consequencia": "Nada a fazer: data/bancos_centrais.json esta fresco e alimenta a dimensao de ciclo (VOTA): ultimo movimento e proxima reuniao com dado do carimbo 2026-09-08T17:22:17Z.",
    "gravidade": "ok",
    "natureza": "MEDIDO",
    "causa": null,
@@ -259,25 +261,25 @@
    "chave": "IDADE/data/eua_leitura.json",
    "veredito": "OK",
    "confianca": "alta",
-   "motivo": "arquivo dentro da tolerancia — 1 h 10 min de idade contra tolerancia de 3 h 00 min. Nada a fazer: data/eua_leitura.json esta fresco e alimenta BLS (CPI, NFP, desemprego, salario) e o calendario do FOMC com dado do carimbo 2026-09-08T15:57:11Z.",
-   "trecho": "2026-09-08T15:57:11.417626+00:00",
+   "motivo": "arquivo dentro da tolerancia — 9 min de idade contra tolerancia de 3 h 00 min. Nada a fazer: data/eua_leitura.json esta fresco e alimenta BLS (CPI, NFP, desemprego, salario) e o calendario do FOMC com dado do carimbo 2026-09-08T17:14:39Z.",
+   "trecho": "2026-09-08T17:14:39.609022+00:00",
    "numeros_citados": {
-    "idade_min": 70.4,
+    "idade_min": 8.7,
     "tolerancia_min": 180,
-    "carimbo_utc": "2026-09-08T15:57:11Z",
+    "carimbo_utc": "2026-09-08T17:14:39Z",
     "campo_lido": "gerado_em",
     "cadencia_esperada_min": 15
    },
    "fonte": {
     "titulo": "data/eua_leitura.json (campo gerado_em, lido DENTRO do arquivo — nunca o mtime)",
     "link": "data/eua_leitura.json",
-    "quando": "2026-09-08T15:57:11Z"
+    "quando": "2026-09-08T17:14:39Z"
    },
    "vota": false,
    "selo": "medição de operação — não é leitura de mercado, não vota",
    "assunto": "arquivo dentro da tolerancia",
-   "medida": "1 h 10 min de idade contra tolerancia de 3 h 00 min",
-   "consequencia": "Nada a fazer: data/eua_leitura.json esta fresco e alimenta BLS (CPI, NFP, desemprego, salario) e o calendario do FOMC com dado do carimbo 2026-09-08T15:57:11Z.",
+   "medida": "9 min de idade contra tolerancia de 3 h 00 min",
+   "consequencia": "Nada a fazer: data/eua_leitura.json esta fresco e alimenta BLS (CPI, NFP, desemprego, salario) e o calendario do FOMC com dado do carimbo 2026-09-08T17:14:39Z.",
    "gravidade": "ok",
    "natureza": "MEDIDO",
    "causa": null,
@@ -287,25 +289,25 @@
    "chave": "IDADE/data/bc_discursos.json",
    "veredito": "OK",
    "confianca": "alta",
-   "motivo": "arquivo dentro da tolerancia — 18 min de idade contra tolerancia de 3 h 00 min. Nada a fazer: data/bc_discursos.json esta fresco e alimenta frases de postura dos bancos centrais — NAO VOTA desde 05/set com dado do carimbo 2026-09-08T16:49:23Z.",
-   "trecho": "2026-09-08T16:49:23.357361+00:00",
+   "motivo": "arquivo dentro da tolerancia — 1 min de idade contra tolerancia de 3 h 00 min. Nada a fazer: data/bc_discursos.json esta fresco e alimenta frases de postura dos bancos centrais — NAO VOTA desde 05/set com dado do carimbo 2026-09-08T17:22:09Z.",
+   "trecho": "2026-09-08T17:22:09.273119+00:00",
    "numeros_citados": {
-    "idade_min": 18.2,
+    "idade_min": 1.2,
     "tolerancia_min": 180,
-    "carimbo_utc": "2026-09-08T16:49:23Z",
+    "carimbo_utc": "2026-09-08T17:22:09Z",
     "campo_lido": "gerado_em",
     "cadencia_esperada_min": 15
    },
    "fonte": {
     "titulo": "data/bc_discursos.json (campo gerado_em, lido DENTRO do arquivo — nunca o mtime)",
     "link": "data/bc_discursos.json",
-    "quando": "2026-09-08T16:49:23Z"
+    "quando": "2026-09-08T17:22:09Z"
    },
    "vota": false,
    "selo": "medição de operação — não é leitura de mercado, não vota",
    "assunto": "arquivo dentro da tolerancia",
-   "medida": "18 min de idade contra tolerancia de 3 h 00 min",
-   "consequencia": "Nada a fazer: data/bc_discursos.json esta fresco e alimenta frases de postura dos bancos centrais — NAO VOTA desde 05/set com dado do carimbo 2026-09-08T16:49:23Z.",
+   "medida": "1 min de idade contra tolerancia de 3 h 00 min",
+   "consequencia": "Nada a fazer: data/bc_discursos.json esta fresco e alimenta frases de postura dos bancos centrais — NAO VOTA desde 05/set com dado do carimbo 2026-09-08T17:22:09Z.",
    "gravidade": "ok",
    "natureza": "MEDIDO",
    "causa": null,
@@ -315,25 +317,25 @@
    "chave": "IDADE/data/precificacao.json",
    "veredito": "OK",
    "confianca": "alta",
-   "motivo": "arquivo dentro da tolerancia — 18 min de idade contra tolerancia de 3 h 00 min. Nada a fazer: data/precificacao.json esta fresco e alimenta o que o mercado paga pela proxima decisao — a coluna de comparacao com dado do carimbo 2026-09-08T16:49:32Z.",
-   "trecho": "2026-09-08T16:49:32Z",
+   "motivo": "arquivo dentro da tolerancia — 1 min de idade contra tolerancia de 3 h 00 min. Nada a fazer: data/precificacao.json esta fresco e alimenta o que o mercado paga pela proxima decisao — a coluna de comparacao com dado do carimbo 2026-09-08T17:22:17Z.",
+   "trecho": "2026-09-08T17:22:17Z",
    "numeros_citados": {
-    "idade_min": 18.0,
+    "idade_min": 1.1,
     "tolerancia_min": 180,
-    "carimbo_utc": "2026-09-08T16:49:32Z",
+    "carimbo_utc": "2026-09-08T17:22:17Z",
     "campo_lido": "gerado_em",
     "cadencia_esperada_min": 15
    },
    "fonte": {
     "titulo": "data/precificacao.json (campo gerado_em, lido DENTRO do arquivo — nunca o mtime)",
     "link": "data/precificacao.json",
-    "quando": "2026-09-08T16:49:32Z"
+    "quando": "2026-09-08T17:22:17Z"
    },
    "vota": false,
    "selo": "medição de operação — não é leitura de mercado, não vota",
    "assunto": "arquivo dentro da tolerancia",
-   "medida": "18 min de idade contra tolerancia de 3 h 00 min",
-   "consequencia": "Nada a fazer: data/precificacao.json esta fresco e alimenta o que o mercado paga pela proxima decisao — a coluna de comparacao com dado do carimbo 2026-09-08T16:49:32Z.",
+   "medida": "1 min de idade contra tolerancia de 3 h 00 min",
+   "consequencia": "Nada a fazer: data/precificacao.json esta fresco e alimenta o que o mercado paga pela proxima decisao — a coluna de comparacao com dado do carimbo 2026-09-08T17:22:17Z.",
    "gravidade": "ok",
    "natureza": "MEDIDO",
    "causa": null,
@@ -343,25 +345,25 @@
    "chave": "IDADE/data/noticias.json",
    "veredito": "OK",
    "confianca": "alta",
-   "motivo": "arquivo dentro da tolerancia — 17 min de idade contra tolerancia de 3 h 00 min. Nada a fazer: data/noticias.json esta fresco e alimenta manchetes por moeda (Google News) — contexto, nao vota com dado do carimbo 2026-09-08T16:50:06Z.",
-   "trecho": "2026-09-08T16:50:06.068941+00:00",
+   "motivo": "arquivo dentro da tolerancia — 1 min de idade contra tolerancia de 3 h 00 min. Nada a fazer: data/noticias.json esta fresco e alimenta manchetes por moeda (Google News) — contexto, nao vota com dado do carimbo 2026-09-08T17:22:41Z.",
+   "trecho": "2026-09-08T17:22:41.921865+00:00",
    "numeros_citados": {
-    "idade_min": 17.4,
+    "idade_min": 0.7,
     "tolerancia_min": 180,
-    "carimbo_utc": "2026-09-08T16:50:06Z",
+    "carimbo_utc": "2026-09-08T17:22:41Z",
     "campo_lido": "gerado_em",
     "cadencia_esperada_min": 15
    },
    "fonte": {
     "titulo": "data/noticias.json (campo gerado_em, lido DENTRO do arquivo — nunca o mtime)",
     "link": "data/noticias.json",
-    "quando": "2026-09-08T16:50:06Z"
+    "quando": "2026-09-08T17:22:41Z"
    },
    "vota": false,
    "selo": "medição de operação — não é leitura de mercado, não vota",
    "assunto": "arquivo dentro da tolerancia",
-   "medida": "17 min de idade contra tolerancia de 3 h 00 min",
-   "consequencia": "Nada a fazer: data/noticias.json esta fresco e alimenta manchetes por moeda (Google News) — contexto, nao vota com dado do carimbo 2026-09-08T16:50:06Z.",
+   "medida": "1 min de idade contra tolerancia de 3 h 00 min",
+   "consequencia": "Nada a fazer: data/noticias.json esta fresco e alimenta manchetes por moeda (Google News) — contexto, nao vota com dado do carimbo 2026-09-08T17:22:41Z.",
    "gravidade": "ok",
    "natureza": "MEDIDO",
    "causa": null,
@@ -371,10 +373,10 @@
    "chave": "IDADE/data/geopolitica.json",
    "veredito": "OK",
    "confianca": "alta",
-   "motivo": "arquivo dentro da tolerancia — 2 h 20 min de idade contra tolerancia de 6 h 00 min. Nada a fazer: data/geopolitica.json esta fresco e alimenta GDELT — NAO VOTA desde 05/set (mede volume de noticia, nao direcao) com dado do carimbo 2026-09-08T14:47:49Z.",
+   "motivo": "arquivo dentro da tolerancia — 2 h 36 min de idade contra tolerancia de 6 h 00 min. Nada a fazer: data/geopolitica.json esta fresco e alimenta GDELT — NAO VOTA desde 05/set (mede volume de noticia, nao direcao) com dado do carimbo 2026-09-08T14:47:49Z.",
    "trecho": "2026-09-08T14:47:49.585665+00:00",
    "numeros_citados": {
-    "idade_min": 139.7,
+    "idade_min": 155.6,
     "tolerancia_min": 360,
     "carimbo_utc": "2026-09-08T14:47:49Z",
     "campo_lido": "gerado_em",
@@ -388,7 +390,7 @@
    "vota": false,
    "selo": "medição de operação — não é leitura de mercado, não vota",
    "assunto": "arquivo dentro da tolerancia",
-   "medida": "2 h 20 min de idade contra tolerancia de 6 h 00 min",
+   "medida": "2 h 36 min de idade contra tolerancia de 6 h 00 min",
    "consequencia": "Nada a fazer: data/geopolitica.json esta fresco e alimenta GDELT — NAO VOTA desde 05/set (mede volume de noticia, nao direcao) com dado do carimbo 2026-09-08T14:47:49Z.",
    "gravidade": "ok",
    "natureza": "MEDIDO",
@@ -399,10 +401,10 @@
    "chave": "IDADE/data/correlacao_juros.json",
    "veredito": "OK",
    "confianca": "alta",
-   "motivo": "arquivo dentro da tolerancia — 18 min de idade contra tolerancia de 30 h 00 min. Nada a fazer: data/correlacao_juros.json esta fresco e alimenta juro americano x NQ/ES/ouro, 5 anos diarios com dado do carimbo 2026-09-08T16:50:00Z.",
+   "motivo": "arquivo dentro da tolerancia — 33 min de idade contra tolerancia de 30 h 00 min. Nada a fazer: data/correlacao_juros.json esta fresco e alimenta juro americano x NQ/ES/ouro, 5 anos diarios com dado do carimbo 2026-09-08T16:50:00Z.",
    "trecho": "2026-09-08T16:50:00.613812+00:00",
    "numeros_citados": {
-    "idade_min": 17.5,
+    "idade_min": 33.4,
     "tolerancia_min": 1800,
     "carimbo_utc": "2026-09-08T16:50:00Z",
     "campo_lido": "gerado_em",
@@ -416,7 +418,7 @@
    "vota": false,
    "selo": "medição de operação — não é leitura de mercado, não vota",
    "assunto": "arquivo dentro da tolerancia",
-   "medida": "18 min de idade contra tolerancia de 30 h 00 min",
+   "medida": "33 min de idade contra tolerancia de 30 h 00 min",
    "consequencia": "Nada a fazer: data/correlacao_juros.json esta fresco e alimenta juro americano x NQ/ES/ouro, 5 anos diarios com dado do carimbo 2026-09-08T16:50:00Z.",
    "gravidade": "ok",
    "natureza": "MEDIDO",
@@ -427,10 +429,10 @@
    "chave": "IDADE/data/frescor.json",
    "veredito": "OK",
    "confianca": "alta",
-   "motivo": "arquivo dentro da tolerancia — 1 h 43 min de idade contra tolerancia de 18 h 00 min. Nada a fazer: data/frescor.json esta fresco e alimenta o relatorio da guarda de frescor das fontes brutas com dado do carimbo 2026-09-08T15:25:00Z.",
+   "motivo": "arquivo dentro da tolerancia — 1 h 58 min de idade contra tolerancia de 18 h 00 min. Nada a fazer: data/frescor.json esta fresco e alimenta o relatorio da guarda de frescor das fontes brutas com dado do carimbo 2026-09-08T15:25:00Z.",
    "trecho": "2026-09-08 15:25",
    "numeros_citados": {
-    "idade_min": 102.5,
+    "idade_min": 118.4,
     "tolerancia_min": 1080,
     "carimbo_utc": "2026-09-08T15:25:00Z",
     "campo_lido": "gerado_em",
@@ -444,7 +446,7 @@
    "vota": false,
    "selo": "medição de operação — não é leitura de mercado, não vota",
    "assunto": "arquivo dentro da tolerancia",
-   "medida": "1 h 43 min de idade contra tolerancia de 18 h 00 min",
+   "medida": "1 h 58 min de idade contra tolerancia de 18 h 00 min",
    "consequencia": "Nada a fazer: data/frescor.json esta fresco e alimenta o relatorio da guarda de frescor das fontes brutas com dado do carimbo 2026-09-08T15:25:00Z.",
    "gravidade": "ok",
    "natureza": "MEDIDO",
@@ -455,10 +457,10 @@
    "chave": "IDADE/data/yields.json",
    "veredito": "OK",
    "confianca": "alta",
-   "motivo": "arquivo dentro da tolerancia — 1 h 51 min de idade contra tolerancia de 18 h 00 min. Nada a fazer: data/yields.json esta fresco e alimenta as curvas oficiais de 2 anos das 8 moedas com dado do carimbo 2026-09-08T15:16:29Z.",
+   "motivo": "arquivo dentro da tolerancia — 2 h 07 min de idade contra tolerancia de 18 h 00 min. Nada a fazer: data/yields.json esta fresco e alimenta as curvas oficiais de 2 anos das 8 moedas com dado do carimbo 2026-09-08T15:16:29Z.",
    "trecho": "2026-09-08T15:16:29+00:00",
    "numeros_citados": {
-    "idade_min": 111.1,
+    "idade_min": 126.9,
     "tolerancia_min": 1080,
     "carimbo_utc": "2026-09-08T15:16:29Z",
     "campo_lido": "meta.generated_at",
@@ -472,7 +474,7 @@
    "vota": false,
    "selo": "medição de operação — não é leitura de mercado, não vota",
    "assunto": "arquivo dentro da tolerancia",
-   "medida": "1 h 51 min de idade contra tolerancia de 18 h 00 min",
+   "medida": "2 h 07 min de idade contra tolerancia de 18 h 00 min",
    "consequencia": "Nada a fazer: data/yields.json esta fresco e alimenta as curvas oficiais de 2 anos das 8 moedas com dado do carimbo 2026-09-08T15:16:29Z.",
    "gravidade": "ok",
    "natureza": "MEDIDO",
@@ -483,10 +485,10 @@
    "chave": "IDADE/data/fund_snapshot.json",
    "veredito": "OK",
    "confianca": "alta",
-   "motivo": "arquivo dentro da tolerancia — 1 h 48 min de idade contra tolerancia de 18 h 00 min. Nada a fazer: data/fund_snapshot.json esta fresco e alimenta o snapshot do FUND (8 moedas, 28 pares) com dado do carimbo 2026-09-08T15:19:23Z.",
+   "motivo": "arquivo dentro da tolerancia — 2 h 04 min de idade contra tolerancia de 18 h 00 min. Nada a fazer: data/fund_snapshot.json esta fresco e alimenta o snapshot do FUND (8 moedas, 28 pares) com dado do carimbo 2026-09-08T15:19:23Z.",
    "trecho": "2026-09-08T12:19:23-03:00",
    "numeros_citados": {
-    "idade_min": 108.2,
+    "idade_min": 124.0,
     "tolerancia_min": 1080,
     "carimbo_utc": "2026-09-08T15:19:23Z",
     "campo_lido": "meta.generated_at",
@@ -500,7 +502,7 @@
    "vota": false,
    "selo": "medição de operação — não é leitura de mercado, não vota",
    "assunto": "arquivo dentro da tolerancia",
-   "medida": "1 h 48 min de idade contra tolerancia de 18 h 00 min",
+   "medida": "2 h 04 min de idade contra tolerancia de 18 h 00 min",
    "consequencia": "Nada a fazer: data/fund_snapshot.json esta fresco e alimenta o snapshot do FUND (8 moedas, 28 pares) com dado do carimbo 2026-09-08T15:19:23Z.",
    "gravidade": "ok",
    "natureza": "MEDIDO",
@@ -511,10 +513,10 @@
    "chave": "IDADE/data/juros_vs_cambio.json",
    "veredito": "OK",
    "confianca": "alta",
-   "motivo": "arquivo dentro da tolerancia — 1 h 49 min de idade contra tolerancia de 30 h 00 min. Nada a fazer: data/juros_vs_cambio.json esta fresco e alimenta juro x cambio por par com dado do carimbo 2026-09-08T15:19:00Z.",
+   "motivo": "arquivo dentro da tolerancia — 2 h 04 min de idade contra tolerancia de 30 h 00 min. Nada a fazer: data/juros_vs_cambio.json esta fresco e alimenta juro x cambio por par com dado do carimbo 2026-09-08T15:19:00Z.",
    "trecho": "2026-09-08 15:19",
    "numeros_citados": {
-    "idade_min": 108.5,
+    "idade_min": 124.4,
     "tolerancia_min": 1800,
     "carimbo_utc": "2026-09-08T15:19:00Z",
     "campo_lido": "gerado_em",
@@ -528,7 +530,7 @@
    "vota": false,
    "selo": "medição de operação — não é leitura de mercado, não vota",
    "assunto": "arquivo dentro da tolerancia",
-   "medida": "1 h 49 min de idade contra tolerancia de 30 h 00 min",
+   "medida": "2 h 04 min de idade contra tolerancia de 30 h 00 min",
    "consequencia": "Nada a fazer: data/juros_vs_cambio.json esta fresco e alimenta juro x cambio por par com dado do carimbo 2026-09-08T15:19:00Z.",
    "gravidade": "ok",
    "natureza": "MEDIDO",
@@ -539,10 +541,10 @@
    "chave": "IDADE/data/bis_discursos.json",
    "veredito": "OK",
    "confianca": "alta",
-   "motivo": "arquivo dentro da tolerancia — 1 h 09 min de idade contra tolerancia de 30 h 00 min. Nada a fazer: data/bis_discursos.json esta fresco e alimenta 1.319 falas do arquivo do BIS, 2009-2026 — amostra de validacao com dado do carimbo 2026-09-08T15:58:27Z.",
+   "motivo": "arquivo dentro da tolerancia — 1 h 25 min de idade contra tolerancia de 30 h 00 min. Nada a fazer: data/bis_discursos.json esta fresco e alimenta 1.319 falas do arquivo do BIS, 2009-2026 — amostra de validacao com dado do carimbo 2026-09-08T15:58:27Z.",
    "trecho": "2026-09-08T15:58:27.778043+00:00",
    "numeros_citados": {
-    "idade_min": 69.1,
+    "idade_min": 84.9,
     "tolerancia_min": 1800,
     "carimbo_utc": "2026-09-08T15:58:27Z",
     "campo_lido": "gerado_em",
@@ -556,7 +558,7 @@
    "vota": false,
    "selo": "medição de operação — não é leitura de mercado, não vota",
    "assunto": "arquivo dentro da tolerancia",
-   "medida": "1 h 09 min de idade contra tolerancia de 30 h 00 min",
+   "medida": "1 h 25 min de idade contra tolerancia de 30 h 00 min",
    "consequencia": "Nada a fazer: data/bis_discursos.json esta fresco e alimenta 1.319 falas do arquivo do BIS, 2009-2026 — amostra de validacao com dado do carimbo 2026-09-08T15:58:27Z.",
    "gravidade": "ok",
    "natureza": "MEDIDO",
@@ -567,13 +569,13 @@
    "chave": "EXEC/nowcast-1h",
    "veredito": "ALARME",
    "confianca": "alta",
-   "motivo": "a cadeia rodou muito menos do que devia — 6 execucoes agendadas em 24 h contra 25 previstas pelo cron (24.0%). Cada execucao de `nowcast-1h` que nao acontece e uma janela de ate 58 min em que o que ela mede nao e atualizado e o commit que publicaria o resultado nao e feito. Foi exatamente esta conta que deu 6 de 96 em 07/set, quando o painel ficou 17 h velho sem ninguem ser avisado.",
+   "motivo": "a cadeia rodou muito menos do que devia — 6 execucoes agendadas em 24 h contra 24 previstas pelo cron (25.0%). Cada execucao de `nowcast-1h` que nao acontece e uma janela de ate 1 h 00 min em que o que ela mede nao e atualizado e o commit que publicaria o resultado nao e feito. Foi exatamente esta conta que deu 6 de 96 em 07/set, quando o painel ficou 17 h velho sem ninguem ser avisado.",
    "trecho": null,
    "numeros_citados": {
-    "deveria": 25,
+    "deveria": 24,
     "rodou_agendadas": 6,
     "rodou_por_outro_evento": 0,
-    "pct_do_previsto": 24.0,
+    "pct_do_previsto": 25.0,
     "sucesso": 6,
     "cancelada": 0,
     "falhou": 0,
@@ -587,13 +589,13 @@
    "fonte": {
     "titulo": "API publica do GitHub Actions, janela de 24 h",
     "link": "https://api.github.com/repos/yeIIoe/hci-fund-radar/actions/runs",
-    "quando": "2026-09-08T17:07Z"
+    "quando": "2026-09-08T17:23Z"
    },
    "vota": false,
    "selo": "medição de operação — não é leitura de mercado, não vota",
    "assunto": "a cadeia rodou muito menos do que devia",
-   "medida": "6 execucoes agendadas em 24 h contra 25 previstas pelo cron (24.0%)",
-   "consequencia": "Cada execucao de `nowcast-1h` que nao acontece e uma janela de ate 58 min em que o que ela mede nao e atualizado e o commit que publicaria o resultado nao e feito. Foi exatamente esta conta que deu 6 de 96 em 07/set, quando o painel ficou 17 h velho sem ninguem ser avisado.",
+   "medida": "6 execucoes agendadas em 24 h contra 24 previstas pelo cron (25.0%)",
+   "consequencia": "Cada execucao de `nowcast-1h` que nao acontece e uma janela de ate 1 h 00 min em que o que ela mede nao e atualizado e o commit que publicaria o resultado nao e feito. Foi exatamente esta conta que deu 6 de 96 em 07/set, quando o painel ficou 17 h velho sem ninguem ser avisado.",
    "gravidade": "alta",
    "natureza": "MEDIDO",
    "causa": null,
@@ -603,7 +605,7 @@
    "chave": "EXEC/macro-direction",
    "veredito": "ALARME",
    "confianca": "alta",
-   "motivo": "a cadeia rodou menos do que devia — 5 de 8 execucoes previstas em 24 h (62.5%). O GitHub declara que o `schedule` atrasa e que algumas execucoes na fila sao descartadas em periodo de carga; ate 90% isso e o ruido conhecido do plano gratuito. Abaixo disso deixa de ser ruido. Consequencia pratica: a leitura publicada pode estar ate 6 h 00 min atrasada sem que nada fique vermelho.",
+   "motivo": "a cadeia rodou menos do que devia — 5 de 8 execucoes previstas em 24 h (62.5%). RESERVA, NAO MOTOR. A VPS publicou ha 0 min e e ela quem roda a cadeia de 15 em 15 min desde 07/set; o `macro-direction` do GitHub e a reserva de 3 em 3 h, rebaixada de proposito para duas maquinas nao brigarem no push. Esta linha so vira problema se o pulso da VPS parar — e nesse caso o alarme MOTOR/vps sobe para alta e este volta a valer como medicao do motor. Medicao original: O GitHub declara que o `schedule` atrasa e que algumas execucoes na fila sao descartadas em periodo de carga; ate 90% isso e o ruido conhecido do plano gratuito. Abaixo disso deixa de ser ruido. Consequencia pratica: a leitura publicada pode estar ate 6 h 00 min atrasada sem que nada fique vermelho.",
    "trecho": null,
    "numeros_citados": {
     "deveria": 8,
@@ -618,19 +620,21 @@
     "cron": [
      "37 */3 * * *"
     ],
-    "teto_min": 20
+    "teto_min": 20,
+    "rebaixado_por_pulso_vps": true,
+    "pulso_idade_min": 0.10771326666666667
    },
    "fonte": {
     "titulo": "API publica do GitHub Actions, janela de 24 h",
     "link": "https://api.github.com/repos/yeIIoe/hci-fund-radar/actions/runs",
-    "quando": "2026-09-08T17:07Z"
+    "quando": "2026-09-08T17:23Z"
    },
    "vota": false,
    "selo": "medição de operação — não é leitura de mercado, não vota",
    "assunto": "a cadeia rodou menos do que devia",
    "medida": "5 de 8 execucoes previstas em 24 h (62.5%)",
-   "consequencia": "O GitHub declara que o `schedule` atrasa e que algumas execucoes na fila sao descartadas em periodo de carga; ate 90% isso e o ruido conhecido do plano gratuito. Abaixo disso deixa de ser ruido. Consequencia pratica: a leitura publicada pode estar ate 6 h 00 min atrasada sem que nada fique vermelho.",
-   "gravidade": "media",
+   "consequencia": "RESERVA, NAO MOTOR. A VPS publicou ha 0 min e e ela quem roda a cadeia de 15 em 15 min desde 07/set; o `macro-direction` do GitHub e a reserva de 3 em 3 h, rebaixada de proposito para duas maquinas nao brigarem no push. Esta linha so vira problema se o pulso da VPS parar — e nesse caso o alarme MOTOR/vps sobe para alta e este volta a valer como medicao do motor. Medicao original: O GitHub declara que o `schedule` atrasa e que algumas execucoes na fila sao descartadas em periodo de carga; ate 90% isso e o ruido conhecido do plano gratuito. Abaixo disso deixa de ser ruido. Consequencia pratica: a leitura publicada pode estar ate 6 h 00 min atrasada sem que nada fique vermelho.",
+   "gravidade": "baixa",
    "natureza": "MEDIDO",
    "causa": null,
    "causa_confianca": null
@@ -639,7 +643,7 @@
    "chave": "CANC/macro-direction",
    "veredito": "ALARME",
    "confianca": "alta",
-   "motivo": "execucoes terminadas em cancelled, failure ou timed_out — 1 execucoes ruins em 24 h: 1 canceladas, 0 com falha, 0 por estouro de teto. CANCELADO NAO GERA E-MAIL DO GITHUB — so `failure` gera. Foram 1 cancelamentos nesta janela, e cada um deles e uma rodada que morreu em silencio, com os passos finais pulados e sem commit. E por isso que este vigia le a API e nao a caixa de entrada.",
+   "motivo": "execucoes terminadas em cancelled, failure ou timed_out — 1 execucoes ruins em 24 h: 1 canceladas, 0 com falha, 0 por estouro de teto. RESERVA, NAO MOTOR. A VPS publicou ha 0 min e e ela quem roda a cadeia de 15 em 15 min desde 07/set; o `macro-direction` do GitHub e a reserva de 3 em 3 h, rebaixada de proposito para duas maquinas nao brigarem no push. Esta linha so vira problema se o pulso da VPS parar — e nesse caso o alarme MOTOR/vps sobe para alta e este volta a valer como medicao do motor. Medicao original: CANCELADO NAO GERA E-MAIL DO GITHUB — so `failure` gera. Foram 1 cancelamentos nesta janela, e cada um deles e uma rodada que morreu em silencio, com os passos finais pulados e sem commit. E por isso que este vigia le a API e nao a caixa de entrada.",
    "trecho": "[{\"id\": 34151494850, \"conclusao\": \"cancelled\", \"evento\": \"schedule\", \"criado_em\": \"2026-09-07T18:24:25Z\", \"url\": \"https://github.com/yeIIoe/hci-fund-radar/actions/runs/34151494850\", \"tentativa\": 1}]",
    "numeros_citados": {
     "deveria": 8,
@@ -654,19 +658,21 @@
     "cron": [
      "37 */3 * * *"
     ],
-    "teto_min": 20
+    "teto_min": 20,
+    "rebaixado_por_pulso_vps": true,
+    "pulso_idade_min": 0.10771326666666667
    },
    "fonte": {
     "titulo": "API publica do GitHub Actions, janela de 24 h",
     "link": "https://api.github.com/repos/yeIIoe/hci-fund-radar/actions/runs",
-    "quando": "2026-09-08T17:07Z"
+    "quando": "2026-09-08T17:23Z"
    },
    "vota": false,
    "selo": "medição de operação — não é leitura de mercado, não vota",
    "assunto": "execucoes terminadas em cancelled, failure ou timed_out",
    "medida": "1 execucoes ruins em 24 h: 1 canceladas, 0 com falha, 0 por estouro de teto",
-   "consequencia": "CANCELADO NAO GERA E-MAIL DO GITHUB — so `failure` gera. Foram 1 cancelamentos nesta janela, e cada um deles e uma rodada que morreu em silencio, com os passos finais pulados e sem commit. E por isso que este vigia le a API e nao a caixa de entrada.",
-   "gravidade": "alta",
+   "consequencia": "RESERVA, NAO MOTOR. A VPS publicou ha 0 min e e ela quem roda a cadeia de 15 em 15 min desde 07/set; o `macro-direction` do GitHub e a reserva de 3 em 3 h, rebaixada de proposito para duas maquinas nao brigarem no push. Esta linha so vira problema se o pulso da VPS parar — e nesse caso o alarme MOTOR/vps sobe para alta e este volta a valer como medicao do motor. Medicao original: CANCELADO NAO GERA E-MAIL DO GITHUB — so `failure` gera. Foram 1 cancelamentos nesta janela, e cada um deles e uma rodada que morreu em silencio, com os passos finais pulados e sem commit. E por isso que este vigia le a API e nao a caixa de entrada.",
+   "gravidade": "baixa",
    "natureza": "MEDIDO",
    "causa": null,
    "causa_confianca": null
@@ -696,7 +702,7 @@
    "fonte": {
     "titulo": "API publica do GitHub Actions, janela de 24 h",
     "link": "https://api.github.com/repos/yeIIoe/hci-fund-radar/actions/runs",
-    "quando": "2026-09-08T17:07Z"
+    "quando": "2026-09-08T17:23Z"
    },
    "vota": false,
    "selo": "medição de operação — não é leitura de mercado, não vota",
@@ -733,7 +739,7 @@
    "fonte": {
     "titulo": "API publica do GitHub Actions, janela de 24 h",
     "link": "https://api.github.com/repos/yeIIoe/hci-fund-radar/actions/runs",
-    "quando": "2026-09-08T17:07Z"
+    "quando": "2026-09-08T17:23Z"
    },
    "vota": false,
    "selo": "medição de operação — não é leitura de mercado, não vota",
@@ -769,7 +775,7 @@
    "fonte": {
     "titulo": "API publica do GitHub Actions, janela de 24 h",
     "link": "https://api.github.com/repos/yeIIoe/hci-fund-radar/actions/runs",
-    "quando": "2026-09-08T17:07Z"
+    "quando": "2026-09-08T17:23Z"
    },
    "vota": false,
    "selo": "medição de operação — não é leitura de mercado, não vota",
@@ -806,7 +812,7 @@
    "fonte": {
     "titulo": "API publica do GitHub Actions, janela de 24 h",
     "link": "https://api.github.com/repos/yeIIoe/hci-fund-radar/actions/runs",
-    "quando": "2026-09-08T17:07Z"
+    "quando": "2026-09-08T17:23Z"
    },
    "vota": false,
    "selo": "medição de operação — não é leitura de mercado, não vota",
@@ -861,7 +867,7 @@
    "chave": "PULO/macro-direction/geopolitica-gdelt",
    "veredito": "ALARME",
    "confianca": "alta",
-   "motivo": "passos pulados por causa de um passo anterior — 1 execucao(oes) de `macro-direction` pararam em 'geopolitica (GDELT)' e pularam 3 passo(s), sendo 3 essenciais (sentimento (moeda e par), registro imutavel (snapshot dos pares), commita se mudou). Execucoes: 34151494850. A execucao parou em 'geopolitica (GDELT)' e tudo o que vinha depois foi pulado, em 1 rodadas desta janela. Consequencia: sem ele a leitura das 8 moedas e dos 28 pares nao e recalculada; sem ele a serie de snapshots perde a linha daquele instante; sem ele nada do que foi medido chega ao site. Enquanto o passo de commit nao roda, nada do que foi medido chega ao site, e o painel continua servindo o arquivo da rodada anterior com carimbo antigo — o que e correto, e por isso ninguem percebe.",
+   "motivo": "passos pulados por causa de um passo anterior — 1 execucao(oes) de `macro-direction` pararam em 'geopolitica (GDELT)' e pularam 3 passo(s), sendo 3 essenciais (sentimento (moeda e par), registro imutavel (snapshot dos pares), commita se mudou). Execucoes: 34151494850. RESERVA, NAO MOTOR. A VPS publicou ha 0 min e e ela quem roda a cadeia de 15 em 15 min desde 07/set; o `macro-direction` do GitHub e a reserva de 3 em 3 h, rebaixada de proposito para duas maquinas nao brigarem no push. Esta linha so vira problema se o pulso da VPS parar — e nesse caso o alarme MOTOR/vps sobe para alta e este volta a valer como medicao do motor. Medicao original: A execucao parou em 'geopolitica (GDELT)' e tudo o que vinha depois foi pulado, em 1 rodadas desta janela. Consequencia: sem ele a leitura das 8 moedas e dos 28 pares nao e recalculada; sem ele a serie de snapshots perde a linha daquele instante; sem ele nada do que foi medido chega ao site. Enquanto o passo de commit nao roda, nada do que foi medido chega ao site, e o painel continua servindo o arquivo da rodada anterior com carimbo antigo — o que e correto, e por isso ninguem percebe.",
    "trecho": "sentimento (moeda e par), registro imutavel (snapshot dos pares), commita se mudou",
    "numeros_citados": {
     "n_execucoes": 1,
@@ -883,7 +889,9 @@
      "sentimento (moeda e par)",
      "registro imutavel (snapshot dos pares)",
      "commita se mudou"
-    ]
+    ],
+    "rebaixado_por_pulso_vps": true,
+    "pulso_idade_min": 0.10771326666666667
    },
    "fonte": {
     "titulo": "jobs das execucoes 34151494850 de `macro-direction`",
@@ -894,8 +902,8 @@
    "selo": "medição de operação — não é leitura de mercado, não vota",
    "assunto": "passos pulados por causa de um passo anterior",
    "medida": "1 execucao(oes) de `macro-direction` pararam em 'geopolitica (GDELT)' e pularam 3 passo(s), sendo 3 essenciais (sentimento (moeda e par), registro imutavel (snapshot dos pares), commita se mudou). Execucoes: 34151494850",
-   "consequencia": "A execucao parou em 'geopolitica (GDELT)' e tudo o que vinha depois foi pulado, em 1 rodadas desta janela. Consequencia: sem ele a leitura das 8 moedas e dos 28 pares nao e recalculada; sem ele a serie de snapshots perde a linha daquele instante; sem ele nada do que foi medido chega ao site. Enquanto o passo de commit nao roda, nada do que foi medido chega ao site, e o painel continua servindo o arquivo da rodada anterior com carimbo antigo — o que e correto, e por isso ninguem percebe.",
-   "gravidade": "alta",
+   "consequencia": "RESERVA, NAO MOTOR. A VPS publicou ha 0 min e e ela quem roda a cadeia de 15 em 15 min desde 07/set; o `macro-direction` do GitHub e a reserva de 3 em 3 h, rebaixada de proposito para duas maquinas nao brigarem no push. Esta linha so vira problema se o pulso da VPS parar — e nesse caso o alarme MOTOR/vps sobe para alta e este volta a valer como medicao do motor. Medicao original: A execucao parou em 'geopolitica (GDELT)' e tudo o que vinha depois foi pulado, em 1 rodadas desta janela. Consequencia: sem ele a leitura das 8 moedas e dos 28 pares nao e recalculada; sem ele a serie de snapshots perde a linha daquele instante; sem ele nada do que foi medido chega ao site. Enquanto o passo de commit nao roda, nada do que foi medido chega ao site, e o painel continua servindo o arquivo da rodada anterior com carimbo antigo — o que e correto, e por isso ninguem percebe.",
+   "gravidade": "baixa",
    "natureza": "MEDIDO",
    "causa": null,
    "causa_confianca": null
@@ -935,12 +943,12 @@
    "chave": "FRESCOR-GUARDA",
    "veredito": "OK",
    "confianca": "alta",
-   "motivo": "as fontes brutas contra a guarda de frescor — 0 fontes fora da tolerancia (nenhuma); relatorio com 1 h 43 min de idade sobre 22 fontes. Nada a fazer: as 22 fontes brutas estao dentro da tolerancia declarada em frescor.py.",
+   "motivo": "as fontes brutas contra a guarda de frescor — 0 fontes fora da tolerancia (nenhuma); relatorio com 1 h 58 min de idade sobre 22 fontes. Nada a fazer: as 22 fontes brutas estao dentro da tolerancia declarada em frescor.py.",
    "trecho": null,
    "numeros_citados": {
     "n_fora": 0,
     "fora": [],
-    "idade_min": 102.5,
+    "idade_min": 118.4,
     "n_fontes": 22,
     "sem_data_legivel": [
      "_APOSENTADOS.md",
@@ -955,7 +963,7 @@
    "vota": false,
    "selo": "medição de operação — não é leitura de mercado, não vota",
    "assunto": "as fontes brutas contra a guarda de frescor",
-   "medida": "0 fontes fora da tolerancia (nenhuma); relatorio com 1 h 43 min de idade sobre 22 fontes",
+   "medida": "0 fontes fora da tolerancia (nenhuma); relatorio com 1 h 58 min de idade sobre 22 fontes",
    "consequencia": "Nada a fazer: as 22 fontes brutas estao dentro da tolerancia declarada em frescor.py.",
    "gravidade": "ok",
    "natureza": "MEDIDO",
@@ -966,12 +974,12 @@
    "chave": "SNAP",
    "veredito": "OK",
    "confianca": "alta",
-   "motivo": "a serie de snapshots do backtest — 243 linhas hoje (2026-09-08); ultima linha em 2026-09-08; 4 dias com linha na serie. Nada a fazer: a serie continua crescendo e a amostra do backtest de 21/dez segue viva.",
+   "motivo": "a serie de snapshots do backtest — 250 linhas hoje (2026-09-08); ultima linha em 2026-09-08; 4 dias com linha na serie. Nada a fazer: a serie continua crescendo e a amostra do backtest de 21/dez segue viva.",
    "trecho": null,
    "numeros_citados": {
     "ultimo_dia_com_linha": "2026-09-08",
     "dias_desde_ultima_linha": 0,
-    "linhas_hoje": 243,
+    "linhas_hoje": 250,
     "hora_utc": 17,
     "linhas_por_dia": [
      {
@@ -988,7 +996,7 @@
      },
      {
       "dia": "2026-09-08",
-      "linhas": 243
+      "linhas": 250
      }
     ]
    },
@@ -1000,7 +1008,7 @@
    "vota": false,
    "selo": "medição de operação — não é leitura de mercado, não vota",
    "assunto": "a serie de snapshots do backtest",
-   "medida": "243 linhas hoje (2026-09-08); ultima linha em 2026-09-08; 4 dias com linha na serie",
+   "medida": "250 linhas hoje (2026-09-08); ultima linha em 2026-09-08; 4 dias com linha na serie",
    "consequencia": "Nada a fazer: a serie continua crescendo e a amostra do backtest de 21/dez segue viva.",
    "gravidade": "ok",
    "natureza": "MEDIDO",
@@ -1029,6 +1037,6 @@
   "arquivos_sem_carimbo": [],
   "execucoes_medidas": true,
   "snapshot_ultimo_dia": "2026-09-08",
-  "snapshot_linhas_hoje": 243
+  "snapshot_linhas_hoje": 250
  }
 }
