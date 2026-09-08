@@ -743,18 +743,22 @@ def loop_para_sempre() -> None:
                 # minutos na primeira rodada de cada dia, sem nenhum ganho de leitura.
                 antes_tardia = fotografa()
                 roda_cadeia(CADEIA_TARDIA, com_feed=False)
-                hoje = agora().date().isoformat()
-                if _ULTIMO_DIA.get("bis") != hoje:
-                    log.info("cadeia DIARIA (primeira rodada de %s)", hoje)
-                    roda_cadeia(CADEIA_DIARIA, com_feed=False)
-                    _ULTIMO_DIA["bis"] = hoje
-                # o vigia, de hora em hora — ele tambem estava velho, e era o unico
-                # que ninguem vigiava
+                # O VIGIA VEM ANTES DA DIARIA, e a ordem foi medida: colocado depois, ele
+                # ficava atras do BIS, que tem teto de 10 min. Na primeira rodada de cada dia
+                # a medicao do sistema esperava um coletor de discursos historicos para poder
+                # dizer se o sistema estava de pe — exatamente o tipo de inversao que deixou o
+                # sentimento 21 h velho em 07/set. Barato e urgente na frente; caro e paciente
+                # atras. O vigia custa segundos; o BIS custa 5,5 min.
                 esta_hora = agora().strftime("%Y-%m-%dT%H")
                 if _ULTIMA_HORA.get("vigia") != esta_hora:
                     log.info("cadeia HORARIA (vigia, hora %s)", esta_hora)
                     roda_cadeia(CADEIA_HORARIA, com_feed=False)
                     _ULTIMA_HORA["vigia"] = esta_hora
+                hoje = agora().date().isoformat()
+                if _ULTIMO_DIA.get("bis") != hoje:
+                    log.info("cadeia DIARIA (primeira rodada de %s)", hoje)
+                    roda_cadeia(CADEIA_DIARIA, com_feed=False)
+                    _ULTIMO_DIA["bis"] = hoje
                 if fotografa() != antes_tardia:
                     publica("cadeia tardia")
                 proxima_completa = inicio + dt.timedelta(seconds=INTERVALO_COMPLETA_S)
