@@ -52470,7 +52470,7 @@
      "EURCAD": -2.67,
      "EURCHF": 28.14,
      "EURJPY": -23.56,
-     "GBPAUD": 42.63,
+     "GBPAUD": 40.05,
      "GBPNZD": 22.0,
      "GBPUSD": 17.72,
      "GBPCAD": -18.95,
@@ -52799,18 +52799,18 @@
      "EURCAD": 17.2,
      "EURCHF": 38.17,
      "EURJPY": -2.93,
-     "GBPNZD": 71.51,
+     "GBPNZD": 70.23,
      "GBPUSD": -10.44,
-     "GBPCAD": 72.89,
+     "GBPCAD": 68.96,
      "GBPCHF": 9.83,
      "GBPJPY": -12.68,
      "AUDNZD": 51.1,
      "AUDUSD": 12.9,
-     "AUDCAD": 14.61,
+     "AUDCAD": 11.01,
      "AUDCHF": 40.38,
      "AUDJPY": 8.36,
      "NZDUSD": -37.38,
-     "NZDCAD": -38.74,
+     "NZDCAD": -41.23,
      "NZDCHF": -24.86,
      "NZDJPY": -40.41,
      "USDCAD": 7.77,
@@ -53110,18 +53110,18 @@
      "EURCAD": 38.04,
      "EURCHF": 27.8,
      "EURJPY": -13.78,
-     "GBPUSD": 60.53,
-     "GBPCHF": 63.1,
-     "AUDUSD": 20.66,
-     "AUDCHF": 36.38,
+     "GBPUSD": 58.0,
+     "GBPCHF": 60.94,
+     "AUDUSD": 20.16,
+     "AUDCHF": 36.0,
      "AUDJPY": 2.14,
-     "NZDUSD": -16.82,
-     "NZDCHF": -11.33,
+     "NZDUSD": -17.25,
+     "NZDCHF": -11.63,
      "NZDJPY": -39.62,
-     "USDCAD": 7.32,
-     "USDCHF": 10.16,
+     "USDCAD": 4.2,
+     "USDCHF": 10.48,
      "USDJPY": -30.04,
-     "CADCHF": 4.09,
+     "CADCHF": 7.7,
      "CADJPY": -37.35,
      "CHFJPY": -44.89
     }
@@ -53428,17 +53428,17 @@
      }
     ],
     "outcome": {
-     "EURAUD": 30.11,
-     "EURNZD": 54.42,
-     "EURUSD": 40.76,
-     "EURCAD": 64.63,
-     "EURCHF": 83.79,
-     "EURJPY": 15.41,
-     "AUDJPY": -10.1,
-     "NZDJPY": -36.03,
-     "USDJPY": -18.4,
-     "CADJPY": -31.34,
-     "CHFJPY": -74.82
+     "EURAUD": 25.43,
+     "EURNZD": 51.83,
+     "EURUSD": 35.49,
+     "EURCAD": 56.89,
+     "EURCHF": 81.59,
+     "EURJPY": 12.14,
+     "AUDJPY": -9.19,
+     "NZDJPY": -35.46,
+     "USDJPY": -16.87,
+     "CADJPY": -27.38,
+     "CHFJPY": -73.92
     }
    },
    "pair_funds": {
@@ -53635,6 +53635,97 @@
      "reason": "JPY #1 vs NZD #7 | FUND -39.6"
     }
    ],
+   "projection": {
+    "down": [
+     {
+      "pair": "NZDCAD",
+      "fund": -41.23,
+      "fund_roll": -19.68,
+      "boundary": -25.0,
+      "band": "BEAR",
+      "p": 34.5,
+      "bp": -1.9
+     },
+     {
+      "pair": "AUDCAD",
+      "fund": 11.01,
+      "fund_roll": 30.52,
+      "boundary": 25.0,
+      "band": "NEUTRAL",
+      "p": 33.7,
+      "bp": -1.6
+     },
+     {
+      "pair": "EURUSD",
+      "fund": 35.49,
+      "fund_roll": 31.63,
+      "boundary": 25.0,
+      "band": "NEUTRAL",
+      "p": 30.2,
+      "bp": -1.8
+     }
+    ],
+    "up": [
+     {
+      "pair": "GBPNZD",
+      "fund": 70.23,
+      "fund_roll": 59.92,
+      "boundary": 60.0,
+      "band": "STRONG_BULL",
+      "p": 50.4,
+      "bp": 0.1
+     },
+     {
+      "pair": "NZDUSD",
+      "fund": -17.25,
+      "fund_roll": -25.64,
+      "boundary": -25.0,
+      "band": "NEUTRAL",
+      "p": 45.6,
+      "bp": 0.3
+     },
+     {
+      "pair": "GBPUSD",
+      "fund": 58.0,
+      "fund_roll": 58.88,
+      "boundary": 60.0,
+      "band": "STRONG_BULL",
+      "p": 44.8,
+      "bp": 0.6
+     }
+    ],
+    "outcome": {}
+   },
+   "pair_funds": {
+    "EURGBP": -58.51,
+    "EURAUD": 25.43,
+    "EURNZD": 51.83,
+    "EURUSD": 35.49,
+    "EURCAD": 56.89,
+    "EURCHF": 81.59,
+    "EURJPY": 12.14,
+    "GBPAUD": 40.05,
+    "GBPNZD": 70.23,
+    "GBPUSD": 58.0,
+    "GBPCAD": 68.96,
+    "GBPCHF": 60.94,
+    "GBPJPY": 36.01,
+    "AUDNZD": 51.1,
+    "AUDUSD": 20.16,
+    "AUDCAD": 11.01,
+    "AUDCHF": 36.0,
+    "AUDJPY": -9.19,
+    "NZDUSD": -17.25,
+    "NZDCAD": -41.23,
+    "NZDCHF": -11.63,
+    "NZDJPY": -35.46,
+    "USDCAD": 4.2,
+    "USDCHF": 10.48,
+    "USDJPY": -16.87,
+    "CADCHF": 7.7,
+    "CADJPY": -27.38,
+    "CHFJPY": -73.92
+   },
    "pre_fund_watch": [
     {
      "rank": 1,
@@ -53647,102 +53738,11 @@
      "fold": 2026,
      "outcome": {
       "next_date": "2026-09-09",
-      "next_fund": 15.41,
+      "next_fund": 12.14,
       "entered_bear": false
      }
     }
-   ],
-   "pair_funds": {
-    "EURGBP": -57.77,
-    "EURAUD": 30.11,
-    "EURNZD": 54.42,
-    "EURUSD": 40.76,
-    "EURCAD": 64.63,
-    "EURCHF": 83.79,
-    "EURJPY": 15.41,
-    "GBPAUD": 42.63,
-    "GBPNZD": 71.51,
-    "GBPUSD": 60.53,
-    "GBPCAD": 72.89,
-    "GBPCHF": 63.1,
-    "GBPJPY": 37.53,
-    "AUDNZD": 51.1,
-    "AUDUSD": 20.66,
-    "AUDCAD": 14.61,
-    "AUDCHF": 36.38,
-    "AUDJPY": -10.1,
-    "NZDUSD": -16.82,
-    "NZDCAD": -38.74,
-    "NZDCHF": -11.33,
-    "NZDJPY": -36.03,
-    "USDCAD": 7.32,
-    "USDCHF": 10.16,
-    "USDJPY": -18.4,
-    "CADCHF": 4.09,
-    "CADJPY": -31.34,
-    "CHFJPY": -74.82
-   },
-   "projection": {
-    "down": [
-     {
-      "pair": "EURAUD",
-      "fund": 30.11,
-      "fund_roll": 28.4,
-      "boundary": 25.0,
-      "band": "NEUTRAL",
-      "p": 42.5,
-      "bp": -0.9
-     },
-     {
-      "pair": "EURJPY",
-      "fund": 15.41,
-      "fund_roll": 26.74,
-      "boundary": 25.0,
-      "band": "NEUTRAL",
-      "p": 42.5,
-      "bp": -0.6
-     },
-     {
-      "pair": "GBPUSD",
-      "fund": 60.53,
-      "fund_roll": 61.35,
-      "boundary": 60.0,
-      "band": "BULL",
-      "p": 42.1,
-      "bp": -0.7
-     }
-    ],
-    "up": [
-     {
-      "pair": "NZDUSD",
-      "fund": -16.82,
-      "fund_roll": -25.22,
-      "boundary": -25.0,
-      "band": "NEUTRAL",
-      "p": 45.6,
-      "bp": 0.1
-     },
-     {
-      "pair": "EURCAD",
-      "fund": 64.63,
-      "fund_roll": 57.94,
-      "boundary": 60.0,
-      "band": "STRONG_BULL",
-      "p": 45.2,
-      "bp": 0.6
-     },
-     {
-      "pair": "NZDJPY",
-      "fund": -36.03,
-      "fund_roll": -26.74,
-      "boundary": -25.0,
-      "band": "NEUTRAL",
-      "p": 38.9,
-      "bp": 0.9
-     }
-    ],
-    "outcome": {}
-   }
+   ]
   }
  ]
 }
