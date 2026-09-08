@@ -37,7 +37,11 @@ DUAS DIMENSOES QUE VOTAM, 25% CADA — TETO 0,50 POR MOEDA. NENHUMA USA YIELD.
     ciclo    ✅ VOTA
              a direcao do ultimo movimento de juro, com DECAIMENTO CONTINUO (05/set): pesa
              menos com o tempo. Antes era um penhasco em 180 dias — 179 dias valia 0,25
-             cheio e 181 valia zero.
+             cheio e 181 valia zero. Em 08/set caiu o SEGUNDO penhasco, que era o piso de
+             0,25: ele virou o JOELHO de uma rampa linear
+                 peso = decaimento x min(1 ; decaimento / 0,25)
+             e a contribuicao (0,25 x sinal x peso) passou a ser continua em todo o dominio.
+             Nenhum numero novo entrou — o joelho e o proprio numero do piso revogado.
     texto    ⛔ NAO VOTA MAIS — decisao do dono de 05/set (tarde), prioridade 3 da revisao
              o que os dirigentes DISSERAM, com a ORIGEM declarada: discurso_oficial,
              comunicado_ata, imprensa_com_fala, manchete ou sem_fonte.
@@ -151,6 +155,25 @@ LEI ESTRUTURAL DE 08/set/2026 — NENHUM TRATAMENTO VIRA A DIRECAO EM SILENCIO
     somas sao iguais, o deslocamento e 0,00 e a bandeira e false nas oito moedas — e isso pode
     ser CONFERIDO no arquivo, nao precisa ser acreditado.
 
+LEI IRMA, DA MESMA TARDE — NENHUM PARAMETRO NAO CALIBRADO DECIDE A DIRECAO EM SILENCIO
+    A guarda pergunta "o TRATAMENTO virou a direcao?". Esta pergunta e a mesma um andar acima:
+    "o PARAMETRO vira?". O auditor mediu em 08/set que TRES numeros que ninguem calibrou
+    decidem a leitura do dolar: girando so a MEIA_VIDA, o USD percorre SOBE (10 dias) ->
+    MANTEM (21, o de hoje) -> CORTA (30) sem um unico dado mudar; e o GBP, na variante PLANA
+    do modulador de impacto, da -22,20 contra -4,66 de hoje, CINCO VEZES.
+
+    A REGRA: a cada rodada a leitura de cada moeda e refeita em TODA a faixa plausivel dos
+    dois parametros (meia-vida 14 a 30 dias; modulador de 'so alto conta' a 'plano'), e a
+    moeda publica a fracao da grade que concorda com a direcao publicada, as direcoes
+    encontradas e QUAL botao faz virar. Concordancia 100% = robusta. Abaixo de 100% =
+    bandeira e qualidade da evidencia limitada a concordancia. Abaixo do corte PROVISORIO de
+    60% = SEM LEITURA, exatamente como quando o tratamento vira a direcao.
+
+    ISTO NAO E FILTRO NOVO: e medida de CONFIANCA, da mesma familia da dominancia. E a
+    concordancia e regua GROSSA — e a fracao de uma grade que nos escolhemos, nao uma
+    probabilidade; o numero que nao depende da densidade da grade e o MARGINAL (vira ou nao
+    vira girando um botao de cada vez) e ele sai publicado ao lado.
+
 REGUAS DECLARADAS (grossas de proposito — fino sem calibracao e falsa precisao)
     LIMIAR_DADOS = 5,0 na soma decaida: abaixo disso o fluxo de dados le MANTEM.
     Uma DECISAO dentro da janela zera o acumulado: so contam eventos depois dela.
@@ -171,6 +194,7 @@ import math
 import os
 import re
 import sys
+import time
 from collections import Counter
 
 sys.stdout.reconfigure(encoding="utf-8", errors="replace")
@@ -506,6 +530,406 @@ FAIXA_NEUTRA = {
 }
 
 
+# ---------------------------------------------------------------------------------------
+# ROBUSTEZ DE PARAMETRO — A FAIXA PLAUSIVEL DE CADA BOTAO QUE NINGUEM CALIBROU (08/set)
+# ---------------------------------------------------------------------------------------
+# EXTENSAO NATURAL DA `guarda_de_direcao`, UM ANDAR ACIMA.
+#   a guarda pergunta   "o TRATAMENTO virou a direcao?"      (dado cru x dado tratado)
+#   isto pergunta       "o PARAMETRO vira a direcao?"        (o mesmo dado, outro botao)
+# Se a direcao de uma moeda muda dentro de uma faixa PLAUSIVEL de um numero que ninguem
+# mediu, essa direcao NAO E LEITURA — e escolha de metodo disfarcada, exatamente como a
+# winsorizacao era. E isso e mensuravel HOJE, sem calibrar nada: refazer a soma com outro
+# parametro e somar de novo termos que ja estao na memoria.
+#
+# O QUE ORIGINOU (auditoria de 08/set, secao 2.1, medida na propria rodada, um botao por vez):
+#   MEIA_VIDA   10d: USD +6,42 SOBE · 14d: +3,53 MANTEM · 21d (hoje): -1,17 MANTEM ·
+#               30d: -5,59 CORTA · 45d: -10,19 CORTA. O dolar percorre SOBE -> MANTEM ->
+#               CORTA sem UM UNICO DADO MUDAR.
+#   MODULADOR   hoje USD -1,17 / GBP -4,66 · so alto USD +2,67 / GBP +1,16 ·
+#               plano USD -6,83 CORTA / GBP -22,20 CORTA. O GBP na variante plana da CINCO
+#               VEZES a soma de hoje. E o parametro mais sensivel do arquivo e o menos
+#               justificado.
+#
+# ⚠️ ISTO NAO E FILTRO NOVO (a lei dos 3 filtros continua valendo). E MEDIDA DE CONFIANCA, da
+# mesma familia da dominancia, que ja existe: nao decide entrada, nao muda a direcao publicada
+# e nao inventa calibracao. A unica DECISAO que ela toma e a que a guarda ja tomava — suspender
+# a leitura quando a direcao deixou de ser do dado.
+#
+# ⚠️ E UMA REGUA GROSSA, E ISSO SAI DECLARADO: a "concordancia" e a fracao de uma GRADE que
+# EU escolhi. Adensar a grade em uma regiao muda o numero. Ela NAO e probabilidade. O numero
+# que NAO depende da densidade e o marginal — vira ou nao vira ao girar um botao de cada vez —
+# e ele sai publicado ao lado, sempre.
+ROBUSTEZ_LIGADA = True                 # existe para medir o ANTES e o DEPOIS, como o resto
+
+# ---- (1) MEIA-VIDA DO DECAIMENTO DOS DADOS -------------------------------------------
+# A PROPOSTA DO DONO ERA 14 a 30 DIAS, e ela se sustenta pelos dois lados. Argumentado:
+#   PISO 14   com meia-vida 14, um dado do dia da reuniao anterior (Fed/BCE/BoE andam de ~42
+#             em ~42 dias) ja vale 0,5^3 = 12%. Abaixo de 14 a leitura vira "as duas ultimas
+#             semanas": um CPI e um payroll decidem tudo, e uma semana ruim de ruido vira
+#             direcao. Alem disso QUALIDADE_N_SATURA pede 12 itens para a nota de quantidade —
+#             com meia-vida menor que 14 a amostra EFETIVA cai abaixo do que a propria regua
+#             de evidencia considera suficiente.
+#   TETO 30   a janela e de 42 dias (JANELA_DIAS). Com meia-vida 30 o item MAIS VELHO que a
+#             janela admite ainda vale 0,5^(42/30) = 38%. Com 45 — a que o auditor testou —
+#             ele vale 52%: o dado mais velho da janela passa a pesar MAIS que metade do de
+#             hoje, o que contradiz a regra que a propria casa ja escreveu ("uma DECISAO dentro
+#             da janela zera o acumulado: so contam eventos depois dela"). 30 e o maior valor
+#             redondo que mantem o mais velho abaixo de 40%.
+# 21 (o de hoje) esta dentro da faixa e nao e o meio dela — isso tambem esta declarado.
+MEIA_VIDA_FAIXA = {
+    "minimo_dias": 14.0, "maximo_dias": 30.0, "hoje_dias": MEIA_VIDA,
+    "por_que_o_piso": "abaixo de 14 dias o dado do dia da reunião anterior (~42 dias) já vale "
+                      "menos de 13% e a leitura vira 'as duas últimas semanas' — um CPI e um "
+                      "payroll decidem tudo. A régua de evidência já pede 12 itens; com "
+                      "meia-vida menor que 14 a amostra efetiva cai abaixo disso.",
+    "por_que_o_teto": "a janela é de %d dias. Com meia-vida 30 o item mais velho admissível "
+                      "ainda vale 38%%; com 45 ele vale 52%%, ou seja, o dado mais velho da "
+                      "janela pesaria mais que metade do de hoje — o oposto do que a casa já "
+                      "escreveu ao zerar o acumulado numa decisão." % JANELA_DIAS,
+    "passo_dias": 2,
+    "por_que_o_passo": "com faixa de 16 dias e passo de 2, a fronteira (onde a direção vira) "
+                       "sai localizada com erro de ±1 dia, 6% da faixa. Passo mais fino seria "
+                       "falsa precisão sobre um número que ninguém mediu.",
+    "provisorio": True,
+}
+GRADE_MEIA_VIDA = sorted({14.0, 16.0, 18.0, 20.0, 22.0, 24.0, 26.0, 28.0, 30.0,
+                          float(MEIA_VIDA)})
+
+# ---- (2) MODULADOR DE IMPACTO --------------------------------------------------------
+# O ALTO E A REFERENCIA, NAO UM BOTAO: multiplicar os tres pelo mesmo fator NAO e neutro,
+# porque LIMIAR_DADOS e fixo — a propria `reescala_proporcional` ja prova isso, com a conta.
+# Entao alto = 1,0 e o que se varia e o peso RELATIVO do medio e do baixo.
+# A FAIXA cobre TUDO o que respeita a unica coisa que o calendario de fato afirma:
+#       0 <= baixo <= medio <= alto = 1
+# e ela contem os DOIS EXTREMOS DEFENSAVEIS, como pedido:
+#       (0 ; 0)   "so alto conta"  — so divulgacao de impacto alto move preco
+#       (1 ; 1)   "plano"          — nao sabemos ponderar, entao nao ponderamos
+# O de hoje (0,5 ; 0,2) e um ponto interior, e nunca foi medido contra nada.
+MODULADOR_FAIXA = {
+    "alto_fixo_em": 1.0,
+    "por_que_o_alto_e_fixo": "o alto é a REFERÊNCIA, não um botão: encolher os três pelo mesmo "
+                             "fator empurraria moedas de SOBE/CORTA para MANTÉM sem que "
+                             "nenhum dado mudasse, porque LIMIAR_DADOS é fixo (é a mesma prova "
+                             "de `reescala_proporcional`). O que se pode variar honestamente é "
+                             "o peso RELATIVO do médio e do baixo.",
+    "restricao": "0 <= baixo <= medio <= 1",
+    "por_que_a_restricao": "a ordem alto > médio > baixo é a única coisa que o calendário "
+                           "afirma — é a definição dos rótulos. A faixa cobre tudo o que "
+                           "respeita essa ordem.",
+    "extremos": {"so_alto_conta": [0.0, 0.0], "plano": [1.0, 1.0]},
+    "hoje": [MODULADORES.get("impacto_medio", 0.5), MODULADORES.get("impacto_baixo", 0.2)],
+    "grade_medio": [0.0, 0.25, 0.5, 0.75, 1.0],
+    "grade_baixo": [0.0, 0.2, 0.5, 1.0],
+    # ⚠️ BURACO DECLARADO PELO REFUTADOR (08/set, tarde). O PISO, o TETO e o PASSO da meia-vida
+    # estao argumentados um a um (ver MEIA_VIDA_FAIXA); os PONTOS desta grade NAO estao. Eles
+    # sao redondos, contem os dois extremos e o ponto de hoje, e nada alem disso os escolhe. E
+    # a escolha MEXE no numero publicado: medido na rodada de 08/set, adensando esta grade para
+    # passo 0,1 (66 variantes em vez de 13) a concordancia do GBP sobe de 78% para 91% e a do
+    # JPY de 98% para 100% — a mesma faixa, so mais pontos dentro dela. Nenhuma moeda cruza o
+    # corte de 60% por causa disso hoje, mas a concordancia publicada NAO e uma probabilidade:
+    # e a fracao de uma grade escolhida, e esta metade da grade nao tem argumento escrito.
+    "por_que_a_grade": "NAO HA ARGUMENTO para estes pontos — sao redondos e contem os dois "
+                       "extremos e o de hoje. Medido em 08/set: adensar para passo 0,1 (66 "
+                       "variantes) leva o GBP de 78% para 91% de concordancia. O numero que "
+                       "NAO depende da densidade e o marginal (as linhas `vira_pela_meia_vida` "
+                       "e `vira_pelo_modulador`), e e nele que se deve olhar. PROVISORIO.",
+    "provisorio": True,
+}
+MOD_HOJE = {"alto": float(MODULADORES.get("impacto_alto", 1.0)),
+            "medio": float(MODULADORES.get("impacto_medio", 0.5)),
+            "baixo": float(MODULADORES.get("impacto_baixo", 0.2))}
+def _br(x):
+    """Número com vírgula, que é como o dono lê — e como o resto do painel escreve."""
+    return ("%.2f" % x).replace(".", ",")
+
+
+MOD_HOJE_NOME = "hoje (1,00 / %s / %s)" % (_br(MOD_HOJE["medio"]), _br(MOD_HOJE["baixo"]))
+
+
+def _variantes_do_modulador():
+    """A grade do modulador: todo (medio, baixo) da faixa que respeita 0 <= baixo <= medio <= 1.
+
+    Inclui SEMPRE o ponto de hoje — se um dia alguem mexer em leitor_regras.MODULADORES, a
+    celula publicada continua dentro da grade e a comparacao continua honesta.
+    """
+    out, vistos = [], set()
+    for md in MODULADOR_FAIXA["grade_medio"]:
+        for bx in MODULADOR_FAIXA["grade_baixo"]:
+            if bx > md:
+                continue
+            if (md, bx) == (MOD_HOJE["medio"], MOD_HOJE["baixo"]) and MOD_HOJE["alto"] == 1.0:
+                nome = MOD_HOJE_NOME
+            elif (md, bx) == (0.0, 0.0):
+                nome = "só alto conta (1,00 / 0 / 0)"
+            elif (md, bx) == (1.0, 1.0):
+                nome = "plano (1,00 / 1,00 / 1,00)"
+            else:
+                nome = "médio %s / baixo %s" % (_br(md), _br(bx))
+            vistos.add((1.0, md, bx))
+            out.append({"nome": nome, "alto": 1.0, "medio": md, "baixo": bx})
+    if (MOD_HOJE["alto"], MOD_HOJE["medio"], MOD_HOJE["baixo"]) not in vistos:
+        out.append(dict(MOD_HOJE, nome=MOD_HOJE_NOME))
+    return out
+
+
+GRADE_MODULADOR = _variantes_do_modulador()
+GRADE_CELULAS = len(GRADE_MEIA_VIDA) * len(GRADE_MODULADOR)
+
+# ---- (3) O CORTE DE CONCORDANCIA — PROVISORIO, e argumentado ---------------------------
+# TEM DE SER MAIOR QUE 50: em 50% a direcao publicada e cara-ou-coroa entre dois metodos, e
+#   abaixo de 50 ela e a leitura MINORITARIA da faixa plausivel — publicar minoria como se
+#   fosse "a leitura" e indefensavel.
+# TEM DE SER MENOR QUE 100: exigir unanimidade suspenderia qualquer moeda por UMA celula
+#   dissidente na PONTA da faixa, e ponta de faixa e fronteira, nao fragilidade.
+# 60 e a sugestao do dono e e o menor numero redondo estritamente acima do cara-ou-coroa com
+#   folga: "3 em cada 5 escolhas plausiveis concordam". PROVISORIO — o backtest de 21/dez
+#   calibra, como tudo o mais.
+ROBUSTEZ_CORTE_CONCORDANCIA_PCT = 60
+
+ROBUSTEZ = {
+    "o_que_e": "a mesma leitura, refeita em toda a faixa plausível dos parâmetros que ninguém "
+               "calibrou. Se a direção muda dentro da faixa, ela não é leitura do dado.",
+    "parentesco": "é a guarda_de_direcao um andar acima: a guarda compara dado cru x dado "
+                  "tratado; isto compara o MESMO dado sob outro botão.",
+    "nao_e_filtro": "é medida de CONFIANÇA, da mesma família da dominância. Não decide "
+                    "entrada, não muda a direção publicada e não inventa calibração.",
+    "parametros_na_grade": ["meia_vida_dias (dados)", "modulador de impacto (alto/médio/baixo)"],
+    "o_que_a_grade_NAO_cobre": "a largura da FAIXA NEUTRA (já medida em dimensoes.dados."
+                               "faixa_neutra, em 0x/0,5x/1x/2x); os parâmetros do CICLO "
+                               "(meia-vida de 120 dias e o joelho de 0,25), que têm bloco "
+                               "próprio; e o efeito da meia-vida na parte 'atualidade' da "
+                               "qualidade da evidência — a grade mede DIREÇÃO, não nota.",
+    "meia_vida": MEIA_VIDA_FAIXA,
+    "modulador": MODULADOR_FAIXA,
+    "celulas_por_moeda": GRADE_CELULAS,
+    "corte_de_concordancia_pct": ROBUSTEZ_CORTE_CONCORDANCIA_PCT,
+    "por_que_o_corte": "acima de 50 porque em 50 a direção publicada é cara-ou-coroa entre "
+                       "métodos e abaixo disso ela é a leitura MINORITÁRIA da faixa; abaixo de "
+                       "100 porque exigir unanimidade suspenderia a moeda por uma célula na "
+                       "ponta da faixa. 60 = 3 em cada 5 escolhas plausíveis concordam. "
+                       "PROVISÓRIO, para o backtest de 21/dez calibrar.",
+    "regra_de_apresentacao": {
+        "concordancia_100": "leitura robusta — segue como está",
+        "concordancia_abaixo_de_100": "bandeira 'direção depende de parâmetro não calibrado' e "
+                                      "qualidade da evidência limitada à concordância",
+        "concordancia_abaixo_do_corte": "SEM LEITURA, exatamente como quando o tratamento vira "
+                                        "a direção",
+    },
+    "aviso_de_honestidade": "a concordância é a fração de uma GRADE escolhida; adensá-la numa "
+                            "região muda o número. NÃO é probabilidade. O número que não "
+                            "depende da densidade é o MARGINAL — vira ou não vira girando um "
+                            "botão de cada vez — e ele sai publicado ao lado.",
+    # ⚠️ O SEGUNDO BURACO DECLARADO PELO REFUTADOR (08/set, tarde), e o mais importante:
+    # A CONCORDANCIA E MEDIDA CONTRA O ROTULO PUBLICADO, e o rotulo publicado tem uma borda
+    # que esta FORA desta grade — o piso de intensidade de 15% da `zona_de_leitura`. Quando a
+    # moeda cruza esse piso, o rotulo muda de "inclinado a X" para "sem leitura", e a
+    # concordancia SALTA, porque passa a medir concordancia sobre a AUSENCIA de direcao.
+    # MEDIDO no dolar em 08/set, varrendo a idade do ultimo movimento do Fed dia a dia:
+    #     271 dias -> publica "inclinado ao corte", intensidade 15%, concordancia 62%
+    #     272 dias -> publica "sem leitura",        intensidade 14%, concordancia 38%
+    # 24 pontos de concordancia num dia, e o corte de 60% fica DENTRO desse salto. Hoje o Fed
+    # esta em 272 dias — o dolar esta em cima dessa borda, um dia depois dela. A rampa do §2.2
+    # matou o degrau de 240 dias no NUMERO; este degrau sobreviveu no ROTULO, e nao e desta
+    # grade: e do piso de 15%, que continua sem calibracao e nao foi tocado por nenhum dos dois
+    # consertos. Enquanto ele existir, a concordancia de uma moeda encostada nele nao deve ser
+    # lida como medida da forca da leitura.
+    "aviso_da_borda_de_intensidade": "a concordância compara com o RÓTULO publicado, e o rótulo "
+        "tem uma borda fora desta grade: o piso de intensidade de 15% da zona_de_leitura. "
+        "Medido em 08/set no dólar: aos 271 dias de idade do último movimento ele publica "
+        "'inclinado ao corte' com 62% de concordância; aos 272 dias publica 'sem leitura' com "
+        "38%. São 24 pontos num dia, e o corte de 60% cai dentro do salto. O Fed está hoje em "
+        "272 dias. Moeda encostada nesse piso tem concordância instável POR CONSTRUÇÃO — leia "
+        "o marginal, não a fração.",
+    "provisorio": True,
+}
+
+
+def soma_da_dimensao_com(medidos, meia_vida, var):
+    """A MESMA soma da dimensão de dados, refeita com outra meia-vida e outro modulador.
+
+    Nenhuma régua nova: os mesmos termos, a mesma classificação (a faixa neutra já rodou), o
+    mesmo arredondamento por termo em 2 casas que `contribuicao_bruta` usa — para a célula de
+    hoje reproduzir EXATAMENTE a soma publicada. Se ela não reproduzir, a comparação inteira é
+    conversa fiada, e é por isso que isso sai como campo e como teste.
+    """
+    t = 0.0
+    for x in medidos:
+        f = x.get("forca") or 0.0
+        if not f:
+            continue                                  # EM_LINHA e sem família: já são zero
+        m = var.get(x.get("chave_mod") or "baixo") or 0.0
+        if not m:
+            continue
+        t += round(f * m * (0.5 ** (x["idade"] / meia_vida)), 2)
+    return round(t, 2)
+
+
+def leitura_da_celula(soma, dados_vota, comp_ciclo, n_votando):
+    """A MESMA conta de `le_moeda`: tanh do agregado -> leitura contínua -> zona_de_leitura.
+
+    O componente do CICLO entra pronto: ele não depende de nenhum dos dois parâmetros da
+    grade (o ciclo tem meia-vida própria), então é constante em toda a grade — e por isso ele
+    é passado, não recalculado.
+    """
+    comp_d = round(0.25 * math.tanh(soma / (2.0 * LIMIAR_DADOS)), 3) if dados_vota else 0.0
+    score = round(comp_d + comp_ciclo, 3)
+    leitura, _txt, _mot, _int = zona_de_leitura(score, n_votando, "MANTEM",
+                                                dimensoes_discordam=False)
+    return leitura, score
+
+
+def grade_de_robustez(moeda, medidos, dados_vota, comp_ciclo, n_votando,
+                      leitura_publicada, score_publicado, direcao_dim_publicada=None):
+    """Refaz a leitura da moeda em TODA a grade e diz de quanto ela depende do botão.
+
+    Devolve o bloco que vai para o arquivo: concordância, direções encontradas, as duas linhas
+    marginais (um botão de cada vez), a fronteira onde vira, e qual parâmetro manda.
+
+    ⚠️ A comparação é contra a leitura formada pelo SCORE, antes de a guarda de direção
+    suspender a moeda — porque as células da grade também são pré-guarda (não há tratamento
+    dentro delas). Comparar pós-guarda com pré-guarda seria comparar coisas diferentes.
+    """
+    t0 = time.perf_counter()
+    celulas = []
+    for mv in GRADE_MEIA_VIDA:
+        for var in GRADE_MODULADOR:
+            s = soma_da_dimensao_com(medidos, mv, var)
+            L, sc = leitura_da_celula(s, dados_vota, comp_ciclo, n_votando)
+            celulas.append({"meia_vida": mv, "modulador": var["nome"],
+                            "medio": var["medio"], "baixo": var["baixo"],
+                            "soma": s, "leitura": L, "leitura_continua": sc,
+                            # a direção da DIMENSÃO (SOBE/MANTÉM/CORTA pelo LIMIAR_DADOS) é o
+                            # que o auditor mediu em 08/set. Ela é MAIS sensível que a
+                            # leitura, porque a leitura é contínua e o ciclo entra junto.
+                            "direcao_dimensao": direcao_da_soma(s)})
+    custo_ms = round((time.perf_counter() - t0) * 1000.0, 2)
+
+    n = len(celulas)
+    conta = Counter(c["leitura"] for c in celulas)
+    de_acordo = conta.get(leitura_publicada, 0)
+    concord = int(round(100.0 * de_acordo / n)) if n else 100
+
+    rot = {"inclinado_alta": "inclinado à alta", "inclinado_corte": "inclinado ao corte",
+           "sem_leitura": "sem leitura"}
+    opostos = {"inclinado_alta": "inclinado_corte", "inclinado_corte": "inclinado_alta"}
+    n_sinal_oposto = conta.get(opostos.get(leitura_publicada), 0)
+
+    linha_mv = [c for c in celulas if c["modulador"] == MOD_HOJE_NOME]
+    linha_mod = [c for c in celulas if c["meia_vida"] == float(MEIA_VIDA)]
+    hoje = [c for c in celulas
+            if c["meia_vida"] == float(MEIA_VIDA) and c["modulador"] == MOD_HOJE_NOME]
+    hoje = hoje[0] if hoje else None
+    reproduz = bool(hoje and hoje["leitura"] == leitura_publicada
+                    and abs(hoje["leitura_continua"] - score_publicado) < 1e-9)
+
+    vira_mv = len({c["leitura"] for c in linha_mv}) > 1
+    vira_mod = len({c["leitura"] for c in linha_mod}) > 1
+    disc_mv = [c for c in linha_mv if c["leitura"] != leitura_publicada]
+    disc_mod = [c for c in linha_mod if c["leitura"] != leitura_publicada]
+
+    if vira_mv and vira_mod:
+        # OS DOIS viram sozinhos. Nomear so um esconderia metade do problema, entao o campo
+        # nomeia os dois e diz qual pesa mais, com a fracao de cada linha marginal.
+        _mv = "meia-vida (%d de %d células)" % (len(disc_mv), len(linha_mv))
+        _md = "modulador (%d de %d células)" % (len(disc_mod), len(linha_mod))
+        if len(disc_mv) * len(linha_mod) > len(disc_mod) * len(linha_mv):
+            manda = "os dois, a meia_vida mais: " + _mv + " contra " + _md
+        elif len(disc_mod) * len(linha_mv) > len(disc_mv) * len(linha_mod):
+            manda = "os dois, o modulador_de_impacto mais: " + _md + " contra " + _mv
+        else:
+            manda = "os dois igualmente: " + _mv + " e " + _md
+    elif vira_mv:
+        manda = "meia_vida"
+    elif vira_mod:
+        manda = "modulador_de_impacto"
+    elif concord < 100:
+        manda = "só a combinação dos dois (nenhum vira sozinho)"
+    else:
+        manda = None
+
+    move = len({c["soma"] for c in celulas}) > 1
+    discordantes = [c for c in celulas if c["leitura"] != leitura_publicada]
+
+    # ---- O MESMO, NO NIVEL DA DIMENSAO DE DADOS ------------------------------------------
+    # Isto NAO comanda nada — e MEDIDA, e existe porque foi o que o auditor mediu em 08/set
+    # (soma da dimensao contra LIMIAR_DADOS). A dimensao e mais sensivel que a leitura: nela o
+    # limiar e um degrau, enquanto a leitura e continua e ainda leva o ciclo junto. Quando a
+    # dimensao balanca e a leitura nao, quem esta segurando a leitura e o CICLO, e isso e uma
+    # informacao que o dono precisa ver — nao um motivo para suspender nada.
+    conta_dim = Counter(c["direcao_dimensao"] for c in celulas)
+    concord_dim = (int(round(100.0 * conta_dim.get(direcao_dim_publicada, 0) / n))
+                   if (n and direcao_dim_publicada) else None)
+
+    if concord >= 100:
+        txt = ("a direção do %s não muda em nenhuma das %d células da faixa plausível — "
+               "leitura robusta ao parâmetro%s" % (moeda, n, "" if move else
+               ", mas por AUSÊNCIA de dado: nenhuma divulgação vota, então a grade não tem o "
+               "que mover — isso é buraco, não robustez"))
+    else:
+        txt = ("a direção do %s DEPENDE de parâmetro que ninguém calibrou: %d de %d células "
+               "da faixa plausível (%d%%) dão a leitura publicada ('%s'), e as outras dão %s. "
+               "Quem faz virar: %s. Nenhum dado muda entre as células — só o botão."
+               % (moeda, de_acordo, n, concord, rot.get(leitura_publicada, leitura_publicada),
+                  " · ".join("%s em %d célula(s)" % (rot.get(k, k), v)
+                             for k, v in conta.most_common() if k != leitura_publicada),
+                  manda))
+        if n_sinal_oposto:
+            txt += (" ⚠️ %d célula(s) dão o SINAL CONTRÁRIO, não apenas ausência de direção."
+                    % n_sinal_oposto)
+
+    def _enxuga(c):
+        return {"meia_vida": c["meia_vida"], "modulador": c["modulador"],
+                "soma": c["soma"], "leitura": c["leitura"],
+                "direcao_dimensao": c["direcao_dimensao"]}
+
+    return {
+        "ligada": ROBUSTEZ_LIGADA,
+        "leitura_publicada": leitura_publicada,
+        "celulas": n,
+        "concordancia_pct": concord,
+        "celulas_de_acordo": de_acordo,
+        "direcoes_encontradas": {rot.get(k, k): v for k, v in conta.most_common()},
+        "celulas_com_sinal_oposto": n_sinal_oposto,
+        "vira_pela_meia_vida": vira_mv,
+        "vira_pelo_modulador": vira_mod,
+        "qual_parametro_faz_virar": manda,
+        # as duas linhas MARGINAIS — um botão de cada vez. É o número que NÃO depende da
+        # densidade da grade, e por isso ele sai inteiro, não amostrado.
+        "linha_meia_vida": [_enxuga(c) for c in linha_mv],
+        "linha_modulador": [_enxuga(c) for c in linha_mod],
+        "fronteira_meia_vida": [_enxuga(c) for c in disc_mv],
+        "fronteira_modulador": [_enxuga(c) for c in disc_mod],
+        "celulas_que_discordam_amostra": [_enxuga(c) for c in discordantes[:6]],
+        "celulas_que_discordam_omitidas": max(0, len(discordantes) - 6),
+        "celula_de_hoje": _enxuga(hoje) if hoje else None,
+        "celula_de_hoje_reproduz_o_publicado": reproduz,
+        "grade_move_alguma_coisa": move,
+        # ---- a MESMA grade, lida na DIMENSÃO de dados (é o que o auditor mediu) ----------
+        "dimensao": {
+            "direcao_publicada": direcao_dim_publicada,
+            "concordancia_pct": concord_dim,
+            "direcoes_encontradas": dict(conta_dim.most_common()),
+            "o_que_e": "a direção da DIMENSÃO de dados (soma contra o LIMIAR_DADOS de %.1f) em "
+                       "cada célula. É mais sensível que a leitura, porque o limiar é um "
+                       "degrau e a leitura é contínua e leva o ciclo junto." % LIMIAR_DADOS,
+            "nao_comanda_nada": "é medida, não regra: a suspensão e o teto na evidência olham "
+                                "a LEITURA publicada, que é o que a tela mostra. Quando a "
+                                "dimensão balança e a leitura não, quem está segurando a "
+                                "leitura é o CICLO — e isso aparece aqui em vez de sumir.",
+        },
+        # o que a regra faz com isso — CONFIANÇA, nunca direção
+        "bandeira": concord < 100,
+        "teto_na_qualidade_da_evidencia": concord if concord < 100 else None,
+        "manda_para_sem_leitura": bool(ROBUSTEZ_LIGADA
+                                       and concord < ROBUSTEZ_CORTE_CONCORDANCIA_PCT),
+        "corte_pct": ROBUSTEZ_CORTE_CONCORDANCIA_PCT,
+        "texto": txt,
+        "aviso": ROBUSTEZ["aviso_de_honestidade"],
+        "custo_ms": custo_ms,
+        "provisorio": True,
+    }
+
+
 def participacao_do_maior(valores):
     """Participacao do MAIOR item na massa absoluta (soma dos modulos), em % inteiro.
 
@@ -651,7 +1075,65 @@ PESOS_DE_FALA = {"discurso_oficial": 1.0, "comunicado_ata": 1.0,
 # (6) ciclo com decaimento continuo, no lugar do penhasco de 180 dias.
 CICLO_MEIA_VIDA_DIAS = 120.0        # o ultimo movimento perde metade do peso em 4 meses
 CICLO_MEIA_VIDA_REUNIOES = 3.0      # DESLIGADO em 05/set: media o arquivo, nao o banco
-CICLO_PISO_VOTO = 0.25              # abaixo disto o movimento le como MANUTENCAO, nao ciclo
+
+# ---------------------------------------------------------------------------------------
+# O PISO DO CICLO VIROU RAMPA — 08/set/2026 (conserto 2.2 da AUDITORIA_AGREGADOS)
+# ---------------------------------------------------------------------------------------
+# O QUE ERA: CICLO_PISO_VOTO = 0,25 era um CORTE SECO. Acima dele o ultimo movimento entrava
+# no score com 0,25 x decaimento; abaixo dele entrava com ZERO e a dimensao lia MANUTENCAO.
+# Aos 240 dias exatos a contribuicao caia de 0,0625 para 0,0000 de um dia para o outro.
+#
+# POR QUE CAIU: e o MESMO defeito do penhasco de 180 dias que a casa matou em 05/set, e o
+# mesmo da familia varrida em 08/set — um numero que ninguem calibrou decidindo direcao por
+# um centesimo. Medido na rodada de 08/set: QUATRO das oito moedas estavam logo ABAIXO do
+# piso (USD 0,208 · GBP 0,216 · CAD 0,163 · CHF 0,076) e liam MANUTENCAO por causa dele; o
+# GBP estava a 13,6% de trocar de leitura. Com piso 0,20 — tao arbitrario quanto 0,25 —
+# GBP e USD trocavam.
+#
+# O QUE ENTROU: uma RAMPA LINEAR, a mais simples que remove a descontinuidade, e que NAO
+# INVENTA NENHUM NUMERO NOVO — o proprio 0,25 que era degrau vira o JOELHO da rampa:
+#
+#       rampa(d) = min(1 ; d / 0,25)              (0 em d=0, 1 em d>=0,25, linear no meio)
+#       peso(d)  = d x rampa(d)                   (era: d se d>=0,25, senao 0)
+#       contribuicao = 0,25 x sinal_do_movimento x peso(d)
+#
+# CONTINUIDADE, PROVADA: peso(d) = d²/0,25 para d < 0,25 e peso(d) = d para d >= 0,25. No
+# joelho as duas pontas valem 0,25 (0,25²/0,25 = 0,25), entao peso e CONTINUO em d = 0,25;
+# e continuo e crescente em todo o resto por ser produto de funcoes continuas. peso(0) = 0:
+# a rampa vai a zero SEM degrau quando o movimento envelhece. Nenhum centesimo de decaimento
+# muda a leitura em lugar nenhum — a tabela de `tabela_da_rampa()` mede o maior salto entre
+# dois centesimos vizinhos, e ele e da ordem do proprio passo.
+#
+# O QUE A RAMPA NAO PODE FAZER, e esta dito para nao virar declaracao falsa como a de
+# "tratamento: nenhum": ela torna continuo o NUMERO. A PALAVRA `regime` (alta / manutencao /
+# corte) continua sendo uma palavra, e toda palavra tem fronteira. Ela ficou no MESMO joelho
+# (nao entrou um segundo numero) e passou a nao mover mais nenhum valor: o regime e um
+# rotulo sobre o PASSADO, e o campo `regime_no_joelho` diz quando ele esta perto da borda.
+CICLO_JOELHO_RAMPA = 0.25           # joelho da rampa — e o proprio numero do piso revogado
+CICLO_PISO_VOTO = CICLO_JOELHO_RAMPA  # nome antigo, mantido so para nao quebrar quem le a regua
+
+RAMPA_DO_CICLO = {
+    "o_que_era": "piso seco em %.2f: acima entrava com 0,25 x decaimento, abaixo entrava com "
+                 "ZERO e a dimensao lia MANUTENCAO" % CICLO_JOELHO_RAMPA,
+    "o_que_e_agora": "rampa linear: peso = decaimento x min(1 ; decaimento / %.2f)"
+                     % CICLO_JOELHO_RAMPA,
+    "formula": "peso(d) = d x min(1 ; d/%.2f)  =>  d²/%.2f para d < %.2f  e  d para d >= %.2f"
+               % (CICLO_JOELHO_RAMPA, CICLO_JOELHO_RAMPA, CICLO_JOELHO_RAMPA,
+                  CICLO_JOELHO_RAMPA),
+    "contribuicao": "0,25 x sinal do ultimo movimento x peso(d)",
+    "joelho": CICLO_JOELHO_RAMPA,
+    "numeros_novos": 0,
+    "por_que_o_joelho_e_0_25": "e o PROPRIO numero do piso revogado. Trocar o degrau por uma "
+                               "rampa e conserto de forma; escolher um joelho diferente seria "
+                               "calibrar sem backtest, e a casa tem lapide para isso.",
+    "salto_no_joelho_antes": round(0.25 * CICLO_JOELHO_RAMPA, 4),
+    "salto_no_joelho_depois": 0.0,
+    "o_que_a_rampa_nao_conserta": "a PALAVRA `regime` (alta/manutencao/corte) continua com "
+                                  "fronteira, porque toda palavra tem. Ela ficou no MESMO "
+                                  "joelho, nao move mais nenhum numero, e sai com "
+                                  "`regime_no_joelho` quando esta na faixa da rampa.",
+    "provisorio": True,
+}
 
 QUALIDADE_N_SATURA = 12             # divulgacoes + falas na janela para a nota de quantidade
 
@@ -859,7 +1341,8 @@ def dimensao_dados(ev, moeda, agora):
             continue
         forca, _txt = empurrao(classe, fam)
         imp = IMPACTO_FXS.get(str(e.get("impacto")).upper(), "Low").lower()
-        mod = MODULADORES.get("impacto_" + {"high": "alto", "medium": "medio"}.get(imp, "baixo"), 0.2)
+        chave_mod = {"high": "alto", "medium": "medio"}.get(imp, "baixo")
+        mod = MODULADORES.get("impacto_" + chave_mod, 0.2)
         try:
             quando = dt.datetime.fromisoformat(e["quando_utc"])
         except ValueError:
@@ -869,8 +1352,12 @@ def dimensao_dados(ev, moeda, agora):
         contrib = forca * mod * decai
         n += 1
         n_alto += (imp == "high")
+        # `forca`, `idade` e `chave_mod` existem para a GRADE DE ROBUSTEZ (08/set): com eles a
+        # mesma soma pode ser refeita com outra meia-vida e outro modulador sem tocar em dado
+        # nenhum — é só somar de novo termos que já estão na memória.
         medidos.append({"dif": dif, "peso": fam["peso"], "sinal": fam["sinal"],
-                        "mod": mod, "decai": decai,
+                        "mod": mod, "decai": decai, "forca": forca, "idade": idade,
+                        "chave_mod": chave_mod,
                         "corte": corte_da_surpresa(e.get("consenso"), nome),
                         "titulo": e.get("titulo"), "familia": nome, "classe": classe})
         if contrib:
@@ -1006,6 +1493,11 @@ def dimensao_dados(ev, moeda, agora):
                 "provisorio": True},
             "dominancia": dominancia,
             "faixa_neutra": faixa,
+            # ⚠️ CHAVE TEMPORARIA, com underline: sao os TERMOS da soma, que a grade de
+            # robustez precisa para refazer a conta com outro parametro. `le_moeda` a REMOVE
+            # depois de usar — publicar ~100 termos por moeda inflaria o arquivo sem
+            # acrescentar nada que os campos resumidos ja nao digam.
+            "_insumos_da_grade": medidos,
             "direcao_depende_da_faixa_neutra": faixa["direcao_depende_da_faixa"],
             "familias_na_janela": sorted(familias),
             "familias_independentes": fam_ind,
@@ -1461,25 +1953,119 @@ def reunioes_de_manutencao(b, agora):
                "que já passaram desde a última publicação — o número verdadeiro tende a ser maior")
 
 
+def peso_do_ciclo(dec):
+    """A RAMPA (08/set): peso(d) = d x min(1 ; d / joelho). Substitui o corte seco.
+
+    Antes: peso = d se d >= 0,25, senao ZERO — um degrau de 0,25 no peso (0,0625 no score).
+    Agora: continua igual a d acima do joelho e desce em rampa ate zero abaixo dele, sem
+    ponto de salto. Nenhum numero novo: o joelho e o proprio 0,25 do piso revogado.
+    """
+    d = float(dec or 0.0)
+    if d <= 0:
+        return 0.0
+    return d * min(1.0, d / CICLO_JOELHO_RAMPA)
+
+
+def peso_do_ciclo_antes(dec):
+    """A regra VELHA, mantida viva so para a prova do antes-e-depois."""
+    d = float(dec or 0.0)
+    return d if d >= CICLO_JOELHO_RAMPA else 0.0
+
+
+def tabela_da_rampa(passo=0.01):
+    """A PROVA, calculada em toda rodada: decaimento x contribuicao, antes e depois.
+
+    Percorre o decaimento de 0,00 a 1,00 de centesimo em centesimo e mede o MAIOR salto
+    entre dois vizinhos, nas duas reguas. A regra velha tem um salto de 0,0625 no joelho —
+    um unico centesimo mudando a contribuicao de zero para um quarto do teto da dimensao. A
+    rampa nao tem salto maior que o proprio passo, que e o que "continuo" significa quando
+    se mede em grade.
+    """
+    def varre(h):
+        """Maior salto entre dois pontos vizinhos da grade de passo h, nas duas reguas."""
+        sa = sd = 0.0
+        onde = None
+        n = int(round(1.0 / h))
+        pa = pd_ = None
+        for i in range(n + 1):
+            d = i * h
+            ca, cd = 0.25 * peso_do_ciclo_antes(d), 0.25 * peso_do_ciclo(d)
+            if pa is not None:
+                if abs(ca - pa) > sa:
+                    sa, onde = abs(ca - pa), round(d, 6)
+                sd = max(sd, abs(cd - pd_))
+            pa, pd_ = ca, cd
+        return round(sa, 6), round(sd, 6), onde
+
+    salto_antes, salto_depois, onde_antes = varre(passo)
+    # O TESTE DE VERDADE DA CONTINUIDADE: refinar a grade 10x. Numa funcao continua o maior
+    # salto entre vizinhos encolhe junto com o passo; num DEGRAU ele nao encolhe nunca —
+    # o salto do piso continua valendo 0,0625 por mais fina que a grade fique.
+    salto_antes_fino, salto_depois_fino, _ = varre(passo / 10.0)
+    linhas = []
+    n = int(round(1.0 / passo))
+    for i in range(n + 1):
+        d = round(i * passo, 4)
+        linhas.append({"decaimento": d,
+                       "contribuicao_antes": round(0.25 * peso_do_ciclo_antes(d), 4),
+                       "contribuicao_depois": round(0.25 * peso_do_ciclo(d), 4)})
+    amostra = [l for l in linhas
+               if l["decaimento"] in (0.0, 0.05, 0.10, 0.15, 0.20, 0.24, 0.25, 0.26,
+                                      0.30, 0.50, 0.75, 1.0)]
+    return {
+        "passo": passo,
+        "formula": RAMPA_DO_CICLO["formula"],
+        "maior_salto_entre_dois_centesimos_antes": salto_antes,
+        "onde_esta_o_salto_antes": onde_antes,
+        "maior_salto_entre_dois_centesimos_depois": salto_depois,
+        "com_a_grade_10x_mais_fina": {
+            "passo": round(passo / 10.0, 6),
+            "maior_salto_antes": salto_antes_fino,
+            "maior_salto_depois": salto_depois_fino,
+            "o_que_isto_prova": "salto que NAO encolhe quando a grade afina e DEGRAU; salto "
+                                "que encolhe junto com o passo e apenas inclinacao. O piso "
+                                "mantem %.4f com a grade 10x mais fina (e um degrau); a rampa "
+                                "cai de %.4f para %.4f (e continua)."
+                                % (salto_antes_fino, salto_depois, salto_depois_fino)},
+        "ha_degrau_antes": salto_antes_fino >= salto_antes * 0.5,
+        "ha_degrau_depois": salto_depois_fino >= salto_depois * 0.5,
+        "amostra": amostra,
+        "leitura": "com o piso, UM centesimo de decaimento no joelho mudava a contribuicao em "
+                   "%.4f — de zero para um quarto do teto da dimensao, e esse salto NAO "
+                   "encolhe por mais fina que a grade fique, que e a assinatura do degrau. "
+                   "Com a rampa o maior salto entre dois centesimos vizinhos e %.4f e ele "
+                   "encolhe para %.4f quando a grade afina 10x: nao existe ponto onde um "
+                   "centesimo vira o veredito."
+                   % (salto_antes, salto_depois, salto_depois_fino),
+    }
+
+
 def dimensao_ciclo(b, agora):
     """O ultimo movimento de juro, pesado por um DECAIMENTO CONTINUO.
 
     (6) Antes havia CICLO_VALIDADE_DIAS = 180, um penhasco: 179 dias valia 0,25 cheio e 181
     dias valia zero. O caso do dono: o AUD, com um movimento de 123 dias atras, entrava com o
-    peso inteiro como se tivesse sido ontem. Agora:
-        decaimento = 0,5^(idade/120 dias) x 0,5^(reunioes de manutencao/3)
-    e abaixo de CICLO_PISO_VOTO (0,25) o movimento le como MANUTENCAO — nao vota ciclo.
-    Os tres numeros sao PROVISORIOS.
+    peso inteiro como se tivesse sido ontem. Hoje:
+        decaimento = 0,5^(idade/120 dias)
+        peso       = decaimento x min(1 ; decaimento / 0,25)      <-- RAMPA, 08/set
+        contribuicao no score = 0,25 x sinal do movimento x peso
+    Os numeros sao PROVISORIOS.
 
-    ⚠️ AUDITORIA 05/set — DUAS CORRECOES NO QUE ESTE BLOCO AFIRMAVA:
+    ✅ CONSERTO 2.2 — 08/set/2026: O PISO VIROU RAMPA E O DEGRAU ACABOU.
+       O que estava escrito aqui embaixo desde 05/set (e que continua verdadeiro como
+       HISTORIA) era que o piso de 0,25 era ele proprio um penhasco: aos 240 dias exatos a
+       contribuicao caia de 0,063 para 0,000 de um dia para o outro, e QUATRO das oito
+       moedas estavam logo abaixo dele (USD 0,208 · GBP 0,216 · CAD 0,163 · CHF 0,076), o
+       GBP a 13,6% de trocar de leitura por um numero que ninguem calibrou.
+       Agora o 0,25 nao e mais porta: e o JOELHO de uma rampa linear. Acima dele nada muda;
+       abaixo dele o peso desce em rampa ate zero, sem salto. Consequencias diretas:
+         - a DIRECAO da dimensao passa a ser o FATO (o ultimo movimento foi alta ou corte),
+           porque uma dimensao que contribui -0,047 nao pode declarar "MANUTENCAO" — isso
+           era a incoerencia que o piso escondia;
+         - quem responde por "o banco esta parado" e o REGIME, que continua com o mesmo
+           joelho e agora nao move mais nenhum numero (campo `ainda_pesa`).
 
-    1. O PENHASCO NAO ACABOU, MUDOU DE LUGAR. CICLO_PISO_VOTO e ele proprio um penhasco: com
-       zero reunioes contadas, o decaimento cruza 0,25 aos 240 dias exatos, e a contribuicao
-       cai de 0,063 para 0,000 de um dia para o outro. E 4x menor que o penhasco antigo (que
-       derrubava 0,25 de uma vez), mas continua sendo um degrau. E o lugar do degrau importa:
-       o GBP esta hoje com decaimento 0,220, 12% abaixo do piso; com piso 0,20 — tao arbitrario
-       quanto 0,25 — a perna GBP passaria a votar CORTA e a conviccao do GBP cairia de 50%
-       para 25%. O campo `penhasco` abaixo publica onde o degrau esta.
+    ⚠️ AUDITORIA 05/set — A SEGUNDA CORRECAO, QUE CONTINUA VALENDO:
 
     2. A CONTAGEM DE REUNIOES NAO MEDE POLITICA MONETARIA, MEDE O ARQUIVO — TERMO DESLIGADO
        NA TARDE DE 05/set. Ela so enxerga as datas que o bancos_centrais.json ainda lista
@@ -1507,27 +2093,41 @@ def dimensao_ciclo(b, agora):
         idade = (agora.date() - dt.date.fromisoformat(data)).days
     except Exception:
         idade = None
-    # onde o piso vira um degrau, com a contagem de reunioes que esta valendo
-    idade_do_degrau = CICLO_MEIA_VIDA_DIAS * math.log(CICLO_PISO_VOTO, 0.5)
+    # onde ficava o degrau — hoje e so o JOELHO da rampa, e nao ha salto nenhum ali
+    idade_do_joelho = CICLO_MEIA_VIDA_DIAS * math.log(CICLO_JOELHO_RAMPA, 0.5)
     base = {"bp": bp, "idade_dias": idade,
             "vota": True, "por_que_nao_vota": None,
             "meia_vida_dias": CICLO_MEIA_VIDA_DIAS,
             "meia_vida_reunioes": CICLO_MEIA_VIDA_REUNIOES,
             "meia_vida_reunioes_ligada": False,
-            "piso_para_votar": CICLO_PISO_VOTO, "provisorio": True,
-            "penhasco": {"idade_dias": round(idade_do_degrau),
-                         "salto_no_score": round(0.25 * CICLO_PISO_VOTO, 3),
-                         "texto": "o piso é um degrau, não uma curva: sem reunião contada, aos "
-                                  "%d dias a contribuição cai de %.3f para 0,000 de um dia "
-                                  "para o outro. O penhasco de 180 dias não sumiu, mudou de "
-                                  "lugar e ficou 4x menor. Número PROVISÓRIO."
-                                  % (round(idade_do_degrau), 0.25 * CICLO_PISO_VOTO)},
+            "joelho_da_rampa": CICLO_JOELHO_RAMPA,
+            "piso_para_votar": None, "provisorio": True,
+            "rampa": dict(RAMPA_DO_CICLO,
+                          idade_do_joelho_dias=round(idade_do_joelho),
+                          texto="o piso virou RAMPA em 08/set: o peso do ciclo é "
+                                "decaimento × min(1 ; decaimento/%.2f). Acima do joelho nada "
+                                "muda; abaixo dele o peso desce em rampa até zero, sem salto. "
+                                "Antes, aos %d dias, a contribuição caía de %.3f para 0,000 de "
+                                "um dia para o outro. Nenhum número novo entrou: o joelho é o "
+                                "próprio 0,25 do piso revogado. PROVISÓRIO."
+                                % (CICLO_JOELHO_RAMPA, round(idade_do_joelho),
+                                   0.25 * CICLO_JOELHO_RAMPA)),
+            "penhasco": {"existe": False, "revogado_em": "2026-09-08",
+                         "idade_dias": round(idade_do_joelho),
+                         "salto_no_score": 0.0,
+                         "salto_no_score_quando_existia": round(0.25 * CICLO_JOELHO_RAMPA, 3),
+                         "texto": "o degrau foi REVOGADO em 08/set e substituído por rampa "
+                                  "linear com joelho no mesmo %.2f. O campo fica para que a "
+                                  "auditoria consiga comparar com o que era."
+                                  % CICLO_JOELHO_RAMPA},
             "reunioes_medem_o_arquivo_nao_o_banco": True,
             "reunioes_no_decaimento": False}
     if bp is None or idade is None:
         # silencio nao e voto: sem ultimo movimento no arquivo, a dimensao NAO vota — ela
         # baixa o teto da moeda em vez de entrar como MANTEM.
         return dict(base, direcao="MANTEM", vota=False, decaimento=0.0,
+                    peso=0.0, peso_antes_da_rampa=0.0, ainda_pesa=False,
+                    regime_no_joelho=False,
                     reunioes_de_manutencao_desde=0,
                     por_que_nao_vota="sem último movimento de juro no arquivo: não há ciclo "
                                      "para ler — buraco declarado, não MANTEM",
@@ -1539,6 +2139,25 @@ def dimensao_ciclo(b, agora):
     # atualizacao do arquivo, nao a politica do banco. Ver o docstring, item 2.
     dec_reu_se_valesse = round(0.5 ** (n_reu / CICLO_MEIA_VIDA_REUNIOES), 3)
     dec = round(dec_tempo, 3)
+    # ---- A RAMPA (08/set): o peso que vai para o score, sem degrau -----------------------
+    peso = round(peso_do_ciclo(dec), 4)
+    peso_antes = round(peso_do_ciclo_antes(dec), 4)
+    ainda_pesa = dec >= CICLO_JOELHO_RAMPA
+    base.update({"peso": peso,
+                 "peso_antes_da_rampa": peso_antes,
+                 "peso_mudou_pela_rampa": round(peso - peso_antes, 4),
+                 "contribuicao_no_score": round(0.25 * peso, 4),
+                 "contribuicao_no_score_antes": round(0.25 * peso_antes, 4),
+                 "na_faixa_da_rampa": dec < CICLO_JOELHO_RAMPA,
+                 "ainda_pesa": bool(ainda_pesa),
+                 "regime_no_joelho": bool(not ainda_pesa),
+                 "nota_rampa": (
+                     "decaimento %.3f × rampa min(1 ; %.3f/%.2f) = peso %.4f. Com o piso "
+                     "revogado, este peso era %.4f — a mudança de hoje nesta perna é %+.4f "
+                     "de peso (%+.4f de contribuição). Não há ponto em que um centésimo de "
+                     "decaimento vire a leitura."
+                     % (dec, dec, CICLO_JOELHO_RAMPA, peso, peso_antes,
+                        peso - peso_antes, 0.25 * (peso - peso_antes)))})
     base.update({"decaimento": dec, "decaimento_por_tempo": round(dec_tempo, 3),
                  "decaimento_por_reunioes": 1.0,
                  "decaimento_por_reunioes_se_valesse": dec_reu_se_valesse,
@@ -1552,13 +2171,21 @@ def dimensao_ciclo(b, agora):
         "premiava quem ele esqueceu. Contadas aqui: %d (se pesasse, o fator seria %.3f). O "
         "decaimento usa SÓ o tempo. Para religar o termo, bancos_centrais.py precisa guardar "
         "o histórico de reuniões, não só as futuras." % (n_reu, dec_reu_se_valesse))
-    if dec < CICLO_PISO_VOTO:
-        return dict(base, direcao="MANTEM",
-                    nota="último movimento %+d pb há %d dias; decaimento %.2f abaixo do piso "
-                         "%.2f — lê como manutenção" % (bp, idade, dec, CICLO_PISO_VOTO))
+    # A DIRECAO E O FATO. O último movimento foi alta ou corte — isso não depende de régua
+    # nenhuma. O que depende do tempo é o PESO, e ele agora desce em rampa até zero. Enquanto
+    # havia piso, a dimensão declarava "MANUTENÇÃO" e contribuía ZERO; hoje ela declara o fato
+    # e contribui pouco, que é a mesma informação sem o degrau. Quem diz "o banco está parado"
+    # é o REGIME (`ainda_pesa`), com o mesmo joelho e sem mover número nenhum.
+    if dec < CICLO_JOELHO_RAMPA:
+        return dict(base, direcao="SOBE" if bp > 0 else "CORTA",
+                    nota="último movimento %+d pb há %d dias; decaimento %.2f dentro da faixa "
+                         "da rampa (joelho %.2f) — o ciclo aponta para %s com apenas %.0f%% do "
+                         "peso cheio, e o banco está em MANUTENÇÃO desde então"
+                         % (bp, idade, dec, CICLO_JOELHO_RAMPA,
+                            "cima" if bp > 0 else "baixo", peso * 100))
     return dict(base, direcao="SOBE" if bp > 0 else "CORTA",
                 nota="último movimento %+d pb há %d dias, %d reunião(ões) de manutenção depois; "
-                     "vale %.0f%% do peso cheio" % (bp, idade, n_reu, dec * 100))
+                     "vale %.0f%% do peso cheio" % (bp, idade, n_reu, peso * 100))
 
 
 # ---------------------------------------------------------------------------------------
@@ -1850,17 +2477,28 @@ def regime_do_banco(cc, dd, b):
     """(C) O que o banco ESTA fazendo: alta, manutencao ou corte.
 
     Vem do CICLO — o ultimo movimento de juro enquanto ele ainda pesa (decaimento acima do
-    piso). Quando o ciclo nao tem dado nenhum, cai para a leitura de DADOS, e isso vai dito no
-    motivo. Nao e previsao: previsao e a leitura.
+    joelho da rampa). Quando o ciclo nao tem dado nenhum, cai para a leitura de DADOS, e isso
+    vai dito no motivo. Nao e previsao: previsao e a leitura.
+
+    ⚠️ 08/set: com o piso virando rampa, a DIRECAO do ciclo passou a ser o fato (alta ou corte)
+    e nao mais uma leitura gateada. O regime, que e uma PALAVRA sobre o passado, passou a usar
+    `ainda_pesa` — o MESMO joelho de antes, sem numero novo. A diferenca e que essa fronteira
+    nao move mais nenhum valor: o score e continuo. Toda palavra tem fronteira; o que a lei da
+    casa proibe e que um centesimo mude o NUMERO, e isso acabou.
     """
-    if cc and cc.get("vota") is not False and cc.get("direcao") in ("SOBE", "CORTA"):
+    if cc and cc.get("vota") is not False and cc.get("ainda_pesa") \
+            and cc.get("direcao") in ("SOBE", "CORTA"):
         reg = "alta" if cc["direcao"] == "SOBE" else "corte"
         return reg, ("último movimento de %+d pb há %d dias, ainda pesando (%.0f%% do peso "
                      "cheio)" % (cc.get("bp") or 0, cc.get("idade_dias") or 0,
-                                 (cc.get("decaimento") or 0.0) * 100))
+                                 (cc.get("peso") or 0.0) * 100))
     if cc and cc.get("bp") is not None:
-        return "manutencao", ("o último movimento (%+d pb, há %d dias) já não pesa: o banco "
-                              "está parado" % (cc.get("bp") or 0, cc.get("idade_dias") or 0))
+        return "manutencao", ("o último movimento (%+d pb, há %d dias) já quase não pesa "
+                              "(%.0f%% do peso cheio, dentro da faixa da rampa): o banco está "
+                              "parado. O rótulo é uma palavra e tem fronteira no joelho %.2f — "
+                              "o número, esse, não tem mais degrau"
+                              % (cc.get("bp") or 0, cc.get("idade_dias") or 0,
+                                 (cc.get("peso") or 0.0) * 100, CICLO_JOELHO_RAMPA))
     dirs = {"SOBE": "alta", "CORTA": "corte"}
     if dd and dd.get("vota") and dd.get("direcao") in dirs:
         return dirs[dd["direcao"]], ("sem último movimento no arquivo; o regime foi inferido "
@@ -1980,8 +2618,11 @@ def le_moeda(m, ev, bancos, discursos, agora, geo=None, noticias=None, futuros=N
     tt = dims["texto"]
     comp["texto"] = 0.0
     cc = dims["ciclo"]
+    # ⚠️ 08/set: era `0,25 x sinal x DECAIMENTO`, com o decaimento cortado a seco abaixo de
+    # 0,25 (o piso). Agora é `0,25 x sinal x PESO`, e o peso é o decaimento passado pela
+    # RAMPA — contínuo, sem ponto em que um centésimo vira a leitura. Ver `peso_do_ciclo`.
     if cc and cc.get("vota") is not False and cc.get("direcao") in ("SOBE", "CORTA"):
-        comp["ciclo"] = 0.25 * (1 if cc["direcao"] == "SOBE" else -1) * float(cc.get("decaimento") or 0.0)
+        comp["ciclo"] = 0.25 * (1 if cc["direcao"] == "SOBE" else -1) * float(cc.get("peso") or 0.0)
     else:
         comp["ciclo"] = 0.0
     comp["geo"] = 0.0
@@ -2006,6 +2647,9 @@ def le_moeda(m, ev, bancos, discursos, agora, geo=None, noticias=None, futuros=N
     discordam = len({v["direcao"] for v in disponiveis.values()}) > 1
     leitura, leitura_txt, leitura_motivo, intens_rel = zona_de_leitura(
         score, len(disponiveis), direcao, dimensoes_discordam=discordam)
+    # a leitura formada pelo SCORE, antes de qualquer suspensão. É contra ela que a GRADE DE
+    # ROBUSTEZ compara, porque as células da grade também são pré-guarda.
+    leitura_antes_da_guarda = leitura
 
     # ---- GUARDA DE DIREÇÃO (lei estrutural de 08/set) -----------------------------------
     # A MESMA leitura, refeita com a soma CRUA. Se o tratamento mudar a leitura em relação ao
@@ -2040,8 +2684,76 @@ def le_moeda(m, ev, bancos, discursos, agora, geo=None, noticias=None, futuros=N
                           "medido continua no arquivo."
                           % (TRATAMENTO_DA_SOMA, onde, de_para[0], de_para[1]))
 
+    # ---- ROBUSTEZ DE PARAMETRO (08/set) — a guarda de direção um andar acima -------------
+    # A guarda pergunta se o TRATAMENTO virou a direção. Aqui a pergunta é se o PARÂMETRO vira:
+    # a mesma leitura, refeita em toda a faixa PLAUSÍVEL da meia-vida e do modulador de
+    # impacto, dois números que ninguém calibrou. Direção que muda dentro da faixa não é
+    # leitura do dado — é escolha de método, e escolha de método é do dono.
+    # Os termos já estão na memória (`_insumos_da_grade`); a chave sai do dicionário logo
+    # depois, porque publicar ~100 termos por moeda inflaria o arquivo à toa.
+    _insumos = (dd or {}).pop("_insumos_da_grade", []) or []
+    robustez = grade_de_robustez(m, _insumos, bool(dd and dd.get("vota")),
+                                 comp["ciclo"], len(disponiveis),
+                                 leitura_antes_da_guarda, score,
+                                 direcao_dim_publicada=(dd or {}).get("direcao"))
+    # A REGRA DE APRESENTAÇÃO — CONFIANÇA, nunca direção:
+    #   100%           segue como está;
+    #   abaixo de 100  bandeira + qualidade da evidência limitada à concordância;
+    #   abaixo do corte PROVISORIO (60%) vai para SEM LEITURA, exatamente como ja acontece
+    #                  quando o tratamento vira a direcao.
+    if robustez.get("manda_para_sem_leitura"):
+        if leitura != "sem_leitura":
+            leitura, leitura_txt = "sem_leitura", "sem leitura"
+            leitura_motivo = ("sem leitura: a direção depende de parâmetro que ninguém "
+                              "calibrou — só %d%% da faixa plausível concorda com ela (o corte "
+                              "PROVISÓRIO é %d%%). %s Tudo o que foi medido continua no "
+                              "arquivo." % (robustez["concordancia_pct"],
+                                            ROBUSTEZ_CORTE_CONCORDANCIA_PCT, robustez["texto"]))
+        else:
+            # A moeda JA estava suspensa por outro motivo. O painel nao esconde que ha DOIS:
+            # dizer so o primeiro faria a fragilidade sumir da tela.
+            leitura_motivo = (leitura_motivo or "") + (
+                " E há um SEGUNDO motivo: %s (o corte PROVISÓRIO de concordância é %d%%)."
+                % (robustez["texto"], ROBUSTEZ_CORTE_CONCORDANCIA_PCT))
+    # o teto na QUALIDADE DA EVIDÊNCIA, na mesma forma do teto da dominância: a nota não pode
+    # ser maior que a fatia da faixa plausível em que a leitura se sustenta.
+    if (ROBUSTEZ_LIGADA and qual and qual.get("nota") is not None
+            and robustez.get("teto_na_qualidade_da_evidencia") is not None
+            and qual["nota"] > robustez["teto_na_qualidade_da_evidencia"]):
+        _antes_rb = qual["nota"]
+        qual["nota"] = int(robustez["teto_na_qualidade_da_evidencia"])
+        qual["limitada_pela_robustez"] = True
+        qual["nota_antes_da_robustez"] = _antes_rb
+        qual["teto_pela_robustez"] = int(robustez["teto_na_qualidade_da_evidencia"])
+        qual["explicacao"] = (qual.get("explicacao") or "") + (
+            " ⚠️ a nota cai de %d para %d: a direção só se sustenta em %d%% da faixa plausível "
+            "dos parâmetros não calibrados (meia-vida e modulador de impacto) — a evidência "
+            "não pode valer mais que a fatia da faixa em que a leitura existe. A DIREÇÃO "
+            "publicada não é alterada por isto."
+            % (_antes_rb, qual["nota"], robustez["concordancia_pct"]))
+    else:
+        if qual is not None:
+            qual.setdefault("limitada_pela_robustez", False)
+            qual.setdefault("nota_antes_da_robustez", qual.get("nota"))
+            qual.setdefault("teto_pela_robustez",
+                            robustez.get("teto_na_qualidade_da_evidencia"))
+
     # ---- AS BANDEIRAS DA MOEDA — o painel nunca esconde ---------------------------------
     bandeiras = []
+    if robustez.get("bandeira"):
+        bandeiras.append({
+            "tipo": "robustez_de_parametro",
+            "muda_a_direcao": bool(robustez.get("manda_para_sem_leitura")),
+            "concordancia_pct": robustez.get("concordancia_pct"),
+            "celulas": robustez.get("celulas"),
+            "qual_parametro_faz_virar": robustez.get("qual_parametro_faz_virar"),
+            "direcoes_encontradas": robustez.get("direcoes_encontradas"),
+            "efeito": ("moeda suspensa em SEM LEITURA (concordância abaixo do corte provisório "
+                       "de %d%%)" % ROBUSTEZ_CORTE_CONCORDANCIA_PCT)
+                      if robustez.get("manda_para_sem_leitura") else
+                      ("qualidade da evidência limitada a %s/100; a direção publicada não muda"
+                       % robustez.get("teto_na_qualidade_da_evidencia")),
+            "texto": "direção depende de parâmetro não calibrado — " + (robustez.get("texto") or "")})
     # A FAIXA NEUTRA mexeu na direcao desta perna? Ela continua ligada (tem tese), mas nao
     # passa calada — e a mesma lei que a winsorizacao produziu: tratamento que mexe na
     # direcao APARECE.
@@ -2119,6 +2831,11 @@ def le_moeda(m, ev, bancos, discursos, agora, geo=None, noticias=None, futuros=N
         "leitura_crua": leitura_crua,
         "intensidade_relativa_crua_pct": intens_crua,
         "guarda_de_direcao": guarda_leitura,
+        # ---- ROBUSTEZ DE PARÂMETRO (08/set): a mesma leitura em toda a faixa plausível ----
+        "leitura_antes_da_guarda": leitura_antes_da_guarda,
+        "robustez_de_parametro": robustez,
+        "direcao_depende_de_parametro_nao_calibrado": bool(robustez.get("bandeira")),
+        "concordancia_de_parametro_pct": robustez.get("concordancia_pct"),
         "bandeiras": bandeiras,
         "score_texto_se_votasse": texto_se_votasse,
         # TETO DA LEITURA = 0,25 por dimensao que VOTA. Sao duas (dados e ciclo) desde que a
@@ -2348,6 +3065,23 @@ def le_pares(leituras, bancos=None):
                                % (m, _dd.get("soma") or 0.0, _hoje, "; ".join(_outras),
                                   fx.get("itens_zerados") or 0,
                                   fx.get("peso_que_os_zerados_teriam") or 0.0))
+        # ROBUSTEZ DE PARÂMETRO (08/set): quando a direção de uma perna muda dentro da faixa
+        # plausível de um parâmetro que ninguém calibrou, o par tem de saber — é a mesma lei
+        # da faixa neutra e da guarda: o que é frágil aparece como frágil.
+        for m, L in ((b, lb), (q, lq)):
+            rb = L.get("robustez_de_parametro") or {}
+            if rb.get("bandeira"):
+                alertas.append("a direção do %s depende de PARÂMETRO NÃO CALIBRADO: só %d%% "
+                               "das %d células da faixa plausível (meia-vida %s-%s dias, "
+                               "modulador de impacto entre 'só alto conta' e 'plano') dão a "
+                               "leitura publicada — quem faz virar: %s%s"
+                               % (m, rb.get("concordancia_pct") or 0, rb.get("celulas") or 0,
+                                  ("%g" % MEIA_VIDA_FAIXA["minimo_dias"]),
+                                  ("%g" % MEIA_VIDA_FAIXA["maximo_dias"]),
+                                  rb.get("qual_parametro_faz_virar") or "?",
+                                  (". %d célula(s) dão o SINAL CONTRÁRIO"
+                                   % rb["celulas_com_sinal_oposto"])
+                                  if rb.get("celulas_com_sinal_oposto") else ""))
         if q_par is None:
             alertas.append("qualidade da evidência do par sai SEM NOTA: o %s não tem dado em "
                            "nenhuma das quatro partes — buraco declarado, não zero" % elo)
@@ -2867,7 +3601,8 @@ def main():
     bancos = carrega_json(BANCOS)
     discursos = carrega_json(DISCURSOS) or carrega_json(DISCURSOS_FED)
     print("  eventos na janela: %d  (%s)" % (len(ev), origem))
-    print("  regras: FALA e geopolítica NÃO votam (teto 0,50) · ciclo com decaimento · zona "
+    print("  regras: FALA e geopolítica NÃO votam (teto 0,50) · ciclo com RAMPA (o piso de "
+          "0,25 virou joelho em 08/set) · zona "
           "neutra 0-14 · 08/set: soma CRUA (winsorização revogada), dominância = régua de "
           "CONFIANÇA, guarda de direção ligada")
 
@@ -2899,9 +3634,10 @@ def main():
                   % (tt.get("direcao_contexto") or "—", tt["hawkish"], tt["dovish"],
                      tt.get("origem")))
                  if tt else "não conectada",
-                 "%s%s (dec %.2f, %dd)" % (cc["direcao"], "" if cc.get("vota") is not False else "*",
-                                           cc.get("decaimento") or 0.0,
-                                           cc.get("idade_dias") or 0),
+                 "%s%s (dec %.2f -> peso %.3f, %dd)"
+                 % (cc["direcao"], "" if cc.get("vota") is not False else "*",
+                    cc.get("decaimento") or 0.0, cc.get("peso") or 0.0,
+                    cc.get("idade_dias") or 0),
                  ("%s (energia z=%s, conflito z=%s)" % (gg["estado"], gg["z_energia"], gg["z_conflito"])
                   if gg.get("conectada") is not False else "não conectada (buraco declarado)")
                  if gg else "não conectada"))
@@ -2967,6 +3703,41 @@ def main():
           % (", ".join(viradas) if viradas else
              "nenhuma moeda teve a direção mudada por tratamento — soma tratada = soma crua "
              "nas 8, deslocamento 0,00"))
+
+    # ---- ROBUSTEZ DE PARÂMETRO — a guarda de direção um andar acima (08/set) -------------
+    print()
+    print("  ROBUSTEZ DE PARÂMETRO — a MESMA leitura em %d células: meia-vida %g a %g dias "
+          "(passo %d) × %d variantes do modulador de impacto, de 'só alto conta' a 'plano'."
+          % (GRADE_CELULAS, MEIA_VIDA_FAIXA["minimo_dias"], MEIA_VIDA_FAIXA["maximo_dias"],
+             MEIA_VIDA_FAIXA["passo_dias"], len(GRADE_MODULADOR)))
+    print("  Corte PROVISÓRIO: abaixo de %d%% de concordância a moeda vai para SEM LEITURA. "
+          "Nenhum dado muda entre as células — só o botão." % ROBUSTEZ_CORTE_CONCORDANCIA_PCT)
+    print("    %-4s %-22s %-6s %-34s %-9s %-9s %-8s %s"
+          % ("moeda", "leitura publicada", "concor", "leituras na grade", "vira p/mv",
+             "vira p/mod", "dim conc", "quem faz virar"))
+    print("    " + "-" * 138)
+    custo_total = 0.0
+    for m in MOEDAS:
+        rb = leituras[m]["robustez_de_parametro"]
+        custo_total += rb.get("custo_ms") or 0.0
+        _dim = rb.get("dimensao") or {}
+        print("    %-4s %-22s %5d%%  %-34s %-9s %-9s %-8s %s"
+              % (m, leituras[m].get("leitura_texto") or "—", rb["concordancia_pct"],
+                 " · ".join("%s %d" % (k, v) for k, v in rb["direcoes_encontradas"].items())[:34],
+                 "SIM" if rb["vira_pela_meia_vida"] else "não",
+                 "SIM" if rb["vira_pelo_modulador"] else "não",
+                 ("%d%%" % _dim["concordancia_pct"]) if _dim.get("concordancia_pct") is not None
+                 else "—",
+                 rb["qual_parametro_faz_virar"] or "—"))
+    fragil = [m for m in MOEDAS if leituras[m]["robustez_de_parametro"]["bandeira"]]
+    susp = [m for m in MOEDAS if leituras[m]["robustez_de_parametro"]["manda_para_sem_leitura"]]
+    print("    FRÁGEIS (concordância < 100%%): %s" % (", ".join(fragil) or "nenhuma"))
+    print("    SUSPENSAS pela regra (< %d%%): %s"
+          % (ROBUSTEZ_CORTE_CONCORDANCIA_PCT, ", ".join(susp) or "nenhuma"))
+    print("    CUSTO DA GRADE: %.0f ms nas 8 moedas (%d células cada). O orçamento é 10 s."
+          % (custo_total, GRADE_CELULAS))
+    print("    ⚠️ a concordância é a fração de uma GRADE escolhida, não uma probabilidade. O "
+          "número que não depende da densidade é o marginal (as duas colunas 'vira').")
 
     pares = le_pares(leituras, bancos)
     conta = Counter(r["estado"] for r in pares)
@@ -3208,14 +3979,30 @@ def main():
                                     "GBP (MANTÉM→CORTA) em 08/set, e o painel publicou as duas "
                                     "como se fossem leitura do dado.",
                 "provisorio": True},
+            # ⚠️ 08/set (tarde) — A MESMA PERGUNTA, UM ANDAR ACIMA: e o PARÂMETRO, vira?
+            "robustez_de_parametro": dict(
+                ROBUSTEZ,
+                grade_meia_vida=GRADE_MEIA_VIDA,
+                grade_modulador=[{"nome": v["nome"], "alto": v["alto"], "medio": v["medio"],
+                                  "baixo": v["baixo"]} for v in GRADE_MODULADOR],
+                ligada=ROBUSTEZ_LIGADA,
+                custo_total_ms=round(custo_total, 2),
+                moedas_frageis=fragil,
+                moedas_suspensas=susp,
+                desde="2026-09-08"),
             "ciclo_decaimento": {"meia_vida_dias": CICLO_MEIA_VIDA_DIAS,
                                  "meia_vida_reunioes": CICLO_MEIA_VIDA_REUNIOES,
                                  "meia_vida_reunioes_ligada": False,
                                  "reunioes_no_decaimento": False,
                                  "por_que_desligada": "a contagem so ve as reunioes que o arquivo listava olhando para frente e que ja passaram — media a cadencia do arquivo, nao a do banco. Religa quando bancos_centrais.py guardar o historico.",
-                                 "piso_para_votar": CICLO_PISO_VOTO,
-                                 "substitui": "CICLO_VALIDADE_DIAS = 180, que era um penhasco "
-                                              "(179 dias valia 0,25 cheio, 181 valia zero)",
+                                 "piso_para_votar": None,
+                                 "piso_revogado_em": "2026-09-08",
+                                 "rampa": RAMPA_DO_CICLO,
+                                 "joelho_da_rampa": CICLO_JOELHO_RAMPA,
+                                 "prova_da_continuidade": tabela_da_rampa(),
+                                 "substitui": "CICLO_VALIDADE_DIAS = 180 (penhasco de 05/set) "
+                                              "e depois CICLO_PISO_VOTO = 0,25 (o mesmo "
+                                              "penhasco, 4x menor, revogado em 08/set)",
                                  "provisorio": True},
             # ⚠️ desde a tarde de 05/set a nota é a média das partes QUE TÊM DADO, e a parte
             # "confiabilidade" está DESLIGADA nas oito moedas (ela media o peso da fonte de

@@ -35,6 +35,8 @@ arquivo do caso · o desfecho (`—` enquanto não houver decisão do banco).
 | Data | Chave | Veredito | Régua que decidiu | Caso | Desfecho |
 |---|---|---|---|---|---|
 | 2026-09-07 | USD | indeterminado | R1 sujeito + R2 quem fala | [casos/EXEMPLO.md](casos/EXEMPLO.md) | — (FOMC 16/09/2026) |
+| 2026-09-08 | AUD | alta condicional | R6 condição (modal "may") sobre item de degrau `imprensa_com_fala` | [casos/2026-09-08-AUD-rba-may-have-to-raise.md](casos/2026-09-08-AUD-rba-may-have-to-raise.md) | — (RBA 29/09/2026) |
+| 2026-09-08 | GBP | indeterminado | R4 expectativa do mercado + R2/R8 degrau 0,0 | [casos/2026-09-08-GBP-bailey-precificacao-do-mercado.md](casos/2026-09-08-GBP-bailey-precificacao-do-mercado.md) | — (BoE 17/09/2026) |
 
 *(Uma linha por caso, a mais recente embaixo. O `EXEMPLO.md` é o modelo de formato e também um
 caso real da rodada de 07/09/2026.)*
@@ -56,3 +58,12 @@ caso real da rodada de 07/09/2026.)*
   de mercado para citar em `numeros_citados`, e a divergência contra o mercado não existe.
 - **A deduplicação é provisória** (Jaccard 0,7, marcada `provisorio: true` no próprio arquivo).
   Duplicata que passar é para ser registrada em `limites`, não consertada em silêncio.
+- **A R6 não diz o que fazer com o modal "may" / "pode"** (a lista dela é "if", "should
+  inflation", "were the data to", "caso", "se"). Na rodada de 08/09/2026 li *"may have to raise"*
+  como `alta condicional`, indo para o lado mais fraco, e registrei em `limites` — é extensão da
+  régua feita no julgamento, **não precedente**. Enquanto a régua não decidir, dois leitores podem
+  sair com `alta` e `alta condicional` da mesma frase. Caso:
+  [casos/2026-09-08-AUD-rba-may-have-to-raise.md](casos/2026-09-08-AUD-rba-may-have-to-raise.md).
+- **A busca por moeda vaza item de outra moeda.** Em 08/09/2026, a lista do GBP trouxe matéria do
+  Chile e fala do vice do RBA; a do NZD e a do CHF trouxeram comentário cambial sobre o Fed. Isso
+  não é erro de leitura — é a consulta da camada 1, e vai para `limites` toda vez que aparecer.

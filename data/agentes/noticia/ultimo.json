@@ -1,0 +1,539 @@
+{
+ "agente": "noticia",
+ "versao_prompt": "noticia@v1",
+ "gerado_em": "2026-09-08T15:20:00Z",
+ "rodada_id": "noticia-2026-09-08T15:20:00Z",
+ "entradas": {
+  "arquivo": "data/noticias.json",
+  "gerado_em": "2026-09-08T14:47:08.054090+00:00",
+  "n_itens": 103
+ },
+ "julgamentos": [
+  {
+   "chave": "USD",
+   "veredito": "indeterminado",
+   "confianca": "baixa",
+   "motivo": "R8 (secao 5.1): os 14 itens gravados sao degrau `manchete`, peso 0,0, e nenhum cita dirigente do Fed com verbo de fala (n_cita_dirigente=0). O que existe sobre a politica do Fed e coluna de jornalista sobre a pressao politica de Trump e um aviso de reuniao; o resto cai em R1 (emprego, bitcoin, eleicao, custo agricola). O item da UBS ainda cai em R4 — expectativa de banco nao e postura do Fed. Contraste a mostrar, nao a resolver: a contagem de manchete inclina para alta (alta 5 x corte 2, lapide L-04, nao e leitura), o mercado precifica alta (p_alta 0,5786 para o FOMC de 16/09) e a fonte primaria de bc_discursos.json traz Waller em `manutencao` (03/09) e Barr em `alta condicional` (01/09) — tres coisas diferentes.",
+   "trecho": "COMMENTARY: Trump's baffling Fed threat could be gift to Warsh: Mike Dolan - Reuters",
+   "numeros_citados": {
+    "noticias.moedas.USD.n_gravados": 14,
+    "noticias.moedas.USD.n_unicos": 23,
+    "noticias.moedas.USD.n_72h": 23,
+    "noticias.moedas.USD.duplicatas_removidas": 0,
+    "noticias.moedas.USD.n_cita_dirigente": 0,
+    "noticias.moedas.USD.contagem.alta": 5,
+    "noticias.moedas.USD.contagem.corte": 2,
+    "precificacao.moedas.USD.p_alta": 0.5786,
+    "precificacao.moedas.USD.p_manutencao": 0.4214
+   },
+   "fonte": {
+    "titulo": "COMMENTARY: Trump's baffling Fed threat could be gift to Warsh: Mike Dolan - Reuters",
+    "link": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxOUlJyMEZjMzY1WGZkdzZwdlJ3c0NYc1RBOU9yZkRYb1FpNjBCUElLSWU1ejVfemROSmhWOVBUWkhGV1VNWU1XTVlJd3VNcmlXdDZfc01taXJVTnppazFSS05iQ1A4Smw0OVNPS3l0VWNZenBVT1JONkg4U2RsaUozR2xWR3ZubUo3XzVlZXptNEhJOHZGelJtRl92aWRhLS1sSXplRm5TdUQ3Mk1SMnlpdHRiT3JXTk5IMDREWll0dGlsanlNQ1VNTA?oc=5",
+    "quando": "2026-09-08T10:52:48+00:00"
+   },
+   "vota": false,
+   "selo": "experimental — contexto, não vota"
+  },
+  {
+   "chave": "EUR",
+   "veredito": "indeterminado",
+   "confianca": "baixa",
+   "motivo": "R4 depois de R8. A janela do euro e feita de aposta de terceiro as vesperas da reuniao do BCE de 10/09: WSJ dizendo que o BCE vai subir de novo, Deutsche Bank prevendo alta em dezembro, investidores e economistas divididos. Nada disso e postura do BCE — e o que o mercado e a imprensa acham. Todos os 14 itens sao degrau `manchete` (peso 0,0) e n_cita_dirigente=0; o WSJ tem peso_fonte 1,0 e mesmo assim o degrau continua 0,0 (lapide L-05). A fonte primaria nao contradiz: em bc_discursos.json as quatro falas do BCE na janela (Vujcic, Schnabel, Cipollone, Lagarde) estao todas em `indeterminado`, por nenhuma frase de postura ter sido extraida. A contagem de manchete marca alta 10 e corte 0 — contagem, nao leitura (L-04).",
+   "trecho": "ECB Set to Raise Key Rate Again, Signal Caution on Further Moves - WSJ",
+   "numeros_citados": {
+    "noticias.moedas.EUR.n_gravados": 14,
+    "noticias.moedas.EUR.n_unicos": 46,
+    "noticias.moedas.EUR.n_72h": 50,
+    "noticias.moedas.EUR.duplicatas_removidas": 4,
+    "noticias.moedas.EUR.n_cita_dirigente": 0,
+    "noticias.moedas.EUR.contagem.alta": 10,
+    "noticias.moedas.EUR.itens.9.peso": 0.0,
+    "noticias.moedas.EUR.itens.9.peso_fonte": 1.0
+   },
+   "fonte": {
+    "titulo": "ECB Set to Raise Key Rate Again, Signal Caution on Further Moves - WSJ",
+    "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxOYWRrQ2ZrenM2S1JzUFA5ejVZcHpQZXNQSGxFM2VkWmdWajZBamdBdXUxV09reGFtTkt6WkhpaGUwYVJ0MmJfVWpZVUlvX2hqeEhFTmRSUkYwelJRYjJtcUM0ai1qVDlFU283NV9wandtaXE3bGhqQXJGbWZYWEMxTjBwTnoyUkh5NmgtV0p5S0doUXRzYU14bEVBRDg2NzN3MFBDcDFEMlZSdUVoWkxjVllB?oc=5",
+    "quando": "2026-09-08T06:19:00+00:00"
+   },
+   "vota": false,
+   "selo": "experimental — contexto, não vota"
+  },
+  {
+   "chave": "GBP",
+   "veredito": "indeterminado",
+   "confianca": "baixa",
+   "motivo": "Duas reguas brigaram e as duas derrubam. R4: a manchete diz que Bailey fala da precificacao DO MERCADO ('Market Rate-Hike Pricing Reflects Risk Premium') — e o mesmo padrao do Pill, lapide L-02: quem esta 'esticado' na frase e o mercado, nao o orador. R2/R8: a camada 1 classificou o item como degrau `manchete` (peso 0,0) porque o veiculo tem peso_fonte 0,30, abaixo do limiar provisorio 0,60 — ou seja, nao chega a `imprensa_com_fala` mesmo com dirigente nomeado. O restante e aposta de terceiro (pesquisa Reuters dizendo que o BoE segura; BNP Paribas esperando 25 bp em novembro) ou moeda errada (Chile, RBA). A fonte primaria concorda com o silencio: em bc_discursos.json, Bailey (04/09, site do BoE) esta `indeterminado` — nenhuma frase de postura foi extraida do discurso.",
+   "trecho": "BOE Governor Bailey Says Market Rate-Hike Pricing Reflects 'Risk Premium' - finance.biggo.com",
+   "numeros_citados": {
+    "noticias.moedas.GBP.n_gravados": 14,
+    "noticias.moedas.GBP.n_unicos": 46,
+    "noticias.moedas.GBP.duplicatas_removidas": 2,
+    "noticias.moedas.GBP.n_cita_dirigente": 3,
+    "noticias.moedas.GBP.contagem.alta": 2,
+    "noticias.moedas.GBP.contagem.mantem": 1,
+    "noticias.moedas.GBP.itens.0.peso": 0.0,
+    "noticias.moedas.GBP.itens.0.peso_fonte": 0.3
+   },
+   "fonte": {
+    "titulo": "BOE Governor Bailey Says Market Rate-Hike Pricing Reflects 'Risk Premium' - finance.biggo.com",
+    "link": "https://news.google.com/rss/articles/CBMidkFVX3lxTE16eXNuSndVX3dndER4RFZEcXpKZlpETXEtX0hTUWdaQkotcFZDVDlsTEdydk9FckVpcFZUSXpVZmxJUkFDYnlZY3dCQ29JYWx2X0tfRUx1VnZhWG9CdHNiVnRnaFNzeWM0alNEa2swSThXMEp2a1E?oc=5",
+    "quando": "2026-09-08T14:35:00+00:00"
+   },
+   "vota": false,
+   "selo": "experimental — contexto, não vota"
+  },
+  {
+   "chave": "JPY",
+   "veredito": "indeterminado",
+   "confianca": "baixa",
+   "motivo": "R8, e este e o caso mais barulhento da rodada. O iene teve n_72h=110 e n_unicos=99, com 11 republicacoes ja removidas pela camada 1, e a contagem de manchete marca alta 26 contra corte 0 — e mesmo assim n_cita_dirigente=0: nenhum dirigente do BoJ aparece nomeado com verbo de fala. O que ha sao reportagens de imprensa dizendo que o BoJ vai levar o juro a 1,25% na reuniao de 18/09 (Kyodo, Mainichi, replicadas), analise da Reuters e previsao do Citi (R4). Volume nao e direcao — foi por medir volume que a geopolitica parou de votar (lapide L-06). bc_discursos.json nao tem entrada para o JPY nesta rodada, entao nao ha fonte primaria para confrontar.",
+   "trecho": "BOJ to raise key interest rate by 0.25 percentage point in Sept. meeting - 毎日新聞",
+   "numeros_citados": {
+    "noticias.moedas.JPY.n_gravados": 14,
+    "noticias.moedas.JPY.n_unicos": 99,
+    "noticias.moedas.JPY.n_72h": 110,
+    "noticias.moedas.JPY.duplicatas_removidas": 11,
+    "noticias.moedas.JPY.n_cita_dirigente": 0,
+    "noticias.moedas.JPY.contagem.alta": 26,
+    "noticias.moedas.JPY.contagem.corte": 0
+   },
+   "fonte": {
+    "titulo": "BOJ to raise key interest rate by 0.25 percentage point in Sept. meeting - 毎日新聞",
+    "link": "https://news.google.com/rss/articles/CBMic0FVX3lxTE1PQl9EeHNWbVM4bmNCMXJuMl8tVG1GVGx6MF80Wm5HTDM4a3lQc0h0djY1dklYNy1NZWVvTGJOZG5ES3U0ZFlOYU5WRl80TGp5aXZtMkJiM1FvOUJEamp5VTBNeUZ6d3YwX1J6S09XZzg3R1U?oc=5",
+    "quando": "2026-09-08T12:06:19+00:00"
+   },
+   "vota": false,
+   "selo": "experimental — contexto, não vota"
+  },
+  {
+   "chave": "AUD",
+   "veredito": "alta condicional",
+   "confianca": "media",
+   "motivo": "Unica moeda da rodada com item acima do degrau 0,0: dois itens sao `imprensa_com_fala` (peso 0,4), com dirigente do RBA NOMEADO e verbo de fala — Hunter na Bloomberg (peso_fonte 1,0, 'Says ... May Have to Raise Rate') e Hauser no AFR (peso_fonte 0,8, 'warns'). Passa R1 (a materia e sobre a politica do RBA), R3 (fala do proximo passo, nao do aperto ja feito), R4 (e o dirigente falando, nao o mercado) e R5 (nao ha negacao). Nao e direcao firme: 'may need to rise' / 'may have to raise' e ressalva, o aperto so vem se a inflacao nao ceder — por isso `alta condicional` e nao `alta`, na logica da R6. Aqui a leitura e o mercado apontam para o mesmo lado, e nao ha divergencia a explorar: a precificacao do RBA para 29/09 traz p_alta 0,66 contra p_manutencao 0,34. Sem fonte primaria: o RBA e buraco declarado (bloqueia automacao), entao nao ha discurso oficial para confrontar.",
+   "trecho": "RBA’s Hunter Says Inflation Top Priority, May Have to Raise Rate - bloomberg.com",
+   "numeros_citados": {
+    "noticias.moedas.AUD.n_gravados": 14,
+    "noticias.moedas.AUD.n_unicos": 34,
+    "noticias.moedas.AUD.duplicatas_removidas": 1,
+    "noticias.moedas.AUD.n_cita_dirigente": 2,
+    "noticias.moedas.AUD.contagem.alta": 7,
+    "noticias.moedas.AUD.itens.1.peso": 0.4,
+    "noticias.moedas.AUD.itens.1.peso_fonte": 1.0,
+    "noticias.moedas.AUD.itens.0.peso": 0.4,
+    "noticias.moedas.AUD.itens.0.peso_fonte": 0.8,
+    "precificacao.moedas.AUD.p_alta": 0.66,
+    "precificacao.moedas.AUD.p_manutencao": 0.34,
+    "precificacao.moedas.AUD.implicito_bp": 16.5
+   },
+   "fonte": {
+    "titulo": "RBA’s Hunter Says Inflation Top Priority, May Have to Raise Rate - bloomberg.com",
+    "link": "https://news.google.com/rss/articles/CBMitAFBVV95cUxNdEI4RW5nR2FfbHg3VDlua2pVRlBCWHYwTkZEbnJTLXNIRUZ3R0xPRjZZTmFmMEpkM3FPY1R6aFpfdkJNakd2a29DLURyZDFMck5kOHJwSXBWbFl3SHQ2NjdVcTJJbmtpTkktVlBqQV9HM2IxWU9qRUEtZnJER24tR2U5TmN5WWlSNEQwcmkwVW9JdlVublEzNXBObktMRW80eENPQ3paY0d4eEo1enljWExyWTY?oc=5",
+    "quando": "2026-09-08T09:19:51+00:00"
+   },
+   "vota": false,
+   "selo": "experimental — contexto, não vota"
+  },
+  {
+   "chave": "NZD",
+   "veredito": "indeterminado",
+   "confianca": "baixa",
+   "motivo": "R8 sobre uma janela quase vazia de postura. Dos 14 itens, so um tem por sujeito o ciclo de juro do RBNZ, e e uma manchete em forma de pergunta, de corretora (degrau `manchete`, peso 0,0). O unico item com dirigente nomeada — Karen Silk — trata do repasse do OCR as taxas de deposito dos poupadores, nao do proximo passo do banco, e cai em R1. O resto e cambio, casa, pesca e agencia de rating. bc_discursos.json nao tem entrada para o NZD, e o RBNZ e buraco declarado (bloqueia automacao). A precificacao existe com qualidade marcada como baixa e p_alta vem null, entao nao ha coluna de mercado para comparar.",
+   "trecho": "RBNZ Interest Rate Outlook: Is New Zealand Entering a Harder Phase of the Rate Cycle? - equiti.com",
+   "numeros_citados": {
+    "noticias.moedas.NZD.n_gravados": 14,
+    "noticias.moedas.NZD.n_unicos": 14,
+    "noticias.moedas.NZD.n_72h": 14,
+    "noticias.moedas.NZD.n_cita_dirigente": 1,
+    "noticias.moedas.NZD.contagem.alta": 1
+   },
+   "fonte": {
+    "titulo": "RBNZ Interest Rate Outlook: Is New Zealand Entering a Harder Phase of the Rate Cycle? - equiti.com",
+    "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxNNlJtdk1ReVlaVE42OFFFbk1rZXVxMWVrYnQ4bUhkMDZPR2dzSVBRMk5fWkJCTGU5SWZQWDh4aFExNU5ZZmFDeGZrQko4S3FNRV84RGlxYllqcDZkNFl2eG1nckhDYVJEUlJrLWtLektIeEFIMUliV1U3VmlWMGo1c05qQUdLVHFYa2t1Sk0wcnQ1QVk5eTdabDBZWDFTSDItSHJab0p4TjBnQQ?oc=5",
+    "quando": "2026-09-08T11:45:52+00:00"
+   },
+   "vota": false,
+   "selo": "experimental — contexto, não vota"
+  },
+  {
+   "chave": "CAD",
+   "veredito": "indeterminado",
+   "confianca": "baixa",
+   "motivo": "R4 e depois R8. Os dois unicos itens que tratam da politica do BoC sao nota de casa de analise: a Rosenberg dizendo que o aperto do BoC esta 'mispriced' depois da perda de emprego de agosto, e a TD Securities comentando o quadro de juro e inflacao. Isso e o que o mercado acha, nao o que o banco disse, e ambos sao degrau `manchete` (peso 0,0); n_cita_dirigente=0. Os outros 12 itens caem em R1 (emprego, tarifa, Bombardier, Dia do Trabalho, ate cinema). Fonte primaria, mostrada e nao resolvida em silencio: bc_discursos.json registra Macklem em `manutencao` com o comunicado de 02/09 ('we decided to maintain the policy interest rate at 2.25%') — fora da janela de 72 h desta rodada de noticia, e portanto contexto, nao confronto. A proxima reuniao do BoC e so em 28/10.",
+   "trecho": "Canada's Jobs Slump in August Makes Bank of Canada Tightening Look Mispriced, Rosenberg Research Says - marketscreener.com",
+   "numeros_citados": {
+    "noticias.moedas.CAD.n_gravados": 14,
+    "noticias.moedas.CAD.n_unicos": 15,
+    "noticias.moedas.CAD.duplicatas_removidas": 0,
+    "noticias.moedas.CAD.n_cita_dirigente": 0,
+    "noticias.moedas.CAD.contagem.alta": 1
+   },
+   "fonte": {
+    "titulo": "Canada's Jobs Slump in August Makes Bank of Canada Tightening Look Mispriced, Rosenberg Research Says - marketscreener.com",
+    "link": "https://news.google.com/rss/articles/CBMi5wFBVV95cUxNalZzZFNWYWluLThUblk2eWVqSjNqTzlsTDVBenZ6WTZpTHJVWjJMZm1BdTNic09ITllacWp0X2VXWXBpcWQzZmR0SEljampZN3BKRmVQTGhwOTFuS0xCRHQwRzZ6bExMMlBYdDFpNF9CZUNfbWtTdlV4WHNKVWFRY0dad1FQUUo0VnNUb0J3VUdQd21CRk85NG9uSkl6bDdUTlBNSmZWdUdjWDJIMGxuamY4RTdFMXJxYU55ZU9lak9KWmhzbUp5MzJLMUY2RjZOMUNuU1IwVVUwcjZmSHNWdVdhTG4wbFk?oc=5",
+    "quando": "2026-09-08T13:20:25+00:00"
+   },
+   "vota": false,
+   "selo": "experimental — contexto, não vota"
+  },
+  {
+   "chave": "CHF",
+   "veredito": "não é sobre juro",
+   "confianca": "baixa",
+   "motivo": "R1 derruba os cinco itens da janela inteira, e por isso o veredito e `nao e sobre juro` e nao `indeterminado` (secao 7.1). Dois sao sobre o piloto de stablecoin do franco, dois sao comentario cambial (franco contra dolar, franco contra iene) e o quinto e o dado de inflacao suica do WSJ — dado publicado nao e postura do SNB. Nenhum item trata do proximo passo do SNB, que decide em 24/09; n_cita_dirigente=0 e a contagem de manchete e zero em alta, corte e mantem. O SNB e buraco declarado (bloqueia automacao) e nao ha entrada dele em bc_discursos.json.",
+   "trecho": "Swiss Inflation Jumps on Higher Energy Prices - WSJ",
+   "numeros_citados": {
+    "noticias.moedas.CHF.n_gravados": 5,
+    "noticias.moedas.CHF.n_unicos": 5,
+    "noticias.moedas.CHF.n_72h": 5,
+    "noticias.moedas.CHF.n_cita_dirigente": 0,
+    "noticias.moedas.CHF.contagem.alta": 0,
+    "noticias.moedas.CHF.contagem.corte": 0,
+    "noticias.moedas.CHF.contagem.mantem": 0
+   },
+   "fonte": {
+    "titulo": "Swiss Inflation Jumps on Higher Energy Prices - WSJ",
+    "link": "https://news.google.com/rss/articles/CBMikwFBVV95cUxNaWQyNlZaMVVqMFVkMUktSWUxc1lBSk1DZWxBVVB5QzBxZ3VBaGlmakxoRlNkbEx0Tmd6bHJHNXNYRVFVTVh1bkFtRGo3OXJBMmdiUG54TnE4S0NRYmdyeTRjanZqY0ZXSzFMUmhYOEVWZXZUMTdSRUdXejhVenB4SFR3RTVUQ05OclV0MkRzSmw2a1U?oc=5",
+    "quando": "2026-09-07T23:51:52+00:00"
+   },
+   "vota": false,
+   "selo": "experimental — contexto, não vota"
+  }
+ ],
+ "nao_julgados": [
+  {
+   "chave": "USD",
+   "porque": "«August Jobs Report Delivers Unexpectedly Strong News for US Economy - WhoWhatWhy» — R1: relatorio de emprego de agosto; dado publicado nao e postura do Fed"
+  },
+  {
+   "chave": "USD",
+   "porque": "«Readers sound off on interest rates, fall activities and Stacy Keach - New York Daily News» — R1: cartas de leitores de jornal"
+  },
+  {
+   "chave": "USD",
+   "porque": "«[Analysis] Bitcoin’s Break Above $80,000 Hinges on Fed Rate Policy - bloomingbit» — R1: o sujeito e o preco do bitcoin"
+  },
+  {
+   "chave": "USD",
+   "porque": "«As expectations for Federal Reserve interest rate hikes intensify, UBS Group releases a 'buy and sell list' - 富途牛牛» — R1+R4: lista de compra e venda de um banco, e o que aparece e expectativa de mercado"
+  },
+  {
+   "chave": "USD",
+   "porque": "«Trump keeps heralding an economic boom, but even a solid jobs report is causing problems for him - PBS» — R1: campanha politica e retorica sobre a economia"
+  },
+  {
+   "chave": "USD",
+   "porque": "«Global economy on a financial crisis 'trajectory' as bond markets dive - ABC News & Headlines – Australian Broadcasting Corporation» — R1: o sujeito e o mercado de titulos"
+  },
+  {
+   "chave": "USD",
+   "porque": "«Trump braces for midterms, crucial union vote as Labor Day shows 75,000 lost manufacturing jobs - Fortune» — R1: eleicao de meio de mandato e emprego industrial"
+  },
+  {
+   "chave": "USD",
+   "porque": "«The 10 fastest-growing jobs in America over the next decade - Fox Business» — R1: ranking de profissoes que mais crescem"
+  },
+  {
+   "chave": "USD",
+   "porque": "«Farm Costs Face a New Threat as Oil Shock Raises U.S. Interest-Rate Risk - AgroLatam» — R1: custo agricola e choque do petroleo"
+  },
+  {
+   "chave": "USD",
+   "porque": "«Donald Trump Approval Rating Falls to Record Low on Economy—Poll - Newsweek» — R1: pesquisa de aprovacao politica"
+  },
+  {
+   "chave": "USD",
+   "porque": "«Trump’s economic record is working against him in the midterms - Los Angeles Times» — R1: desempenho eleitoral, nao politica monetaria"
+  },
+  {
+   "chave": "EUR",
+   "porque": "«Eurozone GDP grows 1.2%, beating expectations in Q2 2026 - logos-pres.md» — R1: dado de PIB da zona do euro"
+  },
+  {
+   "chave": "EUR",
+   "porque": "«Is it time for Eurozone GDP ex-Ireland? - Financial Times» — R1: discussao metodologica sobre o PIB da zona do euro"
+  },
+  {
+   "chave": "EUR",
+   "porque": "«European shares dip on oil-led inflation woes; Novartis set for worst day on record - WTVB» — R1: o sujeito e a bolsa europeia"
+  },
+  {
+   "chave": "EUR",
+   "porque": "«Global Market: Eurozone bond yields hold near multi-year highs as markets await ECB decision - The Economic Times» — R1: o sujeito e o mercado de titulos a espera do BCE"
+  },
+  {
+   "chave": "EUR",
+   "porque": "«Eurozone, U.S. Government Bond Yields Rise Ahead of ECB Decision, U.S. Inflation Data - marketscreener.com» — R1: o sujeito e o rendimento dos titulos antes da decisao"
+  },
+  {
+   "chave": "EUR",
+   "porque": "«Global Market: Eurozone investor sentiment hits four-year high in September - The Economic Times» — R1: indice de sentimento de investidor"
+  },
+  {
+   "chave": "EUR",
+   "porque": "«Euro recovers some early losses against Japanese Yen, ECB policy in focus - FXStreet» — R1: comentario cambial de euro contra iene"
+  },
+  {
+   "chave": "EUR",
+   "porque": "«Euro holds steady above 1.1600 as markets brace for US inflation data and ECB rate decision - FXStreet» — R1: comentario cambial do euro"
+  },
+  {
+   "chave": "EUR",
+   "porque": "«Eurozone investor sentiment hits highest level in over four years, lifted by German recovery - finance.biggo.com» — R1: indice de sentimento de investidor"
+  },
+  {
+   "chave": "GBP",
+   "porque": "«BoE's Bailey: Market Curve Reflects Inflation Risk Premium for UK - Global Banking & Finance Review» — R7: mesma noticia do item 0 (Bailey sobre o premio de risco na curva) com outro titulo; julgada uma vez"
+  },
+  {
+   "chave": "GBP",
+   "porque": "«Inflation rises again in the Eurozone – should the ECB act to curb transitory inflation? - Edinburgh Chamber of Commerce» — R1 e moeda errada: a materia e sobre a inflacao da zona do euro e o BCE"
+  },
+  {
+   "chave": "GBP",
+   "porque": "«Dow opens 470 pts lower as oil prices rise, markets brace for key inflation data - Invezz» — R1: o sujeito e a bolsa americana"
+  },
+  {
+   "chave": "GBP",
+   "porque": "«Sterling Dips as Markets Await BoE's Bailey Remarks on Policy Outlook - Global Banking & Finance Review» — R1: o sujeito e a cotacao da libra"
+  },
+  {
+   "chave": "GBP",
+   "porque": "«Chile Inflation Comes in Above Expectations Before Rate Decision - bloomberg.com» — R1 e moeda errada: inflacao e decisao de juro do Chile"
+  },
+  {
+   "chave": "GBP",
+   "porque": "«Pound Falters Amid BoE Policy Anticipation - Devdiscourse» — R1: o sujeito e a cotacao da libra"
+  },
+  {
+   "chave": "GBP",
+   "porque": "«LONDON MARKET MIDDAY: Stocks toil as inflation worry hits bond prices - London South East» — R1: fechamento de bolsa e precos de titulos"
+  },
+  {
+   "chave": "GBP",
+   "porque": "«Why Rising UK Gilt Yields Are Putting Healey's Growth Plan at Risk - equiti.com» — R1: rendimento dos gilts e plano fiscal do governo"
+  },
+  {
+   "chave": "GBP",
+   "porque": "«London shares inch lower as oil rally fuels inflation concerns - Reuters» — R1: o sujeito e a bolsa de Londres"
+  },
+  {
+   "chave": "GBP",
+   "porque": "«'People are furious': RBA deputy governor says more needs to be done on inflation - ABC News & Headlines – Australian Broadcasting Corporation» — moeda errada: e fala do vice do RBA, cai na lista do AUD, nao do GBP"
+  },
+  {
+   "chave": "GBP",
+   "porque": "«GBP/USD Holds Firm Ahead of UK GDP, US Inflation Data - TradingPedia» — R1: o sujeito e o par GBP/USD"
+  },
+  {
+   "chave": "JPY",
+   "porque": "«Japan’s foreign reserves fall $79.6B after record yen intervention - Anadolu Ajansı» — R1: reservas cambiais depois de intervencao; nao trata do proximo passo do BoJ"
+  },
+  {
+   "chave": "JPY",
+   "porque": "«ITR sees Japan AI governance market at 15 billion yen by 2030 - International Business Times» — R1: mercado de governanca de IA no Japao"
+  },
+  {
+   "chave": "JPY",
+   "porque": "«Oil prices jump, stocks drop as Mideast war flares - Yahoo Finance Singapore» — R1: petroleo e conflito no Oriente Medio"
+  },
+  {
+   "chave": "JPY",
+   "porque": "«155.00: Why the Japanese Yen just broke through the level that could define a new range - FXStreet» — R1: o sujeito e o nivel tecnico do iene"
+  },
+  {
+   "chave": "JPY",
+   "porque": "«Yen Hits Seven-Month High as Bank of Japan Rate Hike Bets Grow - Межа. Новини України.» — R1+R4: cotacao do iene movida por aposta de mercado na alta do BoJ"
+  },
+  {
+   "chave": "JPY",
+   "porque": "«BOJ to Raise Policy Rate to 1.25% in September, Kyodo Reports - Seoul Economic Daily» — R7: mesma reportagem dos itens 3 e 6 (BoJ a 1,25% em setembro, via Kyodo) com outro titulo"
+  },
+  {
+   "chave": "JPY",
+   "porque": "«Explosive Rally: Yen Just Smashed Past 155. What To Expect From BOJ's Next Move - NDTV Profit» — R1: o sujeito e a alta do iene"
+  },
+  {
+   "chave": "JPY",
+   "porque": "«Japanese Yen: Carry unwind supports gains against US Dollar - ING - FXStreet» — R1: desmonte de carrego e cotacao do iene"
+  },
+  {
+   "chave": "JPY",
+   "porque": "«Japan Finally Gets Its Stronger Yen. Forecast as of 08.09.2026 - litefinance.org» — R1: previsao de cotacao do iene"
+  },
+  {
+   "chave": "JPY",
+   "porque": "«Bank of Japan Set to Raise Rates to 1.25% at September Meeting, Highest in About 31 Years - finance.biggo.com» — R7: mesma reportagem dos itens 3 e 6, com outro titulo"
+  },
+  {
+   "chave": "AUD",
+   "porque": "«‘Explain ourselves’: RBA deputy’s huge call - News.com.au» — R7: republicacao do mesmo episodio do vice do RBA ja julgado nos itens 0 e 1"
+  },
+  {
+   "chave": "AUD",
+   "porque": "«Australia Has a Big Inflation Problem, RBA Deputy Gov. Says - marketscreener.com» — R7: republicacao do mesmo episodio do vice do RBA"
+  },
+  {
+   "chave": "AUD",
+   "porque": "«‘Furious’: RBA deputy boss says more to be done on inflation - The West Australian» — R7: republicacao do mesmo episodio do vice do RBA"
+  },
+  {
+   "chave": "AUD",
+   "porque": "«'People are furious': RBA deputy governor says more needs to be done on inflation - ABC News & Headlines – Australian Broadcasting Corporation» — R7: republicacao do mesmo episodio do vice do RBA"
+  },
+  {
+   "chave": "AUD",
+   "porque": "«'No choice': Grim interest rate warning for borrowers as oil prices spike - sbs.com.au» — R1: o sujeito e o custo do credito para o mutuario e o preco do petroleo"
+  },
+  {
+   "chave": "AUD",
+   "porque": "«‘May have to raise’: RBA’s bluntest warning yet an interest rate hike may be coming - Nine.com.au» — R7: republicacao do mesmo episodio do vice do RBA"
+  },
+  {
+   "chave": "AUD",
+   "porque": "«Australia’s sluggish growth may still be too high to kill inflation - AFR» — R1: analise de crescimento e inflacao, sem postura do banco"
+  },
+  {
+   "chave": "AUD",
+   "porque": "«‘Top priority’: RBA signals more rate hikes needed - The Australian» — R7: republicacao do mesmo episodio do vice do RBA"
+  },
+  {
+   "chave": "AUD",
+   "porque": "«Australia central bank may raise rates again on inflation, official says - TradingView» — R7: republicacao do mesmo episodio do vice do RBA"
+  },
+  {
+   "chave": "NZD",
+   "porque": "«Moody's flags NZ recovery under way, but warns of global risks - mpamag.com» — R1: avaliacao de agencia de rating sobre a economia"
+  },
+  {
+   "chave": "NZD",
+   "porque": "«New Zealand Dollar struggles after China’s Trade Balance data - FXStreet» — R1: o sujeito e a cotacao do dolar neozelandes"
+  },
+  {
+   "chave": "NZD",
+   "porque": "«New Zealand’s historic house price crash returns - MacroBusiness» — R1: preco de imovel"
+  },
+  {
+   "chave": "NZD",
+   "porque": "«McLovin' it: McDonald's $580m Kiwi food bill to fill our bellies - NZ Herald» — R1: gasto de uma rede de fast food"
+  },
+  {
+   "chave": "NZD",
+   "porque": "«Economic recovery is coming, ratings agency Moody's says - RNZ» — R1: avaliacao de agencia de rating sobre a economia"
+  },
+  {
+   "chave": "NZD",
+   "porque": "«New Zealand Dollar struggles to gain traction as cautious RBNZ outlook weighs - tmgm.com» — R1: o sujeito e a cotacao do dolar neozelandes"
+  },
+  {
+   "chave": "NZD",
+   "porque": "«Replacing the RMA is reform the economy and the environment badly need - thepost.co.nz» — R1: reforma de legislacao ambiental"
+  },
+  {
+   "chave": "NZD",
+   "porque": "«New Zealand Dollar struggles due to cautious RBNZ policy outlook - FXStreet» — R1: o sujeito e a cotacao do dolar neozelandes"
+  },
+  {
+   "chave": "NZD",
+   "porque": "«Fishing industry nets $2.45b boost for NZ economy - NZ Herald» — R1: setor pesqueiro"
+  },
+  {
+   "chave": "NZD",
+   "porque": "«New Zealand Dollar edges lower as Fed rate hike bets and Iran tensions underpin USD - FXStreet» — R1: cotacao do NZD movida por aposta no Fed e por tensao geopolitica"
+  },
+  {
+   "chave": "NZD",
+   "porque": "«Is NZ starting to close the economic gap with Australia? - Newsroom» — R1: comparacao economica com a Australia"
+  },
+  {
+   "chave": "NZD",
+   "porque": "«2% inflation goal was invented in New Zealand in 1990. Why keep it? - The Times» — R1: discussao historica sobre o regime de meta de inflacao, nao sobre o proximo passo"
+  },
+  {
+   "chave": "NZD",
+   "porque": "«RBNZ's Karen Silk suggests savers shop around if OCR hike's not passed through to deposit rates - Interest.co.nz» — R1: dirigente nomeada (Karen Silk), mas o assunto e o repasse do OCR as taxas de deposito dos poupadores"
+  },
+  {
+   "chave": "CAD",
+   "porque": "«US Stocks Fall on Oil Price Surge, US-Canada Trade Tensions, Inflation Concerns; Dow, S&P 500 Decline - CNBC TV18» — R1: o sujeito e a bolsa americana"
+  },
+  {
+   "chave": "CAD",
+   "porque": "«Canada Loses 41,700 Jobs as Employment Shrinks in Finance - Insurance Journal» — R1: dado de emprego"
+  },
+  {
+   "chave": "CAD",
+   "porque": "«Canada’s Bombardier Responds To Trump’s Ban Threat By Touting U.S Jobs - forbes.com» — R1: empresa e ameaca tarifaria"
+  },
+  {
+   "chave": "CAD",
+   "porque": "«Trump’s latest threat puts Mississauga aerospace jobs at risk - INsauga» — R1: emprego no setor aeroespacial"
+  },
+  {
+   "chave": "CAD",
+   "porque": "«Watch Oil Rally Fuels Inflation Fears; Canada's US Tariffs Kick In - bloomberg.com» — R1: petroleo e tarifas"
+  },
+  {
+   "chave": "CAD",
+   "porque": "«What's Driving Royal Bank of Canada (TSX:RY) In Financial Stocks Today? - Kalkine Media» — R1: acao de um banco comercial"
+  },
+  {
+   "chave": "CAD",
+   "porque": "«Alberta’s Jobs minister thanks millions of workers in Labour Day statement - CHAT News Today» — R1: declaracao de Dia do Trabalho de um ministro provincial"
+  },
+  {
+   "chave": "CAD",
+   "porque": "«Lea Seydoux wants 'dangerous' jobs - ca.movies.yahoo.com» — R1: entretenimento; caiu na lista por causa da palavra 'jobs'"
+  },
+  {
+   "chave": "CAD",
+   "porque": "«Labour Day statement from Bea Bruske, President of the Canadian Labour Congress: This Labour Day, workers are fighting for our jobs and our rights - Canadian La» — R1: declaracao de central sindical"
+  },
+  {
+   "chave": "CAD",
+   "porque": "«Commentary: Trump's dumb trade war with Canada threatens U.S. jobs and security - Yakima Herald-Republic» — R1: comentario sobre guerra comercial"
+  },
+  {
+   "chave": "CAD",
+   "porque": "«Saskatchewan employment grows as Canada loses jobs in August - WestCentralOnline» — R1: dado de emprego provincial"
+  },
+  {
+   "chave": "CAD",
+   "porque": "«Canadian Dollar Ends Week at 72.25 U.S. Cents After Canada Loses 42,000 Jobs - TechStock²» — R1: o sujeito e a cotacao do dolar canadense"
+  },
+  {
+   "chave": "CHF",
+   "porque": "«Swiss Franc Stablecoin Pilot Adds SIX and TWINT as Partners - finance.biggo.com» — R1: piloto de stablecoin do franco"
+  },
+  {
+   "chave": "CHF",
+   "porque": "«Swiss Franc Stablecoin CHFD Enters Live Testing With SIX, TWINT - The Cryptonomist» — R1: piloto de stablecoin do franco"
+  },
+  {
+   "chave": "CHF",
+   "porque": "«Swiss Franc steadies as Fed hike expectations offset safe-haven flows - FXStreet» — R1: comentario cambial; o sujeito e a cotacao do franco"
+  },
+  {
+   "chave": "CHF",
+   "porque": "«Swiss Inflation Jumps on Higher Energy Prices - WSJ» — R1: dado de inflacao suica publicado; dado nao e postura do SNB"
+  },
+  {
+   "chave": "CHF",
+   "porque": "«Swiss Franc: Downside risks build against Yen as policy diverges – DBS - FXStreet» — R1: comentario cambial de franco contra iene"
+  }
+ ],
+ "limites": [
+  "Julguei apenas os itens gravados: noticias.n_gravados_total=103 contra noticias.n_unicos_total=282 e noticias.n_72h_total=300. O coletor grava so os do topo de cada moeda (14 por moeda, 5 no CHF), entao o julgamento vale para o que esta gravado, nao para a janela inteira.",
+  "Sete das oito moedas ficaram sem direcao por R8: manchete de degrau 0,0 e contexto, nunca postura de banco central. So o AUD teve item acima desse degrau nesta rodada.",
+  "Nenhum julgamento vota. O agente nunca foi comparado com a decisao seguinte do banco (vota:false em toda linha, selo experimental). Conviccao historica continua null ate o backtest.",
+  "O campo `resumo` chegou preenchido em todos os itens, mas em todos eles o resumo apenas repete o titulo do RSS: na pratica nao houve corpo de materia para ler. A tensao com a lapide L-03 (filtro e por frase, nunca por titulo) continua de pe, e nao e escolha do julgamento — e o que a camada 1 entrega.",
+  "A deduplicacao da camada 1 (Jaccard 0,7, marcada provisoria) deixou passar republicacoes, e eu julguei uma vez so, como manda R7: no AUD o mesmo episodio de fala do vice do RBA aparece nos itens 2, 4, 6, 7, 9, 11 e 13; no JPY a reportagem do BoJ a 1,25% aparece nos itens 3, 6, 7 e 12; no GBP a fala do Bailey aparece nos itens 0 e 1. Registro para o codigo ser corrigido, nao consertei em silencio.",
+  "Vazamento de moeda entre listas: o item 12 do GBP e a mesma materia do item 7 do AUD (vice do RBA na ABC), o item 2 do GBP e materia sobre o BCE e o item 6 do GBP e sobre o Chile. A busca do GBP esta trazendo item de outra moeda.",
+  "R6 nao lista o modal 'may' / 'pode' entre os marcadores de condicao (a regua cita 'if', 'should inflation', 'were the data to', 'caso', 'se'). Li 'may have to raise' como condicional, e nao como direcao firme, indo para o lado mais fraco. Isto e um limite declarado, nao um precedente: a regua precisa decidir explicitamente se modal de possibilidade rebaixa como o 'se' rebaixa.",
+  "Cinco moedas sem precificacao com fonte nesta rodada (EUR, GBP, JPY, CAD e CHF, todas com qualidade 'sem fonte'; o NZD tem qualidade baixa e p_alta null). Para elas nao existe coluna de mercado, logo nao existe a divergencia que e o produto da casa.",
+  "bc_discursos.json nao tem entrada para JPY, AUD, NZD nem CHF nesta rodada — sem fonte primaria para confrontar (AUD, NZD e CHF ja sao buraco declarado: RBA, RBNZ e SNB bloqueiam automacao).",
+  "Observacao sobre a camada 1, sem correcao da minha parte: o veredito `manutencao` do CAD em bc_discursos.json apoia-se numa frase no passado ('we decided to maintain the policy interest rate at 2.25%'), que e o que a R3 descarta como balanco do que ja foi feito. Nao mexi no arquivo; fica o registro.",
+  "Frescor: data/noticias.json foi gerado em 2026-09-08T14:47:08 UTC e data/precificacao.json em 2026-09-08T14:14:10Z; julguei na mesma rodada, poucos minutos depois. Como o arquivo e reescrito a cada 15-35 min e nao tem versao ponto-no-tempo, os numeros citados aqui deixam de ser conferiveis na proxima reescrita (L-08).",
+  "Divergencia de contrato conhecida: ARQUITETURA_AGENTES.md cita data/indice_agentes.json; o contrato vigente e data/agentes/indice.json, e foi la que gravei.",
+  "Conferencia de forma feita na mesma rodada: `python verificador_numeros.py --agente noticia --estrito` voltou limpo, todos os numeros citados marcados [ok] contra a camada 1, codigo de saida 0."
+ ]
+}

@@ -1,30 +1,126 @@
 {
  "agente": "geopolitica",
  "versao_prompt": "geopolitica@v1",
- "gerado_em": "2026-09-07T00:00:00+00:00",
- "rodada_id": "geopolitica-semente-2026-09-07",
+ "gerado_em": "2026-09-08T15:10:49+00:00",
+ "rodada_id": "geopolitica-2026-09-08T15:10Z",
  "entradas": {
   "arquivo": "data/geopolitica.json",
-  "gerado_em": "2026-09-07T02:45:35.563824+00:00",
-  "n_itens": 1
+  "gerado_em": "2026-09-08T14:47:49.585665+00:00",
+  "n_itens": 4
  },
- "julgamentos": [],
+ "julgamentos": [
+  {
+   "chave": "evento/ataque-eua-ira",
+   "veredito": "já precificado",
+   "confianca": "baixa",
+   "motivo": "É NOVO? Não. M3 barra antes de M1: esta assinatura exata (acao='ataque', entidades=[eua, ira]) já foi julgada na rodada de 06/set — caso agentes/geopolitica/casos/2026-09-06-ataque-eua-ira-ormuz.md — e volta hoje com o MESMO título, a MESMA url representante (wmtw.com), a MESMA hora de publicação (20260906T123000Z) e os MESMOS números de volume (z 1,06, razao 1,10, recente_3d 3,2144, base_14d 2,9231). O bloco mundo.conflito vem 'reaproveitado': true e o erro 'mundo/conflito: HTTP Error 429' confirma que não houve coleta nova: é cache, não notícia. As quatro perguntas do M3 dão o mesmo lado — assinatura já julgada, razão 1,10 (perto de 1, o assunto está no ritmo dos 14 dias), bloco reaproveitado, e o próprio título diz 'as fighting escalates', ou seja, conflito já em curso. O caso de 06/set previu por escrito este desfecho: 'se a mesma assinatura reaparecer na próxima rodada sem fato novo, o veredito seguinte é já precificado'. POR QUAL CANAL CHEGARIA? M1 (energia), rota de transporte: Ormuz é passagem de petróleo, e o canal iria ao preço da energia e daí à inflação — tocando JPY, EUR, CHF e NZD como importadores e CAD/AUD como exportadores. EM QUE DIREÇÃO? Nenhuma HOJE: sem fato novo, não há surpresa, e preço reage a surpresa. O julgamento de alta de 06/set NÃO é renovado por esta rodada. Confiança baixa: fonte de confiabilidade 'baixa' e as 5 republicações são cinco emissoras locais dos EUA com o mesmo id de artigo (73624224) — um despacho, não cinco confirmações.",
+   "trecho": "Iran claims strike on US ship in Strait of Hormuz as fighting escalates",
+   "numeros_citados": {
+    "z_conflito_mundo": 1.06,
+    "razao_conflito_mundo": 1.1,
+    "n_mundo_conflito": 14,
+    "recente_3d_mundo_conflito": 3.2144,
+    "base_14d_mundo_conflito": 2.9231,
+    "n_republicacoes": 5,
+    "duplicatas_removidas": 4
+   },
+   "fonte": {
+    "titulo": "Iran claims strike on US ship in Strait of Hormuz as fighting escalates",
+    "link": "https://www.wmtw.com/article/iran-us-war-strait-of-hormuz-ship/73624224",
+    "quando": "20260906T123000Z"
+   },
+   "vota": false,
+   "selo": "experimental — contexto, não vota"
+  },
+  {
+   "chave": "evento/sancoes-canada-eua",
+   "veredito": "já precificado",
+   "confianca": "baixa",
+   "motivo": "FUSÃO DECLARADA (seção 6 do meu prompt, buraco 2 da régua): fundi DOIS itens de manchetes_unicas que são o mesmo assunto — 'Canada - U.S. trade war takes centre stage at Toronto annual Labour Day parade' (cbc.ca, 20260908T013000Z, 3 republicações, entidades [canada, eua]) e 'Counter - tariff fallout could be ugly, expert warns' (cbc.ca, 20260907T150000Z, 1 republicação, entidades []). A régua não os agrupou porque o segundo ficou com a lista de entidades VAZIA e a regra 2 exige 2 entidades em comum — é o buraco que o próprio arquivo declara. São a mesma guerra comercial Canadá-EUA, mesma ação 'sancoes', mesmo veículo. Abro UM julgamento, não dois. É NOVO? Não. Nenhum dos dois títulos anuncia fato datado: um é cobertura de um desfile de Labour Day em que o tema apareceu, o outro é um especialista alertando sobre o que 'poderia' acontecer ('could be ugly, expert warns'). Pergunta 4 do M3: comentário sobre fato conhecido não é evento. Pergunta 2: a razão do volume de energia do mundo é 1,03 e o z é 0,25 — o assunto está no seu próprio ritmo normal dos 14 dias, ou seja, já está no preço. POR QUAL CANAL CHEGARIA? M2 (crescimento), não M1: tarifa entre Canadá e EUA tira confiança e demanda de exportação, não tira oferta de energia do mercado — apesar de estas manchetes terem sido capturadas pela consulta de energia, não há embargo nem corte de oferta no título. EM QUE DIREÇÃO? Nenhuma hoje. Se houvesse fato novo — alíquota anunciada, data de vigência, retaliação formalizada — o canal M2 apontaria pressão de baixa no juro do CAD, e é assim que leria a próxima rodada, em cenário condicional. Confiança baixa: as duas manchetes representantes têm confiabilidade 'media', mas as 2 agrupadas são 'baixa', e nenhum dos títulos traz fato.",
+   "trecho": "Canada - U.S. trade war takes centre stage at Toronto annual Labour Day parade",
+   "numeros_citados": {
+    "z_energia_mundo": 0.25,
+    "razao_energia_mundo": 1.03,
+    "n_mundo_energia": 14,
+    "recente_3d_mundo_energia": 1.1813,
+    "base_14d_mundo_energia": 1.1468,
+    "n_republicacoes_item_1": 3,
+    "n_republicacoes_item_2": 1,
+    "duplicatas_removidas": 2
+   },
+   "fonte": {
+    "titulo": "Canada - U.S. trade war takes centre stage at Toronto annual Labour Day parade",
+    "link": "https://www.cbc.ca/news/canada/toronto/canada-us-trade-war-toronto-labour-day-parade-9.7334984",
+    "quando": "20260908T013000Z"
+   },
+   "vota": false,
+   "selo": "experimental — contexto, não vota"
+  },
+  {
+   "chave": "evento/energia-eua-ira-fala-preco-petroleo",
+   "veredito": "indeterminado",
+   "confianca": "baixa",
+   "motivo": "É NOVO? O item é de hoje (20260908T031500Z) e não coincide com assinatura julgada antes — mas o título não diz o que ACONTECEU, diz o que alguém PREVÊ que vai acontecer: 'oil prices will drop', 'gas could fall below $2', 'after US wins Iran war'. Isso é declaração e previsão, não fato datado — e a hierarquia de falas da casa dá peso mínimo a manchete de declaração. O título não estabelece que a guerra terminou, nem que houve acordo, nem que a rota foi liberada; extrapolar um desfecho militar a partir dele seria previsão militar, vetada pela minha lápide L6. POR QUAL CANAL CHEGARIA? M1 (energia), e com sinal OPOSTO ao do evento de Ormuz: petróleo mais barato seria desinflação para os importadores (JPY, EUR, CHF, NZD) e termos de troca piores para o exportador (CAD). Ou seja, o mesmo par de entidades [eua, ira] aparece hoje nos dois blocos do mundo puxando para lados contrários — o de conflito para cima, este para baixo. EM QUE DIREÇÃO? Indeterminado: sem fato, não há mecanismo, e uma declaração não revoga um ataque. Não fundi este item com o de Ormuz porque a ação é outra ('energia' contra 'ataque') e o conteúdo é outro, ainda que o conflito de fundo seja o mesmo. Confiança baixa: confiabilidade da fonte 'baixa', uma única republicação, nenhuma agência internacional ou jornal financeiro repetindo.",
+   "trecho": "Trump says oil prices will drop precipitously, gas could fall below $2 after US wins Iran war",
+   "numeros_citados": {
+    "z_energia_mundo": 0.25,
+    "razao_energia_mundo": 1.03,
+    "n_republicacoes": 1
+   },
+   "fonte": {
+    "titulo": "Trump says oil prices will drop precipitously, gas could fall below $2 after US wins Iran war",
+    "link": "https://www.moneycontrol.com/world/trump-says-oil-prices-will-drop-precipitously-gas-could-fall-below-2-after-us-wins-iran-war-article-14024746.html",
+    "quando": "20260908T031500Z"
+   },
+   "vota": false,
+   "selo": "experimental — contexto, não vota"
+  }
+ ],
  "nao_julgados": [
   {
-   "chave": "todas",
-   "porque": "SEMENTE do contrato: o agente `geopolitica` ainda não rodou nesta instalação."
+   "chave": "CHF",
+   "porque": "ZERO manchete única nos dois temas. Conflito trouxe volume (z −0,89, razao 0,64) e lista vazia; energia falhou com 'CHF/energia: HTTP Error 429: Too Many Requests'. Sem manchete não há mecanismo, e z não é direção (lápide L3)."
+  },
+  {
+   "chave": "EUR",
+   "porque": "ZERO manchete única nos dois temas. Conflito falhou com 'EUR/conflito: HTTP Error 429: Too Many Requests'; energia mediu z 0,83 e razao 1,29 mas veio com lista de manchetes VAZIA — o volume diz que há assunto e não diz qual. Não julgo moeda pelo z (lápide L3)."
+  },
+  {
+   "chave": "JPY",
+   "porque": "ZERO manchete única. Conflito com z −1,25 e lista vazia; energia falhou por HTTP 429 (bloco herdado). O bloco inteiro é reaproveitado de 2026-09-08T11:42:22Z, anterior à geração da rodada (14:47:49Z) — cache, não coleta nova."
+  },
+  {
+   "chave": "NZD",
+   "porque": "ZERO manchete única nos dois temas, com volume medido nos dois (conflito z −1,10 razao 0,47; energia z −1,11 razao 0,18) e nenhum título. Bloco reaproveitado de 2026-09-08T05:08:54Z — o mais velho da rodada, quase dez horas antes da geração (14:47:49Z)."
+  },
+  {
+   "chave": "CAD",
+   "porque": "ZERO manchete própria. Conflito com z −0,98 e lista vazia; energia falhou com 'CAD/energia: HTTP Error 429: Too Many Requests'. Bloco reaproveitado de 2026-09-08T11:42:22Z. As manchetes de guerra comercial que tocam o Canadá estão em mundo.energia, e foram julgadas ali como evento/sancoes-canada-eua — já precificado —, não como julgamento próprio do CAD."
+  },
+  {
+   "chave": "GBP",
+   "porque": "A moeda NÃO ESTÁ no arquivo desta rodada: 'orcamento de 480 s estourado antes de GBP — o resto fica para a proxima rodada'. Sem bloco, sem volume e sem manchete. Nota: em 07/set o GBP aparecia com conflito z 2,05 e zero manchete; hoje nem o z existe."
+  },
+  {
+   "chave": "AUD",
+   "porque": "A moeda NÃO ESTÁ no arquivo desta rodada e não aparece nem em erros[]: caiu junto com o GBP no estouro do orçamento de 480 s. Sem bloco, sem volume e sem manchete."
   },
   {
    "chave": "USD",
-   "porque": "a moeda não é coletada por data/geopolitica.json (só GBP, AUD, EUR, JPY, NZD, CAD, CHF)"
+   "porque": "Sem bloco de moeda no arquivo, mas AGORA aparece em erros[] com 'USD/conflito: HTTP Error 429' e 'USD/energia: HTTP Error 429' — ou seja, a camada 1 passou a TENTAR coletar o USD (mudança em relação a 07/set, quando ele não era tentado) e falhou por limite de taxa. É a moeda mais exposta a evento global e continua sem manchete."
   }
  ],
  "limites": [
-  "SEMENTE: nenhum julgamento foi feito; a primeira rodada do agente substitui este arquivo",
-  "não vota, selo experimental: volume de notícia não é direção (veto do dono, 05/set)",
-  "julga o JURO, não o câmbio; o canal de refúgio é FX e fica só no motivo",
-  "coleta de 07/set com 7 erros HTTP 429 e orçamento estourado antes do CAD: nenhuma moeda teve manchete própria",
-  "os mecanismos M1 (energia), M2 (crescimento) e M3 (já precificado?) são regras DECLARADAS e nunca medidas"
+  "não vota: dimensão não validada só informa, e o selo é experimental (veto do dono, 05/set — volume não é direção)",
+  "julgo o JURO, não o câmbio: fluxo de refúgio (dólar, franco, iene) é canal de FX e não vira veredito aqui (lápide L4)",
+  "os mecanismos M1 (energia), M2 (crescimento) e M3 (já precificado?) são regras DECLARADAS e nunca medidas — não existe número de acerto do agente",
+  "convicção histórica é null: não há série histórica de geopolítica no repositório (data/geopolitica.json guarda só a rodada atual) e meu historico.jsonl estava VAZIO antes desta linha — sem n, não há teste, e sem teste não há voto",
+  "IDADE DOS DADOS: o arquivo foi gerado em 2026-09-08T14:47:49Z, mas três blocos de moeda são cache — JPY e CAD de 11:42:22Z e NZD de 05:08:54Z. O bloco mundo.conflito vem 'reaproveitado': true, com manchete carimbada em 20260906T123000Z, dois dias antes. Confiança rebaixada por isso, e é a razão principal do veredito 'já precificado' em Ormuz",
+  "coleta desta rodada com 8 entradas em erros[]: sete HTTP 429 (mundo/conflito, CAD/conflito, CAD/energia, CHF/energia, USD/conflito, USD/energia, EUR/conflito) e o orçamento de 480 s estourado antes do GBP",
+  "NENHUMA das 5 moedas presentes (CHF, EUR, JPY, NZD, CAD) teve manchete própria: zero manchetes cruas e zero únicas em todas. Os 3 julgamentos saem todos de mundo.energia e mundo.conflito, nenhum de moeda",
+  "GBP e AUD não existem no arquivo desta rodada; USD só existe como erro. As 3 moedas ficam sem qualquer informação, nem volume",
+  "todos os números citados são COPIADOS de data/geopolitica.json com o nome do campo ao lado — não calculo z, razão, média nem contagem (lápide L7)",
+  "publicação em cenário condicional: nada aqui é ordem, sinal de entrada ou promessa de retorno; a entrada é do Eduardo, pela análise técnica dele"
  ],
  "selo": "experimental — contexto, não vota",
  "vota": false

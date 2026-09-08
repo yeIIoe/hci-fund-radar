@@ -1,10 +1,10 @@
 ====================================================================================================
-HCI — FICHAS DE QUEDA | semana 2026-08-28 -> 2026-09-04 | gerado em 2026-09-06T20:49:02
+HCI — FICHAS DE QUEDA | semana 2026-09-04 -> 2026-09-08 | gerado em 2026-09-08T12:50:44
 ====================================================================================================
 Isto e DADO e CLASSIFICACAO. Nao e recomendacao, nao e sinal de entrada,
 nao ha promessa de retorno. A decisao e a tecnica de entrada sao do Eduardo.
 
-CONTEXTO DA SEMANA: SPY +0.11%
+CONTEXTO DA SEMANA: SPY -0.34%
 
 ----------------------------------------------------------------------------------------------------
 FUNIL (onde os candidatos morreram)
@@ -14,20 +14,22 @@ FUNIL (onde os candidatos morreram)
      MORRERAM na liquidez                                    205
   2. CAIU — com historico suficiente (>=210 barras)          1396
      MORRERAM por historico curto / sem preco                37
-     sinalizados desdobramento/dividendo (bruto x ajustado > 3 pp) 1
-     seletividade: z <= -1.5                                 45 (3.2%)
-     seletividade: z <= -2.0                                 20 (1.4%)
-     seletividade: z <= -2.5                                 8 (0.6%)
-     seletividade: z <= -3.0                                 4 (0.3%)
-     PASSARAM no corte PROVISORIO z <= -2.0                  20
-     MORRERAM no z                                           1376
-  3. IDIOSSINCRATICA — queda propria domina (>=50%) e e negativa 20
+     sinalizados desdobramento/dividendo (bruto x ajustado > 3 pp) 546
+     seletividade: z <= -1.5                                 7 (0.5%)
+     seletividade: z <= -2.0                                 4 (0.3%)
+     seletividade: z <= -2.5                                 3 (0.2%)
+     seletividade: z <= -3.0                                 1 (0.1%)
+     PASSARAM no corte PROVISORIO z <= -2.0                  4
+     MORRERAM no z                                           1392
+  3. IDIOSSINCRATICA — queda propria domina (>=50%) e e negativa 4
      MORRERAM (queda era do mercado/setor, ou sem ETF/janela) 0
-  4. LASTRO — com lastro (o EPS caiu junto)                  2
-     LASTRO — sem lastro (preco caiu, EPS parado ou subindo) 16
-     LASTRO — SEM DADO (sem par no snapshot / serie curta)   2
-     destes, medidos em FY DISTANTE (nao FY1) — dado mais fraco 9
-  5. MOTIVO — identificado                                   20
+  4. LASTRO — com lastro (o EPS caiu junto)                  0
+     LASTRO — sem lastro (preco caiu, EPS parado ou subindo) 4
+     LASTRO — SEM DADO (sem par no snapshot / serie curta)   0
+     destes, medidos em FY DISTANTE (nao FY1) — dado mais fraco 4
+     GRADUACAO — na FAIXA DE FRONTEIRA (o dado nao separa os baldes) 1
+     GRADUACAO — com dado, mas sem incerteza mensuravel no snapshot 0
+  5. MOTIVO — identificado                                   4
      MOTIVO — nao identificado (isto e informacao, nao falha) 0
 
 ----------------------------------------------------------------------------------------------------
@@ -36,11 +38,21 @@ Para muitos tickers a resposta honesta e 'sem dado'. Nao foi preenchido com
 estimativa de hoje: isso seria look-ahead. Alem disso o analista revisa DEPOIS
 do evento, entao 'sem lastro' em janela de 1 semana e HIPOTESE, nao veredito.
 ----------------------------------------------------------------------------------------------------
-  com lastro: 2   |   sem lastro: 16   |   sem dado: 2
+  com lastro: 0   |   sem lastro: 4   |   sem dado: 0
+
+  GRADUACAO COM FAIXA DE INCERTEZA (08/set/2026) — o limiar de 3.0% NAO mudou e os
+  tres estados acima continuam identicos (a populacao do pre-registro nao muda). Ao
+  lado deles entra a incerteza do PROPRIO consenso, medida no snapshot:
+      meia amplitude (epsHigh-epsLow)/2 / raiz(n analistas), em % do EPS
+  Quando a revisao esta a menos de UMA incerteza da borda (-3.0% ou +3.0%), o caso
+  sai rotulado FRONTEIRA — o dado nao separa os dois baldes, e chamar isso de veredito
+  seria inventar precisao. Nenhum numero novo foi calibrado.
+     na FAIXA DE FRONTEIRA: 1 de 4 ficha(s)   |   com dado mas sem incerteza
+     mensuravel no snapshot: 0   |   sem dado nenhum: 0
   DEFEITO CONHECIDO DA BASE, declarado: ate 30/ago o logger gravava limit=4 e o
   FMP devolve os anos fiscais em ordem DECRESCENTE — os snapshots de 14, 21 e
   28/ago guardaram os anos MAIS DISTANTES (3,99 linhas por ticker) e nao o FY1
-  (o de 05/set tem 11,08). Por isso 9 ficha(s) com dado foram medidas em FY
+  (o de 05/set tem 11,08). Por isso 4 ficha(s) com dado foram medidas em FY
   DISTANTE e nao no FY1 — marcado ficha a ficha. A serie PIT de FY1 so comeca
   em 05/set/2026, e e dela que sai o teste de lastro forte a partir de 12/set.
 
@@ -48,288 +60,74 @@ do evento, entao 'sem lastro' em janela de 1 semana e HIPOTESE, nao veredito.
 FICHAS — ordenadas pela QUEDA IDIOSSINCRATICA (a parcela propria da empresa)
 ====================================================================================================
 
-[01] CRDO    Credo Technology Group Holding Ltd
-     setor ............ Technology (ETF XLK)
-     preco ............ 170.57   (fechamento de 2026-09-04)
-     queda da semana .. -26.72%   |   z = -2.10  (desvio semanal de 52s = 12.73%)
-     decomposicao ..... mercado +0.36 pp | setor +2.06 pp | PROPRIA -28.46 pp
-                        (SPY +0.11% x beta 3.33 | XLK +0.86% x beta 3.09 | R2 0.42 | parcela propria 93%)
-     LASTRO ........... SEM LASTRO  |  preco -26.72%  vs  EPS 2028-05-02 +4.62%  |  razao EPS/preco = -0.173
-                        (11 analistas | DIVERGENCIA: o consenso SUBIU com o preco caindo  [ATENCAO: comparado no FY2 (2028-05-02), nao no FY1 — o snapshot de 2028-05-02 so guardou os anos fiscais distantes (bug do limit=4). A serie PIT de FY1 comeca em 05/set/2026.])
-     MOTIVO ........... RESULTADO TRIMESTRAL (8-K item 2.02)
-                        data 2026-09-01 | fonte SEC EDGAR 8-K | confianca: fato registrado
-                        https://www.sec.gov/Archives/edgar/data/1807794/000162828026059795/crdo-20260901.htm
-     analista ......... REACAO ao evento (todo movimento veio depois do 8-K de 2026-09-01)
-     media 200 dias ... ABAIXO (preco -2.72% vs SMA200 = 175.34)
-
-[02] GWRE    Guidewire Software, Inc.
-     setor ............ Technology (ETF XLK)
-     preco ............ 162.42   (fechamento de 2026-09-04)
-     queda da semana .. -21.10%   |   z = -2.44  (desvio semanal de 52s = 8.65%)
-     decomposicao ..... mercado +0.05 pp | setor -0.11 pp | PROPRIA -21.05 pp
-                        (SPY +0.11% x beta 0.48 | XLK +0.86% x beta -0.17 | R2 0.01 | parcela propria 99%)
-     LASTRO ........... SEM LASTRO  |  preco -21.10%  vs  EPS 2027-07-31 +1.20%  |  razao EPS/preco = -0.057
-                        (10 analistas | consenso praticamente parado)
-     MOTIVO ........... SAIDA/ENTRADA DE EXECUTIVO OU CONSELHEIRO (8-K item 5.02)
-                        data 2026-09-03 | fonte SEC EDGAR 8-K | confianca: fato registrado
-                        https://www.sec.gov/Archives/edgar/data/1528396/000152839626000039/gwre-20260901.htm
-     analista ......... ha movimento de analista ANTERIOR ao 8-K de 2026-09-03 — possivel causa
-     media 200 dias ... ACIMA (preco +3.41% vs SMA200 = 157.07)
-
-[03] EIX     EDISON INTERNATIONAL
-     setor ............ Utilities (ETF XLU)
-     preco ............ 56.77   (fechamento de 2026-09-04)
-     queda da semana .. -19.10%   |   z = -5.37  (desvio semanal de 52s = 3.56%)
-     decomposicao ..... mercado +0.00 pp | setor +0.85 pp | PROPRIA -19.78 pp
-                        (SPY +0.11% x beta 0.03 | XLU +0.82% x beta 1.05 | R2 0.38 | parcela propria 96%)
-     LASTRO ........... SEM LASTRO  |  preco -19.10%  vs  EPS 2027-12-31 -0.03%  |  razao EPS/preco = 0.002
-                        (9 analistas | consenso praticamente parado  [ATENCAO: comparado no FY2 (2027-12-31), nao no FY1 — o snapshot de 2027-12-31 so guardou os anos fiscais distantes (bug do limit=4). A serie PIT de FY1 comeca em 05/set/2026.])
-     MOTIVO ........... movimento de analista: Mizuho Outperform->Neutral (alvo 86.0 -> 70.0) (5 evento(s) na semana)
-                        data 2026-08-31 | fonte Yahoo upgrades_downgrades | confianca: fato de terceiro (nao e registro da empresa)
-                        https://finance.yahoo.com/quote/EIX/analysis
-     analista ......... movimento de analista SEM 8-K na janela — candidato a causa
-     media 200 dias ... ABAIXO (preco -15.74% vs SMA200 = 67.37)
-
-[04] FICO    FAIR ISAAC CORP
-     setor ............ Technology (ETF XLK)
-     preco ............ 932.26   (fechamento de 2026-09-04)
-     queda da semana .. -19.18%   |   z = -2.58  (desvio semanal de 52s = 7.44%)
-     decomposicao ..... mercado +0.04 pp | setor -0.64 pp | PROPRIA -18.70 pp
-                        (SPY +0.11% x beta 0.34 | XLK +0.86% x beta -0.97 | R2 0.07 | parcela propria 97%)
-     LASTRO ........... SEM DADO — ticker fora do snapshot de 2026-08-28
-     MOTIVO ........... sem 8-K e sem lexico reconhecido; manchete: Why Fair Isaac Stock Crashed Today - Yahoo Finance
-                        data n/d | fonte Google News (Yahoo Finance) | confianca: INFERENCIA por manchete (peso baixo)
-                        https://news.google.com/rss/articles/CBMimAFBVV95cUxQRHN2cklwdHF1cl9DVElNZkNNVG1TNW9rY2kxSmh3MGl6QXFzbVVpMHpoTnd1a3FfSEVNdHlkMTFaS2s5YWMwSGpYMmJJdnJUdzAwRlZSYVhWaWV2TlRZbnNQNV9lOU5xbkNxek1SV19iTHhKUFFUYnF2Rjh5YXI3WHVxcEowSWVwX1RZUnRkMFlQLUpMd0Q0RQ?oc=5
-     analista ......... sem movimento de analista na janela
-     media 200 dias ... ABAIXO (preco -28.54% vs SMA200 = 1304.58)
-
-[05] MDB     MongoDB, Inc.
-     setor ............ Technology (ETF XLK)
-     preco ............ 368.74   (fechamento de 2026-09-04)
-     queda da semana .. -17.44%   |   z = -2.20  (desvio semanal de 52s = 7.93%)
-     decomposicao ..... mercado +0.19 pp | setor +0.36 pp | PROPRIA -17.89 pp
-                        (SPY +0.11% x beta 1.73 | XLK +0.86% x beta 0.55 | R2 0.13 | parcela propria 97%)
-     LASTRO ........... SEM LASTRO  |  preco -17.44%  vs  EPS 2028-01-31 +5.89%  |  razao EPS/preco = -0.338
-                        (21 analistas | DIVERGENCIA: o consenso SUBIU com o preco caindo  [ATENCAO: comparado no FY2 (2028-01-31), nao no FY1 — o snapshot de 2028-01-31 so guardou os anos fiscais distantes (bug do limit=4). A serie PIT de FY1 comeca em 05/set/2026.])
-     MOTIVO ........... RESULTADO TRIMESTRAL (8-K item 2.02)
-                        data 2026-09-01 | fonte SEC EDGAR 8-K | confianca: fato registrado
-                        https://www.sec.gov/Archives/edgar/data/1441816/000162828026059794/mdb-20260901.htm
-     analista ......... ha movimento de analista ANTERIOR ao 8-K de 2026-09-01 — possivel causa
-     media 200 dias ... ACIMA (preco +7.68% vs SMA200 = 342.45)
-
-[06] ADSK    Autodesk, Inc.
-     setor ............ Technology (ETF XLK)
-     preco ............ 217.90   (fechamento de 2026-09-04)
-     queda da semana .. -16.40%   |   z = -3.56  (desvio semanal de 52s = 4.61%)
-     decomposicao ..... mercado +0.05 pp | setor -0.34 pp | PROPRIA -16.17 pp
-                        (SPY +0.11% x beta 0.48 | XLK +0.86% x beta -0.51 | R2 0.07 | parcela propria 98%)
-     LASTRO ........... SEM LASTRO  |  preco -16.40%  vs  EPS 2028-01-31 -0.26%  |  razao EPS/preco = 0.016
-                        (20 analistas | consenso praticamente parado  [ATENCAO: comparado no FY2 (2028-01-31), nao no FY1 — o snapshot de 2028-01-31 so guardou os anos fiscais distantes (bug do limit=4). A serie PIT de FY1 comeca em 05/set/2026.])
-     MOTIVO ........... arquivamento 10-Q na janela (sem item de 8-K)
-                        data 2026-08-28 | fonte SEC EDGAR | confianca: fato registrado
-                        https://www.sec.gov/Archives/edgar/data/769397/000076939726000061/adsk-20260731.htm
-     analista ......... movimento de analista SEM 8-K na janela — candidato a causa
-     media 200 dias ... ABAIXO (preco -11.78% vs SMA200 = 247.00)
-
-[07] LULU    lululemon athletica inc.
-     setor ............ Consumer Cyclical (ETF XLY)
-     preco ............ 100.61   (fechamento de 2026-09-04)
-     queda da semana .. -16.72%   |   z = -2.80  (desvio semanal de 52s = 5.97%)
-     decomposicao ..... mercado +0.14 pp | setor -2.57 pp | PROPRIA -14.64 pp
-                        (SPY +0.11% x beta 1.25 | XLY -1.96% x beta 1.23 | R2 0.23 | parcela propria 85%)
-     LASTRO ........... COM LASTRO  |  preco -16.72%  vs  EPS 2027-02-01 -4.19%  |  razao EPS/preco = 0.251
-                        (18 analistas | o consenso de lucro caiu junto com o preco)
-     MOTIVO ........... RESULTADO TRIMESTRAL (8-K item 2.02)
-                        data 2026-09-03 | fonte SEC EDGAR 8-K | confianca: fato registrado
-                        https://www.sec.gov/Archives/edgar/data/1397187/000139718726000126/lulu-20260903.htm
-     analista ......... REACAO ao evento (todo movimento veio depois do 8-K de 2026-09-03)
-     media 200 dias ... ABAIXO (preco -34.14% vs SMA200 = 152.77)
-
-[08] PCG     PG&E Corp
-     setor ............ Utilities (ETF XLU)
-     preco ............ 14.30   (fechamento de 2026-09-04)
-     queda da semana .. -13.86%   |   z = -3.90  (desvio semanal de 52s = 3.55%)
-     decomposicao ..... mercado +0.01 pp | setor +0.88 pp | PROPRIA -14.62 pp
-                        (SPY +0.11% x beta 0.13 | XLU +0.82% x beta 1.09 | R2 0.38 | parcela propria 95%)
-     LASTRO ........... SEM LASTRO  |  preco -13.86%  vs  EPS 2027-12-31 +0.05%  |  razao EPS/preco = -0.004
-                        (10 analistas | consenso praticamente parado  [ATENCAO: comparado no FY2 (2027-12-31), nao no FY1 — o snapshot de 2027-12-31 so guardou os anos fiscais distantes (bug do limit=4). A serie PIT de FY1 comeca em 05/set/2026.])
-     MOTIVO ........... REG FD (GUIDANCE/APRESENTACAO) (8-K item 7.01)
-                        data 2026-08-31 | fonte SEC EDGAR 8-K | confianca: fato registrado
-                        https://www.sec.gov/Archives/edgar/data/1004980/000199937126019256/pcg-8k_083126.htm
-     analista ......... REACAO ao evento (todo movimento veio depois do 8-K de 2026-08-31)
-     media 200 dias ... ABAIXO (preco -14.37% vs SMA200 = 16.70)
-
-[09] CDNS    CADENCE DESIGN SYSTEMS INC
-     setor ............ Technology (ETF XLK)
-     preco ............ 292.70   (fechamento de 2026-09-04)
-     queda da semana .. -14.01%   |   z = -2.78  (desvio semanal de 52s = 5.05%)
-     decomposicao ..... mercado +0.18 pp | setor +0.44 pp | PROPRIA -14.54 pp
-                        (SPY +0.11% x beta 1.63 | XLK +0.86% x beta 0.66 | R2 0.32 | parcela propria 96%)
-     LASTRO ........... SEM LASTRO  |  preco -14.01%  vs  EPS 2027-12-31 +0.00%  |  razao EPS/preco = -0.000
-                        (16 analistas | consenso praticamente parado  [ATENCAO: comparado no FY2 (2027-12-31), nao no FY1 — o snapshot de 2027-12-31 so guardou os anos fiscais distantes (bug do limit=4). A serie PIT de FY1 comeca em 05/set/2026.])
-     MOTIVO ........... sem 8-K e sem lexico reconhecido; manchete: Cadence Design Systems (CDNS) Stock Still Looks Overvalued Despite AI Chip Demand - Yahoo Finance
-                        data n/d | fonte Google News (Yahoo Finance) | confianca: INFERENCIA por manchete (peso baixo)
-                        https://news.google.com/rss/articles/CBMinwFBVV95cUxPZUZlVnFLTjJpUHRTOEY3QjZNV25tWmRVbGxPdjRjVDZHYk1kWU1rcUZsNFZPRGdLVGlqeENnTmR2dkl3Y3VBTllYa3VQWFdKNHRvLWQ1R2hBYlVMRW9CWWxoYVU5dVl2dDBRS05YNmo4ZzRJVVJRcHE4d2xmTzdPdW5HenRJM2MzeVBFc09leXZnd2N4TWhPT1k0REZnbW8?oc=5
-     analista ......... sem movimento de analista na janela
-     media 200 dias ... ABAIXO (preco -10.52% vs SMA200 = 327.13)
-
-[10] OSW     ONESPAWORLD HOLDINGS Ltd
-     setor ............ Consumer Cyclical (ETF XLY)
-     preco ............ 22.40   (fechamento de 2026-09-04)
-     queda da semana .. -11.32%   |   z = -2.59  (desvio semanal de 52s = 4.37%)
-     decomposicao ..... mercado +0.10 pp | setor -0.65 pp | PROPRIA -10.83 pp
-                        (SPY +0.11% x beta 0.90 | XLY -1.96% x beta 0.31 | R2 0.14 | parcela propria 94%)
-     LASTRO ........... SEM LASTRO  |  preco -11.32%  vs  EPS 2026-12-31 +0.00%  |  razao EPS/preco = -0.000
-                        (4 analistas | consenso praticamente parado)
-     MOTIVO ........... sem 8-K na janela; manchete sugere: resultado, m&a
-                        data n/d | fonte Google News (Quiver Quantitative) | confianca: INFERENCIA por manchete (peso baixo)
-                        https://news.google.com/rss/articles/CBMiogFBVV95cUxOVjJXdG1sckUyb2tHcXY0X244M09ZZVJpSWR5d2Z2Z3pwLTc0OElTVm44cVdHZGdmd253Rlc3Z0FYenNaTWFlcFBGUUN6YTJwYTRBVDhBdzJ1ZjVadmtIc2dldmlSMkx6UjByemlFcC1RZXltVmg4bENSV3Raek9kSlFHeDhPeGJyMEFTRGgtZjlFZFFtNWtWMUxSWmxXS3RWZGc?oc=5
-     analista ......... sem movimento de analista na janela
-     media 200 dias ... ABAIXO (preco -3.77% vs SMA200 = 23.28)
-
-[11] PTC     PTC INC.
-     setor ............ Technology (ETF XLK)
-     preco ............ 141.02   (fechamento de 2026-09-04)
-     queda da semana .. -10.26%   |   z = -2.09  (desvio semanal de 52s = 4.92%)
-     decomposicao ..... mercado +0.05 pp | setor -0.25 pp | PROPRIA -10.08 pp
-                        (SPY +0.11% x beta 0.46 | XLK +0.86% x beta -0.38 | R2 0.05 | parcela propria 97%)
-     LASTRO ........... SEM LASTRO  |  preco -10.26%  vs  EPS 2026-09-30 +0.15%  |  razao EPS/preco = -0.015
-                        (12 analistas | consenso praticamente parado)
-     MOTIVO ........... sem 8-K na janela; manchete sugere: resultado
-                        data n/d | fonte Google News (simplywall.st) | confianca: INFERENCIA por manchete (peso baixo)
-                        https://news.google.com/rss/articles/CBMi6gFBVV95cUxNeldTRUt2TFNXZTMzX2RCeUVTM01weDRLOVgtZnF4VENDenY5VFlzc2hYMWdIcThlN1lwRUdjOTFmSWt1RXp1anVwQUtzcDFsdWdKWmhIQl9QY3FTU0NfbVJxQmZuS1BleV9NcVhzemhJREtnY3RzczNOMnBybXdSbmMxajZ5clNieWhKenJpR0tTNUxNUllyUERyaWludXdPaFhFczN5M0xFMmhaZ3ZNM0l2bVZHQXU2ZTlXU1pONC1FVzM5YzZLZGpnbXduRDFkVVRMWHh4eXMyZjlnQUNObjFIaFRLWHNpMEHSAeoBQVVfeXFMTXpXU0VLdkxTV2UzM19kQnlFUzNNcHg0SzlYLWZxeFRDQ3p2OVRZc3NoWDFnSHE4ZTdZcEVHYzkxZklrdUV6dWp1cEFLc3AxbHVnSlpoSEJfUGNxU1NDX21ScUJmbktQZXlfTXFYc3poSURLZ2N0c3MzTjJwcm13Um5jMWo2eXJTYnloSnpyaUdLUzVMTVJZclBEcmlpbnV3T2hYRXMzeTNMRTJoWmd2TTNJdm1WR0F1NmU5V1NaTjQtRVczOWM2S2RqZ213bkQxZFVUTFh4eHlzMmY5Z0FDTm4xSGhUS1hzaTBB?oc=5
-     analista ......... sem movimento de analista na janela
-     media 200 dias ... ABAIXO (preco -5.18% vs SMA200 = 148.72)
-
-[12] WLY     JOHN WILEY & SONS, INC.
-     setor ............ Communication Services (ETF XLC)
-     preco ............ 48.19   (fechamento de 2026-09-04)
-     queda da semana .. -10.28%   |   z = -2.18  (desvio semanal de 52s = 4.72%)
-     decomposicao ..... mercado +0.02 pp | setor -0.63 pp | PROPRIA -9.73 pp
-                        (SPY +0.11% x beta 0.14 | XLC -0.85% x beta 0.68 | R2 0.06 | parcela propria 94%)
-     LASTRO ........... SEM DADO — ticker fora do snapshot de 2026-08-28
-     MOTIVO ........... RESULTADO TRIMESTRAL (8-K item 2.02)
-                        data 2026-09-03 | fonte SEC EDGAR 8-K | confianca: fato registrado
-                        https://www.sec.gov/Archives/edgar/data/107140/000162828026060252/jwa-20260903.htm
-     analista ......... sem movimento de analista na janela
-     media 200 dias ... ACIMA (preco +21.68% vs SMA200 = 39.60)
-
-[13] AON     Aon plc
-     setor ............ Financial Services (ETF XLF)
-     preco ............ 323.09   (fechamento de 2026-09-04)
-     queda da semana .. -9.09%   |   z = -3.06  (desvio semanal de 52s = 2.97%)
-     decomposicao ..... mercado -0.03 pp | setor -0.08 pp | PROPRIA -9.00 pp
-                        (SPY +0.11% x beta -0.26 | XLF +0.00% x beta 1.14 | R2 0.32 | parcela propria 99%)
-     LASTRO ........... SEM LASTRO  |  preco -9.09%  vs  EPS 2026-12-31 -1.35%  |  razao EPS/preco = 0.149
-                        (13 analistas | consenso praticamente parado)
-     MOTIVO ........... REG FD (GUIDANCE/APRESENTACAO) (8-K item 7.01)
-                        data 2026-08-31 | fonte SEC EDGAR 8-K | confianca: fato registrado
-                        https://www.sec.gov/Archives/edgar/data/315293/000119312526375328/d108801d8k.htm
-     analista ......... REACAO ao evento (todo movimento veio depois do 8-K de 2026-08-31)
-     media 200 dias ... ABAIXO (preco -3.86% vs SMA200 = 336.07)
-
-[14] TCOM    Trip.com Group Ltd
-     setor ............ Consumer Cyclical (ETF XLY)
-     preco ............ 41.03   (fechamento de 2026-09-04)
-     queda da semana .. -9.53%   |   z = -2.18  (desvio semanal de 52s = 4.38%)
-     decomposicao ..... mercado +0.07 pp | setor -0.88 pp | PROPRIA -8.79 pp
-                        (SPY +0.11% x beta 0.68 | XLY -1.96% x beta 0.42 | R2 0.08 | parcela propria 90%)
-     LASTRO ........... SEM LASTRO  |  preco -9.53%  vs  EPS 2026-12-31 +0.53%  |  razao EPS/preco = -0.056
-                        (12 analistas | consenso praticamente parado)
-     MOTIVO ........... sem 8-K na janela; manchete sugere: resultado, rebaixamento de analista
-                        data n/d | fonte Google News (Stocktwits) | confianca: INFERENCIA por manchete (peso baixo)
-                        https://news.google.com/rss/articles/CBMirwFBVV95cUxOX1ctZ1FObGRzRmh0MkZrdHVWSXVRZUNUanNfTDdxdDczeTJVS2NzcUl4TUlMNi1tb2lrM1AxY2xoN1h0SGljZkt0WWVmNHNGeTI0cklIT3A1a0liX3BUNDZRWm91aTh4MWpNRzVwY19YQ0RDdXNCb0lUZFp3cWY0LUhrNzZmVU9vYTYzU2QzNnpvOVFLdWIyeV8yOTRyWHkzcE5IQXNUczUzV1F3MjBv?oc=5
-     analista ......... sem movimento de analista na janela
-     media 200 dias ... ABAIXO (preco -24.35% vs SMA200 = 54.24)
-
-[15] REYN    Reynolds Consumer Products Inc.
-     setor ............ Consumer Defensive (ETF XLP)
-     preco ............ 21.85   (fechamento de 2026-09-04)
-     queda da semana .. -9.15%   |   z = -2.46  (desvio semanal de 52s = 3.72%)
-     decomposicao ..... mercado +0.03 pp | setor -0.73 pp | PROPRIA -8.51 pp
-                        (SPY +0.11% x beta 0.28 | XLP -1.02% x beta 0.72 | R2 0.18 | parcela propria 92%)
-     LASTRO ........... SEM LASTRO  |  preco -9.15%  vs  EPS 2027-12-31 +0.00%  |  razao EPS/preco = -0.000
-                        (3 analistas | consenso praticamente parado  [ATENCAO: comparado no FY2 (2027-12-31), nao no FY1 — o snapshot de 2027-12-31 so guardou os anos fiscais distantes (bug do limit=4). A serie PIT de FY1 comeca em 05/set/2026.])
-     MOTIVO ........... sem 8-K na janela; manchete sugere: resultado, m&a
-                        data n/d | fonte Google News (Yahoo Finance) | confianca: INFERENCIA por manchete (peso baixo)
-                        https://news.google.com/rss/articles/CBMioAFBVV95cUxOdDlBNjlXcHpWSmRhNXZkUS1ORkUxS0YtZ0pkTkFNVVpaT2FST1NTYkRZaThma0tLMjBkSHJVSHpFLTdKdmJtb0NUYnNpV2l4TlZINVhCbGdQQkZRTVM4TW9zMlBQSzF6OUdab1JEdGtLTFJQNTNZek1TREdDcDJ1Q1RLSVJ0RjEzX05jS2pRVF9SQmZ5emVsb1lnS0o2RUQt?oc=5
-     analista ......... sem movimento de analista na janela
-     media 200 dias ... ABAIXO (preco -5.37% vs SMA200 = 23.09)
-
-[16] SYK     STRYKER CORP
+[01] NVS     NOVARTIS AG
      setor ............ Healthcare (ETF XLV)
-     preco ............ 303.13   (fechamento de 2026-09-04)
-     queda da semana .. -8.33%   |   z = -2.42  (desvio semanal de 52s = 3.44%)
-     decomposicao ..... mercado +0.01 pp | setor +0.14 pp | PROPRIA -8.48 pp
-                        (SPY +0.11% x beta 0.14 | XLV +0.17% x beta 1.02 | R2 0.33 | parcela propria 98%)
-     LASTRO ........... SEM LASTRO  |  preco -8.33%  vs  EPS 2027-12-31 -0.00%  |  razao EPS/preco = 0.000
-                        (15 analistas | consenso praticamente parado  [ATENCAO: comparado no FY2 (2027-12-31), nao no FY1 — o snapshot de 2027-12-31 so guardou os anos fiscais distantes (bug do limit=4). A serie PIT de FY1 comeca em 05/set/2026.])
-     MOTIVO ........... sem 8-K na janela; manchete sugere: resultado
-                        data n/d | fonte Google News (MarketBeat) | confianca: INFERENCIA por manchete (peso baixo)
-                        https://news.google.com/rss/articles/CBMi0wFBVV95cUxNUTJNdF9sc1U0ODQ4SzVIN3k5Z0lvclJRT0loQkktS0dKd194U2J3a1Y5aXBJbkV1SVQ4bG5Rb05idGVfX2RSbUx2MzlyVWo3RFZEZ3o5Wk9RX1R4al9yTnVLQzkzcVRCcG9YN0Z1Q0VGZ3hneTVuVXZ1ZUc3cEFxV2s2cDM1NmxydGlraXl6U3BwdkFVZlhSQ0pyYlJBY3gyTS0zbV8wc2M4RVNrakF3SW02TmNMeGY2RlpibWhHVFV3aUdaVVF4SmljQVlUbzd6NEg0?oc=5
+     preco ............ 138.15   (fechamento de 2026-09-08)
+     queda da semana .. -13.65%   |   z = -4.63  (desvio semanal de 52s = 2.95%)
+     decomposicao ..... mercado -0.11 pp | setor -2.27 pp | PROPRIA -11.55 pp
+                        (SPY -0.34% x beta 0.31 | XLV -2.47% x beta 0.95 | R2 0.50 | parcela propria 84%)
+     LASTRO ........... SEM LASTRO  |  preco -13.65%  vs  EPS 2027-12-31 -0.01%  |  razao EPS/preco = 0.001
+                        (8 analistas | consenso praticamente parado  [ATENCAO: comparado no FY2 (2027-12-31), nao no FY1 — o snapshot de 2027-12-31 so guardou os anos fiscais distantes (bug do limit=4). A serie PIT de FY1 comeca em 05/set/2026.])
+     GRAU ............. sem lastro (consenso parado)   [z do consenso = -0.02]
+                        o consenso praticamente nao se moveu: revisao de -0.01% (-0.02 desvios do proprio consenso, incerteza +-0.59 pp), a 2.99 pp da borda de -3.0% — fora da faixa de fronteira.
+     MOTIVO ........... sem 8-K e sem lexico reconhecido; manchete: Novartis stock slides as centerpiece of $12B Avidity buyout flunks ‘crucial’ phase 3 test - Fierce Biotech
+                        data n/d | fonte Google News (Fierce Biotech) | confianca: INFERENCIA por manchete (peso baixo)
+                        https://news.google.com/rss/articles/CBMiqAFBVV95cUxPdVZ6Q2RuLXVqRnBuQmNhOFBudGVWZ2dEU2VuTXY1eWxPUzdSLXRUcUN0eUdsRkUycWh6ZzROWFlCQmRjd0Fwbl94V2pLbUNOUGpwT3cwVVZvdmpxZkljelVhNU1sd0FabHlFVmFMRFhXMW9YdUh3bUd3TjJaQkJ6U3NSWVJGS2ZiaERvRHpiamExWjZWUjRySW9OQjRyeWVpZk1fd3F1ay0?oc=5
      analista ......... sem movimento de analista na janela
-     media 200 dias ... ABAIXO (preco -10.10% vs SMA200 = 337.20)
+     media 200 dias ... ABAIXO (preco -6.76% vs SMA200 = 148.16)
 
-[17] CLX     CLOROX CO /DE/
-     setor ............ Consumer Defensive (ETF XLP)
-     preco ............ 93.06   (fechamento de 2026-09-04)
-     queda da semana .. -9.24%   |   z = -2.25  (desvio semanal de 52s = 4.10%)
-     decomposicao ..... mercado +0.02 pp | setor -1.26 pp | PROPRIA -8.10 pp
-                        (SPY +0.11% x beta 0.20 | XLP -1.02% x beta 1.25 | R2 0.35 | parcela propria 87%)
-     LASTRO ........... SEM LASTRO  |  preco -9.24%  vs  EPS 2027-06-30 +0.00%  |  razao EPS/preco = -0.000
-                        (11 analistas | consenso praticamente parado)
-     MOTIVO ........... sem 8-K na janela; manchete sugere: m&a
-                        data n/d | fonte Google News (MarketBeat) | confianca: INFERENCIA por manchete (peso baixo)
-                        https://news.google.com/rss/articles/CBMiuwFBVV95cUxQUnBGYnAySGhET0E4Q0ZDNEM5NldRUTBKTnNpLXByTm03VkFIVFJsRWw5TDBVMFVfeVVUaDY1MHhqYjZlMFZxclNmTTR1R3laejRNUFQ4dzk1Q1o4S3FmRG90bWcxMXZiNktsSXNYai1UN2IxUzdMbWxNNmNTd0hMeW5fOG5SdzdSaXpxSGZxcEhTVjFkLVJHbFRNZmlvVVZGVDFPbEQ1d19IUVV0dkc0ZlZvLTYxZnFuTVhj?oc=5
-     analista ......... sem movimento de analista na janela
-     media 200 dias ... ABAIXO (preco -7.97% vs SMA200 = 101.12)
-
-[18] CPB     CAMPBELL'S Co
-     setor ............ Consumer Defensive (ETF XLP)
-     preco ............ 21.38   (fechamento de 2026-09-04)
-     queda da semana .. -8.59%   |   z = -2.07  (desvio semanal de 52s = 4.16%)
-     decomposicao ..... mercado -0.03 pp | setor -1.16 pp | PROPRIA -7.49 pp
-                        (SPY +0.11% x beta -0.27 | XLP -1.02% x beta 1.15 | R2 0.29 | parcela propria 87%)
-     LASTRO ........... COM LASTRO  |  preco -8.59%  vs  EPS 2027-08-02 -7.14%  |  razao EPS/preco = 0.831
-                        (12 analistas | o consenso de lucro caiu junto com o preco)
-     MOTIVO ........... RESULTADO TRIMESTRAL (8-K item 2.02)
-                        data 2026-09-03 | fonte SEC EDGAR 8-K | confianca: fato registrado
-                        https://www.sec.gov/Archives/edgar/data/16732/000001673226000020/cpb-20260903.htm
-     analista ......... ha movimento de analista ANTERIOR ao 8-K de 2026-09-03 — possivel causa
-     media 200 dias ... ABAIXO (preco -9.05% vs SMA200 = 23.51)
-
-[19] GIS     GENERAL MILLS INC
-     setor ............ Consumer Defensive (ETF XLP)
-     preco ............ 38.29   (fechamento de 2026-09-04)
-     queda da semana .. -7.85%   |   z = -2.32  (desvio semanal de 52s = 3.38%)
-     decomposicao ..... mercado -0.03 pp | setor -1.20 pp | PROPRIA -6.70 pp
-                        (SPY +0.11% x beta -0.31 | XLP -1.02% x beta 1.19 | R2 0.39 | parcela propria 85%)
-     LASTRO ........... SEM LASTRO  |  preco -7.85%  vs  EPS 2027-05-31 +0.03%  |  razao EPS/preco = -0.004
-                        (10 analistas | consenso praticamente parado)
-     MOTIVO ........... sem 8-K e sem lexico reconhecido; manchete: Why General Mills (GIS) Stock Is Down Today - Quiver Quantitative
-                        data n/d | fonte Google News (Quiver Quantitative) | confianca: INFERENCIA por manchete (peso baixo)
-                        https://news.google.com/rss/articles/CBMihwFBVV95cUxQSHBtZDM0Z05MUS1TcGJ5UUFCRWt1aXpjTkVDMHM3bzFvOFpmYXJqZTNaSDc3ZkJwZklfRGFRLUcxc0wxR0E2TTJfdEJMczNSYlNZRVZNV1A2N0dPTXE1YlVlMF9XdEVYQ1dkWXppUnJZcTlZTDhrdGZ5LTdtSDBlRklscEdWbDQ?oc=5
+[02] AMGN    AMGEN INC
+     setor ............ Healthcare (ETF XLV)
+     preco ............ 396.00   (fechamento de 2026-09-08)
+     queda da semana .. -9.43%   |   z = -2.50  (desvio semanal de 52s = 3.78%)
+     decomposicao ..... mercado -0.17 pp | setor -2.76 pp | PROPRIA -6.71 pp
+                        (SPY -0.34% x beta 0.49 | XLV -2.47% x beta 1.16 | R2 0.49 | parcela propria 70%)
+     LASTRO ........... SEM LASTRO  |  preco -9.43%  vs  EPS 2027-12-31 +0.00%  |  razao EPS/preco = -0.000
+                        (19 analistas | consenso praticamente parado  [ATENCAO: comparado no FY2 (2027-12-31), nao no FY1 — o snapshot de 2027-12-31 so guardou os anos fiscais distantes (bug do limit=4). A serie PIT de FY1 comeca em 05/set/2026.])
+     GRAU ............. sem lastro (consenso parado)   [z do consenso = +0.00]
+                        o consenso praticamente nao se moveu: revisao de +0.00% (+0.00 desvios do proprio consenso, incerteza +-1.43 pp), a 3.00 pp da borda de -3.0% — fora da faixa de fronteira.
+     MOTIVO ........... movimento de analista: BMO Capital Outperform->Market Perform (alvo 450.0 -> 450.0) (1 evento(s) na semana)
+                        data 2026-09-08 | fonte Yahoo upgrades_downgrades | confianca: fato de terceiro (nao e registro da empresa)
+                        https://finance.yahoo.com/quote/AMGN/analysis
      analista ......... movimento de analista SEM 8-K na janela — candidato a causa
-     media 200 dias ... ABAIXO (preco -1.57% vs SMA200 = 38.90)
+     media 200 dias ... ACIMA (preco +11.70% vs SMA200 = 354.52)
 
-[20] NSC     NORFOLK SOUTHERN CORP
-     setor ............ Industrials (ETF XLI)
-     preco ............ 329.46   (fechamento de 2026-09-04)
-     queda da semana .. -5.51%   |   z = -2.17  (desvio semanal de 52s = 2.55%)
-     decomposicao ..... mercado +0.03 pp | setor -0.88 pp | PROPRIA -4.70 pp
-                        (SPY +0.11% x beta 0.27 | XLI -1.06% x beta 0.76 | R2 0.23 | parcela propria 84%)
-     LASTRO ........... SEM LASTRO  |  preco -5.51%  vs  EPS 2027-12-31 +0.00%  |  razao EPS/preco = -0.000
-                        (13 analistas | consenso praticamente parado  [ATENCAO: comparado no FY2 (2027-12-31), nao no FY1 — o snapshot de 2027-12-31 so guardou os anos fiscais distantes (bug do limit=4). A serie PIT de FY1 comeca em 05/set/2026.])
-     MOTIVO ........... sem 8-K na janela; manchete sugere: m&a
-                        data n/d | fonte Google News (simplywall.st) | confianca: INFERENCIA por manchete (peso baixo)
-                        https://news.google.com/rss/articles/CBMi1AFBVV95cUxNZTEwMlZMLUY5elZZX3VXWG4tS25sM3h6c18wQzNkeHIyVnNabTgtM0hWenhiMDMxVzNyTlpuR3hvVVlGWHFHcm81SjFFZ2RpUzRqTEFDTmJwVkp6X1dhX2RHeUgtVU9mZEx1djdsNk4tUlZndU9mVUdJZzJjSXFJNVQxbFN3U2ZhcF84eExmR0RVSnRpc0RLc2g5TE1BZTI1THcwUGxSM2pSZEF6dUpGT19kWG9zb0kxa3dkRHotUExvNUV6aW04VVgyOHRBS19Tekk3M9IB2gFBVV95cUxNZVQxRDQ4cGlsR3NFWDVCYnFLRHZnS2kwT3hWNmJObHBTOVVUT250OWxjclhmbTJBUU5feFZaTkM5VkpnRldaQXZud3FrSlVuNXhrajUtREFtVUFUNS1Qa2xCcHJxcFJJUXJqVWNQTG1oNlllYkNCU051NkpRS3V0MnpEX0lZWnplTVJlYy1RaFpFSWduamdiWmNxV3gtYzBRRk5sU21vVldZdjZCa01RalgzM3pvRi1mT1YtaVFSVVMySHdpVkhXQ1owZ2d2a1BJVVNiejVydXlhQQ?oc=5
+[03] SYK     STRYKER CORP
+     setor ............ Healthcare (ETF XLV)
+     preco ............ 277.29   (fechamento de 2026-09-08)
+     queda da semana .. -8.52%   |   z = -2.36  (desvio semanal de 52s = 3.61%)
+     decomposicao ..... mercado -0.05 pp | setor -2.43 pp | PROPRIA -6.20 pp
+                        (SPY -0.34% x beta 0.14 | XLV -2.47% x beta 1.02 | R2 0.33 | parcela propria 72%)
+     LASTRO ........... SEM LASTRO  |  preco -8.52%  vs  EPS 2027-12-31 -0.00%  |  razao EPS/preco = 0.000
+                        (15 analistas | consenso praticamente parado  [ATENCAO: comparado no FY2 (2027-12-31), nao no FY1 — o snapshot de 2027-12-31 so guardou os anos fiscais distantes (bug do limit=4). A serie PIT de FY1 comeca em 05/set/2026.])
+     GRAU ............. sem lastro (consenso parado)   [z do consenso = -0.00]
+                        o consenso praticamente nao se moveu: revisao de -0.00% (-0.00 desvios do proprio consenso, incerteza +-0.48 pp), a 3.00 pp da borda de -3.0% — fora da faixa de fronteira.
+     MOTIVO ........... sem 8-K na janela; manchete sugere: executivo
+                        data n/d | fonte Google News (Seeking Alpha) | confianca: INFERENCIA por manchete (peso baixo)
+                        https://news.google.com/rss/articles/CBMigAFBVV95cUxNWWlhZ3RJdEtBd0lnd2ZPN1Jjd1ZsRHZQOV9GYkpOOVd0U0lnbDBma2ZJbksxWDN0b1NPd3lmdWdyTTlWeDBZOFVMR2xlZmUxQ3NINHZpcG5uckxLeHRHdktKVGszSDZkcG1Ba01sdHJZWDZJZjN0NnFQS2d2TEpFMQ?oc=5
      analista ......... sem movimento de analista na janela
-     media 200 dias ... ACIMA (preco +7.40% vs SMA200 = 306.77)
+     media 200 dias ... ABAIXO (preco -17.67% vs SMA200 = 336.80)
+
+[04] RPRX    Royalty Pharma plc
+     setor ............ Healthcare (ETF XLV)
+     preco ............ 59.95   (fechamento de 2026-09-08)
+     queda da semana .. -6.28%   |   z = -2.52  (desvio semanal de 52s = 2.49%)
+     decomposicao ..... mercado -0.08 pp | setor -1.82 pp | PROPRIA -4.46 pp
+                        (SPY -0.34% x beta 0.23 | XLV -2.47% x beta 0.76 | R2 0.29 | parcela propria 70%)
+     LASTRO ........... SEM LASTRO  |  preco -6.28%  vs  EPS 2027-12-31 +0.00%  |  razao EPS/preco = -0.000
+                        (4 analistas | consenso praticamente parado  [ATENCAO: comparado no FY2 (2027-12-31), nao no FY1 — o snapshot de 2027-12-31 so guardou os anos fiscais distantes (bug do limit=4). A serie PIT de FY1 comeca em 05/set/2026.])
+     GRAU ............. FRONTEIRA   [z do consenso = +0.00]
+                        FRONTEIRA: revisao de +0.00% esta a 3.00 pp da borda de -3.0%, e a incerteza do proprio consenso e +-3.79 pp. O dado NAO separa 'com lastro' de 'sem lastro' aqui — isto e fronteira, nao veredito. A revisao vale +0.00 desvios do proprio consenso.
+     MOTIVO ........... sem 8-K na janela; manchete sugere: guidance, resultado, processo/regulador
+                        data n/d | fonte Google News (MarketBeat) | confianca: INFERENCIA por manchete (peso baixo)
+                        https://news.google.com/rss/articles/CBMi1AFBVV95cUxQdmdyU2ZBeTlibUVsRnFoTTVXemRiXzZSM1pBa0Q2SEVsYnFGTDFqdDl4aXlNOEltenFSQm83YVRmTU40MDh0OEw2VnNzbFpHa3A2UFJiWjNGN0YxZENYN2tZQ1JEWnd4QWNMZFhPWXBwOVgyeU53VUZTdzZzMWk5Z3ZvRzB3Mk0yVnAyYjd2S3hKVzFOQ1lRWnF2Q3pOYmprNnI5eTYwZTNENDJNT0RkSE9HUFM0SXhyd0dCR3pDY2FnUEMwZEJPcXJxd0tvR1lUVVdBYQ?oc=5
+     analista ......... movimento de analista SEM 8-K na janela — candidato a causa
+     media 200 dias ... ACIMA (preco +22.39% vs SMA200 = 48.98)
 
 ====================================================================================================
 TENSAO CONHECIDA, NAO RESOLVIDA (fica registrada toda semana):
   HCI_Controle_Drawdown: metade da vantagem da carteira veio do filtro de SMA200.
-  Mas quem cai forte perde a media — nesta rodada, 16 de 20 fichas estao ABAIXO dela.
+  Mas quem cai forte perde a media — nesta rodada, 2 de 4 fichas estao ABAIXO dela.
   'Queda forte' e 'acima da SMA200' sao parcialmente ANTAGONICOS. A escolha exige
   pre-registro ANTES de olhar resultado, ou vira garimpo (METODO_HCI, Fase 0.2).
   HCI_Swing_Acoes_ML: reversao a media em acoes sobreviveu em UM regime so —

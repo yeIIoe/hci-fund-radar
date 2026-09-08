@@ -21,6 +21,15 @@ A PERGUNTA CENTRAL, que da ou tira o valor de tudo: a queda teve LASTRO?
                 e curta demais. Esta classe e OBRIGATORIA: esconde-la e o que
                 fabrica falso "sem lastro".
 
+  ⚠️ 08/set/2026 — OS TRES ESTADOS CONTINUAM, MAS NAO SAO MAIS A RESPOSTA INTEIRA.
+  O corte de 3% era binario: -2,9% caia num balde e -3,1% no oposto, na pergunta
+  que da ou tira o valor da ficha. Agora, AO LADO dos tres estados, sai uma
+  classificacao GRADUADA com a faixa de incerteza do proprio consenso (medida em
+  epsHigh/epsLow/numAnalystsEps, colunas que ja estavam no CSV e nunca tinham sido
+  lidas). Quando a revisao esta a menos de UMA incerteza da borda, o caso sai
+  rotulado FRONTEIRA — e fronteira nao e veredito. O limiar nao mudou de lugar e
+  nenhum numero novo foi calibrado: ver o bloco de reguas.
+
 LIMITE DURO, DECLARADO DE PROPOSITO NA SAIDA
 --------------------------------------------
 Hoje existem apenas 4 snapshots semanais de consenso (14/ago, 21/ago, 28/ago,
@@ -122,7 +131,13 @@ CACHE_CIK = os.path.join(DIR_DATA, "cache_cik_edgar.json")
 #  v1.1  — lastro pareado por ano fiscal COMUM aos dois snapshots, com tolerancia
 #          de 7 dias (calendario 52/53 semanas). Corrige o falso "ano fiscal
 #          mudou" causado pelo bug do limit=4 nos snapshots ate 28/ago.
-VERSAO_COLETOR = "v1.1"
+#  v1.2  — 08/set/2026: o lastro deixou de ser SO um balde binario. Os tres estados
+#          continuam identicos (a populacao do pre-registro nao muda), e ao lado
+#          deles entram a FAIXA DE INCERTEZA do consenso (medida em epsHigh/epsLow/n)
+#          e o rotulo FRONTEIRA para o caso que o dado nao separa. Como a forma de
+#          MEDIR mudou, a linha nova e ANEXADA ao ledger ao lado da v1.1 — livro-razao
+#          se corrige com lancamento novo, nunca com borracha.
+VERSAO_COLETOR = "v1.2"
 
 PISO_PRECO = 10.0          # dolares — piso do logger da casa
 PISO_VOLUME = 500_000      # acoes/dia — piso do logger da casa
@@ -132,6 +147,57 @@ MIN_SHARE_IDIO = 0.50      # PROVISORIO: a parcela propria tem de dominar
 MIN_BARRAS = 210           # historico minimo para SMA200 + regua de 52 semanas
 LIM_LASTRO = 3.0           # PROVISORIO: |var EPS| < 3% = "consenso parado"
 LIM_SPLIT_PP = 3.0         # divergencia bruto x ajustado que denuncia desdobramento
+
+# --------------------------------------------------------------------------
+# O LASTRO DEIXOU DE SER UM BALDE BINARIO — conserto 2.3, 08/set/2026
+# --------------------------------------------------------------------------
+# O QUE ERA: LIM_LASTRO = 3,0 e um corte seco na PERGUNTA CENTRAL da ficha. Uma revisao de
+# EPS de -2,9% saia "sem lastro" e uma de -3,1% saia "com lastro" — dois vereditos opostos
+# separados por dois decimos, num numero que ninguem calibrou. E a mesma doenca do piso do
+# ciclo e do penhasco de 180 dias: parametro nao calibrado decidindo veredito por um
+# centesimo (AUDITORIA_AGREGADOS.md §2.3).
+#
+# O QUE ENTROU, E O QUE DELIBERADAMENTE NAO ENTROU:
+#   - NAO entrou limiar novo. O 3,0 continua exatamente onde estava, e os TRES ESTADOS
+#     ("com lastro" / "sem lastro" / "sem dado") continuam sendo calculados pela MESMA regra
+#     binaria de sempre — a interface, o ledger e o PRE-REGISTRO de METODO_QUEDA.md §7
+#     (cuja populacao primaria e "sem lastro") nao mudam de definicao. Trocar a populacao de
+#     um pre-registro no meio do caminho seria garimpo.
+#   - Entrou, AO LADO, uma GRADUACAO com FAIXA DE INCERTEZA DECLARADA. A incerteza nao e
+#     inventada: ela e MEDIDA no proprio snapshot, na dispersao dos analistas que formam o
+#     consenso (epsHigh, epsLow e numAnalystsEps ja estavam no CSV e nunca foram lidos).
+#
+#       meia_amplitude   = (epsHigh - epsLow) / 2
+#       erro_da_media    ~ meia_amplitude / raiz(n)          (n = numAnalystsEps)
+#       incerteza_pct    = 100 x erro_da_media / |epsAvg|
+#       incerteza usada  = a MAIOR das duas pontas (snapshot antigo e snapshot novo)
+#
+#     Isto e a lei da casa aplicada onde ela ainda nao estava: "nada em valor absoluto" — a
+#     queda ja era medida em multiplos do desvio (z), e agora a REVISAO tambem. O numero que
+#     sai e `lastro_z` = var_eps_pct / incerteza_pct: quantos desvios do proprio consenso a
+#     revisao andou.
+#   - FRONTEIRA: quando a revisao esta a MENOS DE UMA INCERTEZA de qualquer uma das duas
+#     bordas (-3,0 ou +3,0), o caso sai rotulado FRONTEIRA e NAO como veredito. Nao e um
+#     limiar novo: e o limiar antigo mais a barra de erro que o proprio dado carrega.
+#
+# HONESTIDADE DA MEDIDA, declarada de proposito:
+#   (a) meia amplitude / raiz(n) e um PROXY GROSSEIRO de erro padrao (amplitude nao e desvio).
+#   (b) os dois snapshots compartilham quase todos os analistas, entao o erro se cancela em
+#       boa parte na DIFERENCA — a banda daqui e um TETO do ruido, nao a medida exata dele.
+#       Errar para o lado do "fronteira" e o erro barato: ele nao fabrica veredito, ele o
+#       suspende.
+#   (c) quando o snapshot nao permite medir (n < 2, ou epsHigh = epsLow, ou EPS perto de
+#       zero), a incerteza sai NULL e o grau sai "sem incerteza medida" — nunca vira
+#       silenciosamente "nao e fronteira".
+FRONTEIRA_EM_INCERTEZAS = 1.0    # PROVISORIO: 1 barra de erro de cada lado da borda
+GRAU_LASTRO = {
+    "com_lastro": "com lastro",
+    "fronteira": "FRONTEIRA",
+    "consenso_parado": "sem lastro (consenso parado)",
+    "divergente": "sem lastro (divergência: consenso SUBIU)",
+    "sem_incerteza": "sem incerteza medida",
+    "sem_dado": "sem dado",
+}
 
 UA_SEC = {"User-Agent": "HCI Research eduardogodooihoki@gmail.com"}
 UA_WEB = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
@@ -397,9 +463,124 @@ def _le_snap(caminho):
     """Le o CSV do snapshot UMA vez por rodada. Sem isto o coletor releria o
     arquivo inteiro (18 mil linhas) uma vez por ticker."""
     if caminho not in _CACHE_SNAP:
-        _CACHE_SNAP[caminho] = pd.read_csv(
-            caminho, usecols=["symbol", "fy_date", "epsAvg", "revenueAvg", "numAnalystsEps"])
+        # epsHigh/epsLow entraram em 08/set: e deles que sai a FAIXA DE INCERTEZA do
+        # consenso, que transforma o balde binario do lastro em classificacao graduada.
+        base = ["symbol", "fy_date", "epsAvg", "revenueAvg", "numAnalystsEps"]
+        try:
+            _CACHE_SNAP[caminho] = pd.read_csv(
+                caminho, usecols=base + ["epsHigh", "epsLow"])
+        except ValueError:
+            # ⚠️ REFUTADOR, 08/set: sem este resgate um snapshot antigo (ou de outra fonte)
+            # SEM as duas colunas novas derrubava a rodada inteira com ValueError. O modulo
+            # ja declara o que fazer quando a incerteza nao pode ser medida — "sem incerteza
+            # medida", com fronteira=None. Entao o caminho degrada para isso em vez de morrer:
+            # os TRES ESTADOS do lastro continuam saindo (eles nao dependem destas colunas) e
+            # so a GRADUACAO fica sem faixa. Buraco declarado, nao falha silenciosa.
+            df = pd.read_csv(caminho, usecols=base)
+            df["epsHigh"] = float("nan")
+            df["epsLow"] = float("nan")
+            print("  ! snapshot sem epsHigh/epsLow (%s): a graduacao sai 'sem incerteza "
+                  "medida'; os tres estados do lastro nao mudam"
+                  % os.path.basename(caminho))
+            _CACHE_SNAP[caminho] = df
     return _CACHE_SNAP[caminho]
+
+
+def incerteza_do_consenso(linha):
+    """A FAIXA DE INCERTEZA do consenso, medida no proprio snapshot (08/set/2026).
+
+    O consenso e uma MEDIA de analistas, e media tem erro. O CSV ja trazia epsHigh, epsLow e
+    numAnalystsEps — tres colunas que nunca tinham sido lidas. Delas sai, sem inventar
+    calibracao nenhuma:
+
+        meia_amplitude = (epsHigh - epsLow) / 2
+        erro_da_media  ~ meia_amplitude / raiz(n)
+        incerteza_pct  = 100 x erro_da_media / |epsAvg|
+
+    E um PROXY GROSSEIRO e esta dito: amplitude nao e desvio-padrao, e amplitude/raiz(n) tende
+    a SUPERESTIMAR o erro da media quando n e grande. Superestimar aqui e o erro barato — ele
+    joga o caso para FRONTEIRA, que suspende veredito em vez de fabricar um.
+
+    Devolve (incerteza_pct ou None, detalhe). None quando nao da para medir: n < 2, amplitude
+    nula (um analista so, ou todos no mesmo numero) ou EPS perto de zero (a razao explode).
+    """
+    eps, alto, baixo, n = (linha.get("eps"), linha.get("eps_alto"),
+                           linha.get("eps_baixo"), linha.get("n"))
+    det = {"eps": eps, "eps_alto": alto, "eps_baixo": baixo, "n_analistas": n}
+    if eps is None or abs(eps) < 0.10:
+        det["motivo"] = "EPS perto de zero: a incerteza relativa explode"
+        return None, det
+    if alto is None or baixo is None or not (alto > baixo):
+        det["motivo"] = "sem amplitude no snapshot (epsHigh = epsLow, ou coluna ausente)"
+        return None, det
+    if not n or n < 2:
+        det["motivo"] = "um analista so: amplitude nao mede dispersao de opiniao"
+        return None, det
+    meia = (alto - baixo) / 2.0
+    erro = meia / math.sqrt(n)
+    inc = round(100.0 * erro / abs(eps), 2)
+    det.update({"meia_amplitude": round(meia, 4), "erro_da_media": round(erro, 4),
+                "incerteza_pct": inc})
+    return inc, det
+
+
+def graduacao_do_lastro(var_eps_pct, incerteza_pct):
+    """A CLASSIFICACAO GRADUADA, ao lado dos tres estados — nao no lugar deles.
+
+    O corte de 3,0 fica onde estava; o que muda e que ele passa a andar acompanhado da barra
+    de erro do proprio consenso. A revisao e lida em MULTIPLOS dessa barra (`lastro_z`), que e
+    a mesma lei que ja governa a queda (z semanal) — "nada em valor absoluto".
+
+    FRONTEIRA quando a revisao esta a menos de UMA incerteza de qualquer uma das duas bordas
+    (-3,0 ou +3,0): ali o dado nao distingue os dois baldes, e chamar de veredito seria
+    inventar precisao. Devolve um dicionario; nunca altera `classe_lastro`.
+    """
+    if var_eps_pct is None:
+        return {"grau": GRAU_LASTRO["sem_dado"], "fronteira": None,
+                "texto": "sem par nos snapshots ponto-no-tempo: nao ha revisao para graduar"}
+    de = float(var_eps_pct)
+    dist_baixo = abs(de - (-LIM_LASTRO))       # distancia ate a borda do "com lastro"
+    dist_alto = abs(de - LIM_LASTRO)           # distancia ate a borda da "divergencia"
+    borda, dist = (("-%.1f%%" % LIM_LASTRO, dist_baixo) if dist_baixo <= dist_alto
+                   else ("+%.1f%%" % LIM_LASTRO, dist_alto))
+    base = {"var_eps_pct": round(de, 2), "incerteza_eps_pct": incerteza_pct,
+            "limiar_pct": LIM_LASTRO, "borda_mais_proxima": borda,
+            "distancia_ate_a_borda_pp": round(dist, 2),
+            "fronteira_em_incertezas": FRONTEIRA_EM_INCERTEZAS, "provisorio": True}
+    if incerteza_pct is None:
+        base.update({
+            "grau": GRAU_LASTRO["sem_incerteza"], "fronteira": None, "lastro_z": None,
+            "texto": "revisao de %+.2f%%, a %.2f pp da borda de %s — mas a incerteza do "
+                     "consenso NAO pode ser medida neste snapshot, entao nao da para dizer se "
+                     "o caso esta ou nao na fronteira. Isto e buraco declarado, nao 'longe da "
+                     "borda'." % (de, dist, borda)})
+        return base
+    faixa = FRONTEIRA_EM_INCERTEZAS * incerteza_pct
+    z = round(de / incerteza_pct, 2) if incerteza_pct else None
+    base["lastro_z"] = z
+    base["faixa_de_fronteira_pp"] = round(faixa, 2)
+    if dist <= faixa:
+        base.update({
+            "grau": GRAU_LASTRO["fronteira"], "fronteira": True,
+            "texto": "FRONTEIRA: revisao de %+.2f%% esta a %.2f pp da borda de %s, e a "
+                     "incerteza do proprio consenso e +-%.2f pp. O dado NAO separa 'com "
+                     "lastro' de 'sem lastro' aqui — isto e fronteira, nao veredito. A "
+                     "revisao vale %s desvios do proprio consenso."
+                     % (de, dist, borda, incerteza_pct,
+                        ("%+.2f" % z) if z is not None else "n/d")})
+        return base
+    if de <= -LIM_LASTRO:
+        g, t = GRAU_LASTRO["com_lastro"], "o consenso de lucro caiu junto com o preco"
+    elif de >= LIM_LASTRO:
+        g, t = GRAU_LASTRO["divergente"], "o consenso SUBIU com o preco caindo"
+    else:
+        g, t = GRAU_LASTRO["consenso_parado"], "o consenso praticamente nao se moveu"
+    base.update({"grau": g, "fronteira": False,
+                 "texto": "%s: revisao de %+.2f%% (%s desvios do proprio consenso, incerteza "
+                          "+-%.2f pp), a %.2f pp da borda de %s — fora da faixa de fronteira."
+                          % (t, de, ("%+.2f" % z) if z is not None else "n/d", incerteza_pct,
+                             dist, borda)})
+    return base
 
 
 def revisao_pit(tic, snaps, d_ini, d_fim, tol_dias=7):
@@ -439,6 +620,8 @@ def revisao_pit(tic, snaps, d_ini, d_fim, tol_dias=7):
         if df.empty:
             return None, "sem ano fiscal futuro em %s" % data
         return [{"fy": r.fy_date, "eps": float(r.epsAvg),
+                 "eps_alto": float(r.epsHigh) if pd.notna(r.epsHigh) else None,
+                 "eps_baixo": float(r.epsLow) if pd.notna(r.epsLow) else None,
                  "receita": float(r.revenueAvg) if pd.notna(r.revenueAvg) else None,
                  "n": int(r.numAnalystsEps) if pd.notna(r.numAnalystsEps) else None}
                 for _, r in df.iterrows()], None
@@ -467,6 +650,13 @@ def revisao_pit(tic, snaps, d_ini, d_fim, tol_dias=7):
     a, b, ib = par
     if not a["eps"] or abs(a["eps"]) < 0.10:
         return None, "EPS base proximo de zero (%.4f) — a razao explode" % a["eps"]
+    inc_a, det_a = incerteza_do_consenso(a)
+    inc_b, det_b = incerteza_do_consenso(b)
+    # A MAIOR das duas pontas. Os dois snapshots compartilham quase todos os analistas, entao
+    # o erro se cancela em parte na diferenca: esta banda e um TETO do ruido, e o teto e o
+    # lado barato de errar (suspende veredito, nunca fabrica).
+    candidatas = [x for x in (inc_a, inc_b) if x is not None]
+    incerteza = round(max(candidatas), 2) if candidatas else None
     return {
         "fy": b["fy"],
         "fy_snapshot_antigo": a["fy"],
@@ -478,6 +668,18 @@ def revisao_pit(tic, snaps, d_ini, d_fim, tol_dias=7):
         "var_receita_pct": (round((b["receita"] / a["receita"] - 1) * 100, 2)
                             if a["receita"] and b["receita"] else None),
         "n_analistas": b["n"],
+        "n_analistas_antes": a["n"],
+        # composicao: se o numero de analistas mudou, parte da "revisao" e gente diferente
+        # opinando, nao analista mudando de ideia. Fica GRAVADO; nao entra na regra.
+        "composicao_mudou": (a["n"] is not None and b["n"] is not None and a["n"] != b["n"]),
+        # ---- FAIXA DE INCERTEZA, medida no proprio consenso (08/set) ------------------
+        "incerteza_eps_pct": incerteza,
+        "incerteza_detalhe": {"snapshot_antigo": det_a, "snapshot_atual": det_b,
+                              "usada": "a maior das duas",
+                              "formula": "100 x ((epsHigh - epsLow)/2) / raiz(n) / |epsAvg|",
+                              "e_um_teto": "os dois snapshots compartilham analistas, entao o "
+                                           "erro se cancela em parte na diferenca",
+                              "provisorio": True},
     }, None
 
 
@@ -689,6 +891,10 @@ def append_ledger(fichas, semana_ini, semana_fim):
                 "lastro_fy": lz.get("fy"),
                 "lastro_fy_e_o_primeiro": lz.get("fy_e_o_primeiro"),
                 "razao_eps_preco": F.get("razao_eps_preco"),
+                "lastro_grau": F.get("lastro_grau"),
+                "lastro_fronteira": F.get("lastro_fronteira"),
+                "lastro_z": F.get("lastro_z"),
+                "incerteza_eps_pct": F.get("incerteza_eps_pct"),
                 "motivo_sem_dado": F.get("motivo_sem_dado"),
                 "acima_sma200": F.get("acima_sma200"),
                 "motivo": (F.get("motivo") or {}).get("motivo"),
@@ -734,6 +940,20 @@ def relatorio(fichas, funil, meta):
     A("-" * 100)
     A("  com lastro: %d   |   sem lastro: %d   |   sem dado: %d"
       % (meta["n_com"], meta["n_sem"], meta["n_semdado"]))
+    A("")
+    A("  GRADUACAO COM FAIXA DE INCERTEZA (08/set/2026) — o limiar de %.1f%% NAO mudou e os"
+      % meta["limiar_lastro_pct"])
+    A("  tres estados acima continuam identicos (a populacao do pre-registro nao muda). Ao")
+    A("  lado deles entra a incerteza do PROPRIO consenso, medida no snapshot:")
+    A("      meia amplitude (epsHigh-epsLow)/2 / raiz(n analistas), em % do EPS")
+    A("  Quando a revisao esta a menos de UMA incerteza da borda (%+.1f%% ou %+.1f%%), o caso"
+      % (-meta["limiar_lastro_pct"], meta["limiar_lastro_pct"]))
+    A("  sai rotulado FRONTEIRA — o dado nao separa os dois baldes, e chamar isso de veredito")
+    A("  seria inventar precisao. Nenhum numero novo foi calibrado.")
+    A("     na FAIXA DE FRONTEIRA: %d de %d ficha(s)   |   com dado mas sem incerteza"
+      % (meta.get("n_fronteira", 0), meta["n_com"] + meta["n_sem"]))
+    A("     mensuravel no snapshot: %d   |   sem dado nenhum: %d"
+      % (meta.get("n_sem_incerteza", 0), meta["n_semdado"]))
     A("  DEFEITO CONHECIDO DA BASE, declarado: ate 30/ago o logger gravava limit=4 e o")
     A("  FMP devolve os anos fiscais em ordem DECRESCENTE — os snapshots de 14, 21 e")
     A("  28/ago guardaram os anos MAIS DISTANTES (3,99 linhas por ticker) e nao o FY1")
@@ -772,8 +992,13 @@ def relatorio(fichas, funil, meta):
                  ("%.3f" % F["razao_eps_preco"]) if F.get("razao_eps_preco") is not None else "n/d"))
             A("                        (%d analistas | %s)"
               % (lz.get("n_analistas") or 0, F.get("obs_lastro") or ""))
+            g = F.get("lastro_graduacao") or {}
+            A("     GRAU ............. %s%s" % (F.get("lastro_grau") or "?",
+              ("   [z do consenso = %+.2f]" % g["lastro_z"]) if g.get("lastro_z") is not None else ""))
+            A("                        %s" % (g.get("texto") or ""))
         else:
             A("     LASTRO ........... SEM DADO — %s" % (F.get("motivo_sem_dado") or "?"))
+            A("     GRAU ............. %s" % (F.get("lastro_grau") or "sem dado"))
         m = F.get("motivo") or {}
         A("     MOTIVO ........... %s" % m.get("motivo"))
         A("                        data %s | fonte %s | confianca: %s"
@@ -927,9 +1152,17 @@ def main():
         F["lastro"] = rev
         F["motivo_sem_dado"] = erro_rev
         cl, razao, obs = classe_lastro(F["var_semana_pct"], rev)
-        F["classe_lastro"] = cl
+        F["classe_lastro"] = cl                      # os TRES estados, intocados
         F["razao_eps_preco"] = razao
         F["obs_lastro"] = obs
+        # ao LADO dos tres estados (nunca no lugar deles): a graduacao com faixa de
+        # incerteza declarada. Perto da borda o caso sai FRONTEIRA, nao veredito.
+        F["lastro_graduacao"] = graduacao_do_lastro(
+            (rev or {}).get("var_eps_pct"), (rev or {}).get("incerteza_eps_pct"))
+        F["lastro_grau"] = F["lastro_graduacao"]["grau"]
+        F["lastro_fronteira"] = F["lastro_graduacao"]["fronteira"]
+        F["lastro_z"] = F["lastro_graduacao"].get("lastro_z")
+        F["incerteza_eps_pct"] = (rev or {}).get("incerteza_eps_pct")
         # MOTIVO
         F["edgar"] = edgar(t, cikmap, ini, fim)
         F["nome"] = F["edgar"].get("nome") or t
@@ -941,9 +1174,9 @@ def main():
         F["papel_analista"] = papel_do_analista(F)
         F["segundos"] = round(time.time() - t0, 2)
         fichas.append(F)
-        log("  [%02d/%02d] %-6s idio %+7.2f pp | z %+5.2f | lastro %-10s | %s"
+        log("  [%02d/%02d] %-6s idio %+7.2f pp | z %+5.2f | lastro %-10s | grau %-32s | %s"
             % (k, len(alvo), t, d["idiossincratico_pp"], m["z_semana"], cl,
-               F["motivo"]["motivo"][:52]))
+               F["lastro_grau"], F["motivo"]["motivo"][:40]))
 
     n_com = sum(1 for F in fichas if F["classe_lastro"] == "com lastro")
     n_sem = sum(1 for F in fichas if F["classe_lastro"] == "sem lastro")
@@ -954,6 +1187,11 @@ def main():
     funil.append(("   LASTRO — sem lastro (preco caiu, EPS parado ou subindo)", n_sem))
     funil.append(("   LASTRO — SEM DADO (sem par no snapshot / serie curta)", n_sd))
     funil.append(("   destes, medidos em FY DISTANTE (nao FY1) — dado mais fraco", n_fyd))
+    n_front = sum(1 for F in fichas if F.get("lastro_fronteira") is True)
+    n_semi = sum(1 for F in fichas if F.get("lastro_fronteira") is None
+                 and F.get("classe_lastro") != "sem dado")
+    funil.append(("   GRADUACAO — na FAIXA DE FRONTEIRA (o dado nao separa os baldes)", n_front))
+    funil.append(("   GRADUACAO — com dado, mas sem incerteza mensuravel no snapshot", n_semi))
     n_ident = sum(1 for F in fichas if F["motivo"]["motivo"] != "motivo nao identificado")
     funil.append(("5. MOTIVO — identificado", n_ident))
     funil.append(("   MOTIVO — nao identificado (isto e informacao, nao falha)",
@@ -972,6 +1210,13 @@ def main():
         "corte_z": args.z, "cortes_provisorios": True,
         "piso_preco": PISO_PRECO, "piso_volume": PISO_VOLUME, "piso_mcap": PISO_MCAP,
         "min_parcela_idio": MIN_SHARE_IDIO, "limiar_lastro_pct": LIM_LASTRO,
+        "fronteira_em_incertezas": FRONTEIRA_EM_INCERTEZAS,
+        "n_fronteira": n_front, "n_sem_incerteza": n_semi,
+        "nota_graduacao": ("o limiar de %.1f%% NAO mudou e os tres estados continuam os "
+                           "mesmos. O que entrou ao lado e a faixa de incerteza do proprio "
+                           "consenso (epsHigh/epsLow/n do snapshot): quando a revisao esta a "
+                           "menos de uma incerteza da borda, o caso sai FRONTEIRA e nao "
+                           "veredito. Nenhum numero novo foi calibrado." % LIM_LASTRO),
         "spy_pct": round(spy_pct, 2) if spy_pct is not None else None,
         "n_com": n_com, "n_sem": n_sem, "n_semdado": n_sd, "n_fy_distante": n_fyd,
         "vetados_split": vetados_split,

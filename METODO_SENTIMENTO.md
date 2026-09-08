@@ -144,17 +144,31 @@ Não é o nível da taxa: é **o que o banco fez por último e há quanto tempo*
 
 ```
 decaimento = 0,5 ^ (idade em dias / 120)
+peso       = decaimento × min(1 ; decaimento / 0,25)          ← RAMPA, 08/set
+contribuição no score = 0,25 × sinal do último movimento × peso
 ```
 
-Meia-vida de **120 dias**: o último movimento perde metade do peso em quatro meses. Abaixo do
-piso de **0,25** o movimento lê como MANUTENÇÃO e a dimensão não vota.
+Meia-vida de **120 dias**: o último movimento perde metade do peso em quatro meses.
 
-**O penhasco não acabou, mudou de lugar.** O piso de 0,25 é ele próprio um degrau: o decaimento
-cruza 0,25 aos **240 dias exatos**, e a contribuição cai de 0,063 para 0,000 de um dia para o
-outro. É quatro vezes menor que o penhasco antigo (que derrubava 0,25 de uma vez), mas continua
-sendo um degrau, e o lugar dele importa: o GBP está hoje com decaimento 0,220, 12% abaixo do
-piso; com piso 0,20 — tão arbitrário quanto 0,25 — a perna GBP passaria a votar CORTA. O campo
-`penhasco` do arquivo publica onde o degrau está.
+**O SEGUNDO penhasco caiu em 08/set — o piso virou rampa.** O piso de 0,25 era ele próprio um
+degrau: aos **240 dias exatos** a contribuição caía de 0,0625 para 0,0000 de um dia para o outro,
+e **quatro das oito moedas** estavam logo abaixo dele (USD 0,208 · GBP 0,216 · CAD 0,163 · CHF
+0,076), o GBP a 13,6% de trocar de leitura. Agora o mesmo 0,25 é o **joelho** de uma rampa
+linear: acima dele nada muda, abaixo dele o peso desce em rampa até zero. **Nenhum número novo
+entrou** — trocar degrau por rampa é conserto de forma; escolher um joelho diferente seria
+calibrar sem backtest.
+
+A prova roda em toda rodada (`tabela_da_rampa()`, publicada na régua): com o piso, o maior salto
+entre dois vizinhos era 0,0625 e **não encolhia** quando a grade afinava 10× — assinatura do
+degrau. Com a rampa é 0,0049 e cai para 0,0005 com a grade 10× mais fina. Efeito medido na mesma
+rodada: nenhuma das oito moedas trocou de leitura; 5 dos 28 pares subiram uma faixa de
+divergência.
+
+**Duas coisas mudaram junto, por coerência.** A `direcao` do ciclo passou a ser o **fato** (o
+último movimento foi alta ou corte) — uma dimensão que contribui −0,047 não pode declarar
+"MANUTENÇÃO". E quem diz "o banco está parado" é o **regime**, que ficou no mesmo joelho
+(`ainda_pesa`) e não move mais nenhum número. `regime` é uma palavra, e toda palavra tem
+fronteira; o que a lei da casa proíbe é que um centésimo mude o **número**, e isso acabou.
 
 **Um termo foi desligado e o motivo está registrado.** Havia um segundo fator, por reuniões de
 manutenção desde o último movimento. Ele foi desligado em 05/set porque **media o arquivo, não o
@@ -359,6 +373,147 @@ reproduz exatamente a soma publicada (isso é testado). Quando a direção depen
 
 ⚠️ **Fica em aberto, com o número na mesa:** a largura da faixa é PROVISÓRIA e nunca foi validada
 contra o que o banco central fez depois. Hoje, **o "MANTÉM" do dólar existe por causa dela**.
+
+### 4.3 Onde a guarda também não alcançava — o PARÂMETRO (conserto 2.1, 08/set à tarde)
+
+**O parágrafo honesto, primeiro:** *hoje a direção de algumas moedas deste painel depende de
+botões que ninguém mediu.* A meia-vida do decaimento dos dados (21 dias) e o modulador de
+impacto (alto 1,0 / médio 0,5 / baixo 0,2) foram **declarados**, nunca comparados com o que o
+banco central fez depois. Não existe calibração e não vai existir antes do backtest pré-registrado
+que abre em **21/dez/2026** — escolher "o melhor número" agora seria garimpo, e a casa tem lápide
+para isso. Enquanto não houver calibração, o que dá para fazer é **medir de quanto a leitura
+depende do botão, e mostrar**.
+
+A guarda de direção (§4.1) prende o **tratamento**: dado cru × dado tratado. A faixa neutra (§4.2)
+prende o que roda **antes da classificação**. Faltava o terceiro: o **parâmetro**. É a mesma
+família de erro um andar acima — *leitura cuja direção depende de um número que ninguém mediu não
+é leitura, é escolha de método*.
+
+**A faixa plausível, declarada e argumentada (PROVISÓRIA):**
+
+| parâmetro | faixa | por que o piso | por que o teto |
+|---|---|---|---|
+| **meia-vida dos dados** | 14 a 30 dias (passo 2) | abaixo de 14, um dado do dia da reunião anterior (~42 dias) já vale menos de 13%: a leitura vira "as duas últimas semanas", e a régua de evidência já pede 12 itens | a janela é de 42 dias; com meia-vida 30 o item mais velho admissível vale 38%, com 45 vale **52%** — o dado mais velho passaria a pesar mais que metade do de hoje |
+| **modulador de impacto** | alto **fixo em 1,0**; `0 ≤ baixo ≤ médio ≤ 1`, 13 variantes | contém o extremo **"só alto conta" (0 / 0)** | contém o extremo **"plano" (1,0 / 1,0)** |
+
+O **alto é a referência, não um botão**: encolher os três pelo mesmo fator empurraria moedas de
+SOBE/CORTA para MANTÉM sem que nenhum dado mudasse, porque `LIMIAR_DADOS` é fixo — é a mesma prova
+já escrita em `reescala_proporcional`. O que se varia é o peso **relativo** do médio e do baixo.
+A restrição `baixo ≤ médio ≤ alto` é a única coisa que o calendário de fato afirma: é a definição
+dos rótulos.
+
+**A cada rodada** a leitura de cada moeda é refeita nas **130 células** dessa faixa (10 meias-vidas
+× 13 variantes). É barato porque são somas sobre termos que já estão na memória: **12 ms** de grade
+pura, **21 ms** medidos ponta a ponta nas oito moedas — contra um orçamento de 10 s e uma cadeia de
+73 s. A célula 1× (21 dias, modulador de hoje) **reproduz exatamente a soma publicada**, e isso é
+testado; sem isso a comparação seria conversa fiada.
+
+**A régua de apresentação — confiança, não decisão:**
+
+| concordância da grade | o que acontece |
+|---|---|
+| **100%** | leitura robusta ao parâmetro, segue como está |
+| **abaixo de 100%** | bandeira *"direção depende de parâmetro não calibrado"* + **qualidade da evidência limitada à concordância** (mesma forma do teto da dominância) |
+| **abaixo de 60%** (PROVISÓRIO) | **SEM LEITURA**, exatamente como quando o tratamento vira a direção |
+
+**Por que 60:** tem de ser **acima de 50**, porque em 50 a direção publicada é cara-ou-coroa entre
+métodos e abaixo disso ela é a leitura **minoritária** da faixa plausível — publicar minoria como
+"a leitura" é indefensável. Tem de ser **abaixo de 100**, porque exigir unanimidade suspenderia uma
+moeda por **uma** célula na ponta da faixa, e ponta de faixa é fronteira, não fragilidade. 60 é o
+menor número redondo estritamente acima do cara-ou-coroa com folga: *3 em cada 5 escolhas
+plausíveis concordam*. **PROVISÓRIO**, para o backtest calibrar junto com o resto.
+
+⚠️ **A concordância é régua grossa, e isso sai declarado no arquivo.** Ela é a fração de uma
+**grade que nós escolhemos**; adensá-la numa região muda o número. **Não é probabilidade.** O
+número que **não** depende da densidade é o **marginal** — vira ou não vira girando um botão de
+cada vez — e ele é publicado ao lado, sempre (`vira_pela_meia_vida`, `vira_pelo_modulador`,
+`qual_parametro_faz_virar`, com as duas linhas inteiras e a fronteira).
+
+**Medido na rodada de 08/set (à tarde), 130 células por moeda:**
+
+| moeda | leitura publicada | concordância | vira p/ meia-vida | vira p/ modulador | quem faz virar | dimensão de dados |
+|---|---|---|---|---|---|---|
+| **USD** | sem leitura | **38%** | **SIM** | **SIM** | modulador | 72% (MANTÉM 93 · CORTA 34 · SOBE 3) |
+| **GBP** | inclinado ao corte | **78%** | não | **SIM** | modulador | **54%** (MANTÉM 70 · CORTA 60) |
+| EUR | inclinado à alta | 95% | não | SIM | modulador | 85% |
+| JPY | inclinado à alta | 98% | não | não | só a combinação | 77% |
+| AUD / NZD / CAD / CHF | — | **100%** | não | não | — | 100 / 100 / 77 / 100% |
+
+**Leia a linha do dólar.** A leitura do USD só se sustenta em 38% da faixa: em **78 das 130
+células** ela seria *inclinado ao corte*. E a fronteira é obscena de perto — com o modulador de
+hoje, **21 dias dá "sem leitura" e 22 dias dá "inclinado ao corte"**. Um único dia num número que
+ninguém mediu. Do lado do modulador, a soma do USD atravessa de **+2,67** ("só alto conta") a
+**−6,84** ("plano") sem nenhum dado mudar. O USD já estava suspenso pela intensidade, então a regra
+não mexeu na tela — mas agora o painel **diz por quê**, e a evidência do dólar caiu de 87 para 38.
+
+**O GBP é o caso mais desconfortável:** ele sai publicado como *inclinado ao corte* e a **dimensão
+de dados** dele é praticamente um empate — MANTÉM em 70 células, CORTA em 60. A leitura aguenta
+(78%) porque o **ciclo** carrega o sinal; a dimensão de dados, sozinha, não decide nada. Isso está
+publicado no bloco `dimensao` de cada moeda, que reproduz a medida do auditor (soma × `LIMIAR_DADOS`)
+e **não comanda nada** — é medida, não regra.
+
+**Efeito nos 28 pares (mesma rodada, mesmo instante, só ligando e desligando a régua):** nenhum par
+trocou de faixa — sem tese 12 · observação 4 · moderada 3 · forte 9 dos dois lados. O que mudou foi
+**confiança**: **5 pares** tiveram a qualidade da evidência derrubada pelo elo USD (EURUSD e USDJPY
+de 85/87 para **38**, AUDUSD de 80 para 38, USDCHF e GBPUSD de 75 para 38) e **22 dos 28** passaram
+a carregar o alerta *"a direção do X depende de PARÂMETRO NÃO CALIBRADO"* — todos os que têm perna
+USD, EUR, GBP ou JPY.
+
+**O que a grade NÃO cobre, declarado:** a largura da faixa neutra (já medida em §4.2, em
+0×/0,5×/1×/2×), os parâmetros do **ciclo** (meia-vida de 120 dias e o joelho de 0,25, que têm bloco
+próprio), e o efeito da meia-vida na parte *atualidade* da qualidade da evidência — a grade mede
+**direção**, não nota.
+
+#### 4.3.1 O que o REFUTADOR mediu em cima disto (08/set, fim da tarde)
+
+**A faixa 14–30 NÃO estava protegendo o resultado, e isso foi testado alargando-a.** A grade
+inteira foi refeita por um caminho independente — girando as constantes reais do módulo e chamando
+a `dimensao_dados` de produção, sem usar o atalho `soma_da_dimensao_com` — e as oito concordâncias
+gravadas foram **reproduzidas na casa do inteiro**, com a célula de hoje batendo a soma publicada
+nas oito. Depois a faixa foi **alargada**:
+
+| faixa da meia-vida | células | USD | EUR | GBP | JPY | AUD/NZD/CAD/CHF |
+|---|---|---|---|---|---|---|
+| só o ponto de hoje (21) | 13 | 38% | 92% | 77% | 100% | 100% |
+| **declarada, 14–30 passo 2** | 130 | **38%** | **95%** | **78%** | **98%** | **100%** |
+| a do auditor, 10–45 | 247 | 26% | 96% | 77% | 96% | 100% |
+| absurda, 7–60 | 351 | 17% | 97% | 75% | 95% | 100% |
+| 14–30 **com o `alto` também variando** | 280 | 51% | 96% | 68% | 99% | 100% |
+
+**Nenhuma moeda cruza o corte de 60% em nenhum cenário** — o USD fica abaixo em todos (17 a 51) e
+o GBP fica acima em todos (66 a 91). A faixa declarada não é o que segura a leitura de ninguém.
+
+**O buraco que apareceu é o outro lado da mesma medida: os PONTOS da grade do modulador não têm
+argumento escrito.** O piso, o teto e o passo da meia-vida estão argumentados um a um; os 5×4
+pontos de `grade_medio`/`grade_baixo` não estão. E a escolha mexe: adensando para passo 0,1 (66
+variantes em vez de 13, **a mesma faixa**), o **GBP vai de 78% para 91%** e o JPY de 98% para 100%.
+Está declarado agora em `MODULADOR_FAIXA["por_que_a_grade"]`.
+
+**O achado grave — a concordância tem um degrau que NÃO é desta grade.** Ela compara com o
+**rótulo publicado**, e o rótulo tem uma borda fora daqui: o **piso de intensidade de 15%** da
+`zona_de_leitura`. Varrendo a idade do último movimento do Fed dia a dia:
+
+| idade do último movimento | intensidade | rótulo publicado | concordância |
+|---|---|---|---|
+| 271 dias | 15% | inclinado ao corte | **62%** |
+| **272 dias (é onde o Fed está hoje)** | **14%** | **sem leitura** | **38%** |
+
+**24 pontos de concordância em um dia, e o corte de 60% cai dentro do salto.** A rampa do §2.2
+matou o degrau de 240 dias **no número**; este sobreviveu **no rótulo**, e ele é do piso de 15% —
+que continua sem calibração e não foi tocado por nenhum dos dois consertos. Consequência prática:
+o dólar está **em cima dessa borda, um dia depois dela**; nos **30 dias** entre 242 e 271 a rampa
+publicaria *inclinado ao corte* onde a régua velha publicava *sem leitura*, com concordância de
+**62% a 68%** — ou seja, **2 a 8 pontos** acima do corte de suspensão. Os dois consertos passaram
+a um dia e a dois pontos de colidir. Está declarado em `ROBUSTEZ["aviso_da_borda_de_intensidade"]`.
+**Enquanto o piso de 15% existir, a concordância de uma moeda encostada nele não mede a força da
+leitura — leia o marginal, não a fração.**
+
+**Isto não é um filtro novo.** A lei dos três filtros continua valendo: medir fragilidade é
+**medida de confiança**, da mesma família da dominância, que já existia. A única decisão que a
+régua toma é a que a guarda já tomava — **suspender** a leitura quando a direção deixou de ser do
+dado. Está preso por teste em `tests/test_sentimento_tratamento.py` (`RobustezDeParametroTest`),
+inclusive o invariante de que a régua **nunca** muda o sinal: ou a leitura fica como estava, ou vai
+para *sem leitura*.
 
 ### O que se perdeu, declarado
 
@@ -617,6 +772,12 @@ reprovaram, enquanto aquelas nunca foram testadas. Não é o mesmo que estar cer
 - **O teto pela dominância zera a evidência do NZD** e, por tabela, limita os sete pares que o
   contêm. É o comportamento pedido (concentração = desconfiança), mas o valor `100 −
   participação` é declarado, não calibrado.
+- **A meia-vida (21 dias) e o modulador de impacto (1,0 / 0,5 / 0,2) continuam sem calibração** —
+  a §4.3 mede de quanto a leitura depende deles, mas **medir não é calibrar**. Hoje a leitura do
+  USD só se sustenta em 38% da faixa plausível e a fronteira dele está entre 21 e **22** dias de
+  meia-vida. Quem decide o número é o dono, depois do backtest de 21/dez — não o código.
+- **A própria concordância é régua grossa:** é a fração de uma grade escolhida (130 células), não
+  uma probabilidade, e o corte de 60% é PROVISÓRIO (§4.3).
 - **O painel perdeu o estado "manutenção" na leitura**: a zona só devolve *sem leitura*,
   *inclinado à alta* ou *inclinado ao corte*, então a coluna "em manutenção" do placar é
   estruturalmente inalcançável. Uma moeda com as duas dimensões rotuladas MANUTENÇÃO pode sair

@@ -59,9 +59,26 @@ veredito de juro. Ver `LAPIDES.md`, L4.
 ## Desfecho
 
 ```
-reapareceu_em_rodada_seguinte   (a preencher — se sim e sem fato novo: já precificado)
+reapareceu_em_rodada_seguinte   SIM — 08/set, e a previsão deste caso se cumpriu: veredito
+                                "já precificado". Voltou IDÊNTICO: mesmo título, mesma url
+                                representante (wmtw.com), mesma hora (20260906T123000Z), mesmos
+                                números (z 1,06 · razao 1,10 · recente_3d 3,2144 · base_14d 2,9231
+                                · n_republicacoes 5 · duplicatas_removidas 4). Bloco
+                                `reaproveitado: true` e `mundo/conflito: HTTP Error 429` na
+                                mesma rodada: era cache, não coleta nova.
 preco_de_energia_reagiu         (a preencher: camada 1, não estimar)
 prob_implicita_mudou            (a preencher: data/precificacao.json, só USD e AUD têm qualidade alta)
 acertou                         (a preencher)
 medido_em                       (a preencher)
 ```
+
+## Adendo de 08/set — o mesmo conflito, com o sinal invertido
+
+Na rodada seguinte apareceu, em `mundo.energia`, uma manchete com as **mesmas entidades**
+`[eua, ira]` e ação `energia`, apontando o canal para o **lado oposto** (petróleo mais barato):
+*"Trump says oil prices will drop precipitously…"*. Ela **não** foi fundida com este caso — ação
+diferente, conteúdo diferente — e foi julgada `indeterminado`, porque é **declaração, não fato**.
+Caso: [`2026-09-08-fala-preco-petroleo-eua-ira.md`](2026-09-08-fala-preco-petroleo-eua-ira.md).
+
+**A lição:** dentro de um mesmo conflito convivem vetores contrários. Não se somam, e nenhum dos
+dois revoga o outro sem um fato datado.

@@ -59,6 +59,18 @@ imediata. Quem compra está vendendo liquidez, e o prêmio é o que se tenta col
 notícia foi mal interpretada, e não emite juízo sobre a tese de longo prazo do negócio.
 Afirma uma coisa só, estreita e mensurável: **a queda teve lastro no consenso de lucro, ou não teve.**
 
+> ⚠️ **08/set/2026 — o balde binário ganhou uma barra de erro, e a população do pré-registro NÃO
+> mudou.** O limiar de 3% continua onde estava e os três estados (`com lastro` / `sem lastro` /
+> `sem dado`) continuam calculados pela mesma regra — a população primária deste pré-registro
+> segue sendo `sem lastro`, com a mesma definição. Ao **lado** dela passou a sair uma
+> classificação graduada com a incerteza do próprio consenso, medida em `epsHigh`/`epsLow`/`n` do
+> snapshot: quando a revisão está a menos de uma incerteza da borda (−3,0% ou +3,0%), a ficha sai
+> rotulada **FRONTEIRA**, porque ali o dado não separa os dois baldes. Campos novos: `lastro_grau`,
+> `lastro_fronteira`, `lastro_z`, `incerteza_eps_pct`; coletor `v1.2`. Na rodada de 08/set: **2 de
+> 5 fichas na faixa de fronteira** (DYN e RPRX). Quando a análise deste pré-registro for feita, o
+> `lastro_fronteira` permite repetir o teste **excluindo** os casos que o dado não distingue — o
+> que é um corte declarado ANTES, não depois.
+
 **Contra-mecanismo honesto, declarado agora.** O analista revisa DEPOIS do evento. Então
 "consenso parado" numa janela de uma semana pode significar apenas "o analista ainda não
 mexeu". Se for isso, "sem lastro" não é um fato sobre a empresa — é um atraso do analista,

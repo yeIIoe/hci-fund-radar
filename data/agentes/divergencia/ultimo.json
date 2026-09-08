@@ -1,0 +1,754 @@
+{
+ "agente": "divergencia",
+ "versao_prompt": "divergencia@v1",
+ "gerado_em": "2026-09-08T15:34:00Z",
+ "rodada_id": "divergencia-20260908T1534Z",
+ "entradas": {
+  "arquivo": "data/sentimento.json + data/precificacao.json + data/agentes/*/ultimo.json",
+  "gerado_em": "2026-09-08T15:24:03.500980+00:00",
+  "n_itens": 8,
+  "detalhe": [
+   {
+    "arquivo": "data/sentimento.json",
+    "gerado_em": "2026-09-08T15:24:03.500980+00:00",
+    "n_itens": 8,
+    "frescor": {
+     "atraso_min": 37,
+     "atraso_texto": "37 min",
+     "estado": "ok",
+     "bloqueia_leitura": false
+    }
+   },
+   {
+    "arquivo": "data/precificacao.json",
+    "gerado_em": "2026-09-08T14:14:10Z",
+    "n_itens": 8
+   },
+   {
+    "arquivo": "data/agentes/fala/ultimo.json",
+    "gerado_em": "2026-09-08T15:14:33+00:00",
+    "n_itens": 6,
+    "versao_prompt": "fala@v1",
+    "n_julgamentos_por_moeda": 6,
+    "usado_como_coluna_C": true
+   },
+   {
+    "arquivo": "data/agentes/geopolitica/ultimo.json",
+    "gerado_em": "2026-09-08T15:10:49+00:00",
+    "n_itens": 3,
+    "versao_prompt": "geopolitica@v1",
+    "n_julgamentos_por_moeda": 0,
+    "usado_como_coluna_C": false
+   },
+   {
+    "arquivo": "data/agentes/noticia/ultimo.json",
+    "gerado_em": "2026-09-08T15:20:00Z",
+    "n_itens": 8,
+    "versao_prompt": "noticia@v1",
+    "n_julgamentos_por_moeda": 8,
+    "usado_como_coluna_C": true
+   },
+   {
+    "arquivo": "data/agentes/vigia/ultimo.json",
+    "gerado_em": "2026-09-07T21:28:33Z",
+    "n_itens": 25,
+    "versao_prompt": "vigia.py@v1",
+    "n_julgamentos_por_moeda": 0,
+    "usado_como_coluna_C": false
+   }
+  ]
+ },
+ "julgamentos": [
+  {
+   "chave": "USD",
+   "veredito": "SEM FONTE",
+   "confianca": "baixa",
+   "motivo": "A casa lê o USD “sem leitura” (direção MANTEM, intensidade 14% do teto, convicção 25 de 50, 2 de 4 dimensões votando, qualidade da evidência 38/100); o mercado paga “alta”, com p_alta 0,5786, p_manutencao 0,4214 e p_corte 0,0 (qualidade alta, implícito 14,46 bp; futuros de fed funds 30d (ZQ, CME) via API de grafico do Yahoo + EFFR do NY Fed); a coluna C traz 5 leitura(s) para o USD: `fala:USD/Waller` = manutenção (confiança alta); `fala:USD/Barr` = alta condicional (confiança média); `fala:USD/Warsh` = indeterminado (confiança alta); `fala:USD/Lisa D Cook` = indeterminado (confiança baixa); `noticia:USD` = indeterminado (confiança baixa). Silêncio da casa não é MANTEM: sem direção do lado HCI não existe comparação a fazer, mesmo com o preço medido e de qualidade alta. Confiança BAIXA pelo mesmo motivo. MUDOU desde o caso semeado de 07/set, quando a coluna A lia “inclinado ao corte” (direção CORTA, intensidade 36% do teto, número do arquivo de caso): hoje a casa não tem direção e o preço continua pagando alta, então o veredito NÃO é HCI MAIS DOVISH — é SEM FONTE do lado da casa. A coluna C do USD não é unânime e não a resolvo em silêncio: a única postura firme é `fala:USD/Waller` = manutenção (confiança alta), o mesmo agente registra `fala:USD/Barr` = alta condicional (confiança média) e dois indeterminados, e o agente `noticia` leu indeterminado com confiança baixa. As cinco estão em coluna_C_detalhe, com trecho e link. Destaque conferido e NÃO marcado: a condição 1 exige que o outro lado da coluna C não afirme o contrário, e aqui afirma. Frescor não rebaixa nesta rodada: atraso_min 37 (37 min), estado “ok”, bloqueia_leitura = false.",
+   "trecho": "sem leitura: intensidade relativa 14% abaixo do mínimo provisório de 15% (a leitura está perto demais de zero para virar direção). A moeda continua no arquivo, com tudo o que foi medido — o que não existe é a DIREÇÃO. E há um SEGUNDO motivo: a direção do USD DEPENDE de parâmetro que ninguém calibrou: 49 de 130 células da faixa plausível (38%) dão a leitura publicada ('sem leitura'), e as outras dão inclinado ao corte em 78 célula(s) · inclinado à alta em 3 célula(s). Quem faz virar: os dois, o modulador_de_impacto mais: modulador (8 de 13 células) contra meia-vida (5 de 10 células). Nenhum dado muda entre as células — só o botão. (o corte PROVISÓRIO de concordância é 60%).",
+   "trecho_de": "data/sentimento.json · moedas.USD.leitura_motivo",
+   "numeros_citados": {
+    "hci_leitura_texto": "sem leitura",
+    "hci_leitura": "sem_leitura",
+    "hci_direcao": "MANTEM",
+    "hci_intensidade_relativa_pct": 14,
+    "hci_conviccao_pct": 25,
+    "hci_conviccao_teto_pct": 50,
+    "hci_qualidade_evidencia_nota": 38,
+    "hci_dimensoes_ligadas": 2,
+    "hci_dimensoes_total": 4,
+    "hci_proxima_brt": "16/09 15:00",
+    "hci_dias_ate": 8,
+    "hci_banco": "Fed",
+    "mercado_p_alta": 0.5786,
+    "mercado_p_corte": 0.0,
+    "mercado_p_manutencao": 0.4214,
+    "mercado_direcao": "alta",
+    "mercado_qualidade": "alta",
+    "mercado_implicito_bp": 14.46,
+    "mercado_proxima": "2026-09-16",
+    "mercado_taxa_atual": 3.625,
+    "agente_noticia_veredito": "indeterminado",
+    "agente_noticia_confianca": "baixa",
+    "coluna_C_n_leituras": 5
+   },
+   "fonte": {
+    "titulo": "sentimento.json (leitura da casa) + precificacao.json (futuros de fed funds 30d (ZQ, CME) via API de grafico do Yahoo + EFFR do NY Fed) + agentes/fala/ultimo.json, agentes/noticia/ultimo.json",
+    "link": "data/sentimento.json | data/precificacao.json | data/agentes/fala/ultimo.json | data/agentes/noticia/ultimo.json",
+    "quando": "2026-09-08T15:24:03.500980+00:00 | 2026-09-08T14:14:10Z | 2026-09-08T15:14:33+00:00 | 2026-09-08T15:20:00Z"
+   },
+   "lado_ausente": "hci",
+   "destaque": null,
+   "noticia_concorda_com_hci": "sem fonte",
+   "colunas": {
+    "A_casa": {
+     "leitura": "sem leitura",
+     "direcao": "MANTEM"
+    },
+    "B_mercado": {
+     "direcao": "alta",
+     "qualidade": "alta"
+    },
+    "C_noticia": {
+     "agente": "fala, noticia",
+     "veredito": "contraditoria",
+     "versao_prompt": "fala@v1, noticia@v1"
+    }
+   },
+   "coluna_C_detalhe": [
+    {
+     "agente": "fala",
+     "versao_prompt": "fala@v1",
+     "gerado_em": "2026-09-08T15:14:33+00:00",
+     "chave_no_agente": "USD/Waller",
+     "veredito": "manutenção",
+     "confianca": "alta",
+     "trecho": "If this continues in the data due over the next two weeks, I would be inclined to support holding the target for the federal funds rate at its current setting.",
+     "fonte_titulo": "Waller, The Economic Outlook and Some Comments on My Policy Communication",
+     "fonte_link": "https://www.federalreserve.gov/newsevents/speech/waller20260903a.htm",
+     "fonte_quando": "2026-09-03"
+    },
+    {
+     "agente": "fala",
+     "versao_prompt": "fala@v1",
+     "gerado_em": "2026-09-08T15:14:33+00:00",
+     "chave_no_agente": "USD/Barr",
+     "veredito": "alta condicional",
+     "confianca": "média",
+     "trecho": "However, if inflation appears not to be moderating sufficiently, then I think we should act decisively to raise rates.",
+     "fonte_titulo": "Barr, Unlocking Opportunities for Workers and Entrepreneurs with a Criminal Record",
+     "fonte_link": "https://www.federalreserve.gov/newsevents/speech/barr20260901a.htm",
+     "fonte_quando": "2026-09-01"
+    },
+    {
+     "agente": "fala",
+     "versao_prompt": "fala@v1",
+     "gerado_em": "2026-09-08T15:14:33+00:00",
+     "chave_no_agente": "USD/Warsh",
+     "veredito": "indeterminado",
+     "confianca": "alta",
+     "trecho": "7 And I believe when policymakers make quasi-commitments on interest rates through the cycle, we inhibit our own freedom to make the right calls when it's time to decide.",
+     "fonte_titulo": "Warsh, In Our Time",
+     "fonte_link": "https://www.federalreserve.gov/newsevents/speech/warsh20260828a.htm",
+     "fonte_quando": "2026-08-28"
+    },
+    {
+     "agente": "fala",
+     "versao_prompt": "fala@v1",
+     "gerado_em": "2026-09-08T15:14:33+00:00",
+     "chave_no_agente": "USD/Lisa D Cook",
+     "veredito": "indeterminado",
+     "confianca": "baixa",
+     "trecho": "I would consider how a rate increase could negatively affect that stability.",
+     "fonte_titulo": "Outlook for the US and Alaskan economies",
+     "fonte_link": "https://www.bis.org/speeches/20260817-outlook-us-and-alaskan-economies",
+     "fonte_quando": "2026-08-05"
+    },
+    {
+     "agente": "noticia",
+     "versao_prompt": "noticia@v1",
+     "gerado_em": "2026-09-08T15:20:00Z",
+     "chave_no_agente": "USD",
+     "veredito": "indeterminado",
+     "confianca": "baixa",
+     "trecho": "COMMENTARY: Trump's baffling Fed threat could be gift to Warsh: Mike Dolan - Reuters",
+     "fonte_titulo": "COMMENTARY: Trump's baffling Fed threat could be gift to Warsh: Mike Dolan - Reuters",
+     "fonte_link": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxOUlJyMEZjMzY1WGZkdzZwdlJ3c0NYc1RBOU9yZkRYb1FpNjBCUElLSWU1ejVfemROSmhWOVBUWkhGV1VNWU1XTVlJd3VNcmlXdDZfc01taXJVTnppazFSS05iQ1A4Smw0OVNPS3l0VWNZenBVT1JONkg4U2RsaUozR2xWR3ZubUo3XzVlZXptNEhJOHZGelJtRl92aWRhLS1sSXplRm5TdUQ3Mk1SMnlpdHRiT3JXTk5IMDREWll0dGlsanlNQ1VNTA?oc=5",
+     "fonte_quando": "2026-09-08T10:52:48+00:00"
+    }
+   ],
+   "vota": false,
+   "selo": "experimental — contexto, não vota"
+  },
+  {
+   "chave": "EUR",
+   "veredito": "SEM FONTE",
+   "confianca": "baixa",
+   "motivo": "A casa lê o EUR “inclinado à alta” (direção SOBE, intensidade 75% do teto, convicção 50 de 50, 2 de 4 dimensões votando, qualidade da evidência 85/100); não há precificação para o BCE — p_alta, p_corte e p_manutencao são todos null, direcao_mercado null, qualidade “sem fonte”; motivo copiado do arquivo: “manchete: 1 manchete(s) de veiculo aceito na janela, nenhuma passou na regua da proxima reuniao: Another rate hike, just for insurance: Five questions for th (sem numero)”; a coluna C traz 1 leitura(s) para o EUR: `noticia:EUR` = indeterminado (confiança baixa). Não existe comparação a fazer: falta a coluna do mercado. Dizer isso é informação, não falha do painel. A confiança sai BAIXA porque ela se refere ao julgamento comparativo — e o julgamento comparativo não existe. Repete o caso-limite semeado em 07/set: a leitura é forte e a reunião do BCE é em 2 dias, e mesmo assim não há o que comparar. Mudou só o motivo do arquivo de preço. O agente `fala` também não devolveu linha do BCE — Vujcic, Schnabel, Cipollone e Lagarde chegaram com zero frases extraídas. Frescor não rebaixa nesta rodada: atraso_min 37 (37 min), estado “ok”, bloqueia_leitura = false.",
+   "trecho": "manchete: 1 manchete(s) de veiculo aceito na janela, nenhuma passou na regua da proxima reuniao: Another rate hike, just for insurance: Five questions for th (sem numero)",
+   "trecho_de": "data/precificacao.json · moedas.EUR.detalhe.motivo",
+   "numeros_citados": {
+    "hci_leitura_texto": "inclinado à alta",
+    "hci_leitura": "inclinado_alta",
+    "hci_direcao": "SOBE",
+    "hci_intensidade_relativa_pct": 75,
+    "hci_conviccao_pct": 50,
+    "hci_conviccao_teto_pct": 50,
+    "hci_qualidade_evidencia_nota": 85,
+    "hci_dimensoes_ligadas": 2,
+    "hci_dimensoes_total": 4,
+    "hci_proxima_brt": "10/09 09:15",
+    "hci_dias_ate": 2,
+    "hci_banco": "BCE",
+    "mercado_p_alta": null,
+    "mercado_p_corte": null,
+    "mercado_p_manutencao": null,
+    "mercado_direcao": null,
+    "mercado_qualidade": "sem fonte",
+    "mercado_implicito_bp": null,
+    "mercado_proxima": "2026-09-10",
+    "mercado_taxa_atual": 2.25,
+    "agente_noticia_veredito": "indeterminado",
+    "agente_noticia_confianca": "baixa",
+    "coluna_C_n_leituras": 1
+   },
+   "fonte": {
+    "titulo": "sentimento.json (leitura da casa) + precificacao.json (sem fonte: manchete: 1 manchete(s) de veiculo aceito na janela, nenhuma passou na regua da proxima reuniao: Another rate hike, just for insurance: Five questions for th (sem numero)) + agentes/noticia/ultimo.json",
+    "link": "data/sentimento.json | data/precificacao.json | data/agentes/noticia/ultimo.json",
+    "quando": "2026-09-08T15:24:03.500980+00:00 | 2026-09-08T14:14:10Z | 2026-09-08T15:20:00Z"
+   },
+   "lado_ausente": "mercado",
+   "destaque": null,
+   "noticia_concorda_com_hci": "sem fonte",
+   "colunas": {
+    "A_casa": {
+     "leitura": "inclinado à alta",
+     "direcao": "SOBE"
+    },
+    "B_mercado": {
+     "direcao": null,
+     "qualidade": "sem fonte"
+    },
+    "C_noticia": {
+     "agente": "noticia",
+     "veredito": "indeterminado",
+     "versao_prompt": "noticia@v1"
+    }
+   },
+   "coluna_C_detalhe": [
+    {
+     "agente": "noticia",
+     "versao_prompt": "noticia@v1",
+     "gerado_em": "2026-09-08T15:20:00Z",
+     "chave_no_agente": "EUR",
+     "veredito": "indeterminado",
+     "confianca": "baixa",
+     "trecho": "ECB Set to Raise Key Rate Again, Signal Caution on Further Moves - WSJ",
+     "fonte_titulo": "ECB Set to Raise Key Rate Again, Signal Caution on Further Moves - WSJ",
+     "fonte_link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxOYWRrQ2ZrenM2S1JzUFA5ejVZcHpQZXNQSGxFM2VkWmdWajZBamdBdXUxV09reGFtTkt6WkhpaGUwYVJ0MmJfVWpZVUlvX2hqeEhFTmRSUkYwelJRYjJtcUM0ai1qVDlFU283NV9wandtaXE3bGhqQXJGbWZYWEMxTjBwTnoyUkh5NmgtV0p5S0doUXRzYU14bEVBRDg2NzN3MFBDcDFEMlZSdUVoWkxjVllB?oc=5",
+     "fonte_quando": "2026-09-08T06:19:00+00:00"
+    }
+   ],
+   "vota": false,
+   "selo": "experimental — contexto, não vota"
+  },
+  {
+   "chave": "GBP",
+   "veredito": "SEM FONTE",
+   "confianca": "baixa",
+   "motivo": "A casa lê o GBP “inclinado ao corte” (direção CORTA, intensidade 31% do teto, convicção 25 de 50, 2 de 4 dimensões votando, qualidade da evidência 75/100); não há precificação para o BoE — p_alta, p_corte e p_manutencao são todos null, direcao_mercado null, qualidade “sem fonte”; motivo copiado do arquivo: “manchete: nenhum item de Reuters/Bloomberg/FT/WSJ com ate 7 dias entre os 116 resultados lidos”; a coluna C traz 2 leitura(s) para o GBP: `fala:GBP/Pill` = indeterminado (confiança média); `noticia:GBP` = indeterminado (confiança baixa). Não existe comparação a fazer: falta a coluna do mercado. Dizer isso é informação, não falha do painel. A confiança sai BAIXA porque ela se refere ao julgamento comparativo — e o julgamento comparativo não existe. As duas leituras da coluna C são indeterminado. Indeterminado NÃO é neutro e NÃO é manutenção: para efeito de comparação e de destaque vale como coluna C ausente. Frescor não rebaixa nesta rodada: atraso_min 37 (37 min), estado “ok”, bloqueia_leitura = false.",
+   "trecho": "manchete: nenhum item de Reuters/Bloomberg/FT/WSJ com ate 7 dias entre os 116 resultados lidos",
+   "trecho_de": "data/precificacao.json · moedas.GBP.detalhe.motivo",
+   "numeros_citados": {
+    "hci_leitura_texto": "inclinado ao corte",
+    "hci_leitura": "inclinado_corte",
+    "hci_direcao": "CORTA",
+    "hci_intensidade_relativa_pct": 31,
+    "hci_conviccao_pct": 25,
+    "hci_conviccao_teto_pct": 50,
+    "hci_qualidade_evidencia_nota": 75,
+    "hci_dimensoes_ligadas": 2,
+    "hci_dimensoes_total": 4,
+    "hci_proxima_brt": "17/09 08:00",
+    "hci_dias_ate": 9,
+    "hci_banco": "BoE",
+    "mercado_p_alta": null,
+    "mercado_p_corte": null,
+    "mercado_p_manutencao": null,
+    "mercado_direcao": null,
+    "mercado_qualidade": "sem fonte",
+    "mercado_implicito_bp": null,
+    "mercado_proxima": "2026-09-17",
+    "mercado_taxa_atual": 3.75,
+    "agente_noticia_veredito": "indeterminado",
+    "agente_noticia_confianca": "baixa",
+    "coluna_C_n_leituras": 2
+   },
+   "fonte": {
+    "titulo": "sentimento.json (leitura da casa) + precificacao.json (sem fonte: manchete: nenhum item de Reuters/Bloomberg/FT/WSJ com ate 7 dias entre os 116 resultados lidos) + agentes/fala/ultimo.json, agentes/noticia/ultimo.json",
+    "link": "data/sentimento.json | data/precificacao.json | data/agentes/fala/ultimo.json | data/agentes/noticia/ultimo.json",
+    "quando": "2026-09-08T15:24:03.500980+00:00 | 2026-09-08T14:14:10Z | 2026-09-08T15:14:33+00:00 | 2026-09-08T15:20:00Z"
+   },
+   "lado_ausente": "mercado",
+   "destaque": null,
+   "noticia_concorda_com_hci": "sem fonte",
+   "colunas": {
+    "A_casa": {
+     "leitura": "inclinado ao corte",
+     "direcao": "CORTA"
+    },
+    "B_mercado": {
+     "direcao": null,
+     "qualidade": "sem fonte"
+    },
+    "C_noticia": {
+     "agente": "fala, noticia",
+     "veredito": "indeterminado",
+     "versao_prompt": "fala@v1, noticia@v1"
+    }
+   },
+   "coluna_C_detalhe": [
+    {
+     "agente": "fala",
+     "versao_prompt": "fala@v1",
+     "gerado_em": "2026-09-08T15:14:33+00:00",
+     "chave_no_agente": "GBP/Pill",
+     "veredito": "indeterminado",
+     "confianca": "média",
+     "trecho": "Whether implicitly (via their internal thinking or analysis) or explicitly (via the material published in the Bank Insights article), it is natural for market participants to interpret this set of scenarios as suggesting the MPC is seeking to keep rates on hold but would raise rates aggressively if the inflation outlook were to deteriorate significantly.",
+     "fonte_titulo": "Homophones – Remarks by Huw Pill",
+     "fonte_link": "https://www.bankofengland.co.uk/speech/2026/september/remarks-at-the-edinburgh-chamber-of-commerce",
+     "fonte_quando": "2026-09-03"
+    },
+    {
+     "agente": "noticia",
+     "versao_prompt": "noticia@v1",
+     "gerado_em": "2026-09-08T15:20:00Z",
+     "chave_no_agente": "GBP",
+     "veredito": "indeterminado",
+     "confianca": "baixa",
+     "trecho": "BOE Governor Bailey Says Market Rate-Hike Pricing Reflects 'Risk Premium' - finance.biggo.com",
+     "fonte_titulo": "BOE Governor Bailey Says Market Rate-Hike Pricing Reflects 'Risk Premium' - finance.biggo.com",
+     "fonte_link": "https://news.google.com/rss/articles/CBMidkFVX3lxTE16eXNuSndVX3dndER4RFZEcXpKZlpETXEtX0hTUWdaQkotcFZDVDlsTEdydk9FckVpcFZUSXpVZmxJUkFDYnlZY3dCQ29JYWx2X0tfRUx1VnZhWG9CdHNiVnRnaFNzeWM0alNEa2swSThXMEp2a1E?oc=5",
+     "fonte_quando": "2026-09-08T14:35:00+00:00"
+    }
+   ],
+   "vota": false,
+   "selo": "experimental — contexto, não vota"
+  },
+  {
+   "chave": "JPY",
+   "veredito": "SEM FONTE",
+   "confianca": "baixa",
+   "motivo": "A casa lê o JPY “inclinado à alta” (direção SOBE, intensidade 68% do teto, convicção 50 de 50, 2 de 4 dimensões votando, qualidade da evidência 91/100); não há precificação para o BoJ — p_alta, p_corte e p_manutencao são todos null, direcao_mercado null, qualidade “sem fonte”; motivo copiado do arquivo: “manchete: 1 manchete(s) de veiculo aceito na janela, nenhuma passou na regua da proxima reuniao: Yen jumps on BOJ hike bets, dollar slips on Waller comments  (sem numero)”; a coluna C traz 1 leitura(s) para o JPY: `noticia:JPY` = indeterminado (confiança baixa). Não existe comparação a fazer: falta a coluna do mercado. Dizer isso é informação, não falha do painel. A confiança sai BAIXA porque ela se refere ao julgamento comparativo — e o julgamento comparativo não existe. Frescor não rebaixa nesta rodada: atraso_min 37 (37 min), estado “ok”, bloqueia_leitura = false.",
+   "trecho": "manchete: 1 manchete(s) de veiculo aceito na janela, nenhuma passou na regua da proxima reuniao: Yen jumps on BOJ hike bets, dollar slips on Waller comments  (sem numero)",
+   "trecho_de": "data/precificacao.json · moedas.JPY.detalhe.motivo",
+   "numeros_citados": {
+    "hci_leitura_texto": "inclinado à alta",
+    "hci_leitura": "inclinado_alta",
+    "hci_direcao": "SOBE",
+    "hci_intensidade_relativa_pct": 68,
+    "hci_conviccao_pct": 50,
+    "hci_conviccao_teto_pct": 50,
+    "hci_qualidade_evidencia_nota": 91,
+    "hci_dimensoes_ligadas": 2,
+    "hci_dimensoes_total": 4,
+    "hci_proxima_brt": null,
+    "hci_dias_ate": 10,
+    "hci_banco": "BoJ",
+    "mercado_p_alta": null,
+    "mercado_p_corte": null,
+    "mercado_p_manutencao": null,
+    "mercado_direcao": null,
+    "mercado_qualidade": "sem fonte",
+    "mercado_implicito_bp": null,
+    "mercado_proxima": "2026-09-18",
+    "mercado_taxa_atual": 1.0,
+    "agente_noticia_veredito": "indeterminado",
+    "agente_noticia_confianca": "baixa",
+    "coluna_C_n_leituras": 1
+   },
+   "fonte": {
+    "titulo": "sentimento.json (leitura da casa) + precificacao.json (sem fonte: manchete: 1 manchete(s) de veiculo aceito na janela, nenhuma passou na regua da proxima reuniao: Yen jumps on BOJ hike bets, dollar slips on Waller comments  (sem numero)) + agentes/noticia/ultimo.json",
+    "link": "data/sentimento.json | data/precificacao.json | data/agentes/noticia/ultimo.json",
+    "quando": "2026-09-08T15:24:03.500980+00:00 | 2026-09-08T14:14:10Z | 2026-09-08T15:20:00Z"
+   },
+   "lado_ausente": "mercado",
+   "destaque": null,
+   "noticia_concorda_com_hci": "sem fonte",
+   "colunas": {
+    "A_casa": {
+     "leitura": "inclinado à alta",
+     "direcao": "SOBE"
+    },
+    "B_mercado": {
+     "direcao": null,
+     "qualidade": "sem fonte"
+    },
+    "C_noticia": {
+     "agente": "noticia",
+     "veredito": "indeterminado",
+     "versao_prompt": "noticia@v1"
+    }
+   },
+   "coluna_C_detalhe": [
+    {
+     "agente": "noticia",
+     "versao_prompt": "noticia@v1",
+     "gerado_em": "2026-09-08T15:20:00Z",
+     "chave_no_agente": "JPY",
+     "veredito": "indeterminado",
+     "confianca": "baixa",
+     "trecho": "BOJ to raise key interest rate by 0.25 percentage point in Sept. meeting - 毎日新聞",
+     "fonte_titulo": "BOJ to raise key interest rate by 0.25 percentage point in Sept. meeting - 毎日新聞",
+     "fonte_link": "https://news.google.com/rss/articles/CBMic0FVX3lxTE1PQl9EeHNWbVM4bmNCMXJuMl8tVG1GVGx6MF80Wm5HTDM4a3lQc0h0djY1dklYNy1NZWVvTGJOZG5ES3U0ZFlOYU5WRl80TGp5aXZtMkJiM1FvOUJEamp5VTBNeUZ6d3YwX1J6S09XZzg3R1U?oc=5",
+     "fonte_quando": "2026-09-08T12:06:19+00:00"
+    }
+   ],
+   "vota": false,
+   "selo": "experimental — contexto, não vota"
+  },
+  {
+   "chave": "AUD",
+   "veredito": "ALINHADO",
+   "confianca": "alta",
+   "motivo": "A casa lê o AUD “inclinado à alta” (direção SOBE, intensidade 73% do teto, convicção 50 de 50, 2 de 4 dimensões votando, qualidade da evidência 80/100); o mercado paga “alta”, com p_alta 0,66, p_manutencao 0,34 e p_corte 0,0 (qualidade alta, implícito 16,5 bp; futuros IB (30 Day Interbank Cash Rate, ASX) via asx.api.markitdigital.com — a API do ASX RBA Rate Tracker); a coluna C traz 1 leitura(s) para o AUD: `noticia:AUD` = alta condicional (confiança media). A leitura da casa e o preço apontam para o mesmo lado. É a linha mais informativa da rodada: a ÚNICA moeda em que as três colunas existem e apontam para o mesmo lado. A casa lê alta, o mercado paga alta com p_alta 0,66 contra p_manutencao 0,34, e o agente `noticia` leu `alta condicional` com confiança média a partir de “RBA’s Hunter Says Inflation Top Priority, May Have to Raise Rate” (Bloomberg). Ressalva copiada do arquivo de preço: a conferência pelo mês da reunião “NÃO vale como segunda medida”, porque sobra 1 dia depois da decisão e a conta amplifica o ruído em 30x; a medida que vale é a do mês seguinte limpo (IBV2026, volume 201). Destaque conferido e NÃO marcado: a condição 1 vale (há leitura de aperto com confiança média ou alta), mas a condição 3 NÃO — o preço se mexeu para o MESMO lado da notícia: direcao_mercado é “alta” e p_manutencao 0,34 não é a maior das três (p_alta 0,66). É o oposto do caso que o destaque procura. Frescor não rebaixa nesta rodada: atraso_min 37 (37 min), estado “ok”, bloqueia_leitura = false.",
+   "trecho": "base = alvo vigente do RBA 4.3500% (data/bancos_centrais.json). regra 1 (preferida): october nao tem reuniao deste banco, entao IBV2026 = 95.4850 e a taxa pos-decisao inteira -> taxa_pos = 100 - 95.4850 = 4.5150. conferencia pelo mes da reuniao: IBU2026 = 95.6500 -> media do mes 4.3500; 29 dias a 4.3500 + 1 dias a taxa_pos => taxa_pos = (4.3500*30 - 4.3500*29)/1 = 4.3500. ATENCAO: so 1 dia(s) depois da reuniao neste mes, entao esta conta amplifica o ruido do preco em 30x e NAO vale como segunda medida — o que ela mostra e que o mercado nao espera mudanca ANTES do dia 29. delta = 4.5150 - 4.3500 = +16.50 bp. Passo 25 bp: p_alta = 0.6600, p_corte = 0.0000, p_manutencao = 0.3400.",
+   "trecho_de": "data/precificacao.json · moedas.AUD.detalhe.conta",
+   "numeros_citados": {
+    "hci_leitura_texto": "inclinado à alta",
+    "hci_leitura": "inclinado_alta",
+    "hci_direcao": "SOBE",
+    "hci_intensidade_relativa_pct": 73,
+    "hci_conviccao_pct": 50,
+    "hci_conviccao_teto_pct": 50,
+    "hci_qualidade_evidencia_nota": 80,
+    "hci_dimensoes_ligadas": 2,
+    "hci_dimensoes_total": 4,
+    "hci_proxima_brt": "29/09 01:30",
+    "hci_dias_ate": 21,
+    "hci_banco": "RBA",
+    "mercado_p_alta": 0.66,
+    "mercado_p_corte": 0.0,
+    "mercado_p_manutencao": 0.34,
+    "mercado_direcao": "alta",
+    "mercado_qualidade": "alta",
+    "mercado_implicito_bp": 16.5,
+    "mercado_proxima": "2026-09-29",
+    "mercado_taxa_atual": 4.35,
+    "agente_noticia_veredito": "alta condicional",
+    "agente_noticia_confianca": "media",
+    "coluna_C_n_leituras": 1
+   },
+   "fonte": {
+    "titulo": "sentimento.json (leitura da casa) + precificacao.json (futuros IB (30 Day Interbank Cash Rate, ASX) via asx.api.markitdigital.com — a API do ASX RBA Rate Tracker) + agentes/noticia/ultimo.json",
+    "link": "data/sentimento.json | data/precificacao.json | data/agentes/noticia/ultimo.json",
+    "quando": "2026-09-08T15:24:03.500980+00:00 | 2026-09-08T14:14:10Z | 2026-09-08T15:20:00Z"
+   },
+   "lado_ausente": null,
+   "destaque": null,
+   "noticia_concorda_com_hci": "sim",
+   "colunas": {
+    "A_casa": {
+     "leitura": "inclinado à alta",
+     "direcao": "SOBE"
+    },
+    "B_mercado": {
+     "direcao": "alta",
+     "qualidade": "alta"
+    },
+    "C_noticia": {
+     "agente": "noticia",
+     "veredito": "alta condicional",
+     "versao_prompt": "noticia@v1"
+    }
+   },
+   "coluna_C_detalhe": [
+    {
+     "agente": "noticia",
+     "versao_prompt": "noticia@v1",
+     "gerado_em": "2026-09-08T15:20:00Z",
+     "chave_no_agente": "AUD",
+     "veredito": "alta condicional",
+     "confianca": "media",
+     "trecho": "RBA’s Hunter Says Inflation Top Priority, May Have to Raise Rate - bloomberg.com",
+     "fonte_titulo": "RBA’s Hunter Says Inflation Top Priority, May Have to Raise Rate - bloomberg.com",
+     "fonte_link": "https://news.google.com/rss/articles/CBMitAFBVV95cUxNdEI4RW5nR2FfbHg3VDlua2pVRlBCWHYwTkZEbnJTLXNIRUZ3R0xPRjZZTmFmMEpkM3FPY1R6aFpfdkJNakd2a29DLURyZDFMck5kOHJwSXBWbFl3SHQ2NjdVcTJJbmtpTkktVlBqQV9HM2IxWU9qRUEtZnJER24tR2U5TmN5WWlSNEQwcmkwVW9JdlVublEzNXBObktMRW80eENPQ3paY0d4eEo1enljWExyWTY?oc=5",
+     "fonte_quando": "2026-09-08T09:19:51+00:00"
+    }
+   ],
+   "vota": false,
+   "selo": "experimental — contexto, não vota"
+  },
+  {
+   "chave": "NZD",
+   "veredito": "ALINHADO",
+   "confianca": "baixa",
+   "motivo": "A casa lê o NZD “inclinado à alta” (direção SOBE, intensidade 47% do teto, convicção 25 de 50, 2 de 4 dimensões votando, qualidade da evidência 0/100); o mercado dá apenas a direção “alta”, com p_alta null, p_manutencao null e p_corte null (qualidade baixa; futuros BB (New Zealand 90 Day Bank Bill, ASX) via asx.api.markitdigital.com); a coluna C traz 1 leitura(s) para o NZD: `noticia:NZD` = indeterminado (confiança baixa). A leitura da casa e o preço apontam para o mesmo lado. Comparação só de direção — o mercado não dá probabilidade, e por isso a confiança é obrigatoriamente baixa. Fragilidade da coluna A declarada ao lado: o próprio arquivo diz que “as dimensões que votam discordam entre si, então a direção vem da MAGNITUDE, não da contagem de votos”. A qualidade da evidência do NZD está em 0/100 e a próxima reunião do RBNZ é em 50 dias. Frescor não rebaixa nesta rodada: atraso_min 37 (37 min), estado “ok”, bloqueia_leitura = false.",
+   "trecho": "BB e taxa a TERMO de 90 dias, nao media mensal da OCR: carrega premio de prazo e de credito e cobre uma janela que atravessa mais de uma reuniao. Converter em probabilidade da proxima reuniao exigiria arbitrar o spread bank bill x OCR, que seria estimativa sem fonte. Fica so a direcao.",
+   "trecho_de": "data/precificacao.json · moedas.NZD.detalhe.motivo_sem_probabilidade",
+   "numeros_citados": {
+    "hci_leitura_texto": "inclinado à alta",
+    "hci_leitura": "inclinado_alta",
+    "hci_direcao": "SOBE",
+    "hci_intensidade_relativa_pct": 47,
+    "hci_conviccao_pct": 25,
+    "hci_conviccao_teto_pct": 50,
+    "hci_qualidade_evidencia_nota": 0,
+    "hci_dimensoes_ligadas": 2,
+    "hci_dimensoes_total": 4,
+    "hci_proxima_brt": "27/10 22:00",
+    "hci_dias_ate": 50,
+    "hci_banco": "RBNZ",
+    "mercado_p_alta": null,
+    "mercado_p_corte": null,
+    "mercado_p_manutencao": null,
+    "mercado_direcao": "alta",
+    "mercado_qualidade": "baixa",
+    "mercado_implicito_bp": null,
+    "mercado_proxima": "2026-10-28",
+    "mercado_taxa_atual": 2.75,
+    "agente_noticia_veredito": "indeterminado",
+    "agente_noticia_confianca": "baixa",
+    "coluna_C_n_leituras": 1
+   },
+   "fonte": {
+    "titulo": "sentimento.json (leitura da casa) + precificacao.json (futuros BB (New Zealand 90 Day Bank Bill, ASX) via asx.api.markitdigital.com) + agentes/noticia/ultimo.json",
+    "link": "data/sentimento.json | data/precificacao.json | data/agentes/noticia/ultimo.json",
+    "quando": "2026-09-08T15:24:03.500980+00:00 | 2026-09-08T14:14:10Z | 2026-09-08T15:20:00Z"
+   },
+   "lado_ausente": null,
+   "destaque": null,
+   "noticia_concorda_com_hci": "sem fonte",
+   "colunas": {
+    "A_casa": {
+     "leitura": "inclinado à alta",
+     "direcao": "SOBE"
+    },
+    "B_mercado": {
+     "direcao": "alta",
+     "qualidade": "baixa"
+    },
+    "C_noticia": {
+     "agente": "noticia",
+     "veredito": "indeterminado",
+     "versao_prompt": "noticia@v1"
+    }
+   },
+   "coluna_C_detalhe": [
+    {
+     "agente": "noticia",
+     "versao_prompt": "noticia@v1",
+     "gerado_em": "2026-09-08T15:20:00Z",
+     "chave_no_agente": "NZD",
+     "veredito": "indeterminado",
+     "confianca": "baixa",
+     "trecho": "RBNZ Interest Rate Outlook: Is New Zealand Entering a Harder Phase of the Rate Cycle? - equiti.com",
+     "fonte_titulo": "RBNZ Interest Rate Outlook: Is New Zealand Entering a Harder Phase of the Rate Cycle? - equiti.com",
+     "fonte_link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxNNlJtdk1ReVlaVE42OFFFbk1rZXVxMWVrYnQ4bUhkMDZPR2dzSVBRMk5fWkJCTGU5SWZQWDh4aFExNU5ZZmFDeGZrQko4S3FNRV84RGlxYllqcDZkNFl2eG1nckhDYVJEUlJrLWtLektIeEFIMUliV1U3VmlWMGo1c05qQUdLVHFYa2t1Sk0wcnQ1QVk5eTdabDBZWDFTSDItSHJab0p4TjBnQQ?oc=5",
+     "fonte_quando": "2026-09-08T11:45:52+00:00"
+    }
+   ],
+   "vota": false,
+   "selo": "experimental — contexto, não vota"
+  },
+  {
+   "chave": "CAD",
+   "veredito": "SEM FONTE",
+   "confianca": "baixa",
+   "motivo": "A casa lê o CAD “inclinado ao corte” (direção CORTA, intensidade 28% do teto, convicção 25 de 50, 2 de 4 dimensões votando, qualidade da evidência 24/100); não há precificação para o BoC — p_alta, p_corte e p_manutencao são todos null, direcao_mercado null, qualidade “sem fonte”; motivo copiado do arquivo: “futuros: Bolsa de Montreal (COA, One-Month CORRA Futures) serve preco por widget QuoteMedia com sessao presa ao dominio: getFuturesChain.json -> Invalid product.; getEnhancedQuotes.json -> HTTP 403 | manchete: 1 manchete(s) de veiculo aceito na janela, nenhuma passou na regua da proxima reuniao: Bank of Canada holds key rate, says multiple hikes might be  (sem numero)”; a coluna C traz 2 leitura(s) para o CAD: `fala:CAD/Macklem` = manutenção (confiança alta); `noticia:CAD` = indeterminado (confiança baixa). Não existe comparação a fazer: falta a coluna do mercado. Dizer isso é informação, não falha do painel. A confiança sai BAIXA porque ela se refere ao julgamento comparativo — e o julgamento comparativo não existe. O ponto desta linha: a coluna C existe e aponta para o lado OPOSTO da casa. `fala:CAD/Macklem` = manutenção com confiança alta, a partir do comunicado do próprio Banco do Canadá — “With recent data coming out largely in line with our July forecast, we decided to maintain the policy interest rate at 2.25%.” —, enquanto a casa lê “inclinado ao corte” com qualidade da evidência 24/100. Isso NÃO move o veredito: na v1 a coluna C não vota, e sem preço não há comparação a fazer. Fica como observação, e o buraco do preço do CAD é técnico, não de manchete. Frescor não rebaixa nesta rodada: atraso_min 37 (37 min), estado “ok”, bloqueia_leitura = false.",
+   "trecho": "futuros: Bolsa de Montreal (COA, One-Month CORRA Futures) serve preco por widget QuoteMedia com sessao presa ao dominio: getFuturesChain.json -> Invalid product.; getEnhancedQuotes.json -> HTTP 403 | manchete: 1 manchete(s) de veiculo aceito na janela, nenhuma passou na regua da proxima reuniao: Bank of Canada holds key rate, says multiple hikes might be  (sem numero)",
+   "trecho_de": "data/precificacao.json · moedas.CAD.detalhe.motivo",
+   "numeros_citados": {
+    "hci_leitura_texto": "inclinado ao corte",
+    "hci_leitura": "inclinado_corte",
+    "hci_direcao": "CORTA",
+    "hci_intensidade_relativa_pct": 28,
+    "hci_conviccao_pct": 25,
+    "hci_conviccao_teto_pct": 50,
+    "hci_qualidade_evidencia_nota": 24,
+    "hci_dimensoes_ligadas": 2,
+    "hci_dimensoes_total": 4,
+    "hci_proxima_brt": "28/10 10:45",
+    "hci_dias_ate": 50,
+    "hci_banco": "BoC",
+    "mercado_p_alta": null,
+    "mercado_p_corte": null,
+    "mercado_p_manutencao": null,
+    "mercado_direcao": null,
+    "mercado_qualidade": "sem fonte",
+    "mercado_implicito_bp": null,
+    "mercado_proxima": "2026-10-28",
+    "mercado_taxa_atual": 2.25,
+    "agente_noticia_veredito": "indeterminado",
+    "agente_noticia_confianca": "baixa",
+    "coluna_C_n_leituras": 2
+   },
+   "fonte": {
+    "titulo": "sentimento.json (leitura da casa) + precificacao.json (sem fonte: futuros: Bolsa de Montreal (COA, One-Month CORRA Futures) serve preco por widget QuoteMedia com sessao presa ao dominio: getFuturesChain.json -> Invalid product.; getEnhancedQuotes.json -> HTTP 403 | manchete: 1 manchete(s) de veiculo aceito na janela, nenhuma passou na regua da proxima reuniao: Bank of Canada holds key rate, says multiple hikes might be  (sem numero)) + agentes/fala/ultimo.json, agentes/noticia/ultimo.json",
+    "link": "data/sentimento.json | data/precificacao.json | data/agentes/fala/ultimo.json | data/agentes/noticia/ultimo.json",
+    "quando": "2026-09-08T15:24:03.500980+00:00 | 2026-09-08T14:14:10Z | 2026-09-08T15:14:33+00:00 | 2026-09-08T15:20:00Z"
+   },
+   "lado_ausente": "mercado",
+   "destaque": null,
+   "noticia_concorda_com_hci": "nao",
+   "colunas": {
+    "A_casa": {
+     "leitura": "inclinado ao corte",
+     "direcao": "CORTA"
+    },
+    "B_mercado": {
+     "direcao": null,
+     "qualidade": "sem fonte"
+    },
+    "C_noticia": {
+     "agente": "fala, noticia",
+     "veredito": "manutenção",
+     "versao_prompt": "fala@v1, noticia@v1"
+    }
+   },
+   "coluna_C_detalhe": [
+    {
+     "agente": "fala",
+     "versao_prompt": "fala@v1",
+     "gerado_em": "2026-09-08T15:14:33+00:00",
+     "chave_no_agente": "CAD/Macklem",
+     "veredito": "manutenção",
+     "confianca": "alta",
+     "trecho": "With recent data coming out largely in line with our July forecast, we decided to maintain the policy interest rate at 2.25%.",
+     "fonte_titulo": "Monetary Policy Decision Press Conference Opening Statement",
+     "fonte_link": "https://www.bankofcanada.ca/2026/09/opening-statement-2026-09-02/",
+     "fonte_quando": "2026-09-02"
+    },
+    {
+     "agente": "noticia",
+     "versao_prompt": "noticia@v1",
+     "gerado_em": "2026-09-08T15:20:00Z",
+     "chave_no_agente": "CAD",
+     "veredito": "indeterminado",
+     "confianca": "baixa",
+     "trecho": "Canada's Jobs Slump in August Makes Bank of Canada Tightening Look Mispriced, Rosenberg Research Says - marketscreener.com",
+     "fonte_titulo": "Canada's Jobs Slump in August Makes Bank of Canada Tightening Look Mispriced, Rosenberg Research Says - marketscreener.com",
+     "fonte_link": "https://news.google.com/rss/articles/CBMi5wFBVV95cUxNalZzZFNWYWluLThUblk2eWVqSjNqTzlsTDVBenZ6WTZpTHJVWjJMZm1BdTNic09ITllacWp0X2VXWXBpcWQzZmR0SEljampZN3BKRmVQTGhwOTFuS0xCRHQwRzZ6bExMMlBYdDFpNF9CZUNfbWtTdlV4WHNKVWFRY0dad1FQUUo0VnNUb0J3VUdQd21CRk85NG9uSkl6bDdUTlBNSmZWdUdjWDJIMGxuamY4RTdFMXJxYU55ZU9lak9KWmhzbUp5MzJLMUY2RjZOMUNuU1IwVVUwcjZmSHNWdVdhTG4wbFk?oc=5",
+     "fonte_quando": "2026-09-08T13:20:25+00:00"
+    }
+   ],
+   "vota": false,
+   "selo": "experimental — contexto, não vota"
+  },
+  {
+   "chave": "CHF",
+   "veredito": "SEM FONTE",
+   "confianca": "baixa",
+   "motivo": "A casa lê o CHF “inclinado à alta” (direção SOBE, intensidade 44% do teto, convicção 0 de 50, 2 de 4 dimensões votando, qualidade da evidência 75/100); não há precificação para o SNB — p_alta, p_corte e p_manutencao são todos null, direcao_mercado null, qualidade “sem fonte”; motivo copiado do arquivo: “manchete: nenhum item de Reuters/Bloomberg/FT/WSJ com ate 7 dias entre os 92 resultados lidos”; a coluna C traz 1 leitura(s) para o CHF: `noticia:CHF` = “não é sobre juro” (fora do vocabulário, confiança baixa). Não existe comparação a fazer: falta a coluna do mercado. Dizer isso é informação, não falha do painel. A confiança sai BAIXA porque ela se refere ao julgamento comparativo — e o julgamento comparativo não existe. Fragilidade da coluna A declarada ao lado: o próprio arquivo diz que “as dimensões que votam discordam entre si, então a direção vem da MAGNITUDE, não da contagem de votos”. A leitura de notícia do CHF veio como “não é sobre juro”, palavra que não pertence ao vocabulário de seis do leitor_falas.py: está registrada em coluna_C_detalhe como fora do vocabulário e não entrou em veredito nem em destaque. Frescor não rebaixa nesta rodada: atraso_min 37 (37 min), estado “ok”, bloqueia_leitura = false.",
+   "trecho": "manchete: nenhum item de Reuters/Bloomberg/FT/WSJ com ate 7 dias entre os 92 resultados lidos",
+   "trecho_de": "data/precificacao.json · moedas.CHF.detalhe.motivo",
+   "numeros_citados": {
+    "hci_leitura_texto": "inclinado à alta",
+    "hci_leitura": "inclinado_alta",
+    "hci_direcao": "SOBE",
+    "hci_intensidade_relativa_pct": 44,
+    "hci_conviccao_pct": 0,
+    "hci_conviccao_teto_pct": 50,
+    "hci_qualidade_evidencia_nota": 75,
+    "hci_dimensoes_ligadas": 2,
+    "hci_dimensoes_total": 4,
+    "hci_proxima_brt": "24/09 04:30",
+    "hci_dias_ate": 16,
+    "hci_banco": "SNB",
+    "mercado_p_alta": null,
+    "mercado_p_corte": null,
+    "mercado_p_manutencao": null,
+    "mercado_direcao": null,
+    "mercado_qualidade": "sem fonte",
+    "mercado_implicito_bp": null,
+    "mercado_proxima": "2026-09-24",
+    "mercado_taxa_atual": 0.0,
+    "agente_noticia_veredito": null,
+    "agente_noticia_confianca": null,
+    "coluna_C_n_leituras": 1
+   },
+   "fonte": {
+    "titulo": "sentimento.json (leitura da casa) + precificacao.json (sem fonte: manchete: nenhum item de Reuters/Bloomberg/FT/WSJ com ate 7 dias entre os 92 resultados lidos)",
+    "link": "data/sentimento.json | data/precificacao.json",
+    "quando": "2026-09-08T15:24:03.500980+00:00 | 2026-09-08T14:14:10Z"
+   },
+   "lado_ausente": "mercado",
+   "destaque": null,
+   "noticia_concorda_com_hci": "sem fonte",
+   "colunas": {
+    "A_casa": {
+     "leitura": "inclinado à alta",
+     "direcao": "SOBE"
+    },
+    "B_mercado": {
+     "direcao": null,
+     "qualidade": "sem fonte"
+    },
+    "C_noticia": {
+     "agente": null,
+     "veredito": null,
+     "versao_prompt": null
+    }
+   },
+   "coluna_C_detalhe": [
+    {
+     "agente": "noticia",
+     "versao_prompt": "noticia@v1",
+     "gerado_em": "2026-09-08T15:20:00Z",
+     "chave_no_agente": "CHF",
+     "veredito": "não é sobre juro",
+     "confianca": "baixa",
+     "trecho": "Swiss Inflation Jumps on Higher Energy Prices - WSJ",
+     "fonte_titulo": "Swiss Inflation Jumps on Higher Energy Prices - WSJ",
+     "fonte_link": "https://news.google.com/rss/articles/CBMikwFBVV95cUxNaWQyNlZaMVVqMFVkMUktSWUxc1lBSk1DZWxBVVB5QzBxZ3VBaGlmakxoRlNkbEx0Tmd6bHJHNXNYRVFVTVh1bkFtRGo3OXJBMmdiUG54TnE4S0NRYmdyeTRjanZqY0ZXSzFMUmhYOEVWZXZUMTdSRUdXejhVenB4SFR3RTVUQ05OclV0MkRzSmw2a1U?oc=5",
+     "fonte_quando": "2026-09-07T23:51:52+00:00",
+     "observacao": "veredito FORA do vocabulário de seis palavras de leitor_falas.py; registrado e não usado no veredito nem no destaque"
+    }
+   ],
+   "vota": false,
+   "selo": "experimental — contexto, não vota"
+  }
+ ],
+ "nao_julgados": [
+  {
+   "chave": "agente geopolitica",
+   "porque": "rodou hoje com 3 julgamentos, mas todos de EVENTO (`evento/ataque-eua-ira`, `evento/sancoes-canada-eua`, `evento/energia-eua-ira-fala-preco-petroleo`) e em vocabulário próprio (“já precificado”), não por moeda e não no vocabulário de seis palavras de leitor_falas.py. Não serve como coluna C e não entrou em nenhum veredito."
+  },
+  {
+   "chave": "agente vigia",
+   "porque": "escrito por vigia.py (camada 1); é monitor de saúde do pipeline e não emite veredito por moeda. Não serve como coluna C."
+  },
+  {
+   "chave": "CHF — leitura de notícia",
+   "porque": "o agente `noticia` devolveu o veredito “não é sobre juro”, que está FORA do vocabulário de seis palavras. Registrei em coluna_C_detalhe com a observação e não usei em veredito nem em destaque — inventar equivalência com “indeterminado” seria decidir por outro agente."
+  },
+  {
+   "chave": "coluna C — EUR, JPY, NZD (falas)",
+   "porque": "o agente `fala` não devolveu linha para estas moedas: Vujcic, Schnabel, Cipollone e Lagarde (BCE), Kent e Bullock (RBA) chegaram com zero frases extraídas pelo pré-filtro da camada 1 e foram para os não julgados dele, com o link que faltou."
+  },
+  {
+   "chave": "pares e instrumentos",
+   "porque": "data/sentimento.json traz também `pares` e `instrumentos`; este agente não julga par. A regra das duas pernas é lei da casa — par não é ativo, são duas moedas, e quem lê par tem de dizer qual perna dá o motivo. Tarefa de outro agente, com prompt próprio."
+  },
+  {
+   "chave": "USD — lado do mercado",
+   "porque": "o preço do USD existe e é de qualidade alta (p_alta 0,5786), mas nesta rodada não há contra o que compará-lo: a casa está sem leitura direcional. O número fica gravado em numeros_citados para a próxima rodada, sem virar veredito."
+  }
+ ],
+ "limites": [
+  "Só USD e AUD têm precificação de qualidade alta hoje (futuros da própria taxa de política: ZQ/CME para o USD, IB/ASX para o AUD). NZD tem qualidade baixa — só direção, de futuro a termo de 3 meses, sem probabilidade. EUR, GBP, JPY, CAD e CHF estão sem fonte: não existe comparação a fazer, e dizer isso é informação, não falha do painel. Comparar a leitura da casa com um preço que ninguém mediu seria inventar a divergência. (Lista conferida contra data/precificacao.json de 2026-09-08T14:14:10Z, não contra a memória.)",
+  "Frescor desta rodada: atraso_min 37 (37 min), estado “ok”, bloqueia_leitura = false. Nenhuma confiança foi rebaixada por frescor nesta linha.",
+  "⚠️ QUARTA E ÚLTIMA LINHA DESTA RODADA — as três anteriores ficam no histórico com os erros, porque o arquivo é append-only e correção é linha nova, nunca reescrita. O pipeline rodou POR CIMA da minha leitura: data/sentimento.json foi reescrito quatro vezes (14:53:12Z → 15:10:51Z → 15:17:53Z → 15:20:46Z, com o frescor caindo de atraso_min 192 e bloqueia_leitura=true para estado ok) e três agentes de camada 2 saíram de semente para rodada real no meio do caminho — `fala` às 15:14:33Z, `geopolitica` às 15:10:49Z e `noticia`, que NÃO EXISTIA quando comecei, às 15:20:00Z. O que cada linha errada afirma: a de 1510Z diz “bloqueia_leitura = true” contra um arquivo que já dizia “ok” e declara a coluna C inexistente; a de 1520Z traz dois limites com números digitados à mão que não batem com o snapshot da própria linha; a de 1526Z ignora o agente `noticia`, que é a coluna C principal do meu prompt. Esta linha lê o diretório de agentes em vez de presumir nomes, trava o snapshot por dupla leitura e tira todo número dos arquivos. Os VEREDITOS por moeda são os mesmos nas quatro linhas.",
+  "Carimbos de todas as entradas, para o teste de relógio (lápide L-H5): sentimento 2026-09-08T15:24:03.500980+00:00; precificacao 2026-09-08T14:14:10Z; fala 2026-09-08T15:14:33+00:00; geopolitica 2026-09-08T15:10:49+00:00; noticia 2026-09-08T15:20:00Z; vigia 2026-09-07T21:28:33Z. A precificação é a mais velha, com cerca de uma hora; nenhuma entrada passa de 24h.",
+  "ZERO destaques nesta rodada, e o motivo é o achado da rodada, não uma falha: nas DUAS moedas em que o preço é de qualidade alta, o preço JÁ SE MEXEU para o mesmo lado da notícia. No USD há `fala:USD/Barr` = alta condicional (média) e o mercado paga alta (p_alta 0,5786 contra p_manutencao 0,4214); no AUD há `noticia:AUD` = alta condicional (média) e o mercado paga alta (p_alta 0,66 contra p_manutencao 0,34). O caso que o dono quer ver — a notícia apertar e o preço não se mexer — exige p_manutencao ser a maior das três, e hoje não é em nenhuma das duas. Nas outras seis falta a condição 2: sem preço medido não se afirma que o preço não se mexeu.",
+  "Desvio de contrato do agente `fala`, registrado e não corrigido por mim: as chaves dele vêm como MOEDA/orador (`USD/Waller`, `CAD/Macklem`), não como moeda. Agrupei por moeda para ler a coluna C e guardei a chave original de cada leitura em coluna_C_detalhe. O campo `coluna_C_detalhe` é ACRÉSCIMO ao contrato da seção 9.1 e existe porque `colunas.C_noticia` só cabe um veredito e o USD tem cinco.",
+  "Limites que os próprios agentes da coluna C declararam e que valem para tudo que citei deles: o `noticia` julgou 103 itens gravados de 282 únicos na janela, o `resumo` de cada item apenas repete o título do RSS (não houve corpo de matéria para ler) e a deduplicação da camada 1 deixou passar republicações; o `fala` lê no máximo 5 frases pré-filtradas por item e nos itens do BIS recebeu só o resumo bibliográfico, porque o PDF integral falhou.",
+  "Este agente não vota e nunca foi medido contra desfecho: não existe convicção histórica (null até o backtest de 21/dez). Divergência, qualidade da evidência e convicção histórica são três números distintos e nunca somados.",
+  "MUDOU desde a semente de 07/set: o USD saiu de “inclinado ao corte” (direção CORTA, intensidade 36% — número do arquivo de caso) para “sem leitura”, com intensidade 14% nesta rodada, abaixo do mínimo provisório de 15%. O caso aberto 2026-09-07-USD-casa-le-corte-mercado-paga-alta.md descreve uma coluna A que não existe mais.",
+  "NZD e CHF: o próprio sentimento.json registra que as dimensões que votam DISCORDAM entre si e a direção vem da magnitude, não da contagem de votos; a qualidade da evidência do NZD está em 0/100 e a do CAD em 24/100. Fragilidade da coluna A, declarada ao lado do veredito.",
+  "Discrepância de contrato conhecida: ARQUITETURA_AGENTES.md (linha 199) chama o índice de data/indice_agentes.json; o contrato vigente e o que o site lê é data/agentes/indice.json. Gravei em data/agentes/indice.json e registro a discrepância até os dois documentos casarem.",
+  "As oito moedas foram julgadas; nenhuma delas é recomendação de operação. O sistema entrega dado e julgamento; a entrada é do Eduardo, pela análise técnica dele."
+ ],
+ "selo": "experimental — contexto, não vota",
+ "vota": false
+}

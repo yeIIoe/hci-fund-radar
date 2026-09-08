@@ -107,7 +107,7 @@ clipe que não move número.
 
 ---
 
-## 2. RISCO LATENTE — medido, NÃO consertado (é decisão do dono)
+## 2. RISCO LATENTE — 2.1 medido e NÃO consertado (é decisão do dono); 2.2 e 2.3 CONSERTADOS na noite de 08/set
 
 ### 2.1 🟡 Três parâmetros que ninguém calibrou decidem a direção do dólar
 
@@ -143,19 +143,128 @@ parâmetro mais sensível do arquivo inteiro e é o menos justificado.
 `sensibilidade` com meia-vida e modulador daria a foto completa. Não foi feito porque seriam três
 mecanismos novos numa auditoria, e a lei dos 3 filtros vale também para instrumentação.
 
-### 2.2 🟡 O piso do ciclo é um penhasco — e quatro moedas estão do lado errado dele
+### 2.2 ✅ CONSERTADO — o piso do ciclo virou RAMPA (08/set, à noite)
 
-Já estava declarado no código (o comentário de `dimensao_ciclo` mede o caso do GBP), então **não
-é achado novo** — mas a leitura de hoje reforça: `CICLO_PISO_VOTO = 0,25` e o decaimento atual é
-USD **0,208**, GBP **0,216**, CAD **0,163**, CHF **0,076**. Quatro das oito moedas leem o ciclo
-como MANTÉM porque estão logo abaixo de um piso arbitrário; o GBP está 13,6% abaixo dele. Com
-piso 0,20 — tão arbitrário quanto 0,25 — GBP e USD trocariam de leitura.
+`CICLO_PISO_VOTO = 0,25` era um corte seco: acima dele o último movimento entrava no score com
+`0,25 × decaimento`; abaixo, com **zero**, e a dimensão lia MANUTENÇÃO. Quatro das oito moedas
+estavam logo abaixo — USD **0,208**, GBP **0,216**, CAD **0,163**, CHF **0,076** — e o GBP a
+13,6% de trocar de leitura por um número que ninguém calibrou.
 
-### 2.3 🟢 `LIM_LASTRO = 3,0` em `ficha_queda.py`
+**O que entrou:** a rampa linear mais simples que remove a descontinuidade, **sem nenhum número
+novo** — o próprio 0,25 que era porta virou o **joelho**:
 
-Faixa morta que decide "com lastro" contra "sem lastro" de **uma** empresa — não entra em soma
-nem em média, então não é da família. Fica registrado só porque é PROVISÓRIO e binário: uma
-revisão de EPS de −2,9% e uma de −3,1% saem em baldes opostos.
+```
+peso(d) = d × min(1 ; d / 0,25)     →   d²/0,25 se d < 0,25   ·   d se d ≥ 0,25
+contribuição no score = 0,25 × sinal do último movimento × peso(d)
+```
+
+Contínua no joelho (as duas pontas valem 0,25), monótona, e `peso(0) = 0`.
+
+| decaimento | contribuição ANTES | contribuição DEPOIS |
+|---|---|---|
+| 0,05 | 0,0000 | 0,0025 |
+| 0,10 | 0,0000 | 0,0100 |
+| 0,15 | 0,0000 | 0,0225 |
+| 0,20 | 0,0000 | 0,0400 |
+| **0,24** | **0,0000** | **0,0576** |
+| **0,25** | **0,0625** ← salto | **0,0625** |
+| 0,26 | 0,0650 | 0,0650 |
+| 0,50 | 0,1250 | 0,1250 |
+| 1,00 | 0,2500 | 0,2500 |
+
+**A prova de que não é degrau, e ela roda em toda rodada** (`tabela_da_rampa()`): o maior salto
+entre dois vizinhos da grade era **0,0625** com o piso e **não encolhe** quando a grade afina 10×
+(continua 0,0625) — essa é a assinatura do degrau. Com a rampa o maior salto é **0,0049** e cai
+para **0,0005** com a grade 10× mais fina: encolhe junto com o passo, que é o que continuidade
+significa.
+
+**O antes e o depois das oito moedas** (mesma rodada congelada, 08/set 15:10 UTC; só a regra do
+ciclo mudou):
+
+| moeda | decaimento | peso antes | peso depois | ciclo antes | ciclo depois | leitura antes | leitura depois |
+|---|---|---|---|---|---|---|---|
+| USD | 0,208 | 0,000 | 0,173 | 0,000 | **−0,043** | sem leitura (6%) | sem leitura (14%) |
+| EUR | 0,598 | 0,598 | 0,598 | +0,149 | +0,149 | inclinado à alta (75%) | inclinado à alta (75%) |
+| GBP | 0,216 | 0,000 | 0,187 | 0,000 | **−0,047** | inclinado ao corte (22%) | inclinado ao corte (31%) |
+| JPY | 0,616 | 0,616 | 0,616 | +0,154 | +0,154 | inclinado à alta (68%) | inclinado à alta (68%) |
+| AUD | 0,483 | 0,483 | 0,483 | +0,121 | +0,121 | inclinado à alta (73%) | inclinado à alta (73%) |
+| NZD | 0,966 | 0,966 | 0,966 | +0,241 | +0,241 | inclinado à alta (47%) | inclinado à alta (47%) |
+| CAD | 0,163 | 0,000 | 0,106 | 0,000 | **−0,027** | inclinado ao corte (22%) | inclinado ao corte (28%) |
+| CHF | 0,076 | 0,000 | 0,023 | 0,000 | **−0,006** | inclinado à alta (46%) | inclinado à alta (44%) |
+
+**Nenhuma das oito trocou de leitura.** O que mudou foi a intensidade das quatro que estavam
+abaixo do piso, e **2 dos 28 pares** subiram uma faixa de divergência: **AUDUSD e USDJPY**, os
+dois de "moderada" para "forte". ⚠️ O USD ficou em **14%**, a **um ponto** do mínimo de 15% da
+zona "sem leitura" — está declarado porque amanhã pode virar, e por continuidade, não por degrau.
+
+> 🔴 **CORREÇÃO DO REFUTADOR, 08/set (tarde).** Esta linha dizia **"5 dos 28 pares"**, nomeando
+> também NZDUSD, GBPNZD e NZDCAD como tendo subido para "moderada". **Está errado, e o erro veio
+> de medir a rampa recalculando só a conta do ciclo sobre a rodada publicada, sem refazer o
+> `le_pares`.** Medido rodando as duas configurações no MESMO processo e no MESMO instante
+> (rampa ligada × desligada, calendário congelado de 15:28 UTC): a distribuição das faixas vai de
+> `sem tese 12 · observação 4 · moderada 5 · forte 7` para `sem tese 12 · observação 4 ·
+> moderada 3 · forte 9`. Os três pares com perna NZD sobem de faixa **pela divergência**
+> (GBPNZD 34→39, NZDCAD 34→37, NZDUSD 26→30) mas o `estado` publicado **continua "observação"
+> nos dois lados**, porque o par está travado por `estado_limitado_por`: a qualidade da
+> evidência do NZD é **0/100** (uma única divulgação na janela), e sem evidência o par não sai
+> da zona de observação por maior que seja a divergência. Ou seja: os três já estavam limitados
+> ANTES da rampa e continuam limitados DEPOIS — a rampa não os moveu. A régua de robustez do
+> §2.1, testada isoladamente do mesmo jeito, **não move nenhuma faixa**.
+
+**Duas consequências assumidas, porque a rampa obriga à coerência.** Uma dimensão que contribui
+−0,047 não pode declarar "MANUTENÇÃO": a `direcao` do ciclo passou a ser o **fato** (o último
+movimento foi alta ou corte) em todas as moedas com movimento registrado, e o peso é quem diz o
+quanto isso importa. Quem responde por "o banco está parado" é o **regime**, que continua no
+mesmo joelho (`ainda_pesa`) e **não move mais nenhum número** — as oito seguem com o mesmo regime
+de antes. Efeito colateral visível: os chips de ciclo de USD/GBP/CAD/CHF passam a dizer "corte"
+em vez de "manutenção", e a contagem de concordância muda em quatro moedas.
+
+**O que a rampa não conserta, e está dito no arquivo:** `regime` é uma **palavra**, e toda palavra
+tem fronteira. A dela ficou no mesmo joelho, não entrou número novo, e agora ela não decide valor
+nenhum.
+
+### 2.3 ✅ CONSERTADO — `LIM_LASTRO = 3,0` deixou de ser balde binário (`ficha_queda.py`)
+
+O corte de 3% decide a **pergunta central** da ficha, e decidia sozinho: −2,9% saía "sem lastro"
+e −3,1% "com lastro".
+
+**O que NÃO mudou, de propósito:** o limiar continua em 3,0 e os **três estados** ("com lastro" /
+"sem lastro" / "sem dado") continuam calculados pela mesma regra binária. A interface, o ledger e
+a população primária do pré-registro (`METODO_QUEDA.md` §7, que é `sem lastro`) ficam intactos —
+trocar a população de um pré-registro no meio do caminho é garimpo.
+
+**O que entrou ao lado:** uma classificação **graduada** com **faixa de incerteza medida**, não
+inventada. As colunas `epsHigh`, `epsLow` e `numAnalystsEps` já estavam nos snapshots e nunca
+tinham sido lidas:
+
+```
+meia_amplitude = (epsHigh − epsLow)/2
+erro_da_média  ≈ meia_amplitude / √n
+incerteza_pct  = 100 × erro_da_média / |epsAvg|      (usa-se a MAIOR das duas pontas)
+lastro_z       = var_eps_pct / incerteza_pct
+FRONTEIRA      = revisão a menos de UMA incerteza de qualquer borda (−3,0 ou +3,0)
+```
+
+É a lei "nada em valor absoluto" chegando onde ainda não estava: a queda já era medida em
+múltiplos do desvio (z), agora a **revisão** também. Declarado de propósito: amplitude/√n é um
+proxy grosseiro e os dois snapshots compartilham analistas, então esta banda é um **teto** do
+ruído — errar para o lado do "fronteira" suspende veredito em vez de fabricar um. Quando não dá
+para medir (n < 2, amplitude nula, EPS perto de zero), sai `sem incerteza medida`, nunca um
+silencioso "não é fronteira".
+
+**Rodado em 08/set — 5 fichas na semana, `2 na faixa de fronteira`:**
+
+| ticker | revisão de EPS | incerteza | distância da borda | estado (3 baldes) | grau |
+|---|---|---|---|---|---|
+| **DYN** | +2,00% | ±8,48 pp | 1,00 pp de +3,0% | sem lastro | **FRONTEIRA** (z = +0,24) |
+| **RPRX** | +0,00% | ±3,79 pp | 3,00 pp de −3,0% | sem lastro | **FRONTEIRA** (z = +0,00) |
+| NVS | −0,01% | ±0,59 pp | 2,99 pp | sem lastro | consenso parado (z = −0,02) |
+| AMGN | +0,00% | ±1,43 pp | 3,00 pp | sem lastro | consenso parado (z = 0,00) |
+| SYK | −0,00% | ±0,48 pp | 3,00 pp | sem lastro | consenso parado (z = −0,00) |
+
+Note o RPRX: revisão **zero** e mesmo assim FRONTEIRA — com quatro analistas e ±3,79 pp de
+dispersão, "consenso parado" e "consenso caiu 3%" são **o mesmo dado**. O ledger passou a
+`v1.2` (a forma de medir mudou, então a linha nova é **anexada** ao lado da v1.1, nunca no lugar).
 
 ---
 
@@ -206,6 +315,10 @@ Isto vale tanto quanto a lista de cima: são os lugares onde a operação **pare
 | `METODO_SENTIMENTO.md` | nova §4.2 "Onde a guarda NÃO alcança — a faixa neutra" |
 | `tests/test_sentimento_tratamento.py` | classe `FaixaNeutraTest`, 4 testes (19 passando no total) |
 | `AUDITORIA_AGREGADOS.md` | este documento |
+| `sentimento.py` (noite) | **conserto 2.2**: `CICLO_JOELHO_RAMPA`, `RAMPA_DO_CICLO`, `peso_do_ciclo()`, `peso_do_ciclo_antes()`, `tabela_da_rampa()`; campos `peso`, `peso_antes_da_rampa`, `contribuicao_no_score`, `ainda_pesa`, `regime_no_joelho`, `rampa` por moeda; `regime_do_banco()` passa a usar `ainda_pesa`; a régua publica a prova da continuidade |
+| `ficha_queda.py` (noite) | **conserto 2.3**: `incerteza_do_consenso()`, `graduacao_do_lastro()`, `FRONTEIRA_EM_INCERTEZAS`, `GRAU_LASTRO`; leitura de `epsHigh`/`epsLow`; campos `lastro_grau`, `lastro_fronteira`, `lastro_z`, `incerteza_eps_pct` na ficha, no relatório, no funil e no ledger; coletor `v1.2` |
+| `tests/test_sentimento_tratamento.py` (noite) | classe `RampaDoCicloTest`, 7 testes novos (27 passando no total) |
+| `METODO_SENTIMENTO.md` (noite) | §2.3 reescrita: o piso virou rampa |
 
 **Não tocados:** `ui_macro.js`, `ui_lang.js`, `index.html`, `precificacao.py`, `geopolitica.py`,
-`correlacao_juros.py`, `ficha_queda.py`. Nenhum commit, nenhum push.
+`correlacao_juros.py`. Nenhum commit, nenhum push.

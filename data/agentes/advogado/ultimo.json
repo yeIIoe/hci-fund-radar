@@ -1,0 +1,764 @@
+{
+ "agente": "advogado",
+ "versao_prompt": "advogado@v1",
+ "gerado_em": "2026-09-08T15:42:53Z",
+ "rodada_id": "advogado-20260908T1542Z",
+ "entradas": {
+  "arquivo": "data/agentes/*/ultimo.json (auditados) + camada 1 (conferência)",
+  "gerado_em": "2026-09-08T15:34:00Z",
+  "n_itens": 25,
+  "detalhe": [
+   {
+    "arquivo": "data/agentes/noticia/ultimo.json",
+    "versao_prompt": "noticia@v1",
+    "gerado_em": "2026-09-08T15:20:00Z",
+    "n_julgamentos": 8
+   },
+   {
+    "arquivo": "data/agentes/fala/ultimo.json",
+    "versao_prompt": "fala@v1",
+    "gerado_em": "2026-09-08T15:14:33+00:00",
+    "n_julgamentos": 6
+   },
+   {
+    "arquivo": "data/agentes/geopolitica/ultimo.json",
+    "versao_prompt": "geopolitica@v1",
+    "gerado_em": "2026-09-08T15:10:49+00:00",
+    "n_julgamentos": 3
+   },
+   {
+    "arquivo": "data/agentes/divergencia/ultimo.json",
+    "versao_prompt": "divergencia@v1",
+    "gerado_em": "2026-09-08T15:34:00Z",
+    "n_julgamentos": 8
+   },
+   {
+    "arquivo": "data/agentes/vigia/ultimo.json",
+    "versao_prompt": "vigia.py@v1",
+    "gerado_em": "2026-09-07T21:28:33Z",
+    "n_julgamentos": 25,
+    "auditado": false,
+    "porque": "camada 1 e rodada de ontem — ver nao_julgados"
+   },
+   {
+    "arquivo": "data/sentimento.json",
+    "gerado_em": "2026-09-08T15:24:03.500980+00:00"
+   },
+   {
+    "arquivo": "data/precificacao.json",
+    "gerado_em": "2026-09-08T14:14:10Z"
+   },
+   {
+    "arquivo": "data/noticias.json",
+    "gerado_em": "2026-09-08T14:47:08.054090+00:00"
+   },
+   {
+    "arquivo": "data/bc_discursos.json",
+    "gerado_em": "2026-09-08T14:46:35.875216+00:00"
+   },
+   {
+    "arquivo": "data/bis_discursos.json",
+    "gerado_em": "2026-09-08T13:47:50.704459+00:00"
+   },
+   {
+    "arquivo": "data/geopolitica.json",
+    "gerado_em": "2026-09-08T14:47:49.585665+00:00"
+   },
+   {
+    "arquivo": "data/bancos_centrais.json",
+    "gerado_em": "2026-09-08T14:46:42.818867+00:00"
+   },
+   {
+    "arquivo": "agentes/fala/linha_de_base.json",
+    "gerado_em": "2026-09-07T20:33:48.857197+00:00"
+   }
+  ]
+ },
+ "julgamentos": [
+  {
+   "chave": "noticia@v1:USD",
+   "veredito": "sem objecao",
+   "confianca": "alta",
+   "motivo": "Percorri os seis lugares: (1) número — todos os valores de `numeros_citados` resolvidos campo a campo contra a camada 1; (2) lápide — conferido contra o LAPIDES.md do próprio agente e contra as doze da casa; (3) fonte — degrau e peso conferidos no arquivo; (4) buraco — nenhuma parte sem dado virou neutra; (5) contradição — cruzado com os outros três agentes desta rodada; (6) eco — o historico.jsonl do agente foi lido inteiro. Os nove números batem (noticias.moedas.USD.n_gravados 14, n_unicos 23, n_72h 23, duplicatas_removidas 0, n_cita_dirigente 0, contagem.alta 5, contagem.corte 2; precificacao.moedas.USD.p_alta 0,5786 e p_manutencao 0,4214), conferidos também por `python verificador_numeros.py --agente noticia --estrito`, que voltou com código 0. A contradição de três lados (contagem de manchete, preço e fonte primária) foi MOSTRADA e não resolvida, que é o que a régua manda. `indeterminado` com n_cita_dirigente=0 é R8 aplicada corretamente: manchete de peso 0,0 não vira direção.",
+   "trecho": null,
+   "numeros_citados": {},
+   "fonte": {
+    "titulo": "conferência contra a camada 1",
+    "link": "data/agentes/noticia/ultimo.json",
+    "quando": "2026-09-08T15:42:53Z"
+   },
+   "alvo": {
+    "agente": "noticia",
+    "versao_prompt": "noticia@v1",
+    "rodada_id": "noticia-2026-09-08T15:20:00Z",
+    "chave": "USD"
+   },
+   "gravidade": "baixa",
+   "derruba_a_tese": false,
+   "o_que_o_site_faz": "mostra esta objeção ao lado da tese, sem removê-la",
+   "vota": false,
+   "selo": "experimental — contexto, não vota"
+  },
+  {
+   "chave": "noticia@v1:EUR",
+   "veredito": "sem objecao",
+   "confianca": "alta",
+   "motivo": "Percorri os seis lugares: (1) número — todos os valores de `numeros_citados` resolvidos campo a campo contra a camada 1; (2) lápide — conferido contra o LAPIDES.md do próprio agente e contra as doze da casa; (3) fonte — degrau e peso conferidos no arquivo; (4) buraco — nenhuma parte sem dado virou neutra; (5) contradição — cruzado com os outros três agentes desta rodada; (6) eco — o historico.jsonl do agente foi lido inteiro. Números conferidos (n_gravados 14, n_unicos 46, n_72h 50, duplicatas_removidas 4, n_cita_dirigente 0, contagem.alta 10, itens.9.peso 0,0 e itens.9.peso_fonte 1,0). O ponto que eu procurava — WSJ com peso_fonte 1,0 sustentando direção — NÃO ocorreu: o agente manteve o degrau 0,0 e escreveu `indeterminado`. Isso é o oposto da lápide L3 da casa, não a repetição dela.",
+   "trecho": null,
+   "numeros_citados": {},
+   "fonte": {
+    "titulo": "conferência contra a camada 1",
+    "link": "data/agentes/noticia/ultimo.json",
+    "quando": "2026-09-08T15:42:53Z"
+   },
+   "alvo": {
+    "agente": "noticia",
+    "versao_prompt": "noticia@v1",
+    "rodada_id": "noticia-2026-09-08T15:20:00Z",
+    "chave": "EUR"
+   },
+   "gravidade": "baixa",
+   "derruba_a_tese": false,
+   "o_que_o_site_faz": "mostra esta objeção ao lado da tese, sem removê-la",
+   "vota": false,
+   "selo": "experimental — contexto, não vota"
+  },
+  {
+   "chave": "noticia@v1:GBP",
+   "veredito": "sem objecao",
+   "confianca": "alta",
+   "motivo": "Percorri os seis lugares: (1) número — todos os valores de `numeros_citados` resolvidos campo a campo contra a camada 1; (2) lápide — conferido contra o LAPIDES.md do próprio agente e contra as doze da casa; (3) fonte — degrau e peso conferidos no arquivo; (4) buraco — nenhuma parte sem dado virou neutra; (5) contradição — cruzado com os outros três agentes desta rodada; (6) eco — o historico.jsonl do agente foi lido inteiro. Números conferidos (n_gravados 14, n_unicos 46, duplicatas_removidas 2, n_cita_dirigente 3, contagem.alta 2, contagem.mantem 1, itens.0.peso 0,0, itens.0.peso_fonte 0,3). O vazamento de moeda que o agente declarou existe mesmo no arquivo: item 2 é sobre o BCE, item 6 é sobre o Chile e item 12 é a matéria do vice do RBA na ABC. Declarar isso em `limites` em vez de julgar em cima é acerto.",
+   "trecho": null,
+   "numeros_citados": {},
+   "fonte": {
+    "titulo": "conferência contra a camada 1",
+    "link": "data/agentes/noticia/ultimo.json",
+    "quando": "2026-09-08T15:42:53Z"
+   },
+   "alvo": {
+    "agente": "noticia",
+    "versao_prompt": "noticia@v1",
+    "rodada_id": "noticia-2026-09-08T15:20:00Z",
+    "chave": "GBP"
+   },
+   "gravidade": "baixa",
+   "derruba_a_tese": false,
+   "o_que_o_site_faz": "mostra esta objeção ao lado da tese, sem removê-la",
+   "vota": false,
+   "selo": "experimental — contexto, não vota"
+  },
+  {
+   "chave": "noticia@v1:JPY",
+   "veredito": "sem objecao",
+   "confianca": "alta",
+   "motivo": "Percorri os seis lugares: (1) número — todos os valores de `numeros_citados` resolvidos campo a campo contra a camada 1; (2) lápide — conferido contra o LAPIDES.md do próprio agente e contra as doze da casa; (3) fonte — degrau e peso conferidos no arquivo; (4) buraco — nenhuma parte sem dado virou neutra; (5) contradição — cruzado com os outros três agentes desta rodada; (6) eco — o historico.jsonl do agente foi lido inteiro. Números conferidos (n_gravados 14, n_unicos 99, n_72h 110, duplicatas_removidas 11, n_cita_dirigente 0, contagem.alta 26, contagem.corte 0). Era o candidato mais forte da rodada a `fonte fraca`: 26 manchetes de alta contra 0 de corte. O agente NÃO converteu volume em direção e citou a lápide certa. Sem objeção.",
+   "trecho": null,
+   "numeros_citados": {},
+   "fonte": {
+    "titulo": "conferência contra a camada 1",
+    "link": "data/agentes/noticia/ultimo.json",
+    "quando": "2026-09-08T15:42:53Z"
+   },
+   "alvo": {
+    "agente": "noticia",
+    "versao_prompt": "noticia@v1",
+    "rodada_id": "noticia-2026-09-08T15:20:00Z",
+    "chave": "JPY"
+   },
+   "gravidade": "baixa",
+   "derruba_a_tese": false,
+   "o_que_o_site_faz": "mostra esta objeção ao lado da tese, sem removê-la",
+   "vota": false,
+   "selo": "experimental — contexto, não vota"
+  },
+  {
+   "chave": "noticia@v1:AUD",
+   "veredito": "contradicao entre agentes",
+   "confianca": "alta",
+   "motivo": "Duas afirmações incompatíveis sobre a MESMA coisa, na MESMA rodada, e eu não escolho entre elas. (a) O agente `noticia`, na chave AUD, escreve: “Sem fonte primaria: o RBA e buraco declarado (bloqueia automacao), entao nao ha discurso oficial para confrontar”. (b) O agente `fala`, rodando 6 minutos antes, lista DOIS discursos oficiais do RBA em data/bis_discursos.json: itens[0] = AUD / Christopher Kent, 2026-08-13, “The restrictive stance of monetary policy”, origem discurso_oficial, peso 1,0; e itens[2] = AUD / Michele Bullock, 2026-07-28, peso 1,0. Os dois vieram com frases_analisadas 0 (o PDF integral do BIS falhou, campo corpo_origem) e saíram `indeterminado`. A diferença que chega ao leitor é grande: “não existe” e “existe e veio mudo” não são a mesma informação, e a segunda é um pedido concreto à camada 1 (resolver o PDF do BIS), enquanto a primeira fecha o assunto. Registro a origem sem resolvê-la: `noticia@v1` lê apenas data/bc_discursos.json (PROMPT §1, tabela de leitura), onde o AUD tem de fato zero itens (resumo_por_moeda.AUD.itens_que_votam = 0), e data/noticias.json.buraco_declarado.rotulo diz literalmente “sem fala oficial disponivel — o banco bloqueia automacao”. Ou seja: a frase do agente é cópia fiel de um campo da camada 1 que a própria camada 1 contradiz noutro arquivo. Isto pesa porque o AUD é a única moeda com direção nesta rodada e a única linha que o `divergencia` chamou de “as três colunas apontam para o mesmo lado”.",
+   "trecho": "Sem fonte primaria: o RBA e buraco declarado (bloqueia automacao), entao nao ha discurso oficial para confrontar.",
+   "numeros_citados": {
+    "afirmacao_noticia": "não há discurso oficial do RBA para confrontar",
+    "afirmacao_fala": "AUD/Christopher Kent e AUD/Michele Bullock, discurso_oficial, peso 1,0, frases_analisadas 0",
+    "campo_1": "bis_discursos.itens[0].moeda / .orador / .origem / .peso",
+    "valor_campo_1": "AUD / Christopher Kent / discurso_oficial / 1.0",
+    "campo_2": "bis_discursos.itens[2].moeda / .orador / .origem / .peso",
+    "valor_campo_2": "AUD / Michele Bullock / discurso_oficial / 1.0",
+    "campo_3": "noticias.buraco_declarado.rotulo",
+    "valor_campo_3": "sem fala oficial disponivel — o banco bloqueia automacao",
+    "arquivo_1": "data/bis_discursos.json",
+    "arquivo_1_gerado_em": "2026-09-08T13:47:50.704459+00:00",
+    "arquivo_2": "data/noticias.json",
+    "arquivo_2_gerado_em": "2026-09-08T14:47:08.054090+00:00"
+   },
+   "fonte": {
+    "titulo": "data/bis_discursos.json — dois discursos oficiais do RBA na janela",
+    "link": "https://www.bis.org/speeches/20260901-restrictive-stance-monetary-policy",
+    "quando": "2026-09-08T13:47:50.704459+00:00"
+   },
+   "alvo": {
+    "agente": "noticia",
+    "versao_prompt": "noticia@v1",
+    "rodada_id": "noticia-2026-09-08T15:20:00Z",
+    "chave": "AUD"
+   },
+   "gravidade": "media",
+   "derruba_a_tese": false,
+   "o_que_o_site_faz": "mostra esta objeção ao lado da tese, sem removê-la",
+   "vota": false,
+   "selo": "experimental — contexto, não vota"
+  },
+  {
+   "chave": "noticia@v1:NZD",
+   "veredito": "sem objecao",
+   "confianca": "alta",
+   "motivo": "Percorri os seis lugares: (1) número — todos os valores de `numeros_citados` resolvidos campo a campo contra a camada 1; (2) lápide — conferido contra o LAPIDES.md do próprio agente e contra as doze da casa; (3) fonte — degrau e peso conferidos no arquivo; (4) buraco — nenhuma parte sem dado virou neutra; (5) contradição — cruzado com os outros três agentes desta rodada; (6) eco — o historico.jsonl do agente foi lido inteiro. Números conferidos (n_gravados 14, n_unicos 14, n_72h 14, n_cita_dirigente 1, contagem.alta 1). Conferi o item 13 no arquivo: `orador_identificado` = “Karen Silk”, degrau `manchete`, peso 0,0 — o único item com dirigente nomeada realmente não é sobre o próximo passo do banco. R1 aplicada corretamente.",
+   "trecho": null,
+   "numeros_citados": {},
+   "fonte": {
+    "titulo": "conferência contra a camada 1",
+    "link": "data/agentes/noticia/ultimo.json",
+    "quando": "2026-09-08T15:42:53Z"
+   },
+   "alvo": {
+    "agente": "noticia",
+    "versao_prompt": "noticia@v1",
+    "rodada_id": "noticia-2026-09-08T15:20:00Z",
+    "chave": "NZD"
+   },
+   "gravidade": "baixa",
+   "derruba_a_tese": false,
+   "o_que_o_site_faz": "mostra esta objeção ao lado da tese, sem removê-la",
+   "vota": false,
+   "selo": "experimental — contexto, não vota"
+  },
+  {
+   "chave": "noticia@v1:CAD",
+   "veredito": "sem objecao",
+   "confianca": "alta",
+   "motivo": "Percorri os seis lugares: (1) número — todos os valores de `numeros_citados` resolvidos campo a campo contra a camada 1; (2) lápide — conferido contra o LAPIDES.md do próprio agente e contra as doze da casa; (3) fonte — degrau e peso conferidos no arquivo; (4) buraco — nenhuma parte sem dado virou neutra; (5) contradição — cruzado com os outros três agentes desta rodada; (6) eco — o historico.jsonl do agente foi lido inteiro. Números conferidos (n_gravados 14, n_unicos 15, duplicatas_removidas 0, n_cita_dirigente 0, contagem.alta 1). Nada contra o julgamento em si. A divergência de leitura da frase de Macklem — o agente diz em `limites` que a R3 descartaria o passado, o agente `fala` diz que a exceção de tempo verbal vale para manutenção — está registrada como objeção separada, na chave `fala@v1:CAD/Macklem`, para não contar a mesma contradição duas vezes.",
+   "trecho": null,
+   "numeros_citados": {},
+   "fonte": {
+    "titulo": "conferência contra a camada 1",
+    "link": "data/agentes/noticia/ultimo.json",
+    "quando": "2026-09-08T15:42:53Z"
+   },
+   "alvo": {
+    "agente": "noticia",
+    "versao_prompt": "noticia@v1",
+    "rodada_id": "noticia-2026-09-08T15:20:00Z",
+    "chave": "CAD"
+   },
+   "gravidade": "baixa",
+   "derruba_a_tese": false,
+   "o_que_o_site_faz": "mostra esta objeção ao lado da tese, sem removê-la",
+   "vota": false,
+   "selo": "experimental — contexto, não vota"
+  },
+  {
+   "chave": "noticia@v1:CHF",
+   "veredito": "sem objecao",
+   "confianca": "alta",
+   "motivo": "Percorri os seis lugares: (1) número — todos os valores de `numeros_citados` resolvidos campo a campo contra a camada 1; (2) lápide — conferido contra o LAPIDES.md do próprio agente e contra as doze da casa; (3) fonte — degrau e peso conferidos no arquivo; (4) buraco — nenhuma parte sem dado virou neutra; (5) contradição — cruzado com os outros três agentes desta rodada; (6) eco — o historico.jsonl do agente foi lido inteiro. Números conferidos (n_gravados 5, n_unicos 5, n_72h 5, n_cita_dirigente 0, contagem alta/corte/mantem todas 0). **Registro explícito de não-objeção:** o veredito `não é sobre juro` ESTÁ na lista de `agentes/noticia/PROMPT.md`, seção 3, que autoriza oito vereditos e não seis. Acusar “vocabulário inválido” aqui seria a objeção falsa que a revisão de 07/09 do meu próprio prompt existe para impedir. Fui conferir a régua dele antes de acusar, como manda a minha seção 3.1.",
+   "trecho": null,
+   "numeros_citados": {},
+   "fonte": {
+    "titulo": "conferência contra a camada 1",
+    "link": "data/agentes/noticia/ultimo.json",
+    "quando": "2026-09-08T15:42:53Z"
+   },
+   "alvo": {
+    "agente": "noticia",
+    "versao_prompt": "noticia@v1",
+    "rodada_id": "noticia-2026-09-08T15:20:00Z",
+    "chave": "CHF"
+   },
+   "gravidade": "baixa",
+   "derruba_a_tese": false,
+   "o_que_o_site_faz": "mostra esta objeção ao lado da tese, sem removê-la",
+   "vota": false,
+   "selo": "experimental — contexto, não vota"
+  },
+  {
+   "chave": "fala@v1:USD/Waller",
+   "veredito": "sem objecao",
+   "confianca": "alta",
+   "motivo": "Percorri os seis lugares: (1) número — todos os valores de `numeros_citados` resolvidos campo a campo contra a camada 1; (2) lápide — conferido contra o LAPIDES.md do próprio agente e contra as doze da casa; (3) fonte — degrau e peso conferidos no arquivo; (4) buraco — nenhuma parte sem dado virou neutra; (5) contradição — cruzado com os outros três agentes desta rodada; (6) eco — o historico.jsonl do agente foi lido inteiro. Números conferidos um a um em data/bc_discursos.json, itens[1]: veredito_leitor.frases_analisadas = 4, peso = 1,0, veredito_leitor.forca = 4; e precificacao.moedas.USD.p_alta 0,5786 / p_manutencao 0,4214. O ponto que eu caçava era a lápide L5 da casa — “holding the target” lido como alta. O agente leu MANUTENÇÃO, que é o lado certo da lápide, e deixou as duas condicionais no motivo sem deixá-las mudar o veredito. A probabilidade de mercado foi citada e declarada como não entrando no veredito.",
+   "trecho": null,
+   "numeros_citados": {},
+   "fonte": {
+    "titulo": "conferência contra a camada 1",
+    "link": "data/agentes/fala/ultimo.json",
+    "quando": "2026-09-08T15:42:53Z"
+   },
+   "alvo": {
+    "agente": "fala",
+    "versao_prompt": "fala@v1",
+    "rodada_id": "fala-2026-09-08T15:14Z",
+    "chave": "USD/Waller"
+   },
+   "gravidade": "baixa",
+   "derruba_a_tese": false,
+   "o_que_o_site_faz": "mostra esta objeção ao lado da tese, sem removê-la",
+   "vota": false,
+   "selo": "experimental — contexto, não vota"
+  },
+  {
+   "chave": "fala@v1:USD/Barr",
+   "veredito": "sem objecao",
+   "confianca": "alta",
+   "motivo": "Percorri os seis lugares: (1) número — todos os valores de `numeros_citados` resolvidos campo a campo contra a camada 1; (2) lápide — conferido contra o LAPIDES.md do próprio agente e contra as doze da casa; (3) fonte — degrau e peso conferidos no arquivo; (4) buraco — nenhuma parte sem dado virou neutra; (5) contradição — cruzado com os outros três agentes desta rodada; (6) eco — o historico.jsonl do agente foi lido inteiro. Conferido em itens[5]: frases_analisadas 1, peso 1,0, forca 2, veredito da regra “alta condicional” — idêntico ao da IA. Confiança `média` declarada por ser a única frase de política monetária de um discurso sobre outro assunto: é a régua L8 da casa aplicada por conta própria (um item só não domina), não violada.",
+   "trecho": null,
+   "numeros_citados": {},
+   "fonte": {
+    "titulo": "conferência contra a camada 1",
+    "link": "data/agentes/fala/ultimo.json",
+    "quando": "2026-09-08T15:42:53Z"
+   },
+   "alvo": {
+    "agente": "fala",
+    "versao_prompt": "fala@v1",
+    "rodada_id": "fala-2026-09-08T15:14Z",
+    "chave": "USD/Barr"
+   },
+   "gravidade": "baixa",
+   "derruba_a_tese": false,
+   "o_que_o_site_faz": "mostra esta objeção ao lado da tese, sem removê-la",
+   "vota": false,
+   "selo": "experimental — contexto, não vota"
+  },
+  {
+   "chave": "fala@v1:USD/Warsh",
+   "veredito": "sem objecao",
+   "confianca": "alta",
+   "motivo": "Percorri os seis lugares: (1) número — todos os valores de `numeros_citados` resolvidos campo a campo contra a camada 1; (2) lápide — conferido contra o LAPIDES.md do próprio agente e contra as doze da casa; (3) fonte — degrau e peso conferidos no arquivo; (4) buraco — nenhuma parte sem dado virou neutra; (5) contradição — cruzado com os outros três agentes desta rodada; (6) eco — o historico.jsonl do agente foi lido inteiro. Conferido em itens[7]: frases_analisadas 1, peso 1,0, forca 1. Procurei o abuso óbvio — `indeterminado` com confiança ALTA soa a contradição — e ele não existe: o agente separa por escrito “indeterminado por leitura” de “indeterminado por falta de texto”, e o texto existe. É distinção de régua, não conveniência.",
+   "trecho": null,
+   "numeros_citados": {},
+   "fonte": {
+    "titulo": "conferência contra a camada 1",
+    "link": "data/agentes/fala/ultimo.json",
+    "quando": "2026-09-08T15:42:53Z"
+   },
+   "alvo": {
+    "agente": "fala",
+    "versao_prompt": "fala@v1",
+    "rodada_id": "fala-2026-09-08T15:14Z",
+    "chave": "USD/Warsh"
+   },
+   "gravidade": "baixa",
+   "derruba_a_tese": false,
+   "o_que_o_site_faz": "mostra esta objeção ao lado da tese, sem removê-la",
+   "vota": false,
+   "selo": "experimental — contexto, não vota"
+  },
+  {
+   "chave": "fala@v1:USD/Lisa D Cook",
+   "veredito": "sem objecao",
+   "confianca": "alta",
+   "motivo": "Percorri os seis lugares: (1) número — todos os valores de `numeros_citados` resolvidos campo a campo contra a camada 1; (2) lápide — conferido contra o LAPIDES.md do próprio agente e contra as doze da casa; (3) fonte — degrau e peso conferidos no arquivo; (4) buraco — nenhuma parte sem dado virou neutra; (5) contradição — cruzado com os outros três agentes desta rodada; (6) eco — o historico.jsonl do agente foi lido inteiro. Conferido em data/bis_discursos.json, itens[1]: frases_analisadas 1, peso 1,0, veredito_leitor.forca 4 com veredito da regra “alta”, defasagem_bis_dias 12, idade_dias 34, corpo_origem “RESUMO da pagina do BIS (o integral esta no PDF, que falhou)”. Conferi também a atribuição do “1 alta”: agentes/fala/linha_de_base.json, vivos[1] (data/bis_discursos.json), vereditos = {indeterminado 2, alta 1} — o agente atribuiu o número ao arquivo certo, e o bloco de bc_discursos tem um “alta 1” PRÓPRIO que ele não confundiu com este. Não objeto contra a divergência IA×regra: ela está declarada como UMA observação, com o protocolo de medição pendente escrito ao lado.",
+   "trecho": null,
+   "numeros_citados": {},
+   "fonte": {
+    "titulo": "conferência contra a camada 1",
+    "link": "data/agentes/fala/ultimo.json",
+    "quando": "2026-09-08T15:42:53Z"
+   },
+   "alvo": {
+    "agente": "fala",
+    "versao_prompt": "fala@v1",
+    "rodada_id": "fala-2026-09-08T15:14Z",
+    "chave": "USD/Lisa D Cook"
+   },
+   "gravidade": "baixa",
+   "derruba_a_tese": false,
+   "o_que_o_site_faz": "mostra esta objeção ao lado da tese, sem removê-la",
+   "vota": false,
+   "selo": "experimental — contexto, não vota"
+  },
+  {
+   "chave": "fala@v1:GBP/Pill",
+   "veredito": "sem objecao",
+   "confianca": "alta",
+   "motivo": "Percorri os seis lugares: (1) número — todos os valores de `numeros_citados` resolvidos campo a campo contra a camada 1; (2) lápide — conferido contra o LAPIDES.md do próprio agente e contra as doze da casa; (3) fonte — degrau e peso conferidos no arquivo; (4) buraco — nenhuma parte sem dado virou neutra; (5) contradição — cruzado com os outros três agentes desta rodada; (6) eco — o historico.jsonl do agente foi lido inteiro. Conferido em itens[2]: frases_analisadas 5, peso 1,0, forca 1. É o mesmo padrão do Bailey na chave GBP do agente `noticia` (quem está esticado na frase é o MERCADO), e os dois agentes leram para o mesmo lado — não há contradição a registrar aqui.",
+   "trecho": null,
+   "numeros_citados": {},
+   "fonte": {
+    "titulo": "conferência contra a camada 1",
+    "link": "data/agentes/fala/ultimo.json",
+    "quando": "2026-09-08T15:42:53Z"
+   },
+   "alvo": {
+    "agente": "fala",
+    "versao_prompt": "fala@v1",
+    "rodada_id": "fala-2026-09-08T15:14Z",
+    "chave": "GBP/Pill"
+   },
+   "gravidade": "baixa",
+   "derruba_a_tese": false,
+   "o_que_o_site_faz": "mostra esta objeção ao lado da tese, sem removê-la",
+   "vota": false,
+   "selo": "experimental — contexto, não vota"
+  },
+  {
+   "chave": "fala@v1:CAD/Macklem",
+   "veredito": "contradicao entre agentes",
+   "confianca": "alta",
+   "motivo": "A MESMA frase, no MESMO arquivo da camada 1, lida ao contrário por dois agentes na mesma rodada — e as duas leituras vão para a tela. (a) `fala@v1` julga CAD/Macklem = `manutenção` com confiança ALTA: “É o anúncio da decisão do próprio banco, escrito no passado porque anuncia o que acabou de ser decidido: a postura está EM VIGOR, não é recibo... A exceção de tempo verbal vale só para manutenção.” (b) `noticia@v1`, no seu `limites`, escreve sobre a mesma frase: “o veredito `manutencao` do CAD em bc_discursos.json apoia-se numa frase no PASSADO ('we decided to maintain the policy interest rate at 2.25%'), que e o que a R3 descarta como balanco do que ja foi feito”. Não escolho o vencedor (D4, seção 9 do meu prompt): registro que a régua de TEMPO VERBAL tem duas versões escritas em dois prompts e que ninguém arbitrou. Isto importa porque a leitura de `fala` é a coluna C do CAD no agente `divergencia` e é o que ele chamou de “a observação mais forte da rodada”. Origem verificada por mim na camada 1: data/bc_discursos.json, itens[4], veredito_leitor.forca 4, frases_analisadas 2, peso 1,0, título “Monetary Policy Decision Press Conference Opening Statement”, bancos_centrais.CAD.ultima_decisao 2026-09-02 com resultado `manutencao` e bancos_centrais.CAD.proxima 2026-10-28 (dias_ate 50).",
+   "trecho": "With recent data coming out largely in line with our July forecast, we decided to maintain the policy interest rate at 2.25%.",
+   "numeros_citados": {
+    "afirmacao_fala": "manutenção — a exceção de tempo verbal vale para manutenção; a postura está em vigor",
+    "afirmacao_noticia": "frase no passado é o que a R3 descarta como balanço do que já foi feito",
+    "campo": "bc_discursos.itens[4].veredito_leitor.forca",
+    "valor_no_arquivo": 4,
+    "campo_2": "bc_discursos.itens[4].veredito_leitor.frases_analisadas",
+    "valor_no_arquivo_2": 2,
+    "arquivo": "data/bc_discursos.json",
+    "arquivo_gerado_em": "2026-09-08T14:46:35.875216+00:00"
+   },
+   "fonte": {
+    "titulo": "Monetary Policy Decision Press Conference Opening Statement — Banco do Canadá",
+    "link": "https://www.bankofcanada.ca/2026/09/opening-statement-2026-09-02/",
+    "quando": "2026-09-02"
+   },
+   "alvo": {
+    "agente": "fala",
+    "versao_prompt": "fala@v1",
+    "rodada_id": "fala-2026-09-08T15:14Z",
+    "chave": "CAD/Macklem"
+   },
+   "gravidade": "media",
+   "derruba_a_tese": false,
+   "o_que_o_site_faz": "mostra esta objeção ao lado da tese, sem removê-la",
+   "vota": false,
+   "selo": "experimental — contexto, não vota"
+  },
+  {
+   "chave": "geopolitica@v1:evento/ataque-eua-ira",
+   "veredito": "sem objecao",
+   "confianca": "alta",
+   "motivo": "Percorri os seis lugares: (1) número — todos os valores de `numeros_citados` resolvidos campo a campo contra a camada 1; (2) lápide — conferido contra o LAPIDES.md do próprio agente e contra as doze da casa; (3) fonte — degrau e peso conferidos no arquivo; (4) buraco — nenhuma parte sem dado virou neutra; (5) contradição — cruzado com os outros três agentes desta rodada; (6) eco — o historico.jsonl do agente foi lido inteiro. Os sete números batem em data/geopolitica.json, bloco mundo.conflito: volume.z 1,06, volume.razao 1,10, volume.n 14, volume.recente_3d 3,2144, volume.base_14d 2,9231, duplicatas_removidas 4, e manchetes_unicas[0].n_republicacoes 5. `reaproveitado` = true no arquivo, e o agente declarou. Este era o meu principal candidato a `eco`: mesma manchete, mesma url, mesmos números do julgamento de 06/set. Não é eco por duas razões, as duas verificadas: o agente DECLAROU a repetição por escrito, e o veredito MUDOU (06/set = “pressão de alta”; hoje = “já precificado”). Usar `razao` perto de 1 para o M3 está autorizado pela lápide L5 dele — não é a L2 (volume não é direção), que proíbe usar o z para DIREÇÃO.",
+   "trecho": null,
+   "numeros_citados": {},
+   "fonte": {
+    "titulo": "conferência contra a camada 1",
+    "link": "data/agentes/geopolitica/ultimo.json",
+    "quando": "2026-09-08T15:42:53Z"
+   },
+   "alvo": {
+    "agente": "geopolitica",
+    "versao_prompt": "geopolitica@v1",
+    "rodada_id": "geopolitica-2026-09-08T15:10Z",
+    "chave": "evento/ataque-eua-ira"
+   },
+   "gravidade": "baixa",
+   "derruba_a_tese": false,
+   "o_que_o_site_faz": "mostra esta objeção ao lado da tese, sem removê-la",
+   "vota": false,
+   "selo": "experimental — contexto, não vota"
+  },
+  {
+   "chave": "geopolitica@v1:evento/sancoes-canada-eua",
+   "veredito": "sem objecao",
+   "confianca": "alta",
+   "motivo": "Percorri os seis lugares: (1) número — todos os valores de `numeros_citados` resolvidos campo a campo contra a camada 1; (2) lápide — conferido contra o LAPIDES.md do próprio agente e contra as doze da casa; (3) fonte — degrau e peso conferidos no arquivo; (4) buraco — nenhuma parte sem dado virou neutra; (5) contradição — cruzado com os outros três agentes desta rodada; (6) eco — o historico.jsonl do agente foi lido inteiro. Números conferidos em mundo.energia: volume.z 0,25, volume.razao 1,03, volume.n 14, recente_3d 1,1813, base_14d 1,1468, duplicatas_removidas 2, e n_republicacoes 3 e 1 nos dois itens fundidos. A FUSÃO de dois itens de `manchetes_unicas` está expressamente mandada pela lápide L1 do próprio agente (“funda os dois no seu julgamento e escreva que fundiu”), e ele escreveu. Conferi a causa que ele alegou: o segundo item tem `entidades: []` no arquivo, que é por que a régua não agrupou.",
+   "trecho": null,
+   "numeros_citados": {},
+   "fonte": {
+    "titulo": "conferência contra a camada 1",
+    "link": "data/agentes/geopolitica/ultimo.json",
+    "quando": "2026-09-08T15:42:53Z"
+   },
+   "alvo": {
+    "agente": "geopolitica",
+    "versao_prompt": "geopolitica@v1",
+    "rodada_id": "geopolitica-2026-09-08T15:10Z",
+    "chave": "evento/sancoes-canada-eua"
+   },
+   "gravidade": "baixa",
+   "derruba_a_tese": false,
+   "o_que_o_site_faz": "mostra esta objeção ao lado da tese, sem removê-la",
+   "vota": false,
+   "selo": "experimental — contexto, não vota"
+  },
+  {
+   "chave": "geopolitica@v1:evento/energia-eua-ira-fala-preco-petroleo",
+   "veredito": "sem objecao",
+   "confianca": "alta",
+   "motivo": "Percorri os seis lugares: (1) número — todos os valores de `numeros_citados` resolvidos campo a campo contra a camada 1; (2) lápide — conferido contra o LAPIDES.md do próprio agente e contra as doze da casa; (3) fonte — degrau e peso conferidos no arquivo; (4) buraco — nenhuma parte sem dado virou neutra; (5) contradição — cruzado com os outros três agentes desta rodada; (6) eco — o historico.jsonl do agente foi lido inteiro. Números conferidos (z 0,25, razao 1,03, n_republicacoes 1, confiabilidade “baixa” no item). O que eu procurava aqui era a lápide L6 dele — previsão militar — e ela não ocorreu: o agente recusou-se a extrair desfecho de guerra do título e ficou em `indeterminado`. Registrou também que os dois blocos do `mundo` apontam para lados contrários com o mesmo par de entidades, sem somar os dois. Correto.",
+   "trecho": null,
+   "numeros_citados": {},
+   "fonte": {
+    "titulo": "conferência contra a camada 1",
+    "link": "data/agentes/geopolitica/ultimo.json",
+    "quando": "2026-09-08T15:42:53Z"
+   },
+   "alvo": {
+    "agente": "geopolitica",
+    "versao_prompt": "geopolitica@v1",
+    "rodada_id": "geopolitica-2026-09-08T15:10Z",
+    "chave": "evento/energia-eua-ira-fala-preco-petroleo"
+   },
+   "gravidade": "baixa",
+   "derruba_a_tese": false,
+   "o_que_o_site_faz": "mostra esta objeção ao lado da tese, sem removê-la",
+   "vota": false,
+   "selo": "experimental — contexto, não vota"
+  },
+  {
+   "chave": "divergencia@v1:USD",
+   "veredito": "sem objecao",
+   "confianca": "alta",
+   "motivo": "Percorri os seis lugares: (1) número — todos os valores de `numeros_citados` resolvidos campo a campo contra a camada 1; (2) lápide — conferido contra o LAPIDES.md do próprio agente e contra as doze da casa; (3) fonte — degrau e peso conferidos no arquivo; (4) buraco — nenhuma parte sem dado virou neutra; (5) contradição — cruzado com os outros três agentes desta rodada; (6) eco — o historico.jsonl do agente foi lido inteiro. Este era o meu candidato número um a `buraco tratado como neutro`, e é o contrário: sentimento.moedas.USD.direcao traz literalmente “MANTEM”, e o agente NÃO o usou — aplicou a porta 2 e saiu `SEM FONTE` com lado_ausente “hci”, escrevendo que silêncio da casa não é MANTEM. Números conferidos: intensidade_relativa_pct 14, conviccao_pct 25 de 50, qualidade_evidencia.nota 38, dimensoes 2 de 4; p_alta 0,5786, p_manutencao 0,4214, p_corte 0,0, implicito_bp 14,46, qualidade “alta”. A coluna C saiu “contraditoria” com as cinco leituras citadas — que é a régua da seção 3.3 aplicada como está escrita.",
+   "trecho": null,
+   "numeros_citados": {},
+   "fonte": {
+    "titulo": "conferência contra a camada 1",
+    "link": "data/agentes/divergencia/ultimo.json",
+    "quando": "2026-09-08T15:42:53Z"
+   },
+   "alvo": {
+    "agente": "divergencia",
+    "versao_prompt": "divergencia@v1",
+    "rodada_id": "divergencia-20260908T1534Z",
+    "chave": "USD"
+   },
+   "gravidade": "baixa",
+   "derruba_a_tese": false,
+   "o_que_o_site_faz": "mostra esta objeção ao lado da tese, sem removê-la",
+   "vota": false,
+   "selo": "experimental — contexto, não vota"
+  },
+  {
+   "chave": "divergencia@v1:EUR",
+   "veredito": "sem objecao",
+   "confianca": "alta",
+   "motivo": "Percorri os seis lugares: (1) número — todos os valores de `numeros_citados` resolvidos campo a campo contra a camada 1; (2) lápide — conferido contra o LAPIDES.md do próprio agente e contra as doze da casa; (3) fonte — degrau e peso conferidos no arquivo; (4) buraco — nenhuma parte sem dado virou neutra; (5) contradição — cruzado com os outros três agentes desta rodada; (6) eco — o historico.jsonl do agente foi lido inteiro. Números conferidos: intensidade_relativa_pct 75, conviccao 50 de 50, qualidade_evidencia.nota 85, dias_ate 2 (bancos_centrais.EUR.dias_ate, campo pronto — não foi conta do agente). O `detalhe.motivo` da precificação foi copiado literal. Não objeto contra `SEM FONTE` bem declarado: é a lição O2 da minha própria memória, e com o BCE reunindo em dois dias a resposta honesta vale mais do que um número inventado.",
+   "trecho": null,
+   "numeros_citados": {},
+   "fonte": {
+    "titulo": "conferência contra a camada 1",
+    "link": "data/agentes/divergencia/ultimo.json",
+    "quando": "2026-09-08T15:42:53Z"
+   },
+   "alvo": {
+    "agente": "divergencia",
+    "versao_prompt": "divergencia@v1",
+    "rodada_id": "divergencia-20260908T1534Z",
+    "chave": "EUR"
+   },
+   "gravidade": "baixa",
+   "derruba_a_tese": false,
+   "o_que_o_site_faz": "mostra esta objeção ao lado da tese, sem removê-la",
+   "vota": false,
+   "selo": "experimental — contexto, não vota"
+  },
+  {
+   "chave": "divergencia@v1:GBP",
+   "veredito": "numero fantasma",
+   "confianca": "alta",
+   "motivo": "O relatório final do agente cita, para o GBP, “inclinado ao corte (22%, evidência 75/100)”. O campo da camada 1 diz 31: data/sentimento.json, moedas.GBP.intensidade_relativa_pct = 31, gerado em 2026-09-08T15:24:03.500980+00:00 — e os dois campos irmãos do mesmo arquivo (intensidade_relativa_crua_pct e intensidade_relativa_pelo_teto_ligado_pct) também trazem 31, então não é confusão de campo. O mesmo defeito atinge o CHF no mesmo relatório: “46%” contra moedas.CHF.intensidade_relativa_pct = 44 (44 também nos dois campos irmãos). Achei a origem dos dois: são os valores da PRIMEIRA linha da rodada, `divergencia-20260908T1510Z`, que o próprio agente declarou ERRADA e substituiu — data/agentes/divergencia/historico.jsonl, linha 0, numeros_citados.hci_intensidade_relativa_pct = 22 no GBP e 46 no CHF, lida contra o sentimento de 2026-09-08T15:10:51. É exatamente a subclasse “número copiado de rodada anterior do arquivo”. **Delimitação importante, e ela reduz o alcance da objeção: o `ultimo.json` gravado está CERTO** — numeros_citados.hci_intensidade_relativa_pct traz 31 no GBP e 44 no CHF, e o `motivo` de cada linha também. O erro vive só no relatório de texto que sai do agente, que é o que o orquestrador lê e o que uma pessoa leria primeiro. O veredito `SEM FONTE` das duas moedas não depende do número e não muda.",
+   "trecho": "GBP — SEM FONTE (mercado): A “inclinado ao corte” (22%, evidência 75/100)",
+   "numeros_citados": {
+    "GBP_valor_citado_pelo_agente": 22,
+    "GBP_valor_na_camada_1": 31,
+    "GBP_campo": "moedas.GBP.intensidade_relativa_pct",
+    "CHF_valor_citado_pelo_agente": 46,
+    "CHF_valor_na_camada_1": 44,
+    "CHF_campo": "moedas.CHF.intensidade_relativa_pct",
+    "arquivo": "data/sentimento.json",
+    "arquivo_gerado_em": "2026-09-08T15:24:03.500980+00:00",
+    "onde_os_valores_antigos_existem": "data/agentes/divergencia/historico.jsonl, linha 0, rodada_id divergencia-20260908T1510Z (sentimento de 2026-09-08T15:10:51.583885+00:00)",
+    "valor_gravado_no_ultimo_json_GBP": 31,
+    "valor_gravado_no_ultimo_json_CHF": 44
+   },
+   "fonte": {
+    "titulo": "data/sentimento.json — leitura por moeda",
+    "link": "data/sentimento.json",
+    "quando": "2026-09-08T15:24:03.500980+00:00"
+   },
+   "alvo": {
+    "agente": "divergencia",
+    "versao_prompt": "divergencia@v1",
+    "rodada_id": "divergencia-20260908T1534Z",
+    "chave": "GBP"
+   },
+   "gravidade": "media",
+   "derruba_a_tese": false,
+   "o_que_o_site_faz": "mostra esta objeção ao lado da tese, sem removê-la",
+   "vota": false,
+   "selo": "experimental — contexto, não vota"
+  },
+  {
+   "chave": "divergencia@v1:JPY",
+   "veredito": "sem objecao",
+   "confianca": "alta",
+   "motivo": "Percorri os seis lugares: (1) número — todos os valores de `numeros_citados` resolvidos campo a campo contra a camada 1; (2) lápide — conferido contra o LAPIDES.md do próprio agente e contra as doze da casa; (3) fonte — degrau e peso conferidos no arquivo; (4) buraco — nenhuma parte sem dado virou neutra; (5) contradição — cruzado com os outros três agentes desta rodada; (6) eco — o historico.jsonl do agente foi lido inteiro. Números conferidos: intensidade_relativa_pct 68, conviccao 50 de 50, qualidade_evidencia.nota 91 (a mais alta das oito), dias_ate 10. Precificação `sem fonte` com o motivo copiado literal. Conferi o cruzamento que interessaria: o agente `noticia` leu 26 manchetes de alta no iene e mesmo assim escreveu `indeterminado`; o `divergencia` não transformou esse volume em nada. Sem objeção.",
+   "trecho": null,
+   "numeros_citados": {},
+   "fonte": {
+    "titulo": "conferência contra a camada 1",
+    "link": "data/agentes/divergencia/ultimo.json",
+    "quando": "2026-09-08T15:42:53Z"
+   },
+   "alvo": {
+    "agente": "divergencia",
+    "versao_prompt": "divergencia@v1",
+    "rodada_id": "divergencia-20260908T1534Z",
+    "chave": "JPY"
+   },
+   "gravidade": "baixa",
+   "derruba_a_tese": false,
+   "o_que_o_site_faz": "mostra esta objeção ao lado da tese, sem removê-la",
+   "vota": false,
+   "selo": "experimental — contexto, não vota"
+  },
+  {
+   "chave": "divergencia@v1:AUD",
+   "veredito": "sem objecao",
+   "confianca": "alta",
+   "motivo": "Percorri os seis lugares: (1) número — todos os valores de `numeros_citados` resolvidos campo a campo contra a camada 1; (2) lápide — conferido contra o LAPIDES.md do próprio agente e contra as doze da casa; (3) fonte — degrau e peso conferidos no arquivo; (4) buraco — nenhuma parte sem dado virou neutra; (5) contradição — cruzado com os outros três agentes desta rodada; (6) eco — o historico.jsonl do agente foi lido inteiro. É a linha mais exposta da rodada e por isso a que eu tentei derrubar com mais força. Números conferidos: intensidade_relativa_pct 73, conviccao 50 de 50, qualidade_evidencia.nota 80, dias_ate 21; p_alta 0,66, p_manutencao 0,34, p_corte 0,0, implicito_bp 16,5, qualidade “alta”. Conferi o DESTAQUE contra a régua da seção 6 do prompt dele: a condição 3 exige `direcao_mercado != alta` OU `p_manutencao` ser a maior dos três; no arquivo direcao_mercado é “alta” e 0,34 não é a maior — o destaque foi corretamente NÃO marcado. E a ressalva do arquivo de preço (a conferência pelo mês da reunião amplifica o ruído em 30x e não vale como segunda medida) foi copiada, não escondida. A fragilidade que sobra é da coluna C e está registrada na chave `noticia@v1:AUD`, não aqui.",
+   "trecho": null,
+   "numeros_citados": {},
+   "fonte": {
+    "titulo": "conferência contra a camada 1",
+    "link": "data/agentes/divergencia/ultimo.json",
+    "quando": "2026-09-08T15:42:53Z"
+   },
+   "alvo": {
+    "agente": "divergencia",
+    "versao_prompt": "divergencia@v1",
+    "rodada_id": "divergencia-20260908T1534Z",
+    "chave": "AUD"
+   },
+   "gravidade": "baixa",
+   "derruba_a_tese": false,
+   "o_que_o_site_faz": "mostra esta objeção ao lado da tese, sem removê-la",
+   "vota": false,
+   "selo": "experimental — contexto, não vota"
+  },
+  {
+   "chave": "divergencia@v1:NZD",
+   "veredito": "sem objecao",
+   "confianca": "alta",
+   "motivo": "Percorri os seis lugares: (1) número — todos os valores de `numeros_citados` resolvidos campo a campo contra a camada 1; (2) lápide — conferido contra o LAPIDES.md do próprio agente e contra as doze da casa; (3) fonte — degrau e peso conferidos no arquivo; (4) buraco — nenhuma parte sem dado virou neutra; (5) contradição — cruzado com os outros três agentes desta rodada; (6) eco — o historico.jsonl do agente foi lido inteiro. Candidato forte a `fonte fraca` — um `ALINHADO` com qualidade de evidência 0/100 de um lado e precificação de qualidade “baixa” do outro — e ele sobrevive à régua escrita: a porta 3 da seção 5 do prompt do agente AUTORIZA aplicar a tabela com qualidade “baixa”, desde que a confiança seja obrigatoriamente “baixa”, o motivo diga “comparação só de direção” e os três p_* saiam com o `null` do arquivo. As três exigências foram cumpridas, e a qualidade_evidencia.nota 0 está declarada ao lado do veredito. Não objeto contra régua cumprida; registro em `limites` que a palavra ALINHADO com as duas colunas frágeis é o ponto que o dono pode querer recalibrar.",
+   "trecho": null,
+   "numeros_citados": {},
+   "fonte": {
+    "titulo": "conferência contra a camada 1",
+    "link": "data/agentes/divergencia/ultimo.json",
+    "quando": "2026-09-08T15:42:53Z"
+   },
+   "alvo": {
+    "agente": "divergencia",
+    "versao_prompt": "divergencia@v1",
+    "rodada_id": "divergencia-20260908T1534Z",
+    "chave": "NZD"
+   },
+   "gravidade": "baixa",
+   "derruba_a_tese": false,
+   "o_que_o_site_faz": "mostra esta objeção ao lado da tese, sem removê-la",
+   "vota": false,
+   "selo": "experimental — contexto, não vota"
+  },
+  {
+   "chave": "divergencia@v1:CAD",
+   "veredito": "buraco tratado como neutro",
+   "confianca": "alta",
+   "motivo": "O campo estruturado que o site lê diz que DOIS agentes leram `manutenção` no CAD. Um deles não leu. Em data/agentes/divergencia/ultimo.json, a linha do CAD traz `colunas.C_noticia` = {\"agente\": \"fala, noticia\", \"veredito\": \"manutenção\", \"versao_prompt\": \"fala@v1, noticia@v1\"}. Mas em data/agentes/noticia/ultimo.json, gerado em 2026-09-08T15:20:00Z, o julgamento da chave CAD tem veredito `indeterminado`, confiança baixa. O `indeterminado` do `noticia` foi absorvido pelo `manutenção` do `fala` e o crédito ficou nos dois prompts. Isso viola duas regras escritas do próprio agente: o PROMPT.md dele, seção 3.3 — “`indeterminado` é resposta legítima e frequente. Ela NÃO é ‘neutro’ e NÃO é ‘manutenção’” — e a lápide L-H7 dele, “agente ausente não vira ‘a notícia concorda’”. E há a inconsistência interna, que é a prova mais limpa: no USD, com a MESMA forma (um `manutenção`, um `alta condicional` e três `indeterminado`), o mesmo arquivo escreveu corretamente `colunas.C_noticia.veredito` = “contraditoria”. A mesma régua produziu duas respostas diferentes no mesmo arquivo. **O que eu NÃO afirmo, e é importante: o agente entendeu a distinção.** O `motivo` do CAD, o `coluna_C_detalhe` e o caso que ele abriu hoje (agentes/divergencia/casos/2026-09-08-CAD-noticia-contra-a-casa-sem-preco.md, linha 51) dizem por extenso “Indeterminado não é manutenção e não é neutro: só a linha do `fala` sustenta a coluna C aqui”. O defeito está no campo estruturado, não no raciocínio — e é justamente por isso que ele é perigoso: a prosa não vai para o campo que a tela renderiza, e o leitor vê “manutenção · fala@v1, noticia@v1” e lê dois agentes concordando. O veredito `SEM FONTE` do CAD não muda: o lado do mercado continua ausente.",
+   "trecho": "\"C_noticia\": {\"agente\": \"fala, noticia\", \"veredito\": \"manutenção\", \"versao_prompt\": \"fala@v1, noticia@v1\"}",
+   "numeros_citados": {
+    "valor_citado_pelo_agente": "manutenção (creditado a fala@v1 e noticia@v1)",
+    "campo": "julgamentos[CAD].colunas.C_noticia.veredito",
+    "arquivo": "data/agentes/divergencia/ultimo.json",
+    "arquivo_gerado_em": "2026-09-08T15:34:00Z",
+    "valor_na_camada_2_de_origem": "indeterminado",
+    "campo_de_origem": "julgamentos[CAD].veredito",
+    "arquivo_de_origem": "data/agentes/noticia/ultimo.json",
+    "arquivo_de_origem_gerado_em": "2026-09-08T15:20:00Z",
+    "mesma_forma_tratada_de_outro_modo": "julgamentos[USD].colunas.C_noticia.veredito = contraditoria"
+   },
+   "fonte": {
+    "titulo": "data/agentes/noticia/ultimo.json — julgamento da chave CAD",
+    "link": "data/agentes/noticia/ultimo.json",
+    "quando": "2026-09-08T15:20:00Z"
+   },
+   "alvo": {
+    "agente": "divergencia",
+    "versao_prompt": "divergencia@v1",
+    "rodada_id": "divergencia-20260908T1534Z",
+    "chave": "CAD"
+   },
+   "gravidade": "alta",
+   "derruba_a_tese": false,
+   "o_que_o_site_faz": "mostra esta objeção ao lado da tese, sem removê-la",
+   "vota": false,
+   "selo": "experimental — contexto, não vota"
+  },
+  {
+   "chave": "divergencia@v1:CHF",
+   "veredito": "contradicao entre agentes",
+   "confianca": "alta",
+   "motivo": "Os dois agentes que preenchem a linha do CHF na tela discordam por escrito sobre o que é um veredito válido, e eu não escolho. (a) `divergencia@v1` manda a coluna C do CHF para `nao_julgados` com o motivo: “o agente `noticia` devolveu o veredito ‘não é sobre juro’, que está FORA do vocabulário de seis palavras”, e grava `colunas.C_noticia` = {agente: null, veredito: null, versao_prompt: null}. (b) `agentes/noticia/PROMPT.md`, seção 3, lista OITO vereditos possíveis, e `não é sobre juro` é um deles, com a definição ao lado (“a matéria não trata da política de juros daquele banco”); a seção 7.1 do mesmo prompt existe só para separar `sem dados`, `não é sobre juro` e `indeterminado`. As duas réguas estão escritas e se contradizem: `agentes/divergencia/PROMPT.md`, seção 3.3, diz “Os dois usam o mesmo vocabulário de veredito, o de leitor_falas.py, e só estes seis”. Registro os dois lados e a origem: é uma cópia envelhecida de uma lista que mora noutro arquivo. Este é o MESMO buraco que a revisão de 07/09 corrigiu no MEU prompt (seção 3.1, “esta tabela é cópia, e cópia envelhece”); a correção não foi propagada para o `divergencia@v1`. Efeito no leitor: a única leitura de notícia que existia para o CHF some da coluna C, e a moeda aparece como se nenhum agente a tivesse olhado. Não afirmo qual das duas listas é a correta — mudar vocabulário exige subir a versão do prompt, e isso é decisão do dono, não minha.",
+   "trecho": "o agente `noticia` devolveu o veredito “não é sobre juro”, que está FORA do vocabulário de seis palavras",
+   "numeros_citados": {
+    "afirmacao_divergencia": "vocabulário de seis palavras; 'não é sobre juro' está fora",
+    "afirmacao_noticia": "oito vereditos possíveis, incluindo 'não é sobre juro' e 'sem dados'",
+    "campo": "nao_julgados[2].porque",
+    "arquivo": "data/agentes/divergencia/ultimo.json",
+    "arquivo_gerado_em": "2026-09-08T15:34:00Z",
+    "regua_1": "agentes/divergencia/PROMPT.md, seção 3.3 — 'só estes seis'",
+    "regua_2": "agentes/noticia/PROMPT.md, seção 3 — oito vereditos",
+    "efeito_no_campo_da_tela": "julgamentos[CHF].colunas.C_noticia = {agente: null, veredito: null, versao_prompt: null}"
+   },
+   "fonte": {
+    "titulo": "agentes/noticia/PROMPT.md, seção 3 — vocabulário de oito vereditos",
+    "link": "agentes/noticia/PROMPT.md",
+    "quando": "2026-09-07"
+   },
+   "alvo": {
+    "agente": "divergencia",
+    "versao_prompt": "divergencia@v1",
+    "rodada_id": "divergencia-20260908T1534Z",
+    "chave": "CHF"
+   },
+   "gravidade": "alta",
+   "derruba_a_tese": false,
+   "o_que_o_site_faz": "mostra esta objeção ao lado da tese, sem removê-la",
+   "vota": false,
+   "selo": "experimental — contexto, não vota"
+  }
+ ],
+ "nao_julgados": [
+  {
+   "chave": "vigia@v1 (25 julgamentos)",
+   "porque": "data/agentes/vigia/ultimo.json existe e tem 25 julgamentos, mas é escrito por vigia.py — camada 1, monitor de saúde do pipeline — e é de 2026-09-07T21:28:33Z, ou seja, NÃO rodou nesta rodada. O próprio verificador_numeros.py o marca ISENTO. Listei o diretório em vez de presumir nomes, como manda a minha seção 3.1, e registro que o vigia não acompanhou a camada 2 hoje — isso é informação sobre o pipeline, não objeção contra ninguém."
+  },
+  {
+   "chave": "advogado@v1",
+   "porque": "não me audito (seção 3.1). A revisão de objeções infundadas é feita por outro, e vira lápide na seção 3 do meu LAPIDES.md."
+  },
+  {
+   "chave": "pares e instrumentos",
+   "porque": "data/sentimento.json traz `pares` e `instrumentos`, e nenhum agente da camada 2 julgou par nesta rodada. Sem julgamento não há o que auditar. Registro só que a regra das duas pernas continua sem dono: par não é ativo, são duas moedas, e quem ler par terá de dizer qual perna dá o motivo."
+  }
+ ],
+ "limites": [
+  "Este agente não tem poder de veto (D4 em aberto): a objeção vai para a tela ao lado da tese e nunca a remove. `derruba_a_tese` é false em todas as linhas, e nenhuma tese desta rodada caiu.",
+  "Objeção não é medição: ela aponta uma violação de regra escrita ou uma discrepância de número, e nada além disso. Este agente nunca foi medido contra desfecho — não existe convicção histórica, e nenhuma das seis objeções tem taxa de acerto conhecida.",
+  "Ausência de objeção não é aprovação. Os 20 `sem objecao` querem dizer que nos seis lugares auditados nada foi encontrado naquela linha, com o motivo dizendo onde procurei.",
+  "Não calculei nenhum número. Em toda objeção numérica há dois valores copiados lado a lado e o caminho do campo; não computei diferença, percentual nem média. Um número que eu quisesse citar e não achasse teria virado 'não medido'.",
+  "⚠️ A conferência AUTOMÁTICA cobre um agente de cinco. Rodei `python verificador_numeros.py` sobre todos os arquivos de agente: o `noticia` passa com todos os números [ok] e código de saída 0; o `vigia` é ISENTO por contrato; e `divergencia`, `fala` e `geopolitica` devolvem 224 linhas [FORMA] — ZERO [DIVERGE] e ZERO [INVENTADO]. O motivo é de contrato, não de número: o verificador exige a chave no formato <arquivo>.<caminho>.<campo>, e os prompts desses três prescrevem nomes curtos (o do geopolitica lista literalmente z_conflito, razao_conflito, n_republicacoes). E o mesmo vale para MIM: as 48 chaves de numeros_citados desta saída também voltam [FORMA], porque o formato prescrito pelo meu próprio PROMPT (seção 6.1: valor_citado_pelo_agente, valor_na_camada_1, campo, arquivo, arquivo_gerado_em) não é o que o verificador exige. Resultado prático: o verificador de números da casa hoje confere 1 dos 5 arquivos de agente. Conferi à mão, campo a campo, os números dos outros quatro — e todos bateram, exceto os dois do relatório do `divergencia` registrados na objeção da chave GBP. Casar o formato do verificador com o dos prompts é o pedido mais barato desta rodada.",
+  "Divergência de camada 1 que eu registro e NÃO audito (minha seção 5): data/noticias.json.buraco_declarado diz que o RBA não tem fala oficial disponível, enquanto data/bis_discursos.json, da mesma rodada, traz dois discursos oficiais do RBA (Kent e Bullock, peso 1,0). Os dois arquivos são camada 1 e se contradizem; quem concilia é quem cuida do coletor, não eu.",
+  "Segunda divergência de camada 1, mesma regra: data/agentes/indice.json registra o vigia com `ultima_rodada` 2026-09-07T21:00:21Z, e data/agentes/vigia/ultimo.json traz `gerado_em` 2026-09-07T21:28:33Z. Registro sem corrigir.",
+  "Frescor conferido antes de qualquer objeção: data/sentimento.json.frescor traz atraso_min 37, estado 'ok' e bloqueia_leitura false. Nenhum agente julgou sob bloqueio, então nenhuma objeção de frescor procede nesta rodada — e o caso semeado em 2026-09-07-divergencia-USD-frescor-nao-declarado.md NÃO se repete hoje: o `divergencia` declarou o frescor em `limites`, com o número.",
+  "ECO: procurado e não encontrado, com a prova. `noticia`, `fala` e `geopolitica` têm UMA linha cada no historico.jsonl — é a primeira rodada publicada dos três, logo não existe rodada anterior para ecoar. O `divergencia` tem quatro linhas do mesmo dia e DECLAROU que as três primeiras estão erradas e permanecem porque o arquivo é append-only. O `geopolitica` re-julgou a assinatura de Ormuz de 06/set, declarou a repetição e MUDOU o veredito. Repetição declarada não é eco (lição O4 da minha memória).",
+  "O que eu tentei derrubar e NÃO consegui, dito por escrito para que a ausência de objeção não seja lida como falta de trabalho: o `sem_leitura` do USD virando MANTEM (não virou — porta 2 aplicada); as 26 manchetes de alta do iene virando direção (não viraram — R8); o WSJ de peso_fonte 1,0 sustentando `alta` no euro (não sustentou — degrau 0,0); o z da geopolítica virando veredito de direção (não virou — foi para a confiança e para o M3, como manda a lápide L5 dele); o `ALINHADO` do NZD com evidência 0/100 (autorizado pela porta 3 do prompt dele, com as três exigências cumpridas); e o `não é sobre juro` do CHF (está na régua escrita do `noticia`).",
+  "Ponto que fica para o dono decidir, e que NÃO é objeção porque nenhuma régua foi violada: o `noticia` estendeu a R6 para tratar o modal 'may' como condição, e ele próprio escreveu que isso não é precedente. É a única linha com direção da rodada (AUD) e a que o `divergencia` chamou de mais informativa. Enquanto a R6 não decidir sobre o modal, dois leitores podem sair com `alta` e `alta condicional` da mesma frase.",
+  "Alcance declarado: cada objeção vale para ESTA rodada, ESTES arquivos e ESTES carimbos. data/noticias.json e data/sentimento.json são reescritos a cada 15-35 min e não têm versão ponto-no-tempo, então os pares de números que eu coloquei lado a lado deixam de ser conferíveis na próxima reescrita.",
+  "Discrepância de contrato conhecida, que vai para `limites` e nunca para `julgamentos`: ARQUITETURA_AGENTES.md chama o índice de data/indice_agentes.json; o contrato vigente e o que o site lê é data/agentes/indice.json, e foi lá que gravei, alterando só a minha entrada.",
+  "Nada aqui é ordem, sinal de entrada ou promessa de retorno. O sistema entrega dado e julgamento; a entrada é do Eduardo, pela análise técnica dele. Publicação em cenário condicional — pessoa física sem registro na CVM."
+ ],
+ "vota": false,
+ "selo": "experimental — contexto, não vota"
+}
