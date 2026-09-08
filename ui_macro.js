@@ -1076,11 +1076,18 @@
           }<b>${d.conv}</b><small class="mac-de100">/100</small> · evid. <b>${d.qual == null ? "—" : d.qual}</b><small class="mac-de100">/100</small>${
           est ? `<small class="mac-prov-mini"> · prov.</small>` : ""}</span>`
       : `<span class="mac-item-tag ${d.diverge ? "e-div" : "e-igual"}">${d.diverge ? "divergência" : "mesmo lado"}</span>`;
+    // [08/set] A ORDEM ESTAVA INVERTIDA. O item abria pela ACAO ("Viés de alta") e so depois
+    // dizia de QUAL par — numa lista de 31 linhas coladas, o nome do par colava visualmente na
+    // linha de baixo e o Eduardo nao conseguia ler o par que tinha selecionado. O identificador
+    // vem PRIMEIRO, sempre: primeiro QUEM, depois O QUE.
+    // Junto: a tag e a nota de mesma perna ocupavam 355 px dentro de uma coluna de 235 e
+    // vazavam por cima da linha seguinte. Agora as duas atravessam as duas colunas (grid-column
+    // 1 / -1) e a coluna e fluida, nao fixa.
     return `<button type="button" class="mac-item${sel}${d.instr ? " mac-item-instr" : ""}${clsAtraso()}" data-mac-par="${d.par}">
-      <span class="mac-item-acao ${a.cls}">${esc(a.verbo)}</span>
       <span class="mac-item-par">${d.instr ? d.rotulo : d.b + "<em>/</em>" + d.q}</span>
-      ${tag}
       <span class="mac-item-dias" title="${esc(validade.titulo)}">${esc(validade.texto)}</span>
+      <span class="mac-item-acao ${a.cls}">${esc(a.verbo)}</span>
+      ${tag}
       ${mesma ? `<span class="mac-item-corr">mesma perna ${esc(dominante || "")} ×${mesma + 1}</span>` : ""}
     </button>`;
   }

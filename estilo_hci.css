@@ -1408,9 +1408,16 @@ html .method-note{
    ============================================================================ */
 html .mac-lista{ display:flex; flex-direction:column; gap:0; max-height:74vh;
   overflow-y:auto; padding-right:var(--e2); }
+/* [08/set] O item da lista foi remontado. Tres defeitos somados faziam a lista virar um
+   borrao: (1) a ACAO vinha antes do NOME DO PAR, entao numa lista de 31 linhas coladas o nome
+   colava visualmente na linha de baixo; (2) a tag e a nota de "mesma perna" tinham 355 px
+   dentro de uma coluna de 235 e vazavam por cima da linha seguinte; (3) nao havia respiro
+   entre um item e outro. Agora: identificador primeiro, colunas fluidas (minmax(0,1fr) para
+   o texto poder encolher em vez de estourar), e as duas linhas largas atravessando a grade. */
 html .mac-item{
-  display:grid; grid-template-columns:1fr auto; grid-template-rows:auto auto auto;
-  gap:var(--e1) var(--e4);
+  display:grid; grid-template-columns:minmax(0,1fr) auto;
+  grid-template-rows:auto auto auto auto;   /* par · acao · tag · mesma-perna */
+  gap:5px var(--e4); align-items:baseline;
   text-align:left;
   background:var(--painel);
   border:1px solid var(--regua-fraca);
@@ -1421,6 +1428,32 @@ html .mac-item{
   min-height:34px;
 }
 html .mac-lista > .mac-item + .mac-item{ border-top:0; }
+
+/* o par e o IDENTIFICADOR: e o maior, o mais claro, e abre a linha */
+/* [08/set, 2a passada] TODO filho leva linha E coluna explicitas. Sem grid-row no nome do
+   par, ele era colocado por auto-placement DEPOIS dos que tinham posicao definida e caia em
+   cima da acao — na tela aparecia "GBP/AUDda", o rabo de "Viés de queda" por baixo do nome.
+   Grade declarada por inteiro nao tem auto-placement, e entao nao tem surpresa. */
+html .mac-item .mac-item-par{
+  grid-column:1; grid-row:1; font-size:15px; font-weight:600; color:var(--tinta);
+  letter-spacing:.02em; white-space:nowrap; }
+html .mac-item .mac-item-par em{ font-style:normal; color:var(--tinta-3); margin:0 1px; }
+/* a validade fica na segunda coluna, na MESMA linha do par */
+html .mac-item .mac-item-dias{ grid-column:2; grid-row:1; justify-self:end;
+  font-size:11px; color:var(--tinta-3); white-space:nowrap; }
+/* a acao vem depois do nome, na linha 2, e e o que carrega a cor */
+html .mac-item .mac-item-acao{ grid-column:1 / -1; grid-row:2;
+  font-size:12.5px; font-weight:600; }
+/* as duas linhas largas ATRAVESSAM a grade — era daqui que vinha o vazamento */
+html .mac-item .mac-item-tag{ grid-column:1 / -1; grid-row:3;
+  font-size:11px; color:var(--tinta-3); line-height:1.35; }
+html .mac-item .mac-item-corr{ grid-column:1 / -1; grid-row:4;
+  font-size:10.5px; color:var(--aviso); }
+/* respiro entre linhas: sem isto 31 itens viram um bloco solido */
+html .mac-lista{ display:flex; flex-direction:column; gap:6px; }
+html .mac-lista > .mac-item{ border:1px solid var(--regua); border-left:2px solid transparent;
+  padding:9px var(--e5); }
+html .mac-lista > .mac-item.mac-item-sel{ border-left-color:var(--marca); }
 html .mac-lista > .mac-item:nth-child(even){ background:var(--painel-alto); }
 /* mesmo hover das tabelas: fio turquesa, sem mudar o fundo */
 html .mac-item:hover{

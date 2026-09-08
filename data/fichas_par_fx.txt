@@ -1,0 +1,1303 @@
+====================================================================================================
+HCI MACRO DIRECTION — FICHA OPERACIONAL POR PAR (FX)
+====================================================================================================
+
+1) IDADE DOS DADOS (carimbo copiado do campo `gerado_em` de cada arquivo)
+----------------------------------------------------------------------------------------------------
+   data/sentimento.json                   2026-09-08T15:51:16.495852+00:00   [08/09/2026 12:51 (BRT)]
+                                          leitura da casa (a tese)
+   data/precificacao.json                 2026-09-08T15:42:53Z
+                                          o que os futuros pagam
+   data/diferenciais.json                 2026-09-06T19:16:59+00:00
+                                          juro de 2 e 10 anos (exibido, nunca voto)
+   data/agentes/advogado/ultimo.json      2026-09-08T15:42:53Z
+                                          agente advogado (advogado@v1)
+   data/agentes/divergencia/ultimo.json   2026-09-08T15:34:00Z
+                                          agente divergencia (divergencia@v1)
+   data/agentes/fala/ultimo.json          2026-09-08T15:14:33+00:00
+                                          agente fala (fala@v1)
+   data/agentes/geopolitica/ultimo.json   2026-09-08T15:10:49+00:00
+                                          agente geopolitica (geopolitica@v1)
+   data/agentes/noticia/ultimo.json       2026-09-08T15:20:00Z
+                                          agente noticia (noticia@v1)
+   data/agentes/vigia/ultimo.json         2026-09-07T21:28:33Z
+                                          agente vigia (vigia.py@v1)
+
+   FRESCOR DA CASA (medido por sentimento.py, campo sentimento.frescor):
+      atraso: 1h 5min (65 min) · estado: atrasado · bloqueia_leitura: False
+      fonte mais velha: bancos centrais
+
+2) QUANTOS PARES TÊM TESE HOJE
+----------------------------------------------------------------------------------------------------
+   16 de 28 pares com tese (estado ≠ sem_tese). Sem tese: 12.
+   Por estado: forte 9 · sem_tese 12 · observacao 4 · moderada 3
+   Faixas PROVISÓRIAS da divergência: {'sem_tese': [0, 14], 'observacao': [15, 24], 'moderada': [25, 39], 'forte': [40, 100]}
+   ⚠️ as faixas são PROVISÓRIAS e foram desenhadas na escala velha: o teto teórico caiu de 1,50 para 1,00 em 05/set, quando a fala parou de votar — a mesma diferença econômica sai 50% maior em divergência (fonte: sentimento.json)
+
+3) AVISO — A DIVISÃO DE TRABALHO
+----------------------------------------------------------------------------------------------------
+   Isto é o LADO FUNDAMENTAL. A ENTRADA é do Eduardo, pela análise técnica dele.
+   Nada aqui é ordem, sinal de entrada, alvo ou promessa de retorno.
+   Nenhum agente vota: todos saem com vota=false e selo experimental. Convicção histórica é null até o backtest de 21/dez.
+   Este arquivo não calcula: todo número é cópia de campo nomeado das fontes; o que a fonte não tem sai como "não medido".
+   Publicação em cenário condicional — pessoa física sem registro na CVM.
+
+====================================================================================================
+CONTEXTO DA RODADA — o que não cola em nenhuma perna
+====================================================================================================
+GEOPOLÍTICA (experimental — contexto, não vota):
+   o agente `geopolitica` julga EVENTO, não moeda: as chaves dele não mapeiam para perna, então aparecem aqui e nunca coladas num par
+   · evento/ataque-eua-ira                                → já precificado (confiança baixa)
+       trecho: Iran claims strike on US ship in Strait of Hormuz as fighting escalates
+   · evento/sancoes-canada-eua                            → já precificado (confiança baixa)
+       trecho: Canada - U.S. trade war takes centre stage at Toronto annual Labour Day parade
+   · evento/energia-eua-ira-fala-preco-petroleo           → indeterminado (confiança baixa)
+       trecho: Trump says oil prices will drop precipitously, gas could fall below $2 after US wins Iran war
+
+OBJEÇÕES DO ADVOGADO NESTA RODADA (não derrubam tese; ficam ao lado dela):
+   · [ALTA] divergencia:CAD → buraco tratado como neutro (derruba a tese: False)
+   · [ALTA] divergencia:CHF → contradicao entre agentes (derruba a tese: False)
+   · [MEDIA] divergencia:GBP → numero fantasma (derruba a tese: False)
+   · [MEDIA] fala:CAD/Macklem → contradicao entre agentes (derruba a tese: False)
+   · [MEDIA] noticia:AUD → contradicao entre agentes (derruba a tese: False)
+
+====================================================================================================
+FICHA 1/16 — EURGBP
+====================================================================================================
+1. AÇÃO ......... Compra EUR/GBP
+   ESTADO ....... forte   ·   DIVERGÊNCIA 53/100
+   MOTIVO ....... EUR inclinado à alta contra GBP inclinado ao corte
+   convicção da leitura: 53%   ·   convicção histórica: não medido (ainda não calibrada — precisa de backtest com amostra declarada)
+
+2. QUEM DÁ O MOTIVO (lei das duas pernas)
+   perna dominante: EUR com 71% da diferença
+      EUR: inclinado à alta (direção SOBE) · evidência 85/100 · 2 de 2 dimensões concordam
+      GBP: inclinado ao corte (direção CORTA) · evidência 75/100 · 1 de 2 dimensões concordam
+   ⚠️ par não é ativo, são duas moedas: um par 90% de uma perna é uma aposta naquela moeda
+
+3. MESMA APOSTA
+   EURUSD, EURCAD, EURCHF
+   ⚠️ compartilham a perna dominante: dois deles não diversificam, DOBRAM
+
+4. ATÉ QUANDO
+   evento invalidante: BCE (EUR) em 2026-09-10 — faltam 2 dia(s)
+   próximo dado relevante: CPI em 10/09 às 03:00 (BRT) · impacto HIGH
+   é o que diz por quanto tempo faz sentido PROCURAR a entrada — não é alvo nem prazo de posição
+
+5. QUALIDADE DA EVIDÊNCIA E BANDEIRAS
+   nota do par: 75/100   ·   por perna: {'EUR': 85, 'GBP': 75}   ·   elo fraco: GBP
+   6 alerta(s) copiados do sentimento.json:
+   [DOMINANCIA]
+      · mesma aposta que EURUSD, EURCAD, EURCHF — compartilham a perna EUR e não diversificam
+   [DIRECAO_FRAGIL]
+      · a direção dos DADOS do GBP depende da FAIXA NEUTRA (a régua de 'veio como esperado', PROVISÓRIA e nunca validada): hoje a soma é -4.64 (MANTEM), mas sem faixa nenhuma a soma é -5.69 (CORTA); com a faixa pela metade a soma é -5.77 (CORTA). A faixa zera 21 divulgação(ões) que, com o sinal do próprio desvio, pesariam -1.04 — zerar um termo desloca a soma para o lado contrário, a mesma aritmética da winsorização revogada
+      · a direção do EUR depende de PARÂMETRO NÃO CALIBRADO: só 95% das 130 células da faixa plausível (meia-vida 14-30 dias, modulador de impacto entre 'só alto conta' e 'plano') dão a leitura publicada — quem faz virar: modulador_de_impacto
+      · a direção do GBP depende de PARÂMETRO NÃO CALIBRADO: só 78% das 130 células da faixa plausível (meia-vida 14-30 dias, modulador de impacto entre 'só alto conta' e 'plano') dão a leitura publicada — quem faz virar: modulador_de_impacto
+   [EVIDENCIA_FRACA]
+      · qualidade da evidência do par = 75/100, a MENOR das duas pernas (elo fraco: GBP, 75/100 contra 85/100 do EUR)
+      · nenhuma das duas pernas tem fala votando: desde 05/set a dimensão de discurso é contexto com selo, e a leitura vem de DADOS e CICLO apenas — duas dimensões por perna, teto 1.00 no par
+
+6. O QUE O MERCADO PAGA
+   EUR (BCE): sem fonte para comparar
+       motivo: manchete: 1 manchete(s) de veiculo aceito na janela, nenhuma passou na regua da proxima reuniao: Another rate hike, just for insurance: Five questions for th (sem numero)
+       está de acordo com a leitura? → SEM FONTE (confiança baixa) — veredito do agente `divergencia`, copiado, não recalculado aqui
+           lado ausente: mercado
+   GBP (BoE): sem fonte para comparar
+       motivo: manchete: nenhum item de Reuters/Bloomberg/FT/WSJ com ate 7 dias entre os 123 resultados lidos
+       está de acordo com a leitura? → SEM FONTE (confiança baixa) — veredito do agente `divergencia`, copiado, não recalculado aqui
+           lado ausente: mercado
+
+7. O QUE OS AGENTES JULGARAM
+   — perna EUR —
+       [divergencia · divergencia@v1 · chave EUR] SEM FONTE (confiança baixa) — vota: False
+           trecho: manchete: 1 manchete(s) de veiculo aceito na janela, nenhuma passou na regua da proxima reuniao: Another rate hike, just for insurance: Five questions for th (sem numero)
+           fonte: data/sentimento.json | data/precificacao.json | data/agentes/noticia/ultimo.json
+       [noticia · noticia@v1 · chave EUR] indeterminado (confiança baixa) — vota: False
+           trecho: ECB Set to Raise Key Rate Again, Signal Caution on Further Moves - WSJ
+           fonte: https://news.google.com/rss/articles/CBMisgFBVV95cUxOYWRrQ2ZrenM2S1JzUFA5ejVZcHpQZXNQSGxFM2VkWmdWajZBamdBdXUxV09reGFtTkt6WkhpaGUwYVJ0MmJfVWpZVUlvX2hqeEhFTmRSUkYwelJRYjJtcUM0ai1qVDlFU283NV9wandtaXE3bGhqQXJGbWZYWEMxTjBwTnoyUkh5NmgtV0p5S0doUXRzYU14bEVBRDg2NzN3MFBDcDFEMlZSdUVoWkxjVllB?oc=5
+   — perna GBP —
+       [divergencia · divergencia@v1 · chave GBP] SEM FONTE (confiança baixa) — vota: False
+           trecho: manchete: nenhum item de Reuters/Bloomberg/FT/WSJ com ate 7 dias entre os 116 resultados lidos
+           fonte: data/sentimento.json | data/precificacao.json | data/agentes/fala/ultimo.json | data/agentes/noticia/ultimo.json
+           ⚖️ OBJEÇÃO DO ADVOGADO [MEDIA] numero fantasma (derruba a tese: False)
+               O relatório final do agente cita, para o GBP, “inclinado ao corte (22%, evidência 75/100)”. O campo da camada 1 diz 31: data/sentimento.json, moedas.GBP.intensidade_relativa_pct = 31, gerado em 2026-09-08T15:24:03.500980+00:00 — e os dois campos irmãos do mesmo arquivo (intensidade_relativa_crua_pct e intensidade_relativa_pelo_teto_ligado_pct) também trazem 31, então não é confusão de campo. O mesmo defeito atinge o CHF no mesmo relatório: “46%” contra moedas.CHF.intensidade_relativa_pct = 44 (44 também nos dois campos irmãos). Achei a origem dos dois: são os valores da PRIMEIRA linha da rodada, `divergencia-20260908T1510Z`, que o próprio agente declarou ERRADA e substituiu — data/agentes/divergencia/historico.jsonl, linha 0, numeros_citados.hci_intensidade_relativa_pct = 22 no GBP e 46 no CHF, lida contra o sentimento de 2026-09-08T15:10:51. É exatamente a subclasse “número copiado de rodada anterior do arquivo”. **Delimitação importante, e ela reduz o alcance da objeção: o `ultimo.json` gravado está CERTO** — numeros_citados.hci_intensidade_relativa_pct traz 31 no GBP e 44 no CHF, e o `motivo` de cada linha também. O erro vive só no relatório de texto que sai do agente, que é o que o orquestrador lê e o que uma pessoa leria primeiro. O veredito `SEM FONTE` das duas moedas não depende do número e não muda.
+       [fala · fala@v1 · chave GBP/Pill] indeterminado (confiança média) — vota: False
+           trecho: Whether implicitly (via their internal thinking or analysis) or explicitly (via the material published in the Bank Insights article), it is natural for market participants to interpret this set of scenarios as suggesting the MPC is seeking to keep rates on hold but would raise rates aggressively if the inflation outlook were to deteriorate significantly.
+           fonte: https://www.bankofengland.co.uk/speech/2026/september/remarks-at-the-edinburgh-chamber-of-commerce
+       [noticia · noticia@v1 · chave GBP] indeterminado (confiança baixa) — vota: False
+           trecho: BOE Governor Bailey Says Market Rate-Hike Pricing Reflects 'Risk Premium' - finance.biggo.com
+           fonte: https://news.google.com/rss/articles/CBMidkFVX3lxTE16eXNuSndVX3dndER4RFZEcXpKZlpETXEtX0hTUWdaQkotcFZDVDlsTEdydk9FckVpcFZUSXpVZmxJUkFDYnlZY3dCQ29JYWx2X0tfRUx1VnZhWG9CdHNiVnRnaFNzeWM0alNEa2swSThXMEp2a1E?oc=5
+
+8. DIFERENCIAL DE JURO (dado exibido, NUNCA voto)
+   2 anos : diferencial -1.5825 pp (base 2.9458% x cotada 4.5283%) · variação em 5 dias -14.6 bp
+            as_of base 2026-09-06 (idade 0 d.u.) · as_of cotada 2026-09-06 (idade 0 d.u.)
+   10 anos: diferencial -1.7764 pp (base 3.3646% x cotada 5.141%) · variação em 5 dias 8.0 bp
+            as_of base 2026-09-03 (idade 1 d.u.) · as_of cotada 2026-08-28 (idade 5 d.u.)
+
+====================================================================================================
+FICHA 2/16 — GBPAUD
+====================================================================================================
+1. AÇÃO ......... Venda GBP/AUD
+   ESTADO ....... forte   ·   DIVERGÊNCIA 52/100
+   MOTIVO ....... GBP inclinado ao corte contra AUD inclinado à alta
+   convicção da leitura: 52%   ·   convicção histórica: não medido (ainda não calibrada — precisa de backtest com amostra declarada)
+
+2. QUEM DÁ O MOTIVO (lei das duas pernas)
+   perna dominante: AUD com 70% da diferença
+      GBP: inclinado ao corte (direção CORTA) · evidência 75/100 · 1 de 2 dimensões concordam
+      AUD: inclinado à alta (direção SOBE) · evidência 80/100 · 2 de 2 dimensões concordam
+   ⚠️ par não é ativo, são duas moedas: um par 90% de uma perna é uma aposta naquela moeda
+
+3. MESMA APOSTA
+   AUDUSD, AUDCAD
+   ⚠️ compartilham a perna dominante: dois deles não diversificam, DOBRAM
+
+4. ATÉ QUANDO
+   evento invalidante: BoE (GBP) em 2026-09-17 — faltam 9 dia(s)
+   próximo dado relevante: emprego em 15/09 às 03:00 (BRT) · impacto HIGH
+   é o que diz por quanto tempo faz sentido PROCURAR a entrada — não é alvo nem prazo de posição
+
+5. QUALIDADE DA EVIDÊNCIA E BANDEIRAS
+   nota do par: 75/100   ·   por perna: {'GBP': 75, 'AUD': 80}   ·   elo fraco: GBP
+   6 alerta(s) copiados do sentimento.json:
+   [DOMINANCIA]
+      · mesma aposta que AUDUSD, AUDCAD — compartilham a perna AUD e não diversificam
+   [DIRECAO_FRAGIL]
+      · a direção dos DADOS do GBP depende da FAIXA NEUTRA (a régua de 'veio como esperado', PROVISÓRIA e nunca validada): hoje a soma é -4.64 (MANTEM), mas sem faixa nenhuma a soma é -5.69 (CORTA); com a faixa pela metade a soma é -5.77 (CORTA). A faixa zera 21 divulgação(ões) que, com o sinal do próprio desvio, pesariam -1.04 — zerar um termo desloca a soma para o lado contrário, a mesma aritmética da winsorização revogada
+      · a direção dos DADOS do AUD depende da FAIXA NEUTRA (a régua de 'veio como esperado', PROVISÓRIA e nunca validada): hoje a soma é +20.98 (SOBE), mas com a faixa dobrada a soma é +2.69 (MANTEM). A faixa zera 8 divulgação(ões) que, com o sinal do próprio desvio, pesariam +1.43 — zerar um termo desloca a soma para o lado contrário, a mesma aritmética da winsorização revogada
+      · a direção do GBP depende de PARÂMETRO NÃO CALIBRADO: só 78% das 130 células da faixa plausível (meia-vida 14-30 dias, modulador de impacto entre 'só alto conta' e 'plano') dão a leitura publicada — quem faz virar: modulador_de_impacto
+   [EVIDENCIA_FRACA]
+      · qualidade da evidência do par = 75/100, a MENOR das duas pernas (elo fraco: GBP, 75/100 contra 80/100 do AUD)
+      · nenhuma das duas pernas tem fala votando: desde 05/set a dimensão de discurso é contexto com selo, e a leitura vem de DADOS e CICLO apenas — duas dimensões por perna, teto 1.00 no par
+
+6. O QUE O MERCADO PAGA
+   GBP (BoE): sem fonte para comparar
+       motivo: manchete: nenhum item de Reuters/Bloomberg/FT/WSJ com ate 7 dias entre os 123 resultados lidos
+       está de acordo com a leitura? → SEM FONTE (confiança baixa) — veredito do agente `divergencia`, copiado, não recalculado aqui
+           lado ausente: mercado
+   AUD (RBA) · próxima reunião 2026-09-29 · taxa atual 4.35 · qualidade alta
+       o mercado paga: alta · p_alta 0.66 · p_manutenção 0.34 · p_corte 0.0 · implícito 16.5 bp
+       fonte: futuros IB (30 Day Interbank Cash Rate, ASX) via asx.api.markitdigital.com — a API do ASX RBA Rate Tracker
+       está de acordo com a leitura? → ALINHADO (confiança alta) — veredito do agente `divergencia`, copiado, não recalculado aqui
+
+7. O QUE OS AGENTES JULGARAM
+   — perna GBP —
+       [divergencia · divergencia@v1 · chave GBP] SEM FONTE (confiança baixa) — vota: False
+           trecho: manchete: nenhum item de Reuters/Bloomberg/FT/WSJ com ate 7 dias entre os 116 resultados lidos
+           fonte: data/sentimento.json | data/precificacao.json | data/agentes/fala/ultimo.json | data/agentes/noticia/ultimo.json
+           ⚖️ OBJEÇÃO DO ADVOGADO [MEDIA] numero fantasma (derruba a tese: False)
+               O relatório final do agente cita, para o GBP, “inclinado ao corte (22%, evidência 75/100)”. O campo da camada 1 diz 31: data/sentimento.json, moedas.GBP.intensidade_relativa_pct = 31, gerado em 2026-09-08T15:24:03.500980+00:00 — e os dois campos irmãos do mesmo arquivo (intensidade_relativa_crua_pct e intensidade_relativa_pelo_teto_ligado_pct) também trazem 31, então não é confusão de campo. O mesmo defeito atinge o CHF no mesmo relatório: “46%” contra moedas.CHF.intensidade_relativa_pct = 44 (44 também nos dois campos irmãos). Achei a origem dos dois: são os valores da PRIMEIRA linha da rodada, `divergencia-20260908T1510Z`, que o próprio agente declarou ERRADA e substituiu — data/agentes/divergencia/historico.jsonl, linha 0, numeros_citados.hci_intensidade_relativa_pct = 22 no GBP e 46 no CHF, lida contra o sentimento de 2026-09-08T15:10:51. É exatamente a subclasse “número copiado de rodada anterior do arquivo”. **Delimitação importante, e ela reduz o alcance da objeção: o `ultimo.json` gravado está CERTO** — numeros_citados.hci_intensidade_relativa_pct traz 31 no GBP e 44 no CHF, e o `motivo` de cada linha também. O erro vive só no relatório de texto que sai do agente, que é o que o orquestrador lê e o que uma pessoa leria primeiro. O veredito `SEM FONTE` das duas moedas não depende do número e não muda.
+       [fala · fala@v1 · chave GBP/Pill] indeterminado (confiança média) — vota: False
+           trecho: Whether implicitly (via their internal thinking or analysis) or explicitly (via the material published in the Bank Insights article), it is natural for market participants to interpret this set of scenarios as suggesting the MPC is seeking to keep rates on hold but would raise rates aggressively if the inflation outlook were to deteriorate significantly.
+           fonte: https://www.bankofengland.co.uk/speech/2026/september/remarks-at-the-edinburgh-chamber-of-commerce
+       [noticia · noticia@v1 · chave GBP] indeterminado (confiança baixa) — vota: False
+           trecho: BOE Governor Bailey Says Market Rate-Hike Pricing Reflects 'Risk Premium' - finance.biggo.com
+           fonte: https://news.google.com/rss/articles/CBMidkFVX3lxTE16eXNuSndVX3dndER4RFZEcXpKZlpETXEtX0hTUWdaQkotcFZDVDlsTEdydk9FckVpcFZUSXpVZmxJUkFDYnlZY3dCQ29JYWx2X0tfRUx1VnZhWG9CdHNiVnRnaFNzeWM0alNEa2swSThXMEp2a1E?oc=5
+   — perna AUD —
+       [divergencia · divergencia@v1 · chave AUD] ALINHADO (confiança alta) — vota: False
+           trecho: base = alvo vigente do RBA 4.3500% (data/bancos_centrais.json). regra 1 (preferida): october nao tem reuniao deste banco, entao IBV2026 = 95.4850 e a taxa pos-decisao inteira -> taxa_pos = 100 - 95.4850 = 4.5150. conferencia pelo mes da reuniao: IBU2026 = 95.6500 -> media do mes 4.3500; 29 dias a 4.3500 + 1 dias a taxa_pos => taxa_pos = (4.3500*30 - 4.3500*29)/1 = 4.3500. ATENCAO: so 1 dia(s) depois da reuniao neste mes, entao esta conta amplifica o ruido do preco em 30x e NAO vale como segunda medida — o que ela mostra e que o mercado nao espera mudanca ANTES do dia 29. delta = 4.5150 - 4.3500 = +16.50 bp. Passo 25 bp: p_alta = 0.6600, p_corte = 0.0000, p_manutencao = 0.3400.
+           fonte: data/sentimento.json | data/precificacao.json | data/agentes/noticia/ultimo.json
+       [noticia · noticia@v1 · chave AUD] alta condicional (confiança media) — vota: False
+           trecho: RBA’s Hunter Says Inflation Top Priority, May Have to Raise Rate - bloomberg.com
+           fonte: https://news.google.com/rss/articles/CBMitAFBVV95cUxNdEI4RW5nR2FfbHg3VDlua2pVRlBCWHYwTkZEbnJTLXNIRUZ3R0xPRjZZTmFmMEpkM3FPY1R6aFpfdkJNakd2a29DLURyZDFMck5kOHJwSXBWbFl3SHQ2NjdVcTJJbmtpTkktVlBqQV9HM2IxWU9qRUEtZnJER24tR2U5TmN5WWlSNEQwcmkwVW9JdlVublEzNXBObktMRW80eENPQ3paY0d4eEo1enljWExyWTY?oc=5
+           ⚖️ OBJEÇÃO DO ADVOGADO [MEDIA] contradicao entre agentes (derruba a tese: False)
+               Duas afirmações incompatíveis sobre a MESMA coisa, na MESMA rodada, e eu não escolho entre elas. (a) O agente `noticia`, na chave AUD, escreve: “Sem fonte primaria: o RBA e buraco declarado (bloqueia automacao), entao nao ha discurso oficial para confrontar”. (b) O agente `fala`, rodando 6 minutos antes, lista DOIS discursos oficiais do RBA em data/bis_discursos.json: itens[0] = AUD / Christopher Kent, 2026-08-13, “The restrictive stance of monetary policy”, origem discurso_oficial, peso 1,0; e itens[2] = AUD / Michele Bullock, 2026-07-28, peso 1,0. Os dois vieram com frases_analisadas 0 (o PDF integral do BIS falhou, campo corpo_origem) e saíram `indeterminado`. A diferença que chega ao leitor é grande: “não existe” e “existe e veio mudo” não são a mesma informação, e a segunda é um pedido concreto à camada 1 (resolver o PDF do BIS), enquanto a primeira fecha o assunto. Registro a origem sem resolvê-la: `noticia@v1` lê apenas data/bc_discursos.json (PROMPT §1, tabela de leitura), onde o AUD tem de fato zero itens (resumo_por_moeda.AUD.itens_que_votam = 0), e data/noticias.json.buraco_declarado.rotulo diz literalmente “sem fala oficial disponivel — o banco bloqueia automacao”. Ou seja: a frase do agente é cópia fiel de um campo da camada 1 que a própria camada 1 contradiz noutro arquivo. Isto pesa porque o AUD é a única moeda com direção nesta rodada e a única linha que o `divergencia` chamou de “as três colunas apontam para o mesmo lado”.
+
+8. DIFERENCIAL DE JURO (dado exibido, NUNCA voto)
+   2 anos : diferencial -0.2907 pp (base 4.5283% x cotada 4.819%) · variação em 5 dias 3.2 bp
+            as_of base 2026-09-06 (idade 0 d.u.) · as_of cotada 2026-09-06 (idade 0 d.u.)
+   10 anos: diferencial -0.079 pp (base 5.141% x cotada 5.22%) · variação em 5 dias -19.0 bp
+            as_of base 2026-08-28 (idade 5 d.u.) · as_of cotada 2026-09-02 (idade 2 d.u.)
+
+====================================================================================================
+FICHA 3/16 — EURCAD
+====================================================================================================
+1. AÇÃO ......... Compra EUR/CAD
+   ESTADO ....... forte   ·   DIVERGÊNCIA 51/100
+   MOTIVO ....... EUR inclinado à alta contra CAD inclinado ao corte
+   convicção da leitura: 51%   ·   convicção histórica: não medido (ainda não calibrada — precisa de backtest com amostra declarada)
+
+2. QUEM DÁ O MOTIVO (lei das duas pernas)
+   perna dominante: EUR com 73% da diferença
+      EUR: inclinado à alta (direção SOBE) · evidência 85/100 · 2 de 2 dimensões concordam
+      CAD: inclinado ao corte (direção CORTA) · evidência 24/100 · 1 de 2 dimensões concordam
+   ⚠️ par não é ativo, são duas moedas: um par 90% de uma perna é uma aposta naquela moeda
+
+3. MESMA APOSTA
+   EURUSD, EURGBP, EURCHF
+   ⚠️ compartilham a perna dominante: dois deles não diversificam, DOBRAM
+
+4. ATÉ QUANDO
+   evento invalidante: BCE (EUR) em 2026-09-10 — faltam 2 dia(s)
+   próximo dado relevante: CPI em 10/09 às 03:00 (BRT) · impacto HIGH
+   é o que diz por quanto tempo faz sentido PROCURAR a entrada — não é alvo nem prazo de posição
+
+5. QUALIDADE DA EVIDÊNCIA E BANDEIRAS
+   nota do par: 24/100   ·   por perna: {'EUR': 85, 'CAD': 24}   ·   elo fraco: CAD
+   5 alerta(s) copiados do sentimento.json:
+   [DOMINANCIA]
+      · mesma aposta que EURUSD, EURGBP, EURCHF — compartilham a perna EUR e não diversificam
+   [DIRECAO_FRAGIL]
+      · a direção do EUR depende de PARÂMETRO NÃO CALIBRADO: só 95% das 130 células da faixa plausível (meia-vida 14-30 dias, modulador de impacto entre 'só alto conta' e 'plano') dão a leitura publicada — quem faz virar: modulador_de_impacto
+   [EVIDENCIA_FRACA]
+      · qualidade da evidência do par = 24/100, a MENOR das duas pernas (elo fraco: CAD, 24/100 contra 85/100 do EUR)
+      · nenhuma das duas pernas tem fala votando: desde 05/set a dimensão de discurso é contexto com selo, e a leitura vem de DADOS e CICLO apenas — duas dimensões por perna, teto 1.00 no par
+   [OUTRAS]
+      · uma única divulgação responde por 76% da leitura do CAD (Net Change in Employment)
+
+6. O QUE O MERCADO PAGA
+   EUR (BCE): sem fonte para comparar
+       motivo: manchete: 1 manchete(s) de veiculo aceito na janela, nenhuma passou na regua da proxima reuniao: Another rate hike, just for insurance: Five questions for th (sem numero)
+       está de acordo com a leitura? → SEM FONTE (confiança baixa) — veredito do agente `divergencia`, copiado, não recalculado aqui
+           lado ausente: mercado
+   CAD (BoC): sem fonte para comparar
+       motivo: futuros: Bolsa de Montreal (COA, One-Month CORRA Futures) serve preco por widget QuoteMedia com sessao presa ao dominio: getFuturesChain.json -> Invalid product.; getEnhancedQuotes.json -> HTTP 403 | manchete: 1 manchete(s) de veiculo aceito na janela, nenhuma passou na regua da proxima reuniao: Bank of Canada holds key rate, says multiple hikes might be  (sem numero)
+       está de acordo com a leitura? → SEM FONTE (confiança baixa) — veredito do agente `divergencia`, copiado, não recalculado aqui
+           lado ausente: mercado
+
+7. O QUE OS AGENTES JULGARAM
+   — perna EUR —
+       [divergencia · divergencia@v1 · chave EUR] SEM FONTE (confiança baixa) — vota: False
+           trecho: manchete: 1 manchete(s) de veiculo aceito na janela, nenhuma passou na regua da proxima reuniao: Another rate hike, just for insurance: Five questions for th (sem numero)
+           fonte: data/sentimento.json | data/precificacao.json | data/agentes/noticia/ultimo.json
+       [noticia · noticia@v1 · chave EUR] indeterminado (confiança baixa) — vota: False
+           trecho: ECB Set to Raise Key Rate Again, Signal Caution on Further Moves - WSJ
+           fonte: https://news.google.com/rss/articles/CBMisgFBVV95cUxOYWRrQ2ZrenM2S1JzUFA5ejVZcHpQZXNQSGxFM2VkWmdWajZBamdBdXUxV09reGFtTkt6WkhpaGUwYVJ0MmJfVWpZVUlvX2hqeEhFTmRSUkYwelJRYjJtcUM0ai1qVDlFU283NV9wandtaXE3bGhqQXJGbWZYWEMxTjBwTnoyUkh5NmgtV0p5S0doUXRzYU14bEVBRDg2NzN3MFBDcDFEMlZSdUVoWkxjVllB?oc=5
+   — perna CAD —
+       [divergencia · divergencia@v1 · chave CAD] SEM FONTE (confiança baixa) — vota: False
+           trecho: futuros: Bolsa de Montreal (COA, One-Month CORRA Futures) serve preco por widget QuoteMedia com sessao presa ao dominio: getFuturesChain.json -> Invalid product.; getEnhancedQuotes.json -> HTTP 403 | manchete: 1 manchete(s) de veiculo aceito na janela, nenhuma passou na regua da proxima reuniao: Bank of Canada holds key rate, says multiple hikes might be  (sem numero)
+           fonte: data/sentimento.json | data/precificacao.json | data/agentes/fala/ultimo.json | data/agentes/noticia/ultimo.json
+           ⚖️ OBJEÇÃO DO ADVOGADO [ALTA] buraco tratado como neutro (derruba a tese: False)
+               O campo estruturado que o site lê diz que DOIS agentes leram `manutenção` no CAD. Um deles não leu. Em data/agentes/divergencia/ultimo.json, a linha do CAD traz `colunas.C_noticia` = {"agente": "fala, noticia", "veredito": "manutenção", "versao_prompt": "fala@v1, noticia@v1"}. Mas em data/agentes/noticia/ultimo.json, gerado em 2026-09-08T15:20:00Z, o julgamento da chave CAD tem veredito `indeterminado`, confiança baixa. O `indeterminado` do `noticia` foi absorvido pelo `manutenção` do `fala` e o crédito ficou nos dois prompts. Isso viola duas regras escritas do próprio agente: o PROMPT.md dele, seção 3.3 — “`indeterminado` é resposta legítima e frequente. Ela NÃO é ‘neutro’ e NÃO é ‘manutenção’” — e a lápide L-H7 dele, “agente ausente não vira ‘a notícia concorda’”. E há a inconsistência interna, que é a prova mais limpa: no USD, com a MESMA forma (um `manutenção`, um `alta condicional` e três `indeterminado`), o mesmo arquivo escreveu corretamente `colunas.C_noticia.veredito` = “contraditoria”. A mesma régua produziu duas respostas diferentes no mesmo arquivo. **O que eu NÃO afirmo, e é importante: o agente entendeu a distinção.** O `motivo` do CAD, o `coluna_C_detalhe` e o caso que ele abriu hoje (agentes/divergencia/casos/2026-09-08-CAD-noticia-contra-a-casa-sem-preco.md, linha 51) dizem por extenso “Indeterminado não é manutenção e não é neutro: só a linha do `fala` sustenta a coluna C aqui”. O defeito está no campo estruturado, não no raciocínio — e é justamente por isso que ele é perigoso: a prosa não vai para o campo que a tela renderiza, e o leitor vê “manutenção · fala@v1, noticia@v1” e lê dois agentes concordando. O veredito `SEM FONTE` do CAD não muda: o lado do mercado continua ausente.
+       [fala · fala@v1 · chave CAD/Macklem] manutenção (confiança alta) — vota: False
+           trecho: With recent data coming out largely in line with our July forecast, we decided to maintain the policy interest rate at 2.25%.
+           fonte: https://www.bankofcanada.ca/2026/09/opening-statement-2026-09-02/
+           ⚖️ OBJEÇÃO DO ADVOGADO [MEDIA] contradicao entre agentes (derruba a tese: False)
+               A MESMA frase, no MESMO arquivo da camada 1, lida ao contrário por dois agentes na mesma rodada — e as duas leituras vão para a tela. (a) `fala@v1` julga CAD/Macklem = `manutenção` com confiança ALTA: “É o anúncio da decisão do próprio banco, escrito no passado porque anuncia o que acabou de ser decidido: a postura está EM VIGOR, não é recibo... A exceção de tempo verbal vale só para manutenção.” (b) `noticia@v1`, no seu `limites`, escreve sobre a mesma frase: “o veredito `manutencao` do CAD em bc_discursos.json apoia-se numa frase no PASSADO ('we decided to maintain the policy interest rate at 2.25%'), que e o que a R3 descarta como balanco do que ja foi feito”. Não escolho o vencedor (D4, seção 9 do meu prompt): registro que a régua de TEMPO VERBAL tem duas versões escritas em dois prompts e que ninguém arbitrou. Isto importa porque a leitura de `fala` é a coluna C do CAD no agente `divergencia` e é o que ele chamou de “a observação mais forte da rodada”. Origem verificada por mim na camada 1: data/bc_discursos.json, itens[4], veredito_leitor.forca 4, frases_analisadas 2, peso 1,0, título “Monetary Policy Decision Press Conference Opening Statement”, bancos_centrais.CAD.ultima_decisao 2026-09-02 com resultado `manutencao` e bancos_centrais.CAD.proxima 2026-10-28 (dias_ate 50).
+       [noticia · noticia@v1 · chave CAD] indeterminado (confiança baixa) — vota: False
+           trecho: Canada's Jobs Slump in August Makes Bank of Canada Tightening Look Mispriced, Rosenberg Research Says - marketscreener.com
+           fonte: https://news.google.com/rss/articles/CBMi5wFBVV95cUxNalZzZFNWYWluLThUblk2eWVqSjNqTzlsTDVBenZ6WTZpTHJVWjJMZm1BdTNic09ITllacWp0X2VXWXBpcWQzZmR0SEljampZN3BKRmVQTGhwOTFuS0xCRHQwRzZ6bExMMlBYdDFpNF9CZUNfbWtTdlV4WHNKVWFRY0dad1FQUUo0VnNUb0J3VUdQd21CRk85NG9uSkl6bDdUTlBNSmZWdUdjWDJIMGxuamY4RTdFMXJxYU55ZU9lak9KWmhzbUp5MzJLMUY2RjZOMUNuU1IwVVUwcjZmSHNWdVdhTG4wbFk?oc=5
+
+8. DIFERENCIAL DE JURO (dado exibido, NUNCA voto)
+   2 anos : diferencial -0.1572 pp (base 2.9458% x cotada 3.103%) · variação em 5 dias -1.2 bp
+            as_of base 2026-09-06 (idade 0 d.u.) · as_of cotada 2026-09-06 (idade 0 d.u.)
+   10 anos: diferencial -0.4254 pp (base 3.3646% x cotada 3.79%) · variação em 5 dias -0.3 bp
+            as_of base 2026-09-03 (idade 1 d.u.) · as_of cotada 2026-09-03 (idade 1 d.u.)
+
+====================================================================================================
+FICHA 4/16 — GBPJPY
+====================================================================================================
+1. AÇÃO ......... Venda GBP/JPY
+   ESTADO ....... forte   ·   DIVERGÊNCIA 50/100
+   MOTIVO ....... GBP inclinado ao corte contra JPY inclinado à alta
+   convicção da leitura: 50%   ·   convicção histórica: não medido (ainda não calibrada — precisa de backtest com amostra declarada)
+
+2. QUEM DÁ O MOTIVO (lei das duas pernas)
+   perna dominante: JPY com 69% da diferença
+      GBP: inclinado ao corte (direção CORTA) · evidência 75/100 · 1 de 2 dimensões concordam
+      JPY: inclinado à alta (direção SOBE) · evidência 91/100 · 2 de 2 dimensões concordam
+   ⚠️ par não é ativo, são duas moedas: um par 90% de uma perna é uma aposta naquela moeda
+
+3. MESMA APOSTA
+   USDJPY, CADJPY
+   ⚠️ compartilham a perna dominante: dois deles não diversificam, DOBRAM
+
+4. ATÉ QUANDO
+   evento invalidante: BoE (GBP) em 2026-09-17 — faltam 9 dia(s)
+   próximo dado relevante: emprego em 15/09 às 03:00 (BRT) · impacto HIGH
+   é o que diz por quanto tempo faz sentido PROCURAR a entrada — não é alvo nem prazo de posição
+
+5. QUALIDADE DA EVIDÊNCIA E BANDEIRAS
+   nota do par: 75/100   ·   por perna: {'GBP': 75, 'JPY': 91}   ·   elo fraco: GBP
+   6 alerta(s) copiados do sentimento.json:
+   [DOMINANCIA]
+      · mesma aposta que USDJPY, CADJPY — compartilham a perna JPY e não diversificam
+   [DIRECAO_FRAGIL]
+      · a direção dos DADOS do GBP depende da FAIXA NEUTRA (a régua de 'veio como esperado', PROVISÓRIA e nunca validada): hoje a soma é -4.64 (MANTEM), mas sem faixa nenhuma a soma é -5.69 (CORTA); com a faixa pela metade a soma é -5.77 (CORTA). A faixa zera 21 divulgação(ões) que, com o sinal do próprio desvio, pesariam -1.04 — zerar um termo desloca a soma para o lado contrário, a mesma aritmética da winsorização revogada
+      · a direção do GBP depende de PARÂMETRO NÃO CALIBRADO: só 78% das 130 células da faixa plausível (meia-vida 14-30 dias, modulador de impacto entre 'só alto conta' e 'plano') dão a leitura publicada — quem faz virar: modulador_de_impacto
+      · a direção do JPY depende de PARÂMETRO NÃO CALIBRADO: só 98% das 130 células da faixa plausível (meia-vida 14-30 dias, modulador de impacto entre 'só alto conta' e 'plano') dão a leitura publicada — quem faz virar: só a combinação dos dois (nenhum vira sozinho)
+   [EVIDENCIA_FRACA]
+      · qualidade da evidência do par = 75/100, a MENOR das duas pernas (elo fraco: GBP, 75/100 contra 91/100 do JPY)
+      · nenhuma das duas pernas tem fala votando: desde 05/set a dimensão de discurso é contexto com selo, e a leitura vem de DADOS e CICLO apenas — duas dimensões por perna, teto 1.00 no par
+
+6. O QUE O MERCADO PAGA
+   GBP (BoE): sem fonte para comparar
+       motivo: manchete: nenhum item de Reuters/Bloomberg/FT/WSJ com ate 7 dias entre os 123 resultados lidos
+       está de acordo com a leitura? → SEM FONTE (confiança baixa) — veredito do agente `divergencia`, copiado, não recalculado aqui
+           lado ausente: mercado
+   JPY (BoJ): sem fonte para comparar
+       motivo: manchete: 1 manchete(s) de veiculo aceito na janela, nenhuma passou na regua da proxima reuniao: Yen jumps on BOJ hike bets, dollar slips on Waller comments  (sem numero)
+       está de acordo com a leitura? → SEM FONTE (confiança baixa) — veredito do agente `divergencia`, copiado, não recalculado aqui
+           lado ausente: mercado
+
+7. O QUE OS AGENTES JULGARAM
+   — perna GBP —
+       [divergencia · divergencia@v1 · chave GBP] SEM FONTE (confiança baixa) — vota: False
+           trecho: manchete: nenhum item de Reuters/Bloomberg/FT/WSJ com ate 7 dias entre os 116 resultados lidos
+           fonte: data/sentimento.json | data/precificacao.json | data/agentes/fala/ultimo.json | data/agentes/noticia/ultimo.json
+           ⚖️ OBJEÇÃO DO ADVOGADO [MEDIA] numero fantasma (derruba a tese: False)
+               O relatório final do agente cita, para o GBP, “inclinado ao corte (22%, evidência 75/100)”. O campo da camada 1 diz 31: data/sentimento.json, moedas.GBP.intensidade_relativa_pct = 31, gerado em 2026-09-08T15:24:03.500980+00:00 — e os dois campos irmãos do mesmo arquivo (intensidade_relativa_crua_pct e intensidade_relativa_pelo_teto_ligado_pct) também trazem 31, então não é confusão de campo. O mesmo defeito atinge o CHF no mesmo relatório: “46%” contra moedas.CHF.intensidade_relativa_pct = 44 (44 também nos dois campos irmãos). Achei a origem dos dois: são os valores da PRIMEIRA linha da rodada, `divergencia-20260908T1510Z`, que o próprio agente declarou ERRADA e substituiu — data/agentes/divergencia/historico.jsonl, linha 0, numeros_citados.hci_intensidade_relativa_pct = 22 no GBP e 46 no CHF, lida contra o sentimento de 2026-09-08T15:10:51. É exatamente a subclasse “número copiado de rodada anterior do arquivo”. **Delimitação importante, e ela reduz o alcance da objeção: o `ultimo.json` gravado está CERTO** — numeros_citados.hci_intensidade_relativa_pct traz 31 no GBP e 44 no CHF, e o `motivo` de cada linha também. O erro vive só no relatório de texto que sai do agente, que é o que o orquestrador lê e o que uma pessoa leria primeiro. O veredito `SEM FONTE` das duas moedas não depende do número e não muda.
+       [fala · fala@v1 · chave GBP/Pill] indeterminado (confiança média) — vota: False
+           trecho: Whether implicitly (via their internal thinking or analysis) or explicitly (via the material published in the Bank Insights article), it is natural for market participants to interpret this set of scenarios as suggesting the MPC is seeking to keep rates on hold but would raise rates aggressively if the inflation outlook were to deteriorate significantly.
+           fonte: https://www.bankofengland.co.uk/speech/2026/september/remarks-at-the-edinburgh-chamber-of-commerce
+       [noticia · noticia@v1 · chave GBP] indeterminado (confiança baixa) — vota: False
+           trecho: BOE Governor Bailey Says Market Rate-Hike Pricing Reflects 'Risk Premium' - finance.biggo.com
+           fonte: https://news.google.com/rss/articles/CBMidkFVX3lxTE16eXNuSndVX3dndER4RFZEcXpKZlpETXEtX0hTUWdaQkotcFZDVDlsTEdydk9FckVpcFZUSXpVZmxJUkFDYnlZY3dCQ29JYWx2X0tfRUx1VnZhWG9CdHNiVnRnaFNzeWM0alNEa2swSThXMEp2a1E?oc=5
+   — perna JPY —
+       [divergencia · divergencia@v1 · chave JPY] SEM FONTE (confiança baixa) — vota: False
+           trecho: manchete: 1 manchete(s) de veiculo aceito na janela, nenhuma passou na regua da proxima reuniao: Yen jumps on BOJ hike bets, dollar slips on Waller comments  (sem numero)
+           fonte: data/sentimento.json | data/precificacao.json | data/agentes/noticia/ultimo.json
+       [noticia · noticia@v1 · chave JPY] indeterminado (confiança baixa) — vota: False
+           trecho: BOJ to raise key interest rate by 0.25 percentage point in Sept. meeting - 毎日新聞
+           fonte: https://news.google.com/rss/articles/CBMic0FVX3lxTE1PQl9EeHNWbVM4bmNCMXJuMl8tVG1GVGx6MF80Wm5HTDM4a3lQc0h0djY1dklYNy1NZWVvTGJOZG5ES3U0ZFlOYU5WRl80TGp5aXZtMkJiM1FvOUJEamp5VTBNeUZ6d3YwX1J6S09XZzg3R1U?oc=5
+
+8. DIFERENCIAL DE JURO (dado exibido, NUNCA voto)
+   2 anos : diferencial 2.7013 pp (base 4.5283% x cotada 1.827%) · variação em 5 dias 16.5 bp
+            as_of base 2026-09-06 (idade 0 d.u.) · as_of cotada 2026-09-06 (idade 0 d.u.)
+   10 anos: diferencial 2.175 pp (base 5.141% x cotada 2.966%) · variação em 5 dias -6.2 bp
+            as_of base 2026-08-28 (idade 5 d.u.) · as_of cotada 2026-09-03 (idade 1 d.u.)
+
+====================================================================================================
+FICHA 5/16 — AUDCAD
+====================================================================================================
+1. AÇÃO ......... Compra AUD/CAD
+   ESTADO ....... forte   ·   DIVERGÊNCIA 50/100
+   MOTIVO ....... AUD inclinado à alta contra CAD inclinado ao corte
+   convicção da leitura: 50%   ·   convicção histórica: não medido (ainda não calibrada — precisa de backtest com amostra declarada)
+
+2. QUEM DÁ O MOTIVO (lei das duas pernas)
+   perna dominante: AUD com 73% da diferença
+      AUD: inclinado à alta (direção SOBE) · evidência 80/100 · 2 de 2 dimensões concordam
+      CAD: inclinado ao corte (direção CORTA) · evidência 24/100 · 1 de 2 dimensões concordam
+   ⚠️ par não é ativo, são duas moedas: um par 90% de uma perna é uma aposta naquela moeda
+
+3. MESMA APOSTA
+   AUDUSD, GBPAUD
+   ⚠️ compartilham a perna dominante: dois deles não diversificam, DOBRAM
+
+4. ATÉ QUANDO
+   evento invalidante: RBA (AUD) em 2026-09-29 — faltam 21 dia(s)
+   próximo dado relevante: CPI (núcleo) em 14/09 às 09:30 (BRT) · impacto HIGH
+   é o que diz por quanto tempo faz sentido PROCURAR a entrada — não é alvo nem prazo de posição
+
+5. QUALIDADE DA EVIDÊNCIA E BANDEIRAS
+   nota do par: 24/100   ·   por perna: {'AUD': 80, 'CAD': 24}   ·   elo fraco: CAD
+   5 alerta(s) copiados do sentimento.json:
+   [DOMINANCIA]
+      · mesma aposta que AUDUSD, GBPAUD — compartilham a perna AUD e não diversificam
+   [DIRECAO_FRAGIL]
+      · a direção dos DADOS do AUD depende da FAIXA NEUTRA (a régua de 'veio como esperado', PROVISÓRIA e nunca validada): hoje a soma é +20.98 (SOBE), mas com a faixa dobrada a soma é +2.69 (MANTEM). A faixa zera 8 divulgação(ões) que, com o sinal do próprio desvio, pesariam +1.43 — zerar um termo desloca a soma para o lado contrário, a mesma aritmética da winsorização revogada
+   [EVIDENCIA_FRACA]
+      · qualidade da evidência do par = 24/100, a MENOR das duas pernas (elo fraco: CAD, 24/100 contra 80/100 do AUD)
+      · nenhuma das duas pernas tem fala votando: desde 05/set a dimensão de discurso é contexto com selo, e a leitura vem de DADOS e CICLO apenas — duas dimensões por perna, teto 1.00 no par
+   [OUTRAS]
+      · uma única divulgação responde por 76% da leitura do CAD (Net Change in Employment)
+
+6. O QUE O MERCADO PAGA
+   AUD (RBA) · próxima reunião 2026-09-29 · taxa atual 4.35 · qualidade alta
+       o mercado paga: alta · p_alta 0.66 · p_manutenção 0.34 · p_corte 0.0 · implícito 16.5 bp
+       fonte: futuros IB (30 Day Interbank Cash Rate, ASX) via asx.api.markitdigital.com — a API do ASX RBA Rate Tracker
+       está de acordo com a leitura? → ALINHADO (confiança alta) — veredito do agente `divergencia`, copiado, não recalculado aqui
+   CAD (BoC): sem fonte para comparar
+       motivo: futuros: Bolsa de Montreal (COA, One-Month CORRA Futures) serve preco por widget QuoteMedia com sessao presa ao dominio: getFuturesChain.json -> Invalid product.; getEnhancedQuotes.json -> HTTP 403 | manchete: 1 manchete(s) de veiculo aceito na janela, nenhuma passou na regua da proxima reuniao: Bank of Canada holds key rate, says multiple hikes might be  (sem numero)
+       está de acordo com a leitura? → SEM FONTE (confiança baixa) — veredito do agente `divergencia`, copiado, não recalculado aqui
+           lado ausente: mercado
+
+7. O QUE OS AGENTES JULGARAM
+   — perna AUD —
+       [divergencia · divergencia@v1 · chave AUD] ALINHADO (confiança alta) — vota: False
+           trecho: base = alvo vigente do RBA 4.3500% (data/bancos_centrais.json). regra 1 (preferida): october nao tem reuniao deste banco, entao IBV2026 = 95.4850 e a taxa pos-decisao inteira -> taxa_pos = 100 - 95.4850 = 4.5150. conferencia pelo mes da reuniao: IBU2026 = 95.6500 -> media do mes 4.3500; 29 dias a 4.3500 + 1 dias a taxa_pos => taxa_pos = (4.3500*30 - 4.3500*29)/1 = 4.3500. ATENCAO: so 1 dia(s) depois da reuniao neste mes, entao esta conta amplifica o ruido do preco em 30x e NAO vale como segunda medida — o que ela mostra e que o mercado nao espera mudanca ANTES do dia 29. delta = 4.5150 - 4.3500 = +16.50 bp. Passo 25 bp: p_alta = 0.6600, p_corte = 0.0000, p_manutencao = 0.3400.
+           fonte: data/sentimento.json | data/precificacao.json | data/agentes/noticia/ultimo.json
+       [noticia · noticia@v1 · chave AUD] alta condicional (confiança media) — vota: False
+           trecho: RBA’s Hunter Says Inflation Top Priority, May Have to Raise Rate - bloomberg.com
+           fonte: https://news.google.com/rss/articles/CBMitAFBVV95cUxNdEI4RW5nR2FfbHg3VDlua2pVRlBCWHYwTkZEbnJTLXNIRUZ3R0xPRjZZTmFmMEpkM3FPY1R6aFpfdkJNakd2a29DLURyZDFMck5kOHJwSXBWbFl3SHQ2NjdVcTJJbmtpTkktVlBqQV9HM2IxWU9qRUEtZnJER24tR2U5TmN5WWlSNEQwcmkwVW9JdlVublEzNXBObktMRW80eENPQ3paY0d4eEo1enljWExyWTY?oc=5
+           ⚖️ OBJEÇÃO DO ADVOGADO [MEDIA] contradicao entre agentes (derruba a tese: False)
+               Duas afirmações incompatíveis sobre a MESMA coisa, na MESMA rodada, e eu não escolho entre elas. (a) O agente `noticia`, na chave AUD, escreve: “Sem fonte primaria: o RBA e buraco declarado (bloqueia automacao), entao nao ha discurso oficial para confrontar”. (b) O agente `fala`, rodando 6 minutos antes, lista DOIS discursos oficiais do RBA em data/bis_discursos.json: itens[0] = AUD / Christopher Kent, 2026-08-13, “The restrictive stance of monetary policy”, origem discurso_oficial, peso 1,0; e itens[2] = AUD / Michele Bullock, 2026-07-28, peso 1,0. Os dois vieram com frases_analisadas 0 (o PDF integral do BIS falhou, campo corpo_origem) e saíram `indeterminado`. A diferença que chega ao leitor é grande: “não existe” e “existe e veio mudo” não são a mesma informação, e a segunda é um pedido concreto à camada 1 (resolver o PDF do BIS), enquanto a primeira fecha o assunto. Registro a origem sem resolvê-la: `noticia@v1` lê apenas data/bc_discursos.json (PROMPT §1, tabela de leitura), onde o AUD tem de fato zero itens (resumo_por_moeda.AUD.itens_que_votam = 0), e data/noticias.json.buraco_declarado.rotulo diz literalmente “sem fala oficial disponivel — o banco bloqueia automacao”. Ou seja: a frase do agente é cópia fiel de um campo da camada 1 que a própria camada 1 contradiz noutro arquivo. Isto pesa porque o AUD é a única moeda com direção nesta rodada e a única linha que o `divergencia` chamou de “as três colunas apontam para o mesmo lado”.
+   — perna CAD —
+       [divergencia · divergencia@v1 · chave CAD] SEM FONTE (confiança baixa) — vota: False
+           trecho: futuros: Bolsa de Montreal (COA, One-Month CORRA Futures) serve preco por widget QuoteMedia com sessao presa ao dominio: getFuturesChain.json -> Invalid product.; getEnhancedQuotes.json -> HTTP 403 | manchete: 1 manchete(s) de veiculo aceito na janela, nenhuma passou na regua da proxima reuniao: Bank of Canada holds key rate, says multiple hikes might be  (sem numero)
+           fonte: data/sentimento.json | data/precificacao.json | data/agentes/fala/ultimo.json | data/agentes/noticia/ultimo.json
+           ⚖️ OBJEÇÃO DO ADVOGADO [ALTA] buraco tratado como neutro (derruba a tese: False)
+               O campo estruturado que o site lê diz que DOIS agentes leram `manutenção` no CAD. Um deles não leu. Em data/agentes/divergencia/ultimo.json, a linha do CAD traz `colunas.C_noticia` = {"agente": "fala, noticia", "veredito": "manutenção", "versao_prompt": "fala@v1, noticia@v1"}. Mas em data/agentes/noticia/ultimo.json, gerado em 2026-09-08T15:20:00Z, o julgamento da chave CAD tem veredito `indeterminado`, confiança baixa. O `indeterminado` do `noticia` foi absorvido pelo `manutenção` do `fala` e o crédito ficou nos dois prompts. Isso viola duas regras escritas do próprio agente: o PROMPT.md dele, seção 3.3 — “`indeterminado` é resposta legítima e frequente. Ela NÃO é ‘neutro’ e NÃO é ‘manutenção’” — e a lápide L-H7 dele, “agente ausente não vira ‘a notícia concorda’”. E há a inconsistência interna, que é a prova mais limpa: no USD, com a MESMA forma (um `manutenção`, um `alta condicional` e três `indeterminado`), o mesmo arquivo escreveu corretamente `colunas.C_noticia.veredito` = “contraditoria”. A mesma régua produziu duas respostas diferentes no mesmo arquivo. **O que eu NÃO afirmo, e é importante: o agente entendeu a distinção.** O `motivo` do CAD, o `coluna_C_detalhe` e o caso que ele abriu hoje (agentes/divergencia/casos/2026-09-08-CAD-noticia-contra-a-casa-sem-preco.md, linha 51) dizem por extenso “Indeterminado não é manutenção e não é neutro: só a linha do `fala` sustenta a coluna C aqui”. O defeito está no campo estruturado, não no raciocínio — e é justamente por isso que ele é perigoso: a prosa não vai para o campo que a tela renderiza, e o leitor vê “manutenção · fala@v1, noticia@v1” e lê dois agentes concordando. O veredito `SEM FONTE` do CAD não muda: o lado do mercado continua ausente.
+       [fala · fala@v1 · chave CAD/Macklem] manutenção (confiança alta) — vota: False
+           trecho: With recent data coming out largely in line with our July forecast, we decided to maintain the policy interest rate at 2.25%.
+           fonte: https://www.bankofcanada.ca/2026/09/opening-statement-2026-09-02/
+           ⚖️ OBJEÇÃO DO ADVOGADO [MEDIA] contradicao entre agentes (derruba a tese: False)
+               A MESMA frase, no MESMO arquivo da camada 1, lida ao contrário por dois agentes na mesma rodada — e as duas leituras vão para a tela. (a) `fala@v1` julga CAD/Macklem = `manutenção` com confiança ALTA: “É o anúncio da decisão do próprio banco, escrito no passado porque anuncia o que acabou de ser decidido: a postura está EM VIGOR, não é recibo... A exceção de tempo verbal vale só para manutenção.” (b) `noticia@v1`, no seu `limites`, escreve sobre a mesma frase: “o veredito `manutencao` do CAD em bc_discursos.json apoia-se numa frase no PASSADO ('we decided to maintain the policy interest rate at 2.25%'), que e o que a R3 descarta como balanco do que ja foi feito”. Não escolho o vencedor (D4, seção 9 do meu prompt): registro que a régua de TEMPO VERBAL tem duas versões escritas em dois prompts e que ninguém arbitrou. Isto importa porque a leitura de `fala` é a coluna C do CAD no agente `divergencia` e é o que ele chamou de “a observação mais forte da rodada”. Origem verificada por mim na camada 1: data/bc_discursos.json, itens[4], veredito_leitor.forca 4, frases_analisadas 2, peso 1,0, título “Monetary Policy Decision Press Conference Opening Statement”, bancos_centrais.CAD.ultima_decisao 2026-09-02 com resultado `manutencao` e bancos_centrais.CAD.proxima 2026-10-28 (dias_ate 50).
+       [noticia · noticia@v1 · chave CAD] indeterminado (confiança baixa) — vota: False
+           trecho: Canada's Jobs Slump in August Makes Bank of Canada Tightening Look Mispriced, Rosenberg Research Says - marketscreener.com
+           fonte: https://news.google.com/rss/articles/CBMi5wFBVV95cUxNalZzZFNWYWluLThUblk2eWVqSjNqTzlsTDVBenZ6WTZpTHJVWjJMZm1BdTNic09ITllacWp0X2VXWXBpcWQzZmR0SEljampZN3BKRmVQTGhwOTFuS0xCRHQwRzZ6bExMMlBYdDFpNF9CZUNfbWtTdlV4WHNKVWFRY0dad1FQUUo0VnNUb0J3VUdQd21CRk85NG9uSkl6bDdUTlBNSmZWdUdjWDJIMGxuamY4RTdFMXJxYU55ZU9lak9KWmhzbUp5MzJLMUY2RjZOMUNuU1IwVVUwcjZmSHNWdVdhTG4wbFk?oc=5
+
+8. DIFERENCIAL DE JURO (dado exibido, NUNCA voto)
+   2 anos : diferencial 1.716 pp (base 4.819% x cotada 3.103%) · variação em 5 dias 10.2 bp
+            as_of base 2026-09-06 (idade 0 d.u.) · as_of cotada 2026-09-06 (idade 0 d.u.)
+   10 anos: diferencial 1.43 pp (base 5.22% x cotada 3.79%) · variação em 5 dias 10.7 bp
+            as_of base 2026-09-02 (idade 2 d.u.) · as_of cotada 2026-09-03 (idade 1 d.u.)
+
+====================================================================================================
+FICHA 6/16 — CADJPY
+====================================================================================================
+1. AÇÃO ......... Venda CAD/JPY
+   ESTADO ....... forte   ·   DIVERGÊNCIA 48/100
+   MOTIVO ....... CAD inclinado ao corte contra JPY inclinado à alta
+   convicção da leitura: 48%   ·   convicção histórica: não medido (ainda não calibrada — precisa de backtest com amostra declarada)
+
+2. QUEM DÁ O MOTIVO (lei das duas pernas)
+   perna dominante: JPY com 71% da diferença
+      CAD: inclinado ao corte (direção CORTA) · evidência 24/100 · 1 de 2 dimensões concordam
+      JPY: inclinado à alta (direção SOBE) · evidência 91/100 · 2 de 2 dimensões concordam
+   ⚠️ par não é ativo, são duas moedas: um par 90% de uma perna é uma aposta naquela moeda
+
+3. MESMA APOSTA
+   USDJPY, GBPJPY
+   ⚠️ compartilham a perna dominante: dois deles não diversificam, DOBRAM
+
+4. ATÉ QUANDO
+   evento invalidante: BoJ (JPY) em 2026-09-18 — faltam 10 dia(s)
+   próximo dado relevante: CPI (núcleo) em 14/09 às 09:30 (BRT) · impacto HIGH
+   é o que diz por quanto tempo faz sentido PROCURAR a entrada — não é alvo nem prazo de posição
+
+5. QUALIDADE DA EVIDÊNCIA E BANDEIRAS
+   nota do par: 24/100   ·   por perna: {'CAD': 24, 'JPY': 91}   ·   elo fraco: CAD
+   5 alerta(s) copiados do sentimento.json:
+   [DOMINANCIA]
+      · mesma aposta que USDJPY, GBPJPY — compartilham a perna JPY e não diversificam
+   [DIRECAO_FRAGIL]
+      · a direção do JPY depende de PARÂMETRO NÃO CALIBRADO: só 98% das 130 células da faixa plausível (meia-vida 14-30 dias, modulador de impacto entre 'só alto conta' e 'plano') dão a leitura publicada — quem faz virar: só a combinação dos dois (nenhum vira sozinho)
+   [EVIDENCIA_FRACA]
+      · qualidade da evidência do par = 24/100, a MENOR das duas pernas (elo fraco: CAD, 24/100 contra 91/100 do JPY)
+      · nenhuma das duas pernas tem fala votando: desde 05/set a dimensão de discurso é contexto com selo, e a leitura vem de DADOS e CICLO apenas — duas dimensões por perna, teto 1.00 no par
+   [OUTRAS]
+      · uma única divulgação responde por 76% da leitura do CAD (Net Change in Employment)
+
+6. O QUE O MERCADO PAGA
+   CAD (BoC): sem fonte para comparar
+       motivo: futuros: Bolsa de Montreal (COA, One-Month CORRA Futures) serve preco por widget QuoteMedia com sessao presa ao dominio: getFuturesChain.json -> Invalid product.; getEnhancedQuotes.json -> HTTP 403 | manchete: 1 manchete(s) de veiculo aceito na janela, nenhuma passou na regua da proxima reuniao: Bank of Canada holds key rate, says multiple hikes might be  (sem numero)
+       está de acordo com a leitura? → SEM FONTE (confiança baixa) — veredito do agente `divergencia`, copiado, não recalculado aqui
+           lado ausente: mercado
+   JPY (BoJ): sem fonte para comparar
+       motivo: manchete: 1 manchete(s) de veiculo aceito na janela, nenhuma passou na regua da proxima reuniao: Yen jumps on BOJ hike bets, dollar slips on Waller comments  (sem numero)
+       está de acordo com a leitura? → SEM FONTE (confiança baixa) — veredito do agente `divergencia`, copiado, não recalculado aqui
+           lado ausente: mercado
+
+7. O QUE OS AGENTES JULGARAM
+   — perna CAD —
+       [divergencia · divergencia@v1 · chave CAD] SEM FONTE (confiança baixa) — vota: False
+           trecho: futuros: Bolsa de Montreal (COA, One-Month CORRA Futures) serve preco por widget QuoteMedia com sessao presa ao dominio: getFuturesChain.json -> Invalid product.; getEnhancedQuotes.json -> HTTP 403 | manchete: 1 manchete(s) de veiculo aceito na janela, nenhuma passou na regua da proxima reuniao: Bank of Canada holds key rate, says multiple hikes might be  (sem numero)
+           fonte: data/sentimento.json | data/precificacao.json | data/agentes/fala/ultimo.json | data/agentes/noticia/ultimo.json
+           ⚖️ OBJEÇÃO DO ADVOGADO [ALTA] buraco tratado como neutro (derruba a tese: False)
+               O campo estruturado que o site lê diz que DOIS agentes leram `manutenção` no CAD. Um deles não leu. Em data/agentes/divergencia/ultimo.json, a linha do CAD traz `colunas.C_noticia` = {"agente": "fala, noticia", "veredito": "manutenção", "versao_prompt": "fala@v1, noticia@v1"}. Mas em data/agentes/noticia/ultimo.json, gerado em 2026-09-08T15:20:00Z, o julgamento da chave CAD tem veredito `indeterminado`, confiança baixa. O `indeterminado` do `noticia` foi absorvido pelo `manutenção` do `fala` e o crédito ficou nos dois prompts. Isso viola duas regras escritas do próprio agente: o PROMPT.md dele, seção 3.3 — “`indeterminado` é resposta legítima e frequente. Ela NÃO é ‘neutro’ e NÃO é ‘manutenção’” — e a lápide L-H7 dele, “agente ausente não vira ‘a notícia concorda’”. E há a inconsistência interna, que é a prova mais limpa: no USD, com a MESMA forma (um `manutenção`, um `alta condicional` e três `indeterminado`), o mesmo arquivo escreveu corretamente `colunas.C_noticia.veredito` = “contraditoria”. A mesma régua produziu duas respostas diferentes no mesmo arquivo. **O que eu NÃO afirmo, e é importante: o agente entendeu a distinção.** O `motivo` do CAD, o `coluna_C_detalhe` e o caso que ele abriu hoje (agentes/divergencia/casos/2026-09-08-CAD-noticia-contra-a-casa-sem-preco.md, linha 51) dizem por extenso “Indeterminado não é manutenção e não é neutro: só a linha do `fala` sustenta a coluna C aqui”. O defeito está no campo estruturado, não no raciocínio — e é justamente por isso que ele é perigoso: a prosa não vai para o campo que a tela renderiza, e o leitor vê “manutenção · fala@v1, noticia@v1” e lê dois agentes concordando. O veredito `SEM FONTE` do CAD não muda: o lado do mercado continua ausente.
+       [fala · fala@v1 · chave CAD/Macklem] manutenção (confiança alta) — vota: False
+           trecho: With recent data coming out largely in line with our July forecast, we decided to maintain the policy interest rate at 2.25%.
+           fonte: https://www.bankofcanada.ca/2026/09/opening-statement-2026-09-02/
+           ⚖️ OBJEÇÃO DO ADVOGADO [MEDIA] contradicao entre agentes (derruba a tese: False)
+               A MESMA frase, no MESMO arquivo da camada 1, lida ao contrário por dois agentes na mesma rodada — e as duas leituras vão para a tela. (a) `fala@v1` julga CAD/Macklem = `manutenção` com confiança ALTA: “É o anúncio da decisão do próprio banco, escrito no passado porque anuncia o que acabou de ser decidido: a postura está EM VIGOR, não é recibo... A exceção de tempo verbal vale só para manutenção.” (b) `noticia@v1`, no seu `limites`, escreve sobre a mesma frase: “o veredito `manutencao` do CAD em bc_discursos.json apoia-se numa frase no PASSADO ('we decided to maintain the policy interest rate at 2.25%'), que e o que a R3 descarta como balanco do que ja foi feito”. Não escolho o vencedor (D4, seção 9 do meu prompt): registro que a régua de TEMPO VERBAL tem duas versões escritas em dois prompts e que ninguém arbitrou. Isto importa porque a leitura de `fala` é a coluna C do CAD no agente `divergencia` e é o que ele chamou de “a observação mais forte da rodada”. Origem verificada por mim na camada 1: data/bc_discursos.json, itens[4], veredito_leitor.forca 4, frases_analisadas 2, peso 1,0, título “Monetary Policy Decision Press Conference Opening Statement”, bancos_centrais.CAD.ultima_decisao 2026-09-02 com resultado `manutencao` e bancos_centrais.CAD.proxima 2026-10-28 (dias_ate 50).
+       [noticia · noticia@v1 · chave CAD] indeterminado (confiança baixa) — vota: False
+           trecho: Canada's Jobs Slump in August Makes Bank of Canada Tightening Look Mispriced, Rosenberg Research Says - marketscreener.com
+           fonte: https://news.google.com/rss/articles/CBMi5wFBVV95cUxNalZzZFNWYWluLThUblk2eWVqSjNqTzlsTDVBenZ6WTZpTHJVWjJMZm1BdTNic09ITllacWp0X2VXWXBpcWQzZmR0SEljampZN3BKRmVQTGhwOTFuS0xCRHQwRzZ6bExMMlBYdDFpNF9CZUNfbWtTdlV4WHNKVWFRY0dad1FQUUo0VnNUb0J3VUdQd21CRk85NG9uSkl6bDdUTlBNSmZWdUdjWDJIMGxuamY4RTdFMXJxYU55ZU9lak9KWmhzbUp5MzJLMUY2RjZOMUNuU1IwVVUwcjZmSHNWdVdhTG4wbFk?oc=5
+   — perna JPY —
+       [divergencia · divergencia@v1 · chave JPY] SEM FONTE (confiança baixa) — vota: False
+           trecho: manchete: 1 manchete(s) de veiculo aceito na janela, nenhuma passou na regua da proxima reuniao: Yen jumps on BOJ hike bets, dollar slips on Waller comments  (sem numero)
+           fonte: data/sentimento.json | data/precificacao.json | data/agentes/noticia/ultimo.json
+       [noticia · noticia@v1 · chave JPY] indeterminado (confiança baixa) — vota: False
+           trecho: BOJ to raise key interest rate by 0.25 percentage point in Sept. meeting - 毎日新聞
+           fonte: https://news.google.com/rss/articles/CBMic0FVX3lxTE1PQl9EeHNWbVM4bmNCMXJuMl8tVG1GVGx6MF80Wm5HTDM4a3lQc0h0djY1dklYNy1NZWVvTGJOZG5ES3U0ZFlOYU5WRl80TGp5aXZtMkJiM1FvOUJEamp5VTBNeUZ6d3YwX1J6S09XZzg3R1U?oc=5
+
+8. DIFERENCIAL DE JURO (dado exibido, NUNCA voto)
+   2 anos : diferencial 1.276 pp (base 3.103% x cotada 1.827%) · variação em 5 dias 3.1 bp
+            as_of base 2026-09-06 (idade 0 d.u.) · as_of cotada 2026-09-06 (idade 0 d.u.)
+   10 anos: diferencial 0.824 pp (base 3.79% x cotada 2.966%) · variação em 5 dias 2.1 bp
+            as_of base 2026-09-03 (idade 1 d.u.) · as_of cotada 2026-09-03 (idade 1 d.u.)
+
+====================================================================================================
+FICHA 7/16 — EURUSD
+====================================================================================================
+1. AÇÃO ......... Compra EUR/USD
+   ESTADO ....... forte   ·   DIVERGÊNCIA 45/100
+   MOTIVO ....... EUR inclinado à alta contra USD sem leitura
+   convicção da leitura: 45%   ·   convicção histórica: não medido (ainda não calibrada — precisa de backtest com amostra declarada)
+
+2. QUEM DÁ O MOTIVO (lei das duas pernas)
+   perna dominante: EUR com 84% da diferença
+      EUR: inclinado à alta (direção SOBE) · evidência 85/100 · 2 de 2 dimensões concordam
+      USD: sem leitura (direção MANTEM) · evidência 38/100 · 2 dimensões disponíveis; direção não formada
+   ⚠️ par não é ativo, são duas moedas: um par 90% de uma perna é uma aposta naquela moeda
+
+3. MESMA APOSTA
+   EURGBP, EURCAD, EURCHF
+   ⚠️ compartilham a perna dominante: dois deles não diversificam, DOBRAM
+
+4. ATÉ QUANDO
+   evento invalidante: BCE (EUR) em 2026-09-10 — faltam 2 dia(s)
+   próximo dado relevante: CPI em 10/09 às 03:00 (BRT) · impacto HIGH
+   é o que diz por quanto tempo faz sentido PROCURAR a entrada — não é alvo nem prazo de posição
+
+5. QUALIDADE DA EVIDÊNCIA E BANDEIRAS
+   nota do par: 38/100   ·   por perna: {'EUR': 85, 'USD': 38}   ·   elo fraco: USD
+   7 alerta(s) copiados do sentimento.json:
+   [DOMINANCIA]
+      · mesma aposta que EURGBP, EURCAD, EURCHF — compartilham a perna EUR e não diversificam
+   [DIRECAO_FRAGIL]
+      · a direção dos DADOS do USD depende da FAIXA NEUTRA (a régua de 'veio como esperado', PROVISÓRIA e nunca validada): hoje a soma é -1.17 (MANTEM), mas sem faixa nenhuma a soma é -16.27 (CORTA); com a faixa pela metade a soma é -10.79 (CORTA). A faixa zera 47 divulgação(ões) que, com o sinal do próprio desvio, pesariam -15.08 — zerar um termo desloca a soma para o lado contrário, a mesma aritmética da winsorização revogada
+      · a direção do EUR depende de PARÂMETRO NÃO CALIBRADO: só 95% das 130 células da faixa plausível (meia-vida 14-30 dias, modulador de impacto entre 'só alto conta' e 'plano') dão a leitura publicada — quem faz virar: modulador_de_impacto
+      · a direção do USD depende de PARÂMETRO NÃO CALIBRADO: só 38% das 130 células da faixa plausível (meia-vida 14-30 dias, modulador de impacto entre 'só alto conta' e 'plano') dão a leitura publicada — quem faz virar: os dois, o modulador_de_impacto mais: modulador (8 de 13 células) contra meia-vida (5 de 10 células)
+      · a perna USD está SEM LEITURA (sem leitura: intensidade relativa 14% abaixo do mínimo provisório de 15% (a leitura está perto demais de zero para virar direção). A moeda continua no arquivo, com tudo o que foi medido — o que não existe é a DIREÇÃO. E há um SEGUNDO motivo: a direção do USD DEPENDE de parâmetro que ninguém calibrou: 49 de 130 células da faixa plausível (38%) dão a leitura publicada ('sem leitura'), e as outras dão inclinado ao corte em 78 célula(s) · inclinado à alta em 3 célula(s). Quem faz virar: os dois, o modulador_de_impacto mais: modulador (8 de 13 células) contra meia-vida (5 de 10 células). Nenhum dado muda entre as células — só o botão. (o corte PROVISÓRIO de concordância é 60%).) — a tese do par se apoia só na outra perna
+   [EVIDENCIA_FRACA]
+      · qualidade da evidência do par = 38/100, a MENOR das duas pernas (elo fraco: USD, 38/100 contra 85/100 do EUR)
+      · nenhuma das duas pernas tem fala votando: desde 05/set a dimensão de discurso é contexto com selo, e a leitura vem de DADOS e CICLO apenas — duas dimensões por perna, teto 1.00 no par
+
+6. O QUE O MERCADO PAGA
+   EUR (BCE): sem fonte para comparar
+       motivo: manchete: 1 manchete(s) de veiculo aceito na janela, nenhuma passou na regua da proxima reuniao: Another rate hike, just for insurance: Five questions for th (sem numero)
+       está de acordo com a leitura? → SEM FONTE (confiança baixa) — veredito do agente `divergencia`, copiado, não recalculado aqui
+           lado ausente: mercado
+   USD (Fed) · próxima reunião 2026-09-16 · taxa atual 3.625 · qualidade alta
+       o mercado paga: alta · p_alta 0.5786 · p_manutenção 0.4214 · p_corte 0.0 · implícito 14.46 bp
+       fonte: futuros de fed funds 30d (ZQ, CME) via API de grafico do Yahoo + EFFR do NY Fed
+       está de acordo com a leitura? → SEM FONTE (confiança baixa) — veredito do agente `divergencia`, copiado, não recalculado aqui
+           lado ausente: hci
+
+7. O QUE OS AGENTES JULGARAM
+   — perna EUR —
+       [divergencia · divergencia@v1 · chave EUR] SEM FONTE (confiança baixa) — vota: False
+           trecho: manchete: 1 manchete(s) de veiculo aceito na janela, nenhuma passou na regua da proxima reuniao: Another rate hike, just for insurance: Five questions for th (sem numero)
+           fonte: data/sentimento.json | data/precificacao.json | data/agentes/noticia/ultimo.json
+       [noticia · noticia@v1 · chave EUR] indeterminado (confiança baixa) — vota: False
+           trecho: ECB Set to Raise Key Rate Again, Signal Caution on Further Moves - WSJ
+           fonte: https://news.google.com/rss/articles/CBMisgFBVV95cUxOYWRrQ2ZrenM2S1JzUFA5ejVZcHpQZXNQSGxFM2VkWmdWajZBamdBdXUxV09reGFtTkt6WkhpaGUwYVJ0MmJfVWpZVUlvX2hqeEhFTmRSUkYwelJRYjJtcUM0ai1qVDlFU283NV9wandtaXE3bGhqQXJGbWZYWEMxTjBwTnoyUkh5NmgtV0p5S0doUXRzYU14bEVBRDg2NzN3MFBDcDFEMlZSdUVoWkxjVllB?oc=5
+   — perna USD —
+       [divergencia · divergencia@v1 · chave USD] SEM FONTE (confiança baixa) — vota: False
+           trecho: sem leitura: intensidade relativa 14% abaixo do mínimo provisório de 15% (a leitura está perto demais de zero para virar direção). A moeda continua no arquivo, com tudo o que foi medido — o que não existe é a DIREÇÃO. E há um SEGUNDO motivo: a direção do USD DEPENDE de parâmetro que ninguém calibrou: 49 de 130 células da faixa plausível (38%) dão a leitura publicada ('sem leitura'), e as outras dão inclinado ao corte em 78 célula(s) · inclinado à alta em 3 célula(s). Quem faz virar: os dois, o modulador_de_impacto mais: modulador (8 de 13 células) contra meia-vida (5 de 10 células). Nenhum dado muda entre as células — só o botão. (o corte PROVISÓRIO de concordância é 60%).
+           fonte: data/sentimento.json | data/precificacao.json | data/agentes/fala/ultimo.json | data/agentes/noticia/ultimo.json
+       [fala · fala@v1 · chave USD/Waller] manutenção (confiança alta) — vota: False
+           trecho: If this continues in the data due over the next two weeks, I would be inclined to support holding the target for the federal funds rate at its current setting.
+           fonte: https://www.federalreserve.gov/newsevents/speech/waller20260903a.htm
+       [fala · fala@v1 · chave USD/Barr] alta condicional (confiança média) — vota: False
+           trecho: However, if inflation appears not to be moderating sufficiently, then I think we should act decisively to raise rates.
+           fonte: https://www.federalreserve.gov/newsevents/speech/barr20260901a.htm
+       [fala · fala@v1 · chave USD/Warsh] indeterminado (confiança alta) — vota: False
+           trecho: 7 And I believe when policymakers make quasi-commitments on interest rates through the cycle, we inhibit our own freedom to make the right calls when it's time to decide.
+           fonte: https://www.federalreserve.gov/newsevents/speech/warsh20260828a.htm
+       [fala · fala@v1 · chave USD/Lisa D Cook] indeterminado (confiança baixa) — vota: False
+           trecho: I would consider how a rate increase could negatively affect that stability.
+           fonte: https://www.bis.org/speeches/20260817-outlook-us-and-alaskan-economies
+       [noticia · noticia@v1 · chave USD] indeterminado (confiança baixa) — vota: False
+           trecho: COMMENTARY: Trump's baffling Fed threat could be gift to Warsh: Mike Dolan - Reuters
+           fonte: https://news.google.com/rss/articles/CBMiyAFBVV95cUxOUlJyMEZjMzY1WGZkdzZwdlJ3c0NYc1RBOU9yZkRYb1FpNjBCUElLSWU1ejVfemROSmhWOVBUWkhGV1VNWU1XTVlJd3VNcmlXdDZfc01taXJVTnppazFSS05iQ1A4Smw0OVNPS3l0VWNZenBVT1JONkg4U2RsaUozR2xWR3ZubUo3XzVlZXptNEhJOHZGelJtRl92aWRhLS1sSXplRm5TdUQ3Mk1SMnlpdHRiT3JXTk5IMDREWll0dGlsanlNQ1VNTA?oc=5
+
+8. DIFERENCIAL DE JURO (dado exibido, NUNCA voto)
+   2 anos : diferencial -1.4282 pp (base 2.9458% x cotada 4.374%) · variação em 5 dias -1.3 bp
+            as_of base 2026-09-06 (idade 0 d.u.) · as_of cotada 2026-09-06 (idade 0 d.u.)
+   10 anos: diferencial -1.4154 pp (base 3.3646% x cotada 4.78%) · variação em 5 dias 3.7 bp
+            as_of base 2026-09-03 (idade 1 d.u.) · as_of cotada 2026-09-04 (idade 0 d.u.)
+
+====================================================================================================
+FICHA 8/16 — AUDUSD
+====================================================================================================
+1. AÇÃO ......... Compra AUD/USD
+   ESTADO ....... forte   ·   DIVERGÊNCIA 44/100
+   MOTIVO ....... AUD inclinado à alta contra USD sem leitura
+   convicção da leitura: 44%   ·   convicção histórica: não medido (ainda não calibrada — precisa de backtest com amostra declarada)
+
+2. QUEM DÁ O MOTIVO (lei das duas pernas)
+   perna dominante: AUD com 83% da diferença
+      AUD: inclinado à alta (direção SOBE) · evidência 80/100 · 2 de 2 dimensões concordam
+      USD: sem leitura (direção MANTEM) · evidência 38/100 · 2 dimensões disponíveis; direção não formada
+   ⚠️ par não é ativo, são duas moedas: um par 90% de uma perna é uma aposta naquela moeda
+
+3. MESMA APOSTA
+   GBPAUD, AUDCAD
+   ⚠️ compartilham a perna dominante: dois deles não diversificam, DOBRAM
+
+4. ATÉ QUANDO
+   evento invalidante: Fed (USD) em 2026-09-16 — faltam 8 dia(s)
+   próximo dado relevante: PPI (núcleo) em 10/09 às 09:30 (BRT) · impacto HIGH
+   é o que diz por quanto tempo faz sentido PROCURAR a entrada — não é alvo nem prazo de posição
+
+5. QUALIDADE DA EVIDÊNCIA E BANDEIRAS
+   nota do par: 38/100   ·   por perna: {'AUD': 80, 'USD': 38}   ·   elo fraco: USD
+   7 alerta(s) copiados do sentimento.json:
+   [DOMINANCIA]
+      · mesma aposta que GBPAUD, AUDCAD — compartilham a perna AUD e não diversificam
+   [DIRECAO_FRAGIL]
+      · a direção dos DADOS do AUD depende da FAIXA NEUTRA (a régua de 'veio como esperado', PROVISÓRIA e nunca validada): hoje a soma é +20.98 (SOBE), mas com a faixa dobrada a soma é +2.69 (MANTEM). A faixa zera 8 divulgação(ões) que, com o sinal do próprio desvio, pesariam +1.43 — zerar um termo desloca a soma para o lado contrário, a mesma aritmética da winsorização revogada
+      · a direção dos DADOS do USD depende da FAIXA NEUTRA (a régua de 'veio como esperado', PROVISÓRIA e nunca validada): hoje a soma é -1.17 (MANTEM), mas sem faixa nenhuma a soma é -16.27 (CORTA); com a faixa pela metade a soma é -10.79 (CORTA). A faixa zera 47 divulgação(ões) que, com o sinal do próprio desvio, pesariam -15.08 — zerar um termo desloca a soma para o lado contrário, a mesma aritmética da winsorização revogada
+      · a direção do USD depende de PARÂMETRO NÃO CALIBRADO: só 38% das 130 células da faixa plausível (meia-vida 14-30 dias, modulador de impacto entre 'só alto conta' e 'plano') dão a leitura publicada — quem faz virar: os dois, o modulador_de_impacto mais: modulador (8 de 13 células) contra meia-vida (5 de 10 células)
+      · a perna USD está SEM LEITURA (sem leitura: intensidade relativa 14% abaixo do mínimo provisório de 15% (a leitura está perto demais de zero para virar direção). A moeda continua no arquivo, com tudo o que foi medido — o que não existe é a DIREÇÃO. E há um SEGUNDO motivo: a direção do USD DEPENDE de parâmetro que ninguém calibrou: 49 de 130 células da faixa plausível (38%) dão a leitura publicada ('sem leitura'), e as outras dão inclinado ao corte em 78 célula(s) · inclinado à alta em 3 célula(s). Quem faz virar: os dois, o modulador_de_impacto mais: modulador (8 de 13 células) contra meia-vida (5 de 10 células). Nenhum dado muda entre as células — só o botão. (o corte PROVISÓRIO de concordância é 60%).) — a tese do par se apoia só na outra perna
+   [EVIDENCIA_FRACA]
+      · qualidade da evidência do par = 38/100, a MENOR das duas pernas (elo fraco: USD, 38/100 contra 80/100 do AUD)
+      · nenhuma das duas pernas tem fala votando: desde 05/set a dimensão de discurso é contexto com selo, e a leitura vem de DADOS e CICLO apenas — duas dimensões por perna, teto 1.00 no par
+
+6. O QUE O MERCADO PAGA
+   AUD (RBA) · próxima reunião 2026-09-29 · taxa atual 4.35 · qualidade alta
+       o mercado paga: alta · p_alta 0.66 · p_manutenção 0.34 · p_corte 0.0 · implícito 16.5 bp
+       fonte: futuros IB (30 Day Interbank Cash Rate, ASX) via asx.api.markitdigital.com — a API do ASX RBA Rate Tracker
+       está de acordo com a leitura? → ALINHADO (confiança alta) — veredito do agente `divergencia`, copiado, não recalculado aqui
+   USD (Fed) · próxima reunião 2026-09-16 · taxa atual 3.625 · qualidade alta
+       o mercado paga: alta · p_alta 0.5786 · p_manutenção 0.4214 · p_corte 0.0 · implícito 14.46 bp
+       fonte: futuros de fed funds 30d (ZQ, CME) via API de grafico do Yahoo + EFFR do NY Fed
+       está de acordo com a leitura? → SEM FONTE (confiança baixa) — veredito do agente `divergencia`, copiado, não recalculado aqui
+           lado ausente: hci
+
+7. O QUE OS AGENTES JULGARAM
+   — perna AUD —
+       [divergencia · divergencia@v1 · chave AUD] ALINHADO (confiança alta) — vota: False
+           trecho: base = alvo vigente do RBA 4.3500% (data/bancos_centrais.json). regra 1 (preferida): october nao tem reuniao deste banco, entao IBV2026 = 95.4850 e a taxa pos-decisao inteira -> taxa_pos = 100 - 95.4850 = 4.5150. conferencia pelo mes da reuniao: IBU2026 = 95.6500 -> media do mes 4.3500; 29 dias a 4.3500 + 1 dias a taxa_pos => taxa_pos = (4.3500*30 - 4.3500*29)/1 = 4.3500. ATENCAO: so 1 dia(s) depois da reuniao neste mes, entao esta conta amplifica o ruido do preco em 30x e NAO vale como segunda medida — o que ela mostra e que o mercado nao espera mudanca ANTES do dia 29. delta = 4.5150 - 4.3500 = +16.50 bp. Passo 25 bp: p_alta = 0.6600, p_corte = 0.0000, p_manutencao = 0.3400.
+           fonte: data/sentimento.json | data/precificacao.json | data/agentes/noticia/ultimo.json
+       [noticia · noticia@v1 · chave AUD] alta condicional (confiança media) — vota: False
+           trecho: RBA’s Hunter Says Inflation Top Priority, May Have to Raise Rate - bloomberg.com
+           fonte: https://news.google.com/rss/articles/CBMitAFBVV95cUxNdEI4RW5nR2FfbHg3VDlua2pVRlBCWHYwTkZEbnJTLXNIRUZ3R0xPRjZZTmFmMEpkM3FPY1R6aFpfdkJNakd2a29DLURyZDFMck5kOHJwSXBWbFl3SHQ2NjdVcTJJbmtpTkktVlBqQV9HM2IxWU9qRUEtZnJER24tR2U5TmN5WWlSNEQwcmkwVW9JdlVublEzNXBObktMRW80eENPQ3paY0d4eEo1enljWExyWTY?oc=5
+           ⚖️ OBJEÇÃO DO ADVOGADO [MEDIA] contradicao entre agentes (derruba a tese: False)
+               Duas afirmações incompatíveis sobre a MESMA coisa, na MESMA rodada, e eu não escolho entre elas. (a) O agente `noticia`, na chave AUD, escreve: “Sem fonte primaria: o RBA e buraco declarado (bloqueia automacao), entao nao ha discurso oficial para confrontar”. (b) O agente `fala`, rodando 6 minutos antes, lista DOIS discursos oficiais do RBA em data/bis_discursos.json: itens[0] = AUD / Christopher Kent, 2026-08-13, “The restrictive stance of monetary policy”, origem discurso_oficial, peso 1,0; e itens[2] = AUD / Michele Bullock, 2026-07-28, peso 1,0. Os dois vieram com frases_analisadas 0 (o PDF integral do BIS falhou, campo corpo_origem) e saíram `indeterminado`. A diferença que chega ao leitor é grande: “não existe” e “existe e veio mudo” não são a mesma informação, e a segunda é um pedido concreto à camada 1 (resolver o PDF do BIS), enquanto a primeira fecha o assunto. Registro a origem sem resolvê-la: `noticia@v1` lê apenas data/bc_discursos.json (PROMPT §1, tabela de leitura), onde o AUD tem de fato zero itens (resumo_por_moeda.AUD.itens_que_votam = 0), e data/noticias.json.buraco_declarado.rotulo diz literalmente “sem fala oficial disponivel — o banco bloqueia automacao”. Ou seja: a frase do agente é cópia fiel de um campo da camada 1 que a própria camada 1 contradiz noutro arquivo. Isto pesa porque o AUD é a única moeda com direção nesta rodada e a única linha que o `divergencia` chamou de “as três colunas apontam para o mesmo lado”.
+   — perna USD —
+       [divergencia · divergencia@v1 · chave USD] SEM FONTE (confiança baixa) — vota: False
+           trecho: sem leitura: intensidade relativa 14% abaixo do mínimo provisório de 15% (a leitura está perto demais de zero para virar direção). A moeda continua no arquivo, com tudo o que foi medido — o que não existe é a DIREÇÃO. E há um SEGUNDO motivo: a direção do USD DEPENDE de parâmetro que ninguém calibrou: 49 de 130 células da faixa plausível (38%) dão a leitura publicada ('sem leitura'), e as outras dão inclinado ao corte em 78 célula(s) · inclinado à alta em 3 célula(s). Quem faz virar: os dois, o modulador_de_impacto mais: modulador (8 de 13 células) contra meia-vida (5 de 10 células). Nenhum dado muda entre as células — só o botão. (o corte PROVISÓRIO de concordância é 60%).
+           fonte: data/sentimento.json | data/precificacao.json | data/agentes/fala/ultimo.json | data/agentes/noticia/ultimo.json
+       [fala · fala@v1 · chave USD/Waller] manutenção (confiança alta) — vota: False
+           trecho: If this continues in the data due over the next two weeks, I would be inclined to support holding the target for the federal funds rate at its current setting.
+           fonte: https://www.federalreserve.gov/newsevents/speech/waller20260903a.htm
+       [fala · fala@v1 · chave USD/Barr] alta condicional (confiança média) — vota: False
+           trecho: However, if inflation appears not to be moderating sufficiently, then I think we should act decisively to raise rates.
+           fonte: https://www.federalreserve.gov/newsevents/speech/barr20260901a.htm
+       [fala · fala@v1 · chave USD/Warsh] indeterminado (confiança alta) — vota: False
+           trecho: 7 And I believe when policymakers make quasi-commitments on interest rates through the cycle, we inhibit our own freedom to make the right calls when it's time to decide.
+           fonte: https://www.federalreserve.gov/newsevents/speech/warsh20260828a.htm
+       [fala · fala@v1 · chave USD/Lisa D Cook] indeterminado (confiança baixa) — vota: False
+           trecho: I would consider how a rate increase could negatively affect that stability.
+           fonte: https://www.bis.org/speeches/20260817-outlook-us-and-alaskan-economies
+       [noticia · noticia@v1 · chave USD] indeterminado (confiança baixa) — vota: False
+           trecho: COMMENTARY: Trump's baffling Fed threat could be gift to Warsh: Mike Dolan - Reuters
+           fonte: https://news.google.com/rss/articles/CBMiyAFBVV95cUxOUlJyMEZjMzY1WGZkdzZwdlJ3c0NYc1RBOU9yZkRYb1FpNjBCUElLSWU1ejVfemROSmhWOVBUWkhGV1VNWU1XTVlJd3VNcmlXdDZfc01taXJVTnppazFSS05iQ1A4Smw0OVNPS3l0VWNZenBVT1JONkg4U2RsaUozR2xWR3ZubUo3XzVlZXptNEhJOHZGelJtRl92aWRhLS1sSXplRm5TdUQ3Mk1SMnlpdHRiT3JXTk5IMDREWll0dGlsanlNQ1VNTA?oc=5
+
+8. DIFERENCIAL DE JURO (dado exibido, NUNCA voto)
+   2 anos : diferencial 0.445 pp (base 4.819% x cotada 4.374%) · variação em 5 dias 10.1 bp
+            as_of base 2026-09-06 (idade 0 d.u.) · as_of cotada 2026-09-06 (idade 0 d.u.)
+   10 anos: diferencial 0.44 pp (base 5.22% x cotada 4.78%) · variação em 5 dias 14.7 bp
+            as_of base 2026-09-02 (idade 2 d.u.) · as_of cotada 2026-09-04 (idade 0 d.u.)
+
+====================================================================================================
+FICHA 9/16 — USDJPY
+====================================================================================================
+1. AÇÃO ......... Venda USD/JPY
+   ESTADO ....... forte   ·   DIVERGÊNCIA 41/100
+   MOTIVO ....... USD sem leitura contra JPY inclinado à alta
+   convicção da leitura: 41%   ·   convicção histórica: não medido (ainda não calibrada — precisa de backtest com amostra declarada)
+
+2. QUEM DÁ O MOTIVO (lei das duas pernas)
+   perna dominante: JPY com 83% da diferença
+      USD: sem leitura (direção MANTEM) · evidência 38/100 · 2 dimensões disponíveis; direção não formada
+      JPY: inclinado à alta (direção SOBE) · evidência 91/100 · 2 de 2 dimensões concordam
+   ⚠️ par não é ativo, são duas moedas: um par 90% de uma perna é uma aposta naquela moeda
+
+3. MESMA APOSTA
+   GBPJPY, CADJPY
+   ⚠️ compartilham a perna dominante: dois deles não diversificam, DOBRAM
+
+4. ATÉ QUANDO
+   evento invalidante: Fed (USD) em 2026-09-16 — faltam 8 dia(s)
+   próximo dado relevante: PPI (núcleo) em 10/09 às 09:30 (BRT) · impacto HIGH
+   é o que diz por quanto tempo faz sentido PROCURAR a entrada — não é alvo nem prazo de posição
+
+5. QUALIDADE DA EVIDÊNCIA E BANDEIRAS
+   nota do par: 38/100   ·   por perna: {'USD': 38, 'JPY': 91}   ·   elo fraco: USD
+   7 alerta(s) copiados do sentimento.json:
+   [DOMINANCIA]
+      · mesma aposta que GBPJPY, CADJPY — compartilham a perna JPY e não diversificam
+   [DIRECAO_FRAGIL]
+      · a direção dos DADOS do USD depende da FAIXA NEUTRA (a régua de 'veio como esperado', PROVISÓRIA e nunca validada): hoje a soma é -1.17 (MANTEM), mas sem faixa nenhuma a soma é -16.27 (CORTA); com a faixa pela metade a soma é -10.79 (CORTA). A faixa zera 47 divulgação(ões) que, com o sinal do próprio desvio, pesariam -15.08 — zerar um termo desloca a soma para o lado contrário, a mesma aritmética da winsorização revogada
+      · a direção do USD depende de PARÂMETRO NÃO CALIBRADO: só 38% das 130 células da faixa plausível (meia-vida 14-30 dias, modulador de impacto entre 'só alto conta' e 'plano') dão a leitura publicada — quem faz virar: os dois, o modulador_de_impacto mais: modulador (8 de 13 células) contra meia-vida (5 de 10 células)
+      · a direção do JPY depende de PARÂMETRO NÃO CALIBRADO: só 98% das 130 células da faixa plausível (meia-vida 14-30 dias, modulador de impacto entre 'só alto conta' e 'plano') dão a leitura publicada — quem faz virar: só a combinação dos dois (nenhum vira sozinho)
+      · a perna USD está SEM LEITURA (sem leitura: intensidade relativa 14% abaixo do mínimo provisório de 15% (a leitura está perto demais de zero para virar direção). A moeda continua no arquivo, com tudo o que foi medido — o que não existe é a DIREÇÃO. E há um SEGUNDO motivo: a direção do USD DEPENDE de parâmetro que ninguém calibrou: 49 de 130 células da faixa plausível (38%) dão a leitura publicada ('sem leitura'), e as outras dão inclinado ao corte em 78 célula(s) · inclinado à alta em 3 célula(s). Quem faz virar: os dois, o modulador_de_impacto mais: modulador (8 de 13 células) contra meia-vida (5 de 10 células). Nenhum dado muda entre as células — só o botão. (o corte PROVISÓRIO de concordância é 60%).) — a tese do par se apoia só na outra perna
+   [EVIDENCIA_FRACA]
+      · qualidade da evidência do par = 38/100, a MENOR das duas pernas (elo fraco: USD, 38/100 contra 91/100 do JPY)
+      · nenhuma das duas pernas tem fala votando: desde 05/set a dimensão de discurso é contexto com selo, e a leitura vem de DADOS e CICLO apenas — duas dimensões por perna, teto 1.00 no par
+
+6. O QUE O MERCADO PAGA
+   USD (Fed) · próxima reunião 2026-09-16 · taxa atual 3.625 · qualidade alta
+       o mercado paga: alta · p_alta 0.5786 · p_manutenção 0.4214 · p_corte 0.0 · implícito 14.46 bp
+       fonte: futuros de fed funds 30d (ZQ, CME) via API de grafico do Yahoo + EFFR do NY Fed
+       está de acordo com a leitura? → SEM FONTE (confiança baixa) — veredito do agente `divergencia`, copiado, não recalculado aqui
+           lado ausente: hci
+   JPY (BoJ): sem fonte para comparar
+       motivo: manchete: 1 manchete(s) de veiculo aceito na janela, nenhuma passou na regua da proxima reuniao: Yen jumps on BOJ hike bets, dollar slips on Waller comments  (sem numero)
+       está de acordo com a leitura? → SEM FONTE (confiança baixa) — veredito do agente `divergencia`, copiado, não recalculado aqui
+           lado ausente: mercado
+
+7. O QUE OS AGENTES JULGARAM
+   — perna USD —
+       [divergencia · divergencia@v1 · chave USD] SEM FONTE (confiança baixa) — vota: False
+           trecho: sem leitura: intensidade relativa 14% abaixo do mínimo provisório de 15% (a leitura está perto demais de zero para virar direção). A moeda continua no arquivo, com tudo o que foi medido — o que não existe é a DIREÇÃO. E há um SEGUNDO motivo: a direção do USD DEPENDE de parâmetro que ninguém calibrou: 49 de 130 células da faixa plausível (38%) dão a leitura publicada ('sem leitura'), e as outras dão inclinado ao corte em 78 célula(s) · inclinado à alta em 3 célula(s). Quem faz virar: os dois, o modulador_de_impacto mais: modulador (8 de 13 células) contra meia-vida (5 de 10 células). Nenhum dado muda entre as células — só o botão. (o corte PROVISÓRIO de concordância é 60%).
+           fonte: data/sentimento.json | data/precificacao.json | data/agentes/fala/ultimo.json | data/agentes/noticia/ultimo.json
+       [fala · fala@v1 · chave USD/Waller] manutenção (confiança alta) — vota: False
+           trecho: If this continues in the data due over the next two weeks, I would be inclined to support holding the target for the federal funds rate at its current setting.
+           fonte: https://www.federalreserve.gov/newsevents/speech/waller20260903a.htm
+       [fala · fala@v1 · chave USD/Barr] alta condicional (confiança média) — vota: False
+           trecho: However, if inflation appears not to be moderating sufficiently, then I think we should act decisively to raise rates.
+           fonte: https://www.federalreserve.gov/newsevents/speech/barr20260901a.htm
+       [fala · fala@v1 · chave USD/Warsh] indeterminado (confiança alta) — vota: False
+           trecho: 7 And I believe when policymakers make quasi-commitments on interest rates through the cycle, we inhibit our own freedom to make the right calls when it's time to decide.
+           fonte: https://www.federalreserve.gov/newsevents/speech/warsh20260828a.htm
+       [fala · fala@v1 · chave USD/Lisa D Cook] indeterminado (confiança baixa) — vota: False
+           trecho: I would consider how a rate increase could negatively affect that stability.
+           fonte: https://www.bis.org/speeches/20260817-outlook-us-and-alaskan-economies
+       [noticia · noticia@v1 · chave USD] indeterminado (confiança baixa) — vota: False
+           trecho: COMMENTARY: Trump's baffling Fed threat could be gift to Warsh: Mike Dolan - Reuters
+           fonte: https://news.google.com/rss/articles/CBMiyAFBVV95cUxOUlJyMEZjMzY1WGZkdzZwdlJ3c0NYc1RBOU9yZkRYb1FpNjBCUElLSWU1ejVfemROSmhWOVBUWkhGV1VNWU1XTVlJd3VNcmlXdDZfc01taXJVTnppazFSS05iQ1A4Smw0OVNPS3l0VWNZenBVT1JONkg4U2RsaUozR2xWR3ZubUo3XzVlZXptNEhJOHZGelJtRl92aWRhLS1sSXplRm5TdUQ3Mk1SMnlpdHRiT3JXTk5IMDREWll0dGlsanlNQ1VNTA?oc=5
+   — perna JPY —
+       [divergencia · divergencia@v1 · chave JPY] SEM FONTE (confiança baixa) — vota: False
+           trecho: manchete: 1 manchete(s) de veiculo aceito na janela, nenhuma passou na regua da proxima reuniao: Yen jumps on BOJ hike bets, dollar slips on Waller comments  (sem numero)
+           fonte: data/sentimento.json | data/precificacao.json | data/agentes/noticia/ultimo.json
+       [noticia · noticia@v1 · chave JPY] indeterminado (confiança baixa) — vota: False
+           trecho: BOJ to raise key interest rate by 0.25 percentage point in Sept. meeting - 毎日新聞
+           fonte: https://news.google.com/rss/articles/CBMic0FVX3lxTE1PQl9EeHNWbVM4bmNCMXJuMl8tVG1GVGx6MF80Wm5HTDM4a3lQc0h0djY1dklYNy1NZWVvTGJOZG5ES3U0ZFlOYU5WRl80TGp5aXZtMkJiM1FvOUJEamp5VTBNeUZ6d3YwX1J6S09XZzg3R1U?oc=5
+
+8. DIFERENCIAL DE JURO (dado exibido, NUNCA voto)
+   2 anos : diferencial 2.547 pp (base 4.374% x cotada 1.827%) · variação em 5 dias 3.2 bp
+            as_of base 2026-09-06 (idade 0 d.u.) · as_of cotada 2026-09-06 (idade 0 d.u.)
+   10 anos: diferencial 1.814 pp (base 4.78% x cotada 2.966%) · variação em 5 dias -1.9 bp
+            as_of base 2026-09-04 (idade 0 d.u.) · as_of cotada 2026-09-03 (idade 1 d.u.)
+
+====================================================================================================
+FICHA 10/16 — GBPNZD
+====================================================================================================
+1. AÇÃO ......... Venda GBP/NZD
+   ESTADO ....... observacao   ·   DIVERGÊNCIA 39/100
+   MOTIVO ....... GBP inclinado ao corte contra NZD inclinado à alta
+   convicção da leitura: 39%   ·   convicção histórica: não medido (ainda não calibrada — precisa de backtest com amostra declarada)
+
+2. QUEM DÁ O MOTIVO (lei das duas pernas)
+   perna dominante: NZD com 60% da diferença
+      GBP: inclinado ao corte (direção CORTA) · evidência 75/100 · 1 de 2 dimensões concordam
+      NZD: inclinado à alta (direção SOBE) · evidência 0/100 · 1 de 2 dimensões concordam
+   ⚠️ par não é ativo, são duas moedas: um par 90% de uma perna é uma aposta naquela moeda
+
+3. MESMA APOSTA
+   NZDUSD, NZDCAD
+   ⚠️ compartilham a perna dominante: dois deles não diversificam, DOBRAM
+
+4. ATÉ QUANDO
+   evento invalidante: BoE (GBP) em 2026-09-17 — faltam 9 dia(s)
+   próximo dado relevante: emprego em 15/09 às 03:00 (BRT) · impacto HIGH
+   é o que diz por quanto tempo faz sentido PROCURAR a entrada — não é alvo nem prazo de posição
+
+5. QUALIDADE DA EVIDÊNCIA E BANDEIRAS
+   nota do par: 0/100   ·   por perna: {'GBP': 75, 'NZD': 0}   ·   elo fraco: NZD
+   7 alerta(s) copiados do sentimento.json:
+   [DOMINANCIA]
+      · mesma aposta que NZDUSD, NZDCAD — compartilham a perna NZD e não diversificam
+   [DIRECAO_FRAGIL]
+      · a direção dos DADOS do GBP depende da FAIXA NEUTRA (a régua de 'veio como esperado', PROVISÓRIA e nunca validada): hoje a soma é -4.64 (MANTEM), mas sem faixa nenhuma a soma é -5.69 (CORTA); com a faixa pela metade a soma é -5.77 (CORTA). A faixa zera 21 divulgação(ões) que, com o sinal do próprio desvio, pesariam -1.04 — zerar um termo desloca a soma para o lado contrário, a mesma aritmética da winsorização revogada
+      · a direção do GBP depende de PARÂMETRO NÃO CALIBRADO: só 78% das 130 células da faixa plausível (meia-vida 14-30 dias, modulador de impacto entre 'só alto conta' e 'plano') dão a leitura publicada — quem faz virar: modulador_de_impacto
+   [EVIDENCIA_FRACA]
+      · estado rebaixado de 'moderada' para 'observacao': qualidade da evidência do par é nula (0/100) — sem evidência o par não sai da zona de observação, por maior que seja a divergência
+      · qualidade da evidência do par = 0/100, a MENOR das duas pernas (elo fraco: NZD, 0/100 contra 75/100 do GBP)
+      · nenhuma das duas pernas tem fala votando: desde 05/set a dimensão de discurso é contexto com selo, e a leitura vem de DADOS e CICLO apenas — duas dimensões por perna, teto 1.00 no par
+   [OUTRAS]
+      · uma única divulgação responde por 100% da leitura do NZD (Terms of Trade Index)
+
+6. O QUE O MERCADO PAGA
+   GBP (BoE): sem fonte para comparar
+       motivo: manchete: nenhum item de Reuters/Bloomberg/FT/WSJ com ate 7 dias entre os 123 resultados lidos
+       está de acordo com a leitura? → SEM FONTE (confiança baixa) — veredito do agente `divergencia`, copiado, não recalculado aqui
+           lado ausente: mercado
+   NZD (RBNZ) · próxima reunião 2026-10-28 · taxa atual 2.75 · qualidade baixa
+       o mercado paga: alta · p_alta não medido · p_manutenção não medido · p_corte não medido · implícito não medido bp
+       fonte: futuros BB (New Zealand 90 Day Bank Bill, ASX) via asx.api.markitdigital.com
+       está de acordo com a leitura? → ALINHADO (confiança baixa) — veredito do agente `divergencia`, copiado, não recalculado aqui
+
+7. O QUE OS AGENTES JULGARAM
+   — perna GBP —
+       [divergencia · divergencia@v1 · chave GBP] SEM FONTE (confiança baixa) — vota: False
+           trecho: manchete: nenhum item de Reuters/Bloomberg/FT/WSJ com ate 7 dias entre os 116 resultados lidos
+           fonte: data/sentimento.json | data/precificacao.json | data/agentes/fala/ultimo.json | data/agentes/noticia/ultimo.json
+           ⚖️ OBJEÇÃO DO ADVOGADO [MEDIA] numero fantasma (derruba a tese: False)
+               O relatório final do agente cita, para o GBP, “inclinado ao corte (22%, evidência 75/100)”. O campo da camada 1 diz 31: data/sentimento.json, moedas.GBP.intensidade_relativa_pct = 31, gerado em 2026-09-08T15:24:03.500980+00:00 — e os dois campos irmãos do mesmo arquivo (intensidade_relativa_crua_pct e intensidade_relativa_pelo_teto_ligado_pct) também trazem 31, então não é confusão de campo. O mesmo defeito atinge o CHF no mesmo relatório: “46%” contra moedas.CHF.intensidade_relativa_pct = 44 (44 também nos dois campos irmãos). Achei a origem dos dois: são os valores da PRIMEIRA linha da rodada, `divergencia-20260908T1510Z`, que o próprio agente declarou ERRADA e substituiu — data/agentes/divergencia/historico.jsonl, linha 0, numeros_citados.hci_intensidade_relativa_pct = 22 no GBP e 46 no CHF, lida contra o sentimento de 2026-09-08T15:10:51. É exatamente a subclasse “número copiado de rodada anterior do arquivo”. **Delimitação importante, e ela reduz o alcance da objeção: o `ultimo.json` gravado está CERTO** — numeros_citados.hci_intensidade_relativa_pct traz 31 no GBP e 44 no CHF, e o `motivo` de cada linha também. O erro vive só no relatório de texto que sai do agente, que é o que o orquestrador lê e o que uma pessoa leria primeiro. O veredito `SEM FONTE` das duas moedas não depende do número e não muda.
+       [fala · fala@v1 · chave GBP/Pill] indeterminado (confiança média) — vota: False
+           trecho: Whether implicitly (via their internal thinking or analysis) or explicitly (via the material published in the Bank Insights article), it is natural for market participants to interpret this set of scenarios as suggesting the MPC is seeking to keep rates on hold but would raise rates aggressively if the inflation outlook were to deteriorate significantly.
+           fonte: https://www.bankofengland.co.uk/speech/2026/september/remarks-at-the-edinburgh-chamber-of-commerce
+       [noticia · noticia@v1 · chave GBP] indeterminado (confiança baixa) — vota: False
+           trecho: BOE Governor Bailey Says Market Rate-Hike Pricing Reflects 'Risk Premium' - finance.biggo.com
+           fonte: https://news.google.com/rss/articles/CBMidkFVX3lxTE16eXNuSndVX3dndER4RFZEcXpKZlpETXEtX0hTUWdaQkotcFZDVDlsTEdydk9FckVpcFZUSXpVZmxJUkFDYnlZY3dCQ29JYWx2X0tfRUx1VnZhWG9CdHNiVnRnaFNzeWM0alNEa2swSThXMEp2a1E?oc=5
+   — perna NZD —
+       [divergencia · divergencia@v1 · chave NZD] ALINHADO (confiança baixa) — vota: False
+           trecho: BB e taxa a TERMO de 90 dias, nao media mensal da OCR: carrega premio de prazo e de credito e cobre uma janela que atravessa mais de uma reuniao. Converter em probabilidade da proxima reuniao exigiria arbitrar o spread bank bill x OCR, que seria estimativa sem fonte. Fica so a direcao.
+           fonte: data/sentimento.json | data/precificacao.json | data/agentes/noticia/ultimo.json
+       [noticia · noticia@v1 · chave NZD] indeterminado (confiança baixa) — vota: False
+           trecho: RBNZ Interest Rate Outlook: Is New Zealand Entering a Harder Phase of the Rate Cycle? - equiti.com
+           fonte: https://news.google.com/rss/articles/CBMiqgFBVV95cUxNNlJtdk1ReVlaVE42OFFFbk1rZXVxMWVrYnQ4bUhkMDZPR2dzSVBRMk5fWkJCTGU5SWZQWDh4aFExNU5ZZmFDeGZrQko4S3FNRV84RGlxYllqcDZkNFl2eG1nckhDYVJEUlJrLWtLektIeEFIMUliV1U3VmlWMGo1c05qQUdLVHFYa2t1Sk0wcnQ1QVk5eTdabDBZWDFTSDItSHJab0p4TjBnQQ?oc=5
+
+8. DIFERENCIAL DE JURO (dado exibido, NUNCA voto)
+   2 anos : diferencial 0.8803 pp (base 4.5283% x cotada 3.648%) · variação em 5 dias 21.9 bp
+            as_of base 2026-09-06 (idade 0 d.u.) · as_of cotada 2026-09-06 (idade 0 d.u.)
+   10 anos: diferencial 0.361 pp (base 5.141% x cotada 4.78%) · variação em 5 dias -4.3 bp
+            as_of base 2026-08-28 (idade 5 d.u.) · as_of cotada 2026-09-03 (idade 1 d.u.)
+
+====================================================================================================
+FICHA 11/16 — GBPCHF
+====================================================================================================
+1. AÇÃO ......... Venda GBP/CHF
+   ESTADO ....... moderada   ·   DIVERGÊNCIA 38/100
+   MOTIVO ....... GBP inclinado ao corte contra CHF inclinado à alta
+   convicção da leitura: 38%   ·   convicção histórica: não medido (ainda não calibrada — precisa de backtest com amostra declarada)
+
+2. QUEM DÁ O MOTIVO (lei das duas pernas)
+   perna dominante: CHF com 59% da diferença
+      GBP: inclinado ao corte (direção CORTA) · evidência 75/100 · 1 de 2 dimensões concordam
+      CHF: inclinado à alta (direção SOBE) · evidência 75/100 · 1 de 2 dimensões concordam
+   ⚠️ par não é ativo, são duas moedas: um par 90% de uma perna é uma aposta naquela moeda
+
+3. MESMA APOSTA
+   USDCHF, CADCHF
+   ⚠️ compartilham a perna dominante: dois deles não diversificam, DOBRAM
+
+4. ATÉ QUANDO
+   evento invalidante: BoE (GBP) em 2026-09-17 — faltam 9 dia(s)
+   próximo dado relevante: emprego em 15/09 às 03:00 (BRT) · impacto HIGH
+   é o que diz por quanto tempo faz sentido PROCURAR a entrada — não é alvo nem prazo de posição
+
+5. QUALIDADE DA EVIDÊNCIA E BANDEIRAS
+   nota do par: 75/100   ·   por perna: {'GBP': 75, 'CHF': 75}   ·   elo fraco: GBP
+   6 alerta(s) copiados do sentimento.json:
+   [DOMINANCIA]
+      · mesma aposta que USDCHF, CADCHF — compartilham a perna CHF e não diversificam
+   [DIRECAO_FRAGIL]
+      · a direção dos DADOS do GBP depende da FAIXA NEUTRA (a régua de 'veio como esperado', PROVISÓRIA e nunca validada): hoje a soma é -4.64 (MANTEM), mas sem faixa nenhuma a soma é -5.69 (CORTA); com a faixa pela metade a soma é -5.77 (CORTA). A faixa zera 21 divulgação(ões) que, com o sinal do próprio desvio, pesariam -1.04 — zerar um termo desloca a soma para o lado contrário, a mesma aritmética da winsorização revogada
+      · a direção do GBP depende de PARÂMETRO NÃO CALIBRADO: só 78% das 130 células da faixa plausível (meia-vida 14-30 dias, modulador de impacto entre 'só alto conta' e 'plano') dão a leitura publicada — quem faz virar: modulador_de_impacto
+   [EVIDENCIA_FRACA]
+      · qualidade da evidência do par = 75/100, a MENOR das duas pernas (elo fraco: GBP, 75/100 contra 75/100 do CHF)
+      · nenhuma das duas pernas tem fala votando: desde 05/set a dimensão de discurso é contexto com selo, e a leitura vem de DADOS e CICLO apenas — duas dimensões por perna, teto 1.00 no par
+   [OUTRAS]
+      · o CHF não tem fonte de fala conectada (sem_fonte) — buraco declarado, não zero
+
+6. O QUE O MERCADO PAGA
+   GBP (BoE): sem fonte para comparar
+       motivo: manchete: nenhum item de Reuters/Bloomberg/FT/WSJ com ate 7 dias entre os 123 resultados lidos
+       está de acordo com a leitura? → SEM FONTE (confiança baixa) — veredito do agente `divergencia`, copiado, não recalculado aqui
+           lado ausente: mercado
+   CHF (SNB): sem fonte para comparar
+       motivo: manchete: nenhum item de Reuters/Bloomberg/FT/WSJ com ate 7 dias entre os 92 resultados lidos
+       está de acordo com a leitura? → SEM FONTE (confiança baixa) — veredito do agente `divergencia`, copiado, não recalculado aqui
+           lado ausente: mercado
+
+7. O QUE OS AGENTES JULGARAM
+   — perna GBP —
+       [divergencia · divergencia@v1 · chave GBP] SEM FONTE (confiança baixa) — vota: False
+           trecho: manchete: nenhum item de Reuters/Bloomberg/FT/WSJ com ate 7 dias entre os 116 resultados lidos
+           fonte: data/sentimento.json | data/precificacao.json | data/agentes/fala/ultimo.json | data/agentes/noticia/ultimo.json
+           ⚖️ OBJEÇÃO DO ADVOGADO [MEDIA] numero fantasma (derruba a tese: False)
+               O relatório final do agente cita, para o GBP, “inclinado ao corte (22%, evidência 75/100)”. O campo da camada 1 diz 31: data/sentimento.json, moedas.GBP.intensidade_relativa_pct = 31, gerado em 2026-09-08T15:24:03.500980+00:00 — e os dois campos irmãos do mesmo arquivo (intensidade_relativa_crua_pct e intensidade_relativa_pelo_teto_ligado_pct) também trazem 31, então não é confusão de campo. O mesmo defeito atinge o CHF no mesmo relatório: “46%” contra moedas.CHF.intensidade_relativa_pct = 44 (44 também nos dois campos irmãos). Achei a origem dos dois: são os valores da PRIMEIRA linha da rodada, `divergencia-20260908T1510Z`, que o próprio agente declarou ERRADA e substituiu — data/agentes/divergencia/historico.jsonl, linha 0, numeros_citados.hci_intensidade_relativa_pct = 22 no GBP e 46 no CHF, lida contra o sentimento de 2026-09-08T15:10:51. É exatamente a subclasse “número copiado de rodada anterior do arquivo”. **Delimitação importante, e ela reduz o alcance da objeção: o `ultimo.json` gravado está CERTO** — numeros_citados.hci_intensidade_relativa_pct traz 31 no GBP e 44 no CHF, e o `motivo` de cada linha também. O erro vive só no relatório de texto que sai do agente, que é o que o orquestrador lê e o que uma pessoa leria primeiro. O veredito `SEM FONTE` das duas moedas não depende do número e não muda.
+       [fala · fala@v1 · chave GBP/Pill] indeterminado (confiança média) — vota: False
+           trecho: Whether implicitly (via their internal thinking or analysis) or explicitly (via the material published in the Bank Insights article), it is natural for market participants to interpret this set of scenarios as suggesting the MPC is seeking to keep rates on hold but would raise rates aggressively if the inflation outlook were to deteriorate significantly.
+           fonte: https://www.bankofengland.co.uk/speech/2026/september/remarks-at-the-edinburgh-chamber-of-commerce
+       [noticia · noticia@v1 · chave GBP] indeterminado (confiança baixa) — vota: False
+           trecho: BOE Governor Bailey Says Market Rate-Hike Pricing Reflects 'Risk Premium' - finance.biggo.com
+           fonte: https://news.google.com/rss/articles/CBMidkFVX3lxTE16eXNuSndVX3dndER4RFZEcXpKZlpETXEtX0hTUWdaQkotcFZDVDlsTEdydk9FckVpcFZUSXpVZmxJUkFDYnlZY3dCQ29JYWx2X0tfRUx1VnZhWG9CdHNiVnRnaFNzeWM0alNEa2swSThXMEp2a1E?oc=5
+   — perna CHF —
+       [divergencia · divergencia@v1 · chave CHF] SEM FONTE (confiança baixa) — vota: False
+           trecho: manchete: nenhum item de Reuters/Bloomberg/FT/WSJ com ate 7 dias entre os 92 resultados lidos
+           fonte: data/sentimento.json | data/precificacao.json
+           ⚖️ OBJEÇÃO DO ADVOGADO [ALTA] contradicao entre agentes (derruba a tese: False)
+               Os dois agentes que preenchem a linha do CHF na tela discordam por escrito sobre o que é um veredito válido, e eu não escolho. (a) `divergencia@v1` manda a coluna C do CHF para `nao_julgados` com o motivo: “o agente `noticia` devolveu o veredito ‘não é sobre juro’, que está FORA do vocabulário de seis palavras”, e grava `colunas.C_noticia` = {agente: null, veredito: null, versao_prompt: null}. (b) `agentes/noticia/PROMPT.md`, seção 3, lista OITO vereditos possíveis, e `não é sobre juro` é um deles, com a definição ao lado (“a matéria não trata da política de juros daquele banco”); a seção 7.1 do mesmo prompt existe só para separar `sem dados`, `não é sobre juro` e `indeterminado`. As duas réguas estão escritas e se contradizem: `agentes/divergencia/PROMPT.md`, seção 3.3, diz “Os dois usam o mesmo vocabulário de veredito, o de leitor_falas.py, e só estes seis”. Registro os dois lados e a origem: é uma cópia envelhecida de uma lista que mora noutro arquivo. Este é o MESMO buraco que a revisão de 07/09 corrigiu no MEU prompt (seção 3.1, “esta tabela é cópia, e cópia envelhece”); a correção não foi propagada para o `divergencia@v1`. Efeito no leitor: a única leitura de notícia que existia para o CHF some da coluna C, e a moeda aparece como se nenhum agente a tivesse olhado. Não afirmo qual das duas listas é a correta — mudar vocabulário exige subir a versão do prompt, e isso é decisão do dono, não minha.
+       [noticia · noticia@v1 · chave CHF] não é sobre juro (confiança baixa) — vota: False
+           trecho: Swiss Inflation Jumps on Higher Energy Prices - WSJ
+           fonte: https://news.google.com/rss/articles/CBMikwFBVV95cUxNaWQyNlZaMVVqMFVkMUktSWUxc1lBSk1DZWxBVVB5QzBxZ3VBaGlmakxoRlNkbEx0Tmd6bHJHNXNYRVFVTVh1bkFtRGo3OXJBMmdiUG54TnE4S0NRYmdyeTRjanZqY0ZXSzFMUmhYOEVWZXZUMTdSRUdXejhVenB4SFR3RTVUQ05OclV0MkRzSmw2a1U?oc=5
+
+8. DIFERENCIAL DE JURO (dado exibido, NUNCA voto)
+   2 anos : diferencial 4.4003 pp (base 4.5283% x cotada 0.128%) · variação em 5 dias 22.1 bp
+            as_of base 2026-09-06 (idade 0 d.u.) · as_of cotada 2026-09-06 (idade 0 d.u.)
+   10 anos: diferencial 4.651 pp (base 5.141% x cotada 0.49%) · variação em 5 dias -5.9 bp
+            as_of base 2026-08-28 (idade 5 d.u.) · as_of cotada 2026-09-03 (idade 1 d.u.)
+
+====================================================================================================
+FICHA 12/16 — NZDCAD
+====================================================================================================
+1. AÇÃO ......... Compra NZD/CAD
+   ESTADO ....... observacao   ·   DIVERGÊNCIA 37/100
+   MOTIVO ....... NZD inclinado à alta contra CAD inclinado ao corte
+   convicção da leitura: 37%   ·   convicção histórica: não medido (ainda não calibrada — precisa de backtest com amostra declarada)
+
+2. QUEM DÁ O MOTIVO (lei das duas pernas)
+   perna dominante: NZD com 63% da diferença
+      NZD: inclinado à alta (direção SOBE) · evidência 0/100 · 1 de 2 dimensões concordam
+      CAD: inclinado ao corte (direção CORTA) · evidência 24/100 · 1 de 2 dimensões concordam
+   ⚠️ par não é ativo, são duas moedas: um par 90% de uma perna é uma aposta naquela moeda
+
+3. MESMA APOSTA
+   NZDUSD, GBPNZD
+   ⚠️ compartilham a perna dominante: dois deles não diversificam, DOBRAM
+
+4. ATÉ QUANDO
+   evento invalidante: RBNZ (NZD) em 2026-10-28 — faltam 50 dia(s)
+   próximo dado relevante: CPI (núcleo) em 14/09 às 09:30 (BRT) · impacto HIGH
+   é o que diz por quanto tempo faz sentido PROCURAR a entrada — não é alvo nem prazo de posição
+
+5. QUALIDADE DA EVIDÊNCIA E BANDEIRAS
+   nota do par: 0/100   ·   por perna: {'NZD': 0, 'CAD': 24}   ·   elo fraco: NZD
+   6 alerta(s) copiados do sentimento.json:
+   [DOMINANCIA]
+      · mesma aposta que NZDUSD, GBPNZD — compartilham a perna NZD e não diversificam
+   [EVIDENCIA_FRACA]
+      · estado rebaixado de 'moderada' para 'observacao': qualidade da evidência do par é nula (0/100) — sem evidência o par não sai da zona de observação, por maior que seja a divergência
+      · qualidade da evidência do par = 0/100, a MENOR das duas pernas (elo fraco: NZD, 0/100 contra 24/100 do CAD)
+      · nenhuma das duas pernas tem fala votando: desde 05/set a dimensão de discurso é contexto com selo, e a leitura vem de DADOS e CICLO apenas — duas dimensões por perna, teto 1.00 no par
+   [OUTRAS]
+      · uma única divulgação responde por 100% da leitura do NZD (Terms of Trade Index)
+      · uma única divulgação responde por 76% da leitura do CAD (Net Change in Employment)
+
+6. O QUE O MERCADO PAGA
+   NZD (RBNZ) · próxima reunião 2026-10-28 · taxa atual 2.75 · qualidade baixa
+       o mercado paga: alta · p_alta não medido · p_manutenção não medido · p_corte não medido · implícito não medido bp
+       fonte: futuros BB (New Zealand 90 Day Bank Bill, ASX) via asx.api.markitdigital.com
+       está de acordo com a leitura? → ALINHADO (confiança baixa) — veredito do agente `divergencia`, copiado, não recalculado aqui
+   CAD (BoC): sem fonte para comparar
+       motivo: futuros: Bolsa de Montreal (COA, One-Month CORRA Futures) serve preco por widget QuoteMedia com sessao presa ao dominio: getFuturesChain.json -> Invalid product.; getEnhancedQuotes.json -> HTTP 403 | manchete: 1 manchete(s) de veiculo aceito na janela, nenhuma passou na regua da proxima reuniao: Bank of Canada holds key rate, says multiple hikes might be  (sem numero)
+       está de acordo com a leitura? → SEM FONTE (confiança baixa) — veredito do agente `divergencia`, copiado, não recalculado aqui
+           lado ausente: mercado
+
+7. O QUE OS AGENTES JULGARAM
+   — perna NZD —
+       [divergencia · divergencia@v1 · chave NZD] ALINHADO (confiança baixa) — vota: False
+           trecho: BB e taxa a TERMO de 90 dias, nao media mensal da OCR: carrega premio de prazo e de credito e cobre uma janela que atravessa mais de uma reuniao. Converter em probabilidade da proxima reuniao exigiria arbitrar o spread bank bill x OCR, que seria estimativa sem fonte. Fica so a direcao.
+           fonte: data/sentimento.json | data/precificacao.json | data/agentes/noticia/ultimo.json
+       [noticia · noticia@v1 · chave NZD] indeterminado (confiança baixa) — vota: False
+           trecho: RBNZ Interest Rate Outlook: Is New Zealand Entering a Harder Phase of the Rate Cycle? - equiti.com
+           fonte: https://news.google.com/rss/articles/CBMiqgFBVV95cUxNNlJtdk1ReVlaVE42OFFFbk1rZXVxMWVrYnQ4bUhkMDZPR2dzSVBRMk5fWkJCTGU5SWZQWDh4aFExNU5ZZmFDeGZrQko4S3FNRV84RGlxYllqcDZkNFl2eG1nckhDYVJEUlJrLWtLektIeEFIMUliV1U3VmlWMGo1c05qQUdLVHFYa2t1Sk0wcnQ1QVk5eTdabDBZWDFTSDItSHJab0p4TjBnQQ?oc=5
+   — perna CAD —
+       [divergencia · divergencia@v1 · chave CAD] SEM FONTE (confiança baixa) — vota: False
+           trecho: futuros: Bolsa de Montreal (COA, One-Month CORRA Futures) serve preco por widget QuoteMedia com sessao presa ao dominio: getFuturesChain.json -> Invalid product.; getEnhancedQuotes.json -> HTTP 403 | manchete: 1 manchete(s) de veiculo aceito na janela, nenhuma passou na regua da proxima reuniao: Bank of Canada holds key rate, says multiple hikes might be  (sem numero)
+           fonte: data/sentimento.json | data/precificacao.json | data/agentes/fala/ultimo.json | data/agentes/noticia/ultimo.json
+           ⚖️ OBJEÇÃO DO ADVOGADO [ALTA] buraco tratado como neutro (derruba a tese: False)
+               O campo estruturado que o site lê diz que DOIS agentes leram `manutenção` no CAD. Um deles não leu. Em data/agentes/divergencia/ultimo.json, a linha do CAD traz `colunas.C_noticia` = {"agente": "fala, noticia", "veredito": "manutenção", "versao_prompt": "fala@v1, noticia@v1"}. Mas em data/agentes/noticia/ultimo.json, gerado em 2026-09-08T15:20:00Z, o julgamento da chave CAD tem veredito `indeterminado`, confiança baixa. O `indeterminado` do `noticia` foi absorvido pelo `manutenção` do `fala` e o crédito ficou nos dois prompts. Isso viola duas regras escritas do próprio agente: o PROMPT.md dele, seção 3.3 — “`indeterminado` é resposta legítima e frequente. Ela NÃO é ‘neutro’ e NÃO é ‘manutenção’” — e a lápide L-H7 dele, “agente ausente não vira ‘a notícia concorda’”. E há a inconsistência interna, que é a prova mais limpa: no USD, com a MESMA forma (um `manutenção`, um `alta condicional` e três `indeterminado`), o mesmo arquivo escreveu corretamente `colunas.C_noticia.veredito` = “contraditoria”. A mesma régua produziu duas respostas diferentes no mesmo arquivo. **O que eu NÃO afirmo, e é importante: o agente entendeu a distinção.** O `motivo` do CAD, o `coluna_C_detalhe` e o caso que ele abriu hoje (agentes/divergencia/casos/2026-09-08-CAD-noticia-contra-a-casa-sem-preco.md, linha 51) dizem por extenso “Indeterminado não é manutenção e não é neutro: só a linha do `fala` sustenta a coluna C aqui”. O defeito está no campo estruturado, não no raciocínio — e é justamente por isso que ele é perigoso: a prosa não vai para o campo que a tela renderiza, e o leitor vê “manutenção · fala@v1, noticia@v1” e lê dois agentes concordando. O veredito `SEM FONTE` do CAD não muda: o lado do mercado continua ausente.
+       [fala · fala@v1 · chave CAD/Macklem] manutenção (confiança alta) — vota: False
+           trecho: With recent data coming out largely in line with our July forecast, we decided to maintain the policy interest rate at 2.25%.
+           fonte: https://www.bankofcanada.ca/2026/09/opening-statement-2026-09-02/
+           ⚖️ OBJEÇÃO DO ADVOGADO [MEDIA] contradicao entre agentes (derruba a tese: False)
+               A MESMA frase, no MESMO arquivo da camada 1, lida ao contrário por dois agentes na mesma rodada — e as duas leituras vão para a tela. (a) `fala@v1` julga CAD/Macklem = `manutenção` com confiança ALTA: “É o anúncio da decisão do próprio banco, escrito no passado porque anuncia o que acabou de ser decidido: a postura está EM VIGOR, não é recibo... A exceção de tempo verbal vale só para manutenção.” (b) `noticia@v1`, no seu `limites`, escreve sobre a mesma frase: “o veredito `manutencao` do CAD em bc_discursos.json apoia-se numa frase no PASSADO ('we decided to maintain the policy interest rate at 2.25%'), que e o que a R3 descarta como balanco do que ja foi feito”. Não escolho o vencedor (D4, seção 9 do meu prompt): registro que a régua de TEMPO VERBAL tem duas versões escritas em dois prompts e que ninguém arbitrou. Isto importa porque a leitura de `fala` é a coluna C do CAD no agente `divergencia` e é o que ele chamou de “a observação mais forte da rodada”. Origem verificada por mim na camada 1: data/bc_discursos.json, itens[4], veredito_leitor.forca 4, frases_analisadas 2, peso 1,0, título “Monetary Policy Decision Press Conference Opening Statement”, bancos_centrais.CAD.ultima_decisao 2026-09-02 com resultado `manutencao` e bancos_centrais.CAD.proxima 2026-10-28 (dias_ate 50).
+       [noticia · noticia@v1 · chave CAD] indeterminado (confiança baixa) — vota: False
+           trecho: Canada's Jobs Slump in August Makes Bank of Canada Tightening Look Mispriced, Rosenberg Research Says - marketscreener.com
+           fonte: https://news.google.com/rss/articles/CBMi5wFBVV95cUxNalZzZFNWYWluLThUblk2eWVqSjNqTzlsTDVBenZ6WTZpTHJVWjJMZm1BdTNic09ITllacWp0X2VXWXBpcWQzZmR0SEljampZN3BKRmVQTGhwOTFuS0xCRHQwRzZ6bExMMlBYdDFpNF9CZUNfbWtTdlV4WHNKVWFRY0dad1FQUUo0VnNUb0J3VUdQd21CRk85NG9uSkl6bDdUTlBNSmZWdUdjWDJIMGxuamY4RTdFMXJxYU55ZU9lak9KWmhzbUp5MzJLMUY2RjZOMUNuU1IwVVUwcjZmSHNWdVdhTG4wbFk?oc=5
+
+8. DIFERENCIAL DE JURO (dado exibido, NUNCA voto)
+   2 anos : diferencial 0.545 pp (base 3.648% x cotada 3.103%) · variação em 5 dias -8.5 bp
+            as_of base 2026-09-06 (idade 0 d.u.) · as_of cotada 2026-09-06 (idade 0 d.u.)
+   10 anos: diferencial 0.99 pp (base 4.78% x cotada 3.79%) · variação em 5 dias -4.0 bp
+            as_of base 2026-09-03 (idade 1 d.u.) · as_of cotada 2026-09-03 (idade 1 d.u.)
+
+====================================================================================================
+FICHA 13/16 — CADCHF
+====================================================================================================
+1. AÇÃO ......... Venda CAD/CHF
+   ESTADO ....... moderada   ·   DIVERGÊNCIA 36/100
+   MOTIVO ....... CAD inclinado ao corte contra CHF inclinado à alta
+   convicção da leitura: 36%   ·   convicção histórica: não medido (ainda não calibrada — precisa de backtest com amostra declarada)
+
+2. QUEM DÁ O MOTIVO (lei das duas pernas)
+   perna dominante: CHF com 62% da diferença
+      CAD: inclinado ao corte (direção CORTA) · evidência 24/100 · 1 de 2 dimensões concordam
+      CHF: inclinado à alta (direção SOBE) · evidência 75/100 · 1 de 2 dimensões concordam
+   ⚠️ par não é ativo, são duas moedas: um par 90% de uma perna é uma aposta naquela moeda
+
+3. MESMA APOSTA
+   USDCHF, GBPCHF
+   ⚠️ compartilham a perna dominante: dois deles não diversificam, DOBRAM
+
+4. ATÉ QUANDO
+   evento invalidante: SNB (CHF) em 2026-09-24 — faltam 16 dia(s)
+   próximo dado relevante: CPI (núcleo) em 14/09 às 09:30 (BRT) · impacto HIGH
+   é o que diz por quanto tempo faz sentido PROCURAR a entrada — não é alvo nem prazo de posição
+
+5. QUALIDADE DA EVIDÊNCIA E BANDEIRAS
+   nota do par: 24/100   ·   por perna: {'CAD': 24, 'CHF': 75}   ·   elo fraco: CAD
+   5 alerta(s) copiados do sentimento.json:
+   [DOMINANCIA]
+      · mesma aposta que USDCHF, GBPCHF — compartilham a perna CHF e não diversificam
+   [EVIDENCIA_FRACA]
+      · qualidade da evidência do par = 24/100, a MENOR das duas pernas (elo fraco: CAD, 24/100 contra 75/100 do CHF)
+      · nenhuma das duas pernas tem fala votando: desde 05/set a dimensão de discurso é contexto com selo, e a leitura vem de DADOS e CICLO apenas — duas dimensões por perna, teto 1.00 no par
+   [OUTRAS]
+      · uma única divulgação responde por 76% da leitura do CAD (Net Change in Employment)
+      · o CHF não tem fonte de fala conectada (sem_fonte) — buraco declarado, não zero
+
+6. O QUE O MERCADO PAGA
+   CAD (BoC): sem fonte para comparar
+       motivo: futuros: Bolsa de Montreal (COA, One-Month CORRA Futures) serve preco por widget QuoteMedia com sessao presa ao dominio: getFuturesChain.json -> Invalid product.; getEnhancedQuotes.json -> HTTP 403 | manchete: 1 manchete(s) de veiculo aceito na janela, nenhuma passou na regua da proxima reuniao: Bank of Canada holds key rate, says multiple hikes might be  (sem numero)
+       está de acordo com a leitura? → SEM FONTE (confiança baixa) — veredito do agente `divergencia`, copiado, não recalculado aqui
+           lado ausente: mercado
+   CHF (SNB): sem fonte para comparar
+       motivo: manchete: nenhum item de Reuters/Bloomberg/FT/WSJ com ate 7 dias entre os 92 resultados lidos
+       está de acordo com a leitura? → SEM FONTE (confiança baixa) — veredito do agente `divergencia`, copiado, não recalculado aqui
+           lado ausente: mercado
+
+7. O QUE OS AGENTES JULGARAM
+   — perna CAD —
+       [divergencia · divergencia@v1 · chave CAD] SEM FONTE (confiança baixa) — vota: False
+           trecho: futuros: Bolsa de Montreal (COA, One-Month CORRA Futures) serve preco por widget QuoteMedia com sessao presa ao dominio: getFuturesChain.json -> Invalid product.; getEnhancedQuotes.json -> HTTP 403 | manchete: 1 manchete(s) de veiculo aceito na janela, nenhuma passou na regua da proxima reuniao: Bank of Canada holds key rate, says multiple hikes might be  (sem numero)
+           fonte: data/sentimento.json | data/precificacao.json | data/agentes/fala/ultimo.json | data/agentes/noticia/ultimo.json
+           ⚖️ OBJEÇÃO DO ADVOGADO [ALTA] buraco tratado como neutro (derruba a tese: False)
+               O campo estruturado que o site lê diz que DOIS agentes leram `manutenção` no CAD. Um deles não leu. Em data/agentes/divergencia/ultimo.json, a linha do CAD traz `colunas.C_noticia` = {"agente": "fala, noticia", "veredito": "manutenção", "versao_prompt": "fala@v1, noticia@v1"}. Mas em data/agentes/noticia/ultimo.json, gerado em 2026-09-08T15:20:00Z, o julgamento da chave CAD tem veredito `indeterminado`, confiança baixa. O `indeterminado` do `noticia` foi absorvido pelo `manutenção` do `fala` e o crédito ficou nos dois prompts. Isso viola duas regras escritas do próprio agente: o PROMPT.md dele, seção 3.3 — “`indeterminado` é resposta legítima e frequente. Ela NÃO é ‘neutro’ e NÃO é ‘manutenção’” — e a lápide L-H7 dele, “agente ausente não vira ‘a notícia concorda’”. E há a inconsistência interna, que é a prova mais limpa: no USD, com a MESMA forma (um `manutenção`, um `alta condicional` e três `indeterminado`), o mesmo arquivo escreveu corretamente `colunas.C_noticia.veredito` = “contraditoria”. A mesma régua produziu duas respostas diferentes no mesmo arquivo. **O que eu NÃO afirmo, e é importante: o agente entendeu a distinção.** O `motivo` do CAD, o `coluna_C_detalhe` e o caso que ele abriu hoje (agentes/divergencia/casos/2026-09-08-CAD-noticia-contra-a-casa-sem-preco.md, linha 51) dizem por extenso “Indeterminado não é manutenção e não é neutro: só a linha do `fala` sustenta a coluna C aqui”. O defeito está no campo estruturado, não no raciocínio — e é justamente por isso que ele é perigoso: a prosa não vai para o campo que a tela renderiza, e o leitor vê “manutenção · fala@v1, noticia@v1” e lê dois agentes concordando. O veredito `SEM FONTE` do CAD não muda: o lado do mercado continua ausente.
+       [fala · fala@v1 · chave CAD/Macklem] manutenção (confiança alta) — vota: False
+           trecho: With recent data coming out largely in line with our July forecast, we decided to maintain the policy interest rate at 2.25%.
+           fonte: https://www.bankofcanada.ca/2026/09/opening-statement-2026-09-02/
+           ⚖️ OBJEÇÃO DO ADVOGADO [MEDIA] contradicao entre agentes (derruba a tese: False)
+               A MESMA frase, no MESMO arquivo da camada 1, lida ao contrário por dois agentes na mesma rodada — e as duas leituras vão para a tela. (a) `fala@v1` julga CAD/Macklem = `manutenção` com confiança ALTA: “É o anúncio da decisão do próprio banco, escrito no passado porque anuncia o que acabou de ser decidido: a postura está EM VIGOR, não é recibo... A exceção de tempo verbal vale só para manutenção.” (b) `noticia@v1`, no seu `limites`, escreve sobre a mesma frase: “o veredito `manutencao` do CAD em bc_discursos.json apoia-se numa frase no PASSADO ('we decided to maintain the policy interest rate at 2.25%'), que e o que a R3 descarta como balanco do que ja foi feito”. Não escolho o vencedor (D4, seção 9 do meu prompt): registro que a régua de TEMPO VERBAL tem duas versões escritas em dois prompts e que ninguém arbitrou. Isto importa porque a leitura de `fala` é a coluna C do CAD no agente `divergencia` e é o que ele chamou de “a observação mais forte da rodada”. Origem verificada por mim na camada 1: data/bc_discursos.json, itens[4], veredito_leitor.forca 4, frases_analisadas 2, peso 1,0, título “Monetary Policy Decision Press Conference Opening Statement”, bancos_centrais.CAD.ultima_decisao 2026-09-02 com resultado `manutencao` e bancos_centrais.CAD.proxima 2026-10-28 (dias_ate 50).
+       [noticia · noticia@v1 · chave CAD] indeterminado (confiança baixa) — vota: False
+           trecho: Canada's Jobs Slump in August Makes Bank of Canada Tightening Look Mispriced, Rosenberg Research Says - marketscreener.com
+           fonte: https://news.google.com/rss/articles/CBMi5wFBVV95cUxNalZzZFNWYWluLThUblk2eWVqSjNqTzlsTDVBenZ6WTZpTHJVWjJMZm1BdTNic09ITllacWp0X2VXWXBpcWQzZmR0SEljampZN3BKRmVQTGhwOTFuS0xCRHQwRzZ6bExMMlBYdDFpNF9CZUNfbWtTdlV4WHNKVWFRY0dad1FQUUo0VnNUb0J3VUdQd21CRk85NG9uSkl6bDdUTlBNSmZWdUdjWDJIMGxuamY4RTdFMXJxYU55ZU9lak9KWmhzbUp5MzJLMUY2RjZOMUNuU1IwVVUwcjZmSHNWdVdhTG4wbFk?oc=5
+   — perna CHF —
+       [divergencia · divergencia@v1 · chave CHF] SEM FONTE (confiança baixa) — vota: False
+           trecho: manchete: nenhum item de Reuters/Bloomberg/FT/WSJ com ate 7 dias entre os 92 resultados lidos
+           fonte: data/sentimento.json | data/precificacao.json
+           ⚖️ OBJEÇÃO DO ADVOGADO [ALTA] contradicao entre agentes (derruba a tese: False)
+               Os dois agentes que preenchem a linha do CHF na tela discordam por escrito sobre o que é um veredito válido, e eu não escolho. (a) `divergencia@v1` manda a coluna C do CHF para `nao_julgados` com o motivo: “o agente `noticia` devolveu o veredito ‘não é sobre juro’, que está FORA do vocabulário de seis palavras”, e grava `colunas.C_noticia` = {agente: null, veredito: null, versao_prompt: null}. (b) `agentes/noticia/PROMPT.md`, seção 3, lista OITO vereditos possíveis, e `não é sobre juro` é um deles, com a definição ao lado (“a matéria não trata da política de juros daquele banco”); a seção 7.1 do mesmo prompt existe só para separar `sem dados`, `não é sobre juro` e `indeterminado`. As duas réguas estão escritas e se contradizem: `agentes/divergencia/PROMPT.md`, seção 3.3, diz “Os dois usam o mesmo vocabulário de veredito, o de leitor_falas.py, e só estes seis”. Registro os dois lados e a origem: é uma cópia envelhecida de uma lista que mora noutro arquivo. Este é o MESMO buraco que a revisão de 07/09 corrigiu no MEU prompt (seção 3.1, “esta tabela é cópia, e cópia envelhece”); a correção não foi propagada para o `divergencia@v1`. Efeito no leitor: a única leitura de notícia que existia para o CHF some da coluna C, e a moeda aparece como se nenhum agente a tivesse olhado. Não afirmo qual das duas listas é a correta — mudar vocabulário exige subir a versão do prompt, e isso é decisão do dono, não minha.
+       [noticia · noticia@v1 · chave CHF] não é sobre juro (confiança baixa) — vota: False
+           trecho: Swiss Inflation Jumps on Higher Energy Prices - WSJ
+           fonte: https://news.google.com/rss/articles/CBMikwFBVV95cUxNaWQyNlZaMVVqMFVkMUktSWUxc1lBSk1DZWxBVVB5QzBxZ3VBaGlmakxoRlNkbEx0Tmd6bHJHNXNYRVFVTVh1bkFtRGo3OXJBMmdiUG54TnE4S0NRYmdyeTRjanZqY0ZXSzFMUmhYOEVWZXZUMTdSRUdXejhVenB4SFR3RTVUQ05OclV0MkRzSmw2a1U?oc=5
+
+8. DIFERENCIAL DE JURO (dado exibido, NUNCA voto)
+   2 anos : diferencial 2.975 pp (base 3.103% x cotada 0.128%) · variação em 5 dias 8.7 bp
+            as_of base 2026-09-06 (idade 0 d.u.) · as_of cotada 2026-09-06 (idade 0 d.u.)
+   10 anos: diferencial 3.3 pp (base 3.79% x cotada 0.49%) · variação em 5 dias 2.4 bp
+            as_of base 2026-09-03 (idade 1 d.u.) · as_of cotada 2026-09-03 (idade 1 d.u.)
+
+====================================================================================================
+FICHA 14/16 — NZDUSD
+====================================================================================================
+1. AÇÃO ......... Compra NZD/USD
+   ESTADO ....... observacao   ·   DIVERGÊNCIA 30/100
+   MOTIVO ....... NZD inclinado à alta contra USD sem leitura
+   convicção da leitura: 30%   ·   convicção histórica: não medido (ainda não calibrada — precisa de backtest com amostra declarada)
+
+2. QUEM DÁ O MOTIVO (lei das duas pernas)
+   perna dominante: NZD com 76% da diferença
+      NZD: inclinado à alta (direção SOBE) · evidência 0/100 · 1 de 2 dimensões concordam
+      USD: sem leitura (direção MANTEM) · evidência 38/100 · 2 dimensões disponíveis; direção não formada
+   ⚠️ par não é ativo, são duas moedas: um par 90% de uma perna é uma aposta naquela moeda
+
+3. MESMA APOSTA
+   GBPNZD, NZDCAD
+   ⚠️ compartilham a perna dominante: dois deles não diversificam, DOBRAM
+
+4. ATÉ QUANDO
+   evento invalidante: Fed (USD) em 2026-09-16 — faltam 8 dia(s)
+   próximo dado relevante: PPI (núcleo) em 10/09 às 09:30 (BRT) · impacto HIGH
+   é o que diz por quanto tempo faz sentido PROCURAR a entrada — não é alvo nem prazo de posição
+
+5. QUALIDADE DA EVIDÊNCIA E BANDEIRAS
+   nota do par: 0/100   ·   por perna: {'NZD': 0, 'USD': 38}   ·   elo fraco: NZD
+   8 alerta(s) copiados do sentimento.json:
+   [DOMINANCIA]
+      · mesma aposta que GBPNZD, NZDCAD — compartilham a perna NZD e não diversificam
+   [DIRECAO_FRAGIL]
+      · a direção dos DADOS do USD depende da FAIXA NEUTRA (a régua de 'veio como esperado', PROVISÓRIA e nunca validada): hoje a soma é -1.17 (MANTEM), mas sem faixa nenhuma a soma é -16.27 (CORTA); com a faixa pela metade a soma é -10.79 (CORTA). A faixa zera 47 divulgação(ões) que, com o sinal do próprio desvio, pesariam -15.08 — zerar um termo desloca a soma para o lado contrário, a mesma aritmética da winsorização revogada
+      · a direção do USD depende de PARÂMETRO NÃO CALIBRADO: só 38% das 130 células da faixa plausível (meia-vida 14-30 dias, modulador de impacto entre 'só alto conta' e 'plano') dão a leitura publicada — quem faz virar: os dois, o modulador_de_impacto mais: modulador (8 de 13 células) contra meia-vida (5 de 10 células)
+      · a perna USD está SEM LEITURA (sem leitura: intensidade relativa 14% abaixo do mínimo provisório de 15% (a leitura está perto demais de zero para virar direção). A moeda continua no arquivo, com tudo o que foi medido — o que não existe é a DIREÇÃO. E há um SEGUNDO motivo: a direção do USD DEPENDE de parâmetro que ninguém calibrou: 49 de 130 células da faixa plausível (38%) dão a leitura publicada ('sem leitura'), e as outras dão inclinado ao corte em 78 célula(s) · inclinado à alta em 3 célula(s). Quem faz virar: os dois, o modulador_de_impacto mais: modulador (8 de 13 células) contra meia-vida (5 de 10 células). Nenhum dado muda entre as células — só o botão. (o corte PROVISÓRIO de concordância é 60%).) — a tese do par se apoia só na outra perna
+   [EVIDENCIA_FRACA]
+      · estado rebaixado de 'moderada' para 'observacao': qualidade da evidência do par é nula (0/100) — sem evidência o par não sai da zona de observação, por maior que seja a divergência
+      · qualidade da evidência do par = 0/100, a MENOR das duas pernas (elo fraco: NZD, 0/100 contra 38/100 do USD)
+      · nenhuma das duas pernas tem fala votando: desde 05/set a dimensão de discurso é contexto com selo, e a leitura vem de DADOS e CICLO apenas — duas dimensões por perna, teto 1.00 no par
+   [OUTRAS]
+      · uma única divulgação responde por 100% da leitura do NZD (Terms of Trade Index)
+
+6. O QUE O MERCADO PAGA
+   NZD (RBNZ) · próxima reunião 2026-10-28 · taxa atual 2.75 · qualidade baixa
+       o mercado paga: alta · p_alta não medido · p_manutenção não medido · p_corte não medido · implícito não medido bp
+       fonte: futuros BB (New Zealand 90 Day Bank Bill, ASX) via asx.api.markitdigital.com
+       está de acordo com a leitura? → ALINHADO (confiança baixa) — veredito do agente `divergencia`, copiado, não recalculado aqui
+   USD (Fed) · próxima reunião 2026-09-16 · taxa atual 3.625 · qualidade alta
+       o mercado paga: alta · p_alta 0.5786 · p_manutenção 0.4214 · p_corte 0.0 · implícito 14.46 bp
+       fonte: futuros de fed funds 30d (ZQ, CME) via API de grafico do Yahoo + EFFR do NY Fed
+       está de acordo com a leitura? → SEM FONTE (confiança baixa) — veredito do agente `divergencia`, copiado, não recalculado aqui
+           lado ausente: hci
+
+7. O QUE OS AGENTES JULGARAM
+   — perna NZD —
+       [divergencia · divergencia@v1 · chave NZD] ALINHADO (confiança baixa) — vota: False
+           trecho: BB e taxa a TERMO de 90 dias, nao media mensal da OCR: carrega premio de prazo e de credito e cobre uma janela que atravessa mais de uma reuniao. Converter em probabilidade da proxima reuniao exigiria arbitrar o spread bank bill x OCR, que seria estimativa sem fonte. Fica so a direcao.
+           fonte: data/sentimento.json | data/precificacao.json | data/agentes/noticia/ultimo.json
+       [noticia · noticia@v1 · chave NZD] indeterminado (confiança baixa) — vota: False
+           trecho: RBNZ Interest Rate Outlook: Is New Zealand Entering a Harder Phase of the Rate Cycle? - equiti.com
+           fonte: https://news.google.com/rss/articles/CBMiqgFBVV95cUxNNlJtdk1ReVlaVE42OFFFbk1rZXVxMWVrYnQ4bUhkMDZPR2dzSVBRMk5fWkJCTGU5SWZQWDh4aFExNU5ZZmFDeGZrQko4S3FNRV84RGlxYllqcDZkNFl2eG1nckhDYVJEUlJrLWtLektIeEFIMUliV1U3VmlWMGo1c05qQUdLVHFYa2t1Sk0wcnQ1QVk5eTdabDBZWDFTSDItSHJab0p4TjBnQQ?oc=5
+   — perna USD —
+       [divergencia · divergencia@v1 · chave USD] SEM FONTE (confiança baixa) — vota: False
+           trecho: sem leitura: intensidade relativa 14% abaixo do mínimo provisório de 15% (a leitura está perto demais de zero para virar direção). A moeda continua no arquivo, com tudo o que foi medido — o que não existe é a DIREÇÃO. E há um SEGUNDO motivo: a direção do USD DEPENDE de parâmetro que ninguém calibrou: 49 de 130 células da faixa plausível (38%) dão a leitura publicada ('sem leitura'), e as outras dão inclinado ao corte em 78 célula(s) · inclinado à alta em 3 célula(s). Quem faz virar: os dois, o modulador_de_impacto mais: modulador (8 de 13 células) contra meia-vida (5 de 10 células). Nenhum dado muda entre as células — só o botão. (o corte PROVISÓRIO de concordância é 60%).
+           fonte: data/sentimento.json | data/precificacao.json | data/agentes/fala/ultimo.json | data/agentes/noticia/ultimo.json
+       [fala · fala@v1 · chave USD/Waller] manutenção (confiança alta) — vota: False
+           trecho: If this continues in the data due over the next two weeks, I would be inclined to support holding the target for the federal funds rate at its current setting.
+           fonte: https://www.federalreserve.gov/newsevents/speech/waller20260903a.htm
+       [fala · fala@v1 · chave USD/Barr] alta condicional (confiança média) — vota: False
+           trecho: However, if inflation appears not to be moderating sufficiently, then I think we should act decisively to raise rates.
+           fonte: https://www.federalreserve.gov/newsevents/speech/barr20260901a.htm
+       [fala · fala@v1 · chave USD/Warsh] indeterminado (confiança alta) — vota: False
+           trecho: 7 And I believe when policymakers make quasi-commitments on interest rates through the cycle, we inhibit our own freedom to make the right calls when it's time to decide.
+           fonte: https://www.federalreserve.gov/newsevents/speech/warsh20260828a.htm
+       [fala · fala@v1 · chave USD/Lisa D Cook] indeterminado (confiança baixa) — vota: False
+           trecho: I would consider how a rate increase could negatively affect that stability.
+           fonte: https://www.bis.org/speeches/20260817-outlook-us-and-alaskan-economies
+       [noticia · noticia@v1 · chave USD] indeterminado (confiança baixa) — vota: False
+           trecho: COMMENTARY: Trump's baffling Fed threat could be gift to Warsh: Mike Dolan - Reuters
+           fonte: https://news.google.com/rss/articles/CBMiyAFBVV95cUxOUlJyMEZjMzY1WGZkdzZwdlJ3c0NYc1RBOU9yZkRYb1FpNjBCUElLSWU1ejVfemROSmhWOVBUWkhGV1VNWU1XTVlJd3VNcmlXdDZfc01taXJVTnppazFSS05iQ1A4Smw0OVNPS3l0VWNZenBVT1JONkg4U2RsaUozR2xWR3ZubUo3XzVlZXptNEhJOHZGelJtRl92aWRhLS1sSXplRm5TdUQ3Mk1SMnlpdHRiT3JXTk5IMDREWll0dGlsanlNQ1VNTA?oc=5
+
+8. DIFERENCIAL DE JURO (dado exibido, NUNCA voto)
+   2 anos : diferencial -0.726 pp (base 3.648% x cotada 4.374%) · variação em 5 dias -8.6 bp
+            as_of base 2026-09-06 (idade 0 d.u.) · as_of cotada 2026-09-06 (idade 0 d.u.)
+   10 anos: diferencial 0.0 pp (base 4.78% x cotada 4.78%) · variação em 5 dias 0.0 bp
+            as_of base 2026-09-03 (idade 1 d.u.) · as_of cotada 2026-09-04 (idade 0 d.u.)
+
+====================================================================================================
+FICHA 15/16 — USDCHF
+====================================================================================================
+1. AÇÃO ......... Venda USD/CHF
+   ESTADO ....... moderada   ·   DIVERGÊNCIA 29/100
+   MOTIVO ....... USD sem leitura contra CHF inclinado à alta
+   convicção da leitura: 29%   ·   convicção histórica: não medido (ainda não calibrada — precisa de backtest com amostra declarada)
+
+2. QUEM DÁ O MOTIVO (lei das duas pernas)
+   perna dominante: CHF com 76% da diferença
+      USD: sem leitura (direção MANTEM) · evidência 38/100 · 2 dimensões disponíveis; direção não formada
+      CHF: inclinado à alta (direção SOBE) · evidência 75/100 · 1 de 2 dimensões concordam
+   ⚠️ par não é ativo, são duas moedas: um par 90% de uma perna é uma aposta naquela moeda
+
+3. MESMA APOSTA
+   GBPCHF, CADCHF
+   ⚠️ compartilham a perna dominante: dois deles não diversificam, DOBRAM
+
+4. ATÉ QUANDO
+   evento invalidante: Fed (USD) em 2026-09-16 — faltam 8 dia(s)
+   próximo dado relevante: PPI (núcleo) em 10/09 às 09:30 (BRT) · impacto HIGH
+   é o que diz por quanto tempo faz sentido PROCURAR a entrada — não é alvo nem prazo de posição
+
+5. QUALIDADE DA EVIDÊNCIA E BANDEIRAS
+   nota do par: 38/100   ·   por perna: {'USD': 38, 'CHF': 75}   ·   elo fraco: USD
+   7 alerta(s) copiados do sentimento.json:
+   [DOMINANCIA]
+      · mesma aposta que GBPCHF, CADCHF — compartilham a perna CHF e não diversificam
+   [DIRECAO_FRAGIL]
+      · a direção dos DADOS do USD depende da FAIXA NEUTRA (a régua de 'veio como esperado', PROVISÓRIA e nunca validada): hoje a soma é -1.17 (MANTEM), mas sem faixa nenhuma a soma é -16.27 (CORTA); com a faixa pela metade a soma é -10.79 (CORTA). A faixa zera 47 divulgação(ões) que, com o sinal do próprio desvio, pesariam -15.08 — zerar um termo desloca a soma para o lado contrário, a mesma aritmética da winsorização revogada
+      · a direção do USD depende de PARÂMETRO NÃO CALIBRADO: só 38% das 130 células da faixa plausível (meia-vida 14-30 dias, modulador de impacto entre 'só alto conta' e 'plano') dão a leitura publicada — quem faz virar: os dois, o modulador_de_impacto mais: modulador (8 de 13 células) contra meia-vida (5 de 10 células)
+      · a perna USD está SEM LEITURA (sem leitura: intensidade relativa 14% abaixo do mínimo provisório de 15% (a leitura está perto demais de zero para virar direção). A moeda continua no arquivo, com tudo o que foi medido — o que não existe é a DIREÇÃO. E há um SEGUNDO motivo: a direção do USD DEPENDE de parâmetro que ninguém calibrou: 49 de 130 células da faixa plausível (38%) dão a leitura publicada ('sem leitura'), e as outras dão inclinado ao corte em 78 célula(s) · inclinado à alta em 3 célula(s). Quem faz virar: os dois, o modulador_de_impacto mais: modulador (8 de 13 células) contra meia-vida (5 de 10 células). Nenhum dado muda entre as células — só o botão. (o corte PROVISÓRIO de concordância é 60%).) — a tese do par se apoia só na outra perna
+   [EVIDENCIA_FRACA]
+      · qualidade da evidência do par = 38/100, a MENOR das duas pernas (elo fraco: USD, 38/100 contra 75/100 do CHF)
+      · nenhuma das duas pernas tem fala votando: desde 05/set a dimensão de discurso é contexto com selo, e a leitura vem de DADOS e CICLO apenas — duas dimensões por perna, teto 1.00 no par
+   [OUTRAS]
+      · o CHF não tem fonte de fala conectada (sem_fonte) — buraco declarado, não zero
+
+6. O QUE O MERCADO PAGA
+   USD (Fed) · próxima reunião 2026-09-16 · taxa atual 3.625 · qualidade alta
+       o mercado paga: alta · p_alta 0.5786 · p_manutenção 0.4214 · p_corte 0.0 · implícito 14.46 bp
+       fonte: futuros de fed funds 30d (ZQ, CME) via API de grafico do Yahoo + EFFR do NY Fed
+       está de acordo com a leitura? → SEM FONTE (confiança baixa) — veredito do agente `divergencia`, copiado, não recalculado aqui
+           lado ausente: hci
+   CHF (SNB): sem fonte para comparar
+       motivo: manchete: nenhum item de Reuters/Bloomberg/FT/WSJ com ate 7 dias entre os 92 resultados lidos
+       está de acordo com a leitura? → SEM FONTE (confiança baixa) — veredito do agente `divergencia`, copiado, não recalculado aqui
+           lado ausente: mercado
+
+7. O QUE OS AGENTES JULGARAM
+   — perna USD —
+       [divergencia · divergencia@v1 · chave USD] SEM FONTE (confiança baixa) — vota: False
+           trecho: sem leitura: intensidade relativa 14% abaixo do mínimo provisório de 15% (a leitura está perto demais de zero para virar direção). A moeda continua no arquivo, com tudo o que foi medido — o que não existe é a DIREÇÃO. E há um SEGUNDO motivo: a direção do USD DEPENDE de parâmetro que ninguém calibrou: 49 de 130 células da faixa plausível (38%) dão a leitura publicada ('sem leitura'), e as outras dão inclinado ao corte em 78 célula(s) · inclinado à alta em 3 célula(s). Quem faz virar: os dois, o modulador_de_impacto mais: modulador (8 de 13 células) contra meia-vida (5 de 10 células). Nenhum dado muda entre as células — só o botão. (o corte PROVISÓRIO de concordância é 60%).
+           fonte: data/sentimento.json | data/precificacao.json | data/agentes/fala/ultimo.json | data/agentes/noticia/ultimo.json
+       [fala · fala@v1 · chave USD/Waller] manutenção (confiança alta) — vota: False
+           trecho: If this continues in the data due over the next two weeks, I would be inclined to support holding the target for the federal funds rate at its current setting.
+           fonte: https://www.federalreserve.gov/newsevents/speech/waller20260903a.htm
+       [fala · fala@v1 · chave USD/Barr] alta condicional (confiança média) — vota: False
+           trecho: However, if inflation appears not to be moderating sufficiently, then I think we should act decisively to raise rates.
+           fonte: https://www.federalreserve.gov/newsevents/speech/barr20260901a.htm
+       [fala · fala@v1 · chave USD/Warsh] indeterminado (confiança alta) — vota: False
+           trecho: 7 And I believe when policymakers make quasi-commitments on interest rates through the cycle, we inhibit our own freedom to make the right calls when it's time to decide.
+           fonte: https://www.federalreserve.gov/newsevents/speech/warsh20260828a.htm
+       [fala · fala@v1 · chave USD/Lisa D Cook] indeterminado (confiança baixa) — vota: False
+           trecho: I would consider how a rate increase could negatively affect that stability.
+           fonte: https://www.bis.org/speeches/20260817-outlook-us-and-alaskan-economies
+       [noticia · noticia@v1 · chave USD] indeterminado (confiança baixa) — vota: False
+           trecho: COMMENTARY: Trump's baffling Fed threat could be gift to Warsh: Mike Dolan - Reuters
+           fonte: https://news.google.com/rss/articles/CBMiyAFBVV95cUxOUlJyMEZjMzY1WGZkdzZwdlJ3c0NYc1RBOU9yZkRYb1FpNjBCUElLSWU1ejVfemROSmhWOVBUWkhGV1VNWU1XTVlJd3VNcmlXdDZfc01taXJVTnppazFSS05iQ1A4Smw0OVNPS3l0VWNZenBVT1JONkg4U2RsaUozR2xWR3ZubUo3XzVlZXptNEhJOHZGelJtRl92aWRhLS1sSXplRm5TdUQ3Mk1SMnlpdHRiT3JXTk5IMDREWll0dGlsanlNQ1VNTA?oc=5
+   — perna CHF —
+       [divergencia · divergencia@v1 · chave CHF] SEM FONTE (confiança baixa) — vota: False
+           trecho: manchete: nenhum item de Reuters/Bloomberg/FT/WSJ com ate 7 dias entre os 92 resultados lidos
+           fonte: data/sentimento.json | data/precificacao.json
+           ⚖️ OBJEÇÃO DO ADVOGADO [ALTA] contradicao entre agentes (derruba a tese: False)
+               Os dois agentes que preenchem a linha do CHF na tela discordam por escrito sobre o que é um veredito válido, e eu não escolho. (a) `divergencia@v1` manda a coluna C do CHF para `nao_julgados` com o motivo: “o agente `noticia` devolveu o veredito ‘não é sobre juro’, que está FORA do vocabulário de seis palavras”, e grava `colunas.C_noticia` = {agente: null, veredito: null, versao_prompt: null}. (b) `agentes/noticia/PROMPT.md`, seção 3, lista OITO vereditos possíveis, e `não é sobre juro` é um deles, com a definição ao lado (“a matéria não trata da política de juros daquele banco”); a seção 7.1 do mesmo prompt existe só para separar `sem dados`, `não é sobre juro` e `indeterminado`. As duas réguas estão escritas e se contradizem: `agentes/divergencia/PROMPT.md`, seção 3.3, diz “Os dois usam o mesmo vocabulário de veredito, o de leitor_falas.py, e só estes seis”. Registro os dois lados e a origem: é uma cópia envelhecida de uma lista que mora noutro arquivo. Este é o MESMO buraco que a revisão de 07/09 corrigiu no MEU prompt (seção 3.1, “esta tabela é cópia, e cópia envelhece”); a correção não foi propagada para o `divergencia@v1`. Efeito no leitor: a única leitura de notícia que existia para o CHF some da coluna C, e a moeda aparece como se nenhum agente a tivesse olhado. Não afirmo qual das duas listas é a correta — mudar vocabulário exige subir a versão do prompt, e isso é decisão do dono, não minha.
+       [noticia · noticia@v1 · chave CHF] não é sobre juro (confiança baixa) — vota: False
+           trecho: Swiss Inflation Jumps on Higher Energy Prices - WSJ
+           fonte: https://news.google.com/rss/articles/CBMikwFBVV95cUxNaWQyNlZaMVVqMFVkMUktSWUxc1lBSk1DZWxBVVB5QzBxZ3VBaGlmakxoRlNkbEx0Tmd6bHJHNXNYRVFVTVh1bkFtRGo3OXJBMmdiUG54TnE4S0NRYmdyeTRjanZqY0ZXSzFMUmhYOEVWZXZUMTdSRUdXejhVenB4SFR3RTVUQ05OclV0MkRzSmw2a1U?oc=5
+
+8. DIFERENCIAL DE JURO (dado exibido, NUNCA voto)
+   2 anos : diferencial 4.246 pp (base 4.374% x cotada 0.128%) · variação em 5 dias 8.8 bp
+            as_of base 2026-09-06 (idade 0 d.u.) · as_of cotada 2026-09-06 (idade 0 d.u.)
+   10 anos: diferencial 4.29 pp (base 4.78% x cotada 0.49%) · variação em 5 dias -1.6 bp
+            as_of base 2026-09-04 (idade 0 d.u.) · as_of cotada 2026-09-03 (idade 1 d.u.)
+
+====================================================================================================
+FICHA 16/16 — EURCHF
+====================================================================================================
+1. AÇÃO ......... Compra EUR/CHF
+   ESTADO ....... observacao   ·   DIVERGÊNCIA 15/100
+   MOTIVO ....... EUR inclinado à alta contra CHF inclinado à alta
+   convicção da leitura: 15%   ·   convicção histórica: não medido (ainda não calibrada — precisa de backtest com amostra declarada)
+
+2. QUEM DÁ O MOTIVO (lei das duas pernas)
+   perna dominante: EUR com 63% da diferença
+      EUR: inclinado à alta (direção SOBE) · evidência 85/100 · 2 de 2 dimensões concordam
+      CHF: inclinado à alta (direção SOBE) · evidência 75/100 · 1 de 2 dimensões concordam
+   ⚠️ par não é ativo, são duas moedas: um par 90% de uma perna é uma aposta naquela moeda
+
+3. MESMA APOSTA
+   EURUSD, EURGBP, EURCAD
+   ⚠️ compartilham a perna dominante: dois deles não diversificam, DOBRAM
+
+4. ATÉ QUANDO
+   evento invalidante: BCE (EUR) em 2026-09-10 — faltam 2 dia(s)
+   próximo dado relevante: CPI em 10/09 às 03:00 (BRT) · impacto HIGH
+   é o que diz por quanto tempo faz sentido PROCURAR a entrada — não é alvo nem prazo de posição
+
+5. QUALIDADE DA EVIDÊNCIA E BANDEIRAS
+   nota do par: 75/100   ·   por perna: {'EUR': 85, 'CHF': 75}   ·   elo fraco: CHF
+   5 alerta(s) copiados do sentimento.json:
+   [DOMINANCIA]
+      · mesma aposta que EURUSD, EURGBP, EURCAD — compartilham a perna EUR e não diversificam
+   [DIRECAO_FRAGIL]
+      · a direção do EUR depende de PARÂMETRO NÃO CALIBRADO: só 95% das 130 células da faixa plausível (meia-vida 14-30 dias, modulador de impacto entre 'só alto conta' e 'plano') dão a leitura publicada — quem faz virar: modulador_de_impacto
+   [EVIDENCIA_FRACA]
+      · qualidade da evidência do par = 75/100, a MENOR das duas pernas (elo fraco: CHF, 75/100 contra 85/100 do EUR)
+      · nenhuma das duas pernas tem fala votando: desde 05/set a dimensão de discurso é contexto com selo, e a leitura vem de DADOS e CICLO apenas — duas dimensões por perna, teto 1.00 no par
+   [OUTRAS]
+      · o CHF não tem fonte de fala conectada (sem_fonte) — buraco declarado, não zero
+
+6. O QUE O MERCADO PAGA
+   EUR (BCE): sem fonte para comparar
+       motivo: manchete: 1 manchete(s) de veiculo aceito na janela, nenhuma passou na regua da proxima reuniao: Another rate hike, just for insurance: Five questions for th (sem numero)
+       está de acordo com a leitura? → SEM FONTE (confiança baixa) — veredito do agente `divergencia`, copiado, não recalculado aqui
+           lado ausente: mercado
+   CHF (SNB): sem fonte para comparar
+       motivo: manchete: nenhum item de Reuters/Bloomberg/FT/WSJ com ate 7 dias entre os 92 resultados lidos
+       está de acordo com a leitura? → SEM FONTE (confiança baixa) — veredito do agente `divergencia`, copiado, não recalculado aqui
+           lado ausente: mercado
+
+7. O QUE OS AGENTES JULGARAM
+   — perna EUR —
+       [divergencia · divergencia@v1 · chave EUR] SEM FONTE (confiança baixa) — vota: False
+           trecho: manchete: 1 manchete(s) de veiculo aceito na janela, nenhuma passou na regua da proxima reuniao: Another rate hike, just for insurance: Five questions for th (sem numero)
+           fonte: data/sentimento.json | data/precificacao.json | data/agentes/noticia/ultimo.json
+       [noticia · noticia@v1 · chave EUR] indeterminado (confiança baixa) — vota: False
+           trecho: ECB Set to Raise Key Rate Again, Signal Caution on Further Moves - WSJ
+           fonte: https://news.google.com/rss/articles/CBMisgFBVV95cUxOYWRrQ2ZrenM2S1JzUFA5ejVZcHpQZXNQSGxFM2VkWmdWajZBamdBdXUxV09reGFtTkt6WkhpaGUwYVJ0MmJfVWpZVUlvX2hqeEhFTmRSUkYwelJRYjJtcUM0ai1qVDlFU283NV9wandtaXE3bGhqQXJGbWZYWEMxTjBwTnoyUkh5NmgtV0p5S0doUXRzYU14bEVBRDg2NzN3MFBDcDFEMlZSdUVoWkxjVllB?oc=5
+   — perna CHF —
+       [divergencia · divergencia@v1 · chave CHF] SEM FONTE (confiança baixa) — vota: False
+           trecho: manchete: nenhum item de Reuters/Bloomberg/FT/WSJ com ate 7 dias entre os 92 resultados lidos
+           fonte: data/sentimento.json | data/precificacao.json
+           ⚖️ OBJEÇÃO DO ADVOGADO [ALTA] contradicao entre agentes (derruba a tese: False)
+               Os dois agentes que preenchem a linha do CHF na tela discordam por escrito sobre o que é um veredito válido, e eu não escolho. (a) `divergencia@v1` manda a coluna C do CHF para `nao_julgados` com o motivo: “o agente `noticia` devolveu o veredito ‘não é sobre juro’, que está FORA do vocabulário de seis palavras”, e grava `colunas.C_noticia` = {agente: null, veredito: null, versao_prompt: null}. (b) `agentes/noticia/PROMPT.md`, seção 3, lista OITO vereditos possíveis, e `não é sobre juro` é um deles, com a definição ao lado (“a matéria não trata da política de juros daquele banco”); a seção 7.1 do mesmo prompt existe só para separar `sem dados`, `não é sobre juro` e `indeterminado`. As duas réguas estão escritas e se contradizem: `agentes/divergencia/PROMPT.md`, seção 3.3, diz “Os dois usam o mesmo vocabulário de veredito, o de leitor_falas.py, e só estes seis”. Registro os dois lados e a origem: é uma cópia envelhecida de uma lista que mora noutro arquivo. Este é o MESMO buraco que a revisão de 07/09 corrigiu no MEU prompt (seção 3.1, “esta tabela é cópia, e cópia envelhece”); a correção não foi propagada para o `divergencia@v1`. Efeito no leitor: a única leitura de notícia que existia para o CHF some da coluna C, e a moeda aparece como se nenhum agente a tivesse olhado. Não afirmo qual das duas listas é a correta — mudar vocabulário exige subir a versão do prompt, e isso é decisão do dono, não minha.
+       [noticia · noticia@v1 · chave CHF] não é sobre juro (confiança baixa) — vota: False
+           trecho: Swiss Inflation Jumps on Higher Energy Prices - WSJ
+           fonte: https://news.google.com/rss/articles/CBMikwFBVV95cUxNaWQyNlZaMVVqMFVkMUktSWUxc1lBSk1DZWxBVVB5QzBxZ3VBaGlmakxoRlNkbEx0Tmd6bHJHNXNYRVFVTVh1bkFtRGo3OXJBMmdiUG54TnE4S0NRYmdyeTRjanZqY0ZXSzFMUmhYOEVWZXZUMTdSRUdXejhVenB4SFR3RTVUQ05OclV0MkRzSmw2a1U?oc=5
+
+8. DIFERENCIAL DE JURO (dado exibido, NUNCA voto)
+   2 anos : diferencial 2.8178 pp (base 2.9458% x cotada 0.128%) · variação em 5 dias 7.5 bp
+            as_of base 2026-09-06 (idade 0 d.u.) · as_of cotada 2026-09-06 (idade 0 d.u.)
+   10 anos: diferencial 2.8746 pp (base 3.3646% x cotada 0.49%) · variação em 5 dias 2.1 bp
+            as_of base 2026-09-03 (idade 1 d.u.) · as_of cotada 2026-09-03 (idade 1 d.u.)
+
+====================================================================================================
+FIM. 16 ficha(s). Isto é o lado FUNDAMENTAL. A ENTRADA é do Eduardo, pela técnica dele.
+====================================================================================================
