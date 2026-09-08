@@ -15,7 +15,7 @@
        ordem e por prefixo html nos seletores. As tres familias vem no @import dela. -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="estilo_hci.css?v=20260908-lista2">
+  <link rel="stylesheet" href="estilo_hci.css?v=20260908-lista2-agentes1">
 </head>
 <body>
   <header class="site-header">
@@ -44,6 +44,7 @@
       <button type="button" class="tab" data-tab="cot">COT</button>
       <button type="button" class="tab" data-tab="news">Notícias</button>
       <button type="button" class="tab" data-tab="sources">Fontes</button>
+      <button type="button" class="tab" data-tab="agentes">Julgamentos</button>
       <button type="button" class="tab" data-tab="journal">Backtest</button>
     </nav>
 
@@ -429,6 +430,34 @@
       </section>
     </div>
 
+    <!-- ============ TAB: SALA DE JULGAMENTOS ============ -->
+    <!-- Desenhado pelo ui_agentes.js, que le data/agentes/*/ultimo.json. Se nenhum
+         arquivo abrir, o proprio modulo troca o conteudo pela sala vazia; se o modulo
+         nao carregar, fica de pe o aviso estatico abaixo. A aba nunca quebra. -->
+    <div class="tab-panel" data-panel="agentes">
+      <section class="content-section">
+        <div class="section-title">
+          <div><h2>Sala de julgamentos</h2></div>
+          <p>O que cada agente julgou nesta rodada, por moeda, com o trecho, o link da fonte e a
+             versão do prompt. A objeção do advogado aparece ao lado da tese, nunca escondida.
+             <b>Experimental — contexto, não vota.</b> Nada aqui é ordem, sinal de entrada ou
+             promessa de retorno: o painel dá o lado fundamental, a entrada é sua.</p>
+        </div>
+        <details class="tab-about">
+          <summary><span>Como ler esta aba: proveniência e selo</span></summary>
+          <div class="tab-about-body"><p>Todo bloco diz <strong>quem falou</strong> (agente e versão
+          do prompt), <strong>quando</strong>, <strong>com que fonte</strong> e o <strong>selo</strong>:
+          <em>MEDIDO</em> é número apurado por código, <em>JULGADO</em> é leitura de agente, e
+          <em>EM TESTE</em> é o que ainda não vota. Misturar os três é o erro que mata credibilidade,
+          então os três nunca saem sem etiqueta. Os números aparecem como estão nos arquivos, sem
+          nenhuma conta feita na tela; onde o arquivo não traz o número, está escrito
+          <em>não medido</em>.</p></div>
+        </details>
+        <div id="salaJulgamentos"><div class="mac-vazio"><p>Lendo
+          <span class="sala-caminho">data/agentes/*/ultimo.json</span>…</p></div></div>
+      </section>
+    </div>
+
     <!-- ============ TAB: BACKTEST MANUAL ============ -->
     <div class="tab-panel" data-panel="journal">
       <section class="content-section bt-manual">
@@ -475,6 +504,7 @@
   <!-- ANTES do ui_macro.js: ele desenha assim que o dado chega e precisa do
        window.HCI_MEDIDORES existindo nesse instante. Sem fetch, sem evento. -->
   <script src="ui_medidores.js?v=20260906-vis1"></script>
+  <script src="ui_agentes.js?v=20260908-agentes1"></script>
   <script src="ui_macro.js?v=20260908-lista2"></script>
   <!-- Depois do ui_macro.js de proposito: ele repinta os paineis a cada 900 ms e precisa
        ter desenhado antes de a auditoria esconder as manchetes posteriores ao corte. -->

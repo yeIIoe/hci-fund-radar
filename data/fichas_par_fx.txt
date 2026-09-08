@@ -4,9 +4,9 @@ HCI MACRO DIRECTION — FICHA OPERACIONAL POR PAR (FX)
 
 1) IDADE DOS DADOS (carimbo copiado do campo `gerado_em` de cada arquivo)
 ----------------------------------------------------------------------------------------------------
-   data/sentimento.json                   2026-09-08T15:51:16.495852+00:00   [08/09/2026 12:51 (BRT)]
+   data/sentimento.json                   2026-09-08T15:58:24.437254+00:00   [08/09/2026 12:58 (BRT)]
                                           leitura da casa (a tese)
-   data/precificacao.json                 2026-09-08T15:42:53Z
+   data/precificacao.json                 2026-09-08T15:57:21Z
                                           o que os futuros pagam
    data/diferenciais.json                 2026-09-06T19:16:59+00:00
                                           juro de 2 e 10 anos (exibido, nunca voto)
@@ -24,7 +24,7 @@ HCI MACRO DIRECTION — FICHA OPERACIONAL POR PAR (FX)
                                           agente vigia (vigia.py@v1)
 
    FRESCOR DA CASA (medido por sentimento.py, campo sentimento.frescor):
-      atraso: 1h 5min (65 min) · estado: atrasado · bloqueia_leitura: False
+      atraso: 1 min (1 min) · estado: ok · bloqueia_leitura: False
       fonte mais velha: bancos centrais
 
 2) QUANTOS PARES TÊM TESE HOJE
@@ -366,7 +366,7 @@ FICHA 5/16 — AUDCAD
    convicção da leitura: 50%   ·   convicção histórica: não medido (ainda não calibrada — precisa de backtest com amostra declarada)
 
 2. QUEM DÁ O MOTIVO (lei das duas pernas)
-   perna dominante: AUD com 73% da diferença
+   perna dominante: AUD com 72% da diferença
       AUD: inclinado à alta (direção SOBE) · evidência 80/100 · 2 de 2 dimensões concordam
       CAD: inclinado ao corte (direção CORTA) · evidência 24/100 · 1 de 2 dimensões concordam
    ⚠️ par não é ativo, são duas moedas: um par 90% de uma perna é uma aposta naquela moeda
@@ -538,7 +538,7 @@ FICHA 7/16 — EURUSD
    [DOMINANCIA]
       · mesma aposta que EURGBP, EURCAD, EURCHF — compartilham a perna EUR e não diversificam
    [DIRECAO_FRAGIL]
-      · a direção dos DADOS do USD depende da FAIXA NEUTRA (a régua de 'veio como esperado', PROVISÓRIA e nunca validada): hoje a soma é -1.17 (MANTEM), mas sem faixa nenhuma a soma é -16.27 (CORTA); com a faixa pela metade a soma é -10.79 (CORTA). A faixa zera 47 divulgação(ões) que, com o sinal do próprio desvio, pesariam -15.08 — zerar um termo desloca a soma para o lado contrário, a mesma aritmética da winsorização revogada
+      · a direção dos DADOS do USD depende da FAIXA NEUTRA (a régua de 'veio como esperado', PROVISÓRIA e nunca validada): hoje a soma é -1.15 (MANTEM), mas sem faixa nenhuma a soma é -16.25 (CORTA); com a faixa pela metade a soma é -10.77 (CORTA). A faixa zera 47 divulgação(ões) que, com o sinal do próprio desvio, pesariam -15.08 — zerar um termo desloca a soma para o lado contrário, a mesma aritmética da winsorização revogada
       · a direção do EUR depende de PARÂMETRO NÃO CALIBRADO: só 95% das 130 células da faixa plausível (meia-vida 14-30 dias, modulador de impacto entre 'só alto conta' e 'plano') dão a leitura publicada — quem faz virar: modulador_de_impacto
       · a direção do USD depende de PARÂMETRO NÃO CALIBRADO: só 38% das 130 células da faixa plausível (meia-vida 14-30 dias, modulador de impacto entre 'só alto conta' e 'plano') dão a leitura publicada — quem faz virar: os dois, o modulador_de_impacto mais: modulador (8 de 13 células) contra meia-vida (5 de 10 células)
       · a perna USD está SEM LEITURA (sem leitura: intensidade relativa 14% abaixo do mínimo provisório de 15% (a leitura está perto demais de zero para virar direção). A moeda continua no arquivo, com tudo o que foi medido — o que não existe é a DIREÇÃO. E há um SEGUNDO motivo: a direção do USD DEPENDE de parâmetro que ninguém calibrou: 49 de 130 células da faixa plausível (38%) dão a leitura publicada ('sem leitura'), e as outras dão inclinado ao corte em 78 célula(s) · inclinado à alta em 3 célula(s). Quem faz virar: os dois, o modulador_de_impacto mais: modulador (8 de 13 células) contra meia-vida (5 de 10 células). Nenhum dado muda entre as células — só o botão. (o corte PROVISÓRIO de concordância é 60%).) — a tese do par se apoia só na outra perna
@@ -621,7 +621,7 @@ FICHA 8/16 — AUDUSD
       · mesma aposta que GBPAUD, AUDCAD — compartilham a perna AUD e não diversificam
    [DIRECAO_FRAGIL]
       · a direção dos DADOS do AUD depende da FAIXA NEUTRA (a régua de 'veio como esperado', PROVISÓRIA e nunca validada): hoje a soma é +20.98 (SOBE), mas com a faixa dobrada a soma é +2.69 (MANTEM). A faixa zera 8 divulgação(ões) que, com o sinal do próprio desvio, pesariam +1.43 — zerar um termo desloca a soma para o lado contrário, a mesma aritmética da winsorização revogada
-      · a direção dos DADOS do USD depende da FAIXA NEUTRA (a régua de 'veio como esperado', PROVISÓRIA e nunca validada): hoje a soma é -1.17 (MANTEM), mas sem faixa nenhuma a soma é -16.27 (CORTA); com a faixa pela metade a soma é -10.79 (CORTA). A faixa zera 47 divulgação(ões) que, com o sinal do próprio desvio, pesariam -15.08 — zerar um termo desloca a soma para o lado contrário, a mesma aritmética da winsorização revogada
+      · a direção dos DADOS do USD depende da FAIXA NEUTRA (a régua de 'veio como esperado', PROVISÓRIA e nunca validada): hoje a soma é -1.15 (MANTEM), mas sem faixa nenhuma a soma é -16.25 (CORTA); com a faixa pela metade a soma é -10.77 (CORTA). A faixa zera 47 divulgação(ões) que, com o sinal do próprio desvio, pesariam -15.08 — zerar um termo desloca a soma para o lado contrário, a mesma aritmética da winsorização revogada
       · a direção do USD depende de PARÂMETRO NÃO CALIBRADO: só 38% das 130 células da faixa plausível (meia-vida 14-30 dias, modulador de impacto entre 'só alto conta' e 'plano') dão a leitura publicada — quem faz virar: os dois, o modulador_de_impacto mais: modulador (8 de 13 células) contra meia-vida (5 de 10 células)
       · a perna USD está SEM LEITURA (sem leitura: intensidade relativa 14% abaixo do mínimo provisório de 15% (a leitura está perto demais de zero para virar direção). A moeda continua no arquivo, com tudo o que foi medido — o que não existe é a DIREÇÃO. E há um SEGUNDO motivo: a direção do USD DEPENDE de parâmetro que ninguém calibrou: 49 de 130 células da faixa plausível (38%) dão a leitura publicada ('sem leitura'), e as outras dão inclinado ao corte em 78 célula(s) · inclinado à alta em 3 célula(s). Quem faz virar: os dois, o modulador_de_impacto mais: modulador (8 de 13 células) contra meia-vida (5 de 10 células). Nenhum dado muda entre as células — só o botão. (o corte PROVISÓRIO de concordância é 60%).) — a tese do par se apoia só na outra perna
    [EVIDENCIA_FRACA]
@@ -704,7 +704,7 @@ FICHA 9/16 — USDJPY
    [DOMINANCIA]
       · mesma aposta que GBPJPY, CADJPY — compartilham a perna JPY e não diversificam
    [DIRECAO_FRAGIL]
-      · a direção dos DADOS do USD depende da FAIXA NEUTRA (a régua de 'veio como esperado', PROVISÓRIA e nunca validada): hoje a soma é -1.17 (MANTEM), mas sem faixa nenhuma a soma é -16.27 (CORTA); com a faixa pela metade a soma é -10.79 (CORTA). A faixa zera 47 divulgação(ões) que, com o sinal do próprio desvio, pesariam -15.08 — zerar um termo desloca a soma para o lado contrário, a mesma aritmética da winsorização revogada
+      · a direção dos DADOS do USD depende da FAIXA NEUTRA (a régua de 'veio como esperado', PROVISÓRIA e nunca validada): hoje a soma é -1.15 (MANTEM), mas sem faixa nenhuma a soma é -16.25 (CORTA); com a faixa pela metade a soma é -10.77 (CORTA). A faixa zera 47 divulgação(ões) que, com o sinal do próprio desvio, pesariam -15.08 — zerar um termo desloca a soma para o lado contrário, a mesma aritmética da winsorização revogada
       · a direção do USD depende de PARÂMETRO NÃO CALIBRADO: só 38% das 130 células da faixa plausível (meia-vida 14-30 dias, modulador de impacto entre 'só alto conta' e 'plano') dão a leitura publicada — quem faz virar: os dois, o modulador_de_impacto mais: modulador (8 de 13 células) contra meia-vida (5 de 10 células)
       · a direção do JPY depende de PARÂMETRO NÃO CALIBRADO: só 98% das 130 células da faixa plausível (meia-vida 14-30 dias, modulador de impacto entre 'só alto conta' e 'plano') dão a leitura publicada — quem faz virar: só a combinação dos dois (nenhum vira sozinho)
       · a perna USD está SEM LEITURA (sem leitura: intensidade relativa 14% abaixo do mínimo provisório de 15% (a leitura está perto demais de zero para virar direção). A moeda continua no arquivo, com tudo o que foi medido — o que não existe é a DIREÇÃO. E há um SEGUNDO motivo: a direção do USD DEPENDE de parâmetro que ninguém calibrou: 49 de 130 células da faixa plausível (38%) dão a leitura publicada ('sem leitura'), e as outras dão inclinado ao corte em 78 célula(s) · inclinado à alta em 3 célula(s). Quem faz virar: os dois, o modulador_de_impacto mais: modulador (8 de 13 células) contra meia-vida (5 de 10 células). Nenhum dado muda entre as células — só o botão. (o corte PROVISÓRIO de concordância é 60%).) — a tese do par se apoia só na outra perna
@@ -992,7 +992,7 @@ FICHA 13/16 — CADCHF
    convicção da leitura: 36%   ·   convicção histórica: não medido (ainda não calibrada — precisa de backtest com amostra declarada)
 
 2. QUEM DÁ O MOTIVO (lei das duas pernas)
-   perna dominante: CHF com 62% da diferença
+   perna dominante: CHF com 61% da diferença
       CAD: inclinado ao corte (direção CORTA) · evidência 24/100 · 1 de 2 dimensões concordam
       CHF: inclinado à alta (direção SOBE) · evidência 75/100 · 1 de 2 dimensões concordam
    ⚠️ par não é ativo, são duas moedas: um par 90% de uma perna é uma aposta naquela moeda
@@ -1088,7 +1088,7 @@ FICHA 14/16 — NZDUSD
    [DOMINANCIA]
       · mesma aposta que GBPNZD, NZDCAD — compartilham a perna NZD e não diversificam
    [DIRECAO_FRAGIL]
-      · a direção dos DADOS do USD depende da FAIXA NEUTRA (a régua de 'veio como esperado', PROVISÓRIA e nunca validada): hoje a soma é -1.17 (MANTEM), mas sem faixa nenhuma a soma é -16.27 (CORTA); com a faixa pela metade a soma é -10.79 (CORTA). A faixa zera 47 divulgação(ões) que, com o sinal do próprio desvio, pesariam -15.08 — zerar um termo desloca a soma para o lado contrário, a mesma aritmética da winsorização revogada
+      · a direção dos DADOS do USD depende da FAIXA NEUTRA (a régua de 'veio como esperado', PROVISÓRIA e nunca validada): hoje a soma é -1.15 (MANTEM), mas sem faixa nenhuma a soma é -16.25 (CORTA); com a faixa pela metade a soma é -10.77 (CORTA). A faixa zera 47 divulgação(ões) que, com o sinal do próprio desvio, pesariam -15.08 — zerar um termo desloca a soma para o lado contrário, a mesma aritmética da winsorização revogada
       · a direção do USD depende de PARÂMETRO NÃO CALIBRADO: só 38% das 130 células da faixa plausível (meia-vida 14-30 dias, modulador de impacto entre 'só alto conta' e 'plano') dão a leitura publicada — quem faz virar: os dois, o modulador_de_impacto mais: modulador (8 de 13 células) contra meia-vida (5 de 10 células)
       · a perna USD está SEM LEITURA (sem leitura: intensidade relativa 14% abaixo do mínimo provisório de 15% (a leitura está perto demais de zero para virar direção). A moeda continua no arquivo, com tudo o que foi medido — o que não existe é a DIREÇÃO. E há um SEGUNDO motivo: a direção do USD DEPENDE de parâmetro que ninguém calibrou: 49 de 130 células da faixa plausível (38%) dão a leitura publicada ('sem leitura'), e as outras dão inclinado ao corte em 78 célula(s) · inclinado à alta em 3 célula(s). Quem faz virar: os dois, o modulador_de_impacto mais: modulador (8 de 13 células) contra meia-vida (5 de 10 células). Nenhum dado muda entre as células — só o botão. (o corte PROVISÓRIO de concordância é 60%).) — a tese do par se apoia só na outra perna
    [EVIDENCIA_FRACA]
@@ -1172,7 +1172,7 @@ FICHA 15/16 — USDCHF
    [DOMINANCIA]
       · mesma aposta que GBPCHF, CADCHF — compartilham a perna CHF e não diversificam
    [DIRECAO_FRAGIL]
-      · a direção dos DADOS do USD depende da FAIXA NEUTRA (a régua de 'veio como esperado', PROVISÓRIA e nunca validada): hoje a soma é -1.17 (MANTEM), mas sem faixa nenhuma a soma é -16.27 (CORTA); com a faixa pela metade a soma é -10.79 (CORTA). A faixa zera 47 divulgação(ões) que, com o sinal do próprio desvio, pesariam -15.08 — zerar um termo desloca a soma para o lado contrário, a mesma aritmética da winsorização revogada
+      · a direção dos DADOS do USD depende da FAIXA NEUTRA (a régua de 'veio como esperado', PROVISÓRIA e nunca validada): hoje a soma é -1.15 (MANTEM), mas sem faixa nenhuma a soma é -16.25 (CORTA); com a faixa pela metade a soma é -10.77 (CORTA). A faixa zera 47 divulgação(ões) que, com o sinal do próprio desvio, pesariam -15.08 — zerar um termo desloca a soma para o lado contrário, a mesma aritmética da winsorização revogada
       · a direção do USD depende de PARÂMETRO NÃO CALIBRADO: só 38% das 130 células da faixa plausível (meia-vida 14-30 dias, modulador de impacto entre 'só alto conta' e 'plano') dão a leitura publicada — quem faz virar: os dois, o modulador_de_impacto mais: modulador (8 de 13 células) contra meia-vida (5 de 10 células)
       · a perna USD está SEM LEITURA (sem leitura: intensidade relativa 14% abaixo do mínimo provisório de 15% (a leitura está perto demais de zero para virar direção). A moeda continua no arquivo, com tudo o que foi medido — o que não existe é a DIREÇÃO. E há um SEGUNDO motivo: a direção do USD DEPENDE de parâmetro que ninguém calibrou: 49 de 130 células da faixa plausível (38%) dão a leitura publicada ('sem leitura'), e as outras dão inclinado ao corte em 78 célula(s) · inclinado à alta em 3 célula(s). Quem faz virar: os dois, o modulador_de_impacto mais: modulador (8 de 13 células) contra meia-vida (5 de 10 células). Nenhum dado muda entre as células — só o botão. (o corte PROVISÓRIO de concordância é 60%).) — a tese do par se apoia só na outra perna
    [EVIDENCIA_FRACA]
