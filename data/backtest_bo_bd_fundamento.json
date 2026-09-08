@@ -1,0 +1,91 @@
+{
+ "gerado_em": "2026-09-08 20:08:20Z",
+ "natureza": "EXPLORACAO — nao e pre-registro",
+ "parametros": {
+  "nivel_sessoes": 20,
+  "atr": 14,
+  "RR": 2.0,
+  "max_barras": 60,
+  "ema": 200,
+  "slippage": 0.0005,
+  "diluicao_lim": 1.0
+ },
+ "escolhas_minhas_declaradas": [
+  "o NIVEL rompido = extremo das 20 sessoes anteriores; a casa deixou esse parametro em aberto ('falta so qual nivel e rompido')",
+  "saida por tempo em 60 sessoes; a geometria da casa nao tem prazo",
+  "quando alvo e stop cabem no mesmo dia, assume-se o stop",
+  "classificacao de fundamento com 4 criterios +1 e diluicao -1"
+ ],
+ "limites_do_painel": [
+  "so EUA; a B3 nao esta no EDGAR",
+  "XBRL obrigatorio por fases 2009-2011; historico util comeca ~2010",
+  "ponto-no-tempo RESOLVIDO; SOBREVIVENCIA NAO — a lista de tickers foi escolhida hoje, quem quebrou nao esta nela",
+  "valor originalmente reportado naquele arquivamento"
+ ],
+ "n_nomes": 86,
+ "distribuicao_rotulos_pct": {
+  "fraco": 15.6,
+  "mais_ou_menos": 36.3,
+  "solido": 48.1
+ },
+ "decomposicao": [
+  {
+   "celula": "1. BO/BD puro (sem filtro nenhum)",
+   "n": 10800,
+   "soma_R": -3.94,
+   "media_R": -0.0004,
+   "WR_pct": 34.0,
+   "PF": 1.0,
+   "compras": 6324,
+   "vendas": 4476
+  },
+  {
+   "celula": "2. BO/BD + EMA200 (sem fundamento)",
+   "n": 2612,
+   "soma_R": -162.32,
+   "media_R": -0.0621,
+   "WR_pct": 31.9,
+   "PF": 0.91,
+   "compras": 1022,
+   "vendas": 1590
+  },
+  {
+   "celula": "3. BO/BD + fundamento (sem EMA200)",
+   "n": 4730,
+   "soma_R": 97.15,
+   "media_R": 0.0205,
+   "WR_pct": 34.7,
+   "PF": 1.03,
+   "compras": 3131,
+   "vendas": 1599
+  },
+  {
+   "celula": "4. A ESTRATEGIA (fundamento + EMA200)",
+   "n": 875,
+   "soma_R": -79.91,
+   "media_R": -0.0913,
+   "WR_pct": 30.9,
+   "PF": 0.87,
+   "compras": 389,
+   "vendas": 486
+  },
+  {
+   "celula": "5. idem, mas vendendo o FRACO",
+   "n": 590,
+   "soma_R": -8.67,
+   "media_R": -0.0147,
+   "WR_pct": 33.4,
+   "PF": 0.98,
+   "compras": 389,
+   "vendas": 201
+  }
+ ],
+ "MC1_rotulo_embaralhado": {
+  "n_sims": 300,
+  "soma_p05": -86.3,
+  "soma_mediana": -33.84,
+  "soma_p95": 21.82,
+  "percentil_real_soma": 8.0,
+  "percentil_real_media": 4.7
+ }
+}
