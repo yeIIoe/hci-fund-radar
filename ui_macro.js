@@ -1737,19 +1737,18 @@
       const surp = (r.surpresa === null || r.surpresa === undefined) ? null : Number(r.surpresa);
       const rot = r.surpresa_rotulo || null;
       return `<tr>
-        <td>${esc(r.nome_pt || r.nome)}${r.preliminar
+        <td${r.casado_com && r.casado_com.titulo
+            ? ` title="casado com ${esc(tituloPt(r.casado_com.titulo))}"` : ""}>${esc(r.nome_pt || r.nome)}${r.preliminar
           ? ' <span class="mac-prelim" title="o BLS ainda revisa os dois dados seguintes">preliminar</span>' : ""}
-          <small class="muted mac-ref-td">${esc(dataBr(r.referencia || ""))}</small>
-          ${r.casado_com && r.casado_com.titulo
-            ? `<small class="muted mac-eua-casado">casado com ${esc(tituloPt(r.casado_com.titulo))}</small>` : ""}</td>
-        <td class="mac-num-td"><b>${esc(atTxt)}</b>${
-          nv ? `<small class="muted mac-eua-nivel">${esc(nv)}</small>` : ""}</td>
+          <small class="muted mac-ref-td">${esc(dataBr(r.referencia || ""))}</small></td>
+        <td class="mac-num-td"><b${nv ? ` title="${esc(nv)}"` : ""}>${esc(atTxt)}</b></td>
         <td class="mac-num-td">${semCons
           ? `<small class="muted">sem consenso</small>`
           : esc(euaTxt(r, "esperado_texto", r.esperado))}</td>
         <td class="mac-num-td">${esc(euaTxt(r, "anterior_texto", r.anterior))}${
-          r.anterior_e_revisado ? `<small class="muted mac-eua-nivel">revisado</small>` : ""}</td>
-        <td class="mac-num-td">${(semCons || surp === null)
+          r.anterior_e_revisado
+            ? `<small class="muted mac-eua-revisado" title="o BLS revisou este numero depois da primeira divulgacao">revisado</small>` : ""}</td>
+        <td class="mac-num-td mac-surp-td">${(semCons || surp === null)
           ? `<small class="muted">sem consenso</small>`
           : `<span class="mac-surp ${rot ? (CLS_SURPRESA[rot] || "muted") : "muted"}">${
               esc(euaTxt(r, "surpresa_texto", surp))}${rot ? " · " + esc(ROT_SURPRESA[rot] || rot) : ""}</span>`}</td>
@@ -1875,15 +1874,17 @@
     const trecho = x.trecho || x.frase || null;
     return `<li class="mac-fala">
       <div class="mac-fala-topo">
-        ${x.data ? `<span class="muted mac-ref-td">${esc(dataBr(String(x.data).slice(0, 10)))}</span>` : ""}
+        <span class="mac-veredito ${cls}">${esc(ver)}</span>
         <strong>${esc(x.orador || "orador não identificado")}</strong>
-        <span class="mac-veredito ${cls}">&mdash; ${esc(ver)}</span>
-        ${x.link ? `<a class="mac-fala-link" href="${esc(x.link)}" target="_blank" rel="noopener">abrir a fonte</a>` : ""}
+        ${x.data ? `<span class="muted mac-fala-data">${esc(dataBr(String(x.data).slice(0, 10)))}</span>` : ""}
       </div>
       ${x.motivo ? `<div class="mac-fala-motivo">${esc(x.motivo)}</div>` : ""}
-      ${trecho ? `<details class="mac-fala-trecho"><summary>o trecho que justificou</summary>
-        <blockquote class="mac-fala-frase">“${esc(String(trecho).slice(0, 400))}${
-          String(trecho).length > 400 ? "…" : ""}”</blockquote></details>` : ""}
+      <div class="mac-fala-pe">
+        ${trecho ? `<details class="mac-fala-trecho"><summary>o que ele disse, no original</summary>
+          <blockquote class="mac-fala-frase">“${esc(String(trecho).slice(0, 400))}${
+            String(trecho).length > 400 ? "…" : ""}”</blockquote></details>` : ""}
+        ${x.link ? `<a class="mac-fala-link" href="${esc(x.link)}" target="_blank" rel="noopener">abrir a fonte</a>` : ""}
+      </div>
     </li>`;
   }
 
@@ -1896,11 +1897,13 @@
     return itens.map((x) => {
       const f = (x.frases && x.frases[0] && x.frases[0].frase) || "";
       return `<li class="mac-fala">
-        <div class="mac-fala-topo"><span class="muted mac-ref-td">${esc(dataBr(x.data || ""))}</span>
+        <div class="mac-fala-topo">
+          <span class="mac-veredito v-indet">sem veredito</span>
           <strong>${esc(x.orador || "orador não identificado")}</strong>
-          <span class="mac-veredito v-indet">&mdash; veredito ainda não classificado</span>
-          ${x.link ? `<a class="mac-fala-link" href="${esc(x.link)}" target="_blank" rel="noopener">${
-            esc((x.titulo || "abrir a fonte").slice(0, 70))}</a>` : ""}</div>
+          <span class="muted mac-fala-data">${esc(dataBr(x.data || ""))}</span></div>
+        <div class="mac-fala-motivo">o classificador ainda não leu este texto.</div>
+        ${x.link ? `<div class="mac-fala-pe"><a class="mac-fala-link" href="${esc(x.link)}" target="_blank" rel="noopener">${
+            esc((x.titulo || "abrir a fonte").slice(0, 70))}</a></div>` : ""}
         ${f ? `<details class="mac-fala-trecho"><summary>o trecho extraído</summary>
           <blockquote class="mac-fala-frase">“${esc(f.slice(0, 300))}${f.length > 300 ? "…" : ""}”</blockquote>
           </details>` : ""}
@@ -1996,14 +1999,12 @@
       // recusa translate="no"), senao sai meia-traduzida — o erro do "prospective taxa basica"
       return `<li><a href="${esc(m.url || m.link || "#")}" target="_blank" rel="noopener" translate="no">${
           esc(m.titulo || "")}</a>
-        <small class="muted">${esc(fontes.join(", ") || "fonte não identificada")}${
+        <small class="muted"${rep && rep > 1 ? ` title="republicada em ${rep} sites"` : ""}>${esc(fontes.join(", ") || "fonte não identificada")}${
           m.quando ? " · " + esc(gdeltBr(m.quando)) : ""}</small>
         ${conf ? `<small class="mac-conf ${CLS_CONF[conf] || ""}">${esc(ROT_CONF[conf] || conf)}</small>` : ""}
-        ${rep && rep > 1 ? `<small class="muted">republicada em ${rep} sites</small>` : ""}</li>`;
+</li>`;
     }).join("");
-    return li + (unicas && dup
-      ? `<li class="muted mac-geo-dup"><small>${dup} ${dup === 1 ? "matéria repetida removida"
-          : "matérias repetidas removidas"} desta lista</small></li>` : "");
+    return li;   // [08/set] a contagem de repetidas saiu de CADA lista e vive so no rodape
   }
 
   /* (6) A GEOPOLÍTICA VEM RECOLHIDA POR PADRÃO.
@@ -2028,30 +2029,28 @@
 
     return `<section class="content-section mac-bloco mac-geo">
       <details class="mac-geo-det">
-        <summary><span class="mac-geo-sum">Geopolítica <small class="mac-selo">${SELO_GEO}</small>
+        <summary><span class="mac-geo-sum" title="Intensidade do noticiário por moeda: artigos dos últimos 3 dias contra a média diária de 14 dias, do GDELT.">Geopolítica <small class="mac-selo">${SELO_GEO}</small>
           <small class="muted">— clique para abrir</small></span></summary>
-        <div class="section-title"><div></div>
-          <p>Intensidade do noticiário por moeda: artigos dos últimos 3 dias contra a média diária de
-             14 dias, do GDELT. A implicação ao lado de cada cartão é uma <b>regra declarada</b> — ela
-             não conta na leitura enquanto não for medida, e por isso a seção vem recolhida.</p></div>
         <div class="mac-geo-mundo">
           <span class="mac-perna-papel">Pano de fundo do mundo</span>
           ${zPill((W.conflito || {}).volume, "conflito")} ${zPill((W.energia || {}).volume, "energia")}
           <ul class="mac-geo-lista">${manchetesHtml(W.conflito || {}, 2)}${manchetesHtml(W.energia || {}, 1)}</ul>
         </div>
         <div class="mac-geo-grid">${cards}</div>
-        <p class="mac-eua-nota">Regra, não medição: um pico de conflito tende a mandar fluxo para USD,
-          CHF e JPY e a tirar de AUD, NZD e CAD; um pico de energia é empurrão de inflação para quem
-          importa. A hipótese a testar antes que isto entre na leitura: um z de conflito ≥ 2 muda o
-          retorno de 20 dias das moedas de risco?
-          ${G.duplicatas_removidas_total
-            ? `<br><b>${G.duplicatas_removidas_total}</b> ${G.duplicatas_removidas_total === 1
-                ? "matéria repetida foi removida" : "matérias repetidas foram removidas"} desta rodada${
-                textoDe(G.regra_deduplicacao, "metodo") ? " — " + esc(textoDe(G.regra_deduplicacao, "metodo")) : ""}.` : ""}
-          ${G.confiabilidade_fonte
-            ? `<br>A confiabilidade ao lado de cada manchete vem do veículo${
-                textoDe(G.confiabilidade_fonte, "casamento") ? " (" + esc(textoDe(G.confiabilidade_fonte, "casamento")) + ")" : ""}
-               — regra declarada e <b>provisória</b>, ainda não medida contra desfecho.` : ""}</p>
+        <div class="mac-geo-rodape">
+          <div class="mac-geo-rodape-topo"><span class="mac-perna-papel">Como ler estes números</span>
+            <small class="mac-selo">${SELO_GEO}</small></div>
+          <p class="mac-geo-regra"><b>Regra declarada, não medição.</b> Um pico de <b>conflito</b>
+            tende a mandar fluxo para USD, CHF e JPY, e a tirar de AUD, NZD e CAD. Um pico de
+            <b>energia</b> é empurrão de inflação para quem importa.</p>
+          <p class="mac-geo-hipotese"><b>A hipótese que precisa passar</b> antes que isto entre na
+            leitura: um z de conflito ≥ 2 muda o retorno de 20 dias das moedas de risco?</p>
+          <p class="mac-geo-pe">${G.duplicatas_removidas_total
+            ? `<b>${G.duplicatas_removidas_total}</b> ${G.duplicatas_removidas_total === 1
+                ? "matéria repetida removida" : "matérias repetidas removidas"} nesta rodada` : ""}${
+            G.duplicatas_removidas_total && G.confiabilidade_fonte ? " · " : ""}${
+            G.confiabilidade_fonte ? "confiabilidade lida do veículo — provisória, ainda não medida contra desfecho" : ""}</p>
+        </div>
       </details>
     </section>`;
   }

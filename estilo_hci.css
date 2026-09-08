@@ -2406,3 +2406,178 @@ html .sala-lista li b{ font-family:var(--mono); color:var(--tinta); font-weight:
    §6.6 continua como estava para os alarmes de identificador curto. */
 html .faixa-alarmes .alarme > div{ min-width:0; }
 html .faixa-alarmes .alarme .identificador{ overflow-wrap:anywhere; word-break:break-word; }
+
+/* ============================================================================
+   §08set · QUATRO CORRECOES QUE O EDUARDO MARCOU A MAO
+   ----------------------------------------------------------------------------
+   (1) TABELA DOS EUA — "parece estar mal configurado".
+       Causa real: `.mac-tabela td small{display:inline}` do ui_macro.js tem
+       especificidade (0,1,2) e VENCIA `.mac-eua-nivel{display:block}` (0,1,0).
+       Por isso "indice"/"nivel" grudavam no numero: "+3,30%indice". O nivel saiu
+       da tela (foi para o title); o "revisado" desceu para a linha de baixo, como
+       ele pediu — "coloque o revisado do anterior abaixo ou nem coloque".
+   (2) FALAS — "coloque o veredito antes do que eles disseram ja que e mais
+       importante" e "priorize o significado acima do que foi dito".
+   (3) RODAPE DA GEOPOLITICA — "tem que estar melhor destacado".
+   (4) "MELHORE A LETRA DESSAS CAIXAS REALCADAS" — as notas de rodape estavam em
+       --tinta-3 9,5px mono, tamanho de carimbo para texto que se le. Viram
+       serifa 12,5/1,68 em --tinta-2, que e a escala de PROSA da casa (§5.1 do
+       manual reservava o mono ao carimbo, nao ao paragrafo).
+   ============================================================================ */
+
+/* --- (1) a tabela dos EUA ------------------------------------------------- */
+html .mac-tabela td .mac-eua-revisado,
+html .mac-tabela td .mac-eua-casado{
+  display:block; margin-top:var(--e1);
+  font-family:var(--mono); font-size:var(--t-micro);
+  color:var(--tinta-3); font-weight:400; letter-spacing:.02em;
+}
+html .mac-tabela td .mac-eua-revisado{ text-transform:uppercase; }
+/* a celula da surpresa carrega "+106 mil · empurra a alta" e o nowrap herdado de
+   .mac-num-td empurrava a tabela para fora da tela (a barra horizontal da foto) */
+html .mac-tabela td.mac-surp-td{ white-space:normal; }
+
+/* --- (2) as falas: caixa, veredito na frente, significado acima do literal -- */
+html .mac-falas{
+  margin-top:var(--e6); padding:0; border:1px solid var(--regua);
+  background:var(--painel-fundo); border-top:1px solid var(--regua);
+}
+html .mac-falas > summary{
+  padding:var(--e5) var(--e5); border-bottom:1px solid var(--regua-fraca);
+}
+html .mac-falas[open] > summary{ border-bottom:1px solid var(--regua); }
+html .mac-falas ul{ margin:0; padding:var(--e5); gap:var(--e5); }
+html .mac-falas .mac-fala{
+  padding:var(--e5); border:1px solid var(--regua-fraca);
+  background:var(--fundo-band);
+}
+html .mac-falas .mac-fala-topo{
+  display:flex; gap:var(--e4); align-items:baseline; flex-wrap:wrap;
+}
+/* O VEREDITO E O PRIMEIRO ELEMENTO E O UNICO EM CAIXA — e ele que responde a
+   pergunta. O nome do orador e a data sao referencia, e ficam atras. */
+html .mac-falas .mac-veredito{
+  order:-1; font-family:var(--mono); font-size:var(--t-micro);
+  text-transform:uppercase; letter-spacing:.08em; font-weight:500;
+  padding:3px var(--e3); border:1px solid var(--regua-forte); border-radius:2px;
+}
+html .mac-falas .mac-veredito.v-alta,
+html .mac-falas .mac-veredito.v-alta-cond{ border-color:var(--alta-borda); background:var(--alta-fraca); }
+html .mac-falas .mac-veredito.v-corte,
+html .mac-falas .mac-veredito.v-corte-cond{ border-color:var(--corte-borda); background:var(--corte-fraca); }
+html .mac-falas .mac-fala-topo strong{ font-size:var(--t-md); color:var(--tinta); font-weight:600; }
+html .mac-falas .mac-fala-data{
+  font-family:var(--mono); font-size:var(--t-micro); color:var(--tinta-3);
+  margin-left:auto;
+}
+/* o SIGNIFICADO — o que a fala quer dizer — e o texto principal do cartao */
+html .mac-falas .mac-fala-motivo{
+  margin-top:var(--e4); font-family:var(--serifa);
+  font-size:var(--t-base); line-height:1.62; color:var(--tinta-2); opacity:1;
+}
+/* o que ele disse no original e a REFERENCIA: fica no pe, atras de um clique */
+html .mac-falas .mac-fala-pe{
+  display:flex; gap:var(--e5); align-items:baseline; flex-wrap:wrap;
+  margin-top:var(--e4); padding-top:var(--e3);
+  border-top:1px solid var(--regua-fraca);
+}
+html .mac-falas .mac-fala-trecho{ margin:0; }
+html .mac-falas .mac-fala-trecho summary{
+  font-family:var(--mono); font-size:var(--t-micro); letter-spacing:.04em;
+  text-transform:uppercase; color:var(--tinta-3); opacity:1;
+}
+html .mac-falas .mac-fala-trecho summary:hover{ color:var(--marca); }
+html .mac-falas .mac-fala-frase{
+  font-family:var(--serifa); font-size:var(--t-base); line-height:1.62;
+  color:var(--tinta-2); border-left:2px solid var(--regua-forte);
+}
+html .mac-falas .mac-fala-link{
+  font-family:var(--mono); font-size:var(--t-micro); letter-spacing:.04em;
+  text-transform:uppercase; color:var(--tinta-3); opacity:1;
+}
+html .mac-falas .mac-fala-link:hover{ color:var(--marca); }
+
+/* --- (3) o rodape da geopolitica, destacado ------------------------------- */
+html .mac-geo-rodape{
+  margin-top:var(--e7); padding:var(--e6);
+  border:1px solid var(--regua); border-left:2px solid var(--aviso-fio);
+  background:var(--painel-fundo);
+}
+html .mac-geo-rodape-topo{
+  display:flex; gap:var(--e5); align-items:baseline; flex-wrap:wrap;
+  margin-bottom:var(--e4);
+}
+html .mac-geo-rodape p{
+  margin:0; font-family:var(--serifa); font-size:var(--t-base);
+  line-height:1.68; color:var(--tinta-2); max-width:78ch;
+}
+html .mac-geo-rodape .mac-geo-regra b{ color:var(--tinta); font-weight:600; }
+html .mac-geo-rodape .mac-geo-hipotese{
+  margin-top:var(--e5); padding-top:var(--e5);
+  border-top:1px solid var(--regua-fraca); color:var(--tinta-2);
+}
+html .mac-geo-rodape .mac-geo-hipotese b{ color:var(--aviso); font-weight:600; }
+html .mac-geo-rodape .mac-geo-pe{
+  margin-top:var(--e5); font-family:var(--mono); font-size:var(--t-micro);
+  letter-spacing:.02em; color:var(--tinta-3); line-height:1.6;
+}
+html .mac-geo-rodape .mac-geo-pe:empty{ display:none; }
+
+/* --- (4) a letra das caixas realcadas ------------------------------------- */
+/* Nota de rodape e PROSA: serifa, corpo de leitura, --tinta-2. O mono 9,5px de
+   carimbo continua valendo para .tab-pe e .mac-frescor, que sao carimbo mesmo. */
+html .mac-eua-nota,
+html .method-note{
+  font-family:var(--serifa); font-size:var(--t-base); line-height:1.68;
+  color:var(--tinta-2); padding:var(--e5) var(--e6); max-width:82ch;
+}
+html .mac-eua-nota b, html .method-note b{ color:var(--tinta); font-weight:600; }
+
+/* o rodape do site: os dois blocos que ele circulou */
+html .site-footer{ font-size:var(--t-base); color:var(--tinta-2); }
+html .site-footer p{
+  font-family:var(--serifa); font-size:var(--t-base); line-height:1.68;
+  color:var(--tinta-2); max-width:62ch; margin:var(--e3) 0 0;
+}
+html .site-footer .footer-contact{ text-align:right; }
+html .site-footer .footer-contact small{
+  display:block; margin-top:var(--e3); max-width:34ch; margin-left:auto;
+  font-family:var(--mono); font-size:var(--t-min); line-height:1.6;
+  color:var(--tinta-3); letter-spacing:.02em;
+}
+
+/* --- (1b) a tabela dos EUA cabia em 852px e pedia 960 ---------------------
+   Era a barra de rolagem horizontal da foto, com a coluna SURPRESA cortada ao
+   meio. Duas medidas, nenhuma delas escondendo dado: o cartao do FOMC deixa de
+   ser 386px fixos, e a coluna do INDICADOR passa a quebrar linha em vez de
+   empurrar a tabela para fora (os nomes sao longos: "Inflacao ao consumidor
+   (CPI)" mais "casado com CPI (ano a ano)" embaixo). --------------------- */
+html .mac-eua-grid{ grid-template-columns:minmax(260px,320px) minmax(0,1fr); }
+/* `max-width` NAO tem efeito em celula de tabela com table-layout:auto (a
+   especificacao manda ignorar) — foi por isso que a coluna do indicador CRESCEU
+   para 402px em vez de quebrar quando o "casado com" saiu. Com table-layout
+   fixed as larguras passam a valer e a tabela cabe. */
+/* A CAUSA RAIZ era desta folha: `min-width:960px` fixo na tabela dos EUA, num
+   espaco de 918px. Nao havia largura de tela que resolvesse — a barra horizontal
+   e a coluna SURPRESA cortada eram garantidas. As larguras por coluna ja somam
+   750px, entao os 960 eram folga arbitraria. Com table-layout fixed a soma passa
+   a valer e a coluna do indicador recebe o resto. */
+html .mac-eua-grid .mac-eua-tabela > table.mac-tabela,
+html .tabela-eua{ min-width:760px; table-layout:fixed; }
+html .mac-eua-grid .mac-eua-tabela > table.mac-tabela th{ white-space:normal; }
+html .mac-eua-grid .mac-eua-tabela > table.mac-tabela td:nth-child(1){ white-space:normal; }
+@media (max-width:900px){
+  html .mac-eua-grid{ grid-template-columns:minmax(0,1fr); }
+}
+/* o chip "+106 mil · empurra a alta" e mais largo que a coluna: com table-layout
+   fixed ele vazava por cima da MEDIA 3M. Passa a quebrar dentro da propria celula */
+html .mac-eua-grid .mac-eua-tabela > table.mac-tabela td.mac-surp-td .mac-surp{
+  display:inline-block; white-space:normal; text-align:right; line-height:1.45;
+}
+/* o sumario da caixa de falas quebrava em duas linhas: o triangulo sozinho em
+   cima e o titulo embaixo, porque .mac-perna-papel e display:block */
+html .mac-falas > summary{
+  display:flex; gap:var(--e5); align-items:baseline; flex-wrap:wrap;
+  cursor:pointer; list-style-position:outside;
+}
+html .mac-falas > summary .mac-perna-papel{ display:inline; }
