@@ -15,7 +15,7 @@
        ordem e por prefixo html nos seletores. As tres familias vem no @import dela. -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="estilo_hci.css?v=20260908-lista3">
+  <link rel="stylesheet" href="estilo_hci.css?v=20260908-limpa1">
 </head>
 <body>
   <header class="site-header">
@@ -75,7 +75,10 @@
       <span>Mostrando só o que se sabia em <b id="timeCutLabel">—</b>. Resultados e dias posteriores ficam ocultos.</span>
       <button id="timeCutClear" type="button">Sair</button>
     </div>
-    <section id="systemMessage" class="system-line" aria-live="polite">Painel de leitura. Ele dá o lado fundamental; a entrada é sua.</section>
+    <!-- [08/set] O Eduardo riscou a linha de STATUS: ela repetia, em toda carga e no topo de
+         tudo, um aviso que ja esta no rodape e no cabecalho de cada aba. Fica escondida (o
+         app.js antigo ainda escreve nela, entao o elemento continua existindo). -->
+    <section id="systemMessage" class="system-line" aria-live="polite" hidden></section>
     <section class="aviso-reprovado">
       <strong>Versão experimental — reprovada nos testes de utilidade direcional.</strong>
       Em 31/ago/2026 o FUND V0.1 foi avaliado como filtro de entradas técnicas (3 setups × 3 horizontes,
@@ -505,7 +508,7 @@
        window.HCI_MEDIDORES existindo nesse instante. Sem fetch, sem evento. -->
   <script src="ui_medidores.js?v=20260906-vis1"></script>
   <script src="ui_agentes.js?v=20260908-agentes1"></script>
-  <script src="ui_macro.js?v=20260908-lista2"></script>
+  <script src="ui_macro.js?v=20260908-limpa1"></script>
   <!-- Depois do ui_macro.js de proposito: ele repinta os paineis a cada 900 ms e precisa
        ter desenhado antes de a auditoria esconder as manchetes posteriores ao corte. -->
   <script src="ui_corte_auditoria.js?v=20260905-rev1"></script>

@@ -503,39 +503,42 @@
       return `<tr class="${urgente ? "mac-urgente" : ""}${clsAtraso()}">
         <td class="mac-moeda">${FLAG[m] || ""} <strong>${m}</strong> <small>${esc(b.sigla)}</small></td>
         <td class="mac-taxa">${esc(taxaTexto(b.taxa_texto))}</td>
-        <td><span class="mac-regime ${reg ? CLS_REGIME[reg] : "muted"}">${
-            reg ? esc(ROT_REGIME[reg]) : "—"}</span>
-          <small class="muted"> · último movimento ${esc(dataBr(b.ultima_mudanca) || "—")}${
-            b.ultima_mudanca_bp ? ` (${b.ultima_mudanca_bp > 0 ? "+" : ""}${b.ultima_mudanca_bp} pb)` : ""}</small></td>
+        <!-- [08/set] O Eduardo riscou, uma por uma, TODAS as sublinhas destas celulas: o
+             "ultimo movimento", o "amanha · impacto alto", o "em 2 dias · 10/09/2026" e o
+             "horario local Berlim". Motivo dele, e ele esta certo: "o nosso cerebro nao
+             consegue processar tantas informacoes ao mesmo tempo". Cada celula passa a
+             carregar UM dado. O que saiu daqui nao sumiu do produto — vive no title (passe o
+             mouse) e na ficha do par, que e onde se estuda. Aqui se ESCANEIA. -->
+        <td><span class="mac-regime ${reg ? CLS_REGIME[reg] : "muted"}" title="último movimento ${
+            esc(dataBr(b.ultima_mudanca) || "—")}${
+            b.ultima_mudanca_bp ? ` (${b.ultima_mudanca_bp > 0 ? "+" : ""}${b.ultima_mudanca_bp} pb)` : ""}">${
+            reg ? esc(ROT_REGIME[reg]) : "—"}</span></td>
         <td>${ev
-          ? `<strong>${esc(tituloPt(ev.titulo))}</strong>
-             <small class="mac-brt">${esc(ev.brt || "—")} BRT</small>
-             <small class="muted"> · ${esc(quandoTexto(ev.dias))}${
-               ev.impacto ? " · impacto " + esc(impactoPt(ev.impacto)) : ""}</small>`
-          : `<small class="muted">nenhum evento de alto impacto agendado na janela</small>`}</td>
-        <td><strong class="mac-brt">${emBrt ? esc(emBrt) + " BRT" : esc(dataBr(b.proxima) || "—")}</strong>
-          <small class="muted"> · ${esc(quando)}${b.proxima && emBrt ? " · " + esc(dataBr(b.proxima)) : ""}</small>
-          <small class="mac-hora-local">${b.hora_local ? "horário local " + esc(hora) : esc(hora)}</small></td>
+          ? `<strong title="${esc(quandoTexto(ev.dias))}${ev.impacto ? " · impacto " + esc(impactoPt(ev.impacto)) : ""}">${
+               esc(tituloPt(ev.titulo))}</strong>
+             <small class="mac-brt">${esc(ev.brt || "—")}</small>`
+          : `<small class="muted">sem evento na janela</small>`}</td>
+        <td><strong class="mac-brt" title="${esc(quando)}${
+            b.proxima && emBrt ? " · " + esc(dataBr(b.proxima)) : ""} · ${
+            b.hora_local ? "horário local " + esc(hora) : esc(hora)}">${
+            emBrt ? esc(emBrt) : esc(dataBr(b.proxima) || "—")}</strong></td>
         <td>${leanCel(m)}</td>
       </tr>`;
     }).join("");
 
     return `<section class="content-section mac-bloco">
-      <div class="section-title"><div><h2>Reuniões dos bancos centrais</h2></div>
-        <p>A taxa em vigor, o regime em que cada banco está, o próximo evento que pode invalidar a
-           tese, quando cada um decide de novo e a leitura para frente. O horário em <b>BRT</b> vem
-           primeiro; o local fica ao lado, secundário.</p></div>
+      <div class="section-title"><div><h2>Reuniões dos bancos centrais</h2></div></div>
       ${tarjaAtraso()}
       <div class="table-wrap"><table class="mac-tabela">
         <thead><tr><th>Moeda</th><th>Taxa</th><th>Regime</th>
                    <th>Próximo evento relevante</th><th>Próxima decisão</th><th>Leitura</th></tr></thead>
         <tbody>${linhas}</tbody></table></div>
-      <p class="mac-frescor">${frescor()}</p>
-      <p class="method-note">A taxa e as datas são fatos, conferidos nas páginas dos próprios bancos
-        centrais em 01/set/2026. O <em>regime</em> é o que o banco está fazendo; a <em>leitura</em> é
-        para onde os dados divulgados, o texto e o ciclo apontam — e ela nunca sai de uma pontuação.
-        O <em>próximo evento relevante</em> é o que decide a validade da ZOI e de entradas novas; a
-        reunião é o limite final do ciclo.</p>
+      <details class="mac-det-mais"><summary>frescor e método</summary>
+        <p class="mac-frescor">${frescor()}</p>
+        <p class="method-note">A taxa e as datas são fatos, conferidos nas páginas dos próprios
+          bancos centrais. O <em>regime</em> é o que o banco está fazendo; a <em>leitura</em> é para
+          onde os dados e o ciclo apontam. O <em>próximo evento relevante</em> decide a validade da
+          ZOI e de entradas novas; a reunião é o limite final do ciclo.</p></details>
     </section>`;
   }
 
@@ -816,9 +819,22 @@
     </div>`;
   }
 
-  // celula da tabela de bancos — o bloco da moeda, sem pontuação nenhuma
+  // celula da tabela de bancos — o bloco da moeda, sem pontuação nenhuma.
+  // [08/set] Na TABELA fica so a linha 1 (a leitura). O Eduardo riscou "2 de 2 dimensoes
+  // concordam" e "Evidencia: forte · faixa provisoria" em todas as oito linhas: numa tabela de
+  // oito moedas, isso e 16 frases repetidas que ninguem le. As duas continuam inteiras no
+  // cartao da moeda (blocoMoeda "big") e na ficha do par; aqui viram title.
   function leanCel(m) {
-    return blocoMoeda(m, "cel");
+    const L = leituraDe(m);
+    if (!L) return `<small class="muted">leitura ainda não construída</small>`;
+    const cls = CLS_LEITURA[L.chave] || "muted";
+    const dica = [L.conc, L.evid ? "evidência " + L.evid + " (faixa provisória)" : "",
+                  L.chave === "sem_leitura" ? L.motivo : ""].filter(Boolean).join(" · ");
+    return `<div class="mac-bloco-moeda cel${clsAtraso()}" title="${esc(dica)}">
+      <div class="mac-bm-linha1 ${cls}">${
+        L.chave === "sem_leitura" ? "" : `<span class="mac-bm-seta">${SETA_LEITURA[L.chave]}</span> `
+      }<strong>${esc(m)}</strong> &mdash; ${esc(L.chave === "sem_leitura" ? "sem leitura" : L.texto)}</div>
+    </div>`;
   }
 
   // Os motivos X, Y e Z: os prints que mais pesaram na dimensao de dados, e a frase do
@@ -1765,10 +1781,7 @@
     }).join("");
 
     return `<section class="content-section mac-bloco mac-eua">
-      <div class="section-title"><div><h2>Estados Unidos</h2></div>
-        <p>Uma das pernas na maioria dos pares, e o juro a que ouro, NQ e ES respondem. Lido direto
-           do BLS e do Fed, sem intermediário. Cada linha mostra <b>se o dado surpreendeu</b> — o
-           número sozinho não diz nada sem o que se esperava dele.</p></div>
+      <div class="section-title"><div><h2>Estados Unidos</h2></div></div>
       <div class="mac-eua-grid">
         ${fomc}
         <div class="mac-eua-tabela">
@@ -1780,12 +1793,14 @@
           </table>
         </div>
       </div>
-      <p class="mac-eua-nota">${ref ? `Os dados mais recentes descrevem <b>${esc(dataBr(ref))}</b>${
-          atrasoRef != null ? ` — ${atrasoRef} ${atrasoRef === 1 ? "mês" : "meses"} atrás` : ""}. Esse é o mês que
-        terminou, não um atraso de entrega; todo terminal carrega a mesma defasagem.` : ""}
-        Entrega (da divulgação até aqui): <b>${entrega}</b>.
-        Onde não há consenso publicado, a coluna diz <b>sem consenso</b> — a surpresa não pode ser
-        medida e nenhum número é inventado no lugar.</p>
+      <!-- [08/set] O Eduardo riscou este paragrafo inteiro. Ele explicava a defasagem de
+           referencia e a entrega — informacao correta, mas que so importa quando alguem
+           duvida do numero. Vira expansivel. -->
+      <details class="mac-det-mais"><summary>defasagem e entrega</summary>
+        <p class="mac-eua-nota">${ref ? `Os dados descrevem <b>${esc(dataBr(ref))}</b>${
+            atrasoRef != null ? ` — ${atrasoRef} ${atrasoRef === 1 ? "mês" : "meses"} atrás` : ""}: é o mês
+          que terminou, não atraso de entrega. ` : ""}Entrega da divulgação até aqui: <b>${entrega}</b>.
+          Sem consenso publicado, a surpresa não é medida e nenhum número é inventado.</p></details>
       ${falasDoFed()}
       ${fed ? `<details class="mac-det-mais mac-eua-fed"><summary>Últimas publicações do Fed</summary>
         <ul>${fed}</ul></details>` : ""}
