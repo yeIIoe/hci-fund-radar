@@ -2,7 +2,7 @@
   "meta": {
     "engine": "FUND_DIRECIONAL_D1",
     "start": "2018-01-01",
-    "end": "2026-09-04",
+    "end": "2026-09-07",
     "cost_pips": 1.0,
     "entry": "FUND leaves NEUTRAL; execution at the next ECB fixing",
     "exit": "FUND loses a band in the direction of the position",
@@ -13,16 +13,16 @@
       "summary": {
         "pair": "USDCAD",
         "start": "2018-01-01",
-        "end": "2026-09-04",
+        "end": "2026-09-07",
         "cost_pips": 1.0,
         "trades": 243,
         "wins": 131,
         "losses": 112,
         "win_rate": 53.91,
-        "profit_factor": 1.651,
+        "profit_factor": 1.646,
         "no_loss_pf": false,
-        "net_return_pct": 38.18,
-        "sum_return_pct": 33.27,
+        "net_return_pct": 37.97,
+        "sum_return_pct": 33.12,
         "max_drawdown_pct": 4.64,
         "avg_holding_days": 5.1,
         "validation": "PIT_CAUSAL"
@@ -1001,8 +1001,8 @@
           "equity": 138.1869
         },
         {
-          "date": "2026-09-04",
-          "equity": 138.1769
+          "date": "2026-09-07",
+          "equity": 137.9701
         }
       ],
       "trades": [
@@ -5126,15 +5126,15 @@
           "signal_date": "2026-09-03",
           "entry_date": "2026-09-04",
           "exit_signal_date": null,
-          "exit_date": "2026-09-04",
+          "exit_date": "2026-09-07",
           "entry_price": 1.379969,
-          "exit_price": 1.379969,
+          "exit_price": 1.382034,
           "fund_entry": -37.62,
           "entry_strength": "BEAR",
           "exit_strength": null,
-          "return_pct": -0.0072,
+          "return_pct": -0.1569,
           "cost_pct": 0.0072,
-          "holding_days": 0,
+          "holding_days": 3,
           "reason": "FIM_DA_JANELA"
         }
       ]
@@ -5143,16 +5143,16 @@
       "summary": {
         "pair": "GBPNZD",
         "start": "2018-01-01",
-        "end": "2026-09-04",
+        "end": "2026-09-07",
         "cost_pips": 1.0,
         "trades": 197,
         "wins": 106,
         "losses": 91,
         "win_rate": 53.81,
-        "profit_factor": 1.26,
+        "profit_factor": 1.263,
         "no_loss_pf": false,
-        "net_return_pct": 14.73,
-        "sum_return_pct": 14.71,
+        "net_return_pct": 14.88,
+        "sum_return_pct": 14.84,
         "max_drawdown_pct": 6.37,
         "avg_holding_days": 5.0,
         "validation": "PIT_CAUSAL"
@@ -5947,8 +5947,8 @@
           "equity": 115.4288
         },
         {
-          "date": "2026-09-04",
-          "equity": 114.7299
+          "date": "2026-09-07",
+          "equity": 114.8804
         }
       ],
       "trades": [
@@ -9289,17 +9289,17 @@
           "side": "LONG",
           "signal_date": "2026-09-01",
           "entry_date": "2026-09-02",
-          "exit_signal_date": null,
-          "exit_date": "2026-09-04",
+          "exit_signal_date": "2026-09-04",
+          "exit_date": "2026-09-07",
           "entry_price": 2.31373,
-          "exit_price": 2.299821,
+          "exit_price": 2.302838,
           "fund_entry": 32.2,
           "entry_strength": "BULL",
-          "exit_strength": null,
-          "return_pct": -0.6055,
+          "exit_strength": "NEUTRAL",
+          "return_pct": -0.4751,
           "cost_pct": 0.0043,
-          "holding_days": 2,
-          "reason": "FIM_DA_JANELA"
+          "holding_days": 5,
+          "reason": "PERDEU_FAIXA_FUND"
         }
       ]
     },
@@ -9307,7 +9307,7 @@
       "summary": {
         "pair": "EURCHF",
         "start": "2018-01-01",
-        "end": "2026-09-04",
+        "end": "2026-09-07",
         "cost_pips": 1.0,
         "trades": 243,
         "wins": 131,
@@ -14437,15 +14437,15 @@
       "summary": {
         "pair": "EURUSD",
         "start": "2018-01-01",
-        "end": "2026-09-04",
+        "end": "2026-09-07",
         "cost_pips": 1.0,
-        "trades": 236,
+        "trades": 237,
         "wins": 117,
-        "losses": 119,
-        "win_rate": 49.58,
+        "losses": 120,
+        "win_rate": 49.37,
         "profit_factor": 1.178,
         "no_loss_pf": false,
-        "net_return_pct": 9.73,
+        "net_return_pct": 9.72,
         "sum_return_pct": 9.84,
         "max_drawdown_pct": 8.08,
         "avg_holding_days": 5.1,
@@ -15399,6 +15399,10 @@
         {
           "date": "2026-09-01",
           "equity": 109.7335
+        },
+        {
+          "date": "2026-09-07",
+          "equity": 109.7241
         }
       ],
       "trades": [
@@ -19413,6 +19417,23 @@
           "cost_pct": 0.0086,
           "holding_days": 1,
           "reason": "PERDEU_FAIXA_FUND"
+        },
+        {
+          "pair": "EURUSD",
+          "side": "LONG",
+          "signal_date": "2026-09-04",
+          "entry_date": "2026-09-07",
+          "exit_signal_date": null,
+          "exit_date": "2026-09-07",
+          "entry_price": 1.1622,
+          "exit_price": 1.1622,
+          "fund_entry": 39.65,
+          "entry_strength": "BULL",
+          "exit_strength": null,
+          "return_pct": -0.0086,
+          "cost_pct": 0.0086,
+          "holding_days": 0,
+          "reason": "FIM_DA_JANELA"
         }
       ]
     },
@@ -19420,17 +19441,17 @@
       "summary": {
         "pair": "NZDUSD",
         "start": "2018-01-01",
-        "end": "2026-09-04",
+        "end": "2026-09-07",
         "cost_pips": 1.0,
         "trades": 240,
         "wins": 123,
         "losses": 117,
         "win_rate": 51.25,
-        "profit_factor": 1.15,
+        "profit_factor": 1.151,
         "no_loss_pf": false,
-        "net_return_pct": 11.39,
-        "sum_return_pct": 12.14,
-        "max_drawdown_pct": 9.34,
+        "net_return_pct": 11.53,
+        "sum_return_pct": 12.27,
+        "max_drawdown_pct": 9.23,
         "avg_holding_days": 4.0,
         "validation": "PIT_CAUSAL"
       },
@@ -20396,8 +20417,8 @@
           "equity": 112.4804
         },
         {
-          "date": "2026-09-04",
-          "equity": 111.3878
+          "date": "2026-09-07",
+          "equity": 111.5313
         }
       ],
       "trades": [
@@ -24469,17 +24490,17 @@
           "side": "SHORT",
           "signal_date": "2026-09-01",
           "entry_date": "2026-09-02",
-          "exit_signal_date": null,
-          "exit_date": "2026-09-04",
+          "exit_signal_date": "2026-09-04",
+          "exit_date": "2026-09-07",
           "entry_price": 0.582746,
-          "exit_price": 0.588307,
+          "exit_price": 0.587563,
           "fund_entry": -25.82,
           "entry_strength": "BEAR",
-          "exit_strength": null,
-          "return_pct": -0.9714,
+          "exit_strength": "NEUTRAL",
+          "return_pct": -0.8438,
           "cost_pct": 0.0172,
-          "holding_days": 2,
-          "reason": "FIM_DA_JANELA"
+          "holding_days": 5,
+          "reason": "PERDEU_FAIXA_FUND"
         }
       ]
     },
@@ -24487,16 +24508,16 @@
       "summary": {
         "pair": "AUDCHF",
         "start": "2018-01-01",
-        "end": "2026-09-04",
+        "end": "2026-09-07",
         "cost_pips": 1.0,
         "trades": 202,
         "wins": 105,
         "losses": 97,
         "win_rate": 51.98,
-        "profit_factor": 1.119,
+        "profit_factor": 1.121,
         "no_loss_pf": false,
-        "net_return_pct": 7.28,
-        "sum_return_pct": 8.46,
+        "net_return_pct": 7.45,
+        "sum_return_pct": 8.62,
         "max_drawdown_pct": 10.78,
         "avg_holding_days": 6.3,
         "validation": "PROVISIONAL_PIT"
@@ -25311,8 +25332,8 @@
           "equity": 106.5117
         },
         {
-          "date": "2026-09-04",
-          "equity": 107.2846
+          "date": "2026-09-07",
+          "equity": 107.451
         }
       ],
       "trades": [
@@ -28738,17 +28759,17 @@
           "side": "LONG",
           "signal_date": "2026-08-27",
           "entry_date": "2026-08-28",
-          "exit_signal_date": null,
-          "exit_date": "2026-09-04",
+          "exit_signal_date": "2026-09-04",
+          "exit_date": "2026-09-07",
           "entry_price": 0.578632,
-          "exit_price": 0.58293,
+          "exit_price": 0.583835,
           "fund_entry": 33.71,
           "entry_strength": "BULL",
-          "exit_strength": null,
-          "return_pct": 0.7256,
+          "exit_strength": "BULL",
+          "return_pct": 0.8819,
           "cost_pct": 0.0173,
-          "holding_days": 7,
-          "reason": "FIM_DA_JANELA"
+          "holding_days": 10,
+          "reason": "PERDEU_FAIXA_FUND"
         }
       ]
     },
@@ -28756,16 +28777,16 @@
       "summary": {
         "pair": "AUDNZD",
         "start": "2018-01-01",
-        "end": "2026-09-04",
+        "end": "2026-09-07",
         "cost_pips": 1.0,
         "trades": 163,
         "wins": 80,
         "losses": 83,
         "win_rate": 49.08,
-        "profit_factor": 1.109,
+        "profit_factor": 1.117,
         "no_loss_pf": false,
-        "net_return_pct": 3.56,
-        "sum_return_pct": 3.77,
+        "net_return_pct": 3.85,
+        "sum_return_pct": 4.05,
         "max_drawdown_pct": 4.06,
         "avg_holding_days": 9.5,
         "validation": "PROVISIONAL_PIT"
@@ -29424,8 +29445,8 @@
           "equity": 102.363
         },
         {
-          "date": "2026-09-04",
-          "equity": 103.5567
+          "date": "2026-09-07",
+          "equity": 103.8486
         }
       ],
       "trades": [
@@ -32188,17 +32209,17 @@
           "side": "LONG",
           "signal_date": "2026-08-27",
           "entry_date": "2026-08-28",
-          "exit_signal_date": null,
-          "exit_date": "2026-09-04",
+          "exit_signal_date": "2026-09-04",
+          "exit_date": "2026-09-07",
           "entry_price": 1.210221,
-          "exit_price": 1.224433,
+          "exit_price": 1.227885,
           "fund_entry": 34.51,
           "entry_strength": "BULL",
-          "exit_strength": null,
-          "return_pct": 1.1661,
+          "exit_strength": "BULL",
+          "return_pct": 1.4513,
           "cost_pct": 0.0083,
-          "holding_days": 7,
-          "reason": "FIM_DA_JANELA"
+          "holding_days": 10,
+          "reason": "PERDEU_FAIXA_FUND"
         }
       ]
     },
@@ -32206,7 +32227,7 @@
       "summary": {
         "pair": "NZDJPY",
         "start": "2018-01-01",
-        "end": "2026-09-04",
+        "end": "2026-09-07",
         "cost_pips": 1.0,
         "trades": 149,
         "wins": 70,
@@ -35362,7 +35383,7 @@
       "summary": {
         "pair": "AUDJPY",
         "start": "2018-01-01",
-        "end": "2026-09-04",
+        "end": "2026-09-07",
         "cost_pips": 1.0,
         "trades": 178,
         "wins": 82,
@@ -39127,7 +39148,7 @@
       "summary": {
         "pair": "EURJPY",
         "start": "2018-01-01",
-        "end": "2026-09-04",
+        "end": "2026-09-07",
         "cost_pips": 1.0,
         "trades": 196,
         "wins": 93,
@@ -43270,7 +43291,7 @@
       "summary": {
         "pair": "NZDCHF",
         "start": "2018-01-01",
-        "end": "2026-09-04",
+        "end": "2026-09-07",
         "cost_pips": 1.0,
         "trades": 164,
         "wins": 70,
@@ -46741,16 +46762,16 @@
       "summary": {
         "pair": "EURCAD",
         "start": "2018-01-01",
-        "end": "2026-09-04",
+        "end": "2026-09-07",
         "cost_pips": 1.0,
         "trades": 212,
         "wins": 106,
         "losses": 105,
         "win_rate": 50.0,
-        "profit_factor": 1.019,
+        "profit_factor": 1.016,
         "no_loss_pf": false,
-        "net_return_pct": 0.48,
-        "sum_return_pct": 1.03,
+        "net_return_pct": 0.33,
+        "sum_return_pct": 0.88,
         "max_drawdown_pct": 8.69,
         "avg_holding_days": 6.1,
         "validation": "PIT_CAUSAL"
@@ -47605,8 +47626,8 @@
           "equity": 100.4884
         },
         {
-          "date": "2026-09-04",
-          "equity": 100.4822
+          "date": "2026-09-07",
+          "equity": 100.3317
         }
       ],
       "trades": [
@@ -51202,17 +51223,17 @@
           "side": "SHORT",
           "signal_date": "2026-09-03",
           "entry_date": "2026-09-04",
-          "exit_signal_date": null,
-          "exit_date": "2026-09-04",
+          "exit_signal_date": "2026-09-04",
+          "exit_date": "2026-09-07",
           "entry_price": 1.6038,
-          "exit_price": 1.6038,
+          "exit_price": 1.6062,
           "fund_entry": -41.42,
           "entry_strength": "BEAR",
-          "exit_strength": null,
-          "return_pct": -0.0062,
+          "exit_strength": "NEUTRAL",
+          "return_pct": -0.1559,
           "cost_pct": 0.0062,
-          "holding_days": 0,
-          "reason": "FIM_DA_JANELA"
+          "holding_days": 3,
+          "reason": "PERDEU_FAIXA_FUND"
         }
       ]
     },
@@ -51220,7 +51241,7 @@
       "summary": {
         "pair": "GBPCHF",
         "start": "2018-01-01",
-        "end": "2026-09-04",
+        "end": "2026-09-07",
         "cost_pips": 1.0,
         "trades": 266,
         "wins": 136,
@@ -51229,7 +51250,7 @@
         "profit_factor": 1.009,
         "no_loss_pf": false,
         "net_return_pct": -0.38,
-        "sum_return_pct": 0.62,
+        "sum_return_pct": 0.63,
         "max_drawdown_pct": 13.22,
         "avg_holding_days": 4.9,
         "validation": "PROVISIONAL_PIT"
@@ -52300,8 +52321,8 @@
           "equity": 99.8604
         },
         {
-          "date": "2026-09-04",
-          "equity": 99.6174
+          "date": "2026-09-07",
+          "equity": 99.6221
         }
       ],
       "trades": [
@@ -56815,17 +56836,17 @@
           "side": "LONG",
           "signal_date": "2026-09-01",
           "entry_date": "2026-09-02",
-          "exit_signal_date": null,
-          "exit_date": "2026-09-04",
+          "exit_signal_date": "2026-09-04",
+          "exit_date": "2026-09-07",
           "entry_price": 1.097473,
-          "exit_price": 1.094903,
+          "exit_price": 1.094954,
           "fund_entry": 27.15,
           "entry_strength": "BULL",
-          "exit_strength": null,
-          "return_pct": -0.2433,
+          "exit_strength": "NEUTRAL",
+          "return_pct": -0.2386,
           "cost_pct": 0.0091,
-          "holding_days": 2,
-          "reason": "FIM_DA_JANELA"
+          "holding_days": 5,
+          "reason": "PERDEU_FAIXA_FUND"
         }
       ]
     },
@@ -56833,7 +56854,7 @@
       "summary": {
         "pair": "GBPUSD",
         "start": "2018-01-01",
-        "end": "2026-09-04",
+        "end": "2026-09-07",
         "cost_pips": 1.0,
         "trades": 250,
         "wins": 126,
@@ -62110,7 +62131,7 @@
       "summary": {
         "pair": "CHFJPY",
         "start": "2018-01-01",
-        "end": "2026-09-04",
+        "end": "2026-09-07",
         "cost_pips": 1.0,
         "trades": 228,
         "wins": 108,
@@ -66925,7 +66946,7 @@
       "summary": {
         "pair": "CADJPY",
         "start": "2018-01-01",
-        "end": "2026-09-04",
+        "end": "2026-09-07",
         "cost_pips": 1.0,
         "trades": 187,
         "wins": 83,
@@ -70879,18 +70900,18 @@
       "summary": {
         "pair": "AUDCAD",
         "start": "2018-01-01",
-        "end": "2026-09-04",
+        "end": "2026-09-07",
         "cost_pips": 1.0,
-        "trades": 257,
+        "trades": 258,
         "wins": 126,
-        "losses": 131,
-        "win_rate": 49.03,
-        "profit_factor": 0.94,
+        "losses": 132,
+        "win_rate": 48.84,
+        "profit_factor": 0.939,
         "no_loss_pf": false,
-        "net_return_pct": -5.0,
-        "sum_return_pct": -4.41,
+        "net_return_pct": -5.01,
+        "sum_return_pct": -4.42,
         "max_drawdown_pct": 10.71,
-        "avg_holding_days": 4.7,
+        "avg_holding_days": 4.6,
         "validation": "PROVISIONAL_PIT"
       },
       "equity": [
@@ -71925,6 +71946,10 @@
         {
           "date": "2026-08-11",
           "equity": 95.0007
+        },
+        {
+          "date": "2026-09-07",
+          "equity": 94.9912
         }
       ],
       "trades": [
@@ -76296,6 +76321,23 @@
           "cost_pct": 0.0102,
           "holding_days": 1,
           "reason": "PERDEU_FAIXA_FUND"
+        },
+        {
+          "pair": "AUDCAD",
+          "side": "LONG",
+          "signal_date": "2026-09-04",
+          "entry_date": "2026-09-07",
+          "exit_signal_date": null,
+          "exit_date": "2026-09-07",
+          "entry_price": 0.997082,
+          "exit_price": 0.997082,
+          "fund_entry": 25.62,
+          "entry_strength": "BULL",
+          "exit_strength": null,
+          "return_pct": -0.01,
+          "cost_pct": 0.01,
+          "holding_days": 0,
+          "reason": "FIM_DA_JANELA"
         }
       ]
     },
@@ -76303,7 +76345,7 @@
       "summary": {
         "pair": "EURGBP",
         "start": "2018-01-01",
-        "end": "2026-09-04",
+        "end": "2026-09-07",
         "cost_pips": 1.0,
         "trades": 236,
         "wins": 105,
@@ -81286,16 +81328,16 @@
       "summary": {
         "pair": "EURAUD",
         "start": "2018-01-01",
-        "end": "2026-09-04",
+        "end": "2026-09-07",
         "cost_pips": 1.0,
         "trades": 225,
-        "wins": 107,
-        "losses": 116,
-        "win_rate": 47.56,
-        "profit_factor": 0.898,
+        "wins": 108,
+        "losses": 115,
+        "win_rate": 48.0,
+        "profit_factor": 0.9,
         "no_loss_pf": false,
-        "net_return_pct": -8.18,
-        "sum_return_pct": -7.44,
+        "net_return_pct": -8.04,
+        "sum_return_pct": -7.28,
         "max_drawdown_pct": 12.04,
         "avg_holding_days": 5.4,
         "validation": "PROVISIONAL_PIT"
@@ -82202,8 +82244,8 @@
           "equity": 91.8227
         },
         {
-          "date": "2026-09-04",
-          "equity": 91.817
+          "date": "2026-09-07",
+          "equity": 91.9593
         }
       ],
       "trades": [
@@ -86021,15 +86063,15 @@
           "signal_date": "2026-09-03",
           "entry_date": "2026-09-04",
           "exit_signal_date": null,
-          "exit_date": "2026-09-04",
+          "exit_date": "2026-09-07",
           "entry_price": 1.6134,
-          "exit_price": 1.6134,
+          "exit_price": 1.6109,
           "fund_entry": -25.28,
           "entry_strength": "BEAR",
           "exit_strength": null,
-          "return_pct": -0.0062,
+          "return_pct": 0.1488,
           "cost_pct": 0.0062,
-          "holding_days": 0,
+          "holding_days": 3,
           "reason": "FIM_DA_JANELA"
         }
       ]
@@ -86038,16 +86080,16 @@
       "summary": {
         "pair": "GBPAUD",
         "start": "2018-01-01",
-        "end": "2026-09-04",
+        "end": "2026-09-07",
         "cost_pips": 1.0,
         "trades": 275,
-        "wins": 134,
-        "losses": 141,
-        "win_rate": 48.73,
-        "profit_factor": 0.881,
+        "wins": 135,
+        "losses": 140,
+        "win_rate": 49.09,
+        "profit_factor": 0.883,
         "no_loss_pf": false,
-        "net_return_pct": -10.95,
-        "sum_return_pct": -10.52,
+        "net_return_pct": -10.82,
+        "sum_return_pct": -10.37,
         "max_drawdown_pct": 18.41,
         "avg_holding_days": 4.9,
         "validation": "PROVISIONAL_PIT"
@@ -87154,8 +87196,8 @@
           "equity": 89.0502
         },
         {
-          "date": "2026-09-04",
-          "equity": 89.0455
+          "date": "2026-09-07",
+          "equity": 89.1793
         }
       ],
       "trades": [
@@ -91823,15 +91865,15 @@
           "signal_date": "2026-09-03",
           "entry_date": "2026-09-04",
           "exit_signal_date": null,
-          "exit_date": "2026-09-04",
+          "exit_date": "2026-09-07",
           "entry_price": 1.878274,
-          "exit_price": 1.878274,
+          "exit_price": 1.875451,
           "fund_entry": -28.07,
           "entry_strength": "BEAR",
           "exit_strength": null,
-          "return_pct": -0.0053,
+          "return_pct": 0.145,
           "cost_pct": 0.0053,
-          "holding_days": 0,
+          "holding_days": 3,
           "reason": "FIM_DA_JANELA"
         }
       ]
@@ -91840,7 +91882,7 @@
       "summary": {
         "pair": "NZDCAD",
         "start": "2018-01-01",
-        "end": "2026-09-04",
+        "end": "2026-09-07",
         "cost_pips": 1.0,
         "trades": 247,
         "wins": 121,
@@ -97054,7 +97096,7 @@
       "summary": {
         "pair": "USDCHF",
         "start": "2018-01-01",
-        "end": "2026-09-04",
+        "end": "2026-09-07",
         "cost_pips": 1.0,
         "trades": 233,
         "wins": 109,
@@ -98002,7 +98044,7 @@
           "equity": 91.0833
         },
         {
-          "date": "2026-09-04",
+          "date": "2026-09-07",
           "equity": 90.5444
         }
       ],
@@ -101956,17 +101998,17 @@
           "side": "LONG",
           "signal_date": "2026-09-01",
           "entry_date": "2026-09-02",
-          "exit_signal_date": null,
-          "exit_date": "2026-09-04",
+          "exit_signal_date": "2026-09-04",
+          "exit_date": "2026-09-07",
           "entry_price": 0.813958,
           "exit_price": 0.809241,
           "fund_entry": 26.53,
           "entry_strength": "BULL",
-          "exit_strength": null,
+          "exit_strength": "NEUTRAL",
           "return_pct": -0.5917,
           "cost_pct": 0.0123,
-          "holding_days": 2,
-          "reason": "FIM_DA_JANELA"
+          "holding_days": 5,
+          "reason": "PERDEU_FAIXA_FUND"
         }
       ]
     },
@@ -101974,16 +102016,16 @@
       "summary": {
         "pair": "USDJPY",
         "start": "2018-01-01",
-        "end": "2026-09-04",
+        "end": "2026-09-07",
         "cost_pips": 1.0,
-        "trades": 212,
+        "trades": 213,
         "wins": 95,
-        "losses": 117,
-        "win_rate": 44.81,
+        "losses": 118,
+        "win_rate": 44.6,
         "profit_factor": 0.86,
         "no_loss_pf": false,
-        "net_return_pct": -10.89,
-        "sum_return_pct": -10.61,
+        "net_return_pct": -10.9,
+        "sum_return_pct": -10.62,
         "max_drawdown_pct": 16.27,
         "avg_holding_days": 6.2,
         "validation": "PIT_CAUSAL"
@@ -102840,6 +102882,10 @@
         {
           "date": "2026-08-25",
           "equity": 89.1072
+        },
+        {
+          "date": "2026-09-07",
+          "equity": 89.1014
         }
       ],
       "trades": [
@@ -106446,6 +106492,23 @@
           "cost_pct": 0.0063,
           "holding_days": 14,
           "reason": "PERDEU_FAIXA_FUND"
+        },
+        {
+          "pair": "USDJPY",
+          "side": "SHORT",
+          "signal_date": "2026-09-04",
+          "entry_date": "2026-09-07",
+          "exit_signal_date": null,
+          "exit_date": "2026-09-07",
+          "entry_price": 154.749613,
+          "exit_price": 154.749613,
+          "fund_entry": -50.57,
+          "entry_strength": "BEAR",
+          "exit_strength": null,
+          "return_pct": -0.0065,
+          "cost_pct": 0.0065,
+          "holding_days": 0,
+          "reason": "FIM_DA_JANELA"
         }
       ]
     },
@@ -106453,7 +106516,7 @@
       "summary": {
         "pair": "CADCHF",
         "start": "2018-01-01",
-        "end": "2026-09-04",
+        "end": "2026-09-07",
         "cost_pips": 1.0,
         "trades": 223,
         "wins": 97,
@@ -111163,12 +111226,12 @@
       "summary": {
         "pair": "GBPJPY",
         "start": "2018-01-01",
-        "end": "2026-09-04",
+        "end": "2026-09-07",
         "cost_pips": 1.0,
-        "trades": 226,
+        "trades": 227,
         "wins": 97,
-        "losses": 129,
-        "win_rate": 42.92,
+        "losses": 130,
+        "win_rate": 42.73,
         "profit_factor": 0.833,
         "no_loss_pf": false,
         "net_return_pct": -15.44,
@@ -112085,6 +112148,10 @@
         {
           "date": "2026-09-02",
           "equity": 84.5601
+        },
+        {
+          "date": "2026-09-07",
+          "equity": 84.5561
         }
       ],
       "trades": [
@@ -115929,6 +115996,23 @@
           "cost_pct": 0.0046,
           "holding_days": 21,
           "reason": "PERDEU_FAIXA_FUND"
+        },
+        {
+          "pair": "GBPJPY",
+          "side": "SHORT",
+          "signal_date": "2026-09-04",
+          "entry_date": "2026-09-07",
+          "exit_signal_date": null,
+          "exit_date": "2026-09-07",
+          "entry_price": 209.385987,
+          "exit_price": 209.385987,
+          "fund_entry": -25.86,
+          "entry_strength": "BEAR",
+          "exit_strength": null,
+          "return_pct": -0.0048,
+          "cost_pct": 0.0048,
+          "holding_days": 0,
+          "reason": "FIM_DA_JANELA"
         }
       ]
     },
@@ -115936,16 +116020,16 @@
       "summary": {
         "pair": "GBPCAD",
         "start": "2018-01-01",
-        "end": "2026-09-04",
+        "end": "2026-09-07",
         "cost_pips": 1.0,
         "trades": 224,
         "wins": 89,
         "losses": 135,
         "win_rate": 39.73,
-        "profit_factor": 0.785,
+        "profit_factor": 0.783,
         "no_loss_pf": false,
-        "net_return_pct": -13.79,
-        "sum_return_pct": -14.23,
+        "net_return_pct": -13.93,
+        "sum_return_pct": -14.38,
         "max_drawdown_pct": 17.36,
         "avg_holding_days": 5.9,
         "validation": "PIT_CAUSAL"
@@ -116848,8 +116932,8 @@
           "equity": 86.2113
         },
         {
-          "date": "2026-09-04",
-          "equity": 86.2067
+          "date": "2026-09-07",
+          "equity": 86.0736
         }
       ],
       "trades": [
@@ -120649,17 +120733,17 @@
           "side": "SHORT",
           "signal_date": "2026-09-03",
           "entry_date": "2026-09-04",
-          "exit_signal_date": null,
-          "exit_date": "2026-09-04",
+          "exit_signal_date": "2026-09-04",
+          "exit_date": "2026-09-07",
           "entry_price": 1.867098,
-          "exit_price": 1.867098,
+          "exit_price": 1.869979,
           "fund_entry": -42.46,
           "entry_strength": "BEAR",
-          "exit_strength": null,
-          "return_pct": -0.0054,
+          "exit_strength": "NEUTRAL",
+          "return_pct": -0.1597,
           "cost_pct": 0.0054,
-          "holding_days": 0,
-          "reason": "FIM_DA_JANELA"
+          "holding_days": 3,
+          "reason": "PERDEU_FAIXA_FUND"
         }
       ]
     },
@@ -120667,18 +120751,18 @@
       "summary": {
         "pair": "EURNZD",
         "start": "2018-01-01",
-        "end": "2026-09-04",
+        "end": "2026-09-07",
         "cost_pips": 1.0,
         "trades": 207,
         "wins": 95,
         "losses": 112,
         "win_rate": 45.89,
-        "profit_factor": 0.771,
+        "profit_factor": 0.773,
         "no_loss_pf": false,
-        "net_return_pct": -15.45,
-        "sum_return_pct": -16.08,
+        "net_return_pct": -15.35,
+        "sum_return_pct": -15.96,
         "max_drawdown_pct": 20.41,
-        "avg_holding_days": 5.4,
+        "avg_holding_days": 5.5,
         "validation": "PIT_CAUSAL"
       },
       "equity": [
@@ -121511,8 +121595,8 @@
           "equity": 85.0359
         },
         {
-          "date": "2026-09-04",
-          "equity": 84.5479
+          "date": "2026-09-07",
+          "equity": 84.6549
         }
       ],
       "trades": [
@@ -125024,15 +125108,15 @@
           "signal_date": "2026-09-01",
           "entry_date": "2026-09-02",
           "exit_signal_date": null,
-          "exit_date": "2026-09-04",
+          "exit_date": "2026-09-07",
           "entry_price": 1.9868,
-          "exit_price": 1.9755,
+          "exit_price": 1.978,
           "fund_entry": 41.69,
           "entry_strength": "BULL",
           "exit_strength": null,
-          "return_pct": -0.5738,
+          "return_pct": -0.448,
           "cost_pct": 0.005,
-          "holding_days": 2,
+          "holding_days": 5,
           "reason": "FIM_DA_JANELA"
         }
       ]
@@ -125041,16 +125125,16 @@
       "summary": {
         "pair": "AUDUSD",
         "start": "2018-01-01",
-        "end": "2026-09-04",
+        "end": "2026-09-07",
         "cost_pips": 1.0,
-        "trades": 297,
+        "trades": 298,
         "wins": 137,
-        "losses": 160,
-        "win_rate": 46.13,
-        "profit_factor": 0.744,
+        "losses": 161,
+        "win_rate": 45.97,
+        "profit_factor": 0.743,
         "no_loss_pf": false,
-        "net_return_pct": -27.76,
-        "sum_return_pct": -30.55,
+        "net_return_pct": -27.77,
+        "sum_return_pct": -30.56,
         "max_drawdown_pct": 31.03,
         "avg_holding_days": 4.0,
         "validation": "PROVISIONAL_PIT"
@@ -126247,6 +126331,10 @@
         {
           "date": "2026-09-01",
           "equity": 72.2381
+        },
+        {
+          "date": "2026-09-07",
+          "equity": 72.228
         }
       ],
       "trades": [
@@ -131298,6 +131386,23 @@
           "cost_pct": 0.014,
           "holding_days": 1,
           "reason": "PERDEU_FAIXA_FUND"
+        },
+        {
+          "pair": "AUDUSD",
+          "side": "LONG",
+          "signal_date": "2026-09-04",
+          "entry_date": "2026-09-07",
+          "exit_signal_date": null,
+          "exit_date": "2026-09-07",
+          "entry_price": 0.72146,
+          "exit_price": 0.72146,
+          "fund_entry": 44.8,
+          "entry_strength": "BULL",
+          "exit_strength": null,
+          "return_pct": -0.0139,
+          "cost_pct": 0.0139,
+          "holding_days": 0,
+          "reason": "FIM_DA_JANELA"
         }
       ]
     }

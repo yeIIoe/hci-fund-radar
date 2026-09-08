@@ -6,7 +6,7 @@
   "recommendation_rule": "abs(FUND) >= 25; ranked using only information available on that day",
   "counts": {
    "STRICT_FULL": 174,
-   "PARTIAL": 0,
+   "PARTIAL": 1,
    "NO_DATA": 0,
    "CLOSED": 76
   },
@@ -52470,7 +52470,7 @@
      "EURCAD": -2.67,
      "EURCHF": 28.14,
      "EURJPY": -23.56,
-     "GBPAUD": 38.24,
+     "GBPAUD": 42.63,
      "GBPNZD": 22.0,
      "GBPUSD": 17.72,
      "GBPCAD": -18.95,
@@ -52799,18 +52799,18 @@
      "EURCAD": 17.2,
      "EURCHF": 38.17,
      "EURJPY": -2.93,
-     "GBPNZD": 67.2,
+     "GBPNZD": 71.51,
      "GBPUSD": -10.44,
-     "GBPCAD": 71.73,
+     "GBPCAD": 72.89,
      "GBPCHF": 9.83,
      "GBPJPY": -12.68,
-     "AUDNZD": 47.0,
+     "AUDNZD": 51.1,
      "AUDUSD": 12.9,
-     "AUDCAD": 18.88,
+     "AUDCAD": 14.61,
      "AUDCHF": 40.38,
      "AUDJPY": 8.36,
      "NZDUSD": -37.38,
-     "NZDCAD": -31.21,
+     "NZDCAD": -38.74,
      "NZDCHF": -24.86,
      "NZDJPY": -40.41,
      "USDCAD": 7.77,
@@ -53104,28 +53104,26 @@
      }
     ],
     "outcome": {
-     "EURGBP": -41.82,
-     "EURAUD": 17.21,
-     "EURNZD": 46.82,
-     "EURUSD": 49.87,
-     "EURCAD": 67.61,
-     "EURCHF": 67.81,
-     "EURJPY": 9.51,
-     "GBPUSD": 58.89,
-     "GBPCHF": 63.17,
-     "GBPJPY": 25.48,
-     "AUDUSD": 23.15,
-     "AUDCHF": 42.1,
-     "AUDJPY": -4.88,
-     "NZDUSD": -10.9,
-     "NZDCHF": -2.39,
-     "NZDJPY": -32.45,
-     "USDCAD": 8.1,
-     "USDCHF": 13.67,
-     "USDJPY": -32.31,
-     "CADCHF": 6.88,
-     "CADJPY": -39.9,
-     "CHFJPY": -58.77
+     "EURAUD": -18.77,
+     "EURNZD": 39.43,
+     "EURUSD": 22.39,
+     "EURCAD": 38.04,
+     "EURCHF": 27.8,
+     "EURJPY": -13.78,
+     "GBPUSD": 60.53,
+     "GBPCHF": 63.1,
+     "AUDUSD": 20.66,
+     "AUDCHF": 36.38,
+     "AUDJPY": 2.14,
+     "NZDUSD": -16.82,
+     "NZDCHF": -11.33,
+     "NZDJPY": -39.62,
+     "USDCAD": 7.32,
+     "USDCHF": 10.16,
+     "USDJPY": -30.04,
+     "CADCHF": 4.09,
+     "CADJPY": -37.35,
+     "CHFJPY": -44.89
     }
    },
    "pair_funds": {
@@ -53374,92 +53372,87 @@
     "down": [
      {
       "pair": "USDJPY",
-      "fund": -32.31,
-      "fund_roll": -23.82,
+      "fund": -30.04,
+      "fund_roll": -21.44,
       "boundary": -25.0,
       "band": "BEAR",
-      "p": 47.6,
-      "bp": -0.4
+      "p": 39.7,
+      "bp": -1.2
      },
      {
-      "pair": "EURAUD",
-      "fund": 17.21,
-      "fund_roll": 30.75,
+      "pair": "EURCHF",
+      "fund": 27.8,
+      "fund_roll": 65.07,
+      "boundary": 60.0,
+      "band": "BULL",
+      "p": 21.8,
+      "bp": -1.7
+     },
+     {
+      "pair": "EURCAD",
+      "fund": 38.04,
+      "fund_roll": 39.59,
       "boundary": 25.0,
       "band": "NEUTRAL",
-      "p": 36.5,
-      "bp": -1.6
-     },
-     {
-      "pair": "NZDUSD",
-      "fund": -10.9,
-      "fund_roll": -19.52,
-      "boundary": -25.0,
-      "band": "BEAR",
-      "p": 35.7,
-      "bp": -2.6
+      "p": 15.9,
+      "bp": -3.1
      }
     ],
     "up": [
      {
-      "pair": "AUDCHF",
-      "fund": 42.1,
-      "fund_roll": 58.9,
-      "boundary": 60.0,
-      "band": "STRONG_BULL",
-      "p": 52.0,
-      "bp": 0.5
+      "pair": "EURUSD",
+      "fund": 22.39,
+      "fund_roll": 15.86,
+      "boundary": 25.0,
+      "band": "BULL",
+      "p": 27.0,
+      "bp": 2.3
      },
      {
-      "pair": "GBPUSD",
-      "fund": 58.89,
-      "fund_roll": 59.75,
-      "boundary": 60.0,
-      "band": "STRONG_BULL",
-      "p": 45.6,
-      "bp": 0.1
+      "pair": "CADJPY",
+      "fund": -37.35,
+      "fund_roll": -34.6,
+      "boundary": -25.0,
+      "band": "NEUTRAL",
+      "p": 17.5,
+      "bp": 3.2
      },
      {
-      "pair": "USDCHF",
-      "fund": 13.67,
-      "fund_roll": 55.26,
+      "pair": "EURCAD",
+      "fund": 38.04,
+      "fund_roll": 39.59,
       "boundary": 60.0,
       "band": "STRONG_BULL",
-      "p": 35.7,
-      "bp": 1.7
+      "p": 6.7,
+      "bp": 5.2
      }
     ],
-    "outcome": {}
+    "outcome": {
+     "EURAUD": 30.11,
+     "EURNZD": 54.42,
+     "EURUSD": 40.76,
+     "EURCAD": 64.63,
+     "EURCHF": 83.79,
+     "EURJPY": 15.41,
+     "AUDJPY": -10.1,
+     "NZDJPY": -36.03,
+     "USDJPY": -18.4,
+     "CADJPY": -31.34,
+     "CHFJPY": -74.82
+    }
    },
    "pair_funds": {
-    "EURGBP": -41.82,
-    "EURAUD": 17.21,
-    "EURNZD": 46.82,
-    "EURUSD": 49.87,
-    "EURCAD": 67.61,
-    "EURCHF": 67.81,
-    "EURJPY": 9.51,
-    "GBPAUD": 38.24,
-    "GBPNZD": 67.2,
-    "GBPUSD": 58.89,
-    "GBPCAD": 71.73,
-    "GBPCHF": 63.17,
-    "GBPJPY": 25.48,
-    "AUDNZD": 47.0,
-    "AUDUSD": 23.15,
-    "AUDCAD": 18.88,
-    "AUDCHF": 42.1,
-    "AUDJPY": -4.88,
-    "NZDUSD": -10.9,
-    "NZDCAD": -31.21,
-    "NZDCHF": -2.39,
-    "NZDJPY": -32.45,
-    "USDCAD": 8.1,
-    "USDCHF": 13.67,
-    "USDJPY": -32.31,
-    "CADCHF": 6.88,
-    "CADJPY": -39.9,
-    "CHFJPY": -58.77
+    "EURAUD": -18.77,
+    "EURNZD": 39.43,
+    "EURUSD": 22.39,
+    "EURCAD": 38.04,
+    "EURCHF": 27.8,
+    "EURJPY": -13.78,
+    "AUDJPY": 2.14,
+    "NZDJPY": -39.62,
+    "USDJPY": -30.04,
+    "CADJPY": -37.35,
+    "CHFJPY": -44.89
    },
    "pre_fund_watch": [
     {
@@ -53473,7 +53466,7 @@
      "fold": 2026,
      "outcome": {
       "next_date": "2026-09-08",
-      "next_fund": -32.31,
+      "next_fund": -30.04,
       "entered_bear": true
      }
     },
@@ -53488,42 +53481,12 @@
      "fold": 2026,
      "outcome": {
       "next_date": "2026-09-08",
-      "next_fund": -39.9,
+      "next_fund": -37.35,
       "entered_bear": true
      }
     },
     {
      "rank": 3,
-     "pair": "GBPJPY",
-     "fund": -12.68,
-     "fund_d1": 13.18,
-     "empirical_probability": 18.14,
-     "empirical_samples": 5148,
-     "validation": "PIT_CAUSAL",
-     "fold": 2026,
-     "outcome": {
-      "next_date": "2026-09-08",
-      "next_fund": 25.48,
-      "entered_bear": false
-     }
-    },
-    {
-     "rank": 4,
-     "pair": "GBPUSD",
-     "fund": -10.44,
-     "fund_d1": -28.16,
-     "empirical_probability": 18.14,
-     "empirical_samples": 5148,
-     "validation": "PIT_CAUSAL",
-     "fold": 2026,
-     "outcome": {
-      "next_date": "2026-09-08",
-      "next_fund": 58.89,
-      "entered_bear": false
-     }
-    },
-    {
-     "rank": 5,
      "pair": "EURJPY",
      "fund": -2.93,
      "fund_d1": 20.63,
@@ -53533,11 +53496,253 @@
      "fold": 2026,
      "outcome": {
       "next_date": "2026-09-08",
-      "next_fund": 9.51,
+      "next_fund": -13.78,
       "entered_bear": false
      }
     }
    ]
+  },
+  {
+   "date": "2026-09-08",
+   "market": "ABERTO",
+   "coverage": "PARTIAL",
+   "available_currencies": 7,
+   "valid_pairs": 21,
+   "missing_currencies": [
+    "GBP"
+   ],
+   "strongest": {
+    "currency": "JPY",
+    "score": 27.26,
+    "strength": "BULL",
+    "valid_crosses": 6,
+    "yield_2y": 1.852
+   },
+   "weakest": {
+    "currency": "NZD",
+    "score": -40.37,
+    "strength": "BEAR",
+    "valid_crosses": 6,
+    "yield_2y": 3.59
+   },
+   "currencies": [
+    {
+     "currency": "JPY",
+     "score": 27.26,
+     "strength": "BULL",
+     "valid_crosses": 6,
+     "yield_2y": 1.852
+    },
+    {
+     "currency": "AUD",
+     "score": 26.63,
+     "strength": "BULL",
+     "valid_crosses": 6,
+     "yield_2y": 4.831
+    },
+    {
+     "currency": "EUR",
+     "score": 15.85,
+     "strength": "NEUTRAL",
+     "valid_crosses": 6,
+     "yield_2y": 2.9133
+    },
+    {
+     "currency": "USD",
+     "score": 1.11,
+     "strength": "NEUTRAL",
+     "valid_crosses": 6,
+     "yield_2y": 4.37
+    },
+    {
+     "currency": "CAD",
+     "score": -7.81,
+     "strength": "NEUTRAL",
+     "valid_crosses": 6,
+     "yield_2y": 3.1
+    },
+    {
+     "currency": "CHF",
+     "score": -22.68,
+     "strength": "NEUTRAL",
+     "valid_crosses": 6,
+     "yield_2y": 0.145
+    },
+    {
+     "currency": "NZD",
+     "score": -40.37,
+     "strength": "BEAR",
+     "valid_crosses": 6,
+     "yield_2y": 3.59
+    },
+    {
+     "currency": "GBP",
+     "score": null,
+     "strength": "SEM_DADO",
+     "valid_crosses": 0,
+     "yield_2y": null
+    }
+   ],
+   "recommendations": [
+    {
+     "rank": 1,
+     "pair": "AUDNZD",
+     "fund": 59.98,
+     "strength": "BULL",
+     "decision": "COMPRAR_BASE",
+     "leader": "AUD",
+     "laggard": "NZD",
+     "reason": "AUD #2 vs NZD #7 | FUND +60.0"
+    },
+    {
+     "rank": 2,
+     "pair": "CHFJPY",
+     "fund": -44.89,
+     "strength": "BEAR",
+     "decision": "VENDER_BASE",
+     "leader": "JPY",
+     "laggard": "CHF",
+     "reason": "JPY #1 vs CHF #6 | FUND -44.9"
+    },
+    {
+     "rank": 3,
+     "pair": "NZDCAD",
+     "fund": -40.92,
+     "strength": "BEAR",
+     "decision": "VENDER_BASE",
+     "leader": "CAD",
+     "laggard": "NZD",
+     "reason": "CAD #5 vs NZD #7 | FUND -40.9"
+    },
+    {
+     "rank": 4,
+     "pair": "AUDCHF",
+     "fund": 40.38,
+     "strength": "BULL",
+     "decision": "COMPRAR_BASE",
+     "leader": "AUD",
+     "laggard": "CHF",
+     "reason": "AUD #2 vs CHF #6 | FUND +40.4"
+    },
+    {
+     "rank": 5,
+     "pair": "NZDJPY",
+     "fund": -39.62,
+     "strength": "BEAR",
+     "decision": "VENDER_BASE",
+     "leader": "JPY",
+     "laggard": "NZD",
+     "reason": "JPY #1 vs NZD #7 | FUND -39.6"
+    }
+   ],
+   "pre_fund_watch": [
+    {
+     "rank": 1,
+     "pair": "EURJPY",
+     "fund": -13.78,
+     "fund_d1": -10.85,
+     "empirical_probability": 18.14,
+     "empirical_samples": 5148,
+     "validation": "PIT_CAUSAL",
+     "fold": 2026,
+     "outcome": {
+      "next_date": "2026-09-09",
+      "next_fund": 15.41,
+      "entered_bear": false
+     }
+    }
+   ],
+   "pair_funds": {
+    "EURGBP": -57.77,
+    "EURAUD": 30.11,
+    "EURNZD": 54.42,
+    "EURUSD": 40.76,
+    "EURCAD": 64.63,
+    "EURCHF": 83.79,
+    "EURJPY": 15.41,
+    "GBPAUD": 42.63,
+    "GBPNZD": 71.51,
+    "GBPUSD": 60.53,
+    "GBPCAD": 72.89,
+    "GBPCHF": 63.1,
+    "GBPJPY": 37.53,
+    "AUDNZD": 51.1,
+    "AUDUSD": 20.66,
+    "AUDCAD": 14.61,
+    "AUDCHF": 36.38,
+    "AUDJPY": -10.1,
+    "NZDUSD": -16.82,
+    "NZDCAD": -38.74,
+    "NZDCHF": -11.33,
+    "NZDJPY": -36.03,
+    "USDCAD": 7.32,
+    "USDCHF": 10.16,
+    "USDJPY": -18.4,
+    "CADCHF": 4.09,
+    "CADJPY": -31.34,
+    "CHFJPY": -74.82
+   },
+   "projection": {
+    "down": [
+     {
+      "pair": "EURAUD",
+      "fund": 30.11,
+      "fund_roll": 28.4,
+      "boundary": 25.0,
+      "band": "NEUTRAL",
+      "p": 42.5,
+      "bp": -0.9
+     },
+     {
+      "pair": "EURJPY",
+      "fund": 15.41,
+      "fund_roll": 26.74,
+      "boundary": 25.0,
+      "band": "NEUTRAL",
+      "p": 42.5,
+      "bp": -0.6
+     },
+     {
+      "pair": "GBPUSD",
+      "fund": 60.53,
+      "fund_roll": 61.35,
+      "boundary": 60.0,
+      "band": "BULL",
+      "p": 42.1,
+      "bp": -0.7
+     }
+    ],
+    "up": [
+     {
+      "pair": "NZDUSD",
+      "fund": -16.82,
+      "fund_roll": -25.22,
+      "boundary": -25.0,
+      "band": "NEUTRAL",
+      "p": 45.6,
+      "bp": 0.1
+     },
+     {
+      "pair": "EURCAD",
+      "fund": 64.63,
+      "fund_roll": 57.94,
+      "boundary": 60.0,
+      "band": "STRONG_BULL",
+      "p": 45.2,
+      "bp": 0.6
+     },
+     {
+      "pair": "NZDJPY",
+      "fund": -36.03,
+      "fund_roll": -26.74,
+      "boundary": -25.0,
+      "band": "NEUTRAL",
+      "p": 38.9,
+      "bp": 0.9
+     }
+    ],
+    "outcome": {}
+   }
   }
  ]
 }
