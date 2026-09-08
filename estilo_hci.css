@@ -1450,7 +1450,14 @@ html .mac-item .mac-item-tag{ grid-column:1 / -1; grid-row:3;
 html .mac-item .mac-item-corr{ grid-column:1 / -1; grid-row:4;
   font-size:10.5px; color:var(--aviso); }
 /* respiro entre linhas: sem isto 31 itens viram um bloco solido */
+/* [08/set, 3a passada] O DEFEITO QUE ESCAPOU DAS DUAS PRIMEIRAS. A lista e flex em COLUNA e
+   tem altura maxima. Em flex, o filho encolhe por padrao (flex-shrink:1). Com 5 itens (o filtro
+   "Prioridade agora") tudo cabia e eu testei assim — passou. Com 16 itens ("Com direcao") a
+   soma passa da altura maxima, TODOS os itens sao espremidos, e o conteudo de 101 px vaza de
+   uma caixa de ~42 px: e a sobreposicao que o Eduardo fotografou duas vezes.
+   flex:0 0 auto trava a altura no conteudo; quem rola e a lista, nao o item. */
 html .mac-lista{ display:flex; flex-direction:column; gap:6px; }
+html .mac-lista > .mac-item{ flex:0 0 auto; }
 html .mac-lista > .mac-item{ border:1px solid var(--regua); border-left:2px solid transparent;
   padding:9px var(--e5); }
 html .mac-lista > .mac-item.mac-item-sel{ border-left-color:var(--marca); }
