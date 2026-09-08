@@ -890,16 +890,22 @@
     const D = s.dimensoes || {};
     const orig = origemTexto(D.texto);
     const fam = familiasDe(m);
+    // [08/set] O Eduardo circulou o bloco do PORQUE e escreveu: "se e importante tem que
+    // aparecer primeiro, nao por ultimo; deixe as referencias que sao o que eles disseram para
+    // depois". Ele esta certo: o que move a leitura sao as DIVULGACOES, e elas estavam no fim,
+    // atras de quatro linhas de ressalva. Ordem nova: leitura -> porque (os prints) -> dimensoes
+    // -> familias -> e o resto recolhido.
+    // Saiu da tela, por risco dele: "a geopolitica e experimental e nao entra nesta conta"
+    // (repetida nas duas pernas de todo par) e "origem do texto: discurso oficial". As duas
+    // viraram title, e a origem tambem ja aparece na propria secao de discursos.
     return `<div class="mac-perna-lean">
       <span class="mac-perna-papel">Leitura do próximo passo</span>
       ${blocoMoeda(m, "big")}
-      <div class="mac-bm-nota">a geopolítica é ${SELO_GEO} e não entra nesta conta</div>
       ${tarjaAlerta(dominanciaDe(m), "mac-tarja-dom")}
-      ${orig ? `<div class="mac-origem-txt"><span class="mac-perna-papel">origem do texto</span>${esc(orig)}</div>` : ""}
-      ${fam ? `<div class="mac-familias"><span class="mac-perna-papel">famílias independentes</span>
-        <b>${fam.n}</b>${fam.quais.length ? ` <small class="muted">${fam.quais.map((x) => esc(ROT_FAMILIA[x] || x)).join(", ")}</small>` : ""}</div>` : ""}
-      ${dimsChips(s)}
       ${motivosPerna(m, s)}
+      ${dimsChips(s)}
+      ${fam ? `<div class="mac-familias" title="famílias independentes que sustentam a leitura"><span class="mac-perna-papel">famílias</span>
+        <b>${fam.n}</b>${fam.quais.length ? ` <small class="muted">${fam.quais.map((x) => esc(ROT_FAMILIA[x] || x)).join(", ")}</small>` : ""}</div>` : ""}
       ${falasDeMoeda(m)}
     </div>`;
   }
@@ -1162,9 +1168,7 @@
 
   function detalhePar(par) {
     if (!par) {
-      return `<div class="mac-vazio"><strong>Escolha um par na lista à esquerda.</strong>
-        <p>Todo par são duas moedas. Este painel lê as duas pernas, porque o motivo de uma entrada
-           costuma estar num dos lados, não no par.</p></div>`;
+      return `<div class="mac-vazio"><strong>Escolha um par na lista à esquerda.</strong></div>`;
     }
     const d = INSTR.includes(par) ? dadosInstr(par) : dadosPar(par);
     const F = frescorDados();
@@ -1509,25 +1513,30 @@
         <b>${esc(rotEstado)}</b>${acaoEstado ? ` — ${esc(acaoEstado)}` : ""}
         <small class="mac-provisorio">faixas provisórias${fx ? "" : " (ainda não publicadas pelo núcleo)"}</small></p>
 
-      ${alertas.map((t) => tarjaAlerta(t, "mac-tarja-dom")).join("")}
+      <!-- [08/set] O Eduardo riscou as QUATRO tarjas de ressalva que ficavam entre o estado e
+           os dados: fragilidade de parametro, elo fraco, fala sem voto e mesma aposta. Elas
+           sao verdadeiras e ele nao quer perder — mas empurravam o conteudo util para baixo
+           da dobra. Viram um expansivel com a contagem no rotulo, que ja avisa quantas sao. -->
+      ${alertas.length ? `<details class="mac-det-mais mac-alertas-det"><summary>${
+        alertas.length} ${alertas.length === 1 ? "ressalva" : "ressalvas"} nesta leitura</summary>
+        ${alertas.map((x) => tarjaAlerta(x, "mac-tarja-dom")).join("")}</details>` : ""}
 
       <div class="mac-resumo-linhas">
         <div><span class="mac-resumo-rot">Próximo evento relevante</span> <b>${invalTxt}</b>
           ${inval && inval.brt ? `<small class="muted">· ${esc(inval.brt)} BRT</small>` : ""}
           ${inval && inval.data ? `<small class="muted">· ${esc(dataBr(inval.data))}</small>` : ""}
-          <small class="muted">— até aqui a ZOI e entradas novas seguem válidas</small></div>
+          </div>
         <div><span class="mac-resumo-rot">Próxima decisão</span>
           <b>${decisao ? esc(decisao.moeda + " · " + decisao.evento + " " + quandoTexto(decisao.dias))
                        : "sem data publicada"}</b>
           ${decisao && decisao.data ? `<small class="muted">· ${esc(dataBr(decisao.data))}</small>` : ""}
-          <small class="muted">— o limite final do ciclo</small></div>
+          </div>
         <div><span class="mac-resumo-rot">Famílias independentes</span>
           <b>${fam ? fam.n : "—"}</b>
           <small class="muted">${fam && fam.quais.length
             ? fam.quais.map((x) => esc(ROT_FAMILIA[x] || x)).join(", ")
             : "inflação, emprego, atividade, comunicação — contagem ainda não informada pelo núcleo"}</small></div>
-        <div><span class="mac-resumo-rot">Horizonte</span> <b>semanas (swing)</b>
-          <small class="muted">leitura do lado fundamental, não é entrada</small></div>
+
       </div>
     </div>`;
   }
@@ -1578,9 +1587,7 @@
     const total = PARES.length + instr.length;
     const escondidos = total - lista.length;
     return `<section class="content-section mac-bloco mac-tela">
-      <div class="section-title"><div><h2>Pares</h2></div>
-        <p>Cada par lido perna por perna: para onde cada banco central está inclinado, e se as duas
-           pernas divergem. Uma leitura do lado fundamental &mdash; a entrada é sua.</p></div>
+      <div class="section-title"><div><h2>Pares</h2></div></div>
 
       ${tarjaAtraso()}
 
@@ -1593,13 +1600,15 @@
       </div>
       ${S && porLeitura("sem_leitura")
         ? `<p class="mac-placar-sem${clsAtraso()}"><span>Sem leitura</span> ${porLeitura("sem_leitura")}
-             <small class="muted">— menos de duas dimensões votando, ou sinal abaixo do piso provisório</small></p>`
+             </p>`
         : ""}
 
       <div class="mac-chips">${chips}</div>
-      <p class="mac-conta">${lista.length} de ${total}${instr.length ? ` — ${PARES.length} pares + ${instr.length} instrumentos puxados pelo dólar (ouro, NQ, ES)` : " pares"}${
-        filtro.k === "prioridade" ? " · os 5 maiores contrastes primeiro" :
-        filtro.k === "tese" && escondidos > 0 ? ` · ${escondidos} sem direção escondidos — use “Mostrar todos”` : ""}</p>
+      <!-- [08/set] A linha de contagem virou so o numero. Ela explicava a composicao do
+           universo e a ordenacao em toda carga — informacao de uma vez so, repetida sempre. -->
+      <p class="mac-conta" title="${PARES.length} pares + ${instr.length} instrumentos puxados pelo dólar (ouro, NQ, ES)${
+        filtro.k === "prioridade" ? " · os 5 maiores contrastes primeiro" : ""}">${lista.length} de ${total}${
+        filtro.k === "tese" && escondidos > 0 ? ` · ${escondidos} sem direção` : ""}</p>
 
       <div class="mac-duas">
         <div class="mac-lista">${lista.length
@@ -1899,22 +1908,38 @@
     }).join("");
   }
 
+  // [08/set] Duas ordens do Eduardo, na mesma frase: "deixe uma interacao, se eu quiser abrir
+  // e ver o que eles disseram eu clico e abro, e isso SO VALE PARA QUANDO A INFORMACAO DIZ
+  // ALGUMA COISA".
+  //   (1) a secao vira <details>, fechada por padrao;
+  //   (2) orador que saiu INDETERMINADO com "nenhuma frase de postura foi extraida" nao ocupa
+  //       linha nenhuma — ele riscou essa frase em SEIS cartoes seguidos. O silencio conta no
+  //       resumo do sumario ("+4 sem postura"), que e informacao, sem gastar a tela.
+  // A nota de metodo ("veredito por orador, lido do texto...") tambem foi riscada: ela e a
+  // mesma em toda moeda e agora vive no title do selo.
   function falasDeMoeda(m) {
     const vs = vereditosDe(m);
-    const corpo = vs ? vs.map(linhaVeredito).join("") : falasSemVeredito(m);
-    if (!corpo) return "";
-    return `<div class="mac-falas">
-      <div class="mac-falas-titulo">
-        <span class="mac-perna-papel">O que os dirigentes disseram &mdash; ${esc(nomeSecaoTexto(m))}</span>
-        <small class="mac-selo">${SELO_FALAS}</small></div>
-      <ul>${corpo}</ul>
-      <p class="mac-falas-nota">${vs
-        ? "Veredito por orador, lido do texto: negação, condição e referência temporal entram na " +
-          "classificação. Enquanto o classificador não for validado contra desfecho, isto é " +
-          "<b>contexto e não vota</b> — exatamente como a geopolítica."
-        : "O classificador de postura ainda não gravou veredito para estes itens. Contagem de " +
-          "palavras não lê negação nem condição, então <b>nenhuma contagem é exibida como leitura</b>."}</p>
-    </div>`;
+    let corpo, mudos = 0, n = 0;
+    if (vs) {
+      const diz = vs.filter((v) => {
+        const ver = String(v.veredito || "").toLowerCase();
+        const mot = String(v.motivo || "").toLowerCase();
+        return !(ver.indexOf("indetermin") >= 0 && mot.indexOf("nenhuma frase") >= 0);
+      });
+      mudos = vs.length - diz.length; n = diz.length;
+      corpo = diz.map(linhaVeredito).join("");
+    } else {
+      corpo = falasSemVeredito(m); n = corpo ? 1 : 0;
+    }
+    if (!corpo && !mudos) return "";
+    const resumo = [n ? n + (n === 1 ? " fala com postura" : " falas com postura") : "",
+                    mudos ? mudos + " sem postura" : ""].filter(Boolean).join(" · ");
+    return `<details class="mac-falas mac-det-mais">
+      <summary><span class="mac-perna-papel">O que os dirigentes disseram</span>
+        <small class="muted"> ${esc(resumo)}</small>
+        <small class="mac-selo" title="Veredito por orador, lido do texto: negação, condição e referência temporal entram na classificação. Enquanto o classificador não for validado contra desfecho, isto é contexto e não vota — exatamente como a geopolítica.">${SELO_FALAS}</small></summary>
+      ${corpo ? `<ul>${corpo}</ul>` : `<p class="mac-falas-nota">Nenhuma fala com postura extraível na janela.</p>`}
+    </details>`;
   }
 
   function falasDoFed() { return falasDeMoeda("USD"); }
