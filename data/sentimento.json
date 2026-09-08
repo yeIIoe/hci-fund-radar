@@ -1,15 +1,15 @@
 {
- "gerado_em": "2026-09-08T20:23:20.921937+00:00",
- "gerado_em_brt": "08/09/2026 17:23 (BRT)",
+ "gerado_em": "2026-09-08T20:38:22.730165+00:00",
+ "gerado_em_brt": "08/09/2026 17:38 (BRT)",
  "origem_eventos": "fxstreet 42 dias atrás + 30 à frente",
  "frescor": {
   "atraso_min": 1,
   "atraso_texto": "1 min",
   "estado": "ok",
-  "ultima_sincronizacao_ok_utc": "2026-09-08T20:22:17.724659+00:00",
-  "ultima_sincronizacao_ok_brt": "08/09/2026 17:22 (BRT)",
+  "ultima_sincronizacao_ok_utc": "2026-09-08T20:37:18.047380+00:00",
+  "ultima_sincronizacao_ok_brt": "08/09/2026 17:37 (BRT)",
   "bloqueia_leitura": false,
-  "texto": "Dados sincronizados há 1 min (08/09 17:22, BRT). Leituras válidas.",
+  "texto": "Dados sincronizados há 1 min (08/09 17:37, BRT). Leituras válidas.",
   "limiares_provisorios": {
    "atrasado_min": 45,
    "muito_atrasado_min": 120
@@ -21,7 +21,7 @@
     "arquivo": "FXStreet ao vivo",
     "alimenta": "dimensão de dados (VOTA)",
     "vota": true,
-    "sincronizado_em": "2026-09-08T20:23:20.921937+00:00",
+    "sincronizado_em": "2026-09-08T20:38:22.730165+00:00",
     "atraso_min": 0,
     "ao_vivo": true,
     "atraso_texto": "0 min"
@@ -31,7 +31,7 @@
     "arquivo": "bancos_centrais.json",
     "alimenta": "dimensão de ciclo (VOTA)",
     "vota": true,
-    "sincronizado_em": "2026-09-08T20:22:17.724659+00:00",
+    "sincronizado_em": "2026-09-08T20:37:18.047380+00:00",
     "atraso_min": 1,
     "atraso_texto": "1 min"
    },
@@ -40,7 +40,7 @@
     "arquivo": "bc_discursos.json",
     "alimenta": "dimensão de fala (contexto, NÃO vota)",
     "vota": false,
-    "sincronizado_em": "2026-09-08T20:22:09.412886+00:00",
+    "sincronizado_em": "2026-09-08T20:37:09.717033+00:00",
     "atraso_min": 1,
     "atraso_texto": "1 min"
    },
@@ -49,7 +49,7 @@
     "arquivo": "noticias.json",
     "alimenta": "contexto de fala (NÃO vota)",
     "vota": false,
-    "sincronizado_em": "2026-09-08T20:22:42.850420+00:00",
+    "sincronizado_em": "2026-09-08T20:37:44.335801+00:00",
     "atraso_min": 1,
     "atraso_texto": "1 min"
    },
@@ -59,8 +59,8 @@
     "alimenta": "dimensão experimental (NÃO vota)",
     "vota": false,
     "sincronizado_em": "2026-09-08T17:53:25.036735+00:00",
-    "atraso_min": 150,
-    "atraso_texto": "2h 30min"
+    "atraso_min": 165,
+    "atraso_texto": "2h 45min"
    }
   ],
   "o_que_conta": "só as fontes que alimentam dimensão QUE VOTA entram no atraso (calendário e bancos centrais). Discurso, imprensa e geopolítica são contexto: a idade deles fica gravada, rotulada, e não muda o estado.",
@@ -562,7 +562,7 @@
     }
    ],
    "ligada": true,
-   "custo_total_ms": 23.05,
+   "custo_total_ms": 27.95,
    "moedas_frageis": [
     "USD",
     "EUR",
@@ -765,63 +765,63 @@
      {
       "meia_vida": 16.0,
       "modulador": "hoje (1,00 / 0,50 / 0,20)",
-      "soma": 2.04,
+      "soma": 2.05,
       "leitura": "sem_leitura",
       "direcao_dimensao": "MANTEM"
      },
      {
       "meia_vida": 18.0,
       "modulador": "hoje (1,00 / 0,50 / 0,20)",
-      "soma": 0.68,
+      "soma": 0.7,
       "leitura": "sem_leitura",
       "direcao_dimensao": "MANTEM"
      },
      {
       "meia_vida": 20.0,
       "modulador": "hoje (1,00 / 0,50 / 0,20)",
-      "soma": -0.54,
+      "soma": -0.56,
       "leitura": "sem_leitura",
       "direcao_dimensao": "MANTEM"
      },
      {
       "meia_vida": 21.0,
       "modulador": "hoje (1,00 / 0,50 / 0,20)",
-      "soma": -1.18,
+      "soma": -1.16,
       "leitura": "sem_leitura",
       "direcao_dimensao": "MANTEM"
      },
      {
       "meia_vida": 22.0,
       "modulador": "hoje (1,00 / 0,50 / 0,20)",
-      "soma": -1.69,
+      "soma": -1.72,
       "leitura": "inclinado_corte",
       "direcao_dimensao": "MANTEM"
      },
      {
       "meia_vida": 24.0,
       "modulador": "hoje (1,00 / 0,50 / 0,20)",
-      "soma": -2.85,
+      "soma": -2.84,
       "leitura": "inclinado_corte",
       "direcao_dimensao": "MANTEM"
      },
      {
       "meia_vida": 26.0,
       "modulador": "hoje (1,00 / 0,50 / 0,20)",
-      "soma": -3.78,
+      "soma": -3.79,
       "leitura": "inclinado_corte",
       "direcao_dimensao": "MANTEM"
      },
      {
       "meia_vida": 28.0,
       "modulador": "hoje (1,00 / 0,50 / 0,20)",
-      "soma": -4.66,
+      "soma": -4.68,
       "leitura": "inclinado_corte",
       "direcao_dimensao": "MANTEM"
      },
      {
       "meia_vida": 30.0,
       "modulador": "hoje (1,00 / 0,50 / 0,20)",
-      "soma": -5.57,
+      "soma": -5.58,
       "leitura": "inclinado_corte",
       "direcao_dimensao": "CORTA"
      }
@@ -830,91 +830,91 @@
      {
       "meia_vida": 21.0,
       "modulador": "só alto conta (1,00 / 0 / 0)",
-      "soma": 2.64,
+      "soma": 2.66,
       "leitura": "sem_leitura",
       "direcao_dimensao": "MANTEM"
      },
      {
       "meia_vida": 21.0,
       "modulador": "médio 0,25 / baixo 0,00",
-      "soma": 1.06,
+      "soma": 1.08,
       "leitura": "sem_leitura",
       "direcao_dimensao": "MANTEM"
      },
      {
       "meia_vida": 21.0,
       "modulador": "médio 0,25 / baixo 0,20",
-      "soma": 0.47,
+      "soma": 0.49,
       "leitura": "sem_leitura",
       "direcao_dimensao": "MANTEM"
      },
      {
       "meia_vida": 21.0,
       "modulador": "médio 0,50 / baixo 0,00",
-      "soma": -0.59,
+      "soma": -0.57,
       "leitura": "sem_leitura",
       "direcao_dimensao": "MANTEM"
      },
      {
       "meia_vida": 21.0,
       "modulador": "hoje (1,00 / 0,50 / 0,20)",
-      "soma": -1.18,
+      "soma": -1.16,
       "leitura": "sem_leitura",
       "direcao_dimensao": "MANTEM"
      },
      {
       "meia_vida": 21.0,
       "modulador": "médio 0,50 / baixo 0,50",
-      "soma": -2.08,
+      "soma": -2.06,
       "leitura": "inclinado_corte",
       "direcao_dimensao": "MANTEM"
      },
      {
       "meia_vida": 21.0,
       "modulador": "médio 0,75 / baixo 0,00",
-      "soma": -2.17,
+      "soma": -2.14,
       "leitura": "inclinado_corte",
       "direcao_dimensao": "MANTEM"
      },
      {
       "meia_vida": 21.0,
       "modulador": "médio 0,75 / baixo 0,20",
-      "soma": -2.76,
+      "soma": -2.73,
       "leitura": "inclinado_corte",
       "direcao_dimensao": "MANTEM"
      },
      {
       "meia_vida": 21.0,
       "modulador": "médio 0,75 / baixo 0,50",
-      "soma": -3.66,
+      "soma": -3.63,
       "leitura": "inclinado_corte",
       "direcao_dimensao": "MANTEM"
      },
      {
       "meia_vida": 21.0,
       "modulador": "médio 1,00 / baixo 0,00",
-      "soma": -3.81,
+      "soma": -3.76,
       "leitura": "inclinado_corte",
       "direcao_dimensao": "MANTEM"
      },
      {
       "meia_vida": 21.0,
       "modulador": "médio 1,00 / baixo 0,20",
-      "soma": -4.4,
+      "soma": -4.35,
       "leitura": "inclinado_corte",
       "direcao_dimensao": "MANTEM"
      },
      {
       "meia_vida": 21.0,
       "modulador": "médio 1,00 / baixo 0,50",
-      "soma": -5.3,
+      "soma": -5.25,
       "leitura": "inclinado_corte",
       "direcao_dimensao": "CORTA"
      },
      {
       "meia_vida": 21.0,
       "modulador": "plano (1,00 / 1,00 / 1,00)",
-      "soma": -6.8,
+      "soma": -6.75,
       "leitura": "inclinado_corte",
       "direcao_dimensao": "CORTA"
      }
@@ -923,35 +923,35 @@
      {
       "meia_vida": 22.0,
       "modulador": "hoje (1,00 / 0,50 / 0,20)",
-      "soma": -1.69,
+      "soma": -1.72,
       "leitura": "inclinado_corte",
       "direcao_dimensao": "MANTEM"
      },
      {
       "meia_vida": 24.0,
       "modulador": "hoje (1,00 / 0,50 / 0,20)",
-      "soma": -2.85,
+      "soma": -2.84,
       "leitura": "inclinado_corte",
       "direcao_dimensao": "MANTEM"
      },
      {
       "meia_vida": 26.0,
       "modulador": "hoje (1,00 / 0,50 / 0,20)",
-      "soma": -3.78,
+      "soma": -3.79,
       "leitura": "inclinado_corte",
       "direcao_dimensao": "MANTEM"
      },
      {
       "meia_vida": 28.0,
       "modulador": "hoje (1,00 / 0,50 / 0,20)",
-      "soma": -4.66,
+      "soma": -4.68,
       "leitura": "inclinado_corte",
       "direcao_dimensao": "MANTEM"
      },
      {
       "meia_vida": 30.0,
       "modulador": "hoje (1,00 / 0,50 / 0,20)",
-      "soma": -5.57,
+      "soma": -5.58,
       "leitura": "inclinado_corte",
       "direcao_dimensao": "CORTA"
      }
@@ -960,56 +960,56 @@
      {
       "meia_vida": 21.0,
       "modulador": "médio 0,50 / baixo 0,50",
-      "soma": -2.08,
+      "soma": -2.06,
       "leitura": "inclinado_corte",
       "direcao_dimensao": "MANTEM"
      },
      {
       "meia_vida": 21.0,
       "modulador": "médio 0,75 / baixo 0,00",
-      "soma": -2.17,
+      "soma": -2.14,
       "leitura": "inclinado_corte",
       "direcao_dimensao": "MANTEM"
      },
      {
       "meia_vida": 21.0,
       "modulador": "médio 0,75 / baixo 0,20",
-      "soma": -2.76,
+      "soma": -2.73,
       "leitura": "inclinado_corte",
       "direcao_dimensao": "MANTEM"
      },
      {
       "meia_vida": 21.0,
       "modulador": "médio 0,75 / baixo 0,50",
-      "soma": -3.66,
+      "soma": -3.63,
       "leitura": "inclinado_corte",
       "direcao_dimensao": "MANTEM"
      },
      {
       "meia_vida": 21.0,
       "modulador": "médio 1,00 / baixo 0,00",
-      "soma": -3.81,
+      "soma": -3.76,
       "leitura": "inclinado_corte",
       "direcao_dimensao": "MANTEM"
      },
      {
       "meia_vida": 21.0,
       "modulador": "médio 1,00 / baixo 0,20",
-      "soma": -4.4,
+      "soma": -4.35,
       "leitura": "inclinado_corte",
       "direcao_dimensao": "MANTEM"
      },
      {
       "meia_vida": 21.0,
       "modulador": "médio 1,00 / baixo 0,50",
-      "soma": -5.3,
+      "soma": -5.25,
       "leitura": "inclinado_corte",
       "direcao_dimensao": "CORTA"
      },
      {
       "meia_vida": 21.0,
       "modulador": "plano (1,00 / 1,00 / 1,00)",
-      "soma": -6.8,
+      "soma": -6.75,
       "leitura": "inclinado_corte",
       "direcao_dimensao": "CORTA"
      }
@@ -1018,42 +1018,42 @@
      {
       "meia_vida": 14.0,
       "modulador": "só alto conta (1,00 / 0 / 0)",
-      "soma": 6.63,
+      "soma": 6.62,
       "leitura": "inclinado_alta",
       "direcao_dimensao": "SOBE"
      },
      {
       "meia_vida": 14.0,
       "modulador": "médio 0,25 / baixo 0,00",
-      "soma": 5.17,
+      "soma": 5.19,
       "leitura": "inclinado_alta",
       "direcao_dimensao": "SOBE"
      },
      {
       "meia_vida": 16.0,
       "modulador": "só alto conta (1,00 / 0 / 0)",
-      "soma": 5.4,
+      "soma": 5.41,
       "leitura": "inclinado_alta",
       "direcao_dimensao": "SOBE"
      },
      {
       "meia_vida": 16.0,
       "modulador": "médio 1,00 / baixo 0,50",
-      "soma": -1.51,
+      "soma": -1.5,
       "leitura": "inclinado_corte",
       "direcao_dimensao": "MANTEM"
      },
      {
       "meia_vida": 16.0,
       "modulador": "plano (1,00 / 1,00 / 1,00)",
-      "soma": -2.46,
+      "soma": -2.45,
       "leitura": "inclinado_corte",
       "direcao_dimensao": "MANTEM"
      },
      {
       "meia_vida": 18.0,
       "modulador": "médio 0,75 / baixo 0,50",
-      "soma": -1.55,
+      "soma": -1.54,
       "leitura": "inclinado_corte",
       "direcao_dimensao": "MANTEM"
      }
@@ -1062,7 +1062,7 @@
     "celula_de_hoje": {
      "meia_vida": 21.0,
      "modulador": "hoje (1,00 / 0,50 / 0,20)",
-     "soma": -1.18,
+     "soma": -1.16,
      "leitura": "sem_leitura",
      "direcao_dimensao": "MANTEM"
     },
@@ -1072,8 +1072,8 @@
      "direcao_publicada": "MANTEM",
      "concordancia_pct": 72,
      "direcoes_encontradas": {
-      "MANTEM": 94,
-      "CORTA": 33,
+      "MANTEM": 93,
+      "CORTA": 34,
       "SOBE": 3
      },
      "o_que_e": "a direção da DIMENSÃO de dados (soma contra o LIMIAR_DADOS de 5.0) em cada célula. É mais sensível que a leitura, porque o limiar é um degrau e a leitura é contínua e leva o ciclo junto.",
@@ -1085,7 +1085,7 @@
     "corte_pct": 60,
     "texto": "a direção do USD DEPENDE de parâmetro que ninguém calibrou: 49 de 130 células da faixa plausível (38%) dão a leitura publicada ('sem leitura'), e as outras dão inclinado ao corte em 78 célula(s) · inclinado à alta em 3 célula(s). Quem faz virar: os dois, o modulador_de_impacto mais: modulador (8 de 13 células) contra meia-vida (5 de 10 células). Nenhum dado muda entre as células — só o botão.",
     "aviso": "a concordância é a fração de uma GRADE escolhida; adensá-la numa região muda o número. NÃO é probabilidade. O número que não depende da densidade é o MARGINAL — vira ou não vira girando um botão de cada vez — e ele sai publicado ao lado.",
-    "custo_ms": 5.64,
+    "custo_ms": 5.51,
     "provisorio": true
    },
    "direcao_depende_de_parametro_nao_calibrado": true,
@@ -1108,12 +1108,12 @@
     {
      "tipo": "faixa_neutra",
      "muda_a_direcao": true,
-     "soma_publicada": -1.18,
-     "soma_sem_faixa": -16.16,
+     "soma_publicada": -1.16,
+     "soma_sem_faixa": -16.14,
      "direcao_sem_faixa": "CORTA",
      "itens_zerados": 47,
      "efeito": "a direção da dimensão de dados depende da largura da faixa neutra, que é PROVISÓRIA e nunca foi validada contra o que o banco central fez depois",
-     "texto": "a direção da dimensão de dados do USD DEPENDE da faixa neutra: com a régua de hoje a soma é -1.18 (MANTEM), sem faixa nenhuma seria -16.16 (CORTA), e com a mesma régua pela metade seria -10.75 (CORTA). A faixa zera 47 divulgação(ões) que, com o sinal do próprio desvio, pesariam -14.99 — zerar um termo desloca a soma no sentido contrário ao dele, que é a mesma aritmética da winsorização revogada. A faixa NÃO foi desligada: ela tem tese e é a régua única da casa. O que muda é que isto aparece."
+     "texto": "a direção da dimensão de dados do USD DEPENDE da faixa neutra: com a régua de hoje a soma é -1.16 (MANTEM), sem faixa nenhuma seria -16.14 (CORTA), e com a mesma régua pela metade seria -10.73 (CORTA). A faixa zera 47 divulgação(ões) que, com o sinal do próprio desvio, pesariam -14.99 — zerar um termo desloca a soma no sentido contrário ao dele, que é a mesma aritmética da winsorização revogada. A faixa NÃO foi desligada: ela tem tese e é a régua única da casa. O que muda é que isto aparece."
     }
    ],
    "score_texto_se_votasse": 0.214,
@@ -1160,8 +1160,8 @@
     "quando_brt": "10/09 09:30",
     "impacto": "HIGH",
     "dias": 1,
-    "horas": 16,
-    "horas_total": 40,
+    "horas": 15,
+    "horas_total": 39,
     "reserva": false,
     "texto": "PPI (núcleo) em 10/09 às 09:30 (BRT)",
     "nota": "é o próximo DADO relevante, não a próxima decisão: ele diz até quando vale procurar BO + ZOI. A reunião continua no campo `proxima`, como limite final do ciclo."
@@ -1189,9 +1189,9 @@
      "direcao_crua": "MANTEM",
      "vota": true,
      "por_que_nao_vota": null,
-     "soma": -1.18,
-     "soma_crua": -1.18,
-     "soma_tratada": -1.18,
+     "soma": -1.16,
+     "soma_crua": -1.16,
+     "soma_tratada": -1.16,
      "participacao_maior_item_antes": 10,
      "participacao_maior_item_depois": 10,
      "direcao_mudou_pelo_tratamento": false,
@@ -1212,8 +1212,8 @@
       "fator": 1.0,
       "itens_tratados": 0,
       "deslocamento": 0.0,
-      "soma_crua": -1.18,
-      "soma_tratada": -1.18,
+      "soma_crua": -1.16,
+      "soma_tratada": -1.16,
       "direcao_crua": "MANTEM",
       "direcao_tratada": "MANTEM",
       "direcao_mudou": false,
@@ -1242,7 +1242,7 @@
        "fator": 1.0,
        "por_que_desligada": "ela limitaria MAGNITUDE, nao PARTICIPACAO, e magnitude nao e o problema que o dono levantou. Encolher a soma inteira por um fator comum tambem NAO e neutro para a leitura: o limiar de 5.0 e fixo, entao dividir tudo por 2 empurra moedas de SOBE/CORTA para MANTEM sem que nenhum dado tenha mudado."
       },
-      "mediana_absoluta_da_janela": 1.59,
+      "mediana_absoluta_da_janela": 1.58,
       "mediana_manda_em_alguma_coisa": false,
       "texto": "não há tratamento na soma desde 08/set: soma tratada = soma crua, deslocamento 0,00, direção do dado e não do método. O que existia aqui (winsorizar cada item em 4,0) deslocava o total para o lado dos itens que sobravam e virou a direção do USD e do GBP. A autópsia inteira está em regua.tratamento_da_soma.winsor_revogada.",
       "provisorio": true
@@ -1263,33 +1263,33 @@
      "faixa_neutra": {
       "itens_zerados": 47,
       "peso_que_os_zerados_teriam": -14.99,
-      "soma_sem_faixa": -16.16,
+      "soma_sem_faixa": -16.14,
       "direcao_sem_faixa": "CORTA",
       "deslocamento_pela_faixa": 14.98,
       "escala": [
        {
         "fator": 0.0,
-        "soma": -16.16,
+        "soma": -16.14,
         "direcao": "CORTA"
        },
        {
         "fator": 0.5,
-        "soma": -10.75,
+        "soma": -10.73,
         "direcao": "CORTA"
        },
        {
         "fator": 1.0,
-        "soma": -1.18,
+        "soma": -1.16,
         "direcao": "MANTEM"
        },
        {
         "fator": 2.0,
-        "soma": 1.13,
+        "soma": 1.14,
         "direcao": "MANTEM"
        }
       ],
       "direcao_depende_da_faixa": true,
-      "texto": "a direção da dimensão de dados do USD DEPENDE da faixa neutra: com a régua de hoje a soma é -1.18 (MANTEM), sem faixa nenhuma seria -16.16 (CORTA), e com a mesma régua pela metade seria -10.75 (CORTA). A faixa zera 47 divulgação(ões) que, com o sinal do próprio desvio, pesariam -14.99 — zerar um termo desloca a soma no sentido contrário ao dele, que é a mesma aritmética da winsorização revogada. A faixa NÃO foi desligada: ela tem tese e é a régua única da casa. O que muda é que isto aparece.",
+      "texto": "a direção da dimensão de dados do USD DEPENDE da faixa neutra: com a régua de hoje a soma é -1.16 (MANTEM), sem faixa nenhuma seria -16.14 (CORTA), e com a mesma régua pela metade seria -10.73 (CORTA). A faixa zera 47 divulgação(ões) que, com o sinal do próprio desvio, pesariam -14.99 — zerar um termo desloca a soma no sentido contrário ao dele, que é a mesma aritmética da winsorização revogada. A faixa NÃO foi desligada: ela tem tese e é a régua única da casa. O que muda é que isto aparece.",
       "o_que_e": "divulgacao com |divulgado - consenso| dentro do corte da familia entra na soma como ZERO",
       "por_que_nao_foi_revogada": "tem tese economica declarada e e a regua unica da casa; trocar de metodo sem medida e decisao do dono",
       "provisorio": true
@@ -1653,49 +1653,49 @@
      {
       "meia_vida": 14.0,
       "modulador": "hoje (1,00 / 0,50 / 0,20)",
-      "soma": 7.43,
+      "soma": 7.45,
       "leitura": "inclinado_alta",
       "direcao_dimensao": "SOBE"
      },
      {
       "meia_vida": 16.0,
       "modulador": "hoje (1,00 / 0,50 / 0,20)",
-      "soma": 9.66,
+      "soma": 9.67,
       "leitura": "inclinado_alta",
       "direcao_dimensao": "SOBE"
      },
      {
       "meia_vida": 18.0,
       "modulador": "hoje (1,00 / 0,50 / 0,20)",
-      "soma": 11.86,
+      "soma": 11.84,
       "leitura": "inclinado_alta",
       "direcao_dimensao": "SOBE"
      },
      {
       "meia_vida": 20.0,
       "modulador": "hoje (1,00 / 0,50 / 0,20)",
-      "soma": 13.96,
+      "soma": 13.9,
       "leitura": "inclinado_alta",
       "direcao_dimensao": "SOBE"
      },
      {
       "meia_vida": 21.0,
       "modulador": "hoje (1,00 / 0,50 / 0,20)",
-      "soma": 14.87,
+      "soma": 14.91,
       "leitura": "inclinado_alta",
       "direcao_dimensao": "SOBE"
      },
      {
       "meia_vida": 22.0,
       "modulador": "hoje (1,00 / 0,50 / 0,20)",
-      "soma": 15.88,
+      "soma": 15.87,
       "leitura": "inclinado_alta",
       "direcao_dimensao": "SOBE"
      },
      {
       "meia_vida": 24.0,
       "modulador": "hoje (1,00 / 0,50 / 0,20)",
-      "soma": 17.63,
+      "soma": 17.62,
       "leitura": "inclinado_alta",
       "direcao_dimensao": "SOBE"
      },
@@ -1709,14 +1709,14 @@
      {
       "meia_vida": 28.0,
       "modulador": "hoje (1,00 / 0,50 / 0,20)",
-      "soma": 20.8,
+      "soma": 20.81,
       "leitura": "inclinado_alta",
       "direcao_dimensao": "SOBE"
      },
      {
       "meia_vida": 30.0,
       "modulador": "hoje (1,00 / 0,50 / 0,20)",
-      "soma": 22.22,
+      "soma": 22.17,
       "leitura": "inclinado_alta",
       "direcao_dimensao": "SOBE"
      }
@@ -1725,7 +1725,7 @@
      {
       "meia_vida": 21.0,
       "modulador": "só alto conta (1,00 / 0 / 0)",
-      "soma": -3.81,
+      "soma": -3.82,
       "leitura": "sem_leitura",
       "direcao_dimensao": "MANTEM"
      },
@@ -1739,77 +1739,77 @@
      {
       "meia_vida": 21.0,
       "modulador": "médio 0,25 / baixo 0,20",
-      "soma": 7.49,
+      "soma": 7.5,
       "leitura": "inclinado_alta",
       "direcao_dimensao": "SOBE"
      },
      {
       "meia_vida": 21.0,
       "modulador": "médio 0,50 / baixo 0,00",
-      "soma": 11.05,
+      "soma": 11.08,
       "leitura": "inclinado_alta",
       "direcao_dimensao": "SOBE"
      },
      {
       "meia_vida": 21.0,
       "modulador": "hoje (1,00 / 0,50 / 0,20)",
-      "soma": 14.87,
+      "soma": 14.91,
       "leitura": "inclinado_alta",
       "direcao_dimensao": "SOBE"
      },
      {
       "meia_vida": 21.0,
       "modulador": "médio 0,50 / baixo 0,50",
-      "soma": 20.63,
+      "soma": 20.66,
       "leitura": "inclinado_alta",
       "direcao_dimensao": "SOBE"
      },
      {
       "meia_vida": 21.0,
       "modulador": "médio 0,75 / baixo 0,00",
-      "soma": 18.57,
+      "soma": 18.52,
       "leitura": "inclinado_alta",
       "direcao_dimensao": "SOBE"
      },
      {
       "meia_vida": 21.0,
       "modulador": "médio 0,75 / baixo 0,20",
-      "soma": 22.39,
+      "soma": 22.35,
       "leitura": "inclinado_alta",
       "direcao_dimensao": "SOBE"
      },
      {
       "meia_vida": 21.0,
       "modulador": "médio 0,75 / baixo 0,50",
-      "soma": 28.15,
+      "soma": 28.1,
       "leitura": "inclinado_alta",
       "direcao_dimensao": "SOBE"
      },
      {
       "meia_vida": 21.0,
       "modulador": "médio 1,00 / baixo 0,00",
-      "soma": 26.0,
+      "soma": 25.98,
       "leitura": "inclinado_alta",
       "direcao_dimensao": "SOBE"
      },
      {
       "meia_vida": 21.0,
       "modulador": "médio 1,00 / baixo 0,20",
-      "soma": 29.82,
+      "soma": 29.81,
       "leitura": "inclinado_alta",
       "direcao_dimensao": "SOBE"
      },
      {
       "meia_vida": 21.0,
       "modulador": "médio 1,00 / baixo 0,50",
-      "soma": 35.58,
+      "soma": 35.56,
       "leitura": "inclinado_alta",
       "direcao_dimensao": "SOBE"
      },
      {
       "meia_vida": 21.0,
       "modulador": "plano (1,00 / 1,00 / 1,00)",
-      "soma": 45.14,
+      "soma": 45.13,
       "leitura": "inclinado_alta",
       "direcao_dimensao": "SOBE"
      }
@@ -1819,7 +1819,7 @@
      {
       "meia_vida": 21.0,
       "modulador": "só alto conta (1,00 / 0 / 0)",
-      "soma": -3.81,
+      "soma": -3.82,
       "leitura": "sem_leitura",
       "direcao_dimensao": "MANTEM"
      }
@@ -1828,35 +1828,35 @@
      {
       "meia_vida": 14.0,
       "modulador": "só alto conta (1,00 / 0 / 0)",
-      "soma": -6.74,
+      "soma": -6.73,
       "leitura": "sem_leitura",
       "direcao_dimensao": "CORTA"
      },
      {
       "meia_vida": 16.0,
       "modulador": "só alto conta (1,00 / 0 / 0)",
-      "soma": -5.96,
+      "soma": -5.95,
       "leitura": "sem_leitura",
       "direcao_dimensao": "CORTA"
      },
      {
       "meia_vida": 18.0,
       "modulador": "só alto conta (1,00 / 0 / 0)",
-      "soma": -5.13,
+      "soma": -5.12,
       "leitura": "sem_leitura",
       "direcao_dimensao": "CORTA"
      },
      {
       "meia_vida": 20.0,
       "modulador": "só alto conta (1,00 / 0 / 0)",
-      "soma": -4.25,
+      "soma": -4.27,
       "leitura": "sem_leitura",
       "direcao_dimensao": "MANTEM"
      },
      {
       "meia_vida": 21.0,
       "modulador": "só alto conta (1,00 / 0 / 0)",
-      "soma": -3.81,
+      "soma": -3.82,
       "leitura": "sem_leitura",
       "direcao_dimensao": "MANTEM"
      },
@@ -1872,7 +1872,7 @@
     "celula_de_hoje": {
      "meia_vida": 21.0,
      "modulador": "hoje (1,00 / 0,50 / 0,20)",
-     "soma": 14.87,
+     "soma": 14.91,
      "leitura": "inclinado_alta",
      "direcao_dimensao": "SOBE"
     },
@@ -1895,7 +1895,7 @@
     "corte_pct": 60,
     "texto": "a direção do EUR DEPENDE de parâmetro que ninguém calibrou: 124 de 130 células da faixa plausível (95%) dão a leitura publicada ('inclinado à alta'), e as outras dão sem leitura em 6 célula(s). Quem faz virar: modulador_de_impacto. Nenhum dado muda entre as células — só o botão.",
     "aviso": "a concordância é a fração de uma GRADE escolhida; adensá-la numa região muda o número. NÃO é probabilidade. O número que não depende da densidade é o MARGINAL — vira ou não vira girando um botão de cada vez — e ele sai publicado ao lado.",
-    "custo_ms": 8.43,
+    "custo_ms": 11.94,
     "provisorio": true
    },
    "direcao_depende_de_parametro_nao_calibrado": true,
@@ -1988,9 +1988,9 @@
      "direcao_crua": "SOBE",
      "vota": true,
      "por_que_nao_vota": null,
-     "soma": 14.87,
-     "soma_crua": 14.87,
-     "soma_tratada": 14.87,
+     "soma": 14.91,
+     "soma_crua": 14.91,
+     "soma_tratada": 14.91,
      "participacao_maior_item_antes": 9,
      "participacao_maior_item_depois": 9,
      "direcao_mudou_pelo_tratamento": false,
@@ -2011,8 +2011,8 @@
       "fator": 1.0,
       "itens_tratados": 0,
       "deslocamento": 0.0,
-      "soma_crua": 14.87,
-      "soma_tratada": 14.87,
+      "soma_crua": 14.91,
+      "soma_tratada": 14.91,
       "direcao_crua": "SOBE",
       "direcao_tratada": "SOBE",
       "direcao_mudou": false,
@@ -2062,23 +2062,23 @@
      "faixa_neutra": {
       "itens_zerados": 90,
       "peso_que_os_zerados_teriam": -3.95,
-      "soma_sem_faixa": 10.97,
+      "soma_sem_faixa": 10.99,
       "direcao_sem_faixa": "SOBE",
-      "deslocamento_pela_faixa": 3.9,
+      "deslocamento_pela_faixa": 3.92,
       "escala": [
        {
         "fator": 0.0,
-        "soma": 10.97,
+        "soma": 10.99,
         "direcao": "SOBE"
        },
        {
         "fator": 0.5,
-        "soma": 13.11,
+        "soma": 13.13,
         "direcao": "SOBE"
        },
        {
         "fator": 1.0,
-        "soma": 14.87,
+        "soma": 14.91,
         "direcao": "SOBE"
        },
        {
@@ -2136,7 +2136,7 @@
        "consenso": 3.1,
        "contribuicao_bruta": -5.31,
        "contribuicao": -5.31,
-       "idade_dias": 8.3,
+       "idade_dias": 8.4,
        "tratado": false
       },
       {
@@ -2147,8 +2147,8 @@
        "impacto": "MEDIUM",
        "divulgado": 6.4,
        "consenso": 6.3,
-       "contribuicao_bruta": -3.13,
-       "contribuicao": -3.13,
+       "contribuicao_bruta": -3.12,
+       "contribuicao": -3.12,
        "idade_dias": 7.5,
        "tratado": false
       },
@@ -2419,14 +2419,14 @@
    "direcao": "CORTA",
    "direcao_voto_maioria": "MANTEM",
    "intensidade": 0,
-   "score": -0.154,
+   "score": -0.155,
    "score_componentes": {
-    "dados": -0.107,
+    "dados": -0.108,
     "texto": 0.0,
     "ciclo": -0.047,
     "geo": 0.0
    },
-   "score_cru": -0.154,
+   "score_cru": -0.155,
    "leitura_crua": "inclinado_corte",
    "intensidade_relativa_crua_pct": 31,
    "guarda_de_direcao": {
@@ -2444,10 +2444,10 @@
     "leitura_publicada": "inclinado_corte",
     "celulas": 130,
     "concordancia_pct": 78,
-    "celulas_de_acordo": 101,
+    "celulas_de_acordo": 102,
     "direcoes_encontradas": {
-     "inclinado ao corte": 101,
-     "sem leitura": 29
+     "inclinado ao corte": 102,
+     "sem leitura": 28
     },
     "celulas_com_sinal_oposto": 0,
     "vira_pela_meia_vida": false,
@@ -2464,7 +2464,7 @@
      {
       "meia_vida": 16.0,
       "modulador": "hoje (1,00 / 0,50 / 0,20)",
-      "soma": -4.43,
+      "soma": -4.45,
       "leitura": "inclinado_corte",
       "direcao_dimensao": "MANTEM"
      },
@@ -2485,21 +2485,21 @@
      {
       "meia_vida": 21.0,
       "modulador": "hoje (1,00 / 0,50 / 0,20)",
-      "soma": -4.59,
+      "soma": -4.6,
       "leitura": "inclinado_corte",
       "direcao_dimensao": "MANTEM"
      },
      {
       "meia_vida": 22.0,
       "modulador": "hoje (1,00 / 0,50 / 0,20)",
-      "soma": -4.62,
+      "soma": -4.63,
       "leitura": "inclinado_corte",
       "direcao_dimensao": "MANTEM"
      },
      {
       "meia_vida": 24.0,
       "modulador": "hoje (1,00 / 0,50 / 0,20)",
-      "soma": -4.68,
+      "soma": -4.69,
       "leitura": "inclinado_corte",
       "direcao_dimensao": "MANTEM"
      },
@@ -2513,7 +2513,7 @@
      {
       "meia_vida": 28.0,
       "modulador": "hoje (1,00 / 0,50 / 0,20)",
-      "soma": -4.75,
+      "soma": -4.76,
       "leitura": "inclinado_corte",
       "direcao_dimensao": "MANTEM"
      },
@@ -2529,35 +2529,35 @@
      {
       "meia_vida": 21.0,
       "modulador": "só alto conta (1,00 / 0 / 0)",
-      "soma": 1.15,
+      "soma": 1.14,
       "leitura": "sem_leitura",
       "direcao_dimensao": "MANTEM"
      },
      {
       "meia_vida": 21.0,
       "modulador": "médio 0,25 / baixo 0,00",
-      "soma": 0.2,
+      "soma": 0.19,
       "leitura": "sem_leitura",
       "direcao_dimensao": "MANTEM"
      },
      {
       "meia_vida": 21.0,
       "modulador": "médio 0,25 / baixo 0,20",
-      "soma": -3.67,
+      "soma": -3.68,
       "leitura": "inclinado_corte",
       "direcao_dimensao": "MANTEM"
      },
      {
       "meia_vida": 21.0,
       "modulador": "médio 0,50 / baixo 0,00",
-      "soma": -0.72,
+      "soma": -0.73,
       "leitura": "sem_leitura",
       "direcao_dimensao": "MANTEM"
      },
      {
       "meia_vida": 21.0,
       "modulador": "hoje (1,00 / 0,50 / 0,20)",
-      "soma": -4.59,
+      "soma": -4.6,
       "leitura": "inclinado_corte",
       "direcao_dimensao": "MANTEM"
      },
@@ -2571,14 +2571,14 @@
      {
       "meia_vida": 21.0,
       "modulador": "médio 0,75 / baixo 0,00",
-      "soma": -1.68,
+      "soma": -1.69,
       "leitura": "inclinado_corte",
       "direcao_dimensao": "MANTEM"
      },
      {
       "meia_vida": 21.0,
       "modulador": "médio 0,75 / baixo 0,20",
-      "soma": -5.55,
+      "soma": -5.56,
       "leitura": "inclinado_corte",
       "direcao_dimensao": "CORTA"
      },
@@ -2592,14 +2592,14 @@
      {
       "meia_vida": 21.0,
       "modulador": "médio 1,00 / baixo 0,00",
-      "soma": -2.63,
+      "soma": -2.64,
       "leitura": "inclinado_corte",
       "direcao_dimensao": "MANTEM"
      },
      {
       "meia_vida": 21.0,
       "modulador": "médio 1,00 / baixo 0,20",
-      "soma": -6.5,
+      "soma": -6.51,
       "leitura": "inclinado_corte",
       "direcao_dimensao": "CORTA"
      },
@@ -2613,7 +2613,7 @@
      {
       "meia_vida": 21.0,
       "modulador": "plano (1,00 / 1,00 / 1,00)",
-      "soma": -22.01,
+      "soma": -22.0,
       "leitura": "inclinado_corte",
       "direcao_dimensao": "CORTA"
      }
@@ -2623,21 +2623,21 @@
      {
       "meia_vida": 21.0,
       "modulador": "só alto conta (1,00 / 0 / 0)",
-      "soma": 1.15,
+      "soma": 1.14,
       "leitura": "sem_leitura",
       "direcao_dimensao": "MANTEM"
      },
      {
       "meia_vida": 21.0,
       "modulador": "médio 0,25 / baixo 0,00",
-      "soma": 0.2,
+      "soma": 0.19,
       "leitura": "sem_leitura",
       "direcao_dimensao": "MANTEM"
      },
      {
       "meia_vida": 21.0,
       "modulador": "médio 0,50 / baixo 0,00",
-      "soma": -0.72,
+      "soma": -0.73,
       "leitura": "sem_leitura",
       "direcao_dimensao": "MANTEM"
      }
@@ -2660,21 +2660,14 @@
      {
       "meia_vida": 16.0,
       "modulador": "só alto conta (1,00 / 0 / 0)",
-      "soma": 0.96,
+      "soma": 0.95,
       "leitura": "sem_leitura",
       "direcao_dimensao": "MANTEM"
      },
      {
       "meia_vida": 16.0,
       "modulador": "médio 0,25 / baixo 0,00",
-      "soma": -0.05,
-      "leitura": "sem_leitura",
-      "direcao_dimensao": "MANTEM"
-     },
-     {
-      "meia_vida": 16.0,
-      "modulador": "médio 0,50 / baixo 0,00",
-      "soma": -1.01,
+      "soma": -0.06,
       "leitura": "sem_leitura",
       "direcao_dimensao": "MANTEM"
      },
@@ -2684,13 +2677,20 @@
       "soma": 1.04,
       "leitura": "sem_leitura",
       "direcao_dimensao": "MANTEM"
+     },
+     {
+      "meia_vida": 18.0,
+      "modulador": "médio 0,25 / baixo 0,00",
+      "soma": 0.06,
+      "leitura": "sem_leitura",
+      "direcao_dimensao": "MANTEM"
      }
     ],
-    "celulas_que_discordam_omitidas": 23,
+    "celulas_que_discordam_omitidas": 22,
     "celula_de_hoje": {
      "meia_vida": 21.0,
      "modulador": "hoje (1,00 / 0,50 / 0,20)",
-     "soma": -4.59,
+     "soma": -4.6,
      "leitura": "inclinado_corte",
      "direcao_dimensao": "MANTEM"
     },
@@ -2710,9 +2710,9 @@
     "teto_na_qualidade_da_evidencia": 78,
     "manda_para_sem_leitura": false,
     "corte_pct": 60,
-    "texto": "a direção do GBP DEPENDE de parâmetro que ninguém calibrou: 101 de 130 células da faixa plausível (78%) dão a leitura publicada ('inclinado ao corte'), e as outras dão sem leitura em 29 célula(s). Quem faz virar: modulador_de_impacto. Nenhum dado muda entre as células — só o botão.",
+    "texto": "a direção do GBP DEPENDE de parâmetro que ninguém calibrou: 102 de 130 células da faixa plausível (78%) dão a leitura publicada ('inclinado ao corte'), e as outras dão sem leitura em 28 célula(s). Quem faz virar: modulador_de_impacto. Nenhum dado muda entre as células — só o botão.",
     "aviso": "a concordância é a fração de uma GRADE escolhida; adensá-la numa região muda o número. NÃO é probabilidade. O número que não depende da densidade é o MARGINAL — vira ou não vira girando um botão de cada vez — e ele sai publicado ao lado.",
-    "custo_ms": 2.06,
+    "custo_ms": 2.85,
     "provisorio": true
    },
    "direcao_depende_de_parametro_nao_calibrado": true,
@@ -2725,21 +2725,21 @@
      "celulas": 130,
      "qual_parametro_faz_virar": "modulador_de_impacto",
      "direcoes_encontradas": {
-      "inclinado ao corte": 101,
-      "sem leitura": 29
+      "inclinado ao corte": 102,
+      "sem leitura": 28
      },
      "efeito": "qualidade da evidência limitada a 78/100; a direção publicada não muda",
-     "texto": "direção depende de parâmetro não calibrado — a direção do GBP DEPENDE de parâmetro que ninguém calibrou: 101 de 130 células da faixa plausível (78%) dão a leitura publicada ('inclinado ao corte'), e as outras dão sem leitura em 29 célula(s). Quem faz virar: modulador_de_impacto. Nenhum dado muda entre as células — só o botão."
+     "texto": "direção depende de parâmetro não calibrado — a direção do GBP DEPENDE de parâmetro que ninguém calibrou: 102 de 130 células da faixa plausível (78%) dão a leitura publicada ('inclinado ao corte'), e as outras dão sem leitura em 28 célula(s). Quem faz virar: modulador_de_impacto. Nenhum dado muda entre as células — só o botão."
     },
     {
      "tipo": "faixa_neutra",
      "muda_a_direcao": true,
-     "soma_publicada": -4.59,
-     "soma_sem_faixa": -5.61,
+     "soma_publicada": -4.6,
+     "soma_sem_faixa": -5.62,
      "direcao_sem_faixa": "CORTA",
      "itens_zerados": 21,
      "efeito": "a direção da dimensão de dados depende da largura da faixa neutra, que é PROVISÓRIA e nunca foi validada contra o que o banco central fez depois",
-     "texto": "a direção da dimensão de dados do GBP DEPENDE da faixa neutra: com a régua de hoje a soma é -4.59 (MANTEM), sem faixa nenhuma seria -5.61 (CORTA), e com a mesma régua pela metade seria -5.69 (CORTA). A faixa zera 21 divulgação(ões) que, com o sinal do próprio desvio, pesariam -1.03 — zerar um termo desloca a soma no sentido contrário ao dele, que é a mesma aritmética da winsorização revogada. A faixa NÃO foi desligada: ela tem tese e é a régua única da casa. O que muda é que isto aparece."
+     "texto": "a direção da dimensão de dados do GBP DEPENDE da faixa neutra: com a régua de hoje a soma é -4.60 (MANTEM), sem faixa nenhuma seria -5.62 (CORTA), e com a mesma régua pela metade seria -5.70 (CORTA). A faixa zera 21 divulgação(ões) que, com o sinal do próprio desvio, pesariam -1.03 — zerar um termo desloca a soma no sentido contrário ao dele, que é a mesma aritmética da winsorização revogada. A faixa NÃO foi desligada: ela tem tese e é a régua única da casa. O que muda é que isto aparece."
     }
    ],
    "score_texto_se_votasse": 0.159,
@@ -2815,9 +2815,9 @@
      "direcao_crua": "MANTEM",
      "vota": true,
      "por_que_nao_vota": null,
-     "soma": -4.59,
-     "soma_crua": -4.59,
-     "soma_tratada": -4.59,
+     "soma": -4.6,
+     "soma_crua": -4.6,
+     "soma_tratada": -4.6,
      "participacao_maior_item_antes": 22,
      "participacao_maior_item_depois": 22,
      "direcao_mudou_pelo_tratamento": false,
@@ -2838,8 +2838,8 @@
       "fator": 1.0,
       "itens_tratados": 0,
       "deslocamento": 0.0,
-      "soma_crua": -4.59,
-      "soma_tratada": -4.59,
+      "soma_crua": -4.6,
+      "soma_tratada": -4.6,
       "direcao_crua": "MANTEM",
       "direcao_tratada": "MANTEM",
       "direcao_mudou": false,
@@ -2889,23 +2889,23 @@
      "faixa_neutra": {
       "itens_zerados": 21,
       "peso_que_os_zerados_teriam": -1.03,
-      "soma_sem_faixa": -5.61,
+      "soma_sem_faixa": -5.62,
       "direcao_sem_faixa": "CORTA",
       "deslocamento_pela_faixa": 1.02,
       "escala": [
        {
         "fator": 0.0,
-        "soma": -5.61,
+        "soma": -5.62,
         "direcao": "CORTA"
        },
        {
         "fator": 0.5,
-        "soma": -5.69,
+        "soma": -5.7,
         "direcao": "CORTA"
        },
        {
         "fator": 1.0,
-        "soma": -4.59,
+        "soma": -4.6,
         "direcao": "MANTEM"
        },
        {
@@ -2915,7 +2915,7 @@
        }
       ],
       "direcao_depende_da_faixa": true,
-      "texto": "a direção da dimensão de dados do GBP DEPENDE da faixa neutra: com a régua de hoje a soma é -4.59 (MANTEM), sem faixa nenhuma seria -5.61 (CORTA), e com a mesma régua pela metade seria -5.69 (CORTA). A faixa zera 21 divulgação(ões) que, com o sinal do próprio desvio, pesariam -1.03 — zerar um termo desloca a soma no sentido contrário ao dele, que é a mesma aritmética da winsorização revogada. A faixa NÃO foi desligada: ela tem tese e é a régua única da casa. O que muda é que isto aparece.",
+      "texto": "a direção da dimensão de dados do GBP DEPENDE da faixa neutra: com a régua de hoje a soma é -4.60 (MANTEM), sem faixa nenhuma seria -5.62 (CORTA), e com a mesma régua pela metade seria -5.70 (CORTA). A faixa zera 21 divulgação(ões) que, com o sinal do próprio desvio, pesariam -1.03 — zerar um termo desloca a soma no sentido contrário ao dele, que é a mesma aritmética da winsorização revogada. A faixa NÃO foi desligada: ela tem tese e é a régua única da casa. O que muda é que isto aparece.",
       "o_que_e": "divulgacao com |divulgado - consenso| dentro do corte da familia entra na soma como ZERO",
       "por_que_nao_foi_revogada": "tem tese economica declarada e e a regua unica da casa; trocar de metodo sem medida e decisao do dono",
       "provisorio": true
@@ -2949,8 +2949,8 @@
        "impacto": "HIGH",
        "divulgado": 2.6,
        "consenso": 2.5,
-       "contribuicao_bruta": 5.07,
-       "contribuicao": 5.07,
+       "contribuicao_bruta": 5.06,
+       "contribuicao": 5.06,
        "idade_dias": 20.6,
        "tratado": false
       },
@@ -3286,14 +3286,14 @@
      {
       "meia_vida": 20.0,
       "modulador": "hoje (1,00 / 0,50 / 0,20)",
-      "soma": 9.69,
+      "soma": 9.67,
       "leitura": "inclinado_alta",
       "direcao_dimensao": "SOBE"
      },
      {
       "meia_vida": 21.0,
       "modulador": "hoje (1,00 / 0,50 / 0,20)",
-      "soma": 9.68,
+      "soma": 9.67,
       "leitura": "inclinado_alta",
       "direcao_dimensao": "SOBE"
      },
@@ -3307,7 +3307,7 @@
      {
       "meia_vida": 24.0,
       "modulador": "hoje (1,00 / 0,50 / 0,20)",
-      "soma": 9.6,
+      "soma": 9.61,
       "leitura": "inclinado_alta",
       "direcao_dimensao": "SOBE"
      },
@@ -3358,70 +3358,70 @@
      {
       "meia_vida": 21.0,
       "modulador": "médio 0,50 / baixo 0,00",
-      "soma": 10.9,
+      "soma": 10.89,
       "leitura": "inclinado_alta",
       "direcao_dimensao": "SOBE"
      },
      {
       "meia_vida": 21.0,
       "modulador": "hoje (1,00 / 0,50 / 0,20)",
-      "soma": 9.68,
+      "soma": 9.67,
       "leitura": "inclinado_alta",
       "direcao_dimensao": "SOBE"
      },
      {
       "meia_vida": 21.0,
       "modulador": "médio 0,50 / baixo 0,50",
-      "soma": 7.88,
+      "soma": 7.87,
       "leitura": "inclinado_alta",
       "direcao_dimensao": "SOBE"
      },
      {
       "meia_vida": 21.0,
       "modulador": "médio 0,75 / baixo 0,00",
-      "soma": 17.75,
+      "soma": 17.74,
       "leitura": "inclinado_alta",
       "direcao_dimensao": "SOBE"
      },
      {
       "meia_vida": 21.0,
       "modulador": "médio 0,75 / baixo 0,20",
-      "soma": 16.53,
+      "soma": 16.52,
       "leitura": "inclinado_alta",
       "direcao_dimensao": "SOBE"
      },
      {
       "meia_vida": 21.0,
       "modulador": "médio 0,75 / baixo 0,50",
-      "soma": 14.73,
+      "soma": 14.72,
       "leitura": "inclinado_alta",
       "direcao_dimensao": "SOBE"
      },
      {
       "meia_vida": 21.0,
       "modulador": "médio 1,00 / baixo 0,00",
-      "soma": 24.61,
+      "soma": 24.59,
       "leitura": "inclinado_alta",
       "direcao_dimensao": "SOBE"
      },
      {
       "meia_vida": 21.0,
       "modulador": "médio 1,00 / baixo 0,20",
-      "soma": 23.39,
+      "soma": 23.37,
       "leitura": "inclinado_alta",
       "direcao_dimensao": "SOBE"
      },
      {
       "meia_vida": 21.0,
       "modulador": "médio 1,00 / baixo 0,50",
-      "soma": 21.59,
+      "soma": 21.57,
       "leitura": "inclinado_alta",
       "direcao_dimensao": "SOBE"
      },
      {
       "meia_vida": 21.0,
       "modulador": "plano (1,00 / 1,00 / 1,00)",
-      "soma": 18.56,
+      "soma": 18.55,
       "leitura": "inclinado_alta",
       "direcao_dimensao": "SOBE"
      }
@@ -3448,7 +3448,7 @@
     "celula_de_hoje": {
      "meia_vida": 21.0,
      "modulador": "hoje (1,00 / 0,50 / 0,20)",
-     "soma": 9.68,
+     "soma": 9.67,
      "leitura": "inclinado_alta",
      "direcao_dimensao": "SOBE"
     },
@@ -3470,7 +3470,7 @@
     "corte_pct": 60,
     "texto": "a direção do JPY DEPENDE de parâmetro que ninguém calibrou: 128 de 130 células da faixa plausível (98%) dão a leitura publicada ('inclinado à alta'), e as outras dão sem leitura em 2 célula(s). Quem faz virar: só a combinação dos dois (nenhum vira sozinho). Nenhum dado muda entre as células — só o botão.",
     "aviso": "a concordância é a fração de uma GRADE escolhida; adensá-la numa região muda o número. NÃO é probabilidade. O número que não depende da densidade é o MARGINAL — vira ou não vira girando um botão de cada vez — e ele sai publicado ao lado.",
-    "custo_ms": 2.11,
+    "custo_ms": 2.72,
     "provisorio": true
    },
    "direcao_depende_de_parametro_nao_calibrado": true,
@@ -3534,8 +3534,8 @@
     "quando_brt": "29/09 20:30",
     "impacto": "HIGH",
     "dias": 21,
-    "horas": 3,
-    "horas_total": 507,
+    "horas": 2,
+    "horas_total": 506,
     "reserva": false,
     "texto": "CPI em 29/09 às 20:30 (BRT)",
     "nota": "é o próximo DADO relevante, não a próxima decisão: ele diz até quando vale procurar BO + ZOI. A reunião continua no campo `proxima`, como limite final do ciclo."
@@ -3563,9 +3563,9 @@
      "direcao_crua": "SOBE",
      "vota": true,
      "por_que_nao_vota": null,
-     "soma": 9.68,
-     "soma_crua": 9.68,
-     "soma_tratada": 9.68,
+     "soma": 9.67,
+     "soma_crua": 9.67,
+     "soma_tratada": 9.67,
      "participacao_maior_item_antes": 19,
      "participacao_maior_item_depois": 19,
      "direcao_mudou_pelo_tratamento": false,
@@ -3586,8 +3586,8 @@
       "fator": 1.0,
       "itens_tratados": 0,
       "deslocamento": 0.0,
-      "soma_crua": 9.68,
-      "soma_tratada": 9.68,
+      "soma_crua": 9.67,
+      "soma_tratada": 9.67,
       "direcao_crua": "SOBE",
       "direcao_tratada": "SOBE",
       "direcao_mudou": false,
@@ -3637,23 +3637,23 @@
      "faixa_neutra": {
       "itens_zerados": 12,
       "peso_que_os_zerados_teriam": 3.34,
-      "soma_sem_faixa": 13.02,
+      "soma_sem_faixa": 13.01,
       "direcao_sem_faixa": "SOBE",
       "deslocamento_pela_faixa": -3.34,
       "escala": [
        {
         "fator": 0.0,
-        "soma": 13.02,
+        "soma": 13.01,
         "direcao": "SOBE"
        },
        {
         "fator": 0.5,
-        "soma": 10.04,
+        "soma": 10.03,
         "direcao": "SOBE"
        },
        {
         "fator": 1.0,
-        "soma": 9.68,
+        "soma": 9.67,
         "direcao": "SOBE"
        },
        {
@@ -3748,8 +3748,8 @@
        "impacto": "MEDIUM",
        "divulgado": 1.8,
        "consenso": 1.7,
-       "contribuicao_bruta": 2.37,
-       "contribuicao": 2.37,
+       "contribuicao_bruta": 2.36,
+       "contribuicao": 2.36,
        "idade_dias": 11.9,
        "tratado": false
       },
@@ -3775,13 +3775,13 @@
      "vota": false,
      "selo": "experimental — contexto, não vota",
      "conectada": true,
-     "hawkish": 28,
+     "hawkish": 27,
      "dovish": 0,
-     "n": 104,
+     "n": 102,
      "n_falas": 0,
-     "n_contexto": 111,
+     "n_contexto": 110,
      "contagem_contexto": {
-      "alta": 28,
+      "alta": 27,
       "corte": 0
      },
      "contagem_voto": {
@@ -3789,10 +3789,10 @@
       "corte": 0
      },
      "oradores": [
-      "Bluefield Daily Telegraph",
       "Barchart.com",
       "FXStreet",
-      "MarketWatch"
+      "MarketWatch",
+      "TheStreet Pro"
      ],
      "datas": [
       "2026-09-08",
@@ -3806,13 +3806,13 @@
      "peso_aplicado": 0.0,
      "peso_da_fonte": 0.0,
      "peso_se_votasse": 0.0,
-     "itens_unicos": 104,
-     "duplicatas_removidas": 7,
+     "itens_unicos": 102,
+     "duplicatas_removidas": 8,
      "rotulo_contexto": null,
      "veredito_por_orador": [],
      "por_que_nao_vota": "a leitura de fala é CONTAGEM DE PALAVRAS, e contagem de palavras não lê negação, nem condição, nem referência temporal: 'holding the target' está na lista de termos hawkish, então Waller defendendo MANTER saía como alta. Desde 05/set a dimensão fica como CONTEXTO, com peso 0,0 — não entra na leitura contínua, não entra no teto e não conta como MANTEM. O veredito por orador ao lado lê condição e negação, mas TAMBÉM não vota: nunca foi medido contra rótulo humano.",
      "nota": "imprensa (Google News, 72 h) — o banco central bloqueia automação. É contagem de expressão da imprensa, NÃO é fala do banco. Não vota desde 05/set, como nenhuma fala vota.",
-     "nota_peso": "NÃO VOTA: os 28 'alta' e 0 'corte' são CONTEXTO da imprensa. Se a régua antiga valesse, esta origem (manchete) pesaria 0.0."
+     "nota_peso": "NÃO VOTA: os 27 'alta' e 0 'corte' são CONTEXTO da imprensa. Se a régua antiga valesse, esta origem (manchete) pesaria 0.0."
     },
     "ciclo": {
      "bp": 25,
@@ -3897,12 +3897,12 @@
     "partes_sem_dado": [
      "confiabilidade"
     ],
-    "contexto_nao_contado": 104,
+    "contexto_nao_contado": 102,
     "nota_antes_da_dominancia": 91,
     "limitada_pela_dominancia": false,
     "teto_pela_dominancia": null,
     "dominancia_share_pct": null,
-    "explicacao": "qualidade 91/100 do JPY (média de 3 parte(s) com dado; sem dado em confiabilidade) — 28 divulgações e 0 fala(s) que votam na janela; 104 item(ns) de imprensa que NÃO votam ficaram de fora da conta; 3 de 4 famílias independentes (atividade, emprego, inflacao); o item que mais pesa tem 1 dia(s); fonte da fala: MANCHETE de imprensa — mas a fala NÃO VOTA desde 05/set, então a parte confiabilidade sai SEM DADO em vez de valer 0/100.",
+    "explicacao": "qualidade 91/100 do JPY (média de 3 parte(s) com dado; sem dado em confiabilidade) — 28 divulgações e 0 fala(s) que votam na janela; 102 item(ns) de imprensa que NÃO votam ficaram de fora da conta; 3 de 4 famílias independentes (atividade, emprego, inflacao); o item que mais pesa tem 1 dia(s); fonte da fala: MANCHETE de imprensa — mas a fala NÃO VOTA desde 05/set, então a parte confiabilidade sai SEM DADO em vez de valer 0/100.",
     "provisorio": true,
     "regua": {
      "satura_em_itens": 12,
@@ -4009,14 +4009,14 @@
      {
       "meia_vida": 16.0,
       "modulador": "hoje (1,00 / 0,50 / 0,20)",
-      "soma": 18.91,
+      "soma": 18.9,
       "leitura": "inclinado_alta",
       "direcao_dimensao": "SOBE"
      },
      {
       "meia_vida": 18.0,
       "modulador": "hoje (1,00 / 0,50 / 0,20)",
-      "soma": 19.8,
+      "soma": 19.79,
       "leitura": "inclinado_alta",
       "direcao_dimensao": "SOBE"
      },
@@ -4030,21 +4030,21 @@
      {
       "meia_vida": 21.0,
       "modulador": "hoje (1,00 / 0,50 / 0,20)",
-      "soma": 20.86,
+      "soma": 20.85,
       "leitura": "inclinado_alta",
       "direcao_dimensao": "SOBE"
      },
      {
       "meia_vida": 22.0,
       "modulador": "hoje (1,00 / 0,50 / 0,20)",
-      "soma": 21.16,
+      "soma": 21.15,
       "leitura": "inclinado_alta",
       "direcao_dimensao": "SOBE"
      },
      {
       "meia_vida": 24.0,
       "modulador": "hoje (1,00 / 0,50 / 0,20)",
-      "soma": 21.7,
+      "soma": 21.69,
       "leitura": "inclinado_alta",
       "direcao_dimensao": "SOBE"
      },
@@ -4058,14 +4058,14 @@
      {
       "meia_vida": 28.0,
       "modulador": "hoje (1,00 / 0,50 / 0,20)",
-      "soma": 22.57,
+      "soma": 22.56,
       "leitura": "inclinado_alta",
       "direcao_dimensao": "SOBE"
      },
      {
       "meia_vida": 30.0,
       "modulador": "hoje (1,00 / 0,50 / 0,20)",
-      "soma": 22.93,
+      "soma": 22.92,
       "leitura": "inclinado_alta",
       "direcao_dimensao": "SOBE"
      }
@@ -4074,91 +4074,91 @@
      {
       "meia_vida": 21.0,
       "modulador": "só alto conta (1,00 / 0 / 0)",
-      "soma": 13.07,
+      "soma": 13.06,
       "leitura": "inclinado_alta",
       "direcao_dimensao": "SOBE"
      },
      {
       "meia_vida": 21.0,
       "modulador": "médio 0,25 / baixo 0,00",
-      "soma": 16.97,
+      "soma": 16.96,
       "leitura": "inclinado_alta",
       "direcao_dimensao": "SOBE"
      },
      {
       "meia_vida": 21.0,
       "modulador": "médio 0,25 / baixo 0,20",
-      "soma": 16.97,
+      "soma": 16.96,
       "leitura": "inclinado_alta",
       "direcao_dimensao": "SOBE"
      },
      {
       "meia_vida": 21.0,
       "modulador": "médio 0,50 / baixo 0,00",
-      "soma": 20.86,
+      "soma": 20.85,
       "leitura": "inclinado_alta",
       "direcao_dimensao": "SOBE"
      },
      {
       "meia_vida": 21.0,
       "modulador": "hoje (1,00 / 0,50 / 0,20)",
-      "soma": 20.86,
+      "soma": 20.85,
       "leitura": "inclinado_alta",
       "direcao_dimensao": "SOBE"
      },
      {
       "meia_vida": 21.0,
       "modulador": "médio 0,50 / baixo 0,50",
-      "soma": 20.86,
+      "soma": 20.85,
       "leitura": "inclinado_alta",
       "direcao_dimensao": "SOBE"
      },
      {
       "meia_vida": 21.0,
       "modulador": "médio 0,75 / baixo 0,00",
-      "soma": 24.76,
+      "soma": 24.75,
       "leitura": "inclinado_alta",
       "direcao_dimensao": "SOBE"
      },
      {
       "meia_vida": 21.0,
       "modulador": "médio 0,75 / baixo 0,20",
-      "soma": 24.76,
+      "soma": 24.75,
       "leitura": "inclinado_alta",
       "direcao_dimensao": "SOBE"
      },
      {
       "meia_vida": 21.0,
       "modulador": "médio 0,75 / baixo 0,50",
-      "soma": 24.76,
+      "soma": 24.75,
       "leitura": "inclinado_alta",
       "direcao_dimensao": "SOBE"
      },
      {
       "meia_vida": 21.0,
       "modulador": "médio 1,00 / baixo 0,00",
-      "soma": 28.65,
+      "soma": 28.63,
       "leitura": "inclinado_alta",
       "direcao_dimensao": "SOBE"
      },
      {
       "meia_vida": 21.0,
       "modulador": "médio 1,00 / baixo 0,20",
-      "soma": 28.65,
+      "soma": 28.63,
       "leitura": "inclinado_alta",
       "direcao_dimensao": "SOBE"
      },
      {
       "meia_vida": 21.0,
       "modulador": "médio 1,00 / baixo 0,50",
-      "soma": 28.65,
+      "soma": 28.63,
       "leitura": "inclinado_alta",
       "direcao_dimensao": "SOBE"
      },
      {
       "meia_vida": 21.0,
       "modulador": "plano (1,00 / 1,00 / 1,00)",
-      "soma": 28.65,
+      "soma": 28.63,
       "leitura": "inclinado_alta",
       "direcao_dimensao": "SOBE"
      }
@@ -4170,7 +4170,7 @@
     "celula_de_hoje": {
      "meia_vida": 21.0,
      "modulador": "hoje (1,00 / 0,50 / 0,20)",
-     "soma": 20.86,
+     "soma": 20.85,
      "leitura": "inclinado_alta",
      "direcao_dimensao": "SOBE"
     },
@@ -4191,7 +4191,7 @@
     "corte_pct": 60,
     "texto": "a direção do AUD não muda em nenhuma das 130 células da faixa plausível — leitura robusta ao parâmetro",
     "aviso": "a concordância é a fração de uma GRADE escolhida; adensá-la numa região muda o número. NÃO é probabilidade. O número que não depende da densidade é o MARGINAL — vira ou não vira girando um botão de cada vez — e ele sai publicado ao lado.",
-    "custo_ms": 1.89,
+    "custo_ms": 1.87,
     "provisorio": true
    },
    "direcao_depende_de_parametro_nao_calibrado": false,
@@ -4200,12 +4200,12 @@
     {
      "tipo": "faixa_neutra",
      "muda_a_direcao": true,
-     "soma_publicada": 20.86,
-     "soma_sem_faixa": 22.29,
+     "soma_publicada": 20.85,
+     "soma_sem_faixa": 22.28,
      "direcao_sem_faixa": "SOBE",
      "itens_zerados": 8,
      "efeito": "a direção da dimensão de dados depende da largura da faixa neutra, que é PROVISÓRIA e nunca foi validada contra o que o banco central fez depois",
-     "texto": "a direção da dimensão de dados do AUD DEPENDE da faixa neutra: com a régua de hoje a soma é +20.86 (SOBE), sem faixa nenhuma seria +22.29 (SOBE), e com a mesma régua pela metade seria +21.98 (SOBE). A faixa zera 8 divulgação(ões) que, com o sinal do próprio desvio, pesariam +1.42 — zerar um termo desloca a soma no sentido contrário ao dele, que é a mesma aritmética da winsorização revogada. A faixa NÃO foi desligada: ela tem tese e é a régua única da casa. O que muda é que isto aparece."
+     "texto": "a direção da dimensão de dados do AUD DEPENDE da faixa neutra: com a régua de hoje a soma é +20.85 (SOBE), sem faixa nenhuma seria +22.28 (SOBE), e com a mesma régua pela metade seria +21.97 (SOBE). A faixa zera 8 divulgação(ões) que, com o sinal do próprio desvio, pesariam +1.42 — zerar um termo desloca a soma no sentido contrário ao dele, que é a mesma aritmética da winsorização revogada. A faixa NÃO foi desligada: ela tem tese e é a régua única da casa. O que muda é que isto aparece."
     }
    ],
    "score_texto_se_votasse": 0.078,
@@ -4252,8 +4252,8 @@
     "quando_brt": "23/09 22:30",
     "impacto": "HIGH",
     "dias": 15,
-    "horas": 5,
-    "horas_total": 365,
+    "horas": 4,
+    "horas_total": 364,
     "reserva": false,
     "texto": "emprego em 23/09 às 22:30 (BRT)",
     "nota": "é o próximo DADO relevante, não a próxima decisão: ele diz até quando vale procurar BO + ZOI. A reunião continua no campo `proxima`, como limite final do ciclo."
@@ -4281,9 +4281,9 @@
      "direcao_crua": "SOBE",
      "vota": true,
      "por_que_nao_vota": null,
-     "soma": 20.86,
-     "soma_crua": 20.86,
-     "soma_tratada": 20.86,
+     "soma": 20.85,
+     "soma_crua": 20.85,
+     "soma_tratada": 20.85,
      "participacao_maior_item_antes": 22,
      "participacao_maior_item_depois": 22,
      "direcao_mudou_pelo_tratamento": false,
@@ -4304,8 +4304,8 @@
       "fator": 1.0,
       "itens_tratados": 0,
       "deslocamento": 0.0,
-      "soma_crua": 20.86,
-      "soma_tratada": 20.86,
+      "soma_crua": 20.85,
+      "soma_tratada": 20.85,
       "direcao_crua": "SOBE",
       "direcao_tratada": "SOBE",
       "direcao_mudou": false,
@@ -4355,23 +4355,23 @@
      "faixa_neutra": {
       "itens_zerados": 8,
       "peso_que_os_zerados_teriam": 1.42,
-      "soma_sem_faixa": 22.29,
+      "soma_sem_faixa": 22.28,
       "direcao_sem_faixa": "SOBE",
       "deslocamento_pela_faixa": -1.43,
       "escala": [
        {
         "fator": 0.0,
-        "soma": 22.29,
+        "soma": 22.28,
         "direcao": "SOBE"
        },
        {
         "fator": 0.5,
-        "soma": 21.98,
+        "soma": 21.97,
         "direcao": "SOBE"
        },
        {
         "fator": 1.0,
-        "soma": 20.86,
+        "soma": 20.85,
         "direcao": "SOBE"
        },
        {
@@ -4381,7 +4381,7 @@
        }
       ],
       "direcao_depende_da_faixa": true,
-      "texto": "a direção da dimensão de dados do AUD DEPENDE da faixa neutra: com a régua de hoje a soma é +20.86 (SOBE), sem faixa nenhuma seria +22.29 (SOBE), e com a mesma régua pela metade seria +21.98 (SOBE). A faixa zera 8 divulgação(ões) que, com o sinal do próprio desvio, pesariam +1.42 — zerar um termo desloca a soma no sentido contrário ao dele, que é a mesma aritmética da winsorização revogada. A faixa NÃO foi desligada: ela tem tese e é a régua única da casa. O que muda é que isto aparece.",
+      "texto": "a direção da dimensão de dados do AUD DEPENDE da faixa neutra: com a régua de hoje a soma é +20.85 (SOBE), sem faixa nenhuma seria +22.28 (SOBE), e com a mesma régua pela metade seria +21.97 (SOBE). A faixa zera 8 divulgação(ões) que, com o sinal do próprio desvio, pesariam +1.42 — zerar um termo desloca a soma no sentido contrário ao dele, que é a mesma aritmética da winsorização revogada. A faixa NÃO foi desligada: ela tem tese e é a régua única da casa. O que muda é que isto aparece.",
       "o_que_e": "divulgacao com |divulgado - consenso| dentro do corte da familia entra na soma como ZERO",
       "por_que_nao_foi_revogada": "tem tese economica declarada e e a regua unica da casa; trocar de metodo sem medida e decisao do dono",
       "provisorio": true
@@ -4427,8 +4427,8 @@
        "impacto": "HIGH",
        "divulgado": 0.4,
        "consenso": 0.3,
-       "contribuicao_bruta": 4.8,
-       "contribuicao": 4.8,
+       "contribuicao_bruta": 4.79,
+       "contribuicao": 4.79,
        "idade_dias": 6.8,
        "tratado": false
       },
@@ -4497,7 +4497,7 @@
      "dovish": 0,
      "n": 34,
      "n_falas": 2,
-     "n_contexto": 35,
+     "n_contexto": 36,
      "contagem_contexto": {
       "alta": 7,
       "corte": 0
@@ -4523,7 +4523,7 @@
      "peso_da_fonte": 0.4,
      "peso_se_votasse": 0.4,
      "itens_unicos": 34,
-     "duplicatas_removidas": 1,
+     "duplicatas_removidas": 2,
      "rotulo_contexto": "sem fala oficial disponivel — o banco bloqueia automacao; a imprensa abaixo e contexto, nao voto",
      "veredito_por_orador": [],
      "por_que_nao_vota": "a leitura de fala é CONTAGEM DE PALAVRAS, e contagem de palavras não lê negação, nem condição, nem referência temporal: 'holding the target' está na lista de termos hawkish, então Waller defendendo MANTER saía como alta. Desde 05/set a dimensão fica como CONTEXTO, com peso 0,0 — não entra na leitura contínua, não entra no teto e não conta como MANTEM. O veredito por orador ao lado lê condição e negação, mas TAMBÉM não vota: nunca foi medido contra rótulo humano.",
@@ -4907,7 +4907,7 @@
     "corte_pct": 60,
     "texto": "a direção do NZD não muda em nenhuma das 130 células da faixa plausível — leitura robusta ao parâmetro",
     "aviso": "a concordância é a fração de uma GRADE escolhida; adensá-la numa região muda o número. NÃO é probabilidade. O número que não depende da densidade é o MARGINAL — vira ou não vira girando um botão de cada vez — e ele sai publicado ao lado.",
-    "custo_ms": 0.64,
+    "custo_ms": 0.51,
     "provisorio": true
    },
    "direcao_depende_de_parametro_nao_calibrado": false,
@@ -5133,9 +5133,9 @@
      "conectada": true,
      "hawkish": 1,
      "dovish": 0,
-     "n": 11,
+     "n": 10,
      "n_falas": 0,
-     "n_contexto": 11,
+     "n_contexto": 10,
      "contagem_contexto": {
       "alta": 1,
       "corte": 0
@@ -5146,9 +5146,9 @@
      },
      "oradores": [
       "BusinessDesk | NZ",
-      "NZ Herald",
       "equiti.com",
-      "mpamag.com"
+      "mpamag.com",
+      "FXStreet"
      ],
      "datas": [
       "2026-09-08",
@@ -5156,13 +5156,13 @@
       "2026-09-08",
       "2026-09-08",
       "2026-09-08",
-      "2026-09-08"
+      "2026-09-07"
      ],
      "origem": "manchete",
      "peso_aplicado": 0.0,
      "peso_da_fonte": 0.0,
      "peso_se_votasse": 0.0,
-     "itens_unicos": 11,
+     "itens_unicos": 10,
      "duplicatas_removidas": 0,
      "rotulo_contexto": "sem fala oficial disponivel — o banco bloqueia automacao; a imprensa abaixo e contexto, nao voto",
      "veredito_por_orador": [],
@@ -5253,12 +5253,12 @@
     "partes_sem_dado": [
      "confiabilidade"
     ],
-    "contexto_nao_contado": 11,
+    "contexto_nao_contado": 10,
     "nota_antes_da_dominancia": 38,
     "limitada_pela_dominancia": true,
     "teto_pela_dominancia": 0,
     "dominancia_share_pct": 100,
-    "explicacao": "qualidade 0/100 do NZD (média de 3 parte(s) com dado; sem dado em confiabilidade) — 1 divulgações e 0 fala(s) que votam na janela; 11 item(ns) de imprensa que NÃO votam ficaram de fora da conta; 1 de 4 famílias independentes (atividade); o item que mais pesa tem 6 dia(s); fonte da fala: MANCHETE de imprensa — mas a fala NÃO VOTA desde 05/set, então a parte confiabilidade sai SEM DADO em vez de valer 0/100; ⚠️ uma única divulgação responde por 100% da dimensão de dados (Terms of Trade Index): a nota cai de 38 para 0, o teto da concentração — a DIREÇÃO não muda por isso.",
+    "explicacao": "qualidade 0/100 do NZD (média de 3 parte(s) com dado; sem dado em confiabilidade) — 1 divulgações e 0 fala(s) que votam na janela; 10 item(ns) de imprensa que NÃO votam ficaram de fora da conta; 1 de 4 famílias independentes (atividade); o item que mais pesa tem 6 dia(s); fonte da fala: MANCHETE de imprensa — mas a fala NÃO VOTA desde 05/set, então a parte confiabilidade sai SEM DADO em vez de valer 0/100; ⚠️ uma única divulgação responde por 100% da dimensão de dados (Terms of Trade Index): a nota cai de 38 para 0, o teto da concentração — a DIREÇÃO não muda por isso.",
     "provisorio": true,
     "regua": {
      "satura_em_itens": 12,
@@ -5356,7 +5356,7 @@
      {
       "meia_vida": 14.0,
       "modulador": "hoje (1,00 / 0,50 / 0,20)",
-      "soma": -4.44,
+      "soma": -4.43,
       "leitura": "inclinado_corte",
       "direcao_dimensao": "MANTEM"
      },
@@ -5377,7 +5377,7 @@
      {
       "meia_vida": 20.0,
       "modulador": "hoje (1,00 / 0,50 / 0,20)",
-      "soma": -4.73,
+      "soma": -4.72,
       "leitura": "inclinado_corte",
       "direcao_dimensao": "MANTEM"
      },
@@ -5391,7 +5391,7 @@
      {
       "meia_vida": 22.0,
       "modulador": "hoje (1,00 / 0,50 / 0,20)",
-      "soma": -4.79,
+      "soma": -4.8,
       "leitura": "inclinado_corte",
       "direcao_dimensao": "MANTEM"
      },
@@ -5419,7 +5419,7 @@
      {
       "meia_vida": 30.0,
       "modulador": "hoje (1,00 / 0,50 / 0,20)",
-      "soma": -4.97,
+      "soma": -4.98,
       "leitura": "inclinado_corte",
       "direcao_dimensao": "MANTEM"
      }
@@ -5546,7 +5546,7 @@
     "corte_pct": 60,
     "texto": "a direção do CAD não muda em nenhuma das 130 células da faixa plausível — leitura robusta ao parâmetro",
     "aviso": "a concordância é a fração de uma GRADE escolhida; adensá-la numa região muda o número. NÃO é probabilidade. O número que não depende da densidade é o MARGINAL — vira ou não vira girando um botão de cada vez — e ele sai publicado ao lado.",
-    "custo_ms": 0.85,
+    "custo_ms": 1.07,
     "provisorio": true
    },
    "direcao_depende_de_parametro_nao_calibrado": false,
@@ -5606,8 +5606,8 @@
     "quando_brt": "14/09 09:30",
     "impacto": "HIGH",
     "dias": 5,
-    "horas": 16,
-    "horas_total": 136,
+    "horas": 15,
+    "horas_total": 135,
     "reserva": false,
     "texto": "CPI (núcleo) em 14/09 às 09:30 (BRT)",
     "nota": "é o próximo DADO relevante, não a próxima decisão: ele diz até quando vale procurar BO + ZOI. A reunião continua no campo `proxima`, como limite final do ciclo."
@@ -6014,21 +6014,21 @@
      {
       "meia_vida": 14.0,
       "modulador": "hoje (1,00 / 0,50 / 0,20)",
-      "soma": 14.15,
+      "soma": 14.13,
       "leitura": "inclinado_alta",
       "direcao_dimensao": "SOBE"
      },
      {
       "meia_vida": 16.0,
       "modulador": "hoje (1,00 / 0,50 / 0,20)",
-      "soma": 14.56,
+      "soma": 14.54,
       "leitura": "inclinado_alta",
       "direcao_dimensao": "SOBE"
      },
      {
       "meia_vida": 18.0,
       "modulador": "hoje (1,00 / 0,50 / 0,20)",
-      "soma": 14.87,
+      "soma": 14.86,
       "leitura": "inclinado_alta",
       "direcao_dimensao": "SOBE"
      },
@@ -6049,7 +6049,7 @@
      {
       "meia_vida": 22.0,
       "modulador": "hoje (1,00 / 0,50 / 0,20)",
-      "soma": 15.33,
+      "soma": 15.3,
       "leitura": "inclinado_alta",
       "direcao_dimensao": "SOBE"
      },
@@ -6203,7 +6203,7 @@
     "corte_pct": 60,
     "texto": "a direção do CHF não muda em nenhuma das 130 células da faixa plausível — leitura robusta ao parâmetro",
     "aviso": "a concordância é a fração de uma GRADE escolhida; adensá-la numa região muda o número. NÃO é probabilidade. O número que não depende da densidade é o MARGINAL — vira ou não vira girando um botão de cada vez — e ele sai publicado ao lado.",
-    "custo_ms": 1.43,
+    "custo_ms": 1.48,
     "provisorio": true
    },
    "direcao_depende_de_parametro_nao_calibrado": false,
@@ -6253,8 +6253,8 @@
     "quando_brt": "01/10 03:30",
     "impacto": "HIGH",
     "dias": 22,
-    "horas": 10,
-    "horas_total": 538,
+    "horas": 9,
+    "horas_total": 537,
     "reserva": false,
     "texto": "CPI em 01/10 às 03:30 (BRT)",
     "nota": "é o próximo DADO relevante, não a próxima decisão: ele diz até quando vale procurar BO + ZOI. A reunião continua no campo `proxima`, como limite final do ciclo."
@@ -6717,7 +6717,7 @@
     "dias": 2
    },
    "alertas": [
-    "a direção dos DADOS do USD depende da FAIXA NEUTRA (a régua de 'veio como esperado', PROVISÓRIA e nunca validada): hoje a soma é -1.18 (MANTEM), mas sem faixa nenhuma a soma é -16.16 (CORTA); com a faixa pela metade a soma é -10.75 (CORTA). A faixa zera 47 divulgação(ões) que, com o sinal do próprio desvio, pesariam -14.99 — zerar um termo desloca a soma para o lado contrário, a mesma aritmética da winsorização revogada",
+    "a direção dos DADOS do USD depende da FAIXA NEUTRA (a régua de 'veio como esperado', PROVISÓRIA e nunca validada): hoje a soma é -1.16 (MANTEM), mas sem faixa nenhuma a soma é -16.14 (CORTA); com a faixa pela metade a soma é -10.73 (CORTA). A faixa zera 47 divulgação(ões) que, com o sinal do próprio desvio, pesariam -14.99 — zerar um termo desloca a soma para o lado contrário, a mesma aritmética da winsorização revogada",
     "a direção do EUR depende de PARÂMETRO NÃO CALIBRADO: só 95% das 130 células da faixa plausível (meia-vida 14-30 dias, modulador de impacto entre 'só alto conta' e 'plano') dão a leitura publicada — quem faz virar: modulador_de_impacto",
     "a direção do USD depende de PARÂMETRO NÃO CALIBRADO: só 38% das 130 células da faixa plausível (meia-vida 14-30 dias, modulador de impacto entre 'só alto conta' e 'plano') dão a leitura publicada — quem faz virar: os dois, o modulador_de_impacto mais: modulador (8 de 13 células) contra meia-vida (5 de 10 células)",
     "qualidade da evidência do par = 38/100, a MENOR das duas pernas (elo fraco: USD, 38/100 contra 84/100 do EUR)",
@@ -6781,7 +6781,7 @@
    "base": "GBP",
    "cotada": "USD",
    "sinal": "SEM_TESE",
-   "forca": 0.082,
+   "forca": 0.083,
    "rotulo": "sem tese",
    "divergencia": 8,
    "conviccao_pct": 8,
@@ -6833,8 +6833,8 @@
     "dias": 8
    },
    "alertas": [
-    "a direção dos DADOS do GBP depende da FAIXA NEUTRA (a régua de 'veio como esperado', PROVISÓRIA e nunca validada): hoje a soma é -4.59 (MANTEM), mas sem faixa nenhuma a soma é -5.61 (CORTA); com a faixa pela metade a soma é -5.69 (CORTA). A faixa zera 21 divulgação(ões) que, com o sinal do próprio desvio, pesariam -1.03 — zerar um termo desloca a soma para o lado contrário, a mesma aritmética da winsorização revogada",
-    "a direção dos DADOS do USD depende da FAIXA NEUTRA (a régua de 'veio como esperado', PROVISÓRIA e nunca validada): hoje a soma é -1.18 (MANTEM), mas sem faixa nenhuma a soma é -16.16 (CORTA); com a faixa pela metade a soma é -10.75 (CORTA). A faixa zera 47 divulgação(ões) que, com o sinal do próprio desvio, pesariam -14.99 — zerar um termo desloca a soma para o lado contrário, a mesma aritmética da winsorização revogada",
+    "a direção dos DADOS do GBP depende da FAIXA NEUTRA (a régua de 'veio como esperado', PROVISÓRIA e nunca validada): hoje a soma é -4.60 (MANTEM), mas sem faixa nenhuma a soma é -5.62 (CORTA); com a faixa pela metade a soma é -5.70 (CORTA). A faixa zera 21 divulgação(ões) que, com o sinal do próprio desvio, pesariam -1.03 — zerar um termo desloca a soma para o lado contrário, a mesma aritmética da winsorização revogada",
+    "a direção dos DADOS do USD depende da FAIXA NEUTRA (a régua de 'veio como esperado', PROVISÓRIA e nunca validada): hoje a soma é -1.16 (MANTEM), mas sem faixa nenhuma a soma é -16.14 (CORTA); com a faixa pela metade a soma é -10.73 (CORTA). A faixa zera 47 divulgação(ões) que, com o sinal do próprio desvio, pesariam -14.99 — zerar um termo desloca a soma para o lado contrário, a mesma aritmética da winsorização revogada",
     "a direção do GBP depende de PARÂMETRO NÃO CALIBRADO: só 78% das 130 células da faixa plausível (meia-vida 14-30 dias, modulador de impacto entre 'só alto conta' e 'plano') dão a leitura publicada — quem faz virar: modulador_de_impacto",
     "a direção do USD depende de PARÂMETRO NÃO CALIBRADO: só 38% das 130 células da faixa plausível (meia-vida 14-30 dias, modulador de impacto entre 'só alto conta' e 'plano') dão a leitura publicada — quem faz virar: os dois, o modulador_de_impacto mais: modulador (8 de 13 células) contra meia-vida (5 de 10 células)",
     "qualidade da evidência do par = 38/100, a MENOR das duas pernas (elo fraco: USD, 38/100 contra 75/100 do GBP)",
@@ -6842,7 +6842,7 @@
     "nenhuma das duas pernas tem fala votando: desde 05/set a dimensão de discurso é contexto com selo, e a leitura vem de DADOS e CICLO apenas — duas dimensões por perna, teto 1.00 no par",
     "divergência 8 está na zona neutra (0-14): sem tese, o par sai da lista principal mas continua gravado"
    ],
-   "diff": -0.082,
+   "diff": -0.083,
    "diff_teto": 1.0,
    "diff_teto_teorico": 1.0,
    "motivo": "GBP inclinado ao corte contra USD sem leitura",
@@ -6851,7 +6851,7 @@
    "perna_motivo": "GBP",
    "leitura_base": {
     "direcao": "CORTA",
-    "score": -0.154,
+    "score": -0.155,
     "conviccao_pct": 25,
     "votando": 2,
     "leitura": "inclinado_corte",
@@ -6881,8 +6881,8 @@
     "quando_brt": "10/09 09:30",
     "impacto": "HIGH",
     "dias": 1,
-    "horas": 16,
-    "horas_total": 40,
+    "horas": 15,
+    "horas_total": 39,
     "reserva": false,
     "texto": "PPI (núcleo) em 10/09 às 09:30 (BRT)",
     "nota": "é o próximo DADO relevante, não a próxima decisão: ele diz até quando vale procurar BO + ZOI. A reunião continua no campo `proxima`, como limite final do ciclo."
@@ -6946,8 +6946,8 @@
     "dias": 8
    },
    "alertas": [
-    "a direção dos DADOS do AUD depende da FAIXA NEUTRA (a régua de 'veio como esperado', PROVISÓRIA e nunca validada): hoje a soma é +20.86 (SOBE), mas com a faixa dobrada a soma é +2.68 (MANTEM). A faixa zera 8 divulgação(ões) que, com o sinal do próprio desvio, pesariam +1.42 — zerar um termo desloca a soma para o lado contrário, a mesma aritmética da winsorização revogada",
-    "a direção dos DADOS do USD depende da FAIXA NEUTRA (a régua de 'veio como esperado', PROVISÓRIA e nunca validada): hoje a soma é -1.18 (MANTEM), mas sem faixa nenhuma a soma é -16.16 (CORTA); com a faixa pela metade a soma é -10.75 (CORTA). A faixa zera 47 divulgação(ões) que, com o sinal do próprio desvio, pesariam -14.99 — zerar um termo desloca a soma para o lado contrário, a mesma aritmética da winsorização revogada",
+    "a direção dos DADOS do AUD depende da FAIXA NEUTRA (a régua de 'veio como esperado', PROVISÓRIA e nunca validada): hoje a soma é +20.85 (SOBE), mas com a faixa dobrada a soma é +2.68 (MANTEM). A faixa zera 8 divulgação(ões) que, com o sinal do próprio desvio, pesariam +1.42 — zerar um termo desloca a soma para o lado contrário, a mesma aritmética da winsorização revogada",
+    "a direção dos DADOS do USD depende da FAIXA NEUTRA (a régua de 'veio como esperado', PROVISÓRIA e nunca validada): hoje a soma é -1.16 (MANTEM), mas sem faixa nenhuma a soma é -16.14 (CORTA); com a faixa pela metade a soma é -10.73 (CORTA). A faixa zera 47 divulgação(ões) que, com o sinal do próprio desvio, pesariam -14.99 — zerar um termo desloca a soma para o lado contrário, a mesma aritmética da winsorização revogada",
     "a direção do USD depende de PARÂMETRO NÃO CALIBRADO: só 38% das 130 células da faixa plausível (meia-vida 14-30 dias, modulador de impacto entre 'só alto conta' e 'plano') dão a leitura publicada — quem faz virar: os dois, o modulador_de_impacto mais: modulador (8 de 13 células) contra meia-vida (5 de 10 células)",
     "qualidade da evidência do par = 38/100, a MENOR das duas pernas (elo fraco: USD, 38/100 contra 79/100 do AUD)",
     "a perna USD está SEM LEITURA (sem leitura: intensidade relativa 14% abaixo do mínimo provisório de 15% (a leitura está perto demais de zero para virar direção). A moeda continua no arquivo, com tudo o que foi medido — o que não existe é a DIREÇÃO. E há um SEGUNDO motivo: a direção do USD DEPENDE de parâmetro que ninguém calibrou: 49 de 130 células da faixa plausível (38%) dão a leitura publicada ('sem leitura'), e as outras dão inclinado ao corte em 78 célula(s) · inclinado à alta em 3 célula(s). Quem faz virar: os dois, o modulador_de_impacto mais: modulador (8 de 13 células) contra meia-vida (5 de 10 células). Nenhum dado muda entre as células — só o botão. (o corte PROVISÓRIO de concordância é 60%).) — a tese do par se apoia só na outra perna",
@@ -6993,8 +6993,8 @@
     "quando_brt": "10/09 09:30",
     "impacto": "HIGH",
     "dias": 1,
-    "horas": 16,
-    "horas_total": 40,
+    "horas": 15,
+    "horas_total": 39,
     "reserva": false,
     "texto": "PPI (núcleo) em 10/09 às 09:30 (BRT)",
     "nota": "é o próximo DADO relevante, não a próxima decisão: ele diz até quando vale procurar BO + ZOI. A reunião continua no campo `proxima`, como limite final do ciclo."
@@ -7063,7 +7063,7 @@
    "alertas": [
     "estado rebaixado de 'moderada' para 'observacao': qualidade da evidência do par é nula (0/100) — sem evidência o par não sai da zona de observação, por maior que seja a divergência",
     "uma única divulgação responde por 100% da leitura do NZD (Terms of Trade Index)",
-    "a direção dos DADOS do USD depende da FAIXA NEUTRA (a régua de 'veio como esperado', PROVISÓRIA e nunca validada): hoje a soma é -1.18 (MANTEM), mas sem faixa nenhuma a soma é -16.16 (CORTA); com a faixa pela metade a soma é -10.75 (CORTA). A faixa zera 47 divulgação(ões) que, com o sinal do próprio desvio, pesariam -14.99 — zerar um termo desloca a soma para o lado contrário, a mesma aritmética da winsorização revogada",
+    "a direção dos DADOS do USD depende da FAIXA NEUTRA (a régua de 'veio como esperado', PROVISÓRIA e nunca validada): hoje a soma é -1.16 (MANTEM), mas sem faixa nenhuma a soma é -16.14 (CORTA); com a faixa pela metade a soma é -10.73 (CORTA). A faixa zera 47 divulgação(ões) que, com o sinal do próprio desvio, pesariam -14.99 — zerar um termo desloca a soma para o lado contrário, a mesma aritmética da winsorização revogada",
     "a direção do USD depende de PARÂMETRO NÃO CALIBRADO: só 38% das 130 células da faixa plausível (meia-vida 14-30 dias, modulador de impacto entre 'só alto conta' e 'plano') dão a leitura publicada — quem faz virar: os dois, o modulador_de_impacto mais: modulador (8 de 13 células) contra meia-vida (5 de 10 células)",
     "qualidade da evidência do par = 0/100, a MENOR das duas pernas (elo fraco: NZD, 0/100 contra 38/100 do USD)",
     "a perna USD está SEM LEITURA (sem leitura: intensidade relativa 14% abaixo do mínimo provisório de 15% (a leitura está perto demais de zero para virar direção). A moeda continua no arquivo, com tudo o que foi medido — o que não existe é a DIREÇÃO. E há um SEGUNDO motivo: a direção do USD DEPENDE de parâmetro que ninguém calibrou: 49 de 130 células da faixa plausível (38%) dão a leitura publicada ('sem leitura'), e as outras dão inclinado ao corte em 78 célula(s) · inclinado à alta em 3 célula(s). Quem faz virar: os dois, o modulador_de_impacto mais: modulador (8 de 13 células) contra meia-vida (5 de 10 células). Nenhum dado muda entre as células — só o botão. (o corte PROVISÓRIO de concordância é 60%).) — a tese do par se apoia só na outra perna",
@@ -7109,8 +7109,8 @@
     "quando_brt": "10/09 09:30",
     "impacto": "HIGH",
     "dias": 1,
-    "horas": 16,
-    "horas_total": 40,
+    "horas": 15,
+    "horas_total": 39,
     "reserva": false,
     "texto": "PPI (núcleo) em 10/09 às 09:30 (BRT)",
     "nota": "é o próximo DADO relevante, não a próxima decisão: ele diz até quando vale procurar BO + ZOI. A reunião continua no campo `proxima`, como limite final do ciclo."
@@ -7177,7 +7177,7 @@
     "dias": 8
    },
    "alertas": [
-    "a direção dos DADOS do USD depende da FAIXA NEUTRA (a régua de 'veio como esperado', PROVISÓRIA e nunca validada): hoje a soma é -1.18 (MANTEM), mas sem faixa nenhuma a soma é -16.16 (CORTA); com a faixa pela metade a soma é -10.75 (CORTA). A faixa zera 47 divulgação(ões) que, com o sinal do próprio desvio, pesariam -14.99 — zerar um termo desloca a soma para o lado contrário, a mesma aritmética da winsorização revogada",
+    "a direção dos DADOS do USD depende da FAIXA NEUTRA (a régua de 'veio como esperado', PROVISÓRIA e nunca validada): hoje a soma é -1.16 (MANTEM), mas sem faixa nenhuma a soma é -16.14 (CORTA); com a faixa pela metade a soma é -10.73 (CORTA). A faixa zera 47 divulgação(ões) que, com o sinal do próprio desvio, pesariam -14.99 — zerar um termo desloca a soma para o lado contrário, a mesma aritmética da winsorização revogada",
     "a direção do USD depende de PARÂMETRO NÃO CALIBRADO: só 38% das 130 células da faixa plausível (meia-vida 14-30 dias, modulador de impacto entre 'só alto conta' e 'plano') dão a leitura publicada — quem faz virar: os dois, o modulador_de_impacto mais: modulador (8 de 13 células) contra meia-vida (5 de 10 células)",
     "a direção do JPY depende de PARÂMETRO NÃO CALIBRADO: só 98% das 130 células da faixa plausível (meia-vida 14-30 dias, modulador de impacto entre 'só alto conta' e 'plano') dão a leitura publicada — quem faz virar: só a combinação dos dois (nenhum vira sozinho)",
     "qualidade da evidência do par = 38/100, a MENOR das duas pernas (elo fraco: USD, 38/100 contra 91/100 do JPY)",
@@ -7224,8 +7224,8 @@
     "quando_brt": "10/09 09:30",
     "impacto": "HIGH",
     "dias": 1,
-    "horas": 16,
-    "horas_total": 40,
+    "horas": 15,
+    "horas_total": 39,
     "reserva": false,
     "texto": "PPI (núcleo) em 10/09 às 09:30 (BRT)",
     "nota": "é o próximo DADO relevante, não a próxima decisão: ele diz até quando vale procurar BO + ZOI. A reunião continua no campo `proxima`, como limite final do ciclo."
@@ -7292,7 +7292,7 @@
     "dias": 8
    },
    "alertas": [
-    "a direção dos DADOS do USD depende da FAIXA NEUTRA (a régua de 'veio como esperado', PROVISÓRIA e nunca validada): hoje a soma é -1.18 (MANTEM), mas sem faixa nenhuma a soma é -16.16 (CORTA); com a faixa pela metade a soma é -10.75 (CORTA). A faixa zera 47 divulgação(ões) que, com o sinal do próprio desvio, pesariam -14.99 — zerar um termo desloca a soma para o lado contrário, a mesma aritmética da winsorização revogada",
+    "a direção dos DADOS do USD depende da FAIXA NEUTRA (a régua de 'veio como esperado', PROVISÓRIA e nunca validada): hoje a soma é -1.16 (MANTEM), mas sem faixa nenhuma a soma é -16.14 (CORTA); com a faixa pela metade a soma é -10.73 (CORTA). A faixa zera 47 divulgação(ões) que, com o sinal do próprio desvio, pesariam -14.99 — zerar um termo desloca a soma para o lado contrário, a mesma aritmética da winsorização revogada",
     "uma única divulgação responde por 76% da leitura do CAD (Net Change in Employment)",
     "a direção do USD depende de PARÂMETRO NÃO CALIBRADO: só 38% das 130 células da faixa plausível (meia-vida 14-30 dias, modulador de impacto entre 'só alto conta' e 'plano') dão a leitura publicada — quem faz virar: os dois, o modulador_de_impacto mais: modulador (8 de 13 células) contra meia-vida (5 de 10 células)",
     "qualidade da evidência do par = 24/100, a MENOR das duas pernas (elo fraco: CAD, 24/100 contra 38/100 do USD)",
@@ -7339,8 +7339,8 @@
     "quando_brt": "10/09 09:30",
     "impacto": "HIGH",
     "dias": 1,
-    "horas": 16,
-    "horas_total": 40,
+    "horas": 15,
+    "horas_total": 39,
     "reserva": false,
     "texto": "PPI (núcleo) em 10/09 às 09:30 (BRT)",
     "nota": "é o próximo DADO relevante, não a próxima decisão: ele diz até quando vale procurar BO + ZOI. A reunião continua no campo `proxima`, como limite final do ciclo."
@@ -7404,7 +7404,7 @@
     "dias": 8
    },
    "alertas": [
-    "a direção dos DADOS do USD depende da FAIXA NEUTRA (a régua de 'veio como esperado', PROVISÓRIA e nunca validada): hoje a soma é -1.18 (MANTEM), mas sem faixa nenhuma a soma é -16.16 (CORTA); com a faixa pela metade a soma é -10.75 (CORTA). A faixa zera 47 divulgação(ões) que, com o sinal do próprio desvio, pesariam -14.99 — zerar um termo desloca a soma para o lado contrário, a mesma aritmética da winsorização revogada",
+    "a direção dos DADOS do USD depende da FAIXA NEUTRA (a régua de 'veio como esperado', PROVISÓRIA e nunca validada): hoje a soma é -1.16 (MANTEM), mas sem faixa nenhuma a soma é -16.14 (CORTA); com a faixa pela metade a soma é -10.73 (CORTA). A faixa zera 47 divulgação(ões) que, com o sinal do próprio desvio, pesariam -14.99 — zerar um termo desloca a soma para o lado contrário, a mesma aritmética da winsorização revogada",
     "a direção do USD depende de PARÂMETRO NÃO CALIBRADO: só 38% das 130 células da faixa plausível (meia-vida 14-30 dias, modulador de impacto entre 'só alto conta' e 'plano') dão a leitura publicada — quem faz virar: os dois, o modulador_de_impacto mais: modulador (8 de 13 células) contra meia-vida (5 de 10 células)",
     "qualidade da evidência do par = 38/100, a MENOR das duas pernas (elo fraco: USD, 38/100 contra 75/100 do CHF)",
     "a perna USD está SEM LEITURA (sem leitura: intensidade relativa 14% abaixo do mínimo provisório de 15% (a leitura está perto demais de zero para virar direção). A moeda continua no arquivo, com tudo o que foi medido — o que não existe é a DIREÇÃO. E há um SEGUNDO motivo: a direção do USD DEPENDE de parâmetro que ninguém calibrou: 49 de 130 células da faixa plausível (38%) dão a leitura publicada ('sem leitura'), e as outras dão inclinado ao corte em 78 célula(s) · inclinado à alta em 3 célula(s). Quem faz virar: os dois, o modulador_de_impacto mais: modulador (8 de 13 células) contra meia-vida (5 de 10 células). Nenhum dado muda entre as células — só o botão. (o corte PROVISÓRIO de concordância é 60%).) — a tese do par se apoia só na outra perna",
@@ -7451,8 +7451,8 @@
     "quando_brt": "10/09 09:30",
     "impacto": "HIGH",
     "dias": 1,
-    "horas": 16,
-    "horas_total": 40,
+    "horas": 15,
+    "horas_total": 39,
     "reserva": false,
     "texto": "PPI (núcleo) em 10/09 às 09:30 (BRT)",
     "nota": "é o próximo DADO relevante, não a próxima decisão: ele diz até quando vale procurar BO + ZOI. A reunião continua no campo `proxima`, como limite final do ciclo."
@@ -7467,7 +7467,7 @@
    "base": "EUR",
    "cotada": "GBP",
    "sinal": "BULL",
-   "forca": 0.529,
+   "forca": 0.53,
    "rotulo": "forte",
    "divergencia": 53,
    "conviccao_pct": 53,
@@ -7519,14 +7519,14 @@
     "dias": 2
    },
    "alertas": [
-    "a direção dos DADOS do GBP depende da FAIXA NEUTRA (a régua de 'veio como esperado', PROVISÓRIA e nunca validada): hoje a soma é -4.59 (MANTEM), mas sem faixa nenhuma a soma é -5.61 (CORTA); com a faixa pela metade a soma é -5.69 (CORTA). A faixa zera 21 divulgação(ões) que, com o sinal do próprio desvio, pesariam -1.03 — zerar um termo desloca a soma para o lado contrário, a mesma aritmética da winsorização revogada",
+    "a direção dos DADOS do GBP depende da FAIXA NEUTRA (a régua de 'veio como esperado', PROVISÓRIA e nunca validada): hoje a soma é -4.60 (MANTEM), mas sem faixa nenhuma a soma é -5.62 (CORTA); com a faixa pela metade a soma é -5.70 (CORTA). A faixa zera 21 divulgação(ões) que, com o sinal do próprio desvio, pesariam -1.03 — zerar um termo desloca a soma para o lado contrário, a mesma aritmética da winsorização revogada",
     "a direção do EUR depende de PARÂMETRO NÃO CALIBRADO: só 95% das 130 células da faixa plausível (meia-vida 14-30 dias, modulador de impacto entre 'só alto conta' e 'plano') dão a leitura publicada — quem faz virar: modulador_de_impacto",
     "a direção do GBP depende de PARÂMETRO NÃO CALIBRADO: só 78% das 130 células da faixa plausível (meia-vida 14-30 dias, modulador de impacto entre 'só alto conta' e 'plano') dão a leitura publicada — quem faz virar: modulador_de_impacto",
     "qualidade da evidência do par = 75/100, a MENOR das duas pernas (elo fraco: GBP, 75/100 contra 84/100 do EUR)",
     "nenhuma das duas pernas tem fala votando: desde 05/set a dimensão de discurso é contexto com selo, e a leitura vem de DADOS e CICLO apenas — duas dimensões por perna, teto 1.00 no par",
     "mesma aposta que EURUSD, EURCAD, EURCHF — compartilham a perna EUR e não diversificam"
    ],
-   "diff": 0.529,
+   "diff": 0.53,
    "diff_teto": 1.0,
    "diff_teto_teorico": 1.0,
    "motivo": "EUR inclinado à alta contra GBP inclinado ao corte",
@@ -7547,7 +7547,7 @@
    },
    "leitura_cotada": {
     "direcao": "CORTA",
-    "score": -0.154,
+    "score": -0.155,
     "conviccao_pct": 25,
     "votando": 2,
     "leitura": "inclinado_corte",
@@ -7749,7 +7749,7 @@
     "dias": 2
    },
    "alertas": [
-    "a direção dos DADOS do AUD depende da FAIXA NEUTRA (a régua de 'veio como esperado', PROVISÓRIA e nunca validada): hoje a soma é +20.86 (SOBE), mas com a faixa dobrada a soma é +2.68 (MANTEM). A faixa zera 8 divulgação(ões) que, com o sinal do próprio desvio, pesariam +1.42 — zerar um termo desloca a soma para o lado contrário, a mesma aritmética da winsorização revogada",
+    "a direção dos DADOS do AUD depende da FAIXA NEUTRA (a régua de 'veio como esperado', PROVISÓRIA e nunca validada): hoje a soma é +20.85 (SOBE), mas com a faixa dobrada a soma é +2.68 (MANTEM). A faixa zera 8 divulgação(ões) que, com o sinal do próprio desvio, pesariam +1.42 — zerar um termo desloca a soma para o lado contrário, a mesma aritmética da winsorização revogada",
     "a direção do EUR depende de PARÂMETRO NÃO CALIBRADO: só 95% das 130 células da faixa plausível (meia-vida 14-30 dias, modulador de impacto entre 'só alto conta' e 'plano') dão a leitura publicada — quem faz virar: modulador_de_impacto",
     "qualidade da evidência do par = 79/100, a MENOR das duas pernas (elo fraco: AUD, 79/100 contra 84/100 do EUR)",
     "nenhuma das duas pernas tem fala votando: desde 05/set a dimensão de discurso é contexto com selo, e a leitura vem de DADOS e CICLO apenas — duas dimensões por perna, teto 1.00 no par",
@@ -8155,7 +8155,7 @@
    "base": "GBP",
    "cotada": "JPY",
    "sinal": "BEAR",
-   "forca": 0.495,
+   "forca": 0.496,
    "rotulo": "forte",
    "divergencia": 50,
    "conviccao_pct": 50,
@@ -8207,14 +8207,14 @@
     "dias": 9
    },
    "alertas": [
-    "a direção dos DADOS do GBP depende da FAIXA NEUTRA (a régua de 'veio como esperado', PROVISÓRIA e nunca validada): hoje a soma é -4.59 (MANTEM), mas sem faixa nenhuma a soma é -5.61 (CORTA); com a faixa pela metade a soma é -5.69 (CORTA). A faixa zera 21 divulgação(ões) que, com o sinal do próprio desvio, pesariam -1.03 — zerar um termo desloca a soma para o lado contrário, a mesma aritmética da winsorização revogada",
+    "a direção dos DADOS do GBP depende da FAIXA NEUTRA (a régua de 'veio como esperado', PROVISÓRIA e nunca validada): hoje a soma é -4.60 (MANTEM), mas sem faixa nenhuma a soma é -5.62 (CORTA); com a faixa pela metade a soma é -5.70 (CORTA). A faixa zera 21 divulgação(ões) que, com o sinal do próprio desvio, pesariam -1.03 — zerar um termo desloca a soma para o lado contrário, a mesma aritmética da winsorização revogada",
     "a direção do GBP depende de PARÂMETRO NÃO CALIBRADO: só 78% das 130 células da faixa plausível (meia-vida 14-30 dias, modulador de impacto entre 'só alto conta' e 'plano') dão a leitura publicada — quem faz virar: modulador_de_impacto",
     "a direção do JPY depende de PARÂMETRO NÃO CALIBRADO: só 98% das 130 células da faixa plausível (meia-vida 14-30 dias, modulador de impacto entre 'só alto conta' e 'plano') dão a leitura publicada — quem faz virar: só a combinação dos dois (nenhum vira sozinho)",
     "qualidade da evidência do par = 75/100, a MENOR das duas pernas (elo fraco: GBP, 75/100 contra 91/100 do JPY)",
     "nenhuma das duas pernas tem fala votando: desde 05/set a dimensão de discurso é contexto com selo, e a leitura vem de DADOS e CICLO apenas — duas dimensões por perna, teto 1.00 no par",
     "mesma aposta que USDJPY, CADJPY — compartilham a perna JPY e não diversificam"
    ],
-   "diff": -0.495,
+   "diff": -0.496,
    "diff_teto": 1.0,
    "diff_teto_teorico": 1.0,
    "motivo": "GBP inclinado ao corte contra JPY inclinado à alta",
@@ -8223,7 +8223,7 @@
    "perna_motivo": "JPY",
    "leitura_base": {
     "direcao": "CORTA",
-    "score": -0.154,
+    "score": -0.155,
     "conviccao_pct": 25,
     "votando": 2,
     "leitura": "inclinado_corte",
@@ -8269,7 +8269,7 @@
    "base": "GBP",
    "cotada": "AUD",
    "sinal": "BEAR",
-   "forca": 0.517,
+   "forca": 0.518,
    "rotulo": "forte",
    "divergencia": 52,
    "conviccao_pct": 52,
@@ -8321,14 +8321,14 @@
     "dias": 9
    },
    "alertas": [
-    "a direção dos DADOS do GBP depende da FAIXA NEUTRA (a régua de 'veio como esperado', PROVISÓRIA e nunca validada): hoje a soma é -4.59 (MANTEM), mas sem faixa nenhuma a soma é -5.61 (CORTA); com a faixa pela metade a soma é -5.69 (CORTA). A faixa zera 21 divulgação(ões) que, com o sinal do próprio desvio, pesariam -1.03 — zerar um termo desloca a soma para o lado contrário, a mesma aritmética da winsorização revogada",
-    "a direção dos DADOS do AUD depende da FAIXA NEUTRA (a régua de 'veio como esperado', PROVISÓRIA e nunca validada): hoje a soma é +20.86 (SOBE), mas com a faixa dobrada a soma é +2.68 (MANTEM). A faixa zera 8 divulgação(ões) que, com o sinal do próprio desvio, pesariam +1.42 — zerar um termo desloca a soma para o lado contrário, a mesma aritmética da winsorização revogada",
+    "a direção dos DADOS do GBP depende da FAIXA NEUTRA (a régua de 'veio como esperado', PROVISÓRIA e nunca validada): hoje a soma é -4.60 (MANTEM), mas sem faixa nenhuma a soma é -5.62 (CORTA); com a faixa pela metade a soma é -5.70 (CORTA). A faixa zera 21 divulgação(ões) que, com o sinal do próprio desvio, pesariam -1.03 — zerar um termo desloca a soma para o lado contrário, a mesma aritmética da winsorização revogada",
+    "a direção dos DADOS do AUD depende da FAIXA NEUTRA (a régua de 'veio como esperado', PROVISÓRIA e nunca validada): hoje a soma é +20.85 (SOBE), mas com a faixa dobrada a soma é +2.68 (MANTEM). A faixa zera 8 divulgação(ões) que, com o sinal do próprio desvio, pesariam +1.42 — zerar um termo desloca a soma para o lado contrário, a mesma aritmética da winsorização revogada",
     "a direção do GBP depende de PARÂMETRO NÃO CALIBRADO: só 78% das 130 células da faixa plausível (meia-vida 14-30 dias, modulador de impacto entre 'só alto conta' e 'plano') dão a leitura publicada — quem faz virar: modulador_de_impacto",
     "qualidade da evidência do par = 75/100, a MENOR das duas pernas (elo fraco: GBP, 75/100 contra 79/100 do AUD)",
     "nenhuma das duas pernas tem fala votando: desde 05/set a dimensão de discurso é contexto com selo, e a leitura vem de DADOS e CICLO apenas — duas dimensões por perna, teto 1.00 no par",
     "mesma aposta que AUDUSD, AUDCAD — compartilham a perna AUD e não diversificam"
    ],
-   "diff": -0.517,
+   "diff": -0.518,
    "diff_teto": 1.0,
    "diff_teto_teorico": 1.0,
    "motivo": "GBP inclinado ao corte contra AUD inclinado à alta",
@@ -8337,7 +8337,7 @@
    "perna_motivo": "AUD",
    "leitura_base": {
     "direcao": "CORTA",
-    "score": -0.154,
+    "score": -0.155,
     "conviccao_pct": 25,
     "votando": 2,
     "leitura": "inclinado_corte",
@@ -8383,7 +8383,7 @@
    "base": "GBP",
    "cotada": "NZD",
    "sinal": "BEAR",
-   "forca": 0.387,
+   "forca": 0.388,
    "rotulo": "observação",
    "divergencia": 39,
    "conviccao_pct": 39,
@@ -8436,14 +8436,14 @@
    },
    "alertas": [
     "estado rebaixado de 'moderada' para 'observacao': qualidade da evidência do par é nula (0/100) — sem evidência o par não sai da zona de observação, por maior que seja a divergência",
-    "a direção dos DADOS do GBP depende da FAIXA NEUTRA (a régua de 'veio como esperado', PROVISÓRIA e nunca validada): hoje a soma é -4.59 (MANTEM), mas sem faixa nenhuma a soma é -5.61 (CORTA); com a faixa pela metade a soma é -5.69 (CORTA). A faixa zera 21 divulgação(ões) que, com o sinal do próprio desvio, pesariam -1.03 — zerar um termo desloca a soma para o lado contrário, a mesma aritmética da winsorização revogada",
+    "a direção dos DADOS do GBP depende da FAIXA NEUTRA (a régua de 'veio como esperado', PROVISÓRIA e nunca validada): hoje a soma é -4.60 (MANTEM), mas sem faixa nenhuma a soma é -5.62 (CORTA); com a faixa pela metade a soma é -5.70 (CORTA). A faixa zera 21 divulgação(ões) que, com o sinal do próprio desvio, pesariam -1.03 — zerar um termo desloca a soma para o lado contrário, a mesma aritmética da winsorização revogada",
     "uma única divulgação responde por 100% da leitura do NZD (Terms of Trade Index)",
     "a direção do GBP depende de PARÂMETRO NÃO CALIBRADO: só 78% das 130 células da faixa plausível (meia-vida 14-30 dias, modulador de impacto entre 'só alto conta' e 'plano') dão a leitura publicada — quem faz virar: modulador_de_impacto",
     "qualidade da evidência do par = 0/100, a MENOR das duas pernas (elo fraco: NZD, 0/100 contra 75/100 do GBP)",
     "nenhuma das duas pernas tem fala votando: desde 05/set a dimensão de discurso é contexto com selo, e a leitura vem de DADOS e CICLO apenas — duas dimensões por perna, teto 1.00 no par",
     "mesma aposta que NZDUSD, NZDCAD — compartilham a perna NZD e não diversificam"
    ],
-   "diff": -0.387,
+   "diff": -0.388,
    "diff_teto": 1.0,
    "diff_teto_teorico": 1.0,
    "motivo": "GBP inclinado ao corte contra NZD inclinado à alta",
@@ -8452,7 +8452,7 @@
    "perna_motivo": "NZD",
    "leitura_base": {
     "direcao": "CORTA",
-    "score": -0.154,
+    "score": -0.155,
     "conviccao_pct": 25,
     "votando": 2,
     "leitura": "inclinado_corte",
@@ -8498,7 +8498,7 @@
    "base": "GBP",
    "cotada": "CAD",
    "sinal": "SEM_TESE",
-   "forca": 0.016,
+   "forca": 0.017,
    "rotulo": "sem tese",
    "divergencia": 2,
    "conviccao_pct": 2,
@@ -8550,14 +8550,14 @@
     "dias": 9
    },
    "alertas": [
-    "a direção dos DADOS do GBP depende da FAIXA NEUTRA (a régua de 'veio como esperado', PROVISÓRIA e nunca validada): hoje a soma é -4.59 (MANTEM), mas sem faixa nenhuma a soma é -5.61 (CORTA); com a faixa pela metade a soma é -5.69 (CORTA). A faixa zera 21 divulgação(ões) que, com o sinal do próprio desvio, pesariam -1.03 — zerar um termo desloca a soma para o lado contrário, a mesma aritmética da winsorização revogada",
+    "a direção dos DADOS do GBP depende da FAIXA NEUTRA (a régua de 'veio como esperado', PROVISÓRIA e nunca validada): hoje a soma é -4.60 (MANTEM), mas sem faixa nenhuma a soma é -5.62 (CORTA); com a faixa pela metade a soma é -5.70 (CORTA). A faixa zera 21 divulgação(ões) que, com o sinal do próprio desvio, pesariam -1.03 — zerar um termo desloca a soma para o lado contrário, a mesma aritmética da winsorização revogada",
     "uma única divulgação responde por 76% da leitura do CAD (Net Change in Employment)",
     "a direção do GBP depende de PARÂMETRO NÃO CALIBRADO: só 78% das 130 células da faixa plausível (meia-vida 14-30 dias, modulador de impacto entre 'só alto conta' e 'plano') dão a leitura publicada — quem faz virar: modulador_de_impacto",
     "qualidade da evidência do par = 24/100, a MENOR das duas pernas (elo fraco: CAD, 24/100 contra 75/100 do GBP)",
     "nenhuma das duas pernas tem fala votando: desde 05/set a dimensão de discurso é contexto com selo, e a leitura vem de DADOS e CICLO apenas — duas dimensões por perna, teto 1.00 no par",
     "divergência 2 está na zona neutra (0-14): sem tese, o par sai da lista principal mas continua gravado"
    ],
-   "diff": -0.016,
+   "diff": -0.017,
    "diff_teto": 1.0,
    "diff_teto_teorico": 1.0,
    "motivo": "GBP inclinado ao corte contra CAD inclinado ao corte",
@@ -8566,7 +8566,7 @@
    "perna_motivo": "GBP",
    "leitura_base": {
     "direcao": "CORTA",
-    "score": -0.154,
+    "score": -0.155,
     "conviccao_pct": 25,
     "votando": 2,
     "leitura": "inclinado_corte",
@@ -8596,8 +8596,8 @@
     "quando_brt": "14/09 09:30",
     "impacto": "HIGH",
     "dias": 5,
-    "horas": 16,
-    "horas_total": 136,
+    "horas": 15,
+    "horas_total": 135,
     "reserva": false,
     "texto": "CPI (núcleo) em 14/09 às 09:30 (BRT)",
     "nota": "é o próximo DADO relevante, não a próxima decisão: ele diz até quando vale procurar BO + ZOI. A reunião continua no campo `proxima`, como limite final do ciclo."
@@ -8609,7 +8609,7 @@
    "base": "GBP",
    "cotada": "CHF",
    "sinal": "BEAR",
-   "forca": 0.375,
+   "forca": 0.376,
    "rotulo": "moderada",
    "divergencia": 38,
    "conviccao_pct": 38,
@@ -8661,14 +8661,14 @@
     "dias": 9
    },
    "alertas": [
-    "a direção dos DADOS do GBP depende da FAIXA NEUTRA (a régua de 'veio como esperado', PROVISÓRIA e nunca validada): hoje a soma é -4.59 (MANTEM), mas sem faixa nenhuma a soma é -5.61 (CORTA); com a faixa pela metade a soma é -5.69 (CORTA). A faixa zera 21 divulgação(ões) que, com o sinal do próprio desvio, pesariam -1.03 — zerar um termo desloca a soma para o lado contrário, a mesma aritmética da winsorização revogada",
+    "a direção dos DADOS do GBP depende da FAIXA NEUTRA (a régua de 'veio como esperado', PROVISÓRIA e nunca validada): hoje a soma é -4.60 (MANTEM), mas sem faixa nenhuma a soma é -5.62 (CORTA); com a faixa pela metade a soma é -5.70 (CORTA). A faixa zera 21 divulgação(ões) que, com o sinal do próprio desvio, pesariam -1.03 — zerar um termo desloca a soma para o lado contrário, a mesma aritmética da winsorização revogada",
     "a direção do GBP depende de PARÂMETRO NÃO CALIBRADO: só 78% das 130 células da faixa plausível (meia-vida 14-30 dias, modulador de impacto entre 'só alto conta' e 'plano') dão a leitura publicada — quem faz virar: modulador_de_impacto",
     "qualidade da evidência do par = 75/100, a MENOR das duas pernas (elo fraco: GBP, 75/100 contra 75/100 do CHF)",
     "o CHF não tem fonte de fala conectada (sem_fonte) — buraco declarado, não zero",
     "nenhuma das duas pernas tem fala votando: desde 05/set a dimensão de discurso é contexto com selo, e a leitura vem de DADOS e CICLO apenas — duas dimensões por perna, teto 1.00 no par",
     "mesma aposta que USDCHF, CADCHF — compartilham a perna CHF e não diversificam"
    ],
-   "diff": -0.375,
+   "diff": -0.376,
    "diff_teto": 1.0,
    "diff_teto_teorico": 1.0,
    "motivo": "GBP inclinado ao corte contra CHF inclinado à alta",
@@ -8677,7 +8677,7 @@
    "perna_motivo": "CHF",
    "leitura_base": {
     "direcao": "CORTA",
-    "score": -0.154,
+    "score": -0.155,
     "conviccao_pct": 25,
     "votando": 2,
     "leitura": "inclinado_corte",
@@ -8775,7 +8775,7 @@
     "dias": 10
    },
    "alertas": [
-    "a direção dos DADOS do AUD depende da FAIXA NEUTRA (a régua de 'veio como esperado', PROVISÓRIA e nunca validada): hoje a soma é +20.86 (SOBE), mas com a faixa dobrada a soma é +2.68 (MANTEM). A faixa zera 8 divulgação(ões) que, com o sinal do próprio desvio, pesariam +1.42 — zerar um termo desloca a soma para o lado contrário, a mesma aritmética da winsorização revogada",
+    "a direção dos DADOS do AUD depende da FAIXA NEUTRA (a régua de 'veio como esperado', PROVISÓRIA e nunca validada): hoje a soma é +20.85 (SOBE), mas com a faixa dobrada a soma é +2.68 (MANTEM). A faixa zera 8 divulgação(ões) que, com o sinal do próprio desvio, pesariam +1.42 — zerar um termo desloca a soma para o lado contrário, a mesma aritmética da winsorização revogada",
     "a direção do JPY depende de PARÂMETRO NÃO CALIBRADO: só 98% das 130 células da faixa plausível (meia-vida 14-30 dias, modulador de impacto entre 'só alto conta' e 'plano') dão a leitura publicada — quem faz virar: só a combinação dos dois (nenhum vira sozinho)",
     "qualidade da evidência do par = 79/100, a MENOR das duas pernas (elo fraco: AUD, 79/100 contra 91/100 do JPY)",
     "nenhuma das duas pernas tem fala votando: desde 05/set a dimensão de discurso é contexto com selo, e a leitura vem de DADOS e CICLO apenas — duas dimensões por perna, teto 1.00 no par",
@@ -8820,8 +8820,8 @@
     "quando_brt": "23/09 22:30",
     "impacto": "HIGH",
     "dias": 15,
-    "horas": 5,
-    "horas_total": 365,
+    "horas": 4,
+    "horas_total": 364,
     "reserva": false,
     "texto": "emprego em 23/09 às 22:30 (BRT)",
     "nota": "é o próximo DADO relevante, não a próxima decisão: ele diz até quando vale procurar BO + ZOI. A reunião continua no campo `proxima`, como limite final do ciclo."
@@ -8889,7 +8889,7 @@
     "dias": 21
    },
    "alertas": [
-    "a direção dos DADOS do AUD depende da FAIXA NEUTRA (a régua de 'veio como esperado', PROVISÓRIA e nunca validada): hoje a soma é +20.86 (SOBE), mas com a faixa dobrada a soma é +2.68 (MANTEM). A faixa zera 8 divulgação(ões) que, com o sinal do próprio desvio, pesariam +1.42 — zerar um termo desloca a soma para o lado contrário, a mesma aritmética da winsorização revogada",
+    "a direção dos DADOS do AUD depende da FAIXA NEUTRA (a régua de 'veio como esperado', PROVISÓRIA e nunca validada): hoje a soma é +20.85 (SOBE), mas com a faixa dobrada a soma é +2.68 (MANTEM). A faixa zera 8 divulgação(ões) que, com o sinal do próprio desvio, pesariam +1.42 — zerar um termo desloca a soma para o lado contrário, a mesma aritmética da winsorização revogada",
     "uma única divulgação responde por 100% da leitura do NZD (Terms of Trade Index)",
     "qualidade da evidência do par = 0/100, a MENOR das duas pernas (elo fraco: NZD, 0/100 contra 79/100 do AUD)",
     "nenhuma das duas pernas tem fala votando: desde 05/set a dimensão de discurso é contexto com selo, e a leitura vem de DADOS e CICLO apenas — duas dimensões por perna, teto 1.00 no par",
@@ -9003,7 +9003,7 @@
     "dias": 21
    },
    "alertas": [
-    "a direção dos DADOS do AUD depende da FAIXA NEUTRA (a régua de 'veio como esperado', PROVISÓRIA e nunca validada): hoje a soma é +20.86 (SOBE), mas com a faixa dobrada a soma é +2.68 (MANTEM). A faixa zera 8 divulgação(ões) que, com o sinal do próprio desvio, pesariam +1.42 — zerar um termo desloca a soma para o lado contrário, a mesma aritmética da winsorização revogada",
+    "a direção dos DADOS do AUD depende da FAIXA NEUTRA (a régua de 'veio como esperado', PROVISÓRIA e nunca validada): hoje a soma é +20.85 (SOBE), mas com a faixa dobrada a soma é +2.68 (MANTEM). A faixa zera 8 divulgação(ões) que, com o sinal do próprio desvio, pesariam +1.42 — zerar um termo desloca a soma para o lado contrário, a mesma aritmética da winsorização revogada",
     "uma única divulgação responde por 76% da leitura do CAD (Net Change in Employment)",
     "qualidade da evidência do par = 24/100, a MENOR das duas pernas (elo fraco: CAD, 24/100 contra 79/100 do AUD)",
     "nenhuma das duas pernas tem fala votando: desde 05/set a dimensão de discurso é contexto com selo, e a leitura vem de DADOS e CICLO apenas — duas dimensões por perna, teto 1.00 no par",
@@ -9048,8 +9048,8 @@
     "quando_brt": "14/09 09:30",
     "impacto": "HIGH",
     "dias": 5,
-    "horas": 16,
-    "horas_total": 136,
+    "horas": 15,
+    "horas_total": 135,
     "reserva": false,
     "texto": "CPI (núcleo) em 14/09 às 09:30 (BRT)",
     "nota": "é o próximo DADO relevante, não a próxima decisão: ele diz até quando vale procurar BO + ZOI. A reunião continua no campo `proxima`, como limite final do ciclo."
@@ -9116,7 +9116,7 @@
     "dias": 16
    },
    "alertas": [
-    "a direção dos DADOS do AUD depende da FAIXA NEUTRA (a régua de 'veio como esperado', PROVISÓRIA e nunca validada): hoje a soma é +20.86 (SOBE), mas com a faixa dobrada a soma é +2.68 (MANTEM). A faixa zera 8 divulgação(ões) que, com o sinal do próprio desvio, pesariam +1.42 — zerar um termo desloca a soma para o lado contrário, a mesma aritmética da winsorização revogada",
+    "a direção dos DADOS do AUD depende da FAIXA NEUTRA (a régua de 'veio como esperado', PROVISÓRIA e nunca validada): hoje a soma é +20.85 (SOBE), mas com a faixa dobrada a soma é +2.68 (MANTEM). A faixa zera 8 divulgação(ões) que, com o sinal do próprio desvio, pesariam +1.42 — zerar um termo desloca a soma para o lado contrário, a mesma aritmética da winsorização revogada",
     "qualidade da evidência do par = 75/100, a MENOR das duas pernas (elo fraco: CHF, 75/100 contra 79/100 do AUD)",
     "o CHF não tem fonte de fala conectada (sem_fonte) — buraco declarado, não zero",
     "nenhuma das duas pernas tem fala votando: desde 05/set a dimensão de discurso é contexto com selo, e a leitura vem de DADOS e CICLO apenas — duas dimensões por perna, teto 1.00 no par",
@@ -9161,8 +9161,8 @@
     "quando_brt": "23/09 22:30",
     "impacto": "HIGH",
     "dias": 15,
-    "horas": 5,
-    "horas_total": 365,
+    "horas": 4,
+    "horas_total": 364,
     "reserva": false,
     "texto": "emprego em 23/09 às 22:30 (BRT)",
     "nota": "é o próximo DADO relevante, não a próxima decisão: ele diz até quando vale procurar BO + ZOI. A reunião continua no campo `proxima`, como limite final do ciclo."
@@ -9390,8 +9390,8 @@
     "quando_brt": "14/09 09:30",
     "impacto": "HIGH",
     "dias": 5,
-    "horas": 16,
-    "horas_total": 136,
+    "horas": 15,
+    "horas_total": 135,
     "reserva": false,
     "texto": "CPI (núcleo) em 14/09 às 09:30 (BRT)",
     "nota": "é o próximo DADO relevante, não a próxima decisão: ele diz até quando vale procurar BO + ZOI. A reunião continua no campo `proxima`, como limite final do ciclo."
@@ -9617,8 +9617,8 @@
     "quando_brt": "14/09 09:30",
     "impacto": "HIGH",
     "dias": 5,
-    "horas": 16,
-    "horas_total": 136,
+    "horas": 15,
+    "horas_total": 135,
     "reserva": false,
     "texto": "CPI (núcleo) em 14/09 às 09:30 (BRT)",
     "nota": "é o próximo DADO relevante, não a próxima decisão: ele diz até quando vale procurar BO + ZOI. A reunião continua no campo `proxima`, como limite final do ciclo."
@@ -9730,8 +9730,8 @@
     "quando_brt": "14/09 09:30",
     "impacto": "HIGH",
     "dias": 5,
-    "horas": 16,
-    "horas_total": 136,
+    "horas": 15,
+    "horas_total": 135,
     "reserva": false,
     "texto": "CPI (núcleo) em 14/09 às 09:30 (BRT)",
     "nota": "é o próximo DADO relevante, não a próxima decisão: ele diz até quando vale procurar BO + ZOI. A reunião continua no campo `proxima`, como limite final do ciclo."
@@ -9843,8 +9843,8 @@
     "quando_brt": "29/09 20:30",
     "impacto": "HIGH",
     "dias": 21,
-    "horas": 3,
-    "horas_total": 507,
+    "horas": 2,
+    "horas_total": 506,
     "reserva": false,
     "texto": "CPI em 29/09 às 20:30 (BRT)",
     "nota": "é o próximo DADO relevante, não a próxima decisão: ele diz até quando vale procurar BO + ZOI. A reunião continua no campo `proxima`, como limite final do ciclo."
