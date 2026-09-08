@@ -29,8 +29,9 @@ DUAS DIMENSOES QUE VOTAM, 25% CADA — TETO 0,50 POR MOEDA. NENHUMA USA YIELD.
     dados    ✅ VOTA
              surpresas acumuladas desde a ultima decisao do banco (ou 42 dias), cada evento
              pesado pela familia (leitor_regras), pelo impacto e por uma meia-vida de 21
-             dias. Um empurrao de 30 dias atras vale ~37% de um de hoje. Desde 05/set cada
-             item entra WINSORIZADO: nenhuma divulgacao sozinha carrega a dimensao. Moeda
+             dias. Um empurrao de 30 dias atras vale ~37% de um de hoje. Desde 08/set a
+             soma e CRUA: nenhum item e cortado, e a concentracao de uma divulgacao so vira
+             BANDEIRA e teto na qualidade da evidencia, nunca mudanca de direcao. Moeda
              com ZERO divulgacao na janela nao vota nesta dimensao (silencio nao e voto): a
              direcao continua exibida, mas com "vota": false, e o teto da moeda cai.
     ciclo    ✅ VOTA
@@ -129,12 +130,36 @@ A LEI DAS DUAS PERNAS
     cada lado) e com a lista de pares que compartilham essa perna — dois deles nao
     diversificam, dobram.
 
+LEI ESTRUTURAL DE 08/set/2026 — NENHUM TRATAMENTO VIRA A DIRECAO EM SILENCIO
+    O DEFEITO QUE A ORIGINOU: a winsorizacao por item, criada em 05/set para atender um pedido
+    legitimo do dono ("uma unica divulgacao nao pode carregar a leitura"), estava no LUGAR
+    ERRADO — peso relativo e problema de PARTICIPACAO e ela mexia nos TERMOS DA SOMA. Medido
+    em 08/set, na propria rodada: USD soma -1,19 -> -8,29 (MANTEM -> CORTA) e GBP -4,66 ->
+    -5,77 (MANTEM -> CORTA). Os tres maiores itens do dolar eram ALTISTAS (ISM Services PMI,
+    Average Hourly Earnings, Nonfarm Payrolls) e so eles foram cortados; os baixistas eram
+    menores e passaram inteiros. O corte tirou peso de UM LADO SO. O painel lia "USD inclinado
+    ao corte" enquanto os futuros de fed funds pagavam p_alta 0,5786 para o FOMC de 16/set.
+
+    A REGRA, PARA A FAMILIA INTEIRA DO ERRO: qualquer transformacao entre o dado cru e a
+    leitura publicada e comparada com o cru. Se a direcao mudar, o campo sai com BANDEIRA e
+    texto, e a moeda vai para SEM LEITURA ate alguem decidir — leitura cuja direcao depende do
+    tratamento nao e leitura, e escolha de metodo, e escolha de metodo e do dono.
+
+    GRAVADO SEMPRE, em toda moeda, para auditoria: soma_crua, soma_tratada,
+    participacao_maior_item_antes, participacao_maior_item_depois,
+    direcao_mudou_pelo_tratamento e bandeira_de_direcao. Hoje o tratamento e "nenhum": as duas
+    somas sao iguais, o deslocamento e 0,00 e a bandeira e false nas oito moedas — e isso pode
+    ser CONFERIDO no arquivo, nao precisa ser acreditado.
+
 REGUAS DECLARADAS (grossas de proposito — fino sem calibracao e falsa precisao)
     LIMIAR_DADOS = 5,0 na soma decaida: abaixo disso o fluxo de dados le MANTEM.
     Uma DECISAO dentro da janela zera o acumulado: so contam eventos depois dela.
-    WINSOR: cada divulgacao entra com no maximo 4,0 em modulo — 0,8 do limiar. Como 4,0 e
-    ESTRITAMENTE menor que 5,0, nenhuma divulgacao sozinha atinge o limiar: sao precisas
-    duas. Isto e aritmetica do teto, nao observacao de um dia.
+    A SOMA E A SOMA (08/set): nenhum termo e cortado. A winsorizacao por item foi REVOGADA
+    porque cortar termos de uma soma desloca o TOTAL para o lado dos itens que sobram — ela
+    virou a direcao do USD e do GBP de MANTEM para CORTA. Concentracao passou a ser lida na
+    CONFIANCA: acima de 50% de participacao do maior item a moeda leva bandeira e a qualidade
+    da evidencia fica limitada a (100 - participacao). E NENHUM tratamento pode virar a
+    direcao em silencio (guarda_de_direcao).
     TODO limiar novo desta revisao esta marcado "provisorio": true, para o backtest calibrar.
 """
 from __future__ import annotations
@@ -153,7 +178,8 @@ AQUI = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, AQUI)
 
 from leitor_regras import MODULADORES                                    # noqa: E402
-from macro_eventos import familia_de, classifica, empurrao, IMPACTO_FXS  # noqa: E402
+from macro_eventos import (familia_de, classifica, empurrao, corte_da_surpresa,  # noqa: E402
+                           IMPACTO_FXS)
 from fxstreet_calendario import buscar, normaliza                        # noqa: E402
 from leitor_pares import PARES, MOEDAS, Leitura, le_par                   # noqa: E402
 
@@ -244,6 +270,28 @@ DISTRIBUICAO_ANTES_DA_REGUA = {
             "Enquanto isso, leia a ORDEM dos pares, não a palavra da faixa.",
 }
 
+# O TERCEIRO ANTES/DEPOIS, e este é o do conserto de 08/set: a winsorização saiu da soma.
+# Medido no MESMO calendário, no MESMO instante (08/set 14:18 UTC, 1.877 eventos em cache) e
+# com as MESMAS faixas — a única coisa que mudou foi o tratamento da soma.
+DISTRIBUICAO_ANTES_DO_CONSERTO_DA_SOMA = {
+    "quando": "2026-09-08 14:18 UTC, mesma janela e mesmo instante, com winsorização por item",
+    "sem_tese": 11, "observacao": 2, "moderada": 6, "forte": 9,
+    "leitura_por_moeda": {"USD": "inclinado ao corte", "EUR": "inclinado à alta",
+                          "GBP": "inclinado ao corte", "JPY": "inclinado à alta",
+                          "AUD": "inclinado à alta", "NZD": "inclinado à alta",
+                          "CAD": "sem leitura", "CHF": "inclinado à alta"},
+    "duas_direcoes_viradas_pelo_teto": {
+        "USD": "soma -1,19 -> -8,29; MANTÉM -> CORTA. Os TRÊS maiores itens eram altistas e "
+               "de impacto alto (ISM Services PMI +4,25, Average Hourly Earnings +7,90, "
+               "Nonfarm Payrolls +7,02) e só eles foram cortados para 4,00; os baixistas "
+               "(-3,98 e -3,82) passaram inteiros. O corte tirou peso de um lado só.",
+        "GBP": "soma -4,66 -> -5,77; MANTÉM -> CORTA."},
+    "nota": "o efeito no CAD ia no sentido CONTRÁRIO e também era distorção: a winsorização "
+            "puxava a soma de -4,80 para -1,81, a intensidade caía para 9% e a moeda sumia em "
+            "'sem leitura'. Ou seja, o mesmo tratamento fabricava direção numa moeda e apagava "
+            "direção noutra, conforme o lado em que estivessem os itens grandes.",
+}
+
 AVISO_DISTRIBUICAO = (
     "medido nos 28 pares, com as MESMAS faixas provisórias dos dois lados. O deslocamento "
     "pequeno é coincidência do dia: o denominador caiu de 1,50 para 1,00 (empurra a "
@@ -272,9 +320,15 @@ def distribuicao_depois(conta, hoje_iso):
     mudou_regua = " · ".join("%s %d -> %d" % (rot, r[k], d[k]) for k, rot in (
         ("sem_tese", "sem tese"), ("observacao", "observação"),
         ("moderada", "moderada"), ("forte", "forte")))
+    w = DISTRIBUICAO_ANTES_DO_CONSERTO_DA_SOMA
+    mudou_soma = " · ".join("%s %d -> %d" % (rot, w[k], d[k]) for k, rot in (
+        ("sem_tese", "sem tese"), ("observacao", "observação"),
+        ("moderada", "moderada"), ("forte", "forte")))
     return {"antes": a, "depois": d, "o_que_mudou": mudou,
             "antes_da_regua_de_surpresa": r,
             "o_que_a_regua_mudou": mudou_regua,
+            "antes_do_conserto_da_soma_08set": w,
+            "o_que_o_conserto_da_soma_mudou": mudou_soma,
             "aviso": AVISO_DISTRIBUICAO, "provisorio": True}
 
 # (D) FRESCOR — limiares PROVISORIOS, em minutos.
@@ -320,70 +374,272 @@ def rotulo_do_evento(titulo_original, familia):
         return FAMILIAS_RELEVANTES.get(familia)
     return base + (" (núcleo)" if nucleo else "")
 
-# (4) winsorizacao por item: teto por divulgacao dentro da dimensao de dados.
+# ---------------------------------------------------------------------------------------
+# (4) "UMA DIVULGACAO SO NAO PODE VIRAR A LEITURA" — E O CONSERTO DE 08/set/2026
+# ---------------------------------------------------------------------------------------
+# O PEDIDO DO DONO (05/set) ESTAVA CERTO. O caso dele: o CAD com uma unica divulgacao de
+# emprego (z -7,86) respondendo por 100% da dimensao, com tres divulgacoes no ciclo.
+# O LUGAR ONDE A REGRA FOI POSTA ESTAVA ERRADO. Peso relativo e problema de PARTICIPACAO, e
+# a regra mexia nos TERMOS DA SOMA — winsorizava cada item em 4,0.
 #
-# HISTORICO DAS DUAS VERSOES — a primeira foi REPROVADA por medicao, nao por gosto.
+# O QUE A WINSORIZACAO FEZ, MEDIDO EM 08/set NA PROPRIA RODADA (o codigo se denunciou sozinho,
+# no campo `deslocamento_pelo_teto`):
+#     USD   soma -1,19 -> -8,29     direcao MANTEM -> CORTA
+#     GBP   soma -4,66 -> -5,77     direcao MANTEM -> CORTA
+# Os TRES maiores itens do dolar eram ALTISTAS e estouravam o teto (ISM Services PMI,
+# Average Hourly Earnings e Nonfarm Payrolls, os tres MUITO_ACIMA e de impacto HIGH). Foram
+# cortados. Os itens baixistas eram menores e passaram inteiros. O corte tirou peso de UM
+# LADO SO. Consequencia pratica: o painel lia "USD inclinado ao corte" enquanto os futuros de
+# fed funds pagavam p_alta = 0,5786 para o FOMC de 16/set — parte dessa divergencia, que e o
+# PRODUTO do painel, era defeito nosso.
 #
-# VERSAO 1 (manha de 05/set): teto = min(2,5 x mediana absoluta da moeda ; 5,0). A auditoria
-# do mesmo dia derrubou os dois pilares dela:
-#   (i)  A PROMESSA ERA FALSA. O teto absoluto era o PROPRIO LIMIAR_DADOS (5,0) e a
-#        comparacao de direcao e `soma <= -LIMIAR_DADOS`, com menor OU IGUAL. O CAD provou:
-#        uma unica divulgacao (Net Change in Employment, bruta -7,82) foi cortada para
-#        EXATAMENTE -5,00, bateu no limiar e virou a dimensao para CORTA sozinha, com
-#        dominancia de 100% antes E depois do teto.
-#   (ii) O FATOR DA MEDIANA FABRICAVA E APAGAVA DIRECAO. A mediana e calculada sobre TODOS
-#        os itens da janela, e a maioria contribui quase zero depois do decaimento — entao
-#        ela vive perto de 0,5 e o teto caia para ~1,2. Dois casos medidos:
-#          - 1 item +7,83 com 17 itens de -0,50: mediana 0,50, teto 1,25, a soma vai de
-#            -0,67 (MANTEM) para -7,25 (CORTA). O teto FABRICOU uma direcao.
-#          - dois extremos legitimos do mesmo lado (-9,0 e -8,0) no meio de ruido de 0,4:
-#            mediana 0,45, teto 1,12, a soma vai de -16,60 (CORTA) para -1,85 (MANTEM). O
-#            teto APAGOU dois dados legitimos.
+# A ARITMETICA, PARA NAO PRECISAR DE FE: cortar um termo x para c muda a soma em (c - x), que
+# tem o sinal CONTRARIO ao de x. Winsorizar termos de uma soma NAO amortece o item: desloca o
+# TOTAL para o lado dos itens que sobraram. Nao existe escolha de teto que conserte isso,
+# porque o defeito e da OPERACAO, nao do numero — a versao 1 (teto pela mediana) e a versao 2
+# (teto fixo 4,0) morreram da mesma causa, com dois diagnosticos diferentes.
 #
-# VERSAO 2 (tarde de 05/set, esta) — duas mudancas, cada uma consertando um dos dois:
-#   (i)  TETO ESTRITAMENTE ABAIXO DO LIMIAR: teto_absoluto = 0,8 x LIMIAR_DADOS = 4,0. Agora
-#        a promessa e DEMONSTRAVEL, nao uma esperanca: o maior valor que UM item pode ter
-#        depois do corte e 4,0, e 4,0 < 5,0, logo nenhuma divulgacao sozinha alcanca o
-#        limiar em nenhuma moeda, em nenhum dia. Sao precisas DUAS divulgacoes.
-#   (ii) O FATOR DA MEDIANA FOI RETIRADO. Refazendo os dois casos acima com teto fixo 4,0:
-#          - 1 item +7,83 com 17 de -0,50: +4,0 -8,5 = -4,5 -> MANTEM, igual ao bruto. Nao
-#            fabrica mais.
-#          - dois extremos -9,0 e -8,0 no ruido: -4 -4 +0,4 -0,3 +0,5 -0,2 = -7,6 -> CORTA,
-#            igual ao bruto. Nao apaga mais.
-#        A mediana continua sendo CALCULADA e gravada (mediana_absoluta) porque e um bom
-#        descritor da janela, mas nao manda mais no teto.
-#
-# O QUE CONTINUA VERDADE E FICA DITO: cortar termos de uma SOMA desloca o total pelo tanto
-# cortado, no sentido contrario ao do item. Isso e a definicao de winsorizar, nao um bug — e
-# o preco de nao deixar uma divulgacao mandar sozinha. O deslocamento sai medido em cada
-# moeda, no campo `deslocamento_pelo_teto`, e o campo `direcao_antes_do_teto` mostra o que a
-# soma bruta teria lido. Quem quiser auditar tem os dois numeros lado a lado.
-#
-# O 0,8 e PROVISORIO como todo o resto: e a menor folga que ainda deixa duas divulgacoes
-# grandes virarem a leitura (2 x 4,0 = 8,0 > 5,0). Vai ao backtest junto com o limiar.
-WINSOR = {
-    "fator_mediana": None,
-    "fator_mediana_retirado_em": "2026-09-05",
-    "fator_mediana_por_que": "media na janela vive perto de 0,5 depois do decaimento, entao "
-                             "2,5 x mediana derrubava o teto para ~1,2 e isso FABRICAVA "
-                             "direcao (1 item +7,83 com 17 de -0,50: -0,67 virava -7,25) e "
-                             "APAGAVA dado legitimo (-9,0 e -8,0 no ruido: -16,60 virava "
-                             "-1,85). Medido, nao suposto.",
-    "fracao_do_limiar": 0.8,
-    "teto_absoluto": round(0.8 * LIMIAR_DADOS, 2),
-    "provisorio": True,
-    "texto": "cada divulgacao entra com no maximo 4,0 em modulo, que e 0,8 do limiar de 5,0 "
-             "da dimensao. Como 4,0 < 5,0, NENHUMA divulgacao sozinha atinge o limiar: sao "
-             "precisas pelo menos duas. Numero PROVISORIO, escolhido por ordem de grandeza "
-             "(e a menor folga que ainda deixa duas divulgacoes grandes virarem a leitura), "
-             "nao por calibracao — vai ao backtest junto com o limiar.",
-    "garantia": "teto_absoluto (4,0) < limiar (5,0): uma divulgacao sozinha nunca vira a "
-                "leitura. Isto e aritmetica do teto, nao observacao de um dia.",
-    "aviso_auditoria": "winsorizar termos de uma SOMA desloca o total pelo tanto cortado, no "
-                       "sentido contrario ao do item cortado. E o preco da regra, nao um "
-                       "defeito escondido: veja `deslocamento_pelo_teto` e "
-                       "`direcao_antes_do_teto` em cada moeda.",
+# O QUE VALE DESDE 08/set — quatro regras:
+#   1. A SOMA E A SOMA. Cada divulgacao entra com a contribuicao real (peso da familia x
+#      modulador de impacto x decaimento por idade). NENHUM termo e cortado.
+#   2. A DOMINANCIA E A REGUA DE CONFIANCA, NAO DE VALOR. A participacao do maior item na
+#      massa absoluta da dimensao continua medida — ela ja existia e ja funcionava. Passando
+#      do corte (50%, PROVISORIO) a moeda sai com BANDEIRA e a QUALIDADE DA EVIDENCIA fica
+#      limitada. A DIRECAO nao e tocada.
+#   3. QUEM QUISER LIMITAR PESO usa `reescala_proporcional`, que multiplica TODOS os itens
+#      pelo MESMO fator — a unica forma que preserva o sinal e as proporcoes. Ela esta
+#      DESLIGADA, e a propria funcao prova, com a conta, por que ela nao serve de remedio
+#      para dominancia: o fator comum CANCELA na participacao.
+#   4. LEI ESTRUTURAL: NENHUM TRATAMENTO VIRA A DIRECAO EM SILENCIO (`guarda_de_direcao`).
+#      Se qualquer transformacao mudar a direcao em relacao ao cru, sai bandeira, sai texto,
+#      e a moeda vai para SEM LEITURA ate alguem decidir — porque leitura cuja direcao depende
+#      do tratamento nao e leitura, e escolha de metodo, e escolha de metodo e do dono.
+TRATAMENTO_DA_SOMA = "nenhum"
+
+WINSOR_REVOGADA = {
+    "ligada": False,
+    "revogada_em": "2026-09-08",
+    "o_que_era": "cada divulgacao entrava na soma com no maximo 4,0 em modulo (0,8 x limiar)",
+    "por_que_caiu": "winsorizar termos de uma SOMA desloca o TOTAL pelo tanto cortado, no "
+                    "sentido contrario ao do item cortado. Quando os itens grandes estao "
+                    "todos do MESMO lado — foi o caso do dolar, com os tres maiores altistas "
+                    "e de impacto HIGH — o corte tira peso de um lado so e a soma anda para o "
+                    "outro. Nao amortece: desloca.",
+    "medido_em_08set": {"USD": {"soma_crua": -1.19, "soma_winsorizada": -8.29,
+                                "direcao": "MANTEM -> CORTA"},
+                        "GBP": {"soma_crua": -4.66, "soma_winsorizada": -5.77,
+                                "direcao": "MANTEM -> CORTA"}},
+    "o_que_entrou_no_lugar": "a soma crua manda na DIRECAO; a dominancia manda na CONFIANCA "
+                             "(bandeira + teto na qualidade da evidencia); e a guarda de "
+                             "direcao proibe que qualquer tratamento futuro vire a leitura em "
+                             "silencio.",
+    "o_que_se_perdeu_declarado": "a garantia aritmetica de que UMA divulgacao sozinha nunca "
+                                  "atinge o limiar. Ela existia, mas era paga com deslocamento "
+                                  "da soma. Agora esse caso e possivel e sai DECLARADO no "
+                                  "campo `virou_sozinho`, com bandeira e com a qualidade da "
+                                  "evidencia derrubada — visivel em vez de mascarado.",
 }
+
+# A REGUA DE CONFIANCA. O numero 50 e o mesmo corte que ja existia no alerta de dominancia.
+DOMINANCIA = {
+    "corte_participacao_pct": 50,
+    "o_que_mede": "a participacao do MAIOR item na massa absoluta (soma dos modulos) da "
+                  "dimensao de dados da moeda",
+    "o_que_faz": "e regua de CONFIANCA, nao de valor: acima do corte a moeda sai com BANDEIRA "
+                 "e a qualidade da evidencia fica limitada a (100 - participacao). A DIRECAO "
+                 "nunca e alterada por causa dela.",
+    "por_que_o_teto_e_100_menos_a_participacao": "a nota de evidencia nao pode ser maior que a "
+        "fatia da massa que NAO vem do item dominante: se 76% da dimensao e uma divulgacao so, "
+        "no maximo 24% da evidencia e de CONJUNTO. O teto usa a mesma medida do alerta, sem "
+        "numero novo, e so morde acima do corte (participacao > 50 => teto < 50 => 'fraca').",
+    "provisorio": True,
+}
+
+
+# ---------------------------------------------------------------------------------------
+# A FAIXA NEUTRA — O MESMO ERRO DA WINSORIZACAO, NA OUTRA DIRECAO (auditoria de 08/set)
+# ---------------------------------------------------------------------------------------
+# A winsorizacao cortava por CIMA os termos da soma. A faixa neutra corta por BAIXO: toda
+# divulgacao com |divulgado - consenso| <= corte da familia entra na soma como ZERO
+# (macro_eventos.classifica -> EM_LINHA -> empurrao devolve 0).
+#
+# A ARITMETICA E A MESMA, E ISSO E O PONTO DESTA AUDITORIA: zerar um termo x muda a soma em
+# (0 - x) = -x, com o sinal CONTRARIO ao do termo zerado. Se o que cai dentro da faixa esta
+# concentrado de um lado, a soma anda para o outro — exatamente o mecanismo que virou a
+# direcao do USD e do GBP com o teto de 4,0.
+#
+# MEDIDO EM 08/set, na mesma rodada publicada (data/sentimento.json, gerado 14:30 UTC):
+#     USD  47 divulgacoes caem na faixa e entram como zero. Somadas com o sinal do proprio
+#          desvio elas valeriam -15,11. A soma publicada e -1,17 (MANTEM); sem a faixa seria
+#          -16,28 (CORTA). Com a MESMA regua pela METADE ja e -10,80 (CORTA).
+#     EUR  90 zeradas, valeriam -3,98   ·   GBP 21 zeradas, valeriam -1,04
+#     JPY  12 zeradas, valeriam +3,37   ·   AUD  8 zeradas, valeriam +1,43
+#
+# A DIFERENCA PARA A WINSORIZACAO — e por isso a faixa NAO foi revogada:
+#   a winsorizacao nao tinha tese: cortar em 4,0 era um numero escolhido para segurar
+#   dominancia, e dominancia nao e problema de soma. A faixa neutra TEM tese economica
+#   declarada ("veio como esperado — nao muda o que ja estava no preco") e e a mesma regua
+#   dos tres leitores (macro_eventos.corte_da_surpresa). Revoga-la aqui seria trocar um
+#   metodo por outro sem medida, e a escolha de metodo e do dono, nao do codigo.
+#
+# O QUE ESTAVA ERRADO, E O QUE MUDA AGORA: o arquivo declarava "tratamento da soma: nenhum,
+# deslocamento 0,00, direcao do dado e nao do metodo" — e isso so era verdade DEPOIS da
+# classificacao. A guarda de direcao chamava de "cru" um numero que ja tinha passado pela
+# faixa, entao ela nao conseguia enxergar o maior tratamento do caminho. Desde agora a faixa
+# sai MEDIDA em toda rodada: quantos itens ela zera, quanto eles pesariam, qual seria a
+# direcao sem ela e com ela pela metade e pelo dobro — e quando a direcao depende da faixa,
+# isso vira alerta no par, que e onde a tela le.
+FAIXA_NEUTRA = {
+    "o_que_e": "divulgacao com |divulgado - consenso| dentro do corte da familia entra na "
+               "soma como ZERO",
+    "onde_mora": "macro_eventos.corte_da_surpresa (a mesma regua dos tres leitores)",
+    "e_um_piso_em_termos_de_uma_soma": True,
+    "mesma_aritmetica_da_winsorizacao": "zerar um termo x desloca a soma em -x, no sentido "
+                                        "contrario ao do termo zerado",
+    "por_que_nao_foi_revogada": "tem tese economica declarada e e a regua unica da casa; "
+                                "trocar de metodo sem medida e decisao do dono",
+    "o_que_passou_a_sair": "itens zerados, quanto pesariam, e a direcao com a faixa em 0x, "
+                           "0,5x, 1x e 2x — o painel nao esconde tratamento que mexe na "
+                           "direcao",
+    "fatores_de_teste": [0.0, 0.5, 1.0, 2.0],
+    "provisorio": True,
+}
+
+
+def participacao_do_maior(valores):
+    """Participacao do MAIOR item na massa absoluta (soma dos modulos), em % inteiro.
+
+    E a medida de dominancia do dono, e ela e INVARIANTE a qualquer reescala proporcional:
+    multiplicar todos os itens por k multiplica numerador e denominador por k. E por isso que
+    reescalar nao e remedio para concentracao — ver `reescala_proporcional`.
+    """
+    massa = sum(abs(v) for v in valores)
+    if not massa:
+        return 0
+    return int(round(max(abs(v) for v in valores) / massa * 100))
+
+
+def reescala_proporcional(valores, teto_participacao_pct=None, ligada=False):
+    """Limitar peso SEM enviesar: multiplicar TODOS os itens pelo MESMO fator.
+
+    E a unica forma que preserva o SINAL de cada item, o SINAL da soma e as proporcoes entre
+    os itens — winsorizar nao preserva nenhuma das tres, porque so mexe em quem e grande.
+
+    ⚠️ E EXATAMENTE POR PRESERVAR AS PROPORCOES QUE ELA NAO RESOLVE DOMINANCIA. A participacao
+    do maior item e |x_max|.k / SOMA(|x_i|.k) = |x_max| / SOMA(|x_i|): o k CANCELA. Nenhum
+    fator comum, por menor que seja, derruba a participacao de 100% do NZD para abaixo de 50%.
+    Reescalar limita MAGNITUDE; o pedido do dono e sobre PARTICIPACAO. Sao coisas diferentes, e
+    e por isso que a resposta de participacao mora na CONFIANCA (dominancia) e nao na soma.
+
+    Fica implementada, medida e DESLIGADA. Devolve (fator, registro).
+    """
+    part = participacao_do_maior(valores)
+    reg = {"nome": "reescala_proporcional", "ligada": bool(ligada),
+           "teto_participacao_pct": teto_participacao_pct,
+           "participacao_medida_pct": part,
+           "preserva": ["sinal de cada item", "sinal da soma", "proporcoes entre os itens"],
+           "prova": "participacao(k.x) = |x_max|.k / SOMA(|x_i|.k) = participacao(x) para "
+                    "todo k > 0 — o fator comum cancela, entao nenhum fator atinge um teto de "
+                    "PARTICIPACAO. Ver `regua.tratamento_da_soma.prova_sintetica`.",
+           "provisorio": True}
+    if not ligada:
+        reg["fator"] = 1.0
+        reg["por_que_desligada"] = (
+            "ela limitaria MAGNITUDE, nao PARTICIPACAO, e magnitude nao e o problema que o "
+            "dono levantou. Encolher a soma inteira por um fator comum tambem NAO e neutro "
+            "para a leitura: o limiar de %s e fixo, entao dividir tudo por 2 empurra moedas "
+            "de SOBE/CORTA para MANTEM sem que nenhum dado tenha mudado." % LIMIAR_DADOS)
+        return 1.0, reg
+    if teto_participacao_pct is None or part <= teto_participacao_pct:
+        reg["fator"] = 1.0
+        reg["resultado"] = "participacao %d%% ja esta no teto — nada a reescalar" % part
+        return 1.0, reg
+    # Ligada e acima do teto: NAO existe fator que resolva. Devolve 1,0 e diz por que.
+    reg["fator"] = 1.0
+    reg["resultado"] = (
+        "participacao %d%% acima do teto de %d%%, e NENHUM fator comum a derruba (o k cancela). "
+        "A reescala foi pedida e nao foi aplicada: aplicar qualquer fator aqui seria encolher a "
+        "leitura sem tocar na concentracao, que e o defeito. Quem responde por concentracao e a "
+        "bandeira de dominancia." % (part, teto_participacao_pct))
+    return 1.0, reg
+
+
+def direcao_da_soma(soma):
+    """A direcao da dimensao de dados a partir da soma, com o limiar declarado."""
+    return "SOBE" if soma >= LIMIAR_DADOS else "CORTA" if soma <= -LIMIAR_DADOS else "MANTEM"
+
+
+def guarda_de_direcao(onde, leitura_crua, leitura_tratada, tratamento=TRATAMENTO_DA_SOMA):
+    """LEI ESTRUTURAL (08/set): NENHUM TRATAMENTO VIRA A DIRECAO EM SILENCIO.
+
+    Vale para QUALQUER transformacao entre o dado cru e a leitura publicada — winsorizacao,
+    reescala, teto, aparo, o que for inventado depois. Se a direcao tratada difere da crua, o
+    campo sai com bandeira e texto, e quem consome manda a moeda para SEM LEITURA.
+
+    Nao e uma opiniao sobre qual das duas esta certa: e a constatacao de que a direcao passou a
+    depender do METODO e nao do dado. Escolher entre elas e do dono, nao do codigo.
+    """
+    virou = (leitura_crua != leitura_tratada)
+    return {
+        "virou": bool(virou),
+        "de": leitura_crua, "para": leitura_tratada, "tratamento": tratamento,
+        "texto": ("o tratamento '%s' MUDOU a direcao de %s para %s em %s — a leitura passa a "
+                  "depender do metodo e nao do dado, entao ela sai BANDEIRADA e a moeda vai "
+                  "para SEM LEITURA ate alguem decidir qual das duas vale"
+                  % (tratamento, leitura_crua, leitura_tratada, onde)) if virou else None,
+        "regra": "lei estrutural de 08/set/2026: se qualquer transformacao mudar a direcao em "
+                 "relacao ao cru, isso APARECE e a leitura e suspensa — nunca e silenciado. "
+                 "Foi a familia inteira de erro que a winsorizacao produziu.",
+        "provisorio": True,
+    }
+
+
+def prova_do_tratamento():
+    """A PROVA SINTETICA, calculada em toda rodada — nao e comentario, e conta rodando.
+
+    CASO 1 reproduz a forma do dolar: tres itens grandes de um lado, muitos pequenos do outro.
+        cru      +9 +8 +7 e dez de -2   -> soma +4  (MANTEM, |4| < limiar 5)
+        winsor 4 +4 +4 +4 e dez de -2   -> soma -8  (CORTA)   *** virou a direcao ***
+        reescala k=0,5                  -> soma +2  (MANTEM)  sinal PRESERVADO
+    CASO 2 mostra por que reescalar nao resolve concentracao: participacao INVARIANTE a k.
+    """
+    def soma(v):
+        return round(sum(v), 2)
+
+    c1 = [9.0, 8.0, 7.0] + [-2.0] * 10
+    teto_velho = 4.0
+    c1_w = [math.copysign(min(abs(x), teto_velho), x) for x in c1]
+    k = 0.5
+    c1_r = [x * k for x in c1]
+    c2 = [-7.9, 0.3, -0.2]
+    c2_r = [x * 0.1 for x in c2]
+    return {
+        "caso_1_forma_do_dolar": {
+            "itens": c1,
+            "cru": {"soma": soma(c1), "direcao": direcao_da_soma(soma(c1)),
+                    "participacao_pct": participacao_do_maior(c1)},
+            "winsorizado_4_0": {"soma": soma(c1_w), "direcao": direcao_da_soma(soma(c1_w)),
+                                "participacao_pct": participacao_do_maior(c1_w),
+                                "virou_a_direcao": direcao_da_soma(soma(c1_w)) != direcao_da_soma(soma(c1)),
+                                "deslocamento": round(soma(c1_w) - soma(c1), 2)},
+            "reescalado_k_0_5": {"soma": soma(c1_r), "direcao": direcao_da_soma(soma(c1_r)),
+                                 "participacao_pct": participacao_do_maior(c1_r),
+                                 "sinal_igual_ao_cru": (soma(c1_r) > 0) == (soma(c1) > 0),
+                                 "virou_a_direcao": direcao_da_soma(soma(c1_r)) != direcao_da_soma(soma(c1))},
+            "leitura": "o corte por item VIROU a direcao (MANTEM -> CORTA) deslocando a soma "
+                       "em -12,0; a reescala proporcional manteve o SINAL (+4 -> +2) e manteve "
+                       "a participacao. O que muda a direcao e cortar de um lado so."},
+        "caso_2_participacao_invariante": {
+            "itens": c2, "participacao_crua_pct": participacao_do_maior(c2),
+            "itens_reescalados_k_0_1": c2_r,
+            "participacao_reescalada_pct": participacao_do_maior(c2_r),
+            "leitura": "a participacao do maior item nao se move com a reescala (o k cancela): "
+                       "reescalar limita MAGNITUDE, nunca CONCENTRACAO. Por isso a resposta a "
+                       "concentracao e a bandeira de dominancia e o teto na qualidade da "
+                       "evidencia, e nao um tratamento na soma."},
+        "conclusao": "a soma fica crua; concentracao vira CONFIANCA; e a guarda de direcao "
+                     "impede que qualquer tratamento futuro vire a leitura em silencio.",
+    }
 
 # (3b) confiabilidade da fala. O que o construtor de fontes grava hoje: bc_discursos.json traz
 # tipo "speech" (discurso oficial) e "statement" (comunicado/ata); noticias.json traz manchete
@@ -489,15 +745,92 @@ def eventos_para_frente(ev, agora):
     return fut
 
 
+def mede_faixa_neutra(medidos, moeda, soma_publicada):
+    """Quanto a FAIXA NEUTRA move a soma, e se a DIRECAO depende dela. Nao altera nada.
+
+    A faixa e um PISO aplicado a cada termo ANTES da soma: quem fica dentro dela entra como
+    zero. E a mesma aritmetica da winsorizacao revogada em 08/set — zerar um termo x desloca
+    o total em -x —, so que por baixo em vez de por cima. Ela continua ligada porque tem tese
+    ("veio como esperado nao muda o preco") e porque a regua e a mesma dos tres leitores; o
+    que muda e que ela para de ser invisivel.
+
+    Refaz a MESMA conta com o corte da familia multiplicado por 0 (sem faixa), 0,5, 1 (a de
+    hoje, que reproduz a soma publicada) e 2. Nenhum numero novo e inventado: e a regua
+    existente, reescalada, para mostrar de quanto a leitura depende dela.
+    """
+    def soma_com(k):
+        t = 0.0
+        for x in medidos:
+            c = x["corte"] * k
+            if x["dif"] > c:
+                lado = +1
+            elif x["dif"] < -c:
+                lado = -1
+            else:
+                continue                       # dentro da faixa: entra como ZERO
+            # arredonda o TERMO em 2 casas, como `contribuicao_bruta` — assim a coluna de
+            # fator 1,0 reproduz exatamente a soma publicada, e a comparacao e honesta.
+            t += round(x["peso"] * lado * x["sinal"] * x["mod"] * x["decai"], 2)
+        return round(t, 2)
+
+    zerados = [x for x in medidos if x["classe"] == "EM_LINHA"]
+    peso_zerado = 0.0
+    for x in zerados:
+        lado = (1 if x["dif"] > 0 else -1 if x["dif"] < 0 else 0) * x["sinal"]
+        peso_zerado += x["peso"] * lado * x["mod"] * x["decai"]
+    peso_zerado = round(peso_zerado, 2)
+
+    escala = []
+    for k in FAIXA_NEUTRA["fatores_de_teste"]:
+        sk = soma_com(k)
+        escala.append({"fator": k, "soma": sk, "direcao": direcao_da_soma(sk)})
+    direcoes = {e["direcao"] for e in escala}
+    depende = len(direcoes) > 1
+    sem_faixa = escala[0]
+
+    txt = None
+    if depende:
+        txt = ("a direção da dimensão de dados do %s DEPENDE da faixa neutra: com a régua de "
+               "hoje a soma é %+.2f (%s), sem faixa nenhuma seria %+.2f (%s), e com a mesma "
+               "régua pela metade seria %+.2f (%s). A faixa zera %d divulgação(ões) que, com "
+               "o sinal do próprio desvio, pesariam %+.2f — zerar um termo desloca a soma no "
+               "sentido contrário ao dele, que é a mesma aritmética da winsorização revogada. "
+               "A faixa NÃO foi desligada: ela tem tese e é a régua única da casa. O que muda "
+               "é que isto aparece."
+               % (moeda, soma_publicada, direcao_da_soma(soma_publicada),
+                  sem_faixa["soma"], sem_faixa["direcao"],
+                  escala[1]["soma"], escala[1]["direcao"], len(zerados), peso_zerado))
+
+    return {
+        "itens_zerados": len(zerados),
+        "peso_que_os_zerados_teriam": peso_zerado,
+        "soma_sem_faixa": sem_faixa["soma"],
+        "direcao_sem_faixa": sem_faixa["direcao"],
+        "deslocamento_pela_faixa": round(soma_publicada - sem_faixa["soma"], 2),
+        "escala": escala,
+        "direcao_depende_da_faixa": bool(depende),
+        "texto": txt,
+        "o_que_e": FAIXA_NEUTRA["o_que_e"],
+        "por_que_nao_foi_revogada": FAIXA_NEUTRA["por_que_nao_foi_revogada"],
+        "provisorio": True,
+    }
+
+
 # ---------------------------------------------------------------------------------------
-# DIMENSAO 1 — DADOS (com winsorizacao por item e medida de dominancia)
+# DIMENSAO 1 — DADOS (soma CRUA + dominancia como regua de confianca)
 # ---------------------------------------------------------------------------------------
 def dimensao_dados(ev, moeda, agora):
-    """Surpresas desde a ultima decisao, com TETO POR ITEM.
+    """Surpresas desde a ultima decisao. A SOMA E A SOMA — nenhum termo e cortado (08/set).
 
-    (4) O caso do dono: o CAD tinha uma unica divulgacao de emprego com contribuicao -7,9
-    respondendo por 100% da leitura de dados, com so tres divulgacoes no ciclo. Sem teto, um
-    desvio extremo entra inteiro e a dimensao vira o eco de um numero so.
+    (4) O caso do dono continua valendo: o CAD tinha uma unica divulgacao de emprego
+    respondendo por quase toda a leitura de dados, com pouquissimas divulgacoes no ciclo. Isso
+    E um problema, e ele e tratado aqui — mas na CONFIANCA, nao no valor: a participacao do
+    maior item sai medida, acima de 50% a moeda leva BANDEIRA e a qualidade da evidencia fica
+    limitada a (100 - participacao). A direcao sai do dado, nao do tratamento.
+
+    O que existia aqui ate 07/set — winsorizar cada item em 4,0 — deslocava a soma para o lado
+    dos itens que sobravam e chegou a VIRAR a direcao do USD e do GBP em 08/set. Ver o bloco
+    WINSOR_REVOGADA e `regua.tratamento_da_soma.prova_sintetica`.
     """
     meus = [e for e in ev if e.get("moeda") == moeda and e.get("divulgado") is not None
             and e.get("quando_utc")]
@@ -509,6 +842,9 @@ def dimensao_dados(ev, moeda, agora):
     corte = max(decisoes) if decisoes else None
 
     n, n_alto, brutos, familias = 0, 0, [], set()
+    # o que a FAIXA NEUTRA precisa para ser medida: peso, sinal, desvio e o corte da familia
+    # de CADA divulgacao, inclusive das que a faixa zera (essas nao entram em `brutos`).
+    medidos = []
     for e in meus:
         if corte and e["quando_utc"] <= corte:
             continue
@@ -533,104 +869,144 @@ def dimensao_dados(ev, moeda, agora):
         contrib = forca * mod * decai
         n += 1
         n_alto += (imp == "high")
+        medidos.append({"dif": dif, "peso": fam["peso"], "sinal": fam["sinal"],
+                        "mod": mod, "decai": decai,
+                        "corte": corte_da_surpresa(e.get("consenso"), nome),
+                        "titulo": e.get("titulo"), "familia": nome, "classe": classe})
         if contrib:
             brutos.append({"quando_utc": e["quando_utc"], "titulo": e.get("titulo"),
                            "familia": nome, "classe": classe, "impacto": e.get("impacto"),
                            "divulgado": e.get("divulgado"), "consenso": e.get("consenso"),
                            "contribuicao_bruta": round(contrib, 2),
                            "contribuicao": round(contrib, 2), "idade_dias": round(idade, 1),
-                           "winsorizado": False})
+                           "tratado": False})
 
-    # ---- winsorizacao por item -------------------------------------------------------
-    # O teto e FIXO em 0,8 x limiar. A mediana continua calculada e gravada como descritor da
-    # janela, mas nao manda mais no teto — ver o bloco WINSOR: o fator da mediana fabricava e
-    # apagava direcao, e isso foi medido em 05/set.
+    # ---- A SOMA VOLTOU A SER A SOMA (conserto de 08/set) -------------------------------
+    # Nenhum termo e cortado. A mediana continua calculada como DESCRITOR da janela — ela nao
+    # manda em nada desde 05/set e continua nao mandando.
     med = mediana([abs(x["contribuicao_bruta"]) for x in brutos])
-    teto_item = float(WINSOR["teto_absoluto"])
-    n_cortados = 0
-    for x in brutos:
-        c = x["contribuicao_bruta"]
-        if abs(c) > teto_item:
-            x["contribuicao"] = round(math.copysign(teto_item, c), 2)
-            x["winsorizado"] = True
-            n_cortados += 1
+    soma_crua = round(sum(x["contribuicao_bruta"] for x in brutos), 2)
+    part_antes = participacao_do_maior([x["contribuicao_bruta"] for x in brutos])
 
-    soma_bruta = round(sum(x["contribuicao_bruta"] for x in brutos), 2)
+    # O tratamento declarado de hoje e "nenhum". A reescala proporcional existe, esta
+    # DESLIGADA, e a propria funcao prova por que ela nao e remedio para concentracao.
+    fator, registro_tratamento = reescala_proporcional(
+        [x["contribuicao_bruta"] for x in brutos],
+        teto_participacao_pct=DOMINANCIA["corte_participacao_pct"],
+        ligada=(TRATAMENTO_DA_SOMA == "reescala_proporcional"))
+    n_tratados = 0
+    if fator != 1.0:
+        for x in brutos:
+            x["contribuicao"] = round(x["contribuicao_bruta"] * fator, 2)
+            x["tratado"] = True
+            n_tratados += 1
+
     soma = round(sum(x["contribuicao"] for x in brutos), 2)
+    part_depois = participacao_do_maior([x["contribuicao"] for x in brutos])
     brutos.sort(key=lambda x: -abs(x["contribuicao"]))
 
-    # ---- dominancia: quanto o maior item responde da leitura ---------------------------
-    abs_dep = sum(abs(x["contribuicao"]) for x in brutos)
-    abs_ant = sum(abs(x["contribuicao_bruta"]) for x in brutos)
-    share = round(abs(brutos[0]["contribuicao"]) / abs_dep * 100) if abs_dep else 0
-    share_antes = round(abs(max(brutos, key=lambda x: abs(x["contribuicao_bruta"]))["contribuicao_bruta"])
-                        / abs_ant * 100) if abs_ant else 0
+    direcao = direcao_da_soma(soma)
+    direcao_crua = direcao_da_soma(soma_crua)
+    guarda = guarda_de_direcao("a dimensão de dados do %s" % moeda, direcao_crua, direcao,
+                               TRATAMENTO_DA_SOMA)
+    # A FAIXA NEUTRA e o tratamento que sobrou de pe, e ela mora ANTES daqui: a guarda acima
+    # compara a soma tratada com a "crua", mas as duas ja passaram pela faixa. Isto mede o que
+    # a guarda nao alcanca.
+    faixa = mede_faixa_neutra(medidos, moeda, soma_crua)
+
+    # ---- DOMINANCIA — A REGUA DE CONFIANCA, NAO DE VALOR -------------------------------
+    # Ela ja existia e ja funcionava; o que mudou em 08/set foi o que ela COMANDA. Passando do
+    # corte, a moeda leva BANDEIRA e a qualidade da evidencia fica limitada a
+    # (100 - participacao). A direcao nao e tocada — e essa e a diferenca inteira.
+    corte_dom = DOMINANCIA["corte_participacao_pct"]
     dominancia = {
-        "alerta": bool(brutos) and share > 50,
+        "alerta": bool(brutos) and part_depois > corte_dom,
         "item": brutos[0]["titulo"] if brutos else None,
-        "share_pct": share,
-        "share_pct_antes_do_teto": share_antes,
+        "share_pct": part_depois,
+        "corte_pct": corte_dom,
+        "participacao_maior_item_antes": part_antes,
+        "participacao_maior_item_depois": part_depois,
+        "teto_na_qualidade_da_evidencia": ((100 - part_depois)
+                                           if (brutos and part_depois > corte_dom) else None),
+        "muda_a_direcao": False,
+        "o_que_faz": DOMINANCIA["o_que_faz"],
         "texto": None,
+        "provisorio": True,
     }
     if dominancia["alerta"]:
         dominancia["texto"] = ("uma única divulgação responde por %d%% da leitura de dados do %s "
-                               "(%s), com %d divulgações no ciclo"
-                               % (share, moeda, brutos[0]["titulo"], n))
+                               "(%s), com %d divulgações no ciclo — a leitura sai MARCADA e a "
+                               "qualidade da evidência fica limitada a %d/100; a DIREÇÃO não é "
+                               "alterada por causa disto"
+                               % (part_depois, moeda, brutos[0]["titulo"], n, 100 - part_depois))
 
-    direcao = "SOBE" if soma >= LIMIAR_DADOS else "CORTA" if soma <= -LIMIAR_DADOS else "MANTEM"
-
-    # AUDITORIA 05/set: os dois efeitos que a frase antiga do WINSOR negava, medidos aqui e
-    # gravados no JSON, para nunca mais precisarem de fe.
-    #   virou_sozinho     a dimensao saiu de MANTEM porque UM item, mesmo depois do teto,
-    #                     respondeu por mais de metade da leitura
-    #   deslocamento      quanto a soma ANDOU por causa do corte, e para que lado
+    # AUDITORIA — os dois campos que denunciam o proprio metodo, agora com o sentido certo.
+    #   virou_sozinho   UMA divulgacao sozinha passou do limiar E responde por mais de metade
+    #                   da massa. Com a soma crua isso e POSSIVEL, e e exatamente por isso que
+    #                   o campo existe: o caso sai DECLARADO — bandeira + evidencia derrubada —
+    #                   em vez de mascarado por um corte que desloca o total para o outro lado.
+    #   deslocamento    quanto a soma andou por causa de TRATAMENTO. Hoje e 0,00 sempre, porque
+    #                   nao ha tratamento; o campo fica de pe para o dia em que houver.
     maior = abs(brutos[0]["contribuicao"]) if brutos else 0.0
-    # Depois da versao 2 do teto (4,0 < limiar 5,0) isto e IMPOSSIVEL por aritmetica, e fica
-    # aqui como trava viva: se um dia alguem subir o teto ate o limiar de novo, o campo
-    # denuncia sozinho em vez de a promessa voltar a ser falsa em silencio.
     virou_sozinho = bool(direcao != "MANTEM" and brutos and maior >= LIMIAR_DADOS - 1e-9
-                         and share > 50)
-    deslocamento = round(soma - soma_bruta, 2)
-    dir_bruta = ("SOBE" if soma_bruta >= LIMIAR_DADOS else
-                 "CORTA" if soma_bruta <= -LIMIAR_DADOS else "MANTEM")
+                         and part_depois > corte_dom)
+    deslocamento = round(soma - soma_crua, 2)
 
     fam_ind = sorted({MAPA_FAMILIA[f] for f in familias if f in MAPA_FAMILIA})
     # SILENCIO NAO E VOTO (lei do dono, aplicada aqui em 05/set): moeda sem NENHUMA
     # divulgacao na janela lia "MANTEM" com soma 0,0 e contava como dimensao ligada — o NZD
     # saia com duas dimensoes votando tendo zero dado. A direcao continua exibida, mas com
     # "vota": false, e o teto da moeda cai para 0,25, o que joga a moeda em SEM LEITURA.
-    return {"direcao": direcao, "direcao_antes_do_teto": dir_bruta,
+    return {"direcao": direcao, "direcao_crua": direcao_crua,
             "vota": n > 0,
             "por_que_nao_vota": None if n > 0 else
             ("nenhuma divulgação do %s na janela de %d dias — silêncio não é voto: a dimensão "
              "não conta e BAIXA o teto da moeda, em vez de entrar como MANTEM" % (moeda, JANELA_DIAS)),
-            "soma": soma, "soma_antes_do_teto": soma_bruta,
+            # ---- OS QUATRO CAMPOS DE AUDITORIA QUE SAEM SEMPRE (lei de 08/set) ---------
+            # soma crua · soma tratada · participação do maior item antes e depois · bandeira
+            # de mudança de direção. Hoje as duas somas são iguais e a bandeira é false, e é
+            # isso que se quer poder VERIFICAR sem ler o código.
+            "soma": soma, "soma_crua": soma_crua, "soma_tratada": soma,
+            "participacao_maior_item_antes": part_antes,
+            "participacao_maior_item_depois": part_depois,
+            "direcao_mudou_pelo_tratamento": guarda["virou"],
+            "bandeira_de_direcao": guarda["texto"],
             "n": n, "n_alto": n_alto,
             "desde": corte or inicio[:10], "zerado_por_decisao": bool(corte),
             "limiar": LIMIAR_DADOS, "meia_vida_dias": MEIA_VIDA,
             "virou_sozinho": {
                 "sim": virou_sozinho,
-                "texto": ("a dimensão foi para %s com UMA divulgação sozinha: depois do teto "
-                          "ela ainda vale %.2f (o limiar é %.1f) e responde por %d%% da "
-                          "leitura — o teto não desmonopolizou nada"
-                          % (direcao, maior, LIMIAR_DADOS, share)) if virou_sozinho else None},
-            "deslocamento_pelo_teto": {
-                "valor": deslocamento,
-                "direcao_mudou": dir_bruta != direcao,
-                "texto": ("cortar os itens moveu a soma em %+.2f (de %+.2f para %+.2f)%s — "
-                          "winsorizar termos de uma SOMA desloca o total para o lado contrário "
-                          "ao do item cortado, não amortece"
-                          % (deslocamento, soma_bruta, soma,
-                             "; a DIREÇÃO mudou de %s para %s" % (dir_bruta, direcao)
-                             if dir_bruta != direcao else "")) if n_cortados else None},
-            "winsor": {"teto_por_item": round(teto_item, 2),
-                       "mediana_absoluta": round(med, 2),
-                       "mediana_manda_no_teto": False,
-                       "itens_cortados": n_cortados,
-                       "regra": WINSOR["texto"],
-                       "garantia": WINSOR["garantia"],
-                       "aviso_auditoria": WINSOR["aviso_auditoria"], "provisorio": True},
+                "texto": ("a dimensão foi para %s com UMA divulgação: ela vale %.2f sozinha (o "
+                          "limiar é %.1f) e responde por %d%% da massa da dimensão. A direção "
+                          "FICA como está — quem responde por concentração é a bandeira de "
+                          "dominância e a qualidade da evidência, nunca um corte na soma"
+                          % (direcao, maior, LIMIAR_DADOS, part_depois)) if virou_sozinho
+                         else None,
+                "por_que_existe": "com a soma crua, uma divulgação sozinha PODE atingir o "
+                                  "limiar. O caso sai declarado em vez de mascarado — a "
+                                  "garantia antiga (teto 4,0 < limiar 5,0) era paga com "
+                                  "deslocamento da soma, e o preço era virar a direção."},
+            "tratamento_da_soma": {
+                "nome": TRATAMENTO_DA_SOMA,
+                "fator": fator, "itens_tratados": n_tratados,
+                "deslocamento": deslocamento,
+                "soma_crua": soma_crua, "soma_tratada": soma,
+                "direcao_crua": direcao_crua, "direcao_tratada": direcao,
+                "direcao_mudou": guarda["virou"],
+                "bandeira": guarda["texto"],
+                "guarda_de_direcao": guarda,
+                "registro": registro_tratamento,
+                "mediana_absoluta_da_janela": round(med, 2),
+                "mediana_manda_em_alguma_coisa": False,
+                "texto": "não há tratamento na soma desde 08/set: soma tratada = soma crua, "
+                         "deslocamento 0,00, direção do dado e não do método. O que existia "
+                         "aqui (winsorizar cada item em 4,0) deslocava o total para o lado dos "
+                         "itens que sobravam e virou a direção do USD e do GBP. A autópsia "
+                         "inteira está em regua.tratamento_da_soma.winsor_revogada.",
+                "provisorio": True},
             "dominancia": dominancia,
+            "faixa_neutra": faixa,
+            "direcao_depende_da_faixa_neutra": faixa["direcao_depende_da_faixa"],
             "familias_na_janela": sorted(familias),
             "familias_independentes": fam_ind,
             "principais": brutos[:6]}
@@ -1313,6 +1689,19 @@ def qualidade_evidencia(dd, tt, moeda):
     sem_dado = sorted(k for k, v in comp.items() if v is None)
     nota = int(round(sum(usadas) / float(len(usadas)))) if usadas else None
 
+    # ---- TETO PELA DOMINANCIA (08/set) — a concentracao vira CONFIANCA, nao valor --------
+    # Quando UM item responde por mais da metade da massa da dimensao de dados, a nota nao pode
+    # ser maior que a fatia que NAO e desse item: se 76% da dimensao e uma divulgacao so, no
+    # maximo 24% da evidencia e de CONJUNTO. Usa a MESMA medida do alerta que ja existia
+    # (participacao do maior item), sem numero novo, e so morde acima do corte de 50%.
+    # PROVISORIO como todo o resto. A DIRECAO nao e tocada aqui, em nenhuma hipotese.
+    dom = (dd or {}).get("dominancia") or {}
+    nota_antes_dom, teto_dom, limitada = nota, None, False
+    if dom.get("alerta") and nota is not None:
+        teto_dom = int(100 - int(dom.get("share_pct") or 0))
+        if nota > teto_dom:
+            nota, limitada = teto_dom, True
+
     partes = []
     partes.append("%d divulgações e %d fala(s) que votam na janela" % (n_dados, n_falas))
     if n_contexto:
@@ -1334,10 +1723,20 @@ def qualidade_evidencia(dd, tt, moeda):
                          "—" if conf_se_votasse is None else conf_se_votasse))
     else:
         partes.append("nenhuma fala conectada — a parte confiabilidade sai sem dado, não zero")
+    if limitada:
+        partes.append("⚠️ uma única divulgação responde por %d%% da dimensão de dados (%s): a "
+                      "nota cai de %d para %d, o teto da concentração — a DIREÇÃO não muda por "
+                      "isso" % (int(dom.get("share_pct") or 0), dom.get("item") or "?",
+                                nota_antes_dom, nota))
     return {"nota": nota, "componentes": comp,
             "confiabilidade_da_fala_se_votasse": conf_se_votasse,
             "partes_usadas": len(usadas), "partes_sem_dado": sem_dado,
             "contexto_nao_contado": n_contexto,
+            # ---- o que a dominância fez com a nota, sempre gravado ----------------------
+            "nota_antes_da_dominancia": nota_antes_dom,
+            "limitada_pela_dominancia": bool(limitada),
+            "teto_pela_dominancia": teto_dom,
+            "dominancia_share_pct": (dom.get("share_pct") if dom.get("alerta") else None),
             "explicacao": "qualidade %s/100 do %s (média de %d parte(s) com dado%s) — %s."
                           % ("—" if nota is None else nota, moeda, len(usadas),
                              "; sem dado em " + ", ".join(sem_dado) if sem_dado else "",
@@ -1347,6 +1746,14 @@ def qualidade_evidencia(dd, tt, moeda):
                       "pesos_de_fala": PESOS_DE_FALA,
                       "parte_sem_dado": "sai null e NÃO entra na média — dimensão sem dado "
                                         "baixa o denominador, nunca conta como zero",
+                      "teto_pela_dominancia": {
+                          "corte_pct": DOMINANCIA["corte_participacao_pct"],
+                          "regra": "quando o maior item passa de %d%% da massa da dimensão de "
+                                   "dados, a nota fica limitada a (100 - participação)"
+                                   % DOMINANCIA["corte_participacao_pct"],
+                          "por_que": DOMINANCIA["por_que_o_teto_e_100_menos_a_participacao"],
+                          "nao_toca_a_direcao": True,
+                          "desde": "2026-09-08", "provisorio": True},
                       "so_conta_quem_vota": "item de imprensa que não vota é contexto e não "
                                             "entra em quantidade, diversidade nem atualidade",
                       "confiabilidade_desligada_em": "2026-09-05",
@@ -1552,7 +1959,9 @@ def le_moeda(m, ev, bancos, discursos, agora, geo=None, noticias=None, futuros=N
     intensidade = 0 if direcao == "MANTEM" else (1 if conv <= 25 else 2 if conv <= 50 else 3)
     # SCORE CONTINUO, -1 a +1 — e o que o par usa. Cada dimensao que VOTA vale ate +-0,25, e
     # entra com a MAGNITUDE que tem, nao so com o voto:
-    #   dados   soma decaida E WINSORIZADA, por tanh — sem teto abrupto
+    #   dados   soma decaida (CRUA — a winsorizacao foi revogada em 08/set), comprimida por
+    #           tanh, que e monotona e impar: ela satura a MAGNITUDE da parcela sem nunca
+    #           mudar o SINAL dela. E saturacao do AGREGADO, nao corte de termo.
     #   ciclo   +-0,25 x DECAIMENTO (tempo)
     #   texto   0,000 sempre — nao vota desde 05/set (o que ela diria fica em texto_se_votasse)
     #   geo     0,000 sempre — nao vota desde 05/set
@@ -1563,6 +1972,11 @@ def le_moeda(m, ev, bancos, discursos, agora, geo=None, noticias=None, futuros=N
     dd = dims["dados"]
     comp["dados"] = (0.25 * math.tanh(dd["soma"] / (2.0 * LIMIAR_DADOS))
                      if dd and dd.get("vota") else 0.0)
+    # a MESMA conta com a soma CRUA — é a referência da guarda de direção (lei de 08/set).
+    # Hoje as duas são idênticas, porque não há tratamento; o par de números existe para que
+    # isso possa ser CONFERIDO no arquivo, e não acreditado.
+    comp_dados_cru = (0.25 * math.tanh(dd["soma_crua"] / (2.0 * LIMIAR_DADOS))
+                      if dd and dd.get("vota") else 0.0)
     tt = dims["texto"]
     comp["texto"] = 0.0
     cc = dims["ciclo"]
@@ -1580,6 +1994,7 @@ def le_moeda(m, ev, bancos, discursos, agora, geo=None, noticias=None, futuros=N
     else:
         texto_se_votasse = 0.0
     score = round(sum(comp.values()), 3)
+    score_cru = round(comp_dados_cru + comp["ciclo"] + comp["texto"] + comp["geo"], 3)
 
     qual = qualidade_evidencia(dd, tt, m)
     fams = set((dd or {}).get("familias_independentes") or [])
@@ -1588,9 +2003,82 @@ def le_moeda(m, ev, bancos, discursos, agora, geo=None, noticias=None, futuros=N
     dom = dict((dd or {}).get("dominancia") or
                {"alerta": False, "item": None, "share_pct": 0, "texto": None})
 
+    discordam = len({v["direcao"] for v in disponiveis.values()}) > 1
     leitura, leitura_txt, leitura_motivo, intens_rel = zona_de_leitura(
-        score, len(disponiveis), direcao,
-        dimensoes_discordam=len({v["direcao"] for v in disponiveis.values()}) > 1)
+        score, len(disponiveis), direcao, dimensoes_discordam=discordam)
+
+    # ---- GUARDA DE DIREÇÃO (lei estrutural de 08/set) -----------------------------------
+    # A MESMA leitura, refeita com a soma CRUA. Se o tratamento mudar a leitura em relação ao
+    # cru, isso não passa em silêncio: sai bandeira, sai texto, e a moeda vai para SEM LEITURA
+    # até alguém decidir qual das duas vale — porque leitura cuja direção depende do tratamento
+    # não é leitura, é escolha de método. Hoje o tratamento é "nenhum" e a guarda nunca dispara;
+    # ela existe para que a família inteira do erro da winsorização não possa voltar calada.
+    leitura_crua, _lc_txt, _lc_mot, intens_crua = zona_de_leitura(
+        score_cru, len(disponiveis), direcao, dimensoes_discordam=discordam)
+    guarda_leitura = guarda_de_direcao("a leitura do %s" % m, leitura_crua, leitura,
+                                       TRATAMENTO_DA_SOMA)
+    # ⚠️ BURACO FECHADO EM 08/set (auditoria do refutador): a suspensão olhava SÓ para a
+    # leitura da moeda. Mas o tratamento pode virar a direção da DIMENSÃO DE DADOS sem virar a
+    # leitura — basta o ciclo carregar o sinal. Medido em moeda sintética: soma crua +6,00
+    # (SOBE) e soma tratada -6,00 (CORTA), com o ciclo em alta recente, saía com
+    # `direcao_mudou_pelo_tratamento: true`, leitura publicada "inclinado à alta" e
+    # "1 de 2 dimensões concordam" — a direção da dimensão publicada era a do MÉTODO e a moeda
+    # continuava de pé. A lei escrita aqui e no §4 do método diz SUSPENDE, então suspende nos
+    # dois níveis. Hoje o gatilho é código morto (o tratamento é "nenhum" e a soma tratada é
+    # igual à crua nas oito moedas): a mudança não altera nenhum número publicado, ela fecha o
+    # caminho para o dia em que alguém puser um tratamento de volta.
+    virou_na_dimensao = bool((dd or {}).get("direcao_mudou_pelo_tratamento"))
+    if guarda_leitura["virou"] or virou_na_dimensao:
+        onde = ("a leitura da moeda" if guarda_leitura["virou"]
+                else "a direção da dimensão de dados")
+        de_para = ((leitura_crua, guarda_leitura["para"]) if guarda_leitura["virou"]
+                   else ((dd or {}).get("direcao_crua"), (dd or {}).get("direcao")))
+        leitura, leitura_txt = "sem_leitura", "sem leitura"
+        leitura_motivo = ("sem leitura: o tratamento '%s' mudaria %s de '%s' para '%s'. "
+                          "Leitura cuja direção depende do tratamento não é leitura — a moeda "
+                          "fica suspensa até alguém decidir qual das duas vale. Tudo o que foi "
+                          "medido continua no arquivo."
+                          % (TRATAMENTO_DA_SOMA, onde, de_para[0], de_para[1]))
+
+    # ---- AS BANDEIRAS DA MOEDA — o painel nunca esconde ---------------------------------
+    bandeiras = []
+    # A FAIXA NEUTRA mexeu na direcao desta perna? Ela continua ligada (tem tese), mas nao
+    # passa calada — e a mesma lei que a winsorizacao produziu: tratamento que mexe na
+    # direcao APARECE.
+    _fx = (dd or {}).get("faixa_neutra") or {}
+    if _fx.get("direcao_depende_da_faixa"):
+        bandeiras.append({
+            "tipo": "faixa_neutra",
+            "muda_a_direcao": True,
+            "soma_publicada": (dd or {}).get("soma"),
+            "soma_sem_faixa": _fx.get("soma_sem_faixa"),
+            "direcao_sem_faixa": _fx.get("direcao_sem_faixa"),
+            "itens_zerados": _fx.get("itens_zerados"),
+            "efeito": "a direção da dimensão de dados depende da largura da faixa neutra, que "
+                      "é PROVISÓRIA e nunca foi validada contra o que o banco central fez "
+                      "depois",
+            "texto": _fx.get("texto")})
+    if dom.get("alerta"):
+        bandeiras.append({
+            "tipo": "dominancia", "share_pct": dom.get("share_pct"),
+            "corte_pct": dom.get("corte_pct"), "item": dom.get("item"),
+            "muda_a_direcao": False,
+            "efeito": "qualidade da evidência limitada a %s/100; a direção continua a do dado"
+                      % dom.get("teto_na_qualidade_da_evidencia"),
+            "texto": dom.get("texto")})
+    if (dd or {}).get("direcao_mudou_pelo_tratamento"):
+        bandeiras.append({"tipo": "direcao_virada_por_tratamento", "onde": "dimensão de dados",
+                          "texto": (dd or {}).get("bandeira_de_direcao"), "muda_a_direcao": True,
+                          "efeito": "moeda suspensa em SEM LEITURA"})
+    if guarda_leitura["virou"]:
+        bandeiras.append({"tipo": "direcao_virada_por_tratamento", "onde": "leitura da moeda",
+                          "texto": guarda_leitura["texto"], "muda_a_direcao": True,
+                          "efeito": "moeda suspensa em SEM LEITURA"})
+    if ((dd or {}).get("virou_sozinho") or {}).get("sim"):
+        bandeiras.append({"tipo": "uma_divulgacao_atinge_o_limiar",
+                          "texto": dd["virou_sozinho"]["texto"], "muda_a_direcao": False,
+                          "efeito": "a direção fica; a evidência cai e a bandeira aparece"})
+
     regime, regime_motivo = regime_do_banco(cc, dd, b)
     pev = proximo_evento_relevante(m, futuros or [], agora)
     nota_q = (qual or {}).get("nota")
@@ -1626,6 +2114,12 @@ def le_moeda(m, ev, bancos, discursos, agora, geo=None, noticias=None, futuros=N
         "moeda": m, "direcao": direcao_leitura, "direcao_voto_maioria": direcao_voto_maioria,
         "intensidade": intensidade,
         "score": score, "score_componentes": comp,
+        # ---- AUDITORIA DO TRATAMENTO (lei de 08/set): a leitura crua ao lado da publicada ---
+        "score_cru": score_cru,
+        "leitura_crua": leitura_crua,
+        "intensidade_relativa_crua_pct": intens_crua,
+        "guarda_de_direcao": guarda_leitura,
+        "bandeiras": bandeiras,
         "score_texto_se_votasse": texto_se_votasse,
         # TETO DA LEITURA = 0,25 por dimensao que VOTA. Sao duas (dados e ciclo) desde que a
         # fala e a geopolitica sairam do voto em 05/set, entao o teto e 0,50 — SEMPRE, nas
@@ -1831,6 +2325,29 @@ def le_pares(leituras, bancos=None):
             if d.get("alerta") and d.get("texto"):
                 alertas.append("uma única divulgação responde por %d%% da leitura do %s (%s)"
                                % (d.get("share_pct") or 0, m, d.get("item")))
+            # auditoria de 08/set: a FAIXA NEUTRA é um piso aplicado a cada termo ANTES da
+            # soma. Quando a direção de uma perna depende da largura dela, isso vai para a
+            # tela — é onde o painel lê, e a lei é que tratamento que mexe na direção aparece.
+            fx = ((L.get("dimensoes") or {}).get("dados") or {}).get("faixa_neutra") or {}
+            if fx.get("direcao_depende_da_faixa"):
+                _dd = (L.get("dimensoes") or {}).get("dados") or {}
+                _hoje = _dd.get("direcao") or "?"
+                _rot = {0.0: "sem faixa nenhuma", 0.5: "com a faixa pela metade",
+                        2.0: "com a faixa dobrada"}
+                _outras = ["%s a soma é %+.2f (%s)"
+                           % (_rot.get(e["fator"], "com a faixa a %.1fx" % e["fator"]),
+                              e["soma"], e["direcao"])
+                           for e in (fx.get("escala") or [])
+                           if e["fator"] != 1.0 and e["direcao"] != _hoje]
+                alertas.append("a direção dos DADOS do %s depende da FAIXA NEUTRA (a régua de "
+                               "'veio como esperado', PROVISÓRIA e nunca validada): hoje a "
+                               "soma é %+.2f (%s), mas %s. A faixa zera %d divulgação(ões) "
+                               "que, com o sinal do próprio desvio, pesariam %+.2f — zerar um "
+                               "termo desloca a soma para o lado contrário, a mesma aritmética "
+                               "da winsorização revogada"
+                               % (m, _dd.get("soma") or 0.0, _hoje, "; ".join(_outras),
+                                  fx.get("itens_zerados") or 0,
+                                  fx.get("peso_que_os_zerados_teriam") or 0.0))
         if q_par is None:
             alertas.append("qualidade da evidência do par sai SEM NOTA: o %s não tem dado em "
                            "nenhuma das quatro partes — buraco declarado, não zero" % elo)
@@ -2350,8 +2867,9 @@ def main():
     bancos = carrega_json(BANCOS)
     discursos = carrega_json(DISCURSOS) or carrega_json(DISCURSOS_FED)
     print("  eventos na janela: %d  (%s)" % (len(ev), origem))
-    print("  regras novas de 05/set: FALA e geopolítica NÃO votam (teto 0,50) · ciclo com decaimento · "
-          "winsorização por item · zona neutra 0-14")
+    print("  regras: FALA e geopolítica NÃO votam (teto 0,50) · ciclo com decaimento · zona "
+          "neutra 0-14 · 08/set: soma CRUA (winsorização revogada), dominância = régua de "
+          "CONFIANÇA, guarda de direção ligada")
 
     geo = carrega_json(GEO)
     noticias = carrega_json(NOTICIAS)
@@ -2424,16 +2942,31 @@ def main():
         print("    · nenhuma fala com texto lido na janela")
 
     print()
-    print("  DOMINÂNCIA — quanto o maior item responde da dimensão de dados (teto por item %s)"
-          % WINSOR["teto_absoluto"])
+    print("  DOMINÂNCIA — régua de CONFIANÇA (corte %d%%). A soma é CRUA desde 08/set: nenhum "
+          "termo é cortado, e a direção nunca é alterada por concentração."
+          % DOMINANCIA["corte_participacao_pct"])
     for m in MOEDAS:
-        dd = leituras[m]["dimensoes"]["dados"]
+        x = leituras[m]
+        dd = x["dimensoes"]["dados"]
         d = dd["dominancia"]
-        print("    %-4s soma %+6.2f (antes do teto %+6.2f) · maior item %3d%% (antes %3d%%) · "
-              "cortados %d · %s"
-              % (m, dd["soma"], dd["soma_antes_do_teto"], d["share_pct"],
-                 d["share_pct_antes_do_teto"], dd["winsor"]["itens_cortados"],
-                 "ALERTA" if d["alerta"] else "ok"))
+        q = x["qualidade_evidencia"]
+        print("    %-4s soma crua %+6.2f = soma tratada %+6.2f (desloc %+.2f) · maior item %3d%% "
+              "(antes %3d%%) · direção %-6s · qualidade %s%s · %s"
+              % (m, dd["soma_crua"], dd["soma_tratada"],
+                 dd["tratamento_da_soma"]["deslocamento"],
+                 dd["participacao_maior_item_depois"], dd["participacao_maior_item_antes"],
+                 dd["direcao"],
+                 "—" if q["nota"] is None else str(q["nota"]),
+                 (" (era %s, teto pela dominância)" % q["nota_antes_da_dominancia"])
+                 if q.get("limitada_pela_dominancia") else "",
+                 "ALERTA DE DOMINÂNCIA" if d["alerta"] else "ok"))
+    viradas = [m for m in MOEDAS
+               if leituras[m]["guarda_de_direcao"]["virou"]
+               or leituras[m]["dimensoes"]["dados"]["direcao_mudou_pelo_tratamento"]]
+    print("    GUARDA DE DIREÇÃO (nenhum tratamento vira a direção em silêncio): %s"
+          % (", ".join(viradas) if viradas else
+             "nenhuma moeda teve a direção mudada por tratamento — soma tratada = soma crua "
+             "nas 8, deslocamento 0,00"))
 
     pares = le_pares(leituras, bancos)
     conta = Counter(r["estado"] for r in pares)
@@ -2460,6 +2993,15 @@ def main():
           "divulgações; as faixas foram desenhadas na escala muda e estão desalinhadas até o "
           "backtest — leia a ORDEM dos pares, não a palavra da faixa."
           % dist_faixas["o_que_a_regua_mudou"])
+    _w = dist_faixas["antes_do_conserto_da_soma_08set"]
+    print("  ANTES do conserto da soma (08/set, MESMO calendário e MESMO instante, com "
+          "winsorização por item): sem_tese %d · observação %d · moderada %d · forte %d"
+          % (_w["sem_tese"], _w["observacao"], _w["moderada"], _w["forte"]))
+    print("  → %s. Tirar o corte de dentro da soma devolveu a direção ao dado: o USD saiu de "
+          "'inclinado ao corte' (soma -8,29 fabricada) para SEM LEITURA (soma crua -1,19), e o "
+          "CAD saiu de 'sem leitura' (soma -1,81 apagada) para 'inclinado ao corte' (soma crua "
+          "-4,80), agora com BANDEIRA de dominância e evidência fraca."
+          % dist_faixas["o_que_o_conserto_da_soma_mudou"])
     print("  PARES COM TESE — %d de %d" % (len(neg), len(pares)))
     print("  %-8s %-5s %-11s %-5s %-5s %-6s %-26s %s"
           % ("par", "lado", "estado", "div", "qual", "perna", "ação / motivo", "invalidante"))
@@ -2598,7 +3140,74 @@ def main():
                                             "fala e veículo acima do limiar (origem "
                                             "imprensa_com_fala), e pesa 0,4.",
                               "provisorio": True},
-            "winsor": WINSOR,
+            # ⚠️ CONSERTO DE 08/set — a winsorização por item foi REVOGADA. O que existe no
+            # lugar: soma crua + dominância como régua de CONFIANÇA + guarda de direção.
+            "tratamento_da_soma": {
+                "nome": TRATAMENTO_DA_SOMA,
+                "texto": "a dimensão de dados é a SOMA das contribuições reais (peso da "
+                         "família × modulador de impacto × decaimento por idade). Nenhum termo "
+                         "é cortado, aparado ou reescalado DEPOIS de classificado.",
+                "o_que_este_campo_NAO_cobre": "a FAIXA NEUTRA, que roda ANTES: divulgação "
+                         "dentro do corte da família entra na soma como ZERO. É um PISO em "
+                         "termos de uma soma — a mesma aritmética da winsorização, por baixo. "
+                         "Ela continua ligada porque tem tese econômica e é a régua única da "
+                         "casa, mas parou de ser invisível: cada moeda publica "
+                         "dimensoes.dados.faixa_neutra com os itens zerados, o peso que eles "
+                         "teriam e a direção com a faixa em 0x, 0,5x, 1x e 2x. Quando a "
+                         "direção depende dela, sai bandeira na moeda e alerta no par.",
+                "faixa_neutra": FAIXA_NEUTRA,
+                "por_que": "cortar termos de uma soma desloca o TOTAL pelo tanto cortado, no "
+                           "sentido contrário ao do item cortado. Quando os itens grandes "
+                           "estão do mesmo lado — o caso do dólar em 08/set, com os três "
+                           "maiores altistas e de impacto alto — o corte tira peso de UM LADO "
+                           "SÓ e a leitura anda para o outro. Peso relativo é problema de "
+                           "PARTICIPAÇÃO e se resolve na CONFIANÇA, não nos termos da soma.",
+                "winsor_revogada": WINSOR_REVOGADA,
+                "reescala_proporcional": {
+                    "ligada": False,
+                    "o_que_seria": "multiplicar TODOS os itens pelo mesmo fator — a única forma "
+                                   "de limitar peso que preserva o sinal e as proporções",
+                    "por_que_nao_resolve_dominancia": "a participação do maior item é "
+                        "|x_max|·k / Σ|x_i|·k = |x_max| / Σ|x_i|: o fator comum CANCELA. "
+                        "Nenhum k derruba a participação de 100% do NZD para abaixo de 50%. "
+                        "Reescalar limita MAGNITUDE; o pedido do dono é sobre PARTICIPAÇÃO.",
+                    "por_que_tambem_nao_e_neutra": "o limiar de %s é fixo, então encolher tudo "
+                                                   "por um fator comum empurra moedas de "
+                                                   "SOBE/CORTA para MANTÉM sem que nenhum dado "
+                                                   "tenha mudado." % LIMIAR_DADOS},
+                "prova_sintetica": prova_do_tratamento(),
+                "grava_sempre": ["soma_crua", "soma_tratada",
+                                 "participacao_maior_item_antes",
+                                 "participacao_maior_item_depois",
+                                 "direcao_mudou_pelo_tratamento", "bandeira_de_direcao"],
+                "provisorio": True},
+            "dominancia": {
+                "corte_participacao_pct": DOMINANCIA["corte_participacao_pct"],
+                "o_que_mede": DOMINANCIA["o_que_mede"],
+                "o_que_faz": DOMINANCIA["o_que_faz"],
+                "por_que_o_teto_e_100_menos_a_participacao":
+                    DOMINANCIA["por_que_o_teto_e_100_menos_a_participacao"],
+                "nunca_muda_a_direcao": True,
+                "provisorio": True},
+            "guarda_de_direcao": {
+                "lei": "NENHUM TRATAMENTO VIRA A DIREÇÃO EM SILÊNCIO. Se qualquer "
+                       "transformação mudar a direção da leitura em relação ao cru, o campo "
+                       "sai com bandeira e texto, e a moeda vai para SEM LEITURA até alguém "
+                       "decidir — leitura cuja direção depende do tratamento não é leitura, é "
+                       "escolha de método, e escolha de método é do dono.",
+                "desde": "2026-09-08",
+                "onde_vale": ["dimensão de dados (direcao_crua × direcao)",
+                              "leitura da moeda (leitura_crua × leitura)"],
+                "onde_NAO_alcanca": "o que acontece ANTES da classificação. A soma que a "
+                                    "guarda chama de 'crua' já passou pela FAIXA NEUTRA, pelo "
+                                    "modulador de impacto e pelo decaimento. Medido em 08/set: "
+                                    "a faixa neutra sozinha decide a direção do USD (com ela "
+                                    "MANTÉM, sem ela CORTA), e o campo `faixa_neutra` de cada "
+                                    "moeda é quem cobre esse trecho.",
+                "o_que_a_originou": "a winsorização virou a direção do USD (MANTÉM→CORTA) e do "
+                                    "GBP (MANTÉM→CORTA) em 08/set, e o painel publicou as duas "
+                                    "como se fossem leitura do dado.",
+                "provisorio": True},
             "ciclo_decaimento": {"meia_vida_dias": CICLO_MEIA_VIDA_DIAS,
                                  "meia_vida_reunioes": CICLO_MEIA_VIDA_REUNIOES,
                                  "meia_vida_reunioes_ligada": False,

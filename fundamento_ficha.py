@@ -415,6 +415,35 @@ def campo(valor, fonte=None, motivo=None, unidade=None):
     return {"valor": valor, "fonte": fonte, "unidade": unidade, "sem_dado": None}
 
 
+def ressalva_roic(U, L):
+    """As ressalvas do ROIC, incluindo a do CLIPE DA ALIQUOTA (08/set).
+
+    O ROIC e EBIT x (1 - aliquota) / capital investido, e a aliquota entra CLIPADA em
+    [0; 0,60]. Quando a aliquota efetiva passa de 100% o (1 - aliquota) verdadeiro e negativo
+    e o clipado e positivo: o tratamento VIRA O SINAL do numero publicado. O clipe fica — o
+    numero sem ele tambem nao presta —, mas o caso sai declarado, nunca calado.
+    """
+    partes = []
+    if not U.get("divida_encontrada"):
+        partes.append("capital investido calculado SEM conta de divida (nenhuma foi "
+                      "encontrada no XBRL) — pode ser empresa sem divida ou tag ausente")
+    if U.get("clipe_virou_o_sinal"):
+        partes.append("a aliquota efetiva deste TTM e %.1f%% (imposto maior que o lucro antes "
+                      "de impostos). Ela entra CLIPADA em 60%%, e o clipe VIRA O SINAL: sem "
+                      "ele o NOPAT — e portanto o ROIC — seria NEGATIVO. O numero acima e o "
+                      "clipado" % (100 * (U.get("aliquota_efetiva") or 0)))
+    elif U.get("aliquota_clipada"):
+        partes.append("aliquota efetiva de %.1f%% clipada para %.1f%% (faixa [0; 60], "
+                      "PROVISORIA): o nivel do ROIC muda, o sinal nao"
+                      % (100 * (U.get("aliquota_efetiva") or 0),
+                         100 * (U.get("aliquota_usada") or 0)))
+    n_virou = sum(1 for x in L if x.get("clipe_virou_o_sinal"))
+    if n_virou and not U.get("clipe_virou_o_sinal"):
+        partes.append("%d TTM(s) da SERIE tem o sinal do ROIC virado pelo clipe da aliquota — "
+                      "a tendencia ao lado le esses pontos ja clipados" % n_virou)
+    return "; ".join(partes) if partes else None
+
+
 def tendencia(sv, bom_subir=True, n=N_TEND):
     """Inclinacao de Theil-Sen (mediana das inclinacoes par a par) nos ultimos n
     TTMs + delta contra 4 trimestres atras. Theil-Sen porque um trimestre
@@ -500,13 +529,31 @@ def linhas_ttm(cf):
         ebitda = (op + da) if (op is not None and da is not None) else None
         fcf = (ocf - cap) if (ocf is not None and cap is not None) else None
         imp, lair = T["imp"].get(e), T["lair"].get(e)
-        taxa = (imp / lair) if (imp is not None and lair not in (None, 0)) else 0.21
-        taxa = min(max(taxa, 0.0), 0.60)
+        taxa_bruta = (imp / lair) if (imp is not None and lair not in (None, 0)) else 0.21
+        # O CLIPE DA ALIQUOTA E UM TETO/PISO APLICADO A UM TERMO QUE DEPOIS VIRA NUMERO
+        # PUBLICADO (auditoria de 08/set). Ele existe por um motivo real: aliquota efetiva de
+        # TTM sai absurda quando ha credito fiscal ou baixa de uma vez so, e ROIC de -1128%
+        # nao e rentabilidade, e denominador colapsando. Mas ele PODE VIRAR O SINAL do NOPAT:
+        # com aliquota efetiva acima de 100% o (1 - taxa) verdadeiro e NEGATIVO e o clipado e
+        # positivo. Medido no cache de 08/set: 26 de 152 TTMs recentes caem fora de [0; 0,60],
+        # e em dois deles o sinal vira — General Mills (TTM de 2026-05-31, aliquota 1,022) e
+        # John Wiley (TTM de 2024-10-31, aliquota 4,634, ROIC -25,58% sem clipe contra +2,82%
+        # com clipe). O clipe FICA, porque o numero sem ele tambem nao serve; o que muda e que
+        # ele para de ser silencioso: `clipe_virou_o_sinal` sai na linha e vira ressalva.
+        taxa = min(max(taxa_bruta, 0.0), 0.60)
+        # so conta como "clipada" o que move a aliquota em mais de 0,5 pp — abaixo disso o
+        # clipe existe no papel e nao move numero nenhum, e ressalva que nao muda nada e ruido.
+        clipou = abs(taxa - taxa_bruta) > 0.005
+        virou_sinal = clipou and ((1 - taxa_bruta) < 0 <= (1 - taxa))
         cap_inv = (pl + (dl or 0) - (cx or 0)) if pl is not None else None
         roic = (op * (1 - taxa) / cap_inv) if (op is not None and cap_inv and cap_inv > 0) else None
         L.append({
             "divida_encontrada": achou_div,
             "ebit_derivado": e in derivado_op,
+            "aliquota_efetiva": num(taxa_bruta, 3),
+            "aliquota_usada": num(taxa, 3),
+            "aliquota_clipada": bool(clipou),
+            "clipe_virou_o_sinal": bool(virou_sinal),
             "fim_trim": e,
             "publicado_em": S["rec"].get(e, {}).get("filed_orig"),
             "receita_ttm": rec, "lucro_liq_ttm": ni, "ebitda_ttm": ebitda,
@@ -802,9 +849,7 @@ def monta_ficha(tic, cikmap):
         "roic": cmp_("roic", "%", motivo="ROIC exige PL, divida e caixa no mesmo trimestre; "
                                          "quando o capital investido nao fecha (ou e negativo), "
                                          "use o ROE ao lado"),
-        "ressalva_roic": (None if U.get("divida_encontrada") else
-                          "capital investido calculado SEM conta de divida (nenhuma foi "
-                          "encontrada no XBRL) — pode ser empresa sem divida ou tag ausente"),
+        "ressalva_roic": ressalva_roic(U, L),
         "roe": cmp_("roe", "%", permite_reserva=(U.get("pl") is None),
                     motivo=("patrimonio liquido de US$ %.2f bi (NAO POSITIVO) — o ROE nao tem "
                             "significado economico aqui; leia o ROIC" % (U["pl"] / 1e9)

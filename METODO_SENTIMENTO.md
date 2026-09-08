@@ -1,6 +1,6 @@
 # MÉTODO — a leitura de sentimento macro do HCI FUND RADAR
 
-*Documento vivo. Revisão de 06/set/2026.*
+*Documento vivo. Revisão de 08/set/2026 — a winsorização por item foi revogada (§4).*
 *Cada número aqui tem, ao lado, a janela em que foi medido e o rótulo de PROVISÓRIO quando é
 provisório. Onde não há medição, está escrito que não há.*
 
@@ -261,30 +261,119 @@ Até existirem, a dimensão informa e não vota, sem atalho.
 
 ---
 
-## 4. A winsorização — nenhuma divulgação manda sozinha
+## 4. A concentração — nenhuma divulgação manda sozinha, e a soma continua sendo a soma
 
-Cada divulgação entra na soma com no máximo **4,0 em módulo**. Como o limiar da dimensão é
-**5,0**, e 4,0 < 5,0, **nenhuma divulgação sozinha atinge o limiar**: são precisas pelo menos
-duas. Isso é aritmética do teto, não observação de um dia.
+*Reescrito em 08/set/2026. A winsorização por item foi **revogada**.*
 
-**O caso que originou a regra:** o CAD tinha uma única divulgação de emprego com contribuição
-−7,9 respondendo por 100% da leitura de dados, com três divulgações no ciclo.
+**O pedido do dono estava certo; o lugar onde a regra foi posta estava errado.** O caso dele
+(05/set): o CAD com uma única divulgação de emprego respondendo por quase toda a dimensão, com
+três divulgações no ciclo. A resposta de 05/set foi cortar cada item em 4,0 dentro da **soma**.
+Peso relativo é problema de **participação**, e ela foi tratada mexendo nos **termos da soma**.
 
-**Um fator foi retirado, e o motivo é medido.** O teto era `2,5 × mediana da janela`. Depois do
-decaimento a mediana vive perto de 0,5, então o teto caía para ~1,2 — e isso **fabricava**
-direção (um item de +7,83 com dezessete de −0,50 fazia −0,67 virar −7,25) e **apagava** dado
-legítimo (−9,0 e −8,0 no meio do ruído: −16,60 virava −1,85). Hoje o teto é absoluto e fixo.
+### O que a winsorização fazia, medido em 08/set na própria rodada
 
-**O preço da regra, dito na cara:** winsorizar termos de uma soma **desloca o total** pelo tanto
-que foi cortado, no sentido contrário ao do item cortado. Não é defeito escondido — cada moeda
-grava `deslocamento_pelo_teto` e `direcao_antes_do_teto`.
+| moeda | soma crua | soma winsorizada | direção |
+|---|---|---|---|
+| USD | −1,19 | **−8,29** | MANTÉM → **CORTA** |
+| GBP | −4,66 | **−5,77** | MANTÉM → **CORTA** |
 
-**O alerta de dominância continua.** Quando o maior item responde por mais de 50% da dimensão, o
-par recebe um alerta escrito. Hoje: NZD 100% (Terms of Trade Index) e CAD 63% (Net Change in
-Employment).
+Os **três maiores** itens do dólar eram **altistas** e de impacto alto — ISM Services PMI
+(+4,25), Average Hourly Earnings (+7,90), Nonfarm Payrolls (+7,02) — e só eles foram cortados
+para 4,00. Os baixistas (−3,98, −3,82) passaram inteiros. **O corte tirou peso de um lado só.**
+Consequência na tela: o painel lia *"USD inclinado ao corte"* enquanto os futuros de fed funds
+pagavam p_alta = 0,5786 para o FOMC de 16/09. Parte da divergência que é o **produto** do painel
+era defeito nosso.
 
-O valor 4,0 é **PROVISÓRIO**, escolhido por ordem de grandeza — a menor folga que ainda deixa
-duas divulgações grandes virarem a leitura — e vai ao backtest junto com o limiar.
+E o efeito ia nos **dois sentidos**, conforme o lado em que estivessem os itens grandes: no CAD
+a mesma regra puxava a soma de −4,80 para −1,81, a intensidade caía para 9% e a moeda **sumia**
+em "sem leitura". Fabricava direção numa moeda e apagava direção noutra.
+
+**A aritmética, para não precisar de fé:** cortar um termo *x* para *c* muda a soma em
+`(c − x)`, que tem o **sinal contrário** ao de *x*. Winsorizar termos de uma soma não amortece o
+item: **desloca o total**. Não existe escolha de teto que conserte isso — as duas versões da
+regra (teto pela mediana, teto fixo 4,0) morreram da mesma causa com diagnósticos diferentes.
+
+### O que vale desde 08/set — quatro regras
+
+1. **A soma é a soma.** Cada divulgação entra com a contribuição real
+   (`peso da família × modulador de impacto × decaimento`). Nenhum termo é cortado.
+2. **A dominância é régua de CONFIANÇA, não de valor.** A participação do maior item na massa
+   absoluta da dimensão continua medida — ela já existia e já funcionava. Passando de **50%**
+   (corte PROVISÓRIO) a moeda sai com **bandeira** e a **qualidade da evidência fica limitada a
+   `100 − participação`**. A direção **não** é tocada.
+3. **Quem quiser limitar peso usa reescala proporcional** — multiplicar *todos* os itens pelo
+   mesmo fator, a única forma que preserva o sinal e as proporções. Ela está implementada e
+   **desligada**, com a prova de por que não serve aqui: a participação é
+   `|x_max|·k / Σ|x_i|·k = |x_max| / Σ|x_i|` — **o fator comum cancela**. Nenhum *k* derruba os
+   100% do NZD para abaixo de 50%. Reescalar limita **magnitude**; o pedido é sobre
+   **participação**. E ela também não é neutra: com o limiar fixo em 5,0, dividir tudo por dois
+   empurra moedas de SOBE/CORTA para MANTÉM sem que nenhum dado tenha mudado.
+4. **Nenhum tratamento vira a direção em silêncio** (§4.1).
+
+### 4.1 A guarda de direção — a lei que fecha a família inteira do erro
+
+Qualquer transformação entre o dado cru e a leitura publicada é **comparada com o cru**, em dois
+pontos: na dimensão de dados (`direcao_crua` × `direcao`) e na leitura da moeda (`leitura_crua`
+× `leitura`). Se a direção mudar, o campo sai com **bandeira e texto**, e a moeda vai para
+**sem leitura** até alguém decidir — *leitura cuja direção depende do tratamento não é leitura,
+é escolha de método, e escolha de método é do dono, não do código.*
+
+**Gravado sempre, em todas as moedas:** `soma_crua`, `soma_tratada`,
+`participacao_maior_item_antes`, `participacao_maior_item_depois`,
+`direcao_mudou_pelo_tratamento` e `bandeira_de_direcao`. Hoje o tratamento é `nenhum`: as duas
+somas são iguais, o deslocamento é 0,00 e a bandeira é `false` nas oito — e isso pode ser
+**conferido** no arquivo, não precisa ser acreditado. A prova sintética roda em toda execução,
+em `regua.tratamento_da_soma.prova_sintetica`, e os testes estão em
+`tests/test_sentimento_tratamento.py`.
+
+### 4.2 Onde a guarda NÃO alcança — a faixa neutra (auditoria de 08/set, à tarde)
+
+A guarda compara a soma tratada com a soma **crua**. Mas "crua", ali, quer dizer *depois de
+classificada*: quando o item chega à soma ele **já passou pela faixa neutra**. E a faixa neutra é,
+literalmente, a mesma operação da winsorização revogada — só que **por baixo**: divulgação com
+`|divulgado − consenso|` dentro do corte da família entra na soma como **zero**. Zerar um termo
+*x* desloca o total em `−x`, no sentido contrário ao dele. Se o que cai dentro da faixa está
+concentrado de um lado, a soma anda para o outro.
+
+**Medido na rodada de 08/set (14:46 UTC), com o mesmo arquivo publicado:**
+
+| moeda | itens que a faixa zera | peso que teriam | soma com a faixa | sem faixa | com a faixa pela metade |
+|---|---|---|---|---|---|
+| USD | 47 | −15,11 | **−1,16 (MANTÉM)** | **−16,28 (CORTA)** | −10,80 (CORTA) |
+| GBP | 21 | −1,04 | **−4,64 (MANTÉM)** | **−5,69 (CORTA)** | −5,77 (CORTA) |
+| AUD | 8 | +1,43 | +21,03 (SOBE) | +22,45 (SOBE) | +22,14 (SOBE) — mas **+2,70 (MANTÉM)** com a faixa dobrada |
+| EUR | 90 | −3,98 | +15,03 (SOBE) | +11,03 (SOBE) | +13,21 (SOBE) |
+| JPY | 12 | +3,37 | +9,75 (SOBE) | +13,10 (SOBE) | +10,11 (SOBE) |
+
+**A faixa NÃO foi desligada, e a diferença para a winsorização é essa.** A winsorização não tinha
+tese: cortar em 4,0 era um número escolhido para segurar dominância, e dominância não é problema
+de soma. A faixa neutra tem tese econômica declarada — *"veio como esperado não muda o que já
+estava no preço"* — e é a régua única dos três leitores (`macro_eventos.corte_da_surpresa`).
+Revogá-la aqui seria trocar um método por outro sem medida, e **escolha de método é do dono**.
+
+**O que mudou é que ela parou de ser invisível.** Toda moeda publica agora
+`dimensoes.dados.faixa_neutra`: itens zerados, o peso que eles teriam com o sinal do próprio
+desvio, e a soma **e a direção** com a faixa em 0×, 0,5×, 1× e 2× — sendo que a coluna 1×
+reproduz exatamente a soma publicada (isso é testado). Quando a direção depende da faixa, sai
+**bandeira na moeda** e **alerta no par**, que é onde a tela lê.
+
+⚠️ **Fica em aberto, com o número na mesa:** a largura da faixa é PROVISÓRIA e nunca foi validada
+contra o que o banco central fez depois. Hoje, **o "MANTÉM" do dólar existe por causa dela**.
+
+### O que se perdeu, declarado
+
+A garantia aritmética de que **uma divulgação sozinha nunca atinge o limiar** existia, mas era
+paga com deslocamento da soma — e o preço era virar a direção. Agora esse caso é **possível**, e
+quando acontecer sai declarado no campo `virou_sozinho`, com bandeira e com a evidência
+derrubada. **Visível em vez de mascarado.**
+
+**Hoje, com o alerta ligado:** NZD **100%** (Terms of Trade Index, 1 divulgação na janela) e CAD
+**76%** (Net Change in Employment, 3 divulgações). As duas continuam sinalizadas — por
+dominância e por qualidade (NZD 39 → **0**, CAD 54 → **24**, as duas "fraca") — e **não** por
+direção adulterada.
+
+O corte de 50% e o teto `100 − participação` são **PROVISÓRIOS** e vão ao backtest junto com o
+limiar.
 
 ---
 
@@ -312,6 +401,15 @@ e **não se cancelam**. Medido nos mesmos 28 pares:
 | 04/set — 3 dimensões, teto 1,50 | 12 | 7 | 8 | 1 |
 | 06/set — 2 dimensões, régua antiga | 13 | 5 | 8 | 2 |
 | 06/set — 2 dimensões, régua nova | 9 | 4 | 6 | **9** |
+| 08/set — com winsorização por item | 11 | 2 | 6 | 9 |
+| 08/set — **soma crua** (winsorização revogada) | 12 | 4 | 5 | 7 |
+
+As duas últimas linhas são o mesmo calendário, no mesmo instante, com as mesmas faixas: a única
+coisa que mudou foi o tratamento da soma. **Sete pares trocaram de faixa e um trocou de lado** —
+EURNZD saiu de *observação BULL* para *sem tese*, por divergência (16 → 14, dentro da zona
+neutra). Três dos sete (NZDUSD, GBPNZD, NZDCAD) foram rebaixados para observação **pela regra
+que já existia** (§5): a qualidade do par virou 0 quando o teto da dominância zerou a evidência
+do NZD.
 
 Nove pares na faixa mais alta não é um sinal de que há nove teses fortes: é o sinal de que **o
 corte de 40 foi desenhado para outra escala**. Enquanto não houver backtest, use a **ordem** dos
@@ -324,7 +422,10 @@ Uma moeda sai **"sem leitura"** quando:
 - a intensidade relativa `(|leitura| / 0,50) × 100` fica **abaixo de 15**, ou
 - **menos de duas dimensões votam** naquela moeda.
 
-Hoje: **2 de 8** — GBP (intensidade 14, um ponto abaixo do piso) e CAD (intensidade 8).
+Hoje: **1 de 8** — USD (intensidade 6). ⚠️ Antes do conserto de 08/set eram GBP e CAD; o USD
+**não** aparecia aqui porque a winsorização lhe dava uma soma de −8,29 que os dados não
+sustentam. Com a soma crua (−1,17) o dólar volta para dentro da zona neutra, que é o que a
+evidência diz.
 
 O denominador é o teto **teórico** (0,50), não o teto ligado. Isso é deliberado: dividir pelo teto
 ligado fazia a **falta de dado inflar** a leitura, que é exatamente o vício oposto ao que se quer.
@@ -362,6 +463,18 @@ A nota é a média das partes **que têm dado**. A parte "confiabilidade da font
 
 **Perna sem nota não vira zero.** Quando nenhuma parte tem dado, o par sai com qualidade `null` e
 o alerta diz de qual perna faltou.
+
+**Teto pela dominância (novo em 08/set, PROVISÓRIO).** Quando o maior item responde por mais de
+50% da massa da dimensão de dados, a nota fica limitada a `100 − participação`: se 76% da
+dimensão é uma divulgação só, no máximo 24% da evidência é **de conjunto**. É a mesma medida do
+alerta que já existia, sem número novo, e só morde acima do corte. Efeito hoje: NZD 39 → **0**
+(participação 100%) e CAD 54 → **24** (76%). O arquivo grava `nota_antes_da_dominancia`,
+`teto_pela_dominancia` e `limitada_pela_dominancia`. **Isto substitui o antigo corte na soma:
+concentração vira desconfiança, nunca mudança de direção.**
+
+⚠️ **Consequência que precisa ser vista:** qualidade 0 aciona a regra dos pares (§5) — o par não
+sai da zona de observação. Os sete pares que contêm NZD ficam limitados a observação enquanto a
+dimensão de dados do NZD for uma divulgação só.
 
 **⚠️ Buraco conhecido:** a parte "quantidade" conta divulgações que **não formaram** a leitura —
 inclusive as que saíram em linha e empurraram zero. Uma moeda com 84 divulgações na janela
@@ -476,6 +589,10 @@ dias.
 7. **Uma régua só.** O mesmo dado não pode sair "em linha" numa tela e "hawkish" na outra.
 8. **Janela rolante não é memória.** O que sai da janela precisa estar gravado, ou o painel volta
    a mostrar o cadastro antigo como se fosse notícia.
+9. **Nenhum tratamento vira a direção em silêncio** (08/set). Se qualquer transformação mudar a
+   direção da leitura em relação ao dado cru, isso **aparece** — bandeira, texto e a moeda em
+   *sem leitura* até alguém decidir. Corolário: problema de **peso relativo** se resolve na
+   **confiança** (bandeira + evidência), nunca nos **termos da soma**.
 
 **⚠️ A lei 6, aplicada com rigor, também acusa as duas dimensões que sobraram.** DADOS e CICLO
 votam **sem validação declarada** — não há backtest para elas em lugar nenhum deste repositório.
@@ -497,6 +614,9 @@ reprovaram, enquanto aquelas nunca foram testadas. Não é o mesmo que estar cer
 - **A parte "quantidade" da qualidade da evidência conta divulgação que não votou** (§6).
 - **O corte de tempo contamina em três dos quatro riscos**, e a camada de desenho anula o corte em
   quatro painéis (§8).
+- **O teto pela dominância zera a evidência do NZD** e, por tabela, limita os sete pares que o
+  contêm. É o comportamento pedido (concentração = desconfiança), mas o valor `100 −
+  participação` é declarado, não calibrado.
 - **O painel perdeu o estado "manutenção" na leitura**: a zona só devolve *sem leitura*,
   *inclinado à alta* ou *inclinado ao corte*, então a coluna "em manutenção" do placar é
   estruturalmente inalcançável. Uma moeda com as duas dimensões rotuladas MANUTENÇÃO pode sair
