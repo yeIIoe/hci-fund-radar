@@ -204,7 +204,14 @@
       })).then(function (lista) {
         var por = {};
         lista.forEach(function (x) { por[x.nome] = x.dado; });
-        return { indice: ehObj(indice) ? indice : null, nomes: nomes, agentes: por };
+        // [08/set] A sala passa a ler tambem o sentimento: sem a LEITURA da casa nao da
+        // para dizer se os agentes concordam com ela, e concordar/discordar e exatamente
+        // a conclusao que o dono pediu ("so precisamos da leitura e da conclusao da
+        // direcao, para cada MOEDA").
+        return busca("data/sentimento.json").then(function (sent) {
+          return { indice: ehObj(indice) ? indice : null, nomes: nomes, agentes: por,
+                   sent: ehObj(sent) ? sent : null };
+        });
       });
     });
   }

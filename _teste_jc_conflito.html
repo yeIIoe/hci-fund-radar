@@ -1,0 +1,30 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="theme.css">
+<link rel="stylesheet" href="estilo_hci.css">
+<title>teste jc</title></head>
+<body><div class="wrap" style="max-width:1100px;margin:20px auto">
+<div class="jc-cards">
+<details class="jc-card" open>
+  <summary><strong>EURUSD</strong>
+    <span class="jc-resumo-dif">▲ diferencial 12,4 pb <small>em 20 pregões</small></span>
+    <span class="jc-resumo-conc">o câmbio concorda</span></summary>
+  <div class="jc-cab-det"><span class="jc-def">EUR 2y − USD 2y</span><span class="jc-when">sincronizado</span></div>
+  <div class="jc-grid">
+    <div class="jc-box"><h6>Movimento</h6><p>linha um</p><p>linha dois</p></div>
+    <div class="jc-box"><h6>Trajetória</h6><p>linha um</p><p>linha dois</p></div>
+    <div class="jc-box"><h6>Magnitude</h6><p>linha um</p><p>linha dois</p></div>
+    <div class="jc-box"><h6>Concordância</h6><p>linha um</p><p>linha dois</p></div>
+  </div>
+</details>
+</div></div>
+<script>
+window.addEventListener('load',()=>{
+ const g=document.querySelector('.jc-grid'),b=document.querySelector('.jc-box'),c=document.querySelector('.jc-card');
+ const cs=getComputedStyle;
+ document.title='ok';
+ window.__m={grid:{pad:cs(g).padding,bg:cs(g).backgroundColor,gap:cs(g).gap,disp:cs(g).display},
+   box:{bg:cs(b).backgroundColor},card:{bg:cs(c).backgroundColor}};
+});
+</script>
+</body></html>

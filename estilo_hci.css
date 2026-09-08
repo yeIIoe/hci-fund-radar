@@ -2788,3 +2788,40 @@ html .ccy-chip.ccy-bandeira{
 /* a validade do par nao pode empurrar a lista para fora da caixa */
 html .mac-item .mac-item-dias{ min-width:0; overflow:hidden; text-overflow:ellipsis; }
 html .mac-lista{ overflow-x:hidden; }
+
+/* ============================================================================
+   §08set-d · O RODAPE SAIU, E DOIS CONFLITOS QUE A AUDITORIA CONFIRMOU
+   ----------------------------------------------------------------------------
+   O rodape foi removido do index.html a pedido do dono, depois de quatro voltas.
+   O que sobra aqui e o aviso de nao-recomendacao, que mudou de lugar (pe da
+   gaveta) e nao pode sumir enquanto nao houver registro na CVM.
+   ============================================================================ */
+html .nav-aviso{
+  margin:auto 0 0; padding:var(--e5) var(--e6) var(--e6);
+  border-top:1px solid var(--regua-fraca);
+  font-family:var(--serifa); font-size:var(--t-min); line-height:1.6;
+  color:var(--tinta-3); max-width:40ch;
+}
+
+/* CONFLITO 1, confirmado por verificacao adversarial.
+   `button{min-height:34px}` (styles.css:53-60) atinge o .nav-toggle, e o bloco novo
+   declara width e height (=28px) mas NAO min-height. Como min-height e outra
+   propriedade, ela trava a altura usada em max(28,34)=34 — nenhuma especificidade
+   resolve isso. Resultado medido: o botao de 3 riscos ficava 34px ao lado de quatro
+   controles de 28px. Os irmaos escaparam porque o bloco de estilo_hci.css:577
+   declara height E min-height juntos, e nomeia #updateButton, #timeCutToggle,
+   #timeCutDate e .mac-lang — o .nav-toggle ficou de fora da lista. */
+html .nav-toggle{
+  min-height:var(--altura-controle); box-sizing:border-box;
+}
+
+/* CONFLITO 2, confirmado por verificacao adversarial.
+   `.header-update span{display:none}` dentro de @media (max-width:800px)
+   (styles.css:395) escondia o #updatedAt — o carimbo de frescor do painel —
+   abaixo de 800px. A regra nova (estilo_hci.css:596) redeclara cor, fonte,
+   tamanho e alinhamento e nunca toca em display, entao o none sobrevivia.
+   Perder o carimbo de frescor no celular contradiz a lei do frescor da casa:
+   dado velho tem de se declarar velho, em qualquer tela. */
+@media (max-width:800px){
+  html .header-update > span, html #updatedAt{ display:block; }
+}

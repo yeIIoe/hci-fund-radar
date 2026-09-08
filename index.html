@@ -15,7 +15,7 @@
        ordem e por prefixo html nos seletores. As tres familias vem no @import dela. -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="estilo_hci.css?v=20260908-min5">
+  <link rel="stylesheet" href="estilo_hci.css?v=20260908-semrodape">
 </head>
 <body>
   <header class="site-header">
@@ -46,6 +46,13 @@
       <button type="button" class="tab" data-tab="sources">Fontes</button>
       <button type="button" class="tab" data-tab="agentes">Julgamentos</button>
       <button type="button" class="tab" data-tab="journal">Backtest</button>
+      <!-- [08/set] O aviso saiu do rodape (removido) e passou a viver AQUI, no pe da
+           gaveta. Ele nao e enfeite: o site e publico e o Eduardo publica como pessoa
+           fisica, sem registro na CVM — "cenario condicional" e a linha editorial travada
+           desde 28/ago. No pe do menu ele fica fora do caminho da leitura e continua a um
+           clique de distancia, que era a condicao. -->
+      <p class="nav-aviso">Ferramenta de pesquisa. Não é recomendação de investimento.
+        Este software não envia ordens.</p>
     </nav>
 
 
@@ -479,16 +486,14 @@
     </div>
   </main>
 
-  <footer class="site-footer">
-    <div>
-      <strong>HCI Macro Direction</strong>
-      <p>Leitura dos bancos centrais em 28 pares de moedas. Ela dá o lado fundamental de cada perna — entrada, tamanho e execução seguem discricionários.</p>
-    </div>
-    <div class="footer-contact">
-      <a href="mailto:eduardogodooihoki@gmail.com">eduardogodooihoki@gmail.com</a>
-      <small>Ferramenta de pesquisa. Não é recomendação de investimento. Este software não envia ordens.</small>
-    </div>
-  </footer>
+  <!-- [08/set] RODAPE REMOVIDO por ordem do Eduardo: "tira o rodape, nao ta funcionando,
+       vamos deixar sem nada e nada escrito tbm no rodape". Ele voltou nele quatro vezes e a
+       cada volta o defeito era outro — o ultimo era um `margin-left:auto` do styles.css que
+       sobreviveu a tres reescritas minhas no estilo_hci.css. Em vez de uma quarta tentativa,
+       sai.
+       ⚠️ O AVISO DE NAO-RECOMENDACAO saiu junto e NAO pode simplesmente sumir: o site e
+       publico e o Eduardo publica como pessoa fisica, sem registro na CVM. Ele foi movido
+       para a gaveta de navegacao (ui_nav.js), onde continua legivel em uma linha. -->
 
   <script src="app.js?v=20260906-ux1"></script>
   <script src="ui_extras.js?v=20260908-min5"></script>
