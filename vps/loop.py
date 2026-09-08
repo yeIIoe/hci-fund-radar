@@ -404,12 +404,66 @@ def rebase_em_andamento() -> bool:
     return False
 
 
+def uniao_jsonl(caminho: str) -> int:
+    """Resolve um .jsonl append-only em conflito pela UNIAO — a resolucao certa para arquivo
+    que so cresce. Tira os marcadores, descarta linha invalida e duplicata exata, preserva a
+    ordem. Devolve quantas linhas ficaram, ou -1 se falhou."""
+    try:
+        linhas, vistos = [], set()
+        for l in io.open(caminho, encoding="utf-8", errors="replace"):
+            s = l.rstrip("\n")
+            if s.startswith(("<<<<<<<", "=======", ">>>>>>>")) or not s.strip():
+                continue
+            try:
+                json.loads(s)
+            except Exception:
+                continue
+            if s in vistos:
+                continue
+            vistos.add(s)
+            linhas.append(s)
+        io.open(caminho, "w", encoding="utf-8", newline="\n").write("\n".join(linhas) + "\n")
+        return len(linhas)
+    except Exception as e:
+        log.error("uniao_jsonl falhou em %s: %s", caminho, e)
+        return -1
+
+
 def saneia_git() -> None:
-    """Se o processo morreu (SIGINT, queda) no meio de um rebase, o clone acorda com o rebase
-    pela metade e HEAD solto. Commitar em cima disso e a receita para perder tudo. Aborta."""
+    """Deixa o clone em estado commitavel. Cobre TRES desastres, nao um:
+
+    1. rebase pela metade (queda no meio) — aborta;
+    2. [08/set] CONFLITO SEM REBASE EM ANDAMENTO — foi o que travou a VPS na primeira noite.
+       O `pull --rebase --autostash` guarda o que estava sujo, rebaseia e devolve; se o pop
+       do autostash conflita, o clone fica com arquivos UU e NENHUM rebase em andamento. O
+       saneia antigo so olhava rebase, entao nao via nada e o commit falhava para sempre:
+       71 rodadas e 13 publicacoes, com os dois .jsonl append-only carregando marcadores de
+       conflito DENTRO. Agora: .jsonl vira UNIAO (nao perde linha), .json fica com a versao
+       do disco (a VPS e quem produz o dado) e o que estiver fora de data/ volta do HEAD.
+    3. autostash orfao na pilha — descarta."""
     if rebase_em_andamento():
         log.warning("rebase pela metade encontrado (queda anterior) — abortando antes de seguir")
         git("rebase", "--abort")
+
+    r = git("diff", "--name-only", "--diff-filter=U")
+    conflitados = [l.strip() for l in r.stdout.splitlines() if l.strip()]
+    if conflitados:
+        log.warning("conflito SEM rebase em andamento (autostash): %d arquivo(s)", len(conflitados))
+        for f in conflitados:
+            alvo = os.path.join(RAIZ, f)
+            if not f.startswith("data/"):
+                log.error("  conflito fora de data/ (%s) — restaurando do HEAD", f)
+                git("checkout", "HEAD", "--", f)
+            elif f.endswith(".jsonl"):
+                log.info("  %s: uniao -> %d linhas", f, uniao_jsonl(alvo))
+            else:
+                log.info("  %s: fica a versao do disco (a VPS produz o dado)", f)
+            git("add", "--", f)
+
+    r = git("stash", "list")
+    if r.stdout.strip():
+        log.warning("autostash orfao na pilha — descartando")
+        git("stash", "clear")
 
 
 def resolve_conflitos_local_vence() -> bool:
@@ -445,7 +499,12 @@ def publica(motivo: str, dry: bool = False) -> bool:
                      len(existentes), mudados or "nenhum")
             return False
         saneia_git()
-        git("add", "--", *existentes)
+        # [08/set] Era `git add` so da lista fixa. Mas a cadeia escreve arquivos FORA dela
+        # (data/raw/bls_series.json, por exemplo). Esses ficavam sujos, o autostash do pull
+        # os recolhia, e o pop conflitava — a causa raiz do travamento da primeira noite.
+        # A VPS e quem PRODUZ data/: adicionar a pasta inteira e o correto, e o assert la de
+        # cima continua garantindo que nada fora de data/ entra no commit.
+        git("add", "-A", "--", "data")
         if git("diff", "--cached", "--quiet").returncode == 0:
             # nada novo para commitar — mas pode haver commit de uma volta anterior cujo push
             # falhou (deploy key ausente, rede). Se houver, tenta empurrar; senao, sai.
