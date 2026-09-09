@@ -1,5 +1,5 @@
 {
- "gerado_em": "2026-09-08T17:23:27.466227+00:00",
+ "gerado_em": "2026-09-09T00:17:16.440462+00:00",
  "fonte": {
   "agregador": "BIS",
   "arquivo": "Central bankers' speeches",
@@ -12,7 +12,7 @@
  "status_fontes": {
   "_rss": "ok (50 itens)",
   "_ids_oradores": "ok (747 oradores)",
-  "AUD": "ok via BIS (440 itens, 2009-02-10 a 2026-08-13; 2 na janela de 42 dias)",
+  "AUD": "ok via BIS (440 itens, 2009-02-10 a 2026-08-13; 1 na janela de 42 dias)",
   "NZD": "historico ok via BIS (137 itens ate 2026-03-24) — SEM fala na janela de 42 dias",
   "CHF": "historico ok via BIS (223 itens ate 2026-06-24) — SEM fala na janela de 42 dias",
   "USD": "ok via BIS (173 itens, 2012-02-10 a 2026-08-05; 1 na janela de 42 dias)",
@@ -22,7 +22,7 @@
   "CAD": "historico ok via BIS (46 itens ate 2026-07-15) — SEM fala na janela de 42 dias"
  },
  "status_fontes_texto": {
-  "AUD": "conectado pelo arquivo do BIS: 440 falas de 2009-02-10 a 2026-08-13, sendo 2 dentro da janela de 42 dias. O site do RBA segue fechado a automacao (o BIS e o unico caminho).",
+  "AUD": "conectado pelo arquivo do BIS: 440 falas de 2009-02-10 a 2026-08-13, sendo 1 dentro da janela de 42 dias. O site do RBA segue fechado a automacao (o BIS e o unico caminho).",
   "NZD": "historico conectado pelo arquivo do BIS (137 falas de 2010-01-29 a 2026-03-24), mas NENHUMA dentro da janela de 42 dias: nao ha o que somar no sentimento hoje. O site do RBNZ segue fechado a automacao (o BIS e o unico caminho).",
   "CHF": "historico conectado pelo arquivo do BIS (223 falas de 2009-03-02 a 2026-06-24), mas NENHUMA dentro da janela de 42 dias: nao ha o que somar no sentimento hoje. O site do SNB segue fechado a automacao (o BIS e o unico caminho).",
   "USD": "conectado pelo arquivo do BIS: 173 falas de 2012-02-10 a 2026-08-05, sendo 1 dentro da janela de 42 dias.",
@@ -34,7 +34,7 @@
  "historico_arquivo": "data/bis_discursos_historico.jsonl",
  "aviso": "Falas recolhidas do ARQUIVO DO BIS, nao do site de cada banco. O BIS publica com defasagem (medida nesta execucao em 'defasagem_bis'): SERVE PARA HISTORICO E CONTEXTO, NAO PARA REACAO NO MINUTO. A contagem de marcadores hawkish/dovish e EXTRACAO mecanica, indice grosseiro para apontar QUAL texto ler — nao e interpretacao. O veredito por orador do leitor_falas e CONTEXTO e NAO VOTA.",
  "defasagem_bis": {
-  "medida_em": "2026-09-08",
+  "medida_em": "2026-09-09",
   "n_itens": 1214,
   "mediana_dias": 3.0,
   "minimo_dias": 0,
@@ -51,9 +51,9 @@
   "AUD": {
    "banco": "RBA",
    "bloqueado_no_site_do_banco": true,
-   "falas_na_janela_pela_data_do_discurso": 2,
+   "falas_na_janela_pela_data_do_discurso": 1,
    "falas_na_janela_pela_data_de_publicacao_bis": 4,
-   "discurso_oficial": 2,
+   "discurso_oficial": 1,
    "comunicado_ata": 0,
    "descartados": 3,
    "com_corpo_integral": 0
@@ -348,11 +348,11 @@
  },
  "resumo_por_moeda": {
   "AUD": {
-   "discurso_oficial": 2,
+   "discurso_oficial": 1,
    "comunicado_ata": 0,
    "descartados": 3,
-   "itens_que_votam": 2,
-   "com_orador_identificado": 2,
+   "itens_que_votam": 1,
+   "com_orador_identificado": 1,
    "veredito_por_orador": [
     {
      "orador": "Christopher Kent",
@@ -361,19 +361,6 @@
      "trecho": "",
      "data": "2026-08-13",
      "link": "https://www.bis.org/speeches/20260901-restrictive-stance-monetary-policy",
-     "banco": "RBA",
-     "falas_lidas": 1,
-     "frases_analisadas": 0,
-     "selo": "experimental — contexto, não vota",
-     "vota": false
-    },
-    {
-     "orador": "Michele Bullock",
-     "veredito": "indeterminado",
-     "motivo": "nenhuma frase de postura foi extraída do texto.",
-     "trecho": "",
-     "data": "2026-07-28",
-     "link": "https://www.bis.org/speeches/20260817-monetary-policy-era-shocks",
      "banco": "RBA",
      "falas_lidas": 1,
      "frases_analisadas": 0,
@@ -438,19 +425,6 @@
     "trecho": "",
     "data": "2026-08-13",
     "link": "https://www.bis.org/speeches/20260901-restrictive-stance-monetary-policy",
-    "banco": "RBA",
-    "falas_lidas": 1,
-    "frases_analisadas": 0,
-    "selo": "experimental — contexto, não vota",
-    "vota": false
-   },
-   {
-    "orador": "Michele Bullock",
-    "veredito": "indeterminado",
-    "motivo": "nenhuma frase de postura foi extraída do texto.",
-    "trecho": "",
-    "data": "2026-07-28",
-    "link": "https://www.bis.org/speeches/20260817-monetary-policy-era-shocks",
     "banco": "RBA",
     "falas_lidas": 1,
     "frases_analisadas": 0,
@@ -606,7 +580,7 @@
    "data_publicacao_bis": "2026-09-01",
    "data_fonte": "data escrita na descricao do BIS",
    "defasagem_bis_dias": 19,
-   "idade_dias": 26,
+   "idade_dias": 27,
    "orador": "Christopher Kent",
    "orador_identificado": "Christopher Kent",
    "titulo": "The restrictive stance of monetary policy",
@@ -659,7 +633,7 @@
    "data_publicacao_bis": "2026-08-17",
    "data_fonte": "data escrita na descricao do BIS",
    "defasagem_bis_dias": 12,
-   "idade_dias": 34,
+   "idade_dias": 35,
    "orador": "Lisa D Cook",
    "orador_identificado": "Lisa D Cook",
    "titulo": "Outlook for the US and Alaskan economies",
@@ -706,58 +680,6 @@
     "selo": "experimental — contexto, não vota",
     "vota": false,
     "frases_analisadas": 1
-   }
-  },
-  {
-   "moeda": "AUD",
-   "banco": "RBA",
-   "tipo": "speech",
-   "data": "2026-07-28",
-   "data_discurso": "2026-07-28",
-   "data_publicacao_bis": "2026-08-17",
-   "data_fonte": "data escrita na descricao do BIS",
-   "defasagem_bis_dias": 20,
-   "idade_dias": 42,
-   "orador": "Michele Bullock",
-   "orador_identificado": "Michele Bullock",
-   "titulo": "Monetary policy in an era of shocks",
-   "link": "https://www.bis.org/speeches/20260817-monetary-policy-era-shocks",
-   "link_pdf": "https://www.bis.org/speeches/20260817-monetary-policy-era-shocks.pdf",
-   "resumo_bis": "Speech by Ms Michele Bullock, Governor of the Reserve Bank of Australia, at the Anika Foundation Fundraising Lunch, Sydney, 28 July 2026.",
-   "procedencia": {
-    "agregador": "BIS",
-    "arquivo": "Central bankers' speeches",
-    "url_arquivo": "https://www.bis.org/cbspeeches/index.htm",
-    "rota": "RSS Central bankers' speeches",
-    "instituicao_motivo": "filiacao do orador na descricao do BIS: RBA",
-    "nota": "o texto e do proprio banco central, apenas RECOLHIDO pelo BIS, e chega com defasagem de publicacao — serve para historico e contexto, nao para reacao no minuto"
-   },
-   "assunto": {
-    "veredito": "politica_monetaria",
-    "temas": [
-     "politica monetaria"
-    ],
-    "termos_fortes_no_corpo": 4,
-    "motivo": "titulo bate em: politica monetaria",
-    "avaliado_sobre": "corpo integral"
-   },
-   "origem": "discurso_oficial",
-   "peso": 1.0,
-   "origem_motivo": "fala assinada por Michele Bullock no arquivo do BIS",
-   "corpo_origem": "RESUMO da pagina do BIS (o integral esta no PDF, que falhou)",
-   "caracteres": 2057,
-   "frases": [],
-   "marcadores_hawkish": 0,
-   "marcadores_dovish": 0,
-   "inclinacao_por_contagem": "none",
-   "veredito_leitor": {
-    "veredito": "indeterminado",
-    "motivo": "nenhuma frase de postura foi extraída do texto.",
-    "trecho": "",
-    "forca": 1,
-    "selo": "experimental — contexto, não vota",
-    "vota": false,
-    "frases_analisadas": 0
    }
   }
  ],
